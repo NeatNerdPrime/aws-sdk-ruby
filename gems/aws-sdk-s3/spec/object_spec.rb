@@ -3,6 +3,13 @@ require_relative 'spec_helper'
 module Aws
   module S3
     class Object
+
+      it '#copy_from'
+
+      it '#copy_to'
+
+      it '#move_to'
+
       describe '#presigned_post' do
 
         let(:object) { Object.new('bucket', 'key', stub_responses: true) }
@@ -14,6 +21,17 @@ module Aws
         end
 
       end
+
+      it '#presigned_url'
+
+      it '#public_url'
+
+      it '#upload_stream'
+
+      it '#upload_file'
+
+      it '#download_file'
+
     end
   end
 end
