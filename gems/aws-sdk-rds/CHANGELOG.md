@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.282.0 (2025-06-27)
+------------------
+
+* Feature - StartDBCluster and StopDBCluster can now throw InvalidDBShardGroupStateFault.
+
 1.281.0 (2025-06-24)
 ------------------
 

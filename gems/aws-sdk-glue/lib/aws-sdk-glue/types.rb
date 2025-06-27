@@ -5705,6 +5705,47 @@ module Aws::Glue
       include Aws::Structure
     end
 
+    # The configuration parameters required to create a new Iceberg table in
+    # the Glue Data Catalog, including table properties and metadata
+    # specifications.
+    #
+    # @!attribute [rw] location
+    #   The S3 location where the Iceberg table data will be stored.
+    #   @return [String]
+    #
+    # @!attribute [rw] schema
+    #   The schema definition that specifies the structure, field types, and
+    #   metadata for the Iceberg table.
+    #   @return [Types::IcebergSchema]
+    #
+    # @!attribute [rw] partition_spec
+    #   The partitioning specification that defines how the Iceberg table
+    #   data will be organized and partitioned for optimal query
+    #   performance.
+    #   @return [Types::IcebergPartitionSpec]
+    #
+    # @!attribute [rw] write_order
+    #   The sort order specification that defines how data should be ordered
+    #   within each partition to optimize query performance.
+    #   @return [Types::IcebergSortOrder]
+    #
+    # @!attribute [rw] properties
+    #   Key-value pairs of additional table properties and configuration
+    #   settings for the Iceberg table.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateIcebergTableInput AWS API Documentation
+    #
+    class CreateIcebergTableInput < Struct.new(
+      :location,
+      :schema,
+      :partition_spec,
+      :write_order,
+      :properties)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] integration_name
     #   A unique name for an integration in Glue.
     #   @return [String]
@@ -7041,6 +7082,11 @@ module Aws::Glue
     #   compatibility, this name is entirely lowercase.
     #   @return [String]
     #
+    # @!attribute [rw] name
+    #   The unique identifier for the table within the specified database
+    #   that will be created in the Glue Data Catalog.
+    #   @return [String]
+    #
     # @!attribute [rw] table_input
     #   The `TableInput` object that defines the metadata table to create in
     #   the catalog.
@@ -7065,6 +7111,7 @@ module Aws::Glue
     class CreateTableRequest < Struct.new(
       :catalog_id,
       :database_name,
+      :name,
       :table_input,
       :partition_indexes,
       :transaction_id,
@@ -10661,11 +10708,18 @@ module Aws::Glue
     #   Redshift-federated catalog.
     #   @return [String]
     #
+    # @!attribute [rw] connection_type
+    #   The type of connection used to access the federated catalog,
+    #   specifying the protocol or method for connection to the external
+    #   data source.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/FederatedCatalog AWS API Documentation
     #
     class FederatedCatalog < Struct.new(
       :identifier,
-      :connection_name)
+      :connection_name,
+      :connection_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10680,11 +10734,17 @@ module Aws::Glue
     #   The name of the connection to the external metastore.
     #   @return [String]
     #
+    # @!attribute [rw] connection_type
+    #   The type of connection used to access the federated database, such
+    #   as JDBC, ODBC, or other supported connection protocols.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/FederatedDatabase AWS API Documentation
     #
     class FederatedDatabase < Struct.new(
       :identifier,
-      :connection_name)
+      :connection_name,
+      :connection_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10722,12 +10782,19 @@ module Aws::Glue
     #   The name of the connection to the external metastore.
     #   @return [String]
     #
+    # @!attribute [rw] connection_type
+    #   The type of connection used to access the federated table,
+    #   specifying the protocol or method for connecting to the external
+    #   data source.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/FederatedTable AWS API Documentation
     #
     class FederatedTable < Struct.new(
       :identifier,
       :database_identifier,
-      :connection_name)
+      :connection_name,
+      :connection_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15549,11 +15616,18 @@ module Aws::Glue
     #   The table version for the Iceberg table. Defaults to 2.
     #   @return [String]
     #
+    # @!attribute [rw] create_iceberg_table_input
+    #   The configuration parameters required to create a new Iceberg table
+    #   in the Glue Data Catalog, including table properties and metadata
+    #   specifications.
+    #   @return [Types::CreateIcebergTableInput]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergInput AWS API Documentation
     #
     class IcebergInput < Struct.new(
       :metadata_operation,
-      :version)
+      :version,
+      :create_iceberg_table_input)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15608,6 +15682,65 @@ module Aws::Glue
       :dpu_hours,
       :number_of_dpus,
       :job_duration_in_hour)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines a single partition field within an Iceberg partition
+    # specification, including the source field, transformation function,
+    # partition name, and unique identifier.
+    #
+    # @!attribute [rw] source_id
+    #   The identifier of the source field from the table schema that this
+    #   partition field is based on.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] transform
+    #   The transformation function applied to the source field to create
+    #   the partition, such as identity, bucket, truncate, year, month, day,
+    #   or hour.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the partition field as it will appear in the partitioned
+    #   table structure.
+    #   @return [String]
+    #
+    # @!attribute [rw] field_id
+    #   The unique identifier assigned to this partition field within the
+    #   Iceberg table's partition specification.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergPartitionField AWS API Documentation
+    #
+    class IcebergPartitionField < Struct.new(
+      :source_id,
+      :transform,
+      :name,
+      :field_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the partitioning specification for an Iceberg table,
+    # determining how table data will be organized and partitioned for
+    # optimal query performance.
+    #
+    # @!attribute [rw] fields
+    #   The list of partition fields that define how the table data should
+    #   be partitioned, including source fields and their transformations.
+    #   @return [Array<Types::IcebergPartitionField>]
+    #
+    # @!attribute [rw] spec_id
+    #   The unique identifier for this partition specification within the
+    #   Iceberg table's metadata history.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergPartitionSpec AWS API Documentation
+    #
+    class IcebergPartitionSpec < Struct.new(
+      :fields,
+      :spec_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15678,6 +15811,177 @@ module Aws::Glue
       :dpu_hours,
       :number_of_dpus,
       :job_duration_in_hour)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the schema structure for an Iceberg table, including field
+    # definitions, data types, and schema metadata.
+    #
+    # @!attribute [rw] schema_id
+    #   The unique identifier for this schema version within the Iceberg
+    #   table's schema evolution history.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] identifier_field_ids
+    #   The list of field identifiers that uniquely identify records in the
+    #   table, used for row-level operations and deduplication.
+    #   @return [Array<Integer>]
+    #
+    # @!attribute [rw] type
+    #   The root type of the schema structure, typically "struct" for
+    #   Iceberg table schemas.
+    #   @return [String]
+    #
+    # @!attribute [rw] fields
+    #   The list of field definitions that make up the table schema,
+    #   including field names, types, and metadata.
+    #   @return [Array<Types::IcebergStructField>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergSchema AWS API Documentation
+    #
+    class IcebergSchema < Struct.new(
+      :schema_id,
+      :identifier_field_ids,
+      :type,
+      :fields)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines a single field within an Iceberg sort order specification,
+    # including the source field, transformation, sort direction, and null
+    # value ordering.
+    #
+    # @!attribute [rw] source_id
+    #   The identifier of the source field from the table schema that this
+    #   sort field is based on.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] transform
+    #   The transformation function applied to the source field before
+    #   sorting, such as identity, bucket, or truncate.
+    #   @return [String]
+    #
+    # @!attribute [rw] direction
+    #   The sort direction for this field, either ascending or descending.
+    #   @return [String]
+    #
+    # @!attribute [rw] null_order
+    #   The ordering behavior for null values in this field, specifying
+    #   whether nulls should appear first or last in the sort order.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergSortField AWS API Documentation
+    #
+    class IcebergSortField < Struct.new(
+      :source_id,
+      :transform,
+      :direction,
+      :null_order)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the sort order specification for an Iceberg table, determining
+    # how data should be ordered within partitions to optimize query
+    # performance.
+    #
+    # @!attribute [rw] order_id
+    #   The unique identifier for this sort order specification within the
+    #   Iceberg table's metadata.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] fields
+    #   The list of fields and their sort directions that define the
+    #   ordering criteria for the Iceberg table data.
+    #   @return [Array<Types::IcebergSortField>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergSortOrder AWS API Documentation
+    #
+    class IcebergSortOrder < Struct.new(
+      :order_id,
+      :fields)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines a single field within an Iceberg table schema, including its
+    # identifier, name, data type, nullability, and documentation.
+    #
+    # @!attribute [rw] id
+    #   The unique identifier assigned to this field within the Iceberg
+    #   table schema, used for schema evolution and field tracking.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] name
+    #   The name of the field as it appears in the table schema and query
+    #   operations.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The data type definition for this field, specifying the structure
+    #   and format of the data it contains.
+    #   @return [Hash,Array,String,Numeric,Boolean]
+    #
+    # @!attribute [rw] required
+    #   Indicates whether this field is required (non-nullable) or optional
+    #   (nullable) in the table schema.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] doc
+    #   Optional documentation or description text that provides additional
+    #   context about the purpose and usage of this field.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergStructField AWS API Documentation
+    #
+    class IcebergStructField < Struct.new(
+      :id,
+      :name,
+      :type,
+      :required,
+      :doc)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines a complete set of updates to be applied to an Iceberg table,
+    # including schema changes, partitioning modifications, sort order
+    # adjustments, location updates, and property changes.
+    #
+    # @!attribute [rw] schema
+    #   The updated schema definition for the Iceberg table, specifying any
+    #   changes to field structure, data types, or schema metadata.
+    #   @return [Types::IcebergSchema]
+    #
+    # @!attribute [rw] partition_spec
+    #   The updated partitioning specification that defines how the table
+    #   data should be reorganized and partitioned.
+    #   @return [Types::IcebergPartitionSpec]
+    #
+    # @!attribute [rw] sort_order
+    #   The updated sort order specification that defines how data should be
+    #   ordered within partitions for optimal query performance.
+    #   @return [Types::IcebergSortOrder]
+    #
+    # @!attribute [rw] location
+    #   The updated S3 location where the Iceberg table data will be stored.
+    #   @return [String]
+    #
+    # @!attribute [rw] properties
+    #   Updated key-value pairs of table properties and configuration
+    #   settings for the Iceberg table.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergTableUpdate AWS API Documentation
+    #
+    class IcebergTableUpdate < Struct.new(
+      :schema,
+      :partition_spec,
+      :sort_order,
+      :location,
+      :properties)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -27484,6 +27788,42 @@ module Aws::Glue
       include Aws::Structure
     end
 
+    # Input parameters specific to updating Apache Iceberg tables in Glue
+    # Data Catalog, containing the update operations to be applied to an
+    # existing Iceberg table.
+    #
+    # @!attribute [rw] update_iceberg_table_input
+    #   The specific update operations to be applied to the Iceberg table,
+    #   containing a list of updates that define the new state of the table
+    #   including schema, partitions, and properties.
+    #   @return [Types::UpdateIcebergTableInput]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateIcebergInput AWS API Documentation
+    #
+    class UpdateIcebergInput < Struct.new(
+      :update_iceberg_table_input)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains the update operations to be applied to an existing Iceberg
+    # table in AWS Glue Data Catalog, defining the new state of the table
+    # metadata.
+    #
+    # @!attribute [rw] updates
+    #   The list of table update operations that specify the changes to be
+    #   made to the Iceberg table, including schema modifications, partition
+    #   specifications, and table properties.
+    #   @return [Array<Types::IcebergTableUpdate>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateIcebergTableInput AWS API Documentation
+    #
+    class UpdateIcebergTableInput < Struct.new(
+      :updates)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] resource_arn
     #   The connection ARN of the source, or the database ARN of the target.
     #   @return [String]
@@ -27795,6 +28135,24 @@ module Aws::Glue
       include Aws::Structure
     end
 
+    # Input parameters for updating open table format tables in GlueData
+    # Catalog, serving as a wrapper for format-specific update operations
+    # such as Apache Iceberg.
+    #
+    # @!attribute [rw] update_iceberg_input
+    #   Apache Iceberg-specific update parameters that define the table
+    #   modifications to be applied, including schema changes, partition
+    #   specifications, and table properties.
+    #   @return [Types::UpdateIcebergInput]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateOpenTableFormatInput AWS API Documentation
+    #
+    class UpdateOpenTableFormatInput < Struct.new(
+      :update_iceberg_input)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] catalog_id
     #   The ID of the Data Catalog where the partition to be updated
     #   resides. If none is provided, the Amazon Web Services account ID is
@@ -28049,6 +28407,11 @@ module Aws::Glue
     #   Hive compatibility, this name is entirely lowercase.
     #   @return [String]
     #
+    # @!attribute [rw] name
+    #   The unique identifier for the table within the specified database
+    #   that will be created in the Glue Data Catalog.
+    #   @return [String]
+    #
     # @!attribute [rw] table_input
     #   An updated `TableInput` object to define the metadata table in the
     #   catalog.
@@ -28077,17 +28440,25 @@ module Aws::Glue
     #   and subobject matching requirements.
     #   @return [Boolean]
     #
+    # @!attribute [rw] update_open_table_format_input
+    #   Input parameters for updating open table format tables in GlueData
+    #   Catalog, serving as a wrapper for format-specific update operations
+    #   such as Apache Iceberg.
+    #   @return [Types::UpdateOpenTableFormatInput]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTableRequest AWS API Documentation
     #
     class UpdateTableRequest < Struct.new(
       :catalog_id,
       :database_name,
+      :name,
       :table_input,
       :skip_archive,
       :transaction_id,
       :version_id,
       :view_update_action,
-      :force)
+      :force,
+      :update_open_table_format_input)
       SENSITIVE = []
       include Aws::Structure
     end
