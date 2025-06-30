@@ -249,13 +249,6 @@ module BuildTools
       smoke['testCases'] = []
     end
 
-    smoke('NetworkFlowMonitor') do |smoke|
-      test = smoke['testCases'].find do |test_case|
-        test_case['id'] == 'GetMonitorSuccess'
-      end
-      test['expectation'] = { 'failure' => {} }
-    end
-
     smoke('ObservabilityAdmin') do |smoke|
       test = smoke['testCases'].find do |test_case|
         test_case['id'] == 'GetTelemetryEvaluationStatusForOrganization'
