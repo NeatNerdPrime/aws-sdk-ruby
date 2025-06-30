@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.35.0 (2025-06-30)
+------------------
+
+* Feature - Added support for on-demand practice runs and balanced capacity checks in ARC autoshift practice.
+
 1.34.0 (2025-06-02)
 ------------------
 

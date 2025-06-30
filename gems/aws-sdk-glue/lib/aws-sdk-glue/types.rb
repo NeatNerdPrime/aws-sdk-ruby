@@ -16280,10 +16280,18 @@ module Aws::Glue
     #   Currently supports creation of `RefreshInterval` only.
     #   @return [String]
     #
+    # @!attribute [rw] source_properties
+    #   A collection of key-value pairs that specify additional properties
+    #   for the integration source. These properties provide configuration
+    #   options that can be used to customize the behavior of the ODB source
+    #   during data integration operations.
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IntegrationConfig AWS API Documentation
     #
     class IntegrationConfig < Struct.new(
-      :refresh_interval)
+      :refresh_interval,
+      :source_properties)
       SENSITIVE = []
       include Aws::Structure
     end

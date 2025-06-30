@@ -858,6 +858,7 @@ module Aws::Glue
     IntegrationPartition = Shapes::StructureShape.new(name: 'IntegrationPartition')
     IntegrationPartitionSpecList = Shapes::ListShape.new(name: 'IntegrationPartitionSpecList')
     IntegrationQuotaExceededFault = Shapes::StructureShape.new(name: 'IntegrationQuotaExceededFault')
+    IntegrationSourcePropertiesMap = Shapes::MapShape.new(name: 'IntegrationSourcePropertiesMap')
     IntegrationStatus = Shapes::StringShape.new(name: 'IntegrationStatus')
     IntegrationString = Shapes::StringShape.new(name: 'IntegrationString')
     IntegrationTagsList = Shapes::ListShape.new(name: 'IntegrationTagsList')
@@ -4862,6 +4863,7 @@ module Aws::Glue
     IntegrationAdditionalEncryptionContextMap.value = Shapes::ShapeRef.new(shape: IntegrationString)
 
     IntegrationConfig.add_member(:refresh_interval, Shapes::ShapeRef.new(shape: String128, location_name: "RefreshInterval"))
+    IntegrationConfig.add_member(:source_properties, Shapes::ShapeRef.new(shape: IntegrationSourcePropertiesMap, location_name: "SourceProperties"))
     IntegrationConfig.struct_class = Types::IntegrationConfig
 
     IntegrationConflictOperationFault.add_member(:message, Shapes::ShapeRef.new(shape: IntegrationErrorMessage, location_name: "Message"))
@@ -4893,6 +4895,9 @@ module Aws::Glue
 
     IntegrationQuotaExceededFault.add_member(:message, Shapes::ShapeRef.new(shape: IntegrationErrorMessage, location_name: "Message"))
     IntegrationQuotaExceededFault.struct_class = Types::IntegrationQuotaExceededFault
+
+    IntegrationSourcePropertiesMap.key = Shapes::ShapeRef.new(shape: IntegrationString)
+    IntegrationSourcePropertiesMap.value = Shapes::ShapeRef.new(shape: IntegrationString)
 
     IntegrationTagsList.member = Shapes::ShapeRef.new(shape: Tag)
 

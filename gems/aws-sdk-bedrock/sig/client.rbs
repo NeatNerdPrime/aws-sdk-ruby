@@ -290,6 +290,42 @@ module Aws
                                                    or_all: Array[
                                                      untyped,
                                                    ]?
+                                                 }?,
+                                                 implicit_filter_configuration: {
+                                                   metadata_attributes: Array[
+                                                     {
+                                                       key: ::String,
+                                                       type: ("STRING" | "NUMBER" | "BOOLEAN" | "STRING_LIST"),
+                                                       description: ::String
+                                                     },
+                                                   ],
+                                                   model_arn: ::String
+                                                 }?,
+                                                 reranking_configuration: {
+                                                   type: ("BEDROCK_RERANKING_MODEL"),
+                                                   bedrock_reranking_configuration: {
+                                                     model_configuration: {
+                                                       model_arn: ::String,
+                                                       additional_model_request_fields: Hash[::String, {
+                                                         }]?
+                                                     },
+                                                     number_of_reranked_results: ::Integer?,
+                                                     metadata_configuration: {
+                                                       selection_mode: ("SELECTIVE" | "ALL"),
+                                                       selective_mode_configuration: {
+                                                         fields_to_include: Array[
+                                                           {
+                                                             field_name: ::String
+                                                           },
+                                                         ]?,
+                                                         fields_to_exclude: Array[
+                                                           {
+                                                             field_name: ::String
+                                                           },
+                                                         ]?
+                                                       }?
+                                                     }?
+                                                   }?
                                                  }?
                                                }
                                              }
@@ -365,6 +401,42 @@ module Aws
                                                      or_all: Array[
                                                        untyped,
                                                      ]?
+                                                   }?,
+                                                   implicit_filter_configuration: {
+                                                     metadata_attributes: Array[
+                                                       {
+                                                         key: ::String,
+                                                         type: ("STRING" | "NUMBER" | "BOOLEAN" | "STRING_LIST"),
+                                                         description: ::String
+                                                       },
+                                                     ],
+                                                     model_arn: ::String
+                                                   }?,
+                                                   reranking_configuration: {
+                                                     type: ("BEDROCK_RERANKING_MODEL"),
+                                                     bedrock_reranking_configuration: {
+                                                       model_configuration: {
+                                                         model_arn: ::String,
+                                                         additional_model_request_fields: Hash[::String, {
+                                                           }]?
+                                                       },
+                                                       number_of_reranked_results: ::Integer?,
+                                                       metadata_configuration: {
+                                                         selection_mode: ("SELECTIVE" | "ALL"),
+                                                         selective_mode_configuration: {
+                                                           fields_to_include: Array[
+                                                             {
+                                                               field_name: ::String
+                                                             },
+                                                           ]?,
+                                                           fields_to_exclude: Array[
+                                                             {
+                                                               field_name: ::String
+                                                             },
+                                                           ]?
+                                                         }?
+                                                       }?
+                                                     }?
                                                    }?
                                                  }
                                                }?,

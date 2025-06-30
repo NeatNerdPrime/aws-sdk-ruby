@@ -883,7 +883,8 @@ module Aws
                                   },
                                 ],
                                 ?integration_config: {
-                                  refresh_interval: ::String?
+                                  refresh_interval: ::String?,
+                                  source_properties: Hash[::String, ::String]?
                                 }
                               ) -> _CreateIntegrationResponseSuccess
                             | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateIntegrationResponseSuccess

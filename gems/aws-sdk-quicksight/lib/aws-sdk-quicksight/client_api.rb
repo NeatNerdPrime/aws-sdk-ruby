@@ -1847,6 +1847,8 @@ module Aws::QuickSight
     TeradataParameters = Shapes::StructureShape.new(name: 'TeradataParameters')
     TextAreaControlDelimiter = Shapes::StringShape.new(name: 'TextAreaControlDelimiter')
     TextAreaControlDisplayOptions = Shapes::StructureShape.new(name: 'TextAreaControlDisplayOptions')
+    TextBoxInteractionOptions = Shapes::StructureShape.new(name: 'TextBoxInteractionOptions')
+    TextBoxMenuOption = Shapes::StructureShape.new(name: 'TextBoxMenuOption')
     TextConditionalFormat = Shapes::StructureShape.new(name: 'TextConditionalFormat')
     TextControlPlaceholderOptions = Shapes::StructureShape.new(name: 'TextControlPlaceholderOptions')
     TextFieldControlDisplayOptions = Shapes::StructureShape.new(name: 'TextFieldControlDisplayOptions')
@@ -2703,6 +2705,7 @@ module Aws::QuickSight
 
     AthenaParameters.add_member(:work_group, Shapes::ShapeRef.new(shape: WorkGroup, location_name: "WorkGroup"))
     AthenaParameters.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "RoleArn"))
+    AthenaParameters.add_member(:identity_center_configuration, Shapes::ShapeRef.new(shape: IdentityCenterConfiguration, location_name: "IdentityCenterConfiguration"))
     AthenaParameters.struct_class = Types::AthenaParameters
 
     AttributeAggregationFunction.add_member(:simple_attribute_aggregation, Shapes::ShapeRef.new(shape: SimpleAttributeAggregationFunction, location_name: "SimpleAttributeAggregation"))
@@ -3027,6 +3030,8 @@ module Aws::QuickSight
 
     Capabilities.add_member(:export_to_csv, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToCsv"))
     Capabilities.add_member(:export_to_excel, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToExcel"))
+    Capabilities.add_member(:export_to_pdf, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToPdf"))
+    Capabilities.add_member(:print_reports, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "PrintReports"))
     Capabilities.add_member(:create_and_update_themes, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "CreateAndUpdateThemes"))
     Capabilities.add_member(:add_or_run_anomaly_detection_for_analyses, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "AddOrRunAnomalyDetectionForAnalyses"))
     Capabilities.add_member(:share_analyses, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ShareAnalyses"))
@@ -3042,6 +3047,10 @@ module Aws::QuickSight
     Capabilities.add_member(:share_data_sources, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ShareDataSources"))
     Capabilities.add_member(:view_account_spice_capacity, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ViewAccountSPICECapacity"))
     Capabilities.add_member(:create_spice_dataset, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "CreateSPICEDataset"))
+    Capabilities.add_member(:export_to_pdf_in_scheduled_reports, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToPdfInScheduledReports"))
+    Capabilities.add_member(:export_to_csv_in_scheduled_reports, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToCsvInScheduledReports"))
+    Capabilities.add_member(:export_to_excel_in_scheduled_reports, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "ExportToExcelInScheduledReports"))
+    Capabilities.add_member(:include_content_in_scheduled_reports_email, Shapes::ShapeRef.new(shape: CapabilityState, location_name: "IncludeContentInScheduledReportsEmail"))
     Capabilities.struct_class = Types::Capabilities
 
     CascadingControlConfiguration.add_member(:source_controls, Shapes::ShapeRef.new(shape: CascadingControlSourceList, location_name: "SourceControls"))
@@ -8381,6 +8390,7 @@ module Aws::QuickSight
 
     SheetTextBox.add_member(:sheet_text_box_id, Shapes::ShapeRef.new(shape: ShortRestrictiveResourceId, required: true, location_name: "SheetTextBoxId"))
     SheetTextBox.add_member(:content, Shapes::ShapeRef.new(shape: SheetTextBoxContent, location_name: "Content"))
+    SheetTextBox.add_member(:interactions, Shapes::ShapeRef.new(shape: TextBoxInteractionOptions, location_name: "Interactions"))
     SheetTextBox.struct_class = Types::SheetTextBox
 
     SheetTextBoxList.member = Shapes::ShapeRef.new(shape: SheetTextBox)
@@ -8935,6 +8945,12 @@ module Aws::QuickSight
     TextAreaControlDisplayOptions.add_member(:placeholder_options, Shapes::ShapeRef.new(shape: TextControlPlaceholderOptions, location_name: "PlaceholderOptions"))
     TextAreaControlDisplayOptions.add_member(:info_icon_label_options, Shapes::ShapeRef.new(shape: SheetControlInfoIconLabelOptions, location_name: "InfoIconLabelOptions"))
     TextAreaControlDisplayOptions.struct_class = Types::TextAreaControlDisplayOptions
+
+    TextBoxInteractionOptions.add_member(:text_box_menu_option, Shapes::ShapeRef.new(shape: TextBoxMenuOption, location_name: "TextBoxMenuOption"))
+    TextBoxInteractionOptions.struct_class = Types::TextBoxInteractionOptions
+
+    TextBoxMenuOption.add_member(:availability_status, Shapes::ShapeRef.new(shape: DashboardBehavior, location_name: "AvailabilityStatus"))
+    TextBoxMenuOption.struct_class = Types::TextBoxMenuOption
 
     TextConditionalFormat.add_member(:background_color, Shapes::ShapeRef.new(shape: ConditionalFormattingColor, location_name: "BackgroundColor"))
     TextConditionalFormat.add_member(:text_color, Shapes::ShapeRef.new(shape: ConditionalFormattingColor, location_name: "TextColor"))

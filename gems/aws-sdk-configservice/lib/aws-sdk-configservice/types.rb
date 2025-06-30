@@ -611,36 +611,18 @@ module Aws::ConfigService
     #   @return [Time]
     #
     # @!attribute [rw] configuration
-    #   A JSON-encoded string that contains the contents for the resource
-    #   configuration. This string needs to be deserialized using
-    #   `json.loads()` before you can access the contents.
+    #   The description of the resource configuration.
     #   @return [String]
     #
     # @!attribute [rw] supplementary_configuration
-    #   A string to string map that contains additional contents for the
-    #   resource configuration.Config returns this field for certain
-    #   resource types to supplement the information returned for the
-    #   `configuration` field.
-    #
-    #   This string needs to be deserialized using `json.loads()` before you
-    #   can access the contents.
+    #   Configuration attributes that Config returns for certain resource
+    #   types to supplement the information returned for the configuration
+    #   parameter.
     #   @return [Hash<String,String>]
     #
     # @!attribute [rw] recording_frequency
     #   The recording frequency that Config uses to record configuration
     #   changes for the resource.
-    #
-    #   <note markdown="1"> This field only appears in the API response when `DAILY` recording
-    #   is enabled for a resource type. If this field is not present,
-    #   `CONTINUOUS` recording is enabled for that resource type. For more
-    #   information on daily recording and continuous recording, see
-    #   [Recording Frequency][1] in the *Config Developer Guide*.
-    #
-    #    </note>
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/config/latest/developerguide/select-resources.html#select-resources-recording-frequency
     #   @return [String]
     #
     # @!attribute [rw] configuration_item_delivery_time
@@ -1019,6 +1001,10 @@ module Aws::ConfigService
     #   an evaluation for the rule. If you do not specify a scope,
     #   evaluations are triggered when any resource in the recording group
     #   changes.
+    #
+    #   <note markdown="1"> The scope can be empty.
+    #
+    #    </note>
     #   @return [Types::Scope]
     #
     # @!attribute [rw] source
@@ -1504,36 +1490,18 @@ module Aws::ConfigService
     #   @return [Array<Types::Relationship>]
     #
     # @!attribute [rw] configuration
-    #   A JSON-encoded string that contains the contents for the resource
-    #   configuration. This string needs to be deserialized using
-    #   `json.loads()` before you can access the contents.
+    #   The description of the resource configuration.
     #   @return [String]
     #
     # @!attribute [rw] supplementary_configuration
-    #   A string to string map that contains additional contents for the
-    #   resource configuration.Config returns this field for certain
-    #   resource types to supplement the information returned for the
-    #   `configuration` field.
-    #
-    #   This string to string map needs to be deserialized using
-    #   `json.loads()` before you can accessing the contents.
+    #   Configuration attributes that Config returns for certain resource
+    #   types to supplement the information returned for the `configuration`
+    #   parameter.
     #   @return [Hash<String,String>]
     #
     # @!attribute [rw] recording_frequency
     #   The recording frequency that Config uses to record configuration
     #   changes for the resource.
-    #
-    #   <note markdown="1"> This field only appears in the API response when `DAILY` recording
-    #   is enabled for a resource type. If this field is not present,
-    #   `CONTINUOUS` recording is enabled for that resource type. For more
-    #   information on daily recording and continuous recording, see
-    #   [Recording Frequency][1] in the *Config Developer Guide*.
-    #
-    #    </note>
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/config/latest/developerguide/select-resources.html#select-resources-recording-frequency
     #   @return [String]
     #
     # @!attribute [rw] configuration_item_delivery_time
@@ -1543,10 +1511,9 @@ module Aws::ConfigService
     #   configuration item (CI). If you are using daily recording, this
     #   field will be populated. However, if you are using continuous
     #   recording, this field will be omitted since the delivery time is
-    #   instantaneous as the CI is available right away.
-    #
-    #    For more information on daily recording and continuous recording,
-    #   see [Recording Frequency][1] in the *Config Developer Guide*.
+    #   instantaneous as the CI is available right away. For more
+    #   information on daily recording and continuous recording, see
+    #   [Recording Frequency][1] in the *Config Developer Guide*.
     #
     #    </note>
     #
@@ -1605,8 +1572,8 @@ module Aws::ConfigService
     #   recorder if you do not specify a name at creation time.
     #
     #   For service-linked configuration recorders, Config automatically
-    #   assigns a name that has the prefix "`AWSConfigurationRecorderFor`"
-    #   to a new service-linked configuration recorder.
+    #   assigns a name that has the prefix "`AWS`" to a new service-linked
+    #   configuration recorder.
     #
     #   <note markdown="1"> **Changing the name of a configuration recorder**
     #
@@ -5121,8 +5088,8 @@ module Aws::ConfigService
     # The output for the GetResourceConfigHistory action.
     #
     # @!attribute [rw] configuration_items
-    #   An array of `ConfigurationItems` Objects. Contatins the
-    #   configuration history for one or more resources.
+    #   A list that contains the configuration history of one or more
+    #   resources.
     #   @return [Array<Types::ConfigurationItem>]
     #
     # @!attribute [rw] next_token
@@ -5301,9 +5268,8 @@ module Aws::ConfigService
     #
     class InsufficientPermissionsException < Aws::EmptyStructure; end
 
-    # The configuration recorder name is not valid. The prefix
-    # "`AWSConfigurationRecorderFor`" is reserved for service-linked
-    # configuration recorders.
+    # You have provided a name for the customer managed configuration
+    # recorder that is not valid.
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/InvalidConfigurationRecorderNameException AWS API Documentation
     #
@@ -7050,7 +7016,7 @@ module Aws::ConfigService
     #   @return [String]
     #
     # @!attribute [rw] template_body
-    #   A string that contains the full conformance pack template body. The
+    #   A string containing the full conformance pack template body. The
     #   structure containing the template body has a minimum length of 1
     #   byte and a maximum length of 51,200 bytes.
     #
@@ -7279,9 +7245,9 @@ module Aws::ConfigService
     #   @return [String]
     #
     # @!attribute [rw] template_body
-    #   A string that contains the full conformance pack template body.
-    #   Structure containing the template body with a minimum length of 1
-    #   byte and a maximum length of 51,200 bytes.
+    #   A string containing full conformance pack template body. Structure
+    #   containing the template body with a minimum length of 1 byte and a
+    #   maximum length of 51,200 bytes.
     #   @return [String]
     #
     # @!attribute [rw] delivery_s3_bucket
@@ -7518,8 +7484,8 @@ module Aws::ConfigService
     #   The name of the specified configuration recorder.
     #
     #   For service-linked configuration recorders, Config automatically
-    #   assigns a name that has the prefix "`AWSConfigurationRecorderFor`"
-    #   to the new service-linked configuration recorder.
+    #   assigns a name that has the prefix "`AWS`" to the new
+    #   service-linked configuration recorder.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/config-2014-11-12/PutServiceLinkedConfigurationRecorderResponse AWS API Documentation

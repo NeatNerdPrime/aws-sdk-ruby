@@ -2396,11 +2396,20 @@ module Aws::QuickSight
     #   role forbidding Athena access is still active.
     #   @return [String]
     #
+    # @!attribute [rw] identity_center_configuration
+    #   An optional parameter that configures IAM Identity Center
+    #   authentication to grant Amazon QuickSight access to your workgroup.
+    #
+    #   This parameter can only be specified if your Amazon QuickSight
+    #   account is configured with IAM Identity Center.
+    #   @return [Types::IdentityCenterConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/AthenaParameters AWS API Documentation
     #
     class AthenaParameters < Struct.new(
       :work_group,
-      :role_arn)
+      :role_arn,
+      :identity_center_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3929,11 +3938,19 @@ module Aws::QuickSight
     # A set of actions that correspond to Amazon QuickSight permissions.
     #
     # @!attribute [rw] export_to_csv
-    #   The ability to export to CSV files.
+    #   The ability to export to CSV files from the UI.
     #   @return [String]
     #
     # @!attribute [rw] export_to_excel
-    #   The ability to export to Excel files.
+    #   The ability to export to Excel files from the UI.
+    #   @return [String]
+    #
+    # @!attribute [rw] export_to_pdf
+    #   The ability to export to PDF files from the UI.
+    #   @return [String]
+    #
+    # @!attribute [rw] print_reports
+    #   The ability to print reports.
     #   @return [String]
     #
     # @!attribute [rw] create_and_update_themes
@@ -3996,11 +4013,29 @@ module Aws::QuickSight
     #   The ability to create a SPICE dataset.
     #   @return [String]
     #
+    # @!attribute [rw] export_to_pdf_in_scheduled_reports
+    #   The ability to export to PDF files in scheduled email reports.
+    #   @return [String]
+    #
+    # @!attribute [rw] export_to_csv_in_scheduled_reports
+    #   The ability to export to CSV files in scheduled email reports.
+    #   @return [String]
+    #
+    # @!attribute [rw] export_to_excel_in_scheduled_reports
+    #   The ability to export to Excel files in scheduled email reports.
+    #   @return [String]
+    #
+    # @!attribute [rw] include_content_in_scheduled_reports_email
+    #   The ability to include content in scheduled email reports.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/Capabilities AWS API Documentation
     #
     class Capabilities < Struct.new(
       :export_to_csv,
       :export_to_excel,
+      :export_to_pdf,
+      :print_reports,
       :create_and_update_themes,
       :add_or_run_anomaly_detection_for_analyses,
       :share_analyses,
@@ -4015,7 +4050,11 @@ module Aws::QuickSight
       :create_and_update_data_sources,
       :share_data_sources,
       :view_account_spice_capacity,
-      :create_spice_dataset)
+      :create_spice_dataset,
+      :export_to_pdf_in_scheduled_reports,
+      :export_to_csv_in_scheduled_reports,
+      :export_to_excel_in_scheduled_reports,
+      :include_content_in_scheduled_reports_email)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9008,7 +9047,7 @@ module Aws::QuickSight
     #   @return [String]
     #
     # @!attribute [rw] data_set_id
-    #   The ID of the dataset.
+    #   The ID of the dataset. Limited to 96 characters.
     #   @return [String]
     #
     # @!attribute [rw] name
@@ -30378,11 +30417,16 @@ module Aws::QuickSight
     #   The content that is displayed in the text box.
     #   @return [String]
     #
+    # @!attribute [rw] interactions
+    #   The general textbox interactions setup for a textbox.
+    #   @return [Types::TextBoxInteractionOptions]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/SheetTextBox AWS API Documentation
     #
     class SheetTextBox < Struct.new(
       :sheet_text_box_id,
-      :content)
+      :content,
+      :interactions)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -32952,6 +32996,36 @@ module Aws::QuickSight
       :title_options,
       :placeholder_options,
       :info_icon_label_options)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The general textbox interactions setup for textbox publish options.
+    #
+    # @!attribute [rw] text_box_menu_option
+    #   The menu options for the textbox.
+    #   @return [Types::TextBoxMenuOption]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/TextBoxInteractionOptions AWS API Documentation
+    #
+    class TextBoxInteractionOptions < Struct.new(
+      :text_box_menu_option)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The menu options for the interactions of a textbox.
+    #
+    # @!attribute [rw] availability_status
+    #   The availability status of the textbox menu. If the value of this
+    #   property is set to `ENABLED`, dashboard readers can interact with
+    #   the textbox menu.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/TextBoxMenuOption AWS API Documentation
+    #
+    class TextBoxMenuOption < Struct.new(
+      :availability_status)
       SENSITIVE = []
       include Aws::Structure
     end

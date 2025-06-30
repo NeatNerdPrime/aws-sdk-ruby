@@ -490,20 +490,6 @@ module Aws::EventBridge
       end
     end
 
-    context "For region us-gov-east-1 with FIPS enabled and DualStack disabled" do
-      let(:expected) do
-        {"endpoint" => {"url" => "https://events.us-gov-east-1.amazonaws.com"}}
-      end
-
-      it 'produces the expected output from the EndpointProvider' do
-        params = EndpointParameters.new(**{region: "us-gov-east-1", use_fips: true, use_dual_stack: false})
-        endpoint = subject.resolve_endpoint(params)
-        expect(endpoint.url).to eq(expected['endpoint']['url'])
-        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
-        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
-      end
-    end
-
     context "For region us-gov-west-1 with FIPS disabled and DualStack disabled" do
       let(:expected) do
         {"endpoint" => {"url" => "https://events.us-gov-west-1.amazonaws.com"}}
@@ -511,34 +497,6 @@ module Aws::EventBridge
 
       it 'produces the expected output from the EndpointProvider' do
         params = EndpointParameters.new(**{region: "us-gov-west-1", use_fips: false, use_dual_stack: false})
-        endpoint = subject.resolve_endpoint(params)
-        expect(endpoint.url).to eq(expected['endpoint']['url'])
-        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
-        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
-      end
-    end
-
-    context "For region us-gov-west-1 with FIPS enabled and DualStack disabled" do
-      let(:expected) do
-        {"endpoint" => {"url" => "https://events.us-gov-west-1.amazonaws.com"}}
-      end
-
-      it 'produces the expected output from the EndpointProvider' do
-        params = EndpointParameters.new(**{region: "us-gov-west-1", use_fips: true, use_dual_stack: false})
-        endpoint = subject.resolve_endpoint(params)
-        expect(endpoint.url).to eq(expected['endpoint']['url'])
-        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
-        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
-      end
-    end
-
-    context "For region us-gov-east-1 with FIPS enabled and DualStack enabled" do
-      let(:expected) do
-        {"endpoint" => {"url" => "https://events-fips.us-gov-east-1.api.aws"}}
-      end
-
-      it 'produces the expected output from the EndpointProvider' do
-        params = EndpointParameters.new(**{region: "us-gov-east-1", use_fips: true, use_dual_stack: true})
         endpoint = subject.resolve_endpoint(params)
         expect(endpoint.url).to eq(expected['endpoint']['url'])
         expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
@@ -859,16 +817,115 @@ module Aws::EventBridge
       end
     end
 
-    context "Valid EndpointId with DualStack enabled and partition does not support DualStack" do
+    context "legacy fips endpoint @ us-gov-east-1" do
       let(:expected) do
-        {"error" => "DualStack is enabled but this partition does not support DualStack"}
+        {"endpoint" => {"url" => "https://events.us-gov-east-1.amazonaws.com"}}
       end
 
       it 'produces the expected output from the EndpointProvider' do
-        params = EndpointParameters.new(**{endpoint_id: "abc123.456def", use_dual_stack: true, use_fips: false, region: "us-isob-east-1"})
-        expect do
-          subject.resolve_endpoint(params)
-        end.to raise_error(ArgumentError, expected['error'])
+        params = EndpointParameters.new(**{region: "us-gov-east-1", use_dual_stack: false, use_fips: true})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "legacy non-fips endpoint @ us-gov-east-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-east-1.amazonaws.com"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-east-1", use_dual_stack: false, use_fips: false})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "Dualstack fips endpoint @ us-gov-east-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-east-1.api.aws"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-east-1", use_dual_stack: true, use_fips: true})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "Dualstack non-fips endpoint @ us-gov-east-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-east-1.api.aws"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-east-1", use_dual_stack: true, use_fips: false})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "legacy fips endpoint @ us-gov-west-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-west-1.amazonaws.com"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-west-1", use_dual_stack: false, use_fips: true})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "legacy non-fips endpoint @ us-gov-west-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-west-1.amazonaws.com"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-west-1", use_dual_stack: false, use_fips: false})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "Dualstack fips endpoint @ us-gov-west-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-west-1.api.aws"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-west-1", use_dual_stack: true, use_fips: true})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
+      end
+    end
+
+    context "Dualstack non-fips endpoint @ us-gov-west-1" do
+      let(:expected) do
+        {"endpoint" => {"url" => "https://events.us-gov-west-1.api.aws"}}
+      end
+
+      it 'produces the expected output from the EndpointProvider' do
+        params = EndpointParameters.new(**{region: "us-gov-west-1", use_dual_stack: true, use_fips: false})
+        endpoint = subject.resolve_endpoint(params)
+        expect(endpoint.url).to eq(expected['endpoint']['url'])
+        expect(endpoint.headers).to eq(expected['endpoint']['headers'] || {})
+        expect(endpoint.properties).to eq(expected['endpoint']['properties'] || {})
       end
     end
 

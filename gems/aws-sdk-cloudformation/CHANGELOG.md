@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.134.0 (2025-06-30)
+------------------
+
+* Feature - Added support for UNKNOWN drift status.
+
 1.133.0 (2025-06-05)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.69.0 (2025-06-30)
+------------------
+
+* Feature - This release updates resource Id with alphanumeric constraint, including Asset id, Revision id, Data Set id, Job id, and Event Action id.
+
 1.68.0 (2025-06-02)
 ------------------
 

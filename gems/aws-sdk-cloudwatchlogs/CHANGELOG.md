@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.119.0 (2025-06-30)
+------------------
+
+* Feature - Increase minimum length of queryId parameter to 1 character.
+
 1.118.0 (2025-06-18)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.131.0 (2025-06-30)
+------------------
+
+* Feature - Updated ResourceType enum with new resource types onboarded by AWS Config as of June 2025
+
 1.130.0 (2025-06-27)
 ------------------
 

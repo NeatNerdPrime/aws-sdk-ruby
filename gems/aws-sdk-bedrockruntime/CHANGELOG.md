@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.50.0 (2025-06-30)
+------------------
+
+* Feature - Add API Key and document citations support for Bedrock Runtime APIs
+
 1.49.0 (2025-06-02)
 ------------------
 

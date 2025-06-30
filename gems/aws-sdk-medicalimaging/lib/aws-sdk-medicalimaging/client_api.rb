@@ -167,6 +167,7 @@ module Aws::MedicalImaging
     CopyImageSetRequest.add_member(:source_image_set_id, Shapes::ShapeRef.new(shape: ImageSetId, required: true, location: "uri", location_name: "sourceImageSetId"))
     CopyImageSetRequest.add_member(:copy_image_set_information, Shapes::ShapeRef.new(shape: CopyImageSetInformation, required: true, location_name: "copyImageSetInformation"))
     CopyImageSetRequest.add_member(:force, Shapes::ShapeRef.new(shape: Boolean, location: "querystring", location_name: "force"))
+    CopyImageSetRequest.add_member(:promote_to_primary, Shapes::ShapeRef.new(shape: Boolean, location: "querystring", location_name: "promoteToPrimary"))
     CopyImageSetRequest.struct_class = Types::CopyImageSetRequest
     CopyImageSetRequest[:payload] = :copy_image_set_information
     CopyImageSetRequest[:payload_member] = CopyImageSetRequest.member(:copy_image_set_information)
@@ -339,6 +340,7 @@ module Aws::MedicalImaging
     GetImageSetResponse.add_member(:message, Shapes::ShapeRef.new(shape: Message, location_name: "message"))
     GetImageSetResponse.add_member(:image_set_arn, Shapes::ShapeRef.new(shape: Arn, location_name: "imageSetArn"))
     GetImageSetResponse.add_member(:overrides, Shapes::ShapeRef.new(shape: Overrides, location_name: "overrides"))
+    GetImageSetResponse.add_member(:is_primary, Shapes::ShapeRef.new(shape: Boolean, location_name: "isPrimary"))
     GetImageSetResponse.struct_class = Types::GetImageSetResponse
 
     ImageFrameInformation.add_member(:image_frame_id, Shapes::ShapeRef.new(shape: ImageFrameId, required: true, location_name: "imageFrameId"))
@@ -353,6 +355,7 @@ module Aws::MedicalImaging
     ImageSetProperties.add_member(:deleted_at, Shapes::ShapeRef.new(shape: Date, location_name: "deletedAt"))
     ImageSetProperties.add_member(:message, Shapes::ShapeRef.new(shape: Message, location_name: "message"))
     ImageSetProperties.add_member(:overrides, Shapes::ShapeRef.new(shape: Overrides, location_name: "overrides"))
+    ImageSetProperties.add_member(:is_primary, Shapes::ShapeRef.new(shape: Boolean, location_name: "isPrimary"))
     ImageSetProperties.struct_class = Types::ImageSetProperties
 
     ImageSetPropertiesList.member = Shapes::ShapeRef.new(shape: ImageSetProperties)
@@ -364,6 +367,7 @@ module Aws::MedicalImaging
     ImageSetsMetadataSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: Date, location_name: "createdAt"))
     ImageSetsMetadataSummary.add_member(:updated_at, Shapes::ShapeRef.new(shape: Date, location_name: "updatedAt"))
     ImageSetsMetadataSummary.add_member(:dicom_tags, Shapes::ShapeRef.new(shape: DICOMTags, location_name: "DICOMTags"))
+    ImageSetsMetadataSummary.add_member(:is_primary, Shapes::ShapeRef.new(shape: Boolean, location_name: "isPrimary"))
     ImageSetsMetadataSummary.struct_class = Types::ImageSetsMetadataSummary
 
     InternalServerException.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "message"))
@@ -429,6 +433,7 @@ module Aws::MedicalImaging
     SearchByAttributeValue.add_member(:created_at, Shapes::ShapeRef.new(shape: Date, location_name: "createdAt"))
     SearchByAttributeValue.add_member(:updated_at, Shapes::ShapeRef.new(shape: Date, location_name: "updatedAt"))
     SearchByAttributeValue.add_member(:dicom_study_date_and_time, Shapes::ShapeRef.new(shape: DICOMStudyDateAndTime, location_name: "DICOMStudyDateAndTime"))
+    SearchByAttributeValue.add_member(:is_primary, Shapes::ShapeRef.new(shape: Boolean, location_name: "isPrimary"))
     SearchByAttributeValue.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     SearchByAttributeValue.add_member_subclass(:dicom_patient_id, Types::SearchByAttributeValue::DicomPatientId)
     SearchByAttributeValue.add_member_subclass(:dicom_accession_number, Types::SearchByAttributeValue::DicomAccessionNumber)
@@ -438,6 +443,7 @@ module Aws::MedicalImaging
     SearchByAttributeValue.add_member_subclass(:created_at, Types::SearchByAttributeValue::CreatedAt)
     SearchByAttributeValue.add_member_subclass(:updated_at, Types::SearchByAttributeValue::UpdatedAt)
     SearchByAttributeValue.add_member_subclass(:dicom_study_date_and_time, Types::SearchByAttributeValue::DicomStudyDateAndTime)
+    SearchByAttributeValue.add_member_subclass(:is_primary, Types::SearchByAttributeValue::IsPrimary)
     SearchByAttributeValue.add_member_subclass(:unknown, Types::SearchByAttributeValue::Unknown)
     SearchByAttributeValue.struct_class = Types::SearchByAttributeValue
 

@@ -19,6 +19,7 @@ module Aws::SSM
     AccessKeySecretType = Shapes::StringShape.new(name: 'AccessKeySecretType')
     AccessRequestId = Shapes::StringShape.new(name: 'AccessRequestId')
     AccessRequestStatus = Shapes::StringShape.new(name: 'AccessRequestStatus')
+    AccessType = Shapes::StringShape.new(name: 'AccessType')
     Account = Shapes::StringShape.new(name: 'Account')
     AccountId = Shapes::StringShape.new(name: 'AccountId')
     AccountIdList = Shapes::ListShape.new(name: 'AccountIdList')
@@ -4607,6 +4608,7 @@ module Aws::SSM
     Session.add_member(:details, Shapes::ShapeRef.new(shape: SessionDetails, location_name: "Details"))
     Session.add_member(:output_url, Shapes::ShapeRef.new(shape: SessionManagerOutputUrl, location_name: "OutputUrl"))
     Session.add_member(:max_session_duration, Shapes::ShapeRef.new(shape: MaxSessionDuration, location_name: "MaxSessionDuration"))
+    Session.add_member(:access_type, Shapes::ShapeRef.new(shape: AccessType, location_name: "AccessType"))
     Session.struct_class = Types::Session
 
     SessionFilter.add_member(:key, Shapes::ShapeRef.new(shape: SessionFilterKey, required: true, location_name: "key"))
@@ -5216,6 +5218,7 @@ module Aws::SSM
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocumentContent)
         o.errors << Shapes::ShapeRef.new(shape: DocumentLimitExceeded)
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocumentSchemaVersion)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyUpdates)
       end)
 
       api.add_operation(:create_maintenance_window, Seahorse::Model::Operation.new.tap do |o|
@@ -5313,6 +5316,7 @@ module Aws::SSM
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocument)
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocumentOperation)
         o.errors << Shapes::ShapeRef.new(shape: AssociatedInstances)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyUpdates)
       end)
 
       api.add_operation(:delete_inventory, Seahorse::Model::Operation.new.tap do |o|
@@ -7027,6 +7031,7 @@ module Aws::SSM
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocument)
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocumentOperation)
         o.errors << Shapes::ShapeRef.new(shape: InvalidDocumentVersion)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyUpdates)
       end)
 
       api.add_operation(:update_maintenance_window, Seahorse::Model::Operation.new.tap do |o|

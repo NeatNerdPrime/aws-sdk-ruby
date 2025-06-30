@@ -604,6 +604,7 @@ module Aws::QuickSight
     class AthenaParameters
       attr_accessor work_group: ::String
       attr_accessor role_arn: ::String
+      attr_accessor identity_center_configuration: Types::IdentityCenterConfiguration
       SENSITIVE: []
     end
 
@@ -628,7 +629,7 @@ module Aws::QuickSight
     end
 
     class AuthorizedTargetsByService
-      attr_accessor service: ("REDSHIFT" | "QBUSINESS")
+      attr_accessor service: ("REDSHIFT" | "QBUSINESS" | "ATHENA")
       attr_accessor authorized_targets: ::Array[::String]
       SENSITIVE: []
     end
@@ -1011,6 +1012,8 @@ module Aws::QuickSight
     class Capabilities
       attr_accessor export_to_csv: ("DENY")
       attr_accessor export_to_excel: ("DENY")
+      attr_accessor export_to_pdf: ("DENY")
+      attr_accessor print_reports: ("DENY")
       attr_accessor create_and_update_themes: ("DENY")
       attr_accessor add_or_run_anomaly_detection_for_analyses: ("DENY")
       attr_accessor share_analyses: ("DENY")
@@ -1026,6 +1029,10 @@ module Aws::QuickSight
       attr_accessor share_data_sources: ("DENY")
       attr_accessor view_account_spice_capacity: ("DENY")
       attr_accessor create_spice_dataset: ("DENY")
+      attr_accessor export_to_pdf_in_scheduled_reports: ("DENY")
+      attr_accessor export_to_csv_in_scheduled_reports: ("DENY")
+      attr_accessor export_to_excel_in_scheduled_reports: ("DENY")
+      attr_accessor include_content_in_scheduled_reports_email: ("DENY")
       SENSITIVE: []
     end
 
@@ -2870,7 +2877,7 @@ module Aws::QuickSight
 
     class DeleteIdentityPropagationConfigRequest
       attr_accessor aws_account_id: ::String
-      attr_accessor service: ("REDSHIFT" | "QBUSINESS")
+      attr_accessor service: ("REDSHIFT" | "QBUSINESS" | "ATHENA")
       SENSITIVE: []
     end
 
@@ -7842,6 +7849,7 @@ module Aws::QuickSight
     class SheetTextBox
       attr_accessor sheet_text_box_id: ::String
       attr_accessor content: ::String
+      attr_accessor interactions: Types::TextBoxInteractionOptions
       SENSITIVE: []
     end
 
@@ -8517,6 +8525,16 @@ module Aws::QuickSight
       attr_accessor title_options: Types::LabelOptions
       attr_accessor placeholder_options: Types::TextControlPlaceholderOptions
       attr_accessor info_icon_label_options: Types::SheetControlInfoIconLabelOptions
+      SENSITIVE: []
+    end
+
+    class TextBoxInteractionOptions
+      attr_accessor text_box_menu_option: Types::TextBoxMenuOption
+      SENSITIVE: []
+    end
+
+    class TextBoxMenuOption
+      attr_accessor availability_status: ("ENABLED" | "DISABLED")
       SENSITIVE: []
     end
 
@@ -9576,7 +9594,7 @@ module Aws::QuickSight
 
     class UpdateIdentityPropagationConfigRequest
       attr_accessor aws_account_id: ::String
-      attr_accessor service: ("REDSHIFT" | "QBUSINESS")
+      attr_accessor service: ("REDSHIFT" | "QBUSINESS" | "ATHENA")
       attr_accessor authorized_targets: ::Array[::String]
       SENSITIVE: []
     end

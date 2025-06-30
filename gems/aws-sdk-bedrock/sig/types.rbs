@@ -639,6 +639,11 @@ module Aws::Bedrock
       SENSITIVE: []
     end
 
+    class FieldForReranking
+      attr_accessor field_name: ::String
+      SENSITIVE: []
+    end
+
     class FilterAttribute
       attr_accessor key: ::String
       attr_accessor value: untyped
@@ -1264,6 +1269,12 @@ module Aws::Bedrock
       SENSITIVE: [:instructions]
     end
 
+    class ImplicitFilterConfiguration
+      attr_accessor metadata_attributes: ::Array[Types::MetadataAttributeSchema]
+      attr_accessor model_arn: ::String
+      SENSITIVE: []
+    end
+
     class ImportedModelSummary
       attr_accessor model_arn: ::String
       attr_accessor model_name: ::String
@@ -1362,6 +1373,8 @@ module Aws::Bedrock
       attr_accessor number_of_results: ::Integer
       attr_accessor override_search_type: ("HYBRID" | "SEMANTIC")
       attr_accessor filter: Types::RetrievalFilter
+      attr_accessor implicit_filter_configuration: Types::ImplicitFilterConfiguration
+      attr_accessor reranking_configuration: Types::VectorSearchRerankingConfiguration
       SENSITIVE: [:filter]
     end
 
@@ -1640,6 +1653,19 @@ module Aws::Bedrock
       SENSITIVE: []
     end
 
+    class MetadataAttributeSchema
+      attr_accessor key: ::String
+      attr_accessor type: ("STRING" | "NUMBER" | "BOOLEAN" | "STRING_LIST")
+      attr_accessor description: ::String
+      SENSITIVE: []
+    end
+
+    class MetadataConfigurationForReranking
+      attr_accessor selection_mode: ("SELECTIVE" | "ALL")
+      attr_accessor selective_mode_configuration: Types::RerankingMetadataSelectiveModeConfiguration
+      SENSITIVE: []
+    end
+
     class ModelCopyJobSummary
       attr_accessor job_arn: ::String
       attr_accessor status: ("InProgress" | "Completed" | "Failed")
@@ -1904,6 +1930,20 @@ module Aws::Bedrock
       class OrAll < RequestMetadataFilters
       end
       class Unknown < RequestMetadataFilters
+      end
+    end
+
+    class RerankingMetadataSelectiveModeConfiguration
+      attr_accessor fields_to_include: ::Array[Types::FieldForReranking]
+      attr_accessor fields_to_exclude: ::Array[Types::FieldForReranking]
+      attr_accessor unknown: untyped
+      SENSITIVE: [:fields_to_include, :fields_to_exclude]
+
+      class FieldsToInclude < RerankingMetadataSelectiveModeConfiguration
+      end
+      class FieldsToExclude < RerankingMetadataSelectiveModeConfiguration
+      end
+      class Unknown < RerankingMetadataSelectiveModeConfiguration
       end
     end
 
@@ -2198,6 +2238,25 @@ module Aws::Bedrock
 
     class ValidityTerm
       attr_accessor agreement_duration: ::String
+      SENSITIVE: []
+    end
+
+    class VectorSearchBedrockRerankingConfiguration
+      attr_accessor model_configuration: Types::VectorSearchBedrockRerankingModelConfiguration
+      attr_accessor number_of_reranked_results: ::Integer
+      attr_accessor metadata_configuration: Types::MetadataConfigurationForReranking
+      SENSITIVE: []
+    end
+
+    class VectorSearchBedrockRerankingModelConfiguration
+      attr_accessor model_arn: ::String
+      attr_accessor additional_model_request_fields: ::Hash[::String, untyped]
+      SENSITIVE: []
+    end
+
+    class VectorSearchRerankingConfiguration
+      attr_accessor type: ("BEDROCK_RERANKING_MODEL")
+      attr_accessor bedrock_reranking_configuration: Types::VectorSearchBedrockRerankingConfiguration
       SENSITIVE: []
     end
 

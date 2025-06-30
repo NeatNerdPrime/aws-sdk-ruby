@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.53.0 (2025-06-30)
+------------------
+
+* Feature - Add support for API Keys, Re-Ranker, implicit filter for RAG / KB evaluation for Bedrock APIs.
+
 1.52.0 (2025-06-24)
 ------------------
 

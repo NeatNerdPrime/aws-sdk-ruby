@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.8.0 (2025-06-30)
+------------------
+
+* Feature - Add ConflictExceptions to UpdateScope and DeleteScope operations for scopes being mutated.
+
 1.7.0 (2025-06-02)
 ------------------
 

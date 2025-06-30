@@ -25,6 +25,7 @@ module Aws::Bedrock
     AgreementStatus = Shapes::StringShape.new(name: 'AgreementStatus')
     ApplicationType = Shapes::StringShape.new(name: 'ApplicationType')
     Arn = Shapes::StringShape.new(name: 'Arn')
+    AttributeType = Shapes::StringShape.new(name: 'AttributeType')
     AuthorizationStatus = Shapes::StringShape.new(name: 'AuthorizationStatus')
     AutomatedEvaluationConfig = Shapes::StructureShape.new(name: 'AutomatedEvaluationConfig')
     AutomatedEvaluationCustomMetricConfig = Shapes::StructureShape.new(name: 'AutomatedEvaluationCustomMetricConfig')
@@ -41,6 +42,7 @@ module Aws::Bedrock
     BedrockEvaluatorModels = Shapes::ListShape.new(name: 'BedrockEvaluatorModels')
     BedrockModelArn = Shapes::StringShape.new(name: 'BedrockModelArn')
     BedrockModelId = Shapes::StringShape.new(name: 'BedrockModelId')
+    BedrockRerankingModelArn = Shapes::StringShape.new(name: 'BedrockRerankingModelArn')
     Boolean = Shapes::BooleanShape.new(name: 'Boolean')
     BrandedName = Shapes::StringShape.new(name: 'BrandedName')
     BucketName = Shapes::StringShape.new(name: 'BucketName')
@@ -166,6 +168,9 @@ module Aws::Bedrock
     ExternalSources = Shapes::ListShape.new(name: 'ExternalSources')
     ExternalSourcesGenerationConfiguration = Shapes::StructureShape.new(name: 'ExternalSourcesGenerationConfiguration')
     ExternalSourcesRetrieveAndGenerateConfiguration = Shapes::StructureShape.new(name: 'ExternalSourcesRetrieveAndGenerateConfiguration')
+    FieldForReranking = Shapes::StructureShape.new(name: 'FieldForReranking')
+    FieldForRerankingFieldNameString = Shapes::StringShape.new(name: 'FieldForRerankingFieldNameString')
+    FieldsForReranking = Shapes::ListShape.new(name: 'FieldsForReranking')
     FilterAttribute = Shapes::StructureShape.new(name: 'FilterAttribute')
     FilterKey = Shapes::StringShape.new(name: 'FilterKey')
     FilterValue = Shapes::DocumentShape.new(name: 'FilterValue', document: true)
@@ -312,6 +317,7 @@ module Aws::Bedrock
     HumanWorkflowConfig = Shapes::StructureShape.new(name: 'HumanWorkflowConfig')
     IdempotencyToken = Shapes::StringShape.new(name: 'IdempotencyToken')
     Identifier = Shapes::StringShape.new(name: 'Identifier')
+    ImplicitFilterConfiguration = Shapes::StructureShape.new(name: 'ImplicitFilterConfiguration')
     ImportedModelArn = Shapes::StringShape.new(name: 'ImportedModelArn')
     ImportedModelIdentifier = Shapes::StringShape.new(name: 'ImportedModelIdentifier')
     ImportedModelName = Shapes::StringShape.new(name: 'ImportedModelName')
@@ -390,6 +396,11 @@ module Aws::Bedrock
     MaxResults = Shapes::IntegerShape.new(name: 'MaxResults')
     MaxTokens = Shapes::IntegerShape.new(name: 'MaxTokens')
     Message = Shapes::StringShape.new(name: 'Message')
+    MetadataAttributeSchema = Shapes::StructureShape.new(name: 'MetadataAttributeSchema')
+    MetadataAttributeSchemaDescriptionString = Shapes::StringShape.new(name: 'MetadataAttributeSchemaDescriptionString')
+    MetadataAttributeSchemaKeyString = Shapes::StringShape.new(name: 'MetadataAttributeSchemaKeyString')
+    MetadataAttributeSchemaList = Shapes::ListShape.new(name: 'MetadataAttributeSchemaList')
+    MetadataConfigurationForReranking = Shapes::StructureShape.new(name: 'MetadataConfigurationForReranking')
     MetricFloat = Shapes::FloatShape.new(name: 'MetricFloat')
     MetricName = Shapes::StringShape.new(name: 'MetricName')
     ModelArchitecture = Shapes::StringShape.new(name: 'ModelArchitecture')
@@ -487,6 +498,8 @@ module Aws::Bedrock
     RequestMetadataMap = Shapes::MapShape.new(name: 'RequestMetadataMap')
     RequestMetadataMapKeyString = Shapes::StringShape.new(name: 'RequestMetadataMapKeyString')
     RequestMetadataMapValueString = Shapes::StringShape.new(name: 'RequestMetadataMapValueString')
+    RerankingMetadataSelectionMode = Shapes::StringShape.new(name: 'RerankingMetadataSelectionMode')
+    RerankingMetadataSelectiveModeConfiguration = Shapes::UnionShape.new(name: 'RerankingMetadataSelectiveModeConfiguration')
     ResourceNotFoundException = Shapes::StructureShape.new(name: 'ResourceNotFoundException')
     RetrievalFilter = Shapes::UnionShape.new(name: 'RetrievalFilter')
     RetrievalFilterList = Shapes::ListShape.new(name: 'RetrievalFilterList')
@@ -562,6 +575,11 @@ module Aws::Bedrock
     ValidatorMetric = Shapes::StructureShape.new(name: 'ValidatorMetric')
     Validators = Shapes::ListShape.new(name: 'Validators')
     ValidityTerm = Shapes::StructureShape.new(name: 'ValidityTerm')
+    VectorSearchBedrockRerankingConfiguration = Shapes::StructureShape.new(name: 'VectorSearchBedrockRerankingConfiguration')
+    VectorSearchBedrockRerankingConfigurationNumberOfRerankedResultsInteger = Shapes::IntegerShape.new(name: 'VectorSearchBedrockRerankingConfigurationNumberOfRerankedResultsInteger')
+    VectorSearchBedrockRerankingModelConfiguration = Shapes::StructureShape.new(name: 'VectorSearchBedrockRerankingModelConfiguration')
+    VectorSearchRerankingConfiguration = Shapes::StructureShape.new(name: 'VectorSearchRerankingConfiguration')
+    VectorSearchRerankingConfigurationType = Shapes::StringShape.new(name: 'VectorSearchRerankingConfigurationType')
     VpcConfig = Shapes::StructureShape.new(name: 'VpcConfig')
     kBS3Uri = Shapes::StringShape.new(name: 'kBS3Uri')
 
@@ -1038,6 +1056,11 @@ module Aws::Bedrock
     ExternalSourcesRetrieveAndGenerateConfiguration.add_member(:sources, Shapes::ShapeRef.new(shape: ExternalSources, required: true, location_name: "sources"))
     ExternalSourcesRetrieveAndGenerateConfiguration.add_member(:generation_configuration, Shapes::ShapeRef.new(shape: ExternalSourcesGenerationConfiguration, location_name: "generationConfiguration"))
     ExternalSourcesRetrieveAndGenerateConfiguration.struct_class = Types::ExternalSourcesRetrieveAndGenerateConfiguration
+
+    FieldForReranking.add_member(:field_name, Shapes::ShapeRef.new(shape: FieldForRerankingFieldNameString, required: true, location_name: "fieldName"))
+    FieldForReranking.struct_class = Types::FieldForReranking
+
+    FieldsForReranking.member = Shapes::ShapeRef.new(shape: FieldForReranking)
 
     FilterAttribute.add_member(:key, Shapes::ShapeRef.new(shape: FilterKey, required: true, location_name: "key"))
     FilterAttribute.add_member(:value, Shapes::ShapeRef.new(shape: FilterValue, required: true, location_name: "value"))
@@ -1564,6 +1587,10 @@ module Aws::Bedrock
     HumanWorkflowConfig.add_member(:instructions, Shapes::ShapeRef.new(shape: HumanTaskInstructions, location_name: "instructions"))
     HumanWorkflowConfig.struct_class = Types::HumanWorkflowConfig
 
+    ImplicitFilterConfiguration.add_member(:metadata_attributes, Shapes::ShapeRef.new(shape: MetadataAttributeSchemaList, required: true, location_name: "metadataAttributes"))
+    ImplicitFilterConfiguration.add_member(:model_arn, Shapes::ShapeRef.new(shape: BedrockModelArn, required: true, location_name: "modelArn"))
+    ImplicitFilterConfiguration.struct_class = Types::ImplicitFilterConfiguration
+
     ImportedModelSummary.add_member(:model_arn, Shapes::ShapeRef.new(shape: ImportedModelArn, required: true, location_name: "modelArn"))
     ImportedModelSummary.add_member(:model_name, Shapes::ShapeRef.new(shape: ImportedModelName, required: true, location_name: "modelName"))
     ImportedModelSummary.add_member(:creation_time, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "creationTime"))
@@ -1637,6 +1664,8 @@ module Aws::Bedrock
     KnowledgeBaseVectorSearchConfiguration.add_member(:number_of_results, Shapes::ShapeRef.new(shape: KnowledgeBaseVectorSearchConfigurationNumberOfResultsInteger, location_name: "numberOfResults"))
     KnowledgeBaseVectorSearchConfiguration.add_member(:override_search_type, Shapes::ShapeRef.new(shape: SearchType, location_name: "overrideSearchType"))
     KnowledgeBaseVectorSearchConfiguration.add_member(:filter, Shapes::ShapeRef.new(shape: RetrievalFilter, location_name: "filter"))
+    KnowledgeBaseVectorSearchConfiguration.add_member(:implicit_filter_configuration, Shapes::ShapeRef.new(shape: ImplicitFilterConfiguration, location_name: "implicitFilterConfiguration"))
+    KnowledgeBaseVectorSearchConfiguration.add_member(:reranking_configuration, Shapes::ShapeRef.new(shape: VectorSearchRerankingConfiguration, location_name: "rerankingConfiguration"))
     KnowledgeBaseVectorSearchConfiguration.struct_class = Types::KnowledgeBaseVectorSearchConfiguration
 
     LegalTerm.add_member(:url, Shapes::ShapeRef.new(shape: String, location_name: "url"))
@@ -1847,6 +1876,17 @@ module Aws::Bedrock
     MarketplaceModelEndpointSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
     MarketplaceModelEndpointSummary.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
     MarketplaceModelEndpointSummary.struct_class = Types::MarketplaceModelEndpointSummary
+
+    MetadataAttributeSchema.add_member(:key, Shapes::ShapeRef.new(shape: MetadataAttributeSchemaKeyString, required: true, location_name: "key"))
+    MetadataAttributeSchema.add_member(:type, Shapes::ShapeRef.new(shape: AttributeType, required: true, location_name: "type"))
+    MetadataAttributeSchema.add_member(:description, Shapes::ShapeRef.new(shape: MetadataAttributeSchemaDescriptionString, required: true, location_name: "description"))
+    MetadataAttributeSchema.struct_class = Types::MetadataAttributeSchema
+
+    MetadataAttributeSchemaList.member = Shapes::ShapeRef.new(shape: MetadataAttributeSchema)
+
+    MetadataConfigurationForReranking.add_member(:selection_mode, Shapes::ShapeRef.new(shape: RerankingMetadataSelectionMode, required: true, location_name: "selectionMode"))
+    MetadataConfigurationForReranking.add_member(:selective_mode_configuration, Shapes::ShapeRef.new(shape: RerankingMetadataSelectiveModeConfiguration, location_name: "selectiveModeConfiguration"))
+    MetadataConfigurationForReranking.struct_class = Types::MetadataConfigurationForReranking
 
     ModelCopyJobSummaries.member = Shapes::ShapeRef.new(shape: ModelCopyJobSummary)
 
@@ -2070,6 +2110,14 @@ module Aws::Bedrock
     RequestMetadataMap.key = Shapes::ShapeRef.new(shape: RequestMetadataMapKeyString)
     RequestMetadataMap.value = Shapes::ShapeRef.new(shape: RequestMetadataMapValueString)
 
+    RerankingMetadataSelectiveModeConfiguration.add_member(:fields_to_include, Shapes::ShapeRef.new(shape: FieldsForReranking, location_name: "fieldsToInclude"))
+    RerankingMetadataSelectiveModeConfiguration.add_member(:fields_to_exclude, Shapes::ShapeRef.new(shape: FieldsForReranking, location_name: "fieldsToExclude"))
+    RerankingMetadataSelectiveModeConfiguration.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    RerankingMetadataSelectiveModeConfiguration.add_member_subclass(:fields_to_include, Types::RerankingMetadataSelectiveModeConfiguration::FieldsToInclude)
+    RerankingMetadataSelectiveModeConfiguration.add_member_subclass(:fields_to_exclude, Types::RerankingMetadataSelectiveModeConfiguration::FieldsToExclude)
+    RerankingMetadataSelectiveModeConfiguration.add_member_subclass(:unknown, Types::RerankingMetadataSelectiveModeConfiguration::Unknown)
+    RerankingMetadataSelectiveModeConfiguration.struct_class = Types::RerankingMetadataSelectiveModeConfiguration
+
     ResourceNotFoundException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     ResourceNotFoundException.struct_class = Types::ResourceNotFoundException
 
@@ -2281,6 +2329,19 @@ module Aws::Bedrock
     ValidityTerm.add_member(:agreement_duration, Shapes::ShapeRef.new(shape: String, location_name: "agreementDuration"))
     ValidityTerm.struct_class = Types::ValidityTerm
 
+    VectorSearchBedrockRerankingConfiguration.add_member(:model_configuration, Shapes::ShapeRef.new(shape: VectorSearchBedrockRerankingModelConfiguration, required: true, location_name: "modelConfiguration"))
+    VectorSearchBedrockRerankingConfiguration.add_member(:number_of_reranked_results, Shapes::ShapeRef.new(shape: VectorSearchBedrockRerankingConfigurationNumberOfRerankedResultsInteger, location_name: "numberOfRerankedResults"))
+    VectorSearchBedrockRerankingConfiguration.add_member(:metadata_configuration, Shapes::ShapeRef.new(shape: MetadataConfigurationForReranking, location_name: "metadataConfiguration"))
+    VectorSearchBedrockRerankingConfiguration.struct_class = Types::VectorSearchBedrockRerankingConfiguration
+
+    VectorSearchBedrockRerankingModelConfiguration.add_member(:model_arn, Shapes::ShapeRef.new(shape: BedrockRerankingModelArn, required: true, location_name: "modelArn"))
+    VectorSearchBedrockRerankingModelConfiguration.add_member(:additional_model_request_fields, Shapes::ShapeRef.new(shape: AdditionalModelRequestFields, location_name: "additionalModelRequestFields"))
+    VectorSearchBedrockRerankingModelConfiguration.struct_class = Types::VectorSearchBedrockRerankingModelConfiguration
+
+    VectorSearchRerankingConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: VectorSearchRerankingConfigurationType, required: true, location_name: "type"))
+    VectorSearchRerankingConfiguration.add_member(:bedrock_reranking_configuration, Shapes::ShapeRef.new(shape: VectorSearchBedrockRerankingConfiguration, location_name: "bedrockRerankingConfiguration"))
+    VectorSearchRerankingConfiguration.struct_class = Types::VectorSearchRerankingConfiguration
+
     VpcConfig.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: SubnetIds, required: true, location_name: "subnetIds"))
     VpcConfig.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIds, required: true, location_name: "securityGroupIds"))
     VpcConfig.struct_class = Types::VpcConfig
@@ -2293,7 +2354,7 @@ module Aws::Bedrock
 
       api.metadata = {
         "apiVersion" => "2023-04-20",
-        "auth" => ["aws.auth#sigv4"],
+        "auth" => ["aws.auth#sigv4", "smithy.api#httpBearerAuth"],
         "endpointPrefix" => "bedrock",
         "protocol" => "rest-json",
         "protocols" => ["rest-json"],

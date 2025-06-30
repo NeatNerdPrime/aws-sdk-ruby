@@ -2387,6 +2387,24 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # Specifies a field to be used during the reranking process in a
+    # Knowledge Base vector search. This structure identifies metadata
+    # fields that should be considered when reordering search results to
+    # improve relevance.
+    #
+    # @!attribute [rw] field_name
+    #   The name of the metadata field to be used during the reranking
+    #   process.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/FieldForReranking AWS API Documentation
+    #
+    class FieldForReranking < Struct.new(
+      :field_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Specifies the name of the metadata attribute/field to apply filters.
     # You must match the name of the attribute/field in your data
     # source/document metadata.
@@ -5535,6 +5553,32 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # Configuration for implicit filtering in Knowledge Base vector
+    # searches. Implicit filtering allows you to automatically filter search
+    # results based on metadata attributes without requiring explicit filter
+    # expressions in each query.
+    #
+    # @!attribute [rw] metadata_attributes
+    #   A list of metadata attribute schemas that define the structure and
+    #   properties of metadata fields used for implicit filtering. Each
+    #   attribute defines a key, type, and optional description.
+    #   @return [Array<Types::MetadataAttributeSchema>]
+    #
+    # @!attribute [rw] model_arn
+    #   The Amazon Resource Name (ARN) of the foundation model used for
+    #   implicit filtering. This model processes the query to extract
+    #   relevant filtering criteria.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ImplicitFilterConfiguration AWS API Documentation
+    #
+    class ImplicitFilterConfiguration < Struct.new(
+      :metadata_attributes,
+      :model_arn)
+      SENSITIVE = [:metadata_attributes]
+      include Aws::Structure
+    end
+
     # Information about the imported model.
     #
     # @!attribute [rw] model_arn
@@ -5860,12 +5904,27 @@ module Aws::Bedrock
     #   base data sources before returning results.
     #   @return [Types::RetrievalFilter]
     #
+    # @!attribute [rw] implicit_filter_configuration
+    #   Configuration for implicit filtering in Knowledge Base vector
+    #   searches. This allows the system to automatically apply filters
+    #   based on the query context without requiring explicit filter
+    #   expressions.
+    #   @return [Types::ImplicitFilterConfiguration]
+    #
+    # @!attribute [rw] reranking_configuration
+    #   Configuration for reranking search results in Knowledge Base vector
+    #   searches. Reranking improves search relevance by reordering initial
+    #   vector search results using more sophisticated relevance models.
+    #   @return [Types::VectorSearchRerankingConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/KnowledgeBaseVectorSearchConfiguration AWS API Documentation
     #
     class KnowledgeBaseVectorSearchConfiguration < Struct.new(
       :number_of_results,
       :override_search_type,
-      :filter)
+      :filter,
+      :implicit_filter_configuration,
+      :reranking_configuration)
       SENSITIVE = [:filter]
       include Aws::Structure
     end
@@ -7020,6 +7079,62 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # Defines the schema for a metadata attribute used in Knowledge Base
+    # vector searches. Metadata attributes provide additional context for
+    # documents and can be used for filtering and reranking search results.
+    #
+    # @!attribute [rw] key
+    #   The unique identifier for the metadata attribute. This key is used
+    #   to reference the attribute in filter expressions and reranking
+    #   configurations.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The data type of the metadata attribute. The type determines how the
+    #   attribute can be used in filter expressions and reranking.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   An optional description of the metadata attribute that provides
+    #   additional context about its purpose and usage.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/MetadataAttributeSchema AWS API Documentation
+    #
+    class MetadataAttributeSchema < Struct.new(
+      :key,
+      :type,
+      :description)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for how metadata should be used during the reranking
+    # process in Knowledge Base vector searches. This determines which
+    # metadata fields are included or excluded when reordering search
+    # results.
+    #
+    # @!attribute [rw] selection_mode
+    #   The mode for selecting which metadata fields to include in the
+    #   reranking process. Valid values are ALL (use all available metadata
+    #   fields) or SELECTIVE (use only specified fields).
+    #   @return [String]
+    #
+    # @!attribute [rw] selective_mode_configuration
+    #   Configuration for selective mode, which allows you to explicitly
+    #   include or exclude specific metadata fields during reranking. This
+    #   is only used when selectionMode is set to SELECTIVE.
+    #   @return [Types::RerankingMetadataSelectiveModeConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/MetadataConfigurationForReranking AWS API Documentation
+    #
+    class MetadataConfigurationForReranking < Struct.new(
+      :selection_mode,
+      :selective_mode_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Contains details about each model copy job.
     #
     # This data type is used in the following API operations:
@@ -7984,6 +8099,43 @@ module Aws::Bedrock
       class AndAll < RequestMetadataFilters; end
       class OrAll < RequestMetadataFilters; end
       class Unknown < RequestMetadataFilters; end
+    end
+
+    # Configuration for selectively including or excluding metadata fields
+    # during the reranking process. This allows you to control which
+    # metadata attributes are considered when reordering search results.
+    #
+    # @note RerankingMetadataSelectiveModeConfiguration is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note RerankingMetadataSelectiveModeConfiguration is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of RerankingMetadataSelectiveModeConfiguration corresponding to the set member.
+    #
+    # @!attribute [rw] fields_to_include
+    #   A list of metadata field names to explicitly include in the
+    #   reranking process. Only these fields will be considered when
+    #   reordering search results. This parameter cannot be used together
+    #   with fieldsToExclude.
+    #   @return [Array<Types::FieldForReranking>]
+    #
+    # @!attribute [rw] fields_to_exclude
+    #   A list of metadata field names to explicitly exclude from the
+    #   reranking process. All metadata fields except these will be
+    #   considered when reordering search results. This parameter cannot be
+    #   used together with fieldsToInclude.
+    #   @return [Array<Types::FieldForReranking>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/RerankingMetadataSelectiveModeConfiguration AWS API Documentation
+    #
+    class RerankingMetadataSelectiveModeConfiguration < Struct.new(
+      :fields_to_include,
+      :fields_to_exclude,
+      :unknown)
+      SENSITIVE = [:fields_to_include, :fields_to_exclude]
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class FieldsToInclude < RerankingMetadataSelectiveModeConfiguration; end
+      class FieldsToExclude < RerankingMetadataSelectiveModeConfiguration; end
+      class Unknown < RerankingMetadataSelectiveModeConfiguration; end
     end
 
     # The specified resource Amazon Resource Name (ARN) was not found. Check
@@ -8974,6 +9126,90 @@ module Aws::Bedrock
     #
     class ValidityTerm < Struct.new(
       :agreement_duration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for using Amazon Bedrock foundation models to rerank
+    # Knowledge Base vector search results. This enables more sophisticated
+    # relevance ranking using large language models.
+    #
+    # @!attribute [rw] model_configuration
+    #   Configuration for the Amazon Bedrock foundation model used for
+    #   reranking. This includes the model ARN and any additional request
+    #   fields required by the model.
+    #   @return [Types::VectorSearchBedrockRerankingModelConfiguration]
+    #
+    # @!attribute [rw] number_of_reranked_results
+    #   The maximum number of results to rerank. This limits how many of the
+    #   initial vector search results will be processed by the reranking
+    #   model. A smaller number improves performance but may exclude
+    #   potentially relevant results.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] metadata_configuration
+    #   Configuration for how document metadata should be used during the
+    #   reranking process. This determines which metadata fields are
+    #   included when reordering search results.
+    #   @return [Types::MetadataConfigurationForReranking]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/VectorSearchBedrockRerankingConfiguration AWS API Documentation
+    #
+    class VectorSearchBedrockRerankingConfiguration < Struct.new(
+      :model_configuration,
+      :number_of_reranked_results,
+      :metadata_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for the Amazon Bedrock foundation model used for
+    # reranking vector search results. This specifies which model to use and
+    # any additional parameters required by the model.
+    #
+    # @!attribute [rw] model_arn
+    #   The Amazon Resource Name (ARN) of the foundation model to use for
+    #   reranking. This model processes the query and search results to
+    #   determine a more relevant ordering.
+    #   @return [String]
+    #
+    # @!attribute [rw] additional_model_request_fields
+    #   A list of additional fields to include in the model request during
+    #   reranking. These fields provide extra context or configuration
+    #   options specific to the selected foundation model.
+    #   @return [Hash<String,Hash,Array,String,Numeric,Boolean>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/VectorSearchBedrockRerankingModelConfiguration AWS API Documentation
+    #
+    class VectorSearchBedrockRerankingModelConfiguration < Struct.new(
+      :model_arn,
+      :additional_model_request_fields)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for reranking vector search results to improve
+    # relevance. Reranking applies additional relevance models to reorder
+    # the initial vector search results based on more sophisticated
+    # criteria.
+    #
+    # @!attribute [rw] type
+    #   The type of reranking to apply to vector search results. Currently,
+    #   the only supported value is BEDROCK, which uses Amazon Bedrock
+    #   foundation models for reranking.
+    #   @return [String]
+    #
+    # @!attribute [rw] bedrock_reranking_configuration
+    #   Configuration for using Amazon Bedrock foundation models to rerank
+    #   search results. This is required when the reranking type is set to
+    #   BEDROCK.
+    #   @return [Types::VectorSearchBedrockRerankingConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/VectorSearchRerankingConfiguration AWS API Documentation
+    #
+    class VectorSearchRerankingConfiguration < Struct.new(
+      :type,
+      :bedrock_reranking_configuration)
       SENSITIVE = []
       include Aws::Structure
     end

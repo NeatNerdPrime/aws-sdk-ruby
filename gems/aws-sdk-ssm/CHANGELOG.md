@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.197.0 (2025-06-30)
+------------------
+
+* Feature - Introduces AccessType, a new filter value for the DescribeSessions API.
+
 1.196.0 (2025-06-02)
 ------------------
 

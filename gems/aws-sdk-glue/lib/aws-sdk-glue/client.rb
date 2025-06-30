@@ -3874,6 +3874,9 @@ module Aws::Glue
     #     ],
     #     integration_config: {
     #       refresh_interval: "String128",
+    #       source_properties: {
+    #         "IntegrationString" => "IntegrationString",
+    #       },
     #     },
     #   })
     #
@@ -3897,6 +3900,8 @@ module Aws::Glue
     #   resp.errors[0].error_message #=> String
     #   resp.data_filter #=> String
     #   resp.integration_config.refresh_interval #=> String
+    #   resp.integration_config.source_properties #=> Hash
+    #   resp.integration_config.source_properties["IntegrationString"] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateIntegration AWS API Documentation
     #
@@ -7026,6 +7031,8 @@ module Aws::Glue
     #   resp.inbound_integrations[0].status #=> String, one of "CREATING", "ACTIVE", "MODIFYING", "FAILED", "DELETING", "SYNCING", "NEEDS_ATTENTION"
     #   resp.inbound_integrations[0].create_time #=> Time
     #   resp.inbound_integrations[0].integration_config.refresh_interval #=> String
+    #   resp.inbound_integrations[0].integration_config.source_properties #=> Hash
+    #   resp.inbound_integrations[0].integration_config.source_properties["IntegrationString"] #=> String
     #   resp.inbound_integrations[0].errors #=> Array
     #   resp.inbound_integrations[0].errors[0].error_code #=> String
     #   resp.inbound_integrations[0].errors[0].error_message #=> String
@@ -7093,6 +7100,8 @@ module Aws::Glue
     #   resp.integrations[0].status #=> String, one of "CREATING", "ACTIVE", "MODIFYING", "FAILED", "DELETING", "SYNCING", "NEEDS_ATTENTION"
     #   resp.integrations[0].create_time #=> Time
     #   resp.integrations[0].integration_config.refresh_interval #=> String
+    #   resp.integrations[0].integration_config.source_properties #=> Hash
+    #   resp.integrations[0].integration_config.source_properties["IntegrationString"] #=> String
     #   resp.integrations[0].errors #=> Array
     #   resp.integrations[0].errors[0].error_code #=> String
     #   resp.integrations[0].errors[0].error_message #=> String
@@ -20448,7 +20457,7 @@ module Aws::Glue
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-glue'
-      context[:gem_version] = '1.223.0'
+      context[:gem_version] = '1.224.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

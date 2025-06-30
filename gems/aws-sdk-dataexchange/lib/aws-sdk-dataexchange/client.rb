@@ -532,7 +532,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.cancel_job({
-    #     job_id: "__string", # required
+    #     job_id: "Id", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dataexchange-2017-07-25/CancelJob AWS API Documentation
@@ -1035,7 +1035,7 @@ module Aws::DataExchange
     #
     #   resp = client.create_revision({
     #     comment: "__stringMin0Max16384",
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     tags: {
     #       "__string" => "__string",
     #     },
@@ -1082,9 +1082,9 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_asset({
-    #     asset_id: "__string", # required
-    #     data_set_id: "__string", # required
-    #     revision_id: "__string", # required
+    #     asset_id: "Id", # required
+    #     data_set_id: "Id", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dataexchange-2017-07-25/DeleteAsset AWS API Documentation
@@ -1128,7 +1128,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_data_set({
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dataexchange-2017-07-25/DeleteDataSet AWS API Documentation
@@ -1175,8 +1175,8 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_revision({
-    #     data_set_id: "__string", # required
-    #     revision_id: "__string", # required
+    #     data_set_id: "Id", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dataexchange-2017-07-25/DeleteRevision AWS API Documentation
@@ -1215,9 +1215,9 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_asset({
-    #     asset_id: "__string", # required
-    #     data_set_id: "__string", # required
-    #     revision_id: "__string", # required
+    #     asset_id: "Id", # required
+    #     data_set_id: "Id", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -1354,7 +1354,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_data_set({
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -1445,7 +1445,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_job({
-    #     job_id: "__string", # required
+    #     job_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -1627,8 +1627,8 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_revision({
-    #     data_set_id: "__string", # required
-    #     revision_id: "__string", # required
+    #     data_set_id: "Id", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -1728,7 +1728,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.list_data_set_revisions({
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     max_results: 1,
     #     next_token: "__string",
     #   })
@@ -2076,10 +2076,10 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.list_revision_assets({
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     max_results: 1,
     #     next_token: "__string",
-    #     revision_id: "__string", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -2198,8 +2198,8 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.revoke_revision({
-    #     data_set_id: "__string", # required
-    #     revision_id: "__string", # required
+    #     data_set_id: "Id", # required
+    #     revision_id: "Id", # required
     #     revocation_comment: "__stringMin10Max512", # required
     #   })
     #
@@ -2355,7 +2355,7 @@ module Aws::DataExchange
     #     },
     #     client_token: "ClientToken",
     #     comment: "__stringMin0Max4096",
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     details: {
     #       data_update: {
     #         data_updated_at: Time.now,
@@ -2396,7 +2396,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.start_job({
-    #     job_id: "__string", # required
+    #     job_id: "Id", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dataexchange-2017-07-25/StartJob AWS API Documentation
@@ -2501,10 +2501,10 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_asset({
-    #     asset_id: "__string", # required
-    #     data_set_id: "__string", # required
+    #     asset_id: "Id", # required
+    #     data_set_id: "Id", # required
     #     name: "AssetName", # required
-    #     revision_id: "__string", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -2589,7 +2589,7 @@ module Aws::DataExchange
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_data_set({
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     description: "Description",
     #     name: "Name",
     #   })
@@ -2707,9 +2707,9 @@ module Aws::DataExchange
     #
     #   resp = client.update_revision({
     #     comment: "__stringMin0Max16384",
-    #     data_set_id: "__string", # required
+    #     data_set_id: "Id", # required
     #     finalized: false,
-    #     revision_id: "__string", # required
+    #     revision_id: "Id", # required
     #   })
     #
     # @example Response structure
@@ -2753,7 +2753,7 @@ module Aws::DataExchange
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-dataexchange'
-      context[:gem_version] = '1.68.0'
+      context[:gem_version] = '1.69.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

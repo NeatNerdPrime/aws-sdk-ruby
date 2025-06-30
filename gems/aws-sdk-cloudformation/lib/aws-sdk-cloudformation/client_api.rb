@@ -511,6 +511,7 @@ module Aws::CloudFormation
     StackResourceDriftInformationSummary = Shapes::StructureShape.new(name: 'StackResourceDriftInformationSummary')
     StackResourceDriftStatus = Shapes::StringShape.new(name: 'StackResourceDriftStatus')
     StackResourceDriftStatusFilters = Shapes::ListShape.new(name: 'StackResourceDriftStatusFilters')
+    StackResourceDriftStatusReason = Shapes::StringShape.new(name: 'StackResourceDriftStatusReason')
     StackResourceDrifts = Shapes::ListShape.new(name: 'StackResourceDrifts')
     StackResourceSummaries = Shapes::ListShape.new(name: 'StackResourceSummaries')
     StackResourceSummary = Shapes::StructureShape.new(name: 'StackResourceSummary')
@@ -1987,6 +1988,7 @@ module Aws::CloudFormation
     StackResourceDrift.add_member(:stack_resource_drift_status, Shapes::ShapeRef.new(shape: StackResourceDriftStatus, required: true, location_name: "StackResourceDriftStatus"))
     StackResourceDrift.add_member(:timestamp, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "Timestamp"))
     StackResourceDrift.add_member(:module_info, Shapes::ShapeRef.new(shape: ModuleInfo, location_name: "ModuleInfo"))
+    StackResourceDrift.add_member(:drift_status_reason, Shapes::ShapeRef.new(shape: StackResourceDriftStatusReason, location_name: "DriftStatusReason"))
     StackResourceDrift.struct_class = Types::StackResourceDrift
 
     StackResourceDriftInformation.add_member(:stack_resource_drift_status, Shapes::ShapeRef.new(shape: StackResourceDriftStatus, required: true, location_name: "StackResourceDriftStatus"))

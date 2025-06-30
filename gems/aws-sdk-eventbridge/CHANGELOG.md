@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.84.0 (2025-06-30)
+------------------
+
+* Feature - Added support for EventBridge Dualstack endpoints in AWS GovCloud (US) regions (us-gov-east-1 and us-gov-west-1). The dualstack endpoints are identical for both FIPS and non-FIPS configurations, following the format: events.{region}.api.aws
+
 1.83.0 (2025-06-02)
 ------------------
 

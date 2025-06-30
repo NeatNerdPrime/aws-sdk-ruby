@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.146.0 (2025-06-30)
+------------------
+
+* Feature - This change adds support for witnesses in global tables. It also adds a new table status, REPLICATION_NOT_AUTHORIZED. This status will indicate scenarios where global replicas table can't be utilized for data plane operations.
+
 1.145.0 (2025-06-02)
 ------------------
 

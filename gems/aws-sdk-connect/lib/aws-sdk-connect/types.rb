@@ -2046,6 +2046,61 @@ module Aws::Connect
       include Aws::Structure
     end
 
+    # Information about the overall participant interactions at the contact
+    # level.
+    #
+    # @!attribute [rw] multi_party
+    #   A boolean flag indicating whether multiparty chat or supervisor
+    #   barge were enabled on this contact.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] total_messages
+    #   The number of chat messages on the contact.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_bot_messages
+    #   The total number of bot and automated messages on a chat contact.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_bot_message_length_in_chars
+    #   The total number of characters from bot and automated messages on a
+    #   chat contact.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] conversation_close_time_in_millis
+    #   The time it took for a contact to end after the last customer
+    #   message.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] conversation_turn_count
+    #   The number of conversation turns in a chat contact, which represents
+    #   the back-and-forth exchanges between customer and other
+    #   participants.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] agent_first_response_timestamp
+    #   The agent first response timestamp for a chat contact.
+    #   @return [Time]
+    #
+    # @!attribute [rw] agent_first_response_time_in_millis
+    #   The time for an agent to respond after obtaining a chat contact.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/ChatContactMetrics AWS API Documentation
+    #
+    class ChatContactMetrics < Struct.new(
+      :multi_party,
+      :total_messages,
+      :total_bot_messages,
+      :total_bot_message_length_in_chars,
+      :conversation_close_time_in_millis,
+      :conversation_turn_count,
+      :agent_first_response_timestamp,
+      :agent_first_response_time_in_millis)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Chat integration event containing payload to perform different chat
     # actions such as:
     #
@@ -2132,6 +2187,32 @@ module Aws::Connect
     class ChatMessage < Struct.new(
       :content_type,
       :content)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about how agent, bot, and customer interact in a chat
+    # contact.
+    #
+    # @!attribute [rw] chat_contact_metrics
+    #   Information about the overall participant interactions at the
+    #   contact level.
+    #   @return [Types::ChatContactMetrics]
+    #
+    # @!attribute [rw] agent_metrics
+    #   Information about agent interactions in a contact.
+    #   @return [Types::ParticipantMetrics]
+    #
+    # @!attribute [rw] customer_metrics
+    #   Information about customer interactions in a contact.
+    #   @return [Types::ParticipantMetrics]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/ChatMetrics AWS API Documentation
+    #
+    class ChatMetrics < Struct.new(
+      :chat_contact_metrics,
+      :agent_metrics,
+      :customer_metrics)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2667,6 +2748,11 @@ module Aws::Connect
     #   connection.
     #   @return [Types::QualityMetrics]
     #
+    # @!attribute [rw] chat_metrics
+    #   Information about how agent, bot, and customer interact in a chat
+    #   contact.
+    #   @return [Types::ChatMetrics]
+    #
     # @!attribute [rw] disconnect_details
     #   Information about the call disconnect experience.
     #   @return [Types::DisconnectDetails]
@@ -2744,6 +2830,7 @@ module Aws::Connect
       :answering_machine_detection_status,
       :customer_voice_activity,
       :quality_metrics,
+      :chat_metrics,
       :disconnect_details,
       :additional_email_recipients,
       :segment_attributes,
@@ -3923,29 +4010,31 @@ module Aws::Connect
     # @!attribute [rw] references
     #   A formatted URL that is shown to an agent in the Contact Control
     #   Panel (CCP). Tasks can have the following reference types at the
-    #   time of creation: URL \| NUMBER \| STRING \| DATE \| EMAIL \|
-    #   ATTACHMENT.
+    #   time of creation: `URL` \| `NUMBER` \| `STRING` \| `DATE` \| `EMAIL`
+    #   \| `ATTACHMENT`.
     #   @return [Hash<String,Types::Reference>]
     #
     # @!attribute [rw] channel
-    #   The channel for the contact
+    #   The channel for the contact.
     #
-    #   CreateContact only supports the EMAIL and VOICE channels. The
-    #   following information that states other channels are supported is
-    #   incorrect. We are working to update this topic.
+    #   The CHAT channel is not supported. The following information is
+    #   incorrect. We're working to correct it.
     #   @return [String]
     #
     # @!attribute [rw] initiation_method
     #   Indicates how the contact was initiated.
     #
-    #   CreateContact only supports the following initiation methods:
+    #   CreateContact only supports the following initiation methods. Valid
+    #   values by channel are:
     #
-    #    * For EMAIL: OUTBOUND, AGENT\_REPLY, and FLOW.
+    #    * For VOICE: `TRANSFER` and the subtype `connect:ExternalAudio`
     #
-    #   * For VOICE: TRANSFER and the subtype connect:ExternalAudio.
+    #   * For EMAIL: `OUTBOUND` \| `AGENT_REPLY` \| `FLOW`
     #
-    #    The following information that states other initiation methods are
-    #   supported is incorrect. We are working to update this topic.
+    #   * For TASK: `API`
+    #
+    #    The other channels listed below are incorrect. We're working to
+    #   correct this information.
     #   @return [String]
     #
     # @!attribute [rw] expiry_duration_in_minutes
@@ -3955,12 +4044,13 @@ module Aws::Connect
     # @!attribute [rw] user_info
     #   User details for the contact
     #
-    #   UserInfo is required when creating an EMAIL contact with OUTBOUND
-    #   and AGENT\_REPLY contact initiation methods.
+    #   UserInfo is required when creating an EMAIL contact with `OUTBOUND`
+    #   and `AGENT_REPLY` contact initiation methods.
     #   @return [Types::UserInfo]
     #
     # @!attribute [rw] initiate_as
-    #   Initial state of the contact when it's created
+    #   Initial state of the contact when it's created. Only TASK channel
+    #   contacts can be initiated with `COMPLETED` state.
     #   @return [String]
     #
     # @!attribute [rw] name
@@ -17397,6 +17487,62 @@ module Aws::Connect
     class ParticipantDetailsToAdd < Struct.new(
       :participant_role,
       :display_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about a participant's interactions in a contact.
+    #
+    # @!attribute [rw] participant_id
+    #   The Participant's ID.
+    #   @return [String]
+    #
+    # @!attribute [rw] participant_type
+    #   Information about the conversation participant. Following are the
+    #   participant types: \[Agent, Customer, Supervisor\].
+    #   @return [String]
+    #
+    # @!attribute [rw] conversation_abandon
+    #   A boolean flag indicating whether the chat conversation was
+    #   abandoned by a Participant.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] messages_sent
+    #   Number of chat messages sent by Participant.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] num_responses
+    #   Number of chat messages sent by Participant.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] message_length_in_chars
+    #   Number of chat characters sent by Participant.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_response_time_in_millis
+    #   Total chat response time by Participant.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] max_response_time_in_millis
+    #   Maximum chat response time by Participant.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] last_message_timestamp
+    #   Timestamp of last chat message by Participant.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/ParticipantMetrics AWS API Documentation
+    #
+    class ParticipantMetrics < Struct.new(
+      :participant_id,
+      :participant_type,
+      :conversation_abandon,
+      :messages_sent,
+      :num_responses,
+      :message_length_in_chars,
+      :total_response_time_in_millis,
+      :max_response_time_in_millis,
+      :last_message_timestamp)
       SENSITIVE = []
       include Aws::Structure
     end

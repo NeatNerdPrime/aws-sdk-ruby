@@ -944,6 +944,44 @@ module Aws::Bedrock
     #                       },
     #                     ],
     #                   },
+    #                   implicit_filter_configuration: {
+    #                     metadata_attributes: [ # required
+    #                       {
+    #                         key: "MetadataAttributeSchemaKeyString", # required
+    #                         type: "STRING", # required, accepts STRING, NUMBER, BOOLEAN, STRING_LIST
+    #                         description: "MetadataAttributeSchemaDescriptionString", # required
+    #                       },
+    #                     ],
+    #                     model_arn: "BedrockModelArn", # required
+    #                   },
+    #                   reranking_configuration: {
+    #                     type: "BEDROCK_RERANKING_MODEL", # required, accepts BEDROCK_RERANKING_MODEL
+    #                     bedrock_reranking_configuration: {
+    #                       model_configuration: { # required
+    #                         model_arn: "BedrockRerankingModelArn", # required
+    #                         additional_model_request_fields: {
+    #                           "AdditionalModelRequestFieldsKey" => {
+    #                           },
+    #                         },
+    #                       },
+    #                       number_of_reranked_results: 1,
+    #                       metadata_configuration: {
+    #                         selection_mode: "SELECTIVE", # required, accepts SELECTIVE, ALL
+    #                         selective_mode_configuration: {
+    #                           fields_to_include: [
+    #                             {
+    #                               field_name: "FieldForRerankingFieldNameString", # required
+    #                             },
+    #                           ],
+    #                           fields_to_exclude: [
+    #                             {
+    #                               field_name: "FieldForRerankingFieldNameString", # required
+    #                             },
+    #                           ],
+    #                         },
+    #                       },
+    #                     },
+    #                   },
     #                 },
     #               },
     #             },
@@ -1022,6 +1060,44 @@ module Aws::Bedrock
     #                           # recursive RetrievalFilter
     #                         },
     #                       ],
+    #                     },
+    #                     implicit_filter_configuration: {
+    #                       metadata_attributes: [ # required
+    #                         {
+    #                           key: "MetadataAttributeSchemaKeyString", # required
+    #                           type: "STRING", # required, accepts STRING, NUMBER, BOOLEAN, STRING_LIST
+    #                           description: "MetadataAttributeSchemaDescriptionString", # required
+    #                         },
+    #                       ],
+    #                       model_arn: "BedrockModelArn", # required
+    #                     },
+    #                     reranking_configuration: {
+    #                       type: "BEDROCK_RERANKING_MODEL", # required, accepts BEDROCK_RERANKING_MODEL
+    #                       bedrock_reranking_configuration: {
+    #                         model_configuration: { # required
+    #                           model_arn: "BedrockRerankingModelArn", # required
+    #                           additional_model_request_fields: {
+    #                             "AdditionalModelRequestFieldsKey" => {
+    #                             },
+    #                           },
+    #                         },
+    #                         number_of_reranked_results: 1,
+    #                         metadata_configuration: {
+    #                           selection_mode: "SELECTIVE", # required, accepts SELECTIVE, ALL
+    #                           selective_mode_configuration: {
+    #                             fields_to_include: [
+    #                               {
+    #                                 field_name: "FieldForRerankingFieldNameString", # required
+    #                               },
+    #                             ],
+    #                             fields_to_exclude: [
+    #                               {
+    #                                 field_name: "FieldForRerankingFieldNameString", # required
+    #                               },
+    #                             ],
+    #                           },
+    #                         },
+    #                       },
     #                     },
     #                   },
     #                 },
@@ -2705,6 +2781,20 @@ module Aws::Bedrock
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.filter.and_all[0] #=> Types::RetrievalFilter
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.filter.or_all #=> Array
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.filter.or_all[0] #=> Types::RetrievalFilter
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].key #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].type #=> String, one of "STRING", "NUMBER", "BOOLEAN", "STRING_LIST"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].description #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.implicit_filter_configuration.model_arn #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.type #=> String, one of "BEDROCK_RERANKING_MODEL"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.model_configuration.model_arn #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.model_configuration.additional_model_request_fields #=> Hash
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.number_of_reranked_results #=> Integer
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selection_mode #=> String, one of "SELECTIVE", "ALL"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_include #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_include[0].field_name #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_exclude #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_config.knowledge_base_retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_exclude[0].field_name #=> String
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.type #=> String, one of "KNOWLEDGE_BASE", "EXTERNAL_SOURCES"
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.knowledge_base_id #=> String
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.model_arn #=> String
@@ -2725,6 +2815,20 @@ module Aws::Bedrock
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.filter.and_all[0] #=> Types::RetrievalFilter
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.filter.or_all #=> Array
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.filter.or_all[0] #=> Types::RetrievalFilter
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].key #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].type #=> String, one of "STRING", "NUMBER", "BOOLEAN", "STRING_LIST"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.implicit_filter_configuration.metadata_attributes[0].description #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.implicit_filter_configuration.model_arn #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.type #=> String, one of "BEDROCK_RERANKING_MODEL"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.model_configuration.model_arn #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.model_configuration.additional_model_request_fields #=> Hash
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.number_of_reranked_results #=> Integer
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selection_mode #=> String, one of "SELECTIVE", "ALL"
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_include #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_include[0].field_name #=> String
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_exclude #=> Array
+    #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.retrieval_configuration.vector_search_configuration.reranking_configuration.bedrock_reranking_configuration.metadata_configuration.selective_mode_configuration.fields_to_exclude[0].field_name #=> String
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.generation_configuration.prompt_template.text_prompt_template #=> String
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.generation_configuration.guardrail_configuration.guardrail_id #=> String
     #   resp.inference_config.rag_configs[0].knowledge_base_config.retrieve_and_generate_config.knowledge_base_configuration.generation_configuration.guardrail_configuration.guardrail_version #=> String
@@ -5355,7 +5459,7 @@ module Aws::Bedrock
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrock'
-      context[:gem_version] = '1.52.0'
+      context[:gem_version] = '1.53.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

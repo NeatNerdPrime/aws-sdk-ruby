@@ -103,6 +103,7 @@ module Aws::DynamoDB
     CreateGlobalSecondaryIndexAction = Shapes::StructureShape.new(name: 'CreateGlobalSecondaryIndexAction')
     CreateGlobalTableInput = Shapes::StructureShape.new(name: 'CreateGlobalTableInput')
     CreateGlobalTableOutput = Shapes::StructureShape.new(name: 'CreateGlobalTableOutput')
+    CreateGlobalTableWitnessGroupMemberAction = Shapes::StructureShape.new(name: 'CreateGlobalTableWitnessGroupMemberAction')
     CreateReplicaAction = Shapes::StructureShape.new(name: 'CreateReplicaAction')
     CreateReplicationGroupMemberAction = Shapes::StructureShape.new(name: 'CreateReplicationGroupMemberAction')
     CreateTableInput = Shapes::StructureShape.new(name: 'CreateTableInput')
@@ -116,6 +117,7 @@ module Aws::DynamoDB
     DeleteBackupInput = Shapes::StructureShape.new(name: 'DeleteBackupInput')
     DeleteBackupOutput = Shapes::StructureShape.new(name: 'DeleteBackupOutput')
     DeleteGlobalSecondaryIndexAction = Shapes::StructureShape.new(name: 'DeleteGlobalSecondaryIndexAction')
+    DeleteGlobalTableWitnessGroupMemberAction = Shapes::StructureShape.new(name: 'DeleteGlobalTableWitnessGroupMemberAction')
     DeleteItemInput = Shapes::StructureShape.new(name: 'DeleteItemInput')
     DeleteItemOutput = Shapes::StructureShape.new(name: 'DeleteItemOutput')
     DeleteReplicaAction = Shapes::StructureShape.new(name: 'DeleteReplicaAction')
@@ -220,6 +222,10 @@ module Aws::DynamoDB
     GlobalTableList = Shapes::ListShape.new(name: 'GlobalTableList')
     GlobalTableNotFoundException = Shapes::StructureShape.new(name: 'GlobalTableNotFoundException')
     GlobalTableStatus = Shapes::StringShape.new(name: 'GlobalTableStatus')
+    GlobalTableWitnessDescription = Shapes::StructureShape.new(name: 'GlobalTableWitnessDescription')
+    GlobalTableWitnessDescriptionList = Shapes::ListShape.new(name: 'GlobalTableWitnessDescriptionList')
+    GlobalTableWitnessGroupUpdate = Shapes::StructureShape.new(name: 'GlobalTableWitnessGroupUpdate')
+    GlobalTableWitnessGroupUpdateList = Shapes::ListShape.new(name: 'GlobalTableWitnessGroupUpdateList')
     IdempotentParameterMismatchException = Shapes::StructureShape.new(name: 'IdempotentParameterMismatchException')
     ImportArn = Shapes::StringShape.new(name: 'ImportArn')
     ImportConflictException = Shapes::StructureShape.new(name: 'ImportConflictException')
@@ -486,6 +492,7 @@ module Aws::DynamoDB
     UpdateTimeToLiveInput = Shapes::StructureShape.new(name: 'UpdateTimeToLiveInput')
     UpdateTimeToLiveOutput = Shapes::StructureShape.new(name: 'UpdateTimeToLiveOutput')
     WarmThroughput = Shapes::StructureShape.new(name: 'WarmThroughput')
+    WitnessStatus = Shapes::StringShape.new(name: 'WitnessStatus')
     WriteRequest = Shapes::StructureShape.new(name: 'WriteRequest')
     WriteRequests = Shapes::ListShape.new(name: 'WriteRequests')
 
@@ -731,6 +738,9 @@ module Aws::DynamoDB
     CreateGlobalTableOutput.add_member(:global_table_description, Shapes::ShapeRef.new(shape: GlobalTableDescription, location_name: "GlobalTableDescription"))
     CreateGlobalTableOutput.struct_class = Types::CreateGlobalTableOutput
 
+    CreateGlobalTableWitnessGroupMemberAction.add_member(:region_name, Shapes::ShapeRef.new(shape: RegionName, required: true, location_name: "RegionName"))
+    CreateGlobalTableWitnessGroupMemberAction.struct_class = Types::CreateGlobalTableWitnessGroupMemberAction
+
     CreateReplicaAction.add_member(:region_name, Shapes::ShapeRef.new(shape: RegionName, required: true, location_name: "RegionName"))
     CreateReplicaAction.struct_class = Types::CreateReplicaAction
 
@@ -784,6 +794,9 @@ module Aws::DynamoDB
 
     DeleteGlobalSecondaryIndexAction.add_member(:index_name, Shapes::ShapeRef.new(shape: IndexName, required: true, location_name: "IndexName"))
     DeleteGlobalSecondaryIndexAction.struct_class = Types::DeleteGlobalSecondaryIndexAction
+
+    DeleteGlobalTableWitnessGroupMemberAction.add_member(:region_name, Shapes::ShapeRef.new(shape: RegionName, required: true, location_name: "RegionName"))
+    DeleteGlobalTableWitnessGroupMemberAction.struct_class = Types::DeleteGlobalTableWitnessGroupMemberAction
 
     DeleteItemInput.add_member(:table_name, Shapes::ShapeRef.new(shape: TableArn, required: true, location_name: "TableName", metadata: {"contextParam" => {"name" => "ResourceArn"}}))
     DeleteItemInput.add_member(:key, Shapes::ShapeRef.new(shape: Key, required: true, location_name: "Key"))
@@ -1125,6 +1138,18 @@ module Aws::DynamoDB
 
     GlobalTableNotFoundException.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, location_name: "message"))
     GlobalTableNotFoundException.struct_class = Types::GlobalTableNotFoundException
+
+    GlobalTableWitnessDescription.add_member(:region_name, Shapes::ShapeRef.new(shape: RegionName, location_name: "RegionName"))
+    GlobalTableWitnessDescription.add_member(:witness_status, Shapes::ShapeRef.new(shape: WitnessStatus, location_name: "WitnessStatus"))
+    GlobalTableWitnessDescription.struct_class = Types::GlobalTableWitnessDescription
+
+    GlobalTableWitnessDescriptionList.member = Shapes::ShapeRef.new(shape: GlobalTableWitnessDescription)
+
+    GlobalTableWitnessGroupUpdate.add_member(:create, Shapes::ShapeRef.new(shape: CreateGlobalTableWitnessGroupMemberAction, location_name: "Create"))
+    GlobalTableWitnessGroupUpdate.add_member(:delete, Shapes::ShapeRef.new(shape: DeleteGlobalTableWitnessGroupMemberAction, location_name: "Delete"))
+    GlobalTableWitnessGroupUpdate.struct_class = Types::GlobalTableWitnessGroupUpdate
+
+    GlobalTableWitnessGroupUpdateList.member = Shapes::ShapeRef.new(shape: GlobalTableWitnessGroupUpdate)
 
     IdempotentParameterMismatchException.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, location_name: "Message"))
     IdempotentParameterMismatchException.struct_class = Types::IdempotentParameterMismatchException
@@ -1766,6 +1791,7 @@ module Aws::DynamoDB
     TableDescription.add_member(:latest_stream_arn, Shapes::ShapeRef.new(shape: StreamArn, location_name: "LatestStreamArn"))
     TableDescription.add_member(:global_table_version, Shapes::ShapeRef.new(shape: String, location_name: "GlobalTableVersion"))
     TableDescription.add_member(:replicas, Shapes::ShapeRef.new(shape: ReplicaDescriptionList, location_name: "Replicas"))
+    TableDescription.add_member(:global_table_witnesses, Shapes::ShapeRef.new(shape: GlobalTableWitnessDescriptionList, location_name: "GlobalTableWitnesses"))
     TableDescription.add_member(:restore_summary, Shapes::ShapeRef.new(shape: RestoreSummary, location_name: "RestoreSummary"))
     TableDescription.add_member(:sse_description, Shapes::ShapeRef.new(shape: SSEDescription, location_name: "SSEDescription"))
     TableDescription.add_member(:archival_summary, Shapes::ShapeRef.new(shape: ArchivalSummary, location_name: "ArchivalSummary"))
@@ -1958,6 +1984,7 @@ module Aws::DynamoDB
     UpdateTableInput.add_member(:table_class, Shapes::ShapeRef.new(shape: TableClass, location_name: "TableClass"))
     UpdateTableInput.add_member(:deletion_protection_enabled, Shapes::ShapeRef.new(shape: DeletionProtectionEnabled, location_name: "DeletionProtectionEnabled"))
     UpdateTableInput.add_member(:multi_region_consistency, Shapes::ShapeRef.new(shape: MultiRegionConsistency, location_name: "MultiRegionConsistency"))
+    UpdateTableInput.add_member(:global_table_witness_updates, Shapes::ShapeRef.new(shape: GlobalTableWitnessGroupUpdateList, location_name: "GlobalTableWitnessUpdates"))
     UpdateTableInput.add_member(:on_demand_throughput, Shapes::ShapeRef.new(shape: OnDemandThroughput, location_name: "OnDemandThroughput"))
     UpdateTableInput.add_member(:warm_throughput, Shapes::ShapeRef.new(shape: WarmThroughput, location_name: "WarmThroughput"))
     UpdateTableInput.struct_class = Types::UpdateTableInput
@@ -2055,6 +2082,7 @@ module Aws::DynamoDB
         o.errors << Shapes::ShapeRef.new(shape: ItemCollectionSizeLimitExceededException)
         o.errors << Shapes::ShapeRef.new(shape: RequestLimitExceeded)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerError)
+        o.errors << Shapes::ShapeRef.new(shape: ReplicatedWriteConflictException)
       end)
 
       api.add_operation(:create_backup, Seahorse::Model::Operation.new.tap do |o|

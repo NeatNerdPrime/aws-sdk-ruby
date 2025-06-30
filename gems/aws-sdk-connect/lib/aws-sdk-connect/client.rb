@@ -1769,12 +1769,26 @@ module Aws::Connect
       req.send_request(options)
     end
 
-    # Only the EMAIL and VOICE channels are supported. The supported
-    # initiation methods for EMAIL are: OUTBOUND, AGENT\_REPLY, and FLOW.
-    # For VOICE the supported initiation methods are TRANSFER and the
-    # subtype connect:ExternalAudio.
+    # Only the VOICE, EMAIL, and TASK channels are supported.
     #
-    # Creates a new EMAIL or VOICE contact.
+    #  * For VOICE: The supported initiation method is `TRANSFER`. The
+    #   contacts created with this initiation method have a subtype
+    #   `connect:ExternalAudio`.
+    #
+    # * For EMAIL: The supported initiation methods are `OUTBOUND`,
+    #   `AGENT_REPLY`, and `FLOW`.
+    #
+    # * For TASK: The supported initiation method is `API`. Contacts created
+    #   with this API have a sub-type of `connect:ExternalTask`.
+    #
+    # Creates a new VOICE, EMAIL, or TASK contact.
+    #
+    # After a contact is created, you can move it to the desired state by
+    # using the `InitiateAs` parameter. While you can use API to create task
+    # contacts that are in the `COMPLETED` state, you must contact Amazon
+    # Web Services Support before using it for bulk import use cases. Bulk
+    # import causes your requests to be throttled or fail if your
+    # CreateContact limits aren't high enough.
     #
     # @option params [required, String] :instance_id
     #   The identifier of the Amazon Connect instance. You can [find the
@@ -1812,26 +1826,29 @@ module Aws::Connect
     # @option params [Hash<String,Types::Reference>] :references
     #   A formatted URL that is shown to an agent in the Contact Control Panel
     #   (CCP). Tasks can have the following reference types at the time of
-    #   creation: URL \| NUMBER \| STRING \| DATE \| EMAIL \| ATTACHMENT.
+    #   creation: `URL` \| `NUMBER` \| `STRING` \| `DATE` \| `EMAIL` \|
+    #   `ATTACHMENT`.
     #
     # @option params [required, String] :channel
-    #   The channel for the contact
+    #   The channel for the contact.
     #
-    #   CreateContact only supports the EMAIL and VOICE channels. The
-    #   following information that states other channels are supported is
-    #   incorrect. We are working to update this topic.
+    #   The CHAT channel is not supported. The following information is
+    #   incorrect. We're working to correct it.
     #
     # @option params [required, String] :initiation_method
     #   Indicates how the contact was initiated.
     #
-    #   CreateContact only supports the following initiation methods:
+    #   CreateContact only supports the following initiation methods. Valid
+    #   values by channel are:
     #
-    #    * For EMAIL: OUTBOUND, AGENT\_REPLY, and FLOW.
+    #    * For VOICE: `TRANSFER` and the subtype `connect:ExternalAudio`
     #
-    #   * For VOICE: TRANSFER and the subtype connect:ExternalAudio.
+    #   * For EMAIL: `OUTBOUND` \| `AGENT_REPLY` \| `FLOW`
     #
-    #    The following information that states other initiation methods are
-    #   supported is incorrect. We are working to update this topic.
+    #   * For TASK: `API`
+    #
+    #    The other channels listed below are incorrect. We're working to
+    #   correct this information.
     #
     # @option params [Integer] :expiry_duration_in_minutes
     #   Number of minutes the contact will be active for before expiring
@@ -1839,11 +1856,12 @@ module Aws::Connect
     # @option params [Types::UserInfo] :user_info
     #   User details for the contact
     #
-    #   UserInfo is required when creating an EMAIL contact with OUTBOUND and
-    #   AGENT\_REPLY contact initiation methods.
+    #   UserInfo is required when creating an EMAIL contact with `OUTBOUND`
+    #   and `AGENT_REPLY` contact initiation methods.
     #
     # @option params [String] :initiate_as
-    #   Initial state of the contact when it's created
+    #   Initial state of the contact when it's created. Only TASK channel
+    #   contacts can be initiated with `COMPLETED` state.
     #
     # @option params [String] :name
     #   The name of a the contact.
@@ -5488,6 +5506,32 @@ module Aws::Connect
     #   resp.contact.quality_metrics.customer.audio.quality_score #=> Float
     #   resp.contact.quality_metrics.customer.audio.potential_quality_issues #=> Array
     #   resp.contact.quality_metrics.customer.audio.potential_quality_issues[0] #=> String
+    #   resp.contact.chat_metrics.chat_contact_metrics.multi_party #=> Boolean
+    #   resp.contact.chat_metrics.chat_contact_metrics.total_messages #=> Integer
+    #   resp.contact.chat_metrics.chat_contact_metrics.total_bot_messages #=> Integer
+    #   resp.contact.chat_metrics.chat_contact_metrics.total_bot_message_length_in_chars #=> Integer
+    #   resp.contact.chat_metrics.chat_contact_metrics.conversation_close_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.chat_contact_metrics.conversation_turn_count #=> Integer
+    #   resp.contact.chat_metrics.chat_contact_metrics.agent_first_response_timestamp #=> Time
+    #   resp.contact.chat_metrics.chat_contact_metrics.agent_first_response_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.participant_id #=> String
+    #   resp.contact.chat_metrics.agent_metrics.participant_type #=> String, one of "ALL", "MANAGER", "AGENT", "CUSTOMER", "THIRDPARTY"
+    #   resp.contact.chat_metrics.agent_metrics.conversation_abandon #=> Boolean
+    #   resp.contact.chat_metrics.agent_metrics.messages_sent #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.num_responses #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.message_length_in_chars #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.total_response_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.max_response_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.agent_metrics.last_message_timestamp #=> Time
+    #   resp.contact.chat_metrics.customer_metrics.participant_id #=> String
+    #   resp.contact.chat_metrics.customer_metrics.participant_type #=> String, one of "ALL", "MANAGER", "AGENT", "CUSTOMER", "THIRDPARTY"
+    #   resp.contact.chat_metrics.customer_metrics.conversation_abandon #=> Boolean
+    #   resp.contact.chat_metrics.customer_metrics.messages_sent #=> Integer
+    #   resp.contact.chat_metrics.customer_metrics.num_responses #=> Integer
+    #   resp.contact.chat_metrics.customer_metrics.message_length_in_chars #=> Integer
+    #   resp.contact.chat_metrics.customer_metrics.total_response_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.customer_metrics.max_response_time_in_millis #=> Integer
+    #   resp.contact.chat_metrics.customer_metrics.last_message_timestamp #=> Time
     #   resp.contact.disconnect_details.potential_disconnect_issue #=> String
     #   resp.contact.additional_email_recipients.to_list #=> Array
     #   resp.contact.additional_email_recipients.to_list[0].address #=> String
@@ -21208,7 +21252,7 @@ module Aws::Connect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connect'
-      context[:gem_version] = '1.205.0'
+      context[:gem_version] = '1.206.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

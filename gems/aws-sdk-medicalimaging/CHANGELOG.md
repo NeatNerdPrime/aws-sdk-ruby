@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.29.0 (2025-06-30)
+------------------
+
+* Feature - Added new fields to support the concept of primary image sets within the storage hierarchy.
+
 1.28.0 (2025-06-02)
 ------------------
 

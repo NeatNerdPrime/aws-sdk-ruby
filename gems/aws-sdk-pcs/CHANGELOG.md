@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.22.0 (2025-06-30)
+------------------
+
+* Feature - Fixed the validation pattern for an instance profile Amazon Resource Name (ARN) in AWS PCS.
+
 1.21.0 (2025-06-12)
 ------------------
 

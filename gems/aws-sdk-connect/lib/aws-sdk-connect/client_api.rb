@@ -157,12 +157,14 @@ module Aws::Connect
     ChannelList = Shapes::ListShape.new(name: 'ChannelList')
     ChannelToCountMap = Shapes::MapShape.new(name: 'ChannelToCountMap')
     Channels = Shapes::ListShape.new(name: 'Channels')
+    ChatContactMetrics = Shapes::StructureShape.new(name: 'ChatContactMetrics')
     ChatContent = Shapes::StringShape.new(name: 'ChatContent')
     ChatContentType = Shapes::StringShape.new(name: 'ChatContentType')
     ChatDurationInMinutes = Shapes::IntegerShape.new(name: 'ChatDurationInMinutes')
     ChatEvent = Shapes::StructureShape.new(name: 'ChatEvent')
     ChatEventType = Shapes::StringShape.new(name: 'ChatEventType')
     ChatMessage = Shapes::StructureShape.new(name: 'ChatMessage')
+    ChatMetrics = Shapes::StructureShape.new(name: 'ChatMetrics')
     ChatParticipantRoleConfig = Shapes::StructureShape.new(name: 'ChatParticipantRoleConfig')
     ChatStreamingConfiguration = Shapes::StructureShape.new(name: 'ChatStreamingConfiguration')
     ChatStreamingEndpointARN = Shapes::StringShape.new(name: 'ChatStreamingEndpointARN')
@@ -249,6 +251,7 @@ module Aws::Connect
     ControlPlaneAttributeFilter = Shapes::StructureShape.new(name: 'ControlPlaneAttributeFilter')
     ControlPlaneTagFilter = Shapes::StructureShape.new(name: 'ControlPlaneTagFilter')
     ControlPlaneUserAttributeFilter = Shapes::StructureShape.new(name: 'ControlPlaneUserAttributeFilter')
+    Count = Shapes::IntegerShape.new(name: 'Count')
     CreateAgentStatusRequest = Shapes::StructureShape.new(name: 'CreateAgentStatusRequest')
     CreateAgentStatusResponse = Shapes::StructureShape.new(name: 'CreateAgentStatusResponse')
     CreateCaseActionDefinition = Shapes::StructureShape.new(name: 'CreateCaseActionDefinition')
@@ -472,6 +475,7 @@ module Aws::Connect
     DuplicateResourceException = Shapes::StructureShape.new(name: 'DuplicateResourceException')
     Duration = Shapes::IntegerShape.new(name: 'Duration')
     DurationInSeconds = Shapes::IntegerShape.new(name: 'DurationInSeconds')
+    DurationMillis = Shapes::IntegerShape.new(name: 'DurationMillis')
     EffectiveHoursOfOperationList = Shapes::ListShape.new(name: 'EffectiveHoursOfOperationList')
     EffectiveHoursOfOperations = Shapes::StructureShape.new(name: 'EffectiveHoursOfOperations')
     Email = Shapes::StringShape.new(name: 'Email')
@@ -894,6 +898,7 @@ module Aws::Connect
     NotificationContentType = Shapes::StringShape.new(name: 'NotificationContentType')
     NotificationDeliveryType = Shapes::StringShape.new(name: 'NotificationDeliveryType')
     NotificationRecipientType = Shapes::StructureShape.new(name: 'NotificationRecipientType')
+    NullableBoolean = Shapes::BooleanShape.new(name: 'NullableBoolean')
     NullableProficiencyLevel = Shapes::FloatShape.new(name: 'NullableProficiencyLevel')
     NullableProficiencyLimitValue = Shapes::IntegerShape.new(name: 'NullableProficiencyLimitValue')
     NumberComparisonType = Shapes::StringShape.new(name: 'NumberComparisonType')
@@ -925,6 +930,7 @@ module Aws::Connect
     ParticipantDetails = Shapes::StructureShape.new(name: 'ParticipantDetails')
     ParticipantDetailsToAdd = Shapes::StructureShape.new(name: 'ParticipantDetailsToAdd')
     ParticipantId = Shapes::StringShape.new(name: 'ParticipantId')
+    ParticipantMetrics = Shapes::StructureShape.new(name: 'ParticipantMetrics')
     ParticipantRole = Shapes::StringShape.new(name: 'ParticipantRole')
     ParticipantState = Shapes::StringShape.new(name: 'ParticipantState')
     ParticipantTimerAction = Shapes::StringShape.new(name: 'ParticipantTimerAction')
@@ -1967,6 +1973,16 @@ module Aws::Connect
 
     Channels.member = Shapes::ShapeRef.new(shape: Channel)
 
+    ChatContactMetrics.add_member(:multi_party, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "MultiParty"))
+    ChatContactMetrics.add_member(:total_messages, Shapes::ShapeRef.new(shape: Count, location_name: "TotalMessages"))
+    ChatContactMetrics.add_member(:total_bot_messages, Shapes::ShapeRef.new(shape: Count, location_name: "TotalBotMessages"))
+    ChatContactMetrics.add_member(:total_bot_message_length_in_chars, Shapes::ShapeRef.new(shape: Count, location_name: "TotalBotMessageLengthInChars"))
+    ChatContactMetrics.add_member(:conversation_close_time_in_millis, Shapes::ShapeRef.new(shape: DurationMillis, location_name: "ConversationCloseTimeInMillis"))
+    ChatContactMetrics.add_member(:conversation_turn_count, Shapes::ShapeRef.new(shape: Count, location_name: "ConversationTurnCount"))
+    ChatContactMetrics.add_member(:agent_first_response_timestamp, Shapes::ShapeRef.new(shape: timestamp, location_name: "AgentFirstResponseTimestamp"))
+    ChatContactMetrics.add_member(:agent_first_response_time_in_millis, Shapes::ShapeRef.new(shape: DurationMillis, location_name: "AgentFirstResponseTimeInMillis"))
+    ChatContactMetrics.struct_class = Types::ChatContactMetrics
+
     ChatEvent.add_member(:type, Shapes::ShapeRef.new(shape: ChatEventType, required: true, location_name: "Type"))
     ChatEvent.add_member(:content_type, Shapes::ShapeRef.new(shape: ChatContentType, location_name: "ContentType"))
     ChatEvent.add_member(:content, Shapes::ShapeRef.new(shape: ChatContent, location_name: "Content"))
@@ -1975,6 +1991,11 @@ module Aws::Connect
     ChatMessage.add_member(:content_type, Shapes::ShapeRef.new(shape: ChatContentType, required: true, location_name: "ContentType"))
     ChatMessage.add_member(:content, Shapes::ShapeRef.new(shape: ChatContent, required: true, location_name: "Content"))
     ChatMessage.struct_class = Types::ChatMessage
+
+    ChatMetrics.add_member(:chat_contact_metrics, Shapes::ShapeRef.new(shape: ChatContactMetrics, location_name: "ChatContactMetrics"))
+    ChatMetrics.add_member(:agent_metrics, Shapes::ShapeRef.new(shape: ParticipantMetrics, location_name: "AgentMetrics"))
+    ChatMetrics.add_member(:customer_metrics, Shapes::ShapeRef.new(shape: ParticipantMetrics, location_name: "CustomerMetrics"))
+    ChatMetrics.struct_class = Types::ChatMetrics
 
     ChatParticipantRoleConfig.add_member(:participant_timer_config_list, Shapes::ShapeRef.new(shape: ParticipantTimerConfigList, required: true, location_name: "ParticipantTimerConfigList"))
     ChatParticipantRoleConfig.struct_class = Types::ChatParticipantRoleConfig
@@ -2069,6 +2090,7 @@ module Aws::Connect
     Contact.add_member(:answering_machine_detection_status, Shapes::ShapeRef.new(shape: AnsweringMachineDetectionStatus, location_name: "AnsweringMachineDetectionStatus"))
     Contact.add_member(:customer_voice_activity, Shapes::ShapeRef.new(shape: CustomerVoiceActivity, location_name: "CustomerVoiceActivity"))
     Contact.add_member(:quality_metrics, Shapes::ShapeRef.new(shape: QualityMetrics, location_name: "QualityMetrics"))
+    Contact.add_member(:chat_metrics, Shapes::ShapeRef.new(shape: ChatMetrics, location_name: "ChatMetrics"))
     Contact.add_member(:disconnect_details, Shapes::ShapeRef.new(shape: DisconnectDetails, location_name: "DisconnectDetails"))
     Contact.add_member(:additional_email_recipients, Shapes::ShapeRef.new(shape: AdditionalEmailRecipients, location_name: "AdditionalEmailRecipients"))
     Contact.add_member(:segment_attributes, Shapes::ShapeRef.new(shape: SegmentAttributes, location_name: "SegmentAttributes"))
@@ -4610,6 +4632,17 @@ module Aws::Connect
     ParticipantDetailsToAdd.add_member(:participant_role, Shapes::ShapeRef.new(shape: ParticipantRole, location_name: "ParticipantRole"))
     ParticipantDetailsToAdd.add_member(:display_name, Shapes::ShapeRef.new(shape: DisplayName, location_name: "DisplayName"))
     ParticipantDetailsToAdd.struct_class = Types::ParticipantDetailsToAdd
+
+    ParticipantMetrics.add_member(:participant_id, Shapes::ShapeRef.new(shape: ParticipantId, location_name: "ParticipantId"))
+    ParticipantMetrics.add_member(:participant_type, Shapes::ShapeRef.new(shape: ParticipantType, location_name: "ParticipantType"))
+    ParticipantMetrics.add_member(:conversation_abandon, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "ConversationAbandon"))
+    ParticipantMetrics.add_member(:messages_sent, Shapes::ShapeRef.new(shape: Count, location_name: "MessagesSent"))
+    ParticipantMetrics.add_member(:num_responses, Shapes::ShapeRef.new(shape: Count, location_name: "NumResponses"))
+    ParticipantMetrics.add_member(:message_length_in_chars, Shapes::ShapeRef.new(shape: Count, location_name: "MessageLengthInChars"))
+    ParticipantMetrics.add_member(:total_response_time_in_millis, Shapes::ShapeRef.new(shape: DurationMillis, location_name: "TotalResponseTimeInMillis"))
+    ParticipantMetrics.add_member(:max_response_time_in_millis, Shapes::ShapeRef.new(shape: DurationMillis, location_name: "MaxResponseTimeInMillis"))
+    ParticipantMetrics.add_member(:last_message_timestamp, Shapes::ShapeRef.new(shape: timestamp, location_name: "LastMessageTimestamp"))
+    ParticipantMetrics.struct_class = Types::ParticipantMetrics
 
     ParticipantTimerConfigList.member = Shapes::ShapeRef.new(shape: ParticipantTimerConfiguration)
 

@@ -3973,11 +3973,12 @@ module Aws::SSM
       attr_accessor details: ::String
       attr_accessor output_url: Types::SessionManagerOutputUrl
       attr_accessor max_session_duration: ::String
+      attr_accessor access_type: ("Standard" | "JustInTime")
       SENSITIVE: []
     end
 
     class SessionFilter
-      attr_accessor key: ("InvokedAfter" | "InvokedBefore" | "Target" | "Owner" | "Status" | "SessionId")
+      attr_accessor key: ("InvokedAfter" | "InvokedBefore" | "Target" | "Owner" | "Status" | "SessionId" | "AccessType")
       attr_accessor value: ::String
       SENSITIVE: []
     end

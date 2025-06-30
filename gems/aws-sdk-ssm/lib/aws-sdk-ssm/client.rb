@@ -3744,6 +3744,12 @@ module Aws::SSM
     # @option params [required, String] :name
     #   The name of the SSM document.
     #
+    #   <note markdown="1"> If you're calling a shared SSM document from a different Amazon Web
+    #   Services account, `Name` is the full Amazon Resource Name (ARN) of the
+    #   document.
+    #
+    #    </note>
+    #
     # @option params [String] :document_version
     #   The document version for which you want information. Can be a specific
     #   version or the default version.
@@ -5673,7 +5679,7 @@ module Aws::SSM
     #     next_token: "NextToken",
     #     filters: [
     #       {
-    #         key: "InvokedAfter", # required, accepts InvokedAfter, InvokedBefore, Target, Owner, Status, SessionId
+    #         key: "InvokedAfter", # required, accepts InvokedAfter, InvokedBefore, Target, Owner, Status, SessionId, AccessType
     #         value: "SessionFilterValue", # required
     #       },
     #     ],
@@ -5694,6 +5700,7 @@ module Aws::SSM
     #   resp.sessions[0].output_url.s3_output_url #=> String
     #   resp.sessions[0].output_url.cloud_watch_output_url #=> String
     #   resp.sessions[0].max_session_duration #=> String
+    #   resp.sessions[0].access_type #=> String, one of "Standard", "JustInTime"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/DescribeSessions AWS API Documentation
@@ -13450,7 +13457,7 @@ module Aws::SSM
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ssm'
-      context[:gem_version] = '1.196.0'
+      context[:gem_version] = '1.197.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.32.0 (2025-06-30)
+------------------
+
+* Feature - Updated APIs to support inbound EDI split capabilities and additional Partnership-level configurations of generated EDI files' contents and format.
+
 1.31.0 (2025-06-02)
 ------------------
 

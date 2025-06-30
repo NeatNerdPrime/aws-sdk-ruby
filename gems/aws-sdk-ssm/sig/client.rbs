@@ -1299,7 +1299,7 @@ module Aws
                                ?next_token: ::String,
                                ?filters: Array[
                                  {
-                                   key: ("InvokedAfter" | "InvokedBefore" | "Target" | "Owner" | "Status" | "SessionId"),
+                                   key: ("InvokedAfter" | "InvokedBefore" | "Target" | "Owner" | "Status" | "SessionId" | "AccessType"),
                                    value: ::String
                                  },
                                ]

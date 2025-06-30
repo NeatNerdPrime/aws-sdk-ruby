@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.83.0 (2025-06-30)
+------------------
+
+* Feature - Make ContactName and ContactPhoneNumber required fields when creating and updating Outpost Site Addresses.
+
 1.82.0 (2025-06-02)
 ------------------
 

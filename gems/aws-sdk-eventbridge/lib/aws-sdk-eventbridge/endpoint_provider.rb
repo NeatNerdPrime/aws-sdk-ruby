@@ -10,6 +10,9 @@
 module Aws::EventBridge
   class EndpointProvider
     def resolve_endpoint(parameters)
+      if Aws::Endpoints::Matchers.not(Aws::Endpoints::Matchers.set?(parameters.endpoint)) && Aws::Endpoints::Matchers.set?(parameters.region) && (partition_result = Aws::Endpoints::Matchers.aws_partition(parameters.region)) && Aws::Endpoints::Matchers.string_equals?(Aws::Endpoints::Matchers.attr(partition_result, "name"), "aws-us-gov") && Aws::Endpoints::Matchers.boolean_equals?(parameters.use_fips, true) && Aws::Endpoints::Matchers.boolean_equals?(parameters.use_dual_stack, true)
+        return Aws::Endpoints::Endpoint.new(url: "https://events.#{parameters.region}.#{partition_result['dualStackDnsSuffix']}", headers: {}, properties: {})
+      end
       if Aws::Endpoints::Matchers.set?(parameters.endpoint_id) && Aws::Endpoints::Matchers.set?(parameters.region) && (partition_result = Aws::Endpoints::Matchers.aws_partition(parameters.region))
         if Aws::Endpoints::Matchers.valid_host_label?(parameters.endpoint_id, true)
           if Aws::Endpoints::Matchers.boolean_equals?(parameters.use_fips, false)

@@ -5216,7 +5216,7 @@ module Aws::SSM
 
     # @!attribute [rw] account_ids
     #   The account IDs that have permission to use this document. The ID
-    #   can be either an Amazon Web Services account or *All*.
+    #   can be either an Amazon Web Services account number or `all`.
     #   @return [Array<String>]
     #
     # @!attribute [rw] account_sharing_info_list
@@ -5241,6 +5241,12 @@ module Aws::SSM
 
     # @!attribute [rw] name
     #   The name of the SSM document.
+    #
+    #   <note markdown="1"> If you're calling a shared SSM document from a different Amazon Web
+    #   Services account, `Name` is the full Amazon Resource Name (ARN) of
+    #   the document.
+    #
+    #    </note>
     #   @return [String]
     #
     # @!attribute [rw] document_version
@@ -10042,7 +10048,7 @@ module Aws::SSM
     #
     #   Valid filter key values: ActivationIds \| AgentVersion \|
     #   AssociationStatus \| IamRole \| InstanceIds \| PingStatus \|
-    #   PlatformTypes \| ResourceType \| SourceIds \| SourceTypes \|
+    #   PlatformType \| ResourceType \| SourceIds \| SourceTypes \|
     #   "tag-key" \| "tag:`{keyname}`
     #
     #   * Valid values for the `AssociationStatus` filter key: Success \|
@@ -18029,6 +18035,15 @@ module Aws::SSM
     #   The maximum duration of a session before it terminates.
     #   @return [String]
     #
+    # @!attribute [rw] access_type
+    #   `Standard` access type is the default for Session Manager sessions.
+    #   `JustInTime` is the access type for [Just-in-time node access][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-just-in-time-node-access.html
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-2014-11-06/Session AWS API Documentation
     #
     class Session < Struct.new(
@@ -18042,7 +18057,8 @@ module Aws::SSM
       :reason,
       :details,
       :output_url,
-      :max_session_duration)
+      :max_session_duration,
+      :access_type)
       SENSITIVE = []
       include Aws::Structure
     end

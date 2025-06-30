@@ -498,6 +498,18 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class ChatContactMetrics
+      attr_accessor multi_party: bool
+      attr_accessor total_messages: ::Integer
+      attr_accessor total_bot_messages: ::Integer
+      attr_accessor total_bot_message_length_in_chars: ::Integer
+      attr_accessor conversation_close_time_in_millis: ::Integer
+      attr_accessor conversation_turn_count: ::Integer
+      attr_accessor agent_first_response_timestamp: ::Time
+      attr_accessor agent_first_response_time_in_millis: ::Integer
+      SENSITIVE: []
+    end
+
     class ChatEvent
       attr_accessor type: ("DISCONNECT" | "MESSAGE" | "EVENT")
       attr_accessor content_type: ::String
@@ -508,6 +520,13 @@ module Aws::Connect
     class ChatMessage
       attr_accessor content_type: ::String
       attr_accessor content: ::String
+      SENSITIVE: []
+    end
+
+    class ChatMetrics
+      attr_accessor chat_contact_metrics: Types::ChatContactMetrics
+      attr_accessor agent_metrics: Types::ParticipantMetrics
+      attr_accessor customer_metrics: Types::ParticipantMetrics
       SENSITIVE: []
     end
 
@@ -624,6 +643,7 @@ module Aws::Connect
       attr_accessor answering_machine_detection_status: ("ANSWERED" | "UNDETECTED" | "ERROR" | "HUMAN_ANSWERED" | "SIT_TONE_DETECTED" | "SIT_TONE_BUSY" | "SIT_TONE_INVALID_NUMBER" | "FAX_MACHINE_DETECTED" | "VOICEMAIL_BEEP" | "VOICEMAIL_NO_BEEP" | "AMD_UNRESOLVED" | "AMD_UNANSWERED" | "AMD_ERROR" | "AMD_NOT_APPLICABLE")
       attr_accessor customer_voice_activity: Types::CustomerVoiceActivity
       attr_accessor quality_metrics: Types::QualityMetrics
+      attr_accessor chat_metrics: Types::ChatMetrics
       attr_accessor disconnect_details: Types::DisconnectDetails
       attr_accessor additional_email_recipients: Types::AdditionalEmailRecipients
       attr_accessor segment_attributes: ::Hash[::String, Types::SegmentAttributeValue]
@@ -3929,6 +3949,19 @@ module Aws::Connect
     class ParticipantDetailsToAdd
       attr_accessor participant_role: ("AGENT" | "CUSTOMER" | "SYSTEM" | "CUSTOM_BOT" | "SUPERVISOR")
       attr_accessor display_name: ::String
+      SENSITIVE: []
+    end
+
+    class ParticipantMetrics
+      attr_accessor participant_id: ::String
+      attr_accessor participant_type: ("ALL" | "MANAGER" | "AGENT" | "CUSTOMER" | "THIRDPARTY")
+      attr_accessor conversation_abandon: bool
+      attr_accessor messages_sent: ::Integer
+      attr_accessor num_responses: ::Integer
+      attr_accessor message_length_in_chars: ::Integer
+      attr_accessor total_response_time_in_millis: ::Integer
+      attr_accessor max_response_time_in_millis: ::Integer
+      attr_accessor last_message_timestamp: ::Time
       SENSITIVE: []
     end
 

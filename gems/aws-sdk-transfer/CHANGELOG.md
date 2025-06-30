@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.120.0 (2025-06-30)
+------------------
+
+* Feature - Added support for dual-stack (IPv4 and IPv6) endpoints for SFTP public endpoints and VPC-internal endpoints (SFTP, FTPS, FTP, and AS2), enabling customers to configure new servers with IPv4 or dual-stack mode, convert existing servers to dual-stack, and use IPv6 with service APIs.
+
 1.119.0 (2025-06-02)
 ------------------
 

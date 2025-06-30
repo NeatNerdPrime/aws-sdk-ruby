@@ -317,8 +317,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -374,8 +374,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -430,8 +430,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -1137,9 +1137,10 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] metric_name
     #   The metric that you want to query top contributors for. That is, you
-    #   can specify this metric to return the top contributor network flows,
-    #   for this type of metric, for a monitor and (optionally) within a
-    #   specific category, such as network flows between Availability Zones.
+    #   can specify a metric with this call and return the top contributor
+    #   network flows, for that type of metric, for a monitor and
+    #   (optionally) within a specific category, such as network flows
+    #   between Availability Zones.
     #   @return [String]
     #
     # @!attribute [rw] destination_category
@@ -1344,8 +1345,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/networkflowmonitor-2023-04-19/StopQueryMonitorTopContributorsInput AWS API Documentation
@@ -1370,8 +1371,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/networkflowmonitor-2023-04-19/StopQueryWorkloadInsightsTopContributorsDataInput AWS API Documentation
@@ -1396,8 +1397,8 @@ module Aws::NetworkFlowMonitor
     #
     # @!attribute [rw] query_id
     #   The identifier for the query. A query ID is an internally-generated
-    #   identifier for a specific query returned from an API call to start a
-    #   query.
+    #   identifier for a specific query returned from an API call to create
+    #   a query.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/networkflowmonitor-2023-04-19/StopQueryWorkloadInsightsTopContributorsInput AWS API Documentation

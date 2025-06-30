@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.224.0 (2025-06-30)
+------------------
+
+* Feature - releasing source processing properties to support source properties for ODB integrations
+
 1.223.0 (2025-06-27)
 ------------------
 

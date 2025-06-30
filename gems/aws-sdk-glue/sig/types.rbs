@@ -4043,6 +4043,7 @@ module Aws::Glue
 
     class IntegrationConfig
       attr_accessor refresh_interval: ::String
+      attr_accessor source_properties: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 

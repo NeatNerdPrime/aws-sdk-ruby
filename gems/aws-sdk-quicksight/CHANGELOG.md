@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.150.0 (2025-06-30)
+------------------
+
+* Feature - Introduced custom permission capabilities for reporting content. Added menu option in exploration to preserve configuration data when textbox menu option is used. Added support for Athena trusted identity propagation.
+
 1.149.0 (2025-06-02)
 ------------------
 
