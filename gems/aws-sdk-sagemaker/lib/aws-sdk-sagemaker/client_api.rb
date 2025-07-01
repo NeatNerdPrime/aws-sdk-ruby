@@ -3588,7 +3588,7 @@ module Aws::SageMaker
     CreateAutoMLJobV2Response.struct_class = Types::CreateAutoMLJobV2Response
 
     CreateClusterRequest.add_member(:cluster_name, Shapes::ShapeRef.new(shape: ClusterName, required: true, location_name: "ClusterName"))
-    CreateClusterRequest.add_member(:instance_groups, Shapes::ShapeRef.new(shape: ClusterInstanceGroupSpecifications, required: true, location_name: "InstanceGroups"))
+    CreateClusterRequest.add_member(:instance_groups, Shapes::ShapeRef.new(shape: ClusterInstanceGroupSpecifications, location_name: "InstanceGroups"))
     CreateClusterRequest.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "VpcConfig"))
     CreateClusterRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
     CreateClusterRequest.add_member(:orchestrator, Shapes::ShapeRef.new(shape: ClusterOrchestrator, location_name: "Orchestrator"))
@@ -10774,7 +10774,7 @@ module Aws::SageMaker
     UpdateArtifactResponse.struct_class = Types::UpdateArtifactResponse
 
     UpdateClusterRequest.add_member(:cluster_name, Shapes::ShapeRef.new(shape: ClusterNameOrArn, required: true, location_name: "ClusterName"))
-    UpdateClusterRequest.add_member(:instance_groups, Shapes::ShapeRef.new(shape: ClusterInstanceGroupSpecifications, required: true, location_name: "InstanceGroups"))
+    UpdateClusterRequest.add_member(:instance_groups, Shapes::ShapeRef.new(shape: ClusterInstanceGroupSpecifications, location_name: "InstanceGroups"))
     UpdateClusterRequest.add_member(:node_recovery, Shapes::ShapeRef.new(shape: ClusterNodeRecovery, location_name: "NodeRecovery"))
     UpdateClusterRequest.add_member(:instance_groups_to_delete, Shapes::ShapeRef.new(shape: ClusterInstanceGroupsToDelete, location_name: "InstanceGroupsToDelete"))
     UpdateClusterRequest.struct_class = Types::UpdateClusterRequest

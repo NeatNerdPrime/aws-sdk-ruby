@@ -5309,6 +5309,7 @@ module Aws::DataZone
     class UpdateProjectInput
       attr_accessor description: ::String
       attr_accessor domain_identifier: ::String
+      attr_accessor domain_unit_id: ::String
       attr_accessor environment_deployment_details: Types::EnvironmentDeploymentDetails
       attr_accessor glossary_terms: ::Array[::String]
       attr_accessor identifier: ::String

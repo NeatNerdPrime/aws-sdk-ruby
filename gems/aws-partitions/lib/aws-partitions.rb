@@ -522,6 +522,7 @@ module Aws
             'OAM' => 'oam',
             'OSIS' => 'osis',
             'ObservabilityAdmin' => 'observabilityadmin',
+            'Odb' => 'odb',
             'Omics' => 'omics',
             'OpenSearchServerless' => 'aoss',
             'OpenSearchService' => 'es',

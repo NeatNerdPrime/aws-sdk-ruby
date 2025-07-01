@@ -714,6 +714,7 @@ RubyGems.org page under "LINKS" section.
 | Tax Settings                                          | Aws::TaxSettings                         | aws-sdk-taxsettings                         | 2018-05-10  |
 | Timestream InfluxDB                                   | Aws::TimestreamInfluxDB                  | aws-sdk-timestreaminfluxdb                  | 2023-01-27  |
 | TrustedAdvisor Public API                             | Aws::TrustedAdvisor                      | aws-sdk-trustedadvisor                      | 2022-09-15  |
+| odb                                                   | Aws::Odb                                 | aws-sdk-odb                                 | 2024-08-20  |
 
 ## License
 

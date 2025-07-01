@@ -36,7 +36,7 @@
         },
         "cases": [
             {
-                "id": "QueryCompatibleAwsJson10CborNoCustomCodeError",
+                "id": "QueryCompatibleAwsJson10NoCustomCodeError",
                 "given": {
                     "name": "QueryCompatibleOperation",
                     "http": {
@@ -61,7 +61,7 @@
                     "headers": {
                         "Content-Type": "application/x-amz-json-1.0"
                     },
-                    "body": "{\n    \"__type\": \"aws.protocoltests.json10#NoCustomCodeError\",\n    \"Message\": \"Hi\"\n}"
+                    "body": "{\n    \"__type\": \"aws.protocoltests.json10#NoCustomCodeError\",\n    \"message\": \"Hi\"\n}"
                 }
             }
         ]
@@ -134,7 +134,7 @@
                         "Content-Type": "application/x-amz-json-1.0",
                         "x-amzn-query-error": "Customized;Sender"
                     },
-                    "body": "{\n    \"__type\": \"aws.protocoltests.json10#CustomCodeError\",\n    \"Message\": \"Hi\"\n}"
+                    "body": "{\n    \"__type\": \"aws.protocoltests.json10#CustomCodeError\",\n    \"message\": \"Hi\"\n}"
                 }
             }
         ]

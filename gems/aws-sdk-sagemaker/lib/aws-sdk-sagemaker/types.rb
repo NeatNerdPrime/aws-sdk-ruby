@@ -28682,7 +28682,12 @@ module Aws::SageMaker
     #   @return [Time]
     #
     # @!attribute [rw] max_results
-    #   Set the maximum number of SageMaker HyperPod clusters to list.
+    #   Specifies the maximum number of clusters to evaluate for the
+    #   operation (not necessarily the number of matching items). After
+    #   SageMaker processes the number of clusters up to `MaxResults`, it
+    #   stops the operation and returns the matching clusters up to that
+    #   point. If all the matching clusters are desired, SageMaker will go
+    #   through all the clusters until `NextToken` is empty.
     #   @return [Integer]
     #
     # @!attribute [rw] name_contains

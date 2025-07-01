@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.234.0 (2025-07-01)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-odb` gem.
+
 3.233.0 (2025-06-26)
 ------------------
 

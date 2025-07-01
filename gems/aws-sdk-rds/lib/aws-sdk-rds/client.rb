@@ -4978,12 +4978,8 @@ module Aws::RDS
     #   set the `AvailabilityZone` parameter if the DB instance is a Multi-AZ
     #   deployment.
     #
-    #   This setting doesn't apply to the following DB instances:
-    #
-    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
-    #     the DB cluster.)
-    #
-    #   * RDS Custom
+    #   This setting doesn't apply to Amazon Aurora because the DB instance
+    #   Availability Zones (AZs) are managed by the DB cluster.
     #
     # @option params [String] :engine_version
     #   The version number of the database engine to use.
@@ -32411,7 +32407,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.282.0'
+      context[:gem_version] = '1.283.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

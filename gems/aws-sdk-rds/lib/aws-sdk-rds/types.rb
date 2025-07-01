@@ -4012,12 +4012,8 @@ module Aws::RDS
     #   can't set the `AvailabilityZone` parameter if the DB instance is a
     #   Multi-AZ deployment.
     #
-    #   This setting doesn't apply to the following DB instances:
-    #
-    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
-    #     the DB cluster.)
-    #
-    #   * RDS Custom
+    #   This setting doesn't apply to Amazon Aurora because the DB instance
+    #   Availability Zones (AZs) are managed by the DB cluster.
     #   @return [Boolean]
     #
     # @!attribute [rw] engine_version

@@ -11995,6 +11995,9 @@ module Aws::DataZone
     # @option params [required, String] :domain_identifier
     #   The ID of the Amazon DataZone domain where a project is being updated.
     #
+    # @option params [String] :domain_unit_id
+    #   The ID of the domain unit.
+    #
     # @option params [Types::EnvironmentDeploymentDetails] :environment_deployment_details
     #   The environment deployment details of the project.
     #
@@ -12038,6 +12041,7 @@ module Aws::DataZone
     #   resp = client.update_project({
     #     description: "Description",
     #     domain_identifier: "DomainId", # required
+    #     domain_unit_id: "DomainUnitId",
     #     environment_deployment_details: {
     #       environment_failure_reasons: {
     #         "String" => [
@@ -12703,7 +12707,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.40.0'
+      context[:gem_version] = '1.41.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

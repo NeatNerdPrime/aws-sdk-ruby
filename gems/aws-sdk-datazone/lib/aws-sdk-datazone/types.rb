@@ -19508,6 +19508,10 @@ module Aws::DataZone
     #   updated.
     #   @return [String]
     #
+    # @!attribute [rw] domain_unit_id
+    #   The ID of the domain unit.
+    #   @return [String]
+    #
     # @!attribute [rw] environment_deployment_details
     #   The environment deployment details of the project.
     #   @return [Types::EnvironmentDeploymentDetails]
@@ -19540,6 +19544,7 @@ module Aws::DataZone
     class UpdateProjectInput < Struct.new(
       :description,
       :domain_identifier,
+      :domain_unit_id,
       :environment_deployment_details,
       :glossary_terms,
       :identifier,

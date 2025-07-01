@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.283.0 (2025-07-01)
+------------------
+
+* Feature - Amazon RDS Custom for Oracle now supports multi-AZ database instances.
+
 1.282.0 (2025-06-27)
 ------------------
 

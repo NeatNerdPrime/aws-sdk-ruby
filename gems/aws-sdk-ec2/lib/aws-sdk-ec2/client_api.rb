@@ -10236,6 +10236,7 @@ module Aws::EC2
     GetInstanceTypesFromInstanceRequirementsRequest.add_member(:instance_requirements, Shapes::ShapeRef.new(shape: InstanceRequirementsRequest, required: true, location_name: "InstanceRequirements"))
     GetInstanceTypesFromInstanceRequirementsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: Integer, location_name: "MaxResults"))
     GetInstanceTypesFromInstanceRequirementsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
+    GetInstanceTypesFromInstanceRequirementsRequest.add_member(:context, Shapes::ShapeRef.new(shape: String, location_name: "Context"))
     GetInstanceTypesFromInstanceRequirementsRequest.struct_class = Types::GetInstanceTypesFromInstanceRequirementsRequest
 
     GetInstanceTypesFromInstanceRequirementsResult.add_member(:instance_types, Shapes::ShapeRef.new(shape: InstanceTypeInfoFromInstanceRequirementsSet, location_name: "instanceTypeSet"))

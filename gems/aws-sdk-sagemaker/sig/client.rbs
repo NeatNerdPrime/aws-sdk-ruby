@@ -725,7 +725,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#create_cluster-instance_method
       def create_cluster: (
                             cluster_name: ::String,
-                            instance_groups: Array[
+                            ?instance_groups: Array[
                               {
                                 instance_count: ::Integer,
                                 instance_group_name: ::String,
@@ -8600,7 +8600,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#update_cluster-instance_method
       def update_cluster: (
                             cluster_name: ::String,
-                            instance_groups: Array[
+                            ?instance_groups: Array[
                               {
                                 instance_count: ::Integer,
                                 instance_group_name: ::String,

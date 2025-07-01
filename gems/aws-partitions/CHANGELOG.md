@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1124.0 (2025-07-01)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::Odb`.
+
 1.1123.0 (2025-06-30)
 ------------------
 

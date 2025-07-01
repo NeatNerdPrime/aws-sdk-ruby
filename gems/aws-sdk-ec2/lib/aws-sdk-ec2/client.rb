@@ -47081,6 +47081,9 @@ module Aws::EC2
     #   The token returned from a previous paginated request. Pagination
     #   continues from the end of the items returned by the previous request.
     #
+    # @option params [String] :context
+    #   Reserved.
+    #
     # @return [Types::GetInstanceTypesFromInstanceRequirementsResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::GetInstanceTypesFromInstanceRequirementsResult#instance_types #instance_types} => Array&lt;Types::InstanceTypeInfoFromInstanceRequirements&gt;
@@ -47158,6 +47161,7 @@ module Aws::EC2
     #     },
     #     max_results: 1,
     #     next_token: "String",
+    #     context: "String",
     #   })
     #
     # @example Response structure
@@ -66147,7 +66151,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.533.0'
+      context[:gem_version] = '1.534.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

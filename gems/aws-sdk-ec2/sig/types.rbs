@@ -8737,6 +8737,7 @@ module Aws::EC2
       attr_accessor instance_requirements: Types::InstanceRequirementsRequest
       attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor context: ::String
       SENSITIVE: []
     end
 

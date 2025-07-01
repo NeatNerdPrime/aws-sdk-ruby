@@ -884,6 +884,9 @@
   "ObservabilityAdmin": {
     "models": "observabilityadmin/2018-05-10"
   },
+  "Odb": {
+    "models": "odb/2024-08-20"
+  },
   "Omics": {
     "models": "omics/2022-11-28"
   },

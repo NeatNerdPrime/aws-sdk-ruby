@@ -1974,7 +1974,7 @@ module Aws::SageMaker
     # @option params [required, String] :cluster_name
     #   The name for the new SageMaker HyperPod cluster.
     #
-    # @option params [required, Array<Types::ClusterInstanceGroupSpecification>] :instance_groups
+    # @option params [Array<Types::ClusterInstanceGroupSpecification>] :instance_groups
     #   The instance groups to be created in the SageMaker HyperPod cluster.
     #
     # @option params [Types::VpcConfig] :vpc_config
@@ -2047,7 +2047,7 @@ module Aws::SageMaker
     #
     #   resp = client.create_cluster({
     #     cluster_name: "ClusterName", # required
-    #     instance_groups: [ # required
+    #     instance_groups: [
     #       {
     #         instance_count: 1, # required
     #         instance_group_name: "ClusterInstanceGroupName", # required
@@ -19577,7 +19577,12 @@ module Aws::SageMaker
     #   [1]: https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters-types.html#parameter-type-timestamp
     #
     # @option params [Integer] :max_results
-    #   Set the maximum number of SageMaker HyperPod clusters to list.
+    #   Specifies the maximum number of clusters to evaluate for the operation
+    #   (not necessarily the number of matching items). After SageMaker
+    #   processes the number of clusters up to `MaxResults`, it stops the
+    #   operation and returns the matching clusters up to that point. If all
+    #   the matching clusters are desired, SageMaker will go through all the
+    #   clusters until `NextToken` is empty.
     #
     # @option params [String] :name_contains
     #   Set the maximum number of instances to print in the list.
@@ -26454,7 +26459,7 @@ module Aws::SageMaker
     # @option params [required, String] :cluster_name
     #   Specify the name of the SageMaker HyperPod cluster you want to update.
     #
-    # @option params [required, Array<Types::ClusterInstanceGroupSpecification>] :instance_groups
+    # @option params [Array<Types::ClusterInstanceGroupSpecification>] :instance_groups
     #   Specify the instance groups to update.
     #
     # @option params [String] :node_recovery
@@ -26473,7 +26478,7 @@ module Aws::SageMaker
     #
     #   resp = client.update_cluster({
     #     cluster_name: "ClusterNameOrArn", # required
-    #     instance_groups: [ # required
+    #     instance_groups: [
     #       {
     #         instance_count: 1, # required
     #         instance_group_name: "ClusterInstanceGroupName", # required
@@ -30022,7 +30027,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.312.0'
+      context[:gem_version] = '1.313.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.534.0 (2025-07-01)
+------------------
+
+* Feature - Add Context to GetInstanceTypesFromInstanceRequirements API
+
 1.533.0 (2025-06-26)
 ------------------
 

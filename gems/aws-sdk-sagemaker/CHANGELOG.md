@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.313.0 (2025-07-01)
+------------------
+
+* Feature - Updated field validation requirements for InstanceGroups.
+
 1.312.0 (2025-06-19)
 ------------------
 

@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+3.226.2 (2025-07-01)
+------------------
+
 * Issue - Document incorrect behavior in protocol error parsing (specifically around query and query compatible services).
 
 3.226.1 (2025-06-24)

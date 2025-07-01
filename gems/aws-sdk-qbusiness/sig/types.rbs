@@ -357,6 +357,26 @@ module Aws::QBusiness
       SENSITIVE: []
     end
 
+    class ChatResponseConfiguration
+      attr_accessor chat_response_configuration_id: ::String
+      attr_accessor chat_response_configuration_arn: ::String
+      attr_accessor display_name: ::String
+      attr_accessor response_configuration_summary: ::String
+      attr_accessor status: ("CREATING" | "UPDATING" | "FAILED" | "ACTIVE")
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class ChatResponseConfigurationDetail
+      attr_accessor response_configurations: ::Hash[("ALL"), Types::ResponseConfiguration]
+      attr_accessor response_configuration_summary: ::String
+      attr_accessor status: ("CREATING" | "UPDATING" | "FAILED" | "ACTIVE")
+      attr_accessor error: Types::ErrorDetail
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
     class ChatSyncInput
       attr_accessor application_id: ::String
       attr_accessor user_id: ::String
@@ -496,6 +516,21 @@ module Aws::QBusiness
     class CreateApplicationResponse
       attr_accessor application_id: ::String
       attr_accessor application_arn: ::String
+      SENSITIVE: []
+    end
+
+    class CreateChatResponseConfigurationRequest
+      attr_accessor application_id: ::String
+      attr_accessor display_name: ::String
+      attr_accessor client_token: ::String
+      attr_accessor response_configurations: ::Hash[("ALL"), Types::ResponseConfiguration]
+      attr_accessor tags: ::Array[Types::Tag]
+      SENSITIVE: []
+    end
+
+    class CreateChatResponseConfigurationResponse
+      attr_accessor chat_response_configuration_id: ::String
+      attr_accessor chat_response_configuration_arn: ::String
       SENSITIVE: []
     end
 
@@ -733,7 +768,7 @@ module Aws::QBusiness
     end
 
     class DateAttributeBoostingConfiguration
-      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH")
+      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "ONE" | "TWO")
       attr_accessor boosting_duration_in_seconds: ::Integer
       SENSITIVE: []
     end
@@ -763,6 +798,15 @@ module Aws::QBusiness
     end
 
     class DeleteChatControlsConfigurationResponse < Aws::EmptyStructure
+    end
+
+    class DeleteChatResponseConfigurationRequest
+      attr_accessor application_id: ::String
+      attr_accessor chat_response_configuration_id: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteChatResponseConfigurationResponse < Aws::EmptyStructure
     end
 
     class DeleteConversationRequest
@@ -1093,6 +1137,22 @@ module Aws::QBusiness
       SENSITIVE: []
     end
 
+    class GetChatResponseConfigurationRequest
+      attr_accessor application_id: ::String
+      attr_accessor chat_response_configuration_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetChatResponseConfigurationResponse
+      attr_accessor chat_response_configuration_id: ::String
+      attr_accessor chat_response_configuration_arn: ::String
+      attr_accessor display_name: ::String
+      attr_accessor created_at: ::Time
+      attr_accessor in_use_configuration: Types::ChatResponseConfigurationDetail
+      attr_accessor last_update_configuration: Types::ChatResponseConfigurationDetail
+      SENSITIVE: []
+    end
+
     class GetDataAccessorRequest
       attr_accessor application_id: ::String
       attr_accessor data_accessor_id: ::String
@@ -1372,6 +1432,18 @@ module Aws::QBusiness
       SENSITIVE: []
     end
 
+    class InstructionCollection
+      attr_accessor response_length: ::String
+      attr_accessor target_audience: ::String
+      attr_accessor perspective: ::String
+      attr_accessor output_style: ::String
+      attr_accessor identity: ::String
+      attr_accessor tone: ::String
+      attr_accessor custom_instructions: ::String
+      attr_accessor examples: ::String
+      SENSITIVE: []
+    end
+
     class InternalServerException
       attr_accessor message: ::String
       SENSITIVE: []
@@ -1410,6 +1482,19 @@ module Aws::QBusiness
 
     class ListAttachmentsResponse
       attr_accessor attachments: ::Array[Types::Attachment]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListChatResponseConfigurationsRequest
+      attr_accessor application_id: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListChatResponseConfigurationsResponse
+      attr_accessor chat_response_configurations: ::Array[Types::ChatResponseConfiguration]
       attr_accessor next_token: ::String
       SENSITIVE: []
     end
@@ -1689,6 +1774,7 @@ module Aws::QBusiness
 
     class NativeIndexConfiguration
       attr_accessor index_id: ::String
+      attr_accessor version: ::Integer
       attr_accessor boosting_override: ::Hash[::String, Types::DocumentAttributeBoostingConfiguration]
       SENSITIVE: []
     end
@@ -1697,7 +1783,7 @@ module Aws::QBusiness
     end
 
     class NumberAttributeBoostingConfiguration
-      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH")
+      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "ONE" | "TWO")
       attr_accessor boosting_type: ("PRIORITIZE_LARGER_VALUES" | "PRIORITIZE_SMALLER_VALUES")
       SENSITIVE: []
     end
@@ -1856,6 +1942,11 @@ module Aws::QBusiness
       SENSITIVE: []
     end
 
+    class ResponseConfiguration
+      attr_accessor instruction_collection: Types::InstructionCollection
+      SENSITIVE: []
+    end
+
     class Retriever
       attr_accessor application_id: ::String
       attr_accessor retriever_id: ::String
@@ -2008,13 +2099,13 @@ module Aws::QBusiness
     end
 
     class StringAttributeBoostingConfiguration
-      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH")
-      attr_accessor attribute_value_boosting: ::Hash[::String, ("LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH")]
+      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "ONE" | "TWO")
+      attr_accessor attribute_value_boosting: ::Hash[::String, ("LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "ONE" | "TWO" | "THREE" | "FOUR" | "FIVE")]
       SENSITIVE: []
     end
 
     class StringListAttributeBoostingConfiguration
-      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH")
+      attr_accessor boosting_level: ("NONE" | "LOW" | "MEDIUM" | "HIGH" | "VERY_HIGH" | "ONE" | "TWO")
       SENSITIVE: []
     end
 
@@ -2145,6 +2236,18 @@ module Aws::QBusiness
     end
 
     class UpdateChatControlsConfigurationResponse < Aws::EmptyStructure
+    end
+
+    class UpdateChatResponseConfigurationRequest
+      attr_accessor application_id: ::String
+      attr_accessor chat_response_configuration_id: ::String
+      attr_accessor display_name: ::String
+      attr_accessor response_configurations: ::Hash[("ALL"), Types::ResponseConfiguration]
+      attr_accessor client_token: ::String
+      SENSITIVE: []
+    end
+
+    class UpdateChatResponseConfigurationResponse < Aws::EmptyStructure
     end
 
     class UpdateDataAccessorRequest

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.41.0 (2025-07-01)
+------------------
+
+* Feature - Add support for the new optional domain-unit-id parameter in the UpdateProject API.
+
 1.40.0 (2025-06-02)
 ------------------
 

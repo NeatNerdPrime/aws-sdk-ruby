@@ -3813,6 +3813,7 @@ module Aws
       def update_project: (
                             ?description: ::String,
                             domain_identifier: ::String,
+                            ?domain_unit_id: ::String,
                             ?environment_deployment_details: {
                               environment_failure_reasons: Hash[::String, Array[
                                   {

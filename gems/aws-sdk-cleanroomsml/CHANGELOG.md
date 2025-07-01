@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.27.0 (2025-07-01)
+------------------
+
+* Feature - This release introduces support for incremental training and distributed training for custom models in AWS Clean Rooms ML.
+
 1.26.0 (2025-06-02)
 ------------------
 

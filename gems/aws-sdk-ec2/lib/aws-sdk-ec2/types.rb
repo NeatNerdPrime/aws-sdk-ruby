@@ -39637,6 +39637,10 @@ module Aws::EC2
     #   request.
     #   @return [String]
     #
+    # @!attribute [rw] context
+    #   Reserved.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetInstanceTypesFromInstanceRequirementsRequest AWS API Documentation
     #
     class GetInstanceTypesFromInstanceRequirementsRequest < Struct.new(
@@ -39645,7 +39649,8 @@ module Aws::EC2
       :virtualization_types,
       :instance_requirements,
       :max_results,
-      :next_token)
+      :next_token,
+      :context)
       SENSITIVE = []
       include Aws::Structure
     end
