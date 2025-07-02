@@ -372,12 +372,28 @@ module Aws::S3
     #   parameter, it is included in the response.
     #   @return [String]
     #
+    # @!attribute [rw] bucket_arn
+    #   The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely
+    #   identify Amazon Web Services resources across all of Amazon Web
+    #   Services.
+    #
+    #   <note markdown="1"> This parameter is only supported for S3 directory buckets. For more
+    #   information, see [Using tags with directory buckets][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/Bucket AWS API Documentation
     #
     class Bucket < Struct.new(
       :name,
       :creation_date,
-      :bucket_region)
+      :bucket_region,
+      :bucket_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2681,12 +2697,28 @@ module Aws::S3
     #    </note>
     #   @return [Types::BucketInfo]
     #
+    # @!attribute [rw] tags
+    #   An array of tags that you can apply to the bucket that you're
+    #   creating. Tags are key-value pairs of metadata used to categorize
+    #   and organize your buckets, track costs, and control access.
+    #
+    #   <note markdown="1"> This parameter is only supported for S3 directory buckets. For more
+    #   information, see [Using tags with directory buckets][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    #   @return [Array<Types::Tag>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CreateBucketConfiguration AWS API Documentation
     #
     class CreateBucketConfiguration < Struct.new(
       :location_constraint,
       :location,
-      :bucket)
+      :bucket,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2730,10 +2762,26 @@ module Aws::S3
     #   A forward slash followed by the name of the bucket.
     #   @return [String]
     #
+    # @!attribute [rw] bucket_arn
+    #   The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely
+    #   identify Amazon Web Services resources across all of Amazon Web
+    #   Services.
+    #
+    #   <note markdown="1"> This parameter is only supported for S3 directory buckets. For more
+    #   information, see [Using tags with directory buckets][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CreateBucketOutput AWS API Documentation
     #
     class CreateBucketOutput < Struct.new(
-      :location)
+      :location,
+      :bucket_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4993,6 +5041,8 @@ module Aws::S3
     #
     #   For valid values, see the `StorageClass` element of the [PUT Bucket
     #   replication][1] action in the *Amazon S3 API Reference*.
+    #
+    #   `FSX_OPENZFS` is not an accepted value when replicating objects.
     #
     #
     #
@@ -8716,6 +8766,21 @@ module Aws::S3
       include Aws::Structure
     end
 
+    # @!attribute [rw] bucket_arn
+    #   The Amazon Resource Name (ARN) of the S3 bucket. ARNs uniquely
+    #   identify Amazon Web Services resources across all of Amazon Web
+    #   Services.
+    #
+    #   <note markdown="1"> This parameter is only supported for S3 directory buckets. For more
+    #   information, see [Using tags with directory buckets][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    #   @return [String]
+    #
     # @!attribute [rw] bucket_location_type
     #   The type of location where the bucket is created.
     #
@@ -8752,6 +8817,7 @@ module Aws::S3
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/HeadBucketOutput AWS API Documentation
     #
     class HeadBucketOutput < Struct.new(
+      :bucket_arn,
       :bucket_location_type,
       :bucket_location_name,
       :bucket_region,
@@ -10938,6 +11004,9 @@ module Aws::S3
     #   `CommonPrefixes` result element are not returned elsewhere in the
     #   response.
     #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
+    #
     #   <note markdown="1"> **Directory buckets** - For directory buckets, `/` is the only
     #   supported delimiter.
     #
@@ -11197,6 +11266,9 @@ module Aws::S3
     #   element in `CommonPrefixes`. These groups are counted as one result
     #   against the `max-keys` limitation. These keys are not returned
     #   elsewhere in the response.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
     #   @return [String]
     #
     # @!attribute [rw] encoding_type
@@ -11470,6 +11542,9 @@ module Aws::S3
     #
     # @!attribute [rw] delimiter
     #   A delimiter is a character that you use to group keys.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
     #   @return [String]
     #
     # @!attribute [rw] encoding_type
@@ -11748,6 +11823,9 @@ module Aws::S3
     #
     # @!attribute [rw] delimiter
     #   A delimiter is a character that you use to group keys.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the `StartAfter` value.
     #
     #   <note markdown="1"> * **Directory buckets** - For directory buckets, `/` is the only
     #     supported delimiter.

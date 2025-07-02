@@ -224,6 +224,7 @@ module Aws
       interface _CreateBucketResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateBucketOutput]
         def location: () -> ::String
+        def bucket_arn: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Client.html#create_bucket-instance_method
       def create_bucket: (
@@ -238,7 +239,13 @@ module Aws
                              bucket: {
                                data_redundancy: ("SingleAvailabilityZone" | "SingleLocalZone")?,
                                type: ("Directory")?
-                             }?
+                             }?,
+                             tags: Array[
+                               {
+                                 key: ::String,
+                                 value: ::String
+                               },
+                             ]?
                            },
                            ?grant_full_control: ::String,
                            ?grant_read: ::String,
@@ -972,6 +979,7 @@ module Aws
 
       interface _HeadBucketResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::HeadBucketOutput]
+        def bucket_arn: () -> ::String
         def bucket_location_type: () -> ("AvailabilityZone" | "LocalZone")
         def bucket_location_name: () -> ::String
         def bucket_region: () -> ::String

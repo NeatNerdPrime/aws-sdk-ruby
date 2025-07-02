@@ -2652,6 +2652,7 @@ module Aws::S3
     # @return [Types::CreateBucketOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateBucketOutput#location #location} => String
+    #   * {Types::CreateBucketOutput#bucket_arn #bucket_arn} => String
     #
     #
     # @example Example: To create a bucket in a specific region
@@ -2698,6 +2699,12 @@ module Aws::S3
     #         data_redundancy: "SingleAvailabilityZone", # accepts SingleAvailabilityZone, SingleLocalZone
     #         type: "Directory", # accepts Directory
     #       },
+    #       tags: [
+    #         {
+    #           key: "ObjectKey", # required
+    #           value: "Value", # required
+    #         },
+    #       ],
     #     },
     #     grant_full_control: "GrantFullControl",
     #     grant_read: "GrantRead",
@@ -2711,6 +2718,7 @@ module Aws::S3
     # @example Response structure
     #
     #   resp.location #=> String
+    #   resp.bucket_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/CreateBucket AWS API Documentation
     #
@@ -10364,6 +10372,7 @@ module Aws::S3
     #
     # @return [Types::HeadBucketOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::HeadBucketOutput#bucket_arn #bucket_arn} => String
     #   * {Types::HeadBucketOutput#bucket_location_type #bucket_location_type} => String
     #   * {Types::HeadBucketOutput#bucket_location_name #bucket_location_name} => String
     #   * {Types::HeadBucketOutput#bucket_region #bucket_region} => String
@@ -10387,6 +10396,7 @@ module Aws::S3
     #
     # @example Response structure
     #
+    #   resp.bucket_arn #=> String
     #   resp.bucket_location_type #=> String, one of "AvailabilityZone", "LocalZone"
     #   resp.bucket_location_name #=> String
     #   resp.bucket_region #=> String
@@ -11483,6 +11493,7 @@ module Aws::S3
     #   resp.buckets[0].name #=> String
     #   resp.buckets[0].creation_date #=> Time
     #   resp.buckets[0].bucket_region #=> String
+    #   resp.buckets[0].bucket_arn #=> String
     #   resp.owner.display_name #=> String
     #   resp.owner.id #=> String
     #   resp.continuation_token #=> String
@@ -11574,6 +11585,7 @@ module Aws::S3
     #   resp.buckets[0].name #=> String
     #   resp.buckets[0].creation_date #=> Time
     #   resp.buckets[0].bucket_region #=> String
+    #   resp.buckets[0].bucket_arn #=> String
     #   resp.continuation_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/ListDirectoryBuckets AWS API Documentation
@@ -11773,6 +11785,9 @@ module Aws::S3
     #   don't specify the prefix parameter, then the substring starts at the
     #   beginning of the key. The keys that are grouped under `CommonPrefixes`
     #   result element are not returned elsewhere in the response.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
     #
     #   <note markdown="1"> **Directory buckets** - For directory buckets, `/` is the only
     #   supported delimiter.
@@ -12104,6 +12119,9 @@ module Aws::S3
     #   the `max-keys` limitation. These keys are not returned elsewhere in
     #   the response.
     #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
+    #
     # @option params [String] :encoding_type
     #   Encoding type used by Amazon S3 to encode the [object keys][1] in the
     #   response. Responses are encoded only in UTF-8. An object key can
@@ -12391,6 +12409,9 @@ module Aws::S3
     #
     # @option params [String] :delimiter
     #   A delimiter is a character that you use to group keys.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the key-marker.
     #
     # @option params [String] :encoding_type
     #   Encoding type used by Amazon S3 to encode the [object keys][1] in the
@@ -12685,6 +12706,9 @@ module Aws::S3
     #
     # @option params [String] :delimiter
     #   A delimiter is a character that you use to group keys.
+    #
+    #   `CommonPrefixes` is filtered out from results if it is not
+    #   lexicographically greater than the `StartAfter` value.
     #
     #   <note markdown="1"> * **Directory buckets** - For directory buckets, `/` is the only
     #     supported delimiter.
@@ -21172,7 +21196,7 @@ module Aws::S3
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3'
-      context[:gem_version] = '1.191.0'
+      context[:gem_version] = '1.192.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

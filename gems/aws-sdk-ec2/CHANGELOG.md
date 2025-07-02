@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.535.0 (2025-07-02)
+------------------
+
+* Feature - AWS Site-to-Site VPN now supports IPv6 addresses on outer tunnel IPs, making it easier for customers to build or transition to IPv6-only networks.
+
 1.534.0 (2025-07-01)
 ------------------
 

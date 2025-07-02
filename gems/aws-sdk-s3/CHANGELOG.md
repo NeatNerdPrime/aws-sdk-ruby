@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.192.0 (2025-07-02)
+------------------
+
+* Feature - Added support for directory bucket creation with tags and bucket ARN retrieval in CreateBucket, ListDirectoryBuckets, and HeadBucket operations
+
 1.191.0 (2025-06-25)
 ------------------
 

@@ -8662,11 +8662,11 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] ip_address
-    #   IPv4 address for the customer gateway device's outside interface.
+    #   The IP address for the customer gateway device's outside interface.
     #   The address must be static. If `OutsideIpAddressType` in your VPN
     #   connection options is set to `PrivateIpv4`, you can use an RFC6598
     #   or RFC1918 private IPv4 address. If `OutsideIpAddressType` is set to
-    #   `PublicIpv4`, you can use a public IPv4 address.
+    #   `Ipv6`, you can use an IPv6 address.
     #   @return [String]
     #
     # @!attribute [rw] bgp_asn_extended
@@ -15483,11 +15483,13 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] ip_address
-    #   IPv4 address for the customer gateway device's outside interface.
+    #   The IP address for the customer gateway device's outside interface.
     #   The address must be static. If `OutsideIpAddressType` in your VPN
     #   connection options is set to `PrivateIpv4`, you can use an RFC6598
     #   or RFC1918 private IPv4 address. If `OutsideIpAddressType` is set to
-    #   `PublicIpv4`, you can use a public IPv4 address.
+    #   `PublicIpv4`, you can use a public IPv4 address. If
+    #   `OutsideIpAddressType` is set to `Ipv6`, you can use a public IPv6
+    #   address.
     #   @return [String]
     #
     # @!attribute [rw] bgp_asn
@@ -77736,7 +77738,7 @@ module Aws::EC2
     #   The type of IPv4 address assigned to the outside interface of the
     #   customer gateway.
     #
-    #   Valid values: `PrivateIpv4` \| `PublicIpv4`
+    #   Valid values: `PrivateIpv4` \| `PublicIpv4` \| `Ipv6`
     #
     #   Default: `PublicIpv4`
     #   @return [String]
@@ -77815,10 +77817,10 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] outside_ip_address_type
-    #   The type of IPv4 address assigned to the outside interface of the
+    #   The type of IP address assigned to the outside interface of the
     #   customer gateway device.
     #
-    #   Valid values: `PrivateIpv4` \| `PublicIpv4`
+    #   Valid values: `PrivateIpv4` \| `PublicIpv4` \| `Ipv6`
     #
     #   Default: `PublicIpv4`
     #   @return [String]

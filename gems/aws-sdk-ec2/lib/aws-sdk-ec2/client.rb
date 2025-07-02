@@ -6436,11 +6436,11 @@ module Aws::EC2
     #   Length Constraints: Up to 255 characters.
     #
     # @option params [String] :ip_address
-    #   IPv4 address for the customer gateway device's outside interface. The
-    #   address must be static. If `OutsideIpAddressType` in your VPN
+    #   The IP address for the customer gateway device's outside interface.
+    #   The address must be static. If `OutsideIpAddressType` in your VPN
     #   connection options is set to `PrivateIpv4`, you can use an RFC6598 or
     #   RFC1918 private IPv4 address. If `OutsideIpAddressType` is set to
-    #   `PublicIpv4`, you can use a public IPv4 address.
+    #   `Ipv6`, you can use an IPv6 address.
     #
     # @option params [Integer] :bgp_asn_extended
     #   For customer gateway devices that support BGP, specify the device's
@@ -66151,7 +66151,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.534.0'
+      context[:gem_version] = '1.535.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

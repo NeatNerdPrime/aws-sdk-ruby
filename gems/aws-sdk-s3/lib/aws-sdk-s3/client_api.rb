@@ -576,6 +576,7 @@ module Aws::S3
     Rules = Shapes::ListShape.new(name: 'Rules', flattened: true)
     S3KeyFilter = Shapes::StructureShape.new(name: 'S3KeyFilter')
     S3Location = Shapes::StructureShape.new(name: 'S3Location')
+    S3RegionalOrS3ExpressBucketArnString = Shapes::StringShape.new(name: 'S3RegionalOrS3ExpressBucketArnString')
     S3TablesArn = Shapes::StringShape.new(name: 'S3TablesArn')
     S3TablesBucketArn = Shapes::StringShape.new(name: 'S3TablesBucketArn')
     S3TablesDestination = Shapes::StructureShape.new(name: 'S3TablesDestination')
@@ -719,6 +720,7 @@ module Aws::S3
     Bucket.add_member(:name, Shapes::ShapeRef.new(shape: BucketName, location_name: "Name"))
     Bucket.add_member(:creation_date, Shapes::ShapeRef.new(shape: CreationDate, location_name: "CreationDate"))
     Bucket.add_member(:bucket_region, Shapes::ShapeRef.new(shape: BucketRegion, location_name: "BucketRegion"))
+    Bucket.add_member(:bucket_arn, Shapes::ShapeRef.new(shape: S3RegionalOrS3ExpressBucketArnString, location_name: "BucketArn"))
     Bucket.struct_class = Types::Bucket
 
     BucketAlreadyExists.struct_class = Types::BucketAlreadyExists
@@ -928,6 +930,7 @@ module Aws::S3
     CreateBucketConfiguration.add_member(:location_constraint, Shapes::ShapeRef.new(shape: BucketLocationConstraint, location_name: "LocationConstraint"))
     CreateBucketConfiguration.add_member(:location, Shapes::ShapeRef.new(shape: LocationInfo, location_name: "Location"))
     CreateBucketConfiguration.add_member(:bucket, Shapes::ShapeRef.new(shape: BucketInfo, location_name: "Bucket"))
+    CreateBucketConfiguration.add_member(:tags, Shapes::ShapeRef.new(shape: TagSet, location_name: "Tags"))
     CreateBucketConfiguration.struct_class = Types::CreateBucketConfiguration
 
     CreateBucketMetadataTableConfigurationRequest.add_member(:bucket, Shapes::ShapeRef.new(shape: BucketName, required: true, location: "uri", location_name: "Bucket", metadata: {"contextParam" => {"name" => "Bucket"}}))
@@ -940,6 +943,7 @@ module Aws::S3
     CreateBucketMetadataTableConfigurationRequest[:payload_member] = CreateBucketMetadataTableConfigurationRequest.member(:metadata_table_configuration)
 
     CreateBucketOutput.add_member(:location, Shapes::ShapeRef.new(shape: Location, location: "header", location_name: "Location"))
+    CreateBucketOutput.add_member(:bucket_arn, Shapes::ShapeRef.new(shape: S3RegionalOrS3ExpressBucketArnString, location: "header", location_name: "x-amz-bucket-arn"))
     CreateBucketOutput.struct_class = Types::CreateBucketOutput
 
     CreateBucketRequest.add_member(:acl, Shapes::ShapeRef.new(shape: BucketCannedACL, location: "header", location_name: "x-amz-acl"))
@@ -1585,6 +1589,7 @@ module Aws::S3
 
     Grants.member = Shapes::ShapeRef.new(shape: Grant, location_name: "Grant")
 
+    HeadBucketOutput.add_member(:bucket_arn, Shapes::ShapeRef.new(shape: S3RegionalOrS3ExpressBucketArnString, location: "header", location_name: "x-amz-bucket-arn"))
     HeadBucketOutput.add_member(:bucket_location_type, Shapes::ShapeRef.new(shape: LocationType, location: "header", location_name: "x-amz-bucket-location-type"))
     HeadBucketOutput.add_member(:bucket_location_name, Shapes::ShapeRef.new(shape: BucketLocationName, location: "header", location_name: "x-amz-bucket-location-name"))
     HeadBucketOutput.add_member(:bucket_region, Shapes::ShapeRef.new(shape: Region, location: "header", location_name: "x-amz-bucket-region"))
