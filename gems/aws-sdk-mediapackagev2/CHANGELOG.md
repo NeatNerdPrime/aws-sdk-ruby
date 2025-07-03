@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.42.0 (2025-07-03)
+------------------
+
+* Feature - This release adds support for Microsoft Smooth Streaming (MSS) and allows users to exclude DRM segment Metadata in MediaPackage v2 Origin Endpoints
+
 1.41.0 (2025-06-02)
 ------------------
 

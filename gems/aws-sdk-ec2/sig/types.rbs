@@ -14908,6 +14908,7 @@ module Aws::EC2
       attr_accessor vpc_owner_id: ::String
       attr_accessor state: ("associating" | "associated" | "association-failed" | "disassociating" | "disassociated" | "disassociation-failed")
       attr_accessor state_reason: ::String
+      attr_accessor group_owner_id: ::String
       SENSITIVE: []
     end
 

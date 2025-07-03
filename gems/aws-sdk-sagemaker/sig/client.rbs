@@ -1314,8 +1314,8 @@ module Aws
                                single_sign_on_application_arn: ::String?
                              }?
                            },
-                           subnet_ids: Array[::String],
-                           vpc_id: ::String,
+                           ?subnet_ids: Array[::String],
+                           ?vpc_id: ::String,
                            ?tags: Array[
                              {
                                key: ::String,
@@ -1861,6 +1861,26 @@ module Aws
                         ]
                       ) -> _CreateHubResponseSuccess
                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateHubResponseSuccess
+
+      interface _CreateHubContentPresignedUrlsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateHubContentPresignedUrlsResponse]
+        def authorized_url_configs: () -> ::Array[Types::AuthorizedUrl]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#create_hub_content_presigned_urls-instance_method
+      def create_hub_content_presigned_urls: (
+                                               hub_name: ::String,
+                                               hub_content_type: ("Model" | "Notebook" | "ModelReference"),
+                                               hub_content_name: ::String,
+                                               ?hub_content_version: ::String,
+                                               ?access_config: {
+                                                 accept_eula: bool?,
+                                                 expected_s3_url: ::String?
+                                               },
+                                               ?max_results: ::Integer,
+                                               ?next_token: ::String
+                                             ) -> _CreateHubContentPresignedUrlsResponseSuccess
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateHubContentPresignedUrlsResponseSuccess
 
       interface _CreateHubContentReferenceResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateHubContentReferenceResponse]
@@ -3976,7 +3996,8 @@ module Aws
                                   file_system_id: ::String
                                 }?
                               },
-                            ]?
+                            ]?,
+                            remote_access: ("ENABLED" | "DISABLED")?
                           },
                           ?ownership_settings: {
                             owner_user_profile_name: ::String
@@ -8393,6 +8414,18 @@ module Aws
                                     ) -> _StartPipelineExecutionResponseSuccess
                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartPipelineExecutionResponseSuccess
 
+      interface _StartSessionResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::StartSessionResponse]
+        def session_id: () -> ::String
+        def stream_url: () -> ::String
+        def token_value: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#start_session-instance_method
+      def start_session: (
+                           resource_identifier: ::String
+                         ) -> _StartSessionResponseSuccess
+                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartSessionResponseSuccess
+
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#stop_auto_ml_job-instance_method
       def stop_auto_ml_job: (
                               auto_ml_job_name: ::String
@@ -9967,7 +10000,8 @@ module Aws
                                   file_system_id: ::String
                                 }?
                               },
-                            ]?
+                            ]?,
+                            remote_access: ("ENABLED" | "DISABLED")?
                           },
                           ?space_display_name: ::String
                         ) -> _UpdateSpaceResponseSuccess

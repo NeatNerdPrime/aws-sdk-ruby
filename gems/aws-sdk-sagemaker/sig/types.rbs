@@ -269,6 +269,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class AuthorizedUrl
+      attr_accessor url: ::String
+      attr_accessor local_path: ::String
+      SENSITIVE: []
+    end
+
     class AutoMLAlgorithmConfig
       attr_accessor auto_ml_algorithms: ::Array[("xgboost" | "linear-learner" | "mlp" | "lightgbm" | "catboost" | "randomforest" | "extra-trees" | "nn-torch" | "fastai" | "cnn-qr" | "deepar" | "prophet" | "npts" | "arima" | "ets")]
       SENSITIVE: []
@@ -1450,6 +1456,23 @@ module Aws::SageMaker
 
     class CreateFlowDefinitionResponse
       attr_accessor flow_definition_arn: ::String
+      SENSITIVE: []
+    end
+
+    class CreateHubContentPresignedUrlsRequest
+      attr_accessor hub_name: ::String
+      attr_accessor hub_content_type: ("Model" | "Notebook" | "ModelReference")
+      attr_accessor hub_content_name: ::String
+      attr_accessor hub_content_version: ::String
+      attr_accessor access_config: Types::PresignedUrlAccessConfig
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class CreateHubContentPresignedUrlsResponse
+      attr_accessor authorized_url_configs: ::Array[Types::AuthorizedUrl]
+      attr_accessor next_token: ::String
       SENSITIVE: []
     end
 
@@ -8263,6 +8286,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class PresignedUrlAccessConfig
+      attr_accessor accept_eula: bool
+      attr_accessor expected_s3_url: ::String
+      SENSITIVE: []
+    end
+
     class PriorityClass
       attr_accessor name: ::String
       attr_accessor weight: ::Integer
@@ -9220,11 +9249,13 @@ module Aws::SageMaker
       attr_accessor space_storage_settings: Types::SpaceStorageSettings
       attr_accessor space_managed_resources: ("ENABLED" | "DISABLED")
       attr_accessor custom_file_systems: ::Array[Types::CustomFileSystem]
+      attr_accessor remote_access: ("ENABLED" | "DISABLED")
       SENSITIVE: []
     end
 
     class SpaceSettingsSummary
       attr_accessor app_type: ("JupyterServer" | "KernelGateway" | "DetailedProfiler" | "TensorBoard" | "CodeEditor" | "JupyterLab" | "RStudioServerPro" | "RSessionGateway" | "Canvas")
+      attr_accessor remote_access: ("ENABLED" | "DISABLED")
       attr_accessor space_storage_settings: Types::SpaceStorageSettings
       SENSITIVE: []
     end
@@ -9300,6 +9331,18 @@ module Aws::SageMaker
 
     class StartPipelineExecutionResponse
       attr_accessor pipeline_execution_arn: ::String
+      SENSITIVE: []
+    end
+
+    class StartSessionRequest
+      attr_accessor resource_identifier: ::String
+      SENSITIVE: []
+    end
+
+    class StartSessionResponse
+      attr_accessor session_id: ::String
+      attr_accessor stream_url: ::String
+      attr_accessor token_value: ::String
       SENSITIVE: []
     end
 

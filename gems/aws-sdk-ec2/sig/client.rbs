@@ -14550,6 +14550,30 @@ module Aws
                     ]
                   ) -> Client::_DescribeSecurityGroupsResponseSuccess
                     | (:security_group_exists waiter_name, ?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> Client::_DescribeSecurityGroupsResponseSuccess
+                    | (:security_group_vpc_association_associated waiter_name, 
+                    ?filters: Array[
+                      {
+                        name: ::String?,
+                        values: Array[::String]?
+                      },
+                    ],
+                    ?next_token: ::String,
+                    ?max_results: ::Integer,
+                    ?dry_run: bool
+                  ) -> Client::_DescribeSecurityGroupVpcAssociationsResponseSuccess
+                    | (:security_group_vpc_association_associated waiter_name, ?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> Client::_DescribeSecurityGroupVpcAssociationsResponseSuccess
+                    | (:security_group_vpc_association_disassociated waiter_name, 
+                    ?filters: Array[
+                      {
+                        name: ::String?,
+                        values: Array[::String]?
+                      },
+                    ],
+                    ?next_token: ::String,
+                    ?max_results: ::Integer,
+                    ?dry_run: bool
+                  ) -> Client::_DescribeSecurityGroupVpcAssociationsResponseSuccess
+                    | (:security_group_vpc_association_disassociated waiter_name, ?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> Client::_DescribeSecurityGroupVpcAssociationsResponseSuccess
                     | (:snapshot_completed waiter_name, 
                     ?max_results: ::Integer,
                     ?next_token: ::String,

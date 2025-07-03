@@ -15605,6 +15605,7 @@ module Aws::EC2
     SecurityGroupVpcAssociation.add_member(:vpc_owner_id, Shapes::ShapeRef.new(shape: String, location_name: "vpcOwnerId"))
     SecurityGroupVpcAssociation.add_member(:state, Shapes::ShapeRef.new(shape: SecurityGroupVpcAssociationState, location_name: "state"))
     SecurityGroupVpcAssociation.add_member(:state_reason, Shapes::ShapeRef.new(shape: String, location_name: "stateReason"))
+    SecurityGroupVpcAssociation.add_member(:group_owner_id, Shapes::ShapeRef.new(shape: String, location_name: "groupOwnerId"))
     SecurityGroupVpcAssociation.struct_class = Types::SecurityGroupVpcAssociation
 
     SecurityGroupVpcAssociationList.member = Shapes::ShapeRef.new(shape: SecurityGroupVpcAssociation, location_name: "item")

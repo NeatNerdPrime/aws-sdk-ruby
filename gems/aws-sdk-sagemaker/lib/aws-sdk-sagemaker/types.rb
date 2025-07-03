@@ -1798,6 +1798,29 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Contains a presigned URL and its associated local file path for
+    # downloading hub content artifacts.
+    #
+    # @!attribute [rw] url
+    #   The presigned S3 URL that provides temporary, secure access to
+    #   download the file. URLs expire within 15 minutes for security
+    #   purposes.
+    #   @return [String]
+    #
+    # @!attribute [rw] local_path
+    #   The recommended local file path where the downloaded file should be
+    #   stored to maintain proper directory structure and file organization.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AuthorizedUrl AWS API Documentation
+    #
+    class AuthorizedUrl < Struct.new(
+      :url,
+      :local_path)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The selection of algorithms trained on your dataset to generate the
     # model candidates for an Autopilot job.
     #
@@ -7693,6 +7716,78 @@ module Aws::SageMaker
     #
     class CreateFlowDefinitionResponse < Struct.new(
       :flow_definition_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] hub_name
+    #   The name or Amazon Resource Name (ARN) of the hub that contains the
+    #   content. For public content, use `SageMakerPublicHub`.
+    #   @return [String]
+    #
+    # @!attribute [rw] hub_content_type
+    #   The type of hub content to access. Valid values include `Model`,
+    #   `Notebook`, and `ModelReference`.
+    #   @return [String]
+    #
+    # @!attribute [rw] hub_content_name
+    #   The name of the hub content for which to generate presigned URLs.
+    #   This identifies the specific model or content within the hub.
+    #   @return [String]
+    #
+    # @!attribute [rw] hub_content_version
+    #   The version of the hub content. If not specified, the latest version
+    #   is used.
+    #   @return [String]
+    #
+    # @!attribute [rw] access_config
+    #   Configuration settings for accessing the hub content, including
+    #   end-user license agreement acceptance for gated models and expected
+    #   S3 URL validation.
+    #   @return [Types::PresignedUrlAccessConfig]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of presigned URLs to return in the response.
+    #   Default value is 100. Large models may contain hundreds of files,
+    #   requiring pagination to retrieve all URLs.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   A token for pagination. Use this token to retrieve the next set of
+    #   presigned URLs when the response is truncated.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateHubContentPresignedUrlsRequest AWS API Documentation
+    #
+    class CreateHubContentPresignedUrlsRequest < Struct.new(
+      :hub_name,
+      :hub_content_type,
+      :hub_content_name,
+      :hub_content_version,
+      :access_config,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] authorized_url_configs
+    #   An array of authorized URL configurations, each containing a
+    #   presigned URL and its corresponding local file path for proper file
+    #   organization during download.
+    #   @return [Array<Types::AuthorizedUrl>]
+    #
+    # @!attribute [rw] next_token
+    #   A token for pagination. If present, indicates that more presigned
+    #   URLs are available. Use this token in a subsequent request to
+    #   retrieve additional URLs.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateHubContentPresignedUrlsResponse AWS API Documentation
+    #
+    class CreateHubContentPresignedUrlsResponse < Struct.new(
+      :authorized_url_configs,
+      :next_token)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -39026,6 +39121,30 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Configuration for accessing hub content through presigned URLs,
+    # including license agreement acceptance and URL validation settings.
+    #
+    # @!attribute [rw] accept_eula
+    #   Indicates acceptance of the End User License Agreement (EULA) for
+    #   gated models. Set to true to acknowledge acceptance of the license
+    #   terms required for accessing gated content.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] expected_s3_url
+    #   The expected S3 URL prefix for validation purposes. This parameter
+    #   helps ensure consistency between the resolved S3 URIs and the
+    #   deployment configuration, reducing potential compatibility issues.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/PresignedUrlAccessConfig AWS API Documentation
+    #
+    class PresignedUrlAccessConfig < Struct.new(
+      :accept_eula,
+      :expected_s3_url)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Priority class configuration. When included in `PriorityClasses`,
     # these class configurations define how tasks are queued.
     #
@@ -44123,6 +44242,12 @@ module Aws::SageMaker
     #   system in Amazon SageMaker AI Studio.
     #   @return [Array<Types::CustomFileSystem>]
     #
+    # @!attribute [rw] remote_access
+    #   A setting that enables or disables remote access for a SageMaker
+    #   space. When enabled, this allows you to connect to the remote space
+    #   from your local IDE.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/SpaceSettings AWS API Documentation
     #
     class SpaceSettings < Struct.new(
@@ -44133,7 +44258,8 @@ module Aws::SageMaker
       :app_type,
       :space_storage_settings,
       :space_managed_resources,
-      :custom_file_systems)
+      :custom_file_systems,
+      :remote_access)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -44144,6 +44270,12 @@ module Aws::SageMaker
     #   The type of app created within the space.
     #   @return [String]
     #
+    # @!attribute [rw] remote_access
+    #   A setting that enables or disables remote access for a SageMaker
+    #   space. When enabled, this allows you to connect to the remote space
+    #   from your local IDE.
+    #   @return [String]
+    #
     # @!attribute [rw] space_storage_settings
     #   The storage settings for a space.
     #   @return [Types::SpaceStorageSettings]
@@ -44152,6 +44284,7 @@ module Aws::SageMaker
     #
     class SpaceSettingsSummary < Struct.new(
       :app_type,
+      :remote_access,
       :space_storage_settings)
       SENSITIVE = []
       include Aws::Structure
@@ -44372,6 +44505,44 @@ module Aws::SageMaker
     #
     class StartPipelineExecutionResponse < Struct.new(
       :pipeline_execution_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] resource_identifier
+    #   The Amazon Resource Name (ARN) of the resource to which the remote
+    #   connection will be established. For example, this identifies the
+    #   specific ARN space application you want to connect to from your
+    #   local IDE.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StartSessionRequest AWS API Documentation
+    #
+    class StartSessionRequest < Struct.new(
+      :resource_identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] session_id
+    #   A unique identifier for the established remote connection session.
+    #   @return [String]
+    #
+    # @!attribute [rw] stream_url
+    #   A WebSocket URL used to establish a SSH connection between the local
+    #   IDE and remote SageMaker space.
+    #   @return [String]
+    #
+    # @!attribute [rw] token_value
+    #   An encrypted token value containing session and caller information.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StartSessionResponse AWS API Documentation
+    #
+    class StartSessionResponse < Struct.new(
+      :session_id,
+      :stream_url,
+      :token_value)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -115,6 +115,8 @@ module Aws::SageMaker
     AuthenticationRequestExtraParams = Shapes::MapShape.new(name: 'AuthenticationRequestExtraParams')
     AuthenticationRequestExtraParamsKey = Shapes::StringShape.new(name: 'AuthenticationRequestExtraParamsKey')
     AuthenticationRequestExtraParamsValue = Shapes::StringShape.new(name: 'AuthenticationRequestExtraParamsValue')
+    AuthorizedUrl = Shapes::StructureShape.new(name: 'AuthorizedUrl')
+    AuthorizedUrlConfigs = Shapes::ListShape.new(name: 'AuthorizedUrlConfigs')
     AutoGenerateEndpointName = Shapes::BooleanShape.new(name: 'AutoGenerateEndpointName')
     AutoMLAlgorithm = Shapes::StringShape.new(name: 'AutoMLAlgorithm')
     AutoMLAlgorithmConfig = Shapes::StructureShape.new(name: 'AutoMLAlgorithmConfig')
@@ -451,6 +453,8 @@ module Aws::SageMaker
     CreateFeatureGroupResponse = Shapes::StructureShape.new(name: 'CreateFeatureGroupResponse')
     CreateFlowDefinitionRequest = Shapes::StructureShape.new(name: 'CreateFlowDefinitionRequest')
     CreateFlowDefinitionResponse = Shapes::StructureShape.new(name: 'CreateFlowDefinitionResponse')
+    CreateHubContentPresignedUrlsRequest = Shapes::StructureShape.new(name: 'CreateHubContentPresignedUrlsRequest')
+    CreateHubContentPresignedUrlsResponse = Shapes::StructureShape.new(name: 'CreateHubContentPresignedUrlsResponse')
     CreateHubContentReferenceRequest = Shapes::StructureShape.new(name: 'CreateHubContentReferenceRequest')
     CreateHubContentReferenceResponse = Shapes::StructureShape.new(name: 'CreateHubContentReferenceResponse')
     CreateHubRequest = Shapes::StructureShape.new(name: 'CreateHubRequest')
@@ -1481,7 +1485,9 @@ module Aws::SageMaker
     ListWorkteamsRequest = Shapes::StructureShape.new(name: 'ListWorkteamsRequest')
     ListWorkteamsResponse = Shapes::StructureShape.new(name: 'ListWorkteamsResponse')
     ListWorkteamsSortByOptions = Shapes::StringShape.new(name: 'ListWorkteamsSortByOptions')
+    LocalPath = Shapes::StringShape.new(name: 'LocalPath')
     Long = Shapes::IntegerShape.new(name: 'Long')
+    LongS3Uri = Shapes::StringShape.new(name: 'LongS3Uri')
     MLFramework = Shapes::StringShape.new(name: 'MLFramework')
     ManagedInstanceScalingMaxInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMaxInstanceCount')
     ManagedInstanceScalingMinInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMinInstanceCount')
@@ -1850,6 +1856,7 @@ module Aws::SageMaker
     PredefinedMetricSpecification = Shapes::StructureShape.new(name: 'PredefinedMetricSpecification')
     PreemptTeamTasks = Shapes::StringShape.new(name: 'PreemptTeamTasks')
     PresignedDomainUrl = Shapes::StringShape.new(name: 'PresignedDomainUrl')
+    PresignedUrlAccessConfig = Shapes::StructureShape.new(name: 'PresignedUrlAccessConfig')
     PriorityClass = Shapes::StructureShape.new(name: 'PriorityClass')
     PriorityClassList = Shapes::ListShape.new(name: 'PriorityClassList')
     PriorityWeight = Shapes::IntegerShape.new(name: 'PriorityWeight')
@@ -2040,6 +2047,7 @@ module Aws::SageMaker
     ResourceConfig = Shapes::StructureShape.new(name: 'ResourceConfig')
     ResourceConfigForUpdate = Shapes::StructureShape.new(name: 'ResourceConfigForUpdate')
     ResourceId = Shapes::StringShape.new(name: 'ResourceId')
+    ResourceIdentifier = Shapes::StringShape.new(name: 'ResourceIdentifier')
     ResourceInUse = Shapes::StructureShape.new(name: 'ResourceInUse')
     ResourceLimitExceeded = Shapes::StructureShape.new(name: 'ResourceLimitExceeded')
     ResourceLimits = Shapes::StructureShape.new(name: 'ResourceLimits')
@@ -2129,6 +2137,7 @@ module Aws::SageMaker
     ServiceCatalogProvisioningUpdateDetails = Shapes::StructureShape.new(name: 'ServiceCatalogProvisioningUpdateDetails')
     SessionChainingConfig = Shapes::StructureShape.new(name: 'SessionChainingConfig')
     SessionExpirationDurationInSeconds = Shapes::IntegerShape.new(name: 'SessionExpirationDurationInSeconds')
+    SessionId = Shapes::StringShape.new(name: 'SessionId')
     ShadowModeConfig = Shapes::StructureShape.new(name: 'ShadowModeConfig')
     ShadowModelVariantConfig = Shapes::StructureShape.new(name: 'ShadowModelVariantConfig')
     ShadowModelVariantConfigList = Shapes::ListShape.new(name: 'ShadowModelVariantConfigList')
@@ -2191,6 +2200,8 @@ module Aws::SageMaker
     StartNotebookInstanceInput = Shapes::StructureShape.new(name: 'StartNotebookInstanceInput')
     StartPipelineExecutionRequest = Shapes::StructureShape.new(name: 'StartPipelineExecutionRequest')
     StartPipelineExecutionResponse = Shapes::StructureShape.new(name: 'StartPipelineExecutionResponse')
+    StartSessionRequest = Shapes::StructureShape.new(name: 'StartSessionRequest')
+    StartSessionResponse = Shapes::StructureShape.new(name: 'StartSessionResponse')
     Statistic = Shapes::StringShape.new(name: 'Statistic')
     StatusDetails = Shapes::StringShape.new(name: 'StatusDetails')
     StatusMessage = Shapes::StringShape.new(name: 'StatusMessage')
@@ -2219,6 +2230,7 @@ module Aws::SageMaker
     StopTransformJobRequest = Shapes::StructureShape.new(name: 'StopTransformJobRequest')
     StoppingCondition = Shapes::StructureShape.new(name: 'StoppingCondition')
     StorageType = Shapes::StringShape.new(name: 'StorageType')
+    StreamUrl = Shapes::StringShape.new(name: 'StreamUrl')
     String = Shapes::StringShape.new(name: 'String')
     String1024 = Shapes::StringShape.new(name: 'String1024')
     String128 = Shapes::StringShape.new(name: 'String128')
@@ -2298,6 +2310,7 @@ module Aws::SageMaker
     TimeSeriesTransformations = Shapes::StructureShape.new(name: 'TimeSeriesTransformations')
     Timestamp = Shapes::TimestampShape.new(name: 'Timestamp')
     TimestampAttributeName = Shapes::StringShape.new(name: 'TimestampAttributeName')
+    TokenValue = Shapes::StringShape.new(name: 'TokenValue')
     TotalHits = Shapes::StructureShape.new(name: 'TotalHits')
     TotalInstanceCount = Shapes::IntegerShape.new(name: 'TotalInstanceCount')
     TrackingServerArn = Shapes::StringShape.new(name: 'TrackingServerArn')
@@ -2807,6 +2820,12 @@ module Aws::SageMaker
 
     AuthenticationRequestExtraParams.key = Shapes::ShapeRef.new(shape: AuthenticationRequestExtraParamsKey)
     AuthenticationRequestExtraParams.value = Shapes::ShapeRef.new(shape: AuthenticationRequestExtraParamsValue)
+
+    AuthorizedUrl.add_member(:url, Shapes::ShapeRef.new(shape: LongS3Uri, location_name: "Url"))
+    AuthorizedUrl.add_member(:local_path, Shapes::ShapeRef.new(shape: LocalPath, location_name: "LocalPath"))
+    AuthorizedUrl.struct_class = Types::AuthorizedUrl
+
+    AuthorizedUrlConfigs.member = Shapes::ShapeRef.new(shape: AuthorizedUrl)
 
     AutoMLAlgorithmConfig.add_member(:auto_ml_algorithms, Shapes::ShapeRef.new(shape: AutoMLAlgorithms, required: true, location_name: "AutoMLAlgorithms"))
     AutoMLAlgorithmConfig.struct_class = Types::AutoMLAlgorithmConfig
@@ -3681,8 +3700,8 @@ module Aws::SageMaker
     CreateDomainRequest.add_member(:auth_mode, Shapes::ShapeRef.new(shape: AuthMode, required: true, location_name: "AuthMode"))
     CreateDomainRequest.add_member(:default_user_settings, Shapes::ShapeRef.new(shape: UserSettings, required: true, location_name: "DefaultUserSettings"))
     CreateDomainRequest.add_member(:domain_settings, Shapes::ShapeRef.new(shape: DomainSettings, location_name: "DomainSettings"))
-    CreateDomainRequest.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: Subnets, required: true, location_name: "SubnetIds"))
-    CreateDomainRequest.add_member(:vpc_id, Shapes::ShapeRef.new(shape: VpcId, required: true, location_name: "VpcId"))
+    CreateDomainRequest.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: Subnets, location_name: "SubnetIds"))
+    CreateDomainRequest.add_member(:vpc_id, Shapes::ShapeRef.new(shape: VpcId, location_name: "VpcId"))
     CreateDomainRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
     CreateDomainRequest.add_member(:app_network_access_type, Shapes::ShapeRef.new(shape: AppNetworkAccessType, location_name: "AppNetworkAccessType"))
     CreateDomainRequest.add_member(:home_efs_file_system_kms_key_id, Shapes::ShapeRef.new(shape: KmsKeyId, deprecated: true, location_name: "HomeEfsFileSystemKmsKeyId", metadata: {"deprecatedMessage" => "This property is deprecated, use KmsKeyId instead."}))
@@ -3781,6 +3800,19 @@ module Aws::SageMaker
 
     CreateFlowDefinitionResponse.add_member(:flow_definition_arn, Shapes::ShapeRef.new(shape: FlowDefinitionArn, required: true, location_name: "FlowDefinitionArn"))
     CreateFlowDefinitionResponse.struct_class = Types::CreateFlowDefinitionResponse
+
+    CreateHubContentPresignedUrlsRequest.add_member(:hub_name, Shapes::ShapeRef.new(shape: HubNameOrArn, required: true, location_name: "HubName"))
+    CreateHubContentPresignedUrlsRequest.add_member(:hub_content_type, Shapes::ShapeRef.new(shape: HubContentType, required: true, location_name: "HubContentType"))
+    CreateHubContentPresignedUrlsRequest.add_member(:hub_content_name, Shapes::ShapeRef.new(shape: HubContentName, required: true, location_name: "HubContentName"))
+    CreateHubContentPresignedUrlsRequest.add_member(:hub_content_version, Shapes::ShapeRef.new(shape: HubContentVersion, location_name: "HubContentVersion"))
+    CreateHubContentPresignedUrlsRequest.add_member(:access_config, Shapes::ShapeRef.new(shape: PresignedUrlAccessConfig, location_name: "AccessConfig"))
+    CreateHubContentPresignedUrlsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location_name: "MaxResults"))
+    CreateHubContentPresignedUrlsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    CreateHubContentPresignedUrlsRequest.struct_class = Types::CreateHubContentPresignedUrlsRequest
+
+    CreateHubContentPresignedUrlsResponse.add_member(:authorized_url_configs, Shapes::ShapeRef.new(shape: AuthorizedUrlConfigs, required: true, location_name: "AuthorizedUrlConfigs"))
+    CreateHubContentPresignedUrlsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    CreateHubContentPresignedUrlsResponse.struct_class = Types::CreateHubContentPresignedUrlsResponse
 
     CreateHubContentReferenceRequest.add_member(:hub_name, Shapes::ShapeRef.new(shape: HubNameOrArn, required: true, location_name: "HubName"))
     CreateHubContentReferenceRequest.add_member(:sage_maker_public_hub_content_arn, Shapes::ShapeRef.new(shape: SageMakerPublicHubContentArn, required: true, location_name: "SageMakerPublicHubContentArn"))
@@ -9299,6 +9331,10 @@ module Aws::SageMaker
     PredefinedMetricSpecification.add_member(:predefined_metric_type, Shapes::ShapeRef.new(shape: String, location_name: "PredefinedMetricType"))
     PredefinedMetricSpecification.struct_class = Types::PredefinedMetricSpecification
 
+    PresignedUrlAccessConfig.add_member(:accept_eula, Shapes::ShapeRef.new(shape: Boolean, location_name: "AcceptEula", metadata: {"box" => true}))
+    PresignedUrlAccessConfig.add_member(:expected_s3_url, Shapes::ShapeRef.new(shape: S3ModelUri, location_name: "ExpectedS3Url"))
+    PresignedUrlAccessConfig.struct_class = Types::PresignedUrlAccessConfig
+
     PriorityClass.add_member(:name, Shapes::ShapeRef.new(shape: ClusterSchedulerPriorityClassName, required: true, location_name: "Name"))
     PriorityClass.add_member(:weight, Shapes::ShapeRef.new(shape: PriorityWeight, required: true, location_name: "Weight"))
     PriorityClass.struct_class = Types::PriorityClass
@@ -10096,9 +10132,11 @@ module Aws::SageMaker
     SpaceSettings.add_member(:space_storage_settings, Shapes::ShapeRef.new(shape: SpaceStorageSettings, location_name: "SpaceStorageSettings"))
     SpaceSettings.add_member(:space_managed_resources, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "SpaceManagedResources"))
     SpaceSettings.add_member(:custom_file_systems, Shapes::ShapeRef.new(shape: CustomFileSystems, location_name: "CustomFileSystems"))
+    SpaceSettings.add_member(:remote_access, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "RemoteAccess"))
     SpaceSettings.struct_class = Types::SpaceSettings
 
     SpaceSettingsSummary.add_member(:app_type, Shapes::ShapeRef.new(shape: AppType, location_name: "AppType"))
+    SpaceSettingsSummary.add_member(:remote_access, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "RemoteAccess"))
     SpaceSettingsSummary.add_member(:space_storage_settings, Shapes::ShapeRef.new(shape: SpaceStorageSettings, location_name: "SpaceStorageSettings"))
     SpaceSettingsSummary.struct_class = Types::SpaceSettingsSummary
 
@@ -10149,6 +10187,14 @@ module Aws::SageMaker
 
     StartPipelineExecutionResponse.add_member(:pipeline_execution_arn, Shapes::ShapeRef.new(shape: PipelineExecutionArn, location_name: "PipelineExecutionArn"))
     StartPipelineExecutionResponse.struct_class = Types::StartPipelineExecutionResponse
+
+    StartSessionRequest.add_member(:resource_identifier, Shapes::ShapeRef.new(shape: ResourceIdentifier, required: true, location_name: "ResourceIdentifier"))
+    StartSessionRequest.struct_class = Types::StartSessionRequest
+
+    StartSessionResponse.add_member(:session_id, Shapes::ShapeRef.new(shape: SessionId, location_name: "SessionId"))
+    StartSessionResponse.add_member(:stream_url, Shapes::ShapeRef.new(shape: StreamUrl, location_name: "StreamUrl"))
+    StartSessionResponse.add_member(:token_value, Shapes::ShapeRef.new(shape: TokenValue, location_name: "TokenValue"))
+    StartSessionResponse.struct_class = Types::StartSessionResponse
 
     StopAutoMLJobRequest.add_member(:auto_ml_job_name, Shapes::ShapeRef.new(shape: AutoMLJobName, required: true, location_name: "AutoMLJobName"))
     StopAutoMLJobRequest.struct_class = Types::StopAutoMLJobRequest
@@ -11604,6 +11650,20 @@ module Aws::SageMaker
         o.output = Shapes::ShapeRef.new(shape: CreateHubResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceInUse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceLimitExceeded)
+      end)
+
+      api.add_operation(:create_hub_content_presigned_urls, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateHubContentPresignedUrls"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateHubContentPresignedUrlsRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateHubContentPresignedUrlsResponse)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
       end)
 
       api.add_operation(:create_hub_content_reference, Seahorse::Model::Operation.new.tap do |o|
@@ -14470,6 +14530,16 @@ module Aws::SageMaker
         o.input = Shapes::ShapeRef.new(shape: StartPipelineExecutionRequest)
         o.output = Shapes::ShapeRef.new(shape: StartPipelineExecutionResponse)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceLimitExceeded)
+      end)
+
+      api.add_operation(:start_session, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "StartSession"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: StartSessionRequest)
+        o.output = Shapes::ShapeRef.new(shape: StartSessionResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
         o.errors << Shapes::ShapeRef.new(shape: ResourceLimitExceeded)
       end)

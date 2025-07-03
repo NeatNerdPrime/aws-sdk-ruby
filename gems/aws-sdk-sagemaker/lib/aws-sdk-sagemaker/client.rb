@@ -2862,10 +2862,10 @@ module Aws::SageMaker
     # @option params [Types::DomainSettings] :domain_settings
     #   A collection of `Domain` settings.
     #
-    # @option params [required, Array<String>] :subnet_ids
+    # @option params [Array<String>] :subnet_ids
     #   The VPC subnets that the domain uses for communication.
     #
-    # @option params [required, String] :vpc_id
+    # @option params [String] :vpc_id
     #   The ID of the Amazon Virtual Private Cloud (VPC) that the domain uses
     #   for communication.
     #
@@ -3156,8 +3156,8 @@ module Aws::SageMaker
     #         single_sign_on_application_arn: "SingleSignOnApplicationArn",
     #       },
     #     },
-    #     subnet_ids: ["SubnetId"], # required
-    #     vpc_id: "VpcId", # required
+    #     subnet_ids: ["SubnetId"],
+    #     vpc_id: "VpcId",
     #     tags: [
     #       {
     #         key: "TagKey", # required
@@ -4440,6 +4440,80 @@ module Aws::SageMaker
     # @param [Hash] params ({})
     def create_hub(params = {}, options = {})
       req = build_request(:create_hub, params)
+      req.send_request(options)
+    end
+
+    # Creates presigned URLs for accessing hub content artifacts. This
+    # operation generates time-limited, secure URLs that allow direct
+    # download of model artifacts and associated files from Amazon SageMaker
+    # hub content, including gated models that require end-user license
+    # agreement acceptance.
+    #
+    # @option params [required, String] :hub_name
+    #   The name or Amazon Resource Name (ARN) of the hub that contains the
+    #   content. For public content, use `SageMakerPublicHub`.
+    #
+    # @option params [required, String] :hub_content_type
+    #   The type of hub content to access. Valid values include `Model`,
+    #   `Notebook`, and `ModelReference`.
+    #
+    # @option params [required, String] :hub_content_name
+    #   The name of the hub content for which to generate presigned URLs. This
+    #   identifies the specific model or content within the hub.
+    #
+    # @option params [String] :hub_content_version
+    #   The version of the hub content. If not specified, the latest version
+    #   is used.
+    #
+    # @option params [Types::PresignedUrlAccessConfig] :access_config
+    #   Configuration settings for accessing the hub content, including
+    #   end-user license agreement acceptance for gated models and expected S3
+    #   URL validation.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of presigned URLs to return in the response.
+    #   Default value is 100. Large models may contain hundreds of files,
+    #   requiring pagination to retrieve all URLs.
+    #
+    # @option params [String] :next_token
+    #   A token for pagination. Use this token to retrieve the next set of
+    #   presigned URLs when the response is truncated.
+    #
+    # @return [Types::CreateHubContentPresignedUrlsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateHubContentPresignedUrlsResponse#authorized_url_configs #authorized_url_configs} => Array&lt;Types::AuthorizedUrl&gt;
+    #   * {Types::CreateHubContentPresignedUrlsResponse#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_hub_content_presigned_urls({
+    #     hub_name: "HubNameOrArn", # required
+    #     hub_content_type: "Model", # required, accepts Model, Notebook, ModelReference
+    #     hub_content_name: "HubContentName", # required
+    #     hub_content_version: "HubContentVersion",
+    #     access_config: {
+    #       accept_eula: false,
+    #       expected_s3_url: "S3ModelUri",
+    #     },
+    #     max_results: 1,
+    #     next_token: "NextToken",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.authorized_url_configs #=> Array
+    #   resp.authorized_url_configs[0].url #=> String
+    #   resp.authorized_url_configs[0].local_path #=> String
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateHubContentPresignedUrls AWS API Documentation
+    #
+    # @overload create_hub_content_presigned_urls(params = {})
+    # @param [Hash] params ({})
+    def create_hub_content_presigned_urls(params = {}, options = {})
+      req = build_request(:create_hub_content_presigned_urls, params)
       req.send_request(options)
     end
 
@@ -8934,6 +9008,7 @@ module Aws::SageMaker
     #           },
     #         },
     #       ],
+    #       remote_access: "ENABLED", # accepts ENABLED, DISABLED
     #     },
     #     ownership_settings: {
     #       owner_user_profile_name: "UserProfileName", # required
@@ -17301,6 +17376,7 @@ module Aws::SageMaker
     #   resp.space_settings.custom_file_systems #=> Array
     #   resp.space_settings.custom_file_systems[0].efs_file_system.file_system_id #=> String
     #   resp.space_settings.custom_file_systems[0].f_sx_lustre_file_system.file_system_id #=> String
+    #   resp.space_settings.remote_access #=> String, one of "ENABLED", "DISABLED"
     #   resp.ownership_settings.owner_user_profile_name #=> String
     #   resp.space_sharing_settings.sharing_type #=> String, one of "Private", "Shared"
     #   resp.space_display_name #=> String
@@ -23954,6 +24030,7 @@ module Aws::SageMaker
     #   resp.spaces[0].creation_time #=> Time
     #   resp.spaces[0].last_modified_time #=> Time
     #   resp.spaces[0].space_settings_summary.app_type #=> String, one of "JupyterServer", "KernelGateway", "DetailedProfiler", "TensorBoard", "CodeEditor", "JupyterLab", "RStudioServerPro", "RSessionGateway", "Canvas"
+    #   resp.spaces[0].space_settings_summary.remote_access #=> String, one of "ENABLED", "DISABLED"
     #   resp.spaces[0].space_settings_summary.space_storage_settings.ebs_storage_settings.ebs_volume_size_in_gb #=> Integer
     #   resp.spaces[0].space_sharing_settings_summary.sharing_type #=> String, one of "Private", "Shared"
     #   resp.spaces[0].ownership_settings_summary.owner_user_profile_name #=> String
@@ -25790,6 +25867,42 @@ module Aws::SageMaker
     # @param [Hash] params ({})
     def start_pipeline_execution(params = {}, options = {})
       req = build_request(:start_pipeline_execution, params)
+      req.send_request(options)
+    end
+
+    # Initiates a remote connection session between a local integrated
+    # development environments (IDEs) and a remote SageMaker space.
+    #
+    # @option params [required, String] :resource_identifier
+    #   The Amazon Resource Name (ARN) of the resource to which the remote
+    #   connection will be established. For example, this identifies the
+    #   specific ARN space application you want to connect to from your local
+    #   IDE.
+    #
+    # @return [Types::StartSessionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StartSessionResponse#session_id #session_id} => String
+    #   * {Types::StartSessionResponse#stream_url #stream_url} => String
+    #   * {Types::StartSessionResponse#token_value #token_value} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.start_session({
+    #     resource_identifier: "ResourceIdentifier", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.session_id #=> String
+    #   resp.stream_url #=> String
+    #   resp.token_value #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/StartSession AWS API Documentation
+    #
+    # @overload start_session(params = {})
+    # @param [Hash] params ({})
+    def start_session(params = {}, options = {})
+      req = build_request(:start_session, params)
       req.send_request(options)
     end
 
@@ -29295,6 +29408,7 @@ module Aws::SageMaker
     #           },
     #         },
     #       ],
+    #       remote_access: "ENABLED", # accepts ENABLED, DISABLED
     #     },
     #     space_display_name: "NonEmptyString64",
     #   })
@@ -30027,7 +30141,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.313.0'
+      context[:gem_version] = '1.314.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

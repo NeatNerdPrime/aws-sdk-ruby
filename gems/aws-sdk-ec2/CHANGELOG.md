@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.536.0 (2025-07-03)
+------------------
+
+* Feature - This release adds GroupOwnerId as a response member to the DescribeSecurityGroupVpcAssociations API and also adds waiters for SecurityGroupVpcAssociations (SecurityGroupVpcAssociationAssociated and SecurityGroupVpcAssociationDisassociated).
+
 1.535.0 (2025-07-02)
 ------------------
 

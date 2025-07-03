@@ -27728,6 +27728,8 @@ module Aws::EC2
     #
     #   * `group-id`: The security group ID.
     #
+    #   * `group-owner-id`: The group owner ID.
+    #
     #   * `vpc-id`: The ID of the associated VPC.
     #
     #   * `vpc-owner-id`: The account ID of the VPC owner.
@@ -68864,6 +68866,11 @@ module Aws::EC2
     #   The association's state reason.
     #   @return [String]
     #
+    # @!attribute [rw] group_owner_id
+    #   The Amazon Web Services account ID of the owner of the security
+    #   group.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/SecurityGroupVpcAssociation AWS API Documentation
     #
     class SecurityGroupVpcAssociation < Struct.new(
@@ -68871,7 +68878,8 @@ module Aws::EC2
       :vpc_id,
       :vpc_owner_id,
       :state,
-      :state_reason)
+      :state_reason,
+      :group_owner_id)
       SENSITIVE = []
       include Aws::Structure
     end

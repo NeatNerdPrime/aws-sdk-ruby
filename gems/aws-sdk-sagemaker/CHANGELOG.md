@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.314.0 (2025-07-03)
+------------------
+
+* Feature - Changes include new StartSession API for SageMaker Studio spaces and CreateHubContentPresignedUrls API for SageMaker JumpStart.
+
 1.313.0 (2025-07-01)
 ------------------
 
