@@ -4846,6 +4846,81 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # Reserve powerful GPU instances on a future date to support your short
+    # duration machine learning (ML) workloads. Instances that run inside a
+    # Capacity Block are automatically placed close together inside [Amazon
+    # EC2 UltraClusters][1], for low-latency, petabit-scale, non-blocking
+    # networking.
+    #
+    # You can also reserve Amazon EC2 UltraServers. UltraServers connect
+    # multiple EC2 instances using a low-latency, high-bandwidth accelerator
+    # interconnect (NeuronLink). They are built to tackle very large-scale
+    # AI/ML workloads that require significant processing power. For more
+    # information, see Amazon EC2 UltraServers.
+    #
+    #
+    #
+    # [1]: http://aws.amazon.com/ec2/ultraclusters/
+    #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultraserver_type
+    #   The EC2 UltraServer type of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone
+    #   The Availability Zone of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The Availability Zone ID of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] capacity_reservation_ids
+    #   The ID of the Capacity Reservation.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] start_date
+    #   The date and time at which the Capacity Block was started.
+    #   @return [Time]
+    #
+    # @!attribute [rw] end_date
+    #   The date and time at which the Capacity Block expires. When a
+    #   Capacity Block expires, all instances in the Capacity Block are
+    #   terminated.
+    #   @return [Time]
+    #
+    # @!attribute [rw] create_date
+    #   The date and time at which the Capacity Block was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] state
+    #   The state of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   The tags assigned to the Capacity Block.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityBlock AWS API Documentation
+    #
+    class CapacityBlock < Struct.new(
+      :capacity_block_id,
+      :ultraserver_type,
+      :availability_zone,
+      :availability_zone_id,
+      :capacity_reservation_ids,
+      :start_date,
+      :end_date,
+      :create_date,
+      :state,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Describes a Capacity Block extension. With an extension, you can
     # extend the duration of time for an existing Capacity Block.
     #
@@ -5066,6 +5141,14 @@ module Aws::EC2
     #   The tenancy of the Capacity Block.
     #   @return [String]
     #
+    # @!attribute [rw] ultraserver_type
+    #   The EC2 UltraServer type of the Capacity Block offering.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultraserver_count
+    #   The number of EC2 UltraServers in the offering.
+    #   @return [Integer]
+    #
     # @!attribute [rw] capacity_block_duration_minutes
     #   The number of minutes (in addition to `capacityBlockDurationHours`)
     #   for the duration of the Capacity Block reservation. For example, if
@@ -5086,7 +5169,59 @@ module Aws::EC2
       :upfront_fee,
       :currency_code,
       :tenancy,
+      :ultraserver_type,
+      :ultraserver_count,
       :capacity_block_duration_minutes)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes the availability of capacity for a Capacity Block.
+    #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block.
+    #   @return [String]
+    #
+    # @!attribute [rw] interconnect_status
+    #   The status of the high-bandwidth accelerator interconnect. Possible
+    #   states include:
+    #
+    #   * `ok` the accelerator interconnect is healthy.
+    #
+    #   * `impaired` - accelerator interconnect communication is impaired.
+    #
+    #   * `insufficient-data` - insufficient data to determine accelerator
+    #     interconnect status.
+    #   @return [String]
+    #
+    # @!attribute [rw] total_capacity
+    #   The combined amount of `Available` and `Unavailable` capacity in the
+    #   Capacity Block.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_available_capacity
+    #   The remaining capacity. Indicates the number of resources that can
+    #   be launched into the Capacity Block.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_unavailable_capacity
+    #   The unavailable capacity. Indicates the instance capacity that is
+    #   unavailable for use due to a system status check failure.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] capacity_reservation_statuses
+    #   The availability of capacity for the Capacity Block reservations.
+    #   @return [Array<Types::CapacityReservationStatus>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityBlockStatus AWS API Documentation
+    #
+    class CapacityBlockStatus < Struct.new(
+      :capacity_block_id,
+      :interconnect_status,
+      :total_capacity,
+      :total_available_capacity,
+      :total_unavailable_capacity,
+      :capacity_reservation_statuses)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5301,6 +5436,10 @@ module Aws::EC2
     #   have in your account at the requested date and time.
     #   @return [String]
     #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityReservation AWS API Documentation
     #
     class CapacityReservation < Struct.new(
@@ -5330,7 +5469,8 @@ module Aws::EC2
       :reservation_type,
       :unused_reservation_billing_owner_id,
       :commitment_info,
-      :delivery_preference)
+      :delivery_preference,
+      :capacity_block_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5788,6 +5928,38 @@ module Aws::EC2
     class CapacityReservationSpecificationResponse < Struct.new(
       :capacity_reservation_preference,
       :capacity_reservation_target)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes the availability of capacity for a Capacity Reservation.
+    #
+    # @!attribute [rw] capacity_reservation_id
+    #   The ID of the Capacity Reservation.
+    #   @return [String]
+    #
+    # @!attribute [rw] total_capacity
+    #   The combined amount of `Available` and `Unavailable` capacity in the
+    #   Capacity Reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_available_capacity
+    #   The remaining capacity. Indicates the amount of resources that can
+    #   be launched into the Capacity Reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_unavailable_capacity
+    #   The used capacity. Indicates that the capacity is in use by
+    #   resources that are running in the Capacity Reservation.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityReservationStatus AWS API Documentation
+    #
+    class CapacityReservationStatus < Struct.new(
+      :capacity_reservation_id,
+      :total_capacity,
+      :total_available_capacity,
+      :total_unavailable_capacity)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -19553,6 +19725,14 @@ module Aws::EC2
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
     #   @return [Integer]
     #
+    # @!attribute [rw] ultraserver_type
+    #   The EC2 UltraServer type of the Capacity Block offerings.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultraserver_count
+    #   The number of EC2 UltraServers in the offerings.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityBlockOfferingsRequest AWS API Documentation
     #
     class DescribeCapacityBlockOfferingsRequest < Struct.new(
@@ -19563,7 +19743,9 @@ module Aws::EC2
       :end_date_range,
       :capacity_duration_hours,
       :next_token,
-      :max_results)
+      :max_results,
+      :ultraserver_type,
+      :ultraserver_count)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -19581,6 +19763,152 @@ module Aws::EC2
     #
     class DescribeCapacityBlockOfferingsResult < Struct.new(
       :capacity_block_offerings,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_block_ids
+    #   The ID of the Capacity Block.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters.
+    #
+    #   * `interconnect-status` - The status of the interconnect for the
+    #     Capacity Block (`ok` \| `impaired` \| `insufficient-data`).
+    #
+    #   ^
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityBlockStatusRequest AWS API Documentation
+    #
+    class DescribeCapacityBlockStatusRequest < Struct.new(
+      :capacity_block_ids,
+      :next_token,
+      :max_results,
+      :filters,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_block_statuses
+    #   The availability of capacity for a Capacity Block.
+    #   @return [Array<Types::CapacityBlockStatus>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityBlockStatusResult AWS API Documentation
+    #
+    class DescribeCapacityBlockStatusResult < Struct.new(
+      :capacity_block_statuses,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_block_ids
+    #   The IDs of the Capacity Blocks.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters.
+    #
+    #   * `capacity-block-id` - The ID of the Capacity Block.
+    #
+    #   * `ultraserver-type` - The Capacity Block type. The type can be
+    #     `instances` or `ultraservers`.
+    #
+    #   * `availability-zone` - The Availability Zone of the Capacity Block.
+    #
+    #   * `start-date` - The date and time at which the Capacity Block was
+    #     started.
+    #
+    #   * `end-date` - The date and time at which the Capacity Block
+    #     expires. When a Capacity Block expires, all instances in the
+    #     Capacity Block are terminated.
+    #
+    #   * `create-date` - The date and time at which the Capacity Block was
+    #     created.
+    #
+    #   * `state` - The state of the Capacity Block (`active` \| `expired`
+    #     \| `unavailable` \| `cancelled` \| `failed` \| `scheduled` \|
+    #     `payment-pending` \| `payment-failed`).
+    #
+    #   * `tags` - The tags assigned to the Capacity Block.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityBlocksRequest AWS API Documentation
+    #
+    class DescribeCapacityBlocksRequest < Struct.new(
+      :capacity_block_ids,
+      :next_token,
+      :max_results,
+      :filters,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_blocks
+    #   The Capacity Blocks.
+    #   @return [Array<Types::CapacityBlock>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityBlocksResult AWS API Documentation
+    #
+    class DescribeCapacityBlocksResult < Struct.new(
+      :capacity_blocks,
       :next_token)
       SENSITIVE = []
       include Aws::Structure
@@ -34191,11 +34519,14 @@ module Aws::EC2
     #   but not both. If neither is specified, Amazon EC2 automatically
     #   selects an Availability Zone within the Region.
     #
-    #   This parameter is not supported when using [CreateImage][1].
+    #   This parameter is not supported when using [CreateImage][1],
+    #   [DescribeImages][2], and [RunInstances][3].
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html
+    #   [2]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html
+    #   [3]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html
     #   @return [String]
     #
     # @!attribute [rw] encrypted
@@ -34292,11 +34623,14 @@ module Aws::EC2
     #   but not both. If neither is specified, Amazon EC2 automatically
     #   selects an Availability Zone within the Region.
     #
-    #   This parameter is not supported when using [CreateImage][1].
+    #   This parameter is not supported when using [CreateImage][1],
+    #   [DescribeImages][2], and [RunInstances][3].
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateImage.html
+    #   [2]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeImages.html
+    #   [3]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EbsBlockDevice AWS API Documentation
@@ -34432,15 +34766,15 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] associated_resource
-    #   The ARN of the Amazon ECS or Fargate task to which the volume is
-    #   attached.
+    #   The ARN of the Amazon Web Services-managed resource to which the
+    #   volume is attached.
     #   @return [String]
     #
     # @!attribute [rw] volume_owner_id
     #   The ID of the Amazon Web Services account that owns the volume.
     #
     #   This parameter is returned only for volumes that are attached to
-    #   Fargate tasks.
+    #   Amazon Web Services-managed resources.
     #   @return [String]
     #
     # @!attribute [rw] operator
@@ -44177,6 +44511,16 @@ module Aws::EC2
     #   The CPU options for the instance.
     #   @return [Types::CpuOptions]
     #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block.
+    #
+    #   <note markdown="1"> For P5 instances, a Capacity Block ID refers to a group of
+    #   instances. For Trn2u instances, a capacity block ID refers to an EC2
+    #   UltraServer.
+    #
+    #    </note>
+    #   @return [String]
+    #
     # @!attribute [rw] capacity_reservation_id
     #   The ID of the Capacity Reservation.
     #   @return [String]
@@ -44418,6 +44762,7 @@ module Aws::EC2
       :tags,
       :virtualization_type,
       :cpu_options,
+      :capacity_block_id,
       :capacity_reservation_id,
       :capacity_reservation_specification,
       :hibernation_options,
@@ -47290,6 +47635,12 @@ module Aws::EC2
     #   in.
     #   @return [String]
     #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block. This parameter is only supported for
+    #   Ultraserver instances and identifies instances within the
+    #   Ultraserver domain.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceTopology AWS API Documentation
     #
     class InstanceTopology < Struct.new(
@@ -47298,7 +47649,8 @@ module Aws::EC2
       :group_name,
       :network_nodes,
       :availability_zone,
-      :zone_id)
+      :zone_id,
+      :capacity_block_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -53907,7 +54259,7 @@ module Aws::EC2
     #   value is specified for `DeleteOnTermination`, the default is `true`
     #   and the volume is deleted when the instance is terminated. You
     #   can't modify the `DeleteOnTermination` attribute for volumes that
-    #   are attached to Fargate tasks.
+    #   are attached to Amazon Web Services-managed resources.
     #
     #   To add instance store volumes to an Amazon EBS-backed instance, you
     #   must add them when you launch the instance. For more information,
@@ -62113,10 +62465,15 @@ module Aws::EC2
     #   The Capacity Reservation.
     #   @return [Types::CapacityReservation]
     #
+    # @!attribute [rw] capacity_blocks
+    #   The Capacity Block.
+    #   @return [Array<Types::CapacityBlock>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/PurchaseCapacityBlockResult AWS API Documentation
     #
     class PurchaseCapacityBlockResult < Struct.new(
-      :capacity_reservation)
+      :capacity_reservation,
+      :capacity_blocks)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -76391,16 +76748,16 @@ module Aws::EC2
     #   @return [Boolean]
     #
     # @!attribute [rw] associated_resource
-    #   The ARN of the Amazon ECS or Fargate task to which the volume is
-    #   attached.
+    #   The ARN of the Amazon Web Services-managed resource to which the
+    #   volume is attached.
     #   @return [String]
     #
     # @!attribute [rw] instance_owning_service
-    #   The service principal of Amazon Web Services service that owns the
-    #   underlying instance to which the volume is attached.
+    #   The service principal of the Amazon Web Services service that owns
+    #   the underlying resource to which the volume is attached.
     #
     #   This parameter is returned only for volumes that are attached to
-    #   Fargate tasks.
+    #   Amazon Web Services-managed resources.
     #   @return [String]
     #
     # @!attribute [rw] volume_id
@@ -76410,15 +76767,15 @@ module Aws::EC2
     # @!attribute [rw] instance_id
     #   The ID of the instance.
     #
-    #   If the volume is attached to a Fargate task, this parameter returns
-    #   `null`.
+    #   If the volume is attached to an Amazon Web Services-managed
+    #   resource, this parameter returns `null`.
     #   @return [String]
     #
     # @!attribute [rw] device
     #   The device name.
     #
-    #   If the volume is attached to a Fargate task, this parameter returns
-    #   `null`.
+    #   If the volume is attached to an Amazon Web Services-managed
+    #   resource, this parameter returns `null`.
     #   @return [String]
     #
     # @!attribute [rw] state

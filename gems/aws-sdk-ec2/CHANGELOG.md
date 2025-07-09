@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.537.0 (2025-07-09)
+------------------
+
+* Feature - Adds support to Capacity Blocks for ML for purchasing EC2 P6e-GB200 UltraServers. Customers can now purchase u-p6e-gb200x72 and u-p6e-gb200x36 UltraServers. Adds new DescribeCapacityBlocks andDescribeCapacityBlockStatus APIs. Adds support for CapacityBlockId to DescribeInstanceTopology.
+
 1.536.0 (2025-07-03)
 ------------------
 
