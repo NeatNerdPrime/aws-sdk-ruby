@@ -9769,6 +9769,12 @@ module Aws::EC2
     #
     #   * `false` - Use the network interface IP address as the source.
     #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
+    #
     #   Default: `false`
     #   @return [Boolean]
     #
@@ -9785,6 +9791,25 @@ module Aws::EC2
     #   creation.
     #   @return [Array<Types::TagSpecification>]
     #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type of the endpoint.
+    #
+    #   If no value is specified, the default value is determined by the IP
+    #   address type of the subnet:
+    #
+    #   * `dualstack` - If the subnet has both IPv4 and IPv6 CIDRs
+    #
+    #   * `ipv4` - If the subnet has only IPv4 CIDRs
+    #
+    #   * `ipv6` - If the subnet has only IPv6 CIDRs
+    #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateInstanceConnectEndpointRequest AWS API Documentation
     #
     class CreateInstanceConnectEndpointRequest < Struct.new(
@@ -9793,7 +9818,8 @@ module Aws::EC2
       :security_group_ids,
       :preserve_client_ip,
       :client_token,
-      :tag_specifications)
+      :tag_specifications,
+      :ip_address_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -34932,6 +34958,8 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] fips_dns_name
+    #   The Federal Information Processing Standards (FIPS) compliant DNS
+    #   name of the EC2 Instance Connect Endpoint.
     #   @return [String]
     #
     # @!attribute [rw] network_interface_ids
@@ -34982,6 +35010,10 @@ module Aws::EC2
     #   The tags assigned to the EC2 Instance Connect Endpoint.
     #   @return [Array<Types::Tag>]
     #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type of the endpoint.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/Ec2InstanceConnectEndpoint AWS API Documentation
     #
     class Ec2InstanceConnectEndpoint < Struct.new(
@@ -34999,7 +35031,8 @@ module Aws::EC2
       :subnet_id,
       :preserve_client_ip,
       :security_group_ids,
-      :tags)
+      :tags,
+      :ip_address_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -44399,6 +44432,46 @@ module Aws::EC2
     #
     class InferenceDeviceMemoryInfo < Struct.new(
       :size_in_mi_b)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about the volume initialization. For more information, see
+    # [Initialize Amazon EBS volumes][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html
+    #
+    # @!attribute [rw] initialization_type
+    #   The method used for volume initialization. Possible values include:
+    #
+    #   * `default` - Volume initialized using the default volume
+    #     initialization rate or fast snapshot restore.
+    #
+    #   * `provisioned-rate` - Volume initialized using an Amazon EBS
+    #     Provisioned Rate for Volume Initialization.
+    #   @return [String]
+    #
+    # @!attribute [rw] progress
+    #   The current volume initialization progress as a percentage (0-100).
+    #   Returns `100` when volume initialization has completed.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] estimated_time_to_complete_in_seconds
+    #   The estimated remaining time, in seconds, for volume initialization
+    #   to complete. Returns `0` when volume initialization has completed.
+    #
+    #   Only available for volumes created with Amazon EBS Provisioned Rate
+    #   for Volume Initialization.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InitializationStatusDetails AWS API Documentation
+    #
+    class InitializationStatusDetails < Struct.new(
+      :initialization_type,
+      :progress,
+      :estimated_time_to_complete_in_seconds)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -76956,6 +77029,21 @@ module Aws::EC2
     #
     # @!attribute [rw] name
     #   The name of the volume status.
+    #
+    #   * `io-enabled` - Indicates the volume I/O status. For more
+    #     information, see [Amazon EBS volume status checks][1].
+    #
+    #   * `io-performance` - Indicates the volume performance status. For
+    #     more information, see [Amazon EBS volume status checks][1].
+    #
+    #   * `initialization-state` - Indicates the status of the volume
+    #     initialization process. For more information, see [Initialize
+    #     Amazon EBS volumes][2].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ebs/latest/userguide/monitoring-volume-checks.html
+    #   [2]: https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html
     #   @return [String]
     #
     # @!attribute [rw] status
@@ -77059,6 +77147,20 @@ module Aws::EC2
     #   Information about the instances to which the volume is attached.
     #   @return [Array<Types::VolumeStatusAttachmentStatus>]
     #
+    # @!attribute [rw] initialization_status_details
+    #   Information about the volume initialization. It can take up to 5
+    #   minutes for the volume initialization information to be updated.
+    #
+    #   Only available for volumes created from snapshots. Not available for
+    #   empty volumes created without a snapshot.
+    #
+    #   For more information, see [ Initialize Amazon EBS volumes][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html
+    #   @return [Types::InitializationStatusDetails]
+    #
     # @!attribute [rw] availability_zone_id
     #   The ID of the Availability Zone.
     #   @return [String]
@@ -77073,6 +77175,7 @@ module Aws::EC2
       :volume_id,
       :volume_status,
       :attachment_statuses,
+      :initialization_status_details,
       :availability_zone_id)
       SENSITIVE = []
       include Aws::Structure

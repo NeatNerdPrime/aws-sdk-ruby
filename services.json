@@ -1101,6 +1101,9 @@
   "S3Tables": {
     "models": "s3tables/2018-05-10"
   },
+  "S3Vectors": {
+    "models": "s3vectors/2025-07-15"
+  },
   "SES": {
     "models": "email/2010-12-01"
   },

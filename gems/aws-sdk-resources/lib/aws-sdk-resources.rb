@@ -344,6 +344,7 @@ module Aws
   autoload :S3Control, 'aws-sdk-s3control'
   autoload :S3Outposts, 'aws-sdk-s3outposts'
   autoload :S3Tables, 'aws-sdk-s3tables'
+  autoload :S3Vectors, 'aws-sdk-s3vectors'
   autoload :SES, 'aws-sdk-ses'
   autoload :SESV2, 'aws-sdk-sesv2'
   autoload :SMS, 'aws-sdk-sms'

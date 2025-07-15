@@ -1770,7 +1770,8 @@ module Aws
                                                     },
                                                   ]?
                                                 },
-                                              ]
+                                              ],
+                                              ?ip_address_type: ("ipv4" | "dualstack" | "ipv6")
                                             ) -> _CreateInstanceConnectEndpointResponseSuccess
                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateInstanceConnectEndpointResponseSuccess
 

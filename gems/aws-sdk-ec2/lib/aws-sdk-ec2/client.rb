@@ -7971,9 +7971,9 @@ module Aws::EC2
     # Creates an EC2 Instance Connect Endpoint.
     #
     # An EC2 Instance Connect Endpoint allows you to connect to an instance,
-    # without requiring the instance to have a public IPv4 address. For more
-    # information, see [Connect to your instances using EC2 Instance Connect
-    # Endpoint][1] in the *Amazon EC2 User Guide*.
+    # without requiring the instance to have a public IPv4 or public IPv6
+    # address. For more information, see [Connect to your instances using
+    # EC2 Instance Connect Endpoint][1] in the *Amazon EC2 User Guide*.
     #
     #
     #
@@ -8002,6 +8002,12 @@ module Aws::EC2
     #
     #   * `false` - Use the network interface IP address as the source.
     #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
+    #
     #   Default: `false`
     #
     # @option params [String] :client_token
@@ -8014,6 +8020,24 @@ module Aws::EC2
     # @option params [Array<Types::TagSpecification>] :tag_specifications
     #   The tags to apply to the EC2 Instance Connect Endpoint during
     #   creation.
+    #
+    # @option params [String] :ip_address_type
+    #   The IP address type of the endpoint.
+    #
+    #   If no value is specified, the default value is determined by the IP
+    #   address type of the subnet:
+    #
+    #   * `dualstack` - If the subnet has both IPv4 and IPv6 CIDRs
+    #
+    #   * `ipv4` - If the subnet has only IPv4 CIDRs
+    #
+    #   * `ipv6` - If the subnet has only IPv6 CIDRs
+    #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
     #
     # @return [Types::CreateInstanceConnectEndpointResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -8039,6 +8063,7 @@ module Aws::EC2
     #         ],
     #       },
     #     ],
+    #     ip_address_type: "ipv4", # accepts ipv4, dualstack, ipv6
     #   })
     #
     # @example Response structure
@@ -8062,6 +8087,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.tags #=> Array
     #   resp.instance_connect_endpoint.tags[0].key #=> String
     #   resp.instance_connect_endpoint.tags[0].value #=> String
+    #   resp.instance_connect_endpoint.ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
     #   resp.client_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateInstanceConnectEndpoint AWS API Documentation
@@ -18054,6 +18080,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.tags #=> Array
     #   resp.instance_connect_endpoint.tags[0].key #=> String
     #   resp.instance_connect_endpoint.tags[0].value #=> String
+    #   resp.instance_connect_endpoint.ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteInstanceConnectEndpoint AWS API Documentation
     #
@@ -27415,6 +27442,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoints[0].tags #=> Array
     #   resp.instance_connect_endpoints[0].tags[0].key #=> String
     #   resp.instance_connect_endpoints[0].tags[0].value #=> String
+    #   resp.instance_connect_endpoints[0].ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceConnectEndpoints AWS API Documentation
@@ -40503,12 +40531,15 @@ module Aws::EC2
     #   resp.volume_statuses[0].events[0].instance_id #=> String
     #   resp.volume_statuses[0].volume_id #=> String
     #   resp.volume_statuses[0].volume_status.details #=> Array
-    #   resp.volume_statuses[0].volume_status.details[0].name #=> String, one of "io-enabled", "io-performance"
+    #   resp.volume_statuses[0].volume_status.details[0].name #=> String, one of "io-enabled", "io-performance", "initialization-state"
     #   resp.volume_statuses[0].volume_status.details[0].status #=> String
     #   resp.volume_statuses[0].volume_status.status #=> String, one of "ok", "impaired", "insufficient-data"
     #   resp.volume_statuses[0].attachment_statuses #=> Array
     #   resp.volume_statuses[0].attachment_statuses[0].io_performance #=> String
     #   resp.volume_statuses[0].attachment_statuses[0].instance_id #=> String
+    #   resp.volume_statuses[0].initialization_status_details.initialization_type #=> String, one of "default", "provisioned-rate"
+    #   resp.volume_statuses[0].initialization_status_details.progress #=> Integer
+    #   resp.volume_statuses[0].initialization_status_details.estimated_time_to_complete_in_seconds #=> Integer
     #   resp.volume_statuses[0].availability_zone_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVolumeStatus AWS API Documentation
@@ -66362,7 +66393,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.537.0'
+      context[:gem_version] = '1.538.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

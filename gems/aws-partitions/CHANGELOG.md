@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1127.0 (2025-07-15)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::S3Vectors`.
+
 1.1126.0 (2025-07-09)
 ------------------
 

@@ -1856,6 +1856,8 @@ module Aws::EC2
     InferenceDeviceMemoryInfo = Shapes::StructureShape.new(name: 'InferenceDeviceMemoryInfo')
     InferenceDeviceMemorySize = Shapes::IntegerShape.new(name: 'InferenceDeviceMemorySize')
     InferenceDeviceName = Shapes::StringShape.new(name: 'InferenceDeviceName')
+    InitializationStatusDetails = Shapes::StructureShape.new(name: 'InitializationStatusDetails')
+    InitializationType = Shapes::StringShape.new(name: 'InitializationType')
     InsideCidrBlocksStringList = Shapes::ListShape.new(name: 'InsideCidrBlocksStringList')
     Instance = Shapes::StructureShape.new(name: 'Instance')
     InstanceAttachmentEnaSrdSpecification = Shapes::StructureShape.new(name: 'InstanceAttachmentEnaSrdSpecification')
@@ -5366,6 +5368,7 @@ module Aws::EC2
     CreateInstanceConnectEndpointRequest.add_member(:preserve_client_ip, Shapes::ShapeRef.new(shape: Boolean, location_name: "PreserveClientIp"))
     CreateInstanceConnectEndpointRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
     CreateInstanceConnectEndpointRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CreateInstanceConnectEndpointRequest.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "IpAddressType"))
     CreateInstanceConnectEndpointRequest.struct_class = Types::CreateInstanceConnectEndpointRequest
 
     CreateInstanceConnectEndpointResult.add_member(:instance_connect_endpoint, Shapes::ShapeRef.new(shape: Ec2InstanceConnectEndpoint, location_name: "instanceConnectEndpoint"))
@@ -9415,6 +9418,7 @@ module Aws::EC2
     Ec2InstanceConnectEndpoint.add_member(:preserve_client_ip, Shapes::ShapeRef.new(shape: Boolean, location_name: "preserveClientIp"))
     Ec2InstanceConnectEndpoint.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIdSet, location_name: "securityGroupIdSet"))
     Ec2InstanceConnectEndpoint.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    Ec2InstanceConnectEndpoint.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "ipAddressType"))
     Ec2InstanceConnectEndpoint.struct_class = Types::Ec2InstanceConnectEndpoint
 
     EfaInfo.add_member(:maximum_efa_interfaces, Shapes::ShapeRef.new(shape: MaximumEfaInterfaces, location_name: "maximumEfaInterfaces"))
@@ -11150,6 +11154,11 @@ module Aws::EC2
 
     InferenceDeviceMemoryInfo.add_member(:size_in_mi_b, Shapes::ShapeRef.new(shape: InferenceDeviceMemorySize, location_name: "sizeInMiB"))
     InferenceDeviceMemoryInfo.struct_class = Types::InferenceDeviceMemoryInfo
+
+    InitializationStatusDetails.add_member(:initialization_type, Shapes::ShapeRef.new(shape: InitializationType, location_name: "initializationType"))
+    InitializationStatusDetails.add_member(:progress, Shapes::ShapeRef.new(shape: Long, location_name: "progress"))
+    InitializationStatusDetails.add_member(:estimated_time_to_complete_in_seconds, Shapes::ShapeRef.new(shape: Long, location_name: "estimatedTimeToCompleteInSeconds"))
+    InitializationStatusDetails.struct_class = Types::InitializationStatusDetails
 
     InsideCidrBlocksStringList.member = Shapes::ShapeRef.new(shape: String, location_name: "item")
 
@@ -17300,6 +17309,7 @@ module Aws::EC2
     VolumeStatusItem.add_member(:volume_id, Shapes::ShapeRef.new(shape: String, location_name: "volumeId"))
     VolumeStatusItem.add_member(:volume_status, Shapes::ShapeRef.new(shape: VolumeStatusInfo, location_name: "volumeStatus"))
     VolumeStatusItem.add_member(:attachment_statuses, Shapes::ShapeRef.new(shape: VolumeStatusAttachmentStatusList, location_name: "attachmentStatuses"))
+    VolumeStatusItem.add_member(:initialization_status_details, Shapes::ShapeRef.new(shape: InitializationStatusDetails, location_name: "initializationStatusDetails"))
     VolumeStatusItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     VolumeStatusItem.struct_class = Types::VolumeStatusItem
 

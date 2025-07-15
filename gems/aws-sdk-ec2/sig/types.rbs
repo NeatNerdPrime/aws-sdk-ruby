@@ -2165,6 +2165,7 @@ module Aws::EC2
       attr_accessor preserve_client_ip: bool
       attr_accessor client_token: ::String
       attr_accessor tag_specifications: ::Array[Types::TagSpecification]
+      attr_accessor ip_address_type: ("ipv4" | "dualstack" | "ipv6")
       SENSITIVE: []
     end
 
@@ -7694,6 +7695,7 @@ module Aws::EC2
       attr_accessor preserve_client_ip: bool
       attr_accessor security_group_ids: ::Array[::String]
       attr_accessor tags: ::Array[Types::Tag]
+      attr_accessor ip_address_type: ("ipv4" | "dualstack" | "ipv6")
       SENSITIVE: []
     end
 
@@ -9818,6 +9820,13 @@ module Aws::EC2
 
     class InferenceDeviceMemoryInfo
       attr_accessor size_in_mi_b: ::Integer
+      SENSITIVE: []
+    end
+
+    class InitializationStatusDetails
+      attr_accessor initialization_type: ("default" | "provisioned-rate")
+      attr_accessor progress: ::Integer
+      attr_accessor estimated_time_to_complete_in_seconds: ::Integer
       SENSITIVE: []
     end
 
@@ -16694,7 +16703,7 @@ module Aws::EC2
     end
 
     class VolumeStatusDetails
-      attr_accessor name: ("io-enabled" | "io-performance")
+      attr_accessor name: ("io-enabled" | "io-performance" | "initialization-state")
       attr_accessor status: ::String
       SENSITIVE: []
     end
@@ -16723,6 +16732,7 @@ module Aws::EC2
       attr_accessor volume_id: ::String
       attr_accessor volume_status: Types::VolumeStatusInfo
       attr_accessor attachment_statuses: ::Array[Types::VolumeStatusAttachmentStatus]
+      attr_accessor initialization_status_details: Types::InitializationStatusDetails
       attr_accessor availability_zone_id: ::String
       SENSITIVE: []
     end

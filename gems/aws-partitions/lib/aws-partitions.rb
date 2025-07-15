@@ -582,6 +582,7 @@ module Aws
             'S3Control' => 's3-control',
             'S3Outposts' => 's3-outposts',
             'S3Tables' => 's3tables',
+            'S3Vectors' => 's3vectors',
             'SES' => 'email',
             'SESV2' => 'email',
             'SMS' => 'sms',

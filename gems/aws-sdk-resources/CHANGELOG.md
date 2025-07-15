@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.235.0 (2025-07-15)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-s3vectors` gem.
+
 3.234.0 (2025-07-01)
 ------------------
 
