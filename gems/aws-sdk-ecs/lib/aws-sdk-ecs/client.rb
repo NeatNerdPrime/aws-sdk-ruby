@@ -944,7 +944,8 @@ module Aws::ECS
     #
     #   When you create a service which uses the `ECS` deployment
     #   controller, you can choose between the following deployment
-    #   strategies:
+    #   strategies (which you can set in the “`strategy`” field in
+    #   “`deploymentConfiguration`”): :
     #
     #   * `ROLLING`: When you create a service which uses the *rolling
     #     update* (`ROLLING`) deployment strategy, the Amazon ECS service
@@ -1603,8 +1604,6 @@ module Aws::ECS
     #           hook_target_arn: "String",
     #           role_arn: "IAMRoleArn",
     #           lifecycle_stages: ["RECONCILE_SERVICE"], # accepts RECONCILE_SERVICE, PRE_SCALE_UP, POST_SCALE_UP, TEST_TRAFFIC_SHIFT, POST_TEST_TRAFFIC_SHIFT, PRODUCTION_TRAFFIC_SHIFT, POST_PRODUCTION_TRAFFIC_SHIFT
-    #           hook_details: {
-    #           },
     #         },
     #       ],
     #     },
@@ -11945,8 +11944,6 @@ module Aws::ECS
     #           hook_target_arn: "String",
     #           role_arn: "IAMRoleArn",
     #           lifecycle_stages: ["RECONCILE_SERVICE"], # accepts RECONCILE_SERVICE, PRE_SCALE_UP, POST_SCALE_UP, TEST_TRAFFIC_SHIFT, POST_TEST_TRAFFIC_SHIFT, PRODUCTION_TRAFFIC_SHIFT, POST_PRODUCTION_TRAFFIC_SHIFT
-    #           hook_details: {
-    #           },
     #         },
     #       ],
     #     },
@@ -12775,7 +12772,7 @@ module Aws::ECS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecs'
-      context[:gem_version] = '1.197.0'
+      context[:gem_version] = '1.198.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -33,13 +33,17 @@ module Aws::ECS
     #   @return [String]
     #
     # @!attribute [rw] production_listener_rule
-    #   The Amazon Resource Name (ARN) that identifies the production
-    #   listener rule for routing production traffic.
+    #   The Amazon Resource Name (ARN) that that identifies the production
+    #   listener rule (in the case of an Application Load Balancer) or
+    #   listener (in the case for an Network Load Balancer) for routing
+    #   production traffic.
     #   @return [String]
     #
     # @!attribute [rw] test_listener_rule
-    #   The Amazon Resource Name (ARN) that identifies the test listener
-    #   rule or listener for routing test traffic.
+    #   The Amazon Resource Name (ARN) that identifies ) that identifies the
+    #   test listener rule (in the case of an Application Load Balancer) or
+    #   listener (in the case for an Network Load Balancer) for routing test
+    #   traffic.
     #   @return [String]
     #
     # @!attribute [rw] role_arn
@@ -3772,7 +3776,7 @@ module Aws::ECS
     # your service to the last completed deployment after a failure.
     #
     # You can only use the `DeploymentAlarms` method to detect failures when
-    # the `DeploymentController` is set to `ECS` (rolling update).
+    # the `DeploymentController` is set to `ECS`.
     #
     # For more information, see [Rolling update][1] in the <i> <i>Amazon
     # Elastic Container Service Developer Guide</i> </i>.
@@ -4029,8 +4033,8 @@ module Aws::ECS
     #   @return [String]
     #
     # @!attribute [rw] bake_time_in_minutes
-    #   The duration when both blue and green service revisions are running
-    #   simultaneously after the production traffic has shifted.
+    #   The time period when both blue and green service revisions are
+    #   running simultaneously after the production traffic has shifted.
     #
     #   You must provide this parameter when you use the `BLUE_GREEN`
     #   deployment strategy.
@@ -4038,8 +4042,7 @@ module Aws::ECS
     #
     # @!attribute [rw] lifecycle_hooks
     #   An array of deployment lifecycle hook objects to run custom logic at
-    #   specific stages of the deployment lifecycle. These hooks allow you
-    #   to run custom logic at key points during the deployment process.
+    #   specific stages of the deployment lifecycle.
     #   @return [Array<Types::DeploymentLifecycleHook>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeploymentConfiguration AWS API Documentation
@@ -4176,6 +4179,14 @@ module Aws::ECS
     # the deployment process. Currently, you can use Lambda functions as
     # hook targets.
     #
+    # For more information, see [Lifecycle hooks for Amazon ECS service
+    # deployments][1] in the <i> Amazon Elastic Container Service Developer
+    # Guide</i>.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-lifecycle-hooks.html
+    #
     # @!attribute [rw] hook_target_arn
     #   The Amazon Resource Name (ARN) of the hook target. Currently, only
     #   Lambda function ARNs are supported.
@@ -4189,7 +4200,7 @@ module Aws::ECS
     #   ECS permission to call Lambda functions on your behalf.
     #
     #   For more information, see [Permissions required for Lambda functions
-    #   in Amazon ECS blue/green deployments][1] in the<i> Amazon Elastic
+    #   in Amazon ECS blue/green deployments][1] in the <i> Amazon Elastic
     #   Container Service Developer Guide</i>.
     #
     #
@@ -4203,8 +4214,9 @@ module Aws::ECS
     #
     #   * RECONCILE\_SERVICE
     #
-    #     This stage only happens when you start a new service deployment
-    #     with more than 1 service revision in an ACTIVE state.
+    #     The reconciliation stage that only happens when you start a new
+    #     service deployment with more than 1 service revision in an ACTIVE
+    #     state.
     #
     #     You can use a lifecycle hook for this stage.
     #
@@ -4215,14 +4227,6 @@ module Aws::ECS
     #     test traffic.
     #
     #     You can use a lifecycle hook for this stage.
-    #
-    #   * SCALE\_UP
-    #
-    #     The time when the green service revision scales up to 100% and
-    #     launches new tasks. The green service revision is not serving any
-    #     traffic at this point.
-    #
-    #     You can't use a lifecycle hook for this stage.
     #
     #   * POST\_SCALE\_UP
     #
@@ -4259,39 +4263,18 @@ module Aws::ECS
     #
     #     The production traffic shift is complete.
     #
-    #     Yes
-    #
-    #   * BAKE\_TIME
-    #
-    #     The duration when both blue and green service revisions are
-    #     running simultaneously.
-    #
-    #     You can't use a lifecycle hook for this stage.
-    #
-    #   * CLEAN\_UP
-    #
-    #     The blue service revision has completely scaled down to 0 running
-    #     tasks. The green service revision is now the production service
-    #     revision after this stage.
-    #
-    #     You can't use a lifecycle hook for this stage.
+    #     You can use a lifecycle hook for this stage.
     #
     #   You must provide this parameter when configuring a deployment
     #   lifecycle hook.
     #   @return [Array<String>]
-    #
-    # @!attribute [rw] hook_details
-    #   Optionally provide details about the hook. Use this field to pass
-    #   custom parameters to your hook target (such as a Lambda function).
-    #   @return [Hash,Array,String,Numeric,Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeploymentLifecycleHook AWS API Documentation
     #
     class DeploymentLifecycleHook < Struct.new(
       :hook_target_arn,
       :role_arn,
-      :lifecycle_stages,
-      :hook_details)
+      :lifecycle_stages)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10395,6 +10378,14 @@ module Aws::ECS
     # Amazon ECS blue/green deployments. These rules specify which HTTP
     # headers to examine and what values to match for routing decisions.
     #
+    # For more information, see [Service Connect for Amazon ECS blue/green
+    # deployments][1] in the <i> Amazon Elastic Container Service Developer
+    # Guide</i>.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-blue-green.html
+    #
     # @!attribute [rw] name
     #   The name of the HTTP header to examine for test traffic routing.
     #   Common examples include custom headers like `X-Test-Version` or
@@ -10420,6 +10411,14 @@ module Aws::ECS
     # specific traffic to the new service revision during the deployment
     # process, allowing for safe testing before full production traffic
     # shift.
+    #
+    # For more information, see [Service Connect for Amazon ECS blue/green
+    # deployments][1] in the <i> Amazon Elastic Container Service Developer
+    # Guide</i>.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect-blue-green.html
     #
     # @!attribute [rw] header
     #   The HTTP header-based routing rules that determine which requests
@@ -10555,19 +10554,61 @@ module Aws::ECS
     #   The current lifecycle stage of the deployment. Possible values
     #   include:
     #
-    #   * `SCALE_UP_IN_PROGRESS` - Creating the new (green) tasks
+    #   * RECONCILE\_SERVICE
     #
-    #   * `TEST_TRAFFIC_SHIFT_IN_PROGRESS` - Shifting test traffic to the
-    #     new (green) tasks
+    #     The reconciliation stage that only happens when you start a new
+    #     service deployment with more than 1 service revision in an ACTIVE
+    #     state.
     #
-    #   * `PRODUCTION_TRAFFIC_SHIFT_IN_PROGRESS` - Shifting production
-    #     traffic to the new (green) tasks
+    #   * PRE\_SCALE\_UP
     #
-    #   * `BAKE_TIME_IN_PROGRESS` - The duration when both blue and green
-    #     service revisions are running simultaneously after the production
-    #     traffic has shifted
+    #     The green service revision has not started. The blue service
+    #     revision is handling 100% of the production traffic. There is no
+    #     test traffic.
     #
-    #   * `CLEAN_UP_IN_PROGRESS` - Stopping the old (blue) tasks
+    #   * SCALE\_UP
+    #
+    #     The stage when the green service revision scales up to 100% and
+    #     launches new tasks. The green service revision is not serving any
+    #     traffic at this point.
+    #
+    #   * POST\_SCALE\_UP
+    #
+    #     The green service revision has started. The blue service revision
+    #     is handling 100% of the production traffic. There is no test
+    #     traffic.
+    #
+    #   * TEST\_TRAFFIC\_SHIFT
+    #
+    #     The blue and green service revisions are running. The blue service
+    #     revision handles 100% of the production traffic. The green service
+    #     revision is migrating from 0% to 100% of test traffic.
+    #
+    #   * POST\_TEST\_TRAFFIC\_SHIFT
+    #
+    #     The test traffic shift is complete. The green service revision
+    #     handles 100% of the test traffic.
+    #
+    #   * PRODUCTION\_TRAFFIC\_SHIFT
+    #
+    #     Production traffic is shifting to the green service revision. The
+    #     green service revision is migrating from 0% to 100% of production
+    #     traffic.
+    #
+    #   * POST\_PRODUCTION\_TRAFFIC\_SHIFT
+    #
+    #     The production traffic shift is complete.
+    #
+    #   * BAKE\_TIME
+    #
+    #     The stage when both blue and green service revisions are running
+    #     simultaneously after the production traffic has shifted.
+    #
+    #   * CLEAN\_UP
+    #
+    #     The stage when the blue service revision has completely scaled
+    #     down to 0 running tasks. The green service revision is now the
+    #     production service revision after this stage.
     #   @return [String]
     #
     # @!attribute [rw] deployment_configuration
