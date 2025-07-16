@@ -58,6 +58,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency('aws-sdk-batch', '~> 1')
   spec.add_dependency('aws-sdk-bedrock', '~> 1')
   spec.add_dependency('aws-sdk-bedrockagent', '~> 1')
+  spec.add_dependency('aws-sdk-bedrockagentcore', '~> 1')
+  spec.add_dependency('aws-sdk-bedrockagentcorecontrol', '~> 1')
   spec.add_dependency('aws-sdk-bedrockagentruntime', '~> 1')
   spec.add_dependency('aws-sdk-bedrockdataautomation', '~> 1')
   spec.add_dependency('aws-sdk-bedrockdataautomationruntime', '~> 1')

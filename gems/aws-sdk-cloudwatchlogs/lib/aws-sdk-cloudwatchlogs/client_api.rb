@@ -178,6 +178,7 @@ module Aws::CloudWatchLogs
     EventNumber = Shapes::IntegerShape.new(name: 'EventNumber')
     EventSource = Shapes::StringShape.new(name: 'EventSource')
     EventsLimit = Shapes::IntegerShape.new(name: 'EventsLimit')
+    ExpectedRevisionId = Shapes::StringShape.new(name: 'ExpectedRevisionId')
     ExportDestinationBucket = Shapes::StringShape.new(name: 'ExportDestinationBucket')
     ExportDestinationPrefix = Shapes::StringShape.new(name: 'ExportDestinationPrefix')
     ExportTask = Shapes::StructureShape.new(name: 'ExportTask')
@@ -378,6 +379,7 @@ module Aws::CloudWatchLogs
     Policy = Shapes::StructureShape.new(name: 'Policy')
     PolicyDocument = Shapes::StringShape.new(name: 'PolicyDocument')
     PolicyName = Shapes::StringShape.new(name: 'PolicyName')
+    PolicyScope = Shapes::StringShape.new(name: 'PolicyScope')
     PolicyType = Shapes::StringShape.new(name: 'PolicyType')
     Priority = Shapes::StringShape.new(name: 'Priority')
     Processor = Shapes::StructureShape.new(name: 'Processor')
@@ -765,6 +767,8 @@ module Aws::CloudWatchLogs
     DeleteQueryDefinitionResponse.struct_class = Types::DeleteQueryDefinitionResponse
 
     DeleteResourcePolicyRequest.add_member(:policy_name, Shapes::ShapeRef.new(shape: PolicyName, location_name: "policyName"))
+    DeleteResourcePolicyRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: Arn, location_name: "resourceArn"))
+    DeleteResourcePolicyRequest.add_member(:expected_revision_id, Shapes::ShapeRef.new(shape: ExpectedRevisionId, location_name: "expectedRevisionId"))
     DeleteResourcePolicyRequest.struct_class = Types::DeleteResourcePolicyRequest
 
     DeleteRetentionPolicyRequest.add_member(:log_group_name, Shapes::ShapeRef.new(shape: LogGroupName, required: true, location_name: "logGroupName"))
@@ -966,6 +970,8 @@ module Aws::CloudWatchLogs
 
     DescribeResourcePoliciesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
     DescribeResourcePoliciesRequest.add_member(:limit, Shapes::ShapeRef.new(shape: DescribeLimit, location_name: "limit"))
+    DescribeResourcePoliciesRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: Arn, location_name: "resourceArn"))
+    DescribeResourcePoliciesRequest.add_member(:policy_scope, Shapes::ShapeRef.new(shape: PolicyScope, location_name: "policyScope"))
     DescribeResourcePoliciesRequest.struct_class = Types::DescribeResourcePoliciesRequest
 
     DescribeResourcePoliciesResponse.add_member(:resource_policies, Shapes::ShapeRef.new(shape: ResourcePolicies, location_name: "resourcePolicies"))
@@ -1588,7 +1594,8 @@ module Aws::CloudWatchLogs
 
     PutDeliveryDestinationRequest.add_member(:name, Shapes::ShapeRef.new(shape: DeliveryDestinationName, required: true, location_name: "name"))
     PutDeliveryDestinationRequest.add_member(:output_format, Shapes::ShapeRef.new(shape: OutputFormat, location_name: "outputFormat"))
-    PutDeliveryDestinationRequest.add_member(:delivery_destination_configuration, Shapes::ShapeRef.new(shape: DeliveryDestinationConfiguration, required: true, location_name: "deliveryDestinationConfiguration"))
+    PutDeliveryDestinationRequest.add_member(:delivery_destination_configuration, Shapes::ShapeRef.new(shape: DeliveryDestinationConfiguration, location_name: "deliveryDestinationConfiguration"))
+    PutDeliveryDestinationRequest.add_member(:delivery_destination_type, Shapes::ShapeRef.new(shape: DeliveryDestinationType, location_name: "deliveryDestinationType"))
     PutDeliveryDestinationRequest.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "tags"))
     PutDeliveryDestinationRequest.struct_class = Types::PutDeliveryDestinationRequest
 
@@ -1666,9 +1673,12 @@ module Aws::CloudWatchLogs
 
     PutResourcePolicyRequest.add_member(:policy_name, Shapes::ShapeRef.new(shape: PolicyName, location_name: "policyName"))
     PutResourcePolicyRequest.add_member(:policy_document, Shapes::ShapeRef.new(shape: PolicyDocument, location_name: "policyDocument"))
+    PutResourcePolicyRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: Arn, location_name: "resourceArn"))
+    PutResourcePolicyRequest.add_member(:expected_revision_id, Shapes::ShapeRef.new(shape: ExpectedRevisionId, location_name: "expectedRevisionId"))
     PutResourcePolicyRequest.struct_class = Types::PutResourcePolicyRequest
 
     PutResourcePolicyResponse.add_member(:resource_policy, Shapes::ShapeRef.new(shape: ResourcePolicy, location_name: "resourcePolicy"))
+    PutResourcePolicyResponse.add_member(:revision_id, Shapes::ShapeRef.new(shape: ExpectedRevisionId, location_name: "revisionId"))
     PutResourcePolicyResponse.struct_class = Types::PutResourcePolicyResponse
 
     PutRetentionPolicyRequest.add_member(:log_group_name, Shapes::ShapeRef.new(shape: LogGroupName, required: true, location_name: "logGroupName"))
@@ -1767,6 +1777,9 @@ module Aws::CloudWatchLogs
     ResourcePolicy.add_member(:policy_name, Shapes::ShapeRef.new(shape: PolicyName, location_name: "policyName"))
     ResourcePolicy.add_member(:policy_document, Shapes::ShapeRef.new(shape: PolicyDocument, location_name: "policyDocument"))
     ResourcePolicy.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "lastUpdatedTime"))
+    ResourcePolicy.add_member(:policy_scope, Shapes::ShapeRef.new(shape: PolicyScope, location_name: "policyScope"))
+    ResourcePolicy.add_member(:resource_arn, Shapes::ShapeRef.new(shape: Arn, location_name: "resourceArn"))
+    ResourcePolicy.add_member(:revision_id, Shapes::ShapeRef.new(shape: ExpectedRevisionId, location_name: "revisionId"))
     ResourcePolicy.struct_class = Types::ResourcePolicy
 
     ResourceTypes.member = Shapes::ShapeRef.new(shape: ResourceType)
@@ -2259,6 +2272,7 @@ module Aws::CloudWatchLogs
         o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: OperationAbortedException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
 
@@ -2967,6 +2981,8 @@ module Aws::CloudWatchLogs
         o.output = Shapes::ShapeRef.new(shape: PutResourcePolicyResponse)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
         o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: OperationAbortedException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
 

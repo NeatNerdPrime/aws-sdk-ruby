@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+1.1129.0 (2025-07-16)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::BedrockAgentCoreControl`.
+
+* Feature - Added support for enumerating regions for  `Aws::BedrockAgentCore`.
+
 1.1128.0 (2025-07-16)
 ------------------
 

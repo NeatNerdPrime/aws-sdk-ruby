@@ -48,6 +48,8 @@ module Aws
   autoload :Batch, 'aws-sdk-batch'
   autoload :Bedrock, 'aws-sdk-bedrock'
   autoload :BedrockAgent, 'aws-sdk-bedrockagent'
+  autoload :BedrockAgentCore, 'aws-sdk-bedrockagentcore'
+  autoload :BedrockAgentCoreControl, 'aws-sdk-bedrockagentcorecontrol'
   autoload :BedrockAgentRuntime, 'aws-sdk-bedrockagentruntime'
   autoload :BedrockDataAutomation, 'aws-sdk-bedrockdataautomation'
   autoload :BedrockDataAutomationRuntime, 'aws-sdk-bedrockdataautomationruntime'

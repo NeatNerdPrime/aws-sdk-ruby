@@ -288,6 +288,8 @@ module Aws
             'Batch' => 'batch',
             'Bedrock' => 'bedrock',
             'BedrockAgent' => 'bedrock-agent',
+            'BedrockAgentCore' => 'bedrock-agentcore',
+            'BedrockAgentCoreControl' => 'bedrock-agentcore-control',
             'BedrockAgentRuntime' => 'bedrock-agent-runtime',
             'BedrockDataAutomation' => 'bedrock-data-automation',
             'BedrockDataAutomationRuntime' => 'bedrock-data-automation-runtime',
