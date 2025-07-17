@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.92.0 (2025-07-17)
+------------------
+
+* Feature - Align input with style guidelines.
+
 1.91.0 (2025-07-16)
 ------------------
 

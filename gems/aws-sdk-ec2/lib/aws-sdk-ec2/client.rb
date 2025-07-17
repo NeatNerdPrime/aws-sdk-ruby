@@ -26795,6 +26795,10 @@ module Aws::EC2
     #   * `ena-support` - A Boolean that indicates whether enhanced networking
     #     with ENA is enabled.
     #
+    #   * `free-tier-eligible` - A Boolean that indicates whether this image
+    #     can be used under the Amazon Web Services Free Tier (`true` \|
+    #     `false`).
+    #
     #   * `hypervisor` - The hypervisor type (`ovm` \| `xen`).
     #
     #   * `image-allowed` - A Boolean that indicates whether the image meets
@@ -26988,6 +26992,7 @@ module Aws::EC2
     #   resp.images[0].image_allowed #=> Boolean
     #   resp.images[0].source_image_id #=> String
     #   resp.images[0].source_image_region #=> String
+    #   resp.images[0].free_tier_eligible #=> Boolean
     #   resp.images[0].image_id #=> String
     #   resp.images[0].image_location #=> String
     #   resp.images[0].state #=> String, one of "pending", "available", "invalid", "deregistered", "transient", "failed", "error", "disabled"
@@ -66393,7 +66398,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.538.0'
+      context[:gem_version] = '1.539.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

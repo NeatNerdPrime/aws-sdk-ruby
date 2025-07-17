@@ -2696,7 +2696,7 @@ module Aws::States
     #   The string that contains the JSON input data for the execution, for
     #   example:
     #
-    #   `"{"first_name" : "Tim"}"`
+    #   `"{"first_name" : "Alejandro"}"`
     #
     #   <note markdown="1"> If you don't include any JSON input data, you still must include the
     #   two braces, for example: `"{}"`
@@ -2773,7 +2773,7 @@ module Aws::States
     #   The string that contains the JSON input data for the execution, for
     #   example:
     #
-    #   `"{"first_name" : "Tim"}"`
+    #   `"{"first_name" : "Alejandro"}"`
     #
     #   <note markdown="1"> If you don't include any JSON input data, you still must include the
     #   two braces, for example: `"{}"`
@@ -3525,7 +3525,7 @@ module Aws::States
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-states'
-      context[:gem_version] = '1.91.0'
+      context[:gem_version] = '1.92.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

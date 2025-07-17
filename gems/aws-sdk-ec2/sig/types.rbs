@@ -9530,6 +9530,7 @@ module Aws::EC2
       attr_accessor image_allowed: bool
       attr_accessor source_image_id: ::String
       attr_accessor source_image_region: ::String
+      attr_accessor free_tier_eligible: bool
       attr_accessor image_id: ::String
       attr_accessor image_location: ::String
       attr_accessor state: ("pending" | "available" | "invalid" | "deregistered" | "transient" | "failed" | "error" | "disabled")

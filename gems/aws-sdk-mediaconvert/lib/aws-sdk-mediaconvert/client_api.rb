@@ -17,6 +17,7 @@ module Aws::MediaConvert
     AacAudioDescriptionBroadcasterMix = Shapes::StringShape.new(name: 'AacAudioDescriptionBroadcasterMix')
     AacCodecProfile = Shapes::StringShape.new(name: 'AacCodecProfile')
     AacCodingMode = Shapes::StringShape.new(name: 'AacCodingMode')
+    AacLoudnessMeasurementMode = Shapes::StringShape.new(name: 'AacLoudnessMeasurementMode')
     AacRateControlMode = Shapes::StringShape.new(name: 'AacRateControlMode')
     AacRawFormat = Shapes::StringShape.new(name: 'AacRawFormat')
     AacSettings = Shapes::StructureShape.new(name: 'AacSettings')
@@ -803,6 +804,8 @@ module Aws::MediaConvert
     __integerMin1Max60000 = Shapes::IntegerShape.new(name: '__integerMin1Max60000')
     __integerMin1Max64 = Shapes::IntegerShape.new(name: '__integerMin1Max64')
     __integerMin1Max8 = Shapes::IntegerShape.new(name: '__integerMin1Max8')
+    __integerMin2000Max30000 = Shapes::IntegerShape.new(name: '__integerMin2000Max30000')
+    __integerMin22050Max192000 = Shapes::IntegerShape.new(name: '__integerMin22050Max192000')
     __integerMin22050Max48000 = Shapes::IntegerShape.new(name: '__integerMin22050Max48000')
     __integerMin24Max60000 = Shapes::IntegerShape.new(name: '__integerMin24Max60000')
     __integerMin25Max10000 = Shapes::IntegerShape.new(name: '__integerMin25Max10000')
@@ -822,6 +825,7 @@ module Aws::MediaConvert
     __integerMin50Max86400000 = Shapes::IntegerShape.new(name: '__integerMin50Max86400000')
     __integerMin6000Max1024000 = Shapes::IntegerShape.new(name: '__integerMin6000Max1024000')
     __integerMin64000Max640000 = Shapes::IntegerShape.new(name: '__integerMin64000Max640000')
+    __integerMin6Max16 = Shapes::IntegerShape.new(name: '__integerMin6Max16')
     __integerMin8000Max192000 = Shapes::IntegerShape.new(name: '__integerMin8000Max192000')
     __integerMin8000Max96000 = Shapes::IntegerShape.new(name: '__integerMin8000Max96000')
     __integerMin8Max12 = Shapes::IntegerShape.new(name: '__integerMin8Max12')
@@ -962,10 +966,13 @@ module Aws::MediaConvert
     AacSettings.add_member(:bitrate, Shapes::ShapeRef.new(shape: __integerMin6000Max1024000, location_name: "bitrate"))
     AacSettings.add_member(:codec_profile, Shapes::ShapeRef.new(shape: AacCodecProfile, location_name: "codecProfile"))
     AacSettings.add_member(:coding_mode, Shapes::ShapeRef.new(shape: AacCodingMode, location_name: "codingMode"))
+    AacSettings.add_member(:loudness_measurement_mode, Shapes::ShapeRef.new(shape: AacLoudnessMeasurementMode, location_name: "loudnessMeasurementMode"))
+    AacSettings.add_member(:rap_interval, Shapes::ShapeRef.new(shape: __integerMin2000Max30000, location_name: "rapInterval"))
     AacSettings.add_member(:rate_control_mode, Shapes::ShapeRef.new(shape: AacRateControlMode, location_name: "rateControlMode"))
     AacSettings.add_member(:raw_format, Shapes::ShapeRef.new(shape: AacRawFormat, location_name: "rawFormat"))
     AacSettings.add_member(:sample_rate, Shapes::ShapeRef.new(shape: __integerMin8000Max96000, location_name: "sampleRate"))
     AacSettings.add_member(:specification, Shapes::ShapeRef.new(shape: AacSpecification, location_name: "specification"))
+    AacSettings.add_member(:target_loudness_range, Shapes::ShapeRef.new(shape: __integerMin6Max16, location_name: "targetLoudnessRange"))
     AacSettings.add_member(:vbr_quality, Shapes::ShapeRef.new(shape: AacVbrQuality, location_name: "vbrQuality"))
     AacSettings.struct_class = Types::AacSettings
 
@@ -1631,7 +1638,7 @@ module Aws::MediaConvert
 
     FlacSettings.add_member(:bit_depth, Shapes::ShapeRef.new(shape: __integerMin16Max24, location_name: "bitDepth"))
     FlacSettings.add_member(:channels, Shapes::ShapeRef.new(shape: __integerMin1Max8, location_name: "channels"))
-    FlacSettings.add_member(:sample_rate, Shapes::ShapeRef.new(shape: __integerMin22050Max48000, location_name: "sampleRate"))
+    FlacSettings.add_member(:sample_rate, Shapes::ShapeRef.new(shape: __integerMin22050Max192000, location_name: "sampleRate"))
     FlacSettings.struct_class = Types::FlacSettings
 
     ForbiddenException.add_member(:message, Shapes::ShapeRef.new(shape: __string, location_name: "message"))

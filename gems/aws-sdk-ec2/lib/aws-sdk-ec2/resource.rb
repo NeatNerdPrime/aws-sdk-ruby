@@ -2385,6 +2385,10 @@ module Aws::EC2
     #   * `ena-support` - A Boolean that indicates whether enhanced networking
     #     with ENA is enabled.
     #
+    #   * `free-tier-eligible` - A Boolean that indicates whether this image
+    #     can be used under the Amazon Web Services Free Tier (`true` \|
+    #     `false`).
+    #
     #   * `hypervisor` - The hypervisor type (`ovm` \| `xen`).
     #
     #   * `image-allowed` - A Boolean that indicates whether the image meets

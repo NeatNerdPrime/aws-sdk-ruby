@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.539.0 (2025-07-17)
+------------------
+
+* Feature - AWS Free Tier Version2 Support
+
 1.538.0 (2025-07-15)
 ------------------
 

@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+3.226.3 (2025-07-17)
+------------------
+
 * Issue - Skip `Aws::InstanceProfileCredentials` instantiation when `ENV['AWS_EC2_METADATA_DISABLED']` is set to `true` in the credential resolution chain.
 
 * Issue - Refactor `InstanceProfileCredentials` to improve code clarity and documentation. 

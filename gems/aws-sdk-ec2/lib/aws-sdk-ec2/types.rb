@@ -22540,6 +22540,10 @@ module Aws::EC2
     #   * `ena-support` - A Boolean that indicates whether enhanced
     #     networking with ENA is enabled.
     #
+    #   * `free-tier-eligible` - A Boolean that indicates whether this image
+    #     can be used under the Amazon Web Services Free Tier (`true` \|
+    #     `false`).
+    #
     #   * `hypervisor` - The hypervisor type (`ovm` \| `xen`).
     #
     #   * `image-allowed` - A Boolean that indicates whether the image meets
@@ -42993,6 +42997,16 @@ module Aws::EC2
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify-source-ami-used-to-create-new-ami.html
     #   @return [String]
     #
+    # @!attribute [rw] free_tier_eligible
+    #   Indicates whether the image is eligible for Amazon Web Services Free
+    #   Tier.
+    #
+    #   * If `true`, the AMI is eligible for Free Tier and can be used to
+    #     launch instances under the Free Tier limits.
+    #
+    #   * If `false`, the AMI is not eligible for Free Tier.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] image_id
     #   The ID of the AMI.
     #   @return [String]
@@ -43074,6 +43088,7 @@ module Aws::EC2
       :image_allowed,
       :source_image_id,
       :source_image_region,
+      :free_tier_eligible,
       :image_id,
       :image_location,
       :state,
