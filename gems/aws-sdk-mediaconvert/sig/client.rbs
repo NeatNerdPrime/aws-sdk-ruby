@@ -291,6 +291,12 @@ module Aws
                               program_number: ::Integer?,
                               psi_control: ("IGNORE_PSI" | "USE_PSI")?,
                               supplemental_imps: Array[::String]?,
+                              tams_settings: {
+                                auth_connection_arn: ::String?,
+                                gap_handling: ("SKIP_GAPS" | "FILL_WITH_BLACK" | "HOLD_LAST_FRAME")?,
+                                source_id: ::String?,
+                                timerange: ::String?
+                              }?,
                               timecode_source: ("EMBEDDED" | "ZEROBASED" | "SPECIFIEDSTART")?,
                               timecode_start: ::String?,
                               video_generator: {

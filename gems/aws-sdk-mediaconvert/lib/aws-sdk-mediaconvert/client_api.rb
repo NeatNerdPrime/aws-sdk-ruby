@@ -415,6 +415,7 @@ module Aws::MediaConvert
     InputRotate = Shapes::StringShape.new(name: 'InputRotate')
     InputSampleRange = Shapes::StringShape.new(name: 'InputSampleRange')
     InputScanType = Shapes::StringShape.new(name: 'InputScanType')
+    InputTamsSettings = Shapes::StructureShape.new(name: 'InputTamsSettings')
     InputTemplate = Shapes::StructureShape.new(name: 'InputTemplate')
     InputTimecodeSource = Shapes::StringShape.new(name: 'InputTimecodeSource')
     InputVideoGenerator = Shapes::StructureShape.new(name: 'InputVideoGenerator')
@@ -618,6 +619,7 @@ module Aws::MediaConvert
     StatusUpdateInterval = Shapes::StringShape.new(name: 'StatusUpdateInterval')
     TagResourceRequest = Shapes::StructureShape.new(name: 'TagResourceRequest')
     TagResourceResponse = Shapes::StructureShape.new(name: 'TagResourceResponse')
+    TamsGapHandling = Shapes::StringShape.new(name: 'TamsGapHandling')
     TeletextDestinationSettings = Shapes::StructureShape.new(name: 'TeletextDestinationSettings')
     TeletextPageType = Shapes::StringShape.new(name: 'TeletextPageType')
     TeletextSourceSettings = Shapes::StructureShape.new(name: 'TeletextSourceSettings')
@@ -936,6 +938,7 @@ module Aws::MediaConvert
     __stringPattern = Shapes::StringShape.new(name: '__stringPattern')
     __stringPattern010920405090509092 = Shapes::StringShape.new(name: '__stringPattern010920405090509092')
     __stringPattern010920405090509092090909 = Shapes::StringShape.new(name: '__stringPattern010920405090509092090909')
+    __stringPattern019090190908019090190908 = Shapes::StringShape.new(name: '__stringPattern019090190908019090190908')
     __stringPattern01D20305D205D = Shapes::StringShape.new(name: '__stringPattern01D20305D205D')
     __stringPattern0940191020191209301 = Shapes::StringShape.new(name: '__stringPattern0940191020191209301')
     __stringPattern09aFAF809aFAF409aFAF409aFAF409aFAF12 = Shapes::StringShape.new(name: '__stringPattern09aFAF809aFAF409aFAF409aFAF409aFAF12')
@@ -944,6 +947,7 @@ module Aws::MediaConvert
     __stringPatternAZaZ0932 = Shapes::StringShape.new(name: '__stringPatternAZaZ0932')
     __stringPatternAZaZ23AZaZ = Shapes::StringShape.new(name: '__stringPatternAZaZ23AZaZ')
     __stringPatternAZaZ23AZaZ09 = Shapes::StringShape.new(name: '__stringPatternAZaZ23AZaZ09')
+    __stringPatternArnAwsAZ09EventsAZ090912ConnectionAZAZ09AF0936 = Shapes::StringShape.new(name: '__stringPatternArnAwsAZ09EventsAZ090912ConnectionAZAZ09AF0936')
     __stringPatternArnAwsUsGovAcm = Shapes::StringShape.new(name: '__stringPatternArnAwsUsGovAcm')
     __stringPatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932 = Shapes::StringShape.new(name: '__stringPatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932')
     __stringPatternDD = Shapes::StringShape.new(name: '__stringPatternDD')
@@ -1929,6 +1933,7 @@ module Aws::MediaConvert
     Input.add_member(:program_number, Shapes::ShapeRef.new(shape: __integerMin1Max2147483647, location_name: "programNumber"))
     Input.add_member(:psi_control, Shapes::ShapeRef.new(shape: InputPsiControl, location_name: "psiControl"))
     Input.add_member(:supplemental_imps, Shapes::ShapeRef.new(shape: __listOf__stringPatternS3ASSETMAPXml, location_name: "supplementalImps"))
+    Input.add_member(:tams_settings, Shapes::ShapeRef.new(shape: InputTamsSettings, location_name: "tamsSettings"))
     Input.add_member(:timecode_source, Shapes::ShapeRef.new(shape: InputTimecodeSource, location_name: "timecodeSource"))
     Input.add_member(:timecode_start, Shapes::ShapeRef.new(shape: __stringMin11Max11Pattern01D20305D205D, location_name: "timecodeStart"))
     Input.add_member(:video_generator, Shapes::ShapeRef.new(shape: InputVideoGenerator, location_name: "videoGenerator"))
@@ -1945,6 +1950,12 @@ module Aws::MediaConvert
     InputDecryptionSettings.add_member(:initialization_vector, Shapes::ShapeRef.new(shape: __stringMin16Max24PatternAZaZ0922AZaZ0916, location_name: "initializationVector"))
     InputDecryptionSettings.add_member(:kms_key_region, Shapes::ShapeRef.new(shape: __stringMin9Max19PatternAZ26EastWestCentralNorthSouthEastWest1912, location_name: "kmsKeyRegion"))
     InputDecryptionSettings.struct_class = Types::InputDecryptionSettings
+
+    InputTamsSettings.add_member(:auth_connection_arn, Shapes::ShapeRef.new(shape: __stringPatternArnAwsAZ09EventsAZ090912ConnectionAZAZ09AF0936, location_name: "authConnectionArn"))
+    InputTamsSettings.add_member(:gap_handling, Shapes::ShapeRef.new(shape: TamsGapHandling, location_name: "gapHandling"))
+    InputTamsSettings.add_member(:source_id, Shapes::ShapeRef.new(shape: __string, location_name: "sourceId"))
+    InputTamsSettings.add_member(:timerange, Shapes::ShapeRef.new(shape: __stringPattern019090190908019090190908, location_name: "timerange"))
+    InputTamsSettings.struct_class = Types::InputTamsSettings
 
     InputTemplate.add_member(:advanced_input_filter, Shapes::ShapeRef.new(shape: AdvancedInputFilter, location_name: "advancedInputFilter"))
     InputTemplate.add_member(:advanced_input_filter_settings, Shapes::ShapeRef.new(shape: AdvancedInputFilterSettings, location_name: "advancedInputFilterSettings"))

@@ -1225,6 +1225,7 @@ module Aws::MediaConvert
       attr_accessor program_number: ::Integer
       attr_accessor psi_control: ("IGNORE_PSI" | "USE_PSI")
       attr_accessor supplemental_imps: ::Array[::String]
+      attr_accessor tams_settings: Types::InputTamsSettings
       attr_accessor timecode_source: ("EMBEDDED" | "ZEROBASED" | "SPECIFIEDSTART")
       attr_accessor timecode_start: ::String
       attr_accessor video_generator: Types::InputVideoGenerator
@@ -1244,6 +1245,14 @@ module Aws::MediaConvert
       attr_accessor encrypted_decryption_key: ::String
       attr_accessor initialization_vector: ::String
       attr_accessor kms_key_region: ::String
+      SENSITIVE: []
+    end
+
+    class InputTamsSettings
+      attr_accessor auth_connection_arn: ::String
+      attr_accessor gap_handling: ("SKIP_GAPS" | "FILL_WITH_BLACK" | "HOLD_LAST_FRAME")
+      attr_accessor source_id: ::String
+      attr_accessor timerange: ::String
       SENSITIVE: []
     end
 

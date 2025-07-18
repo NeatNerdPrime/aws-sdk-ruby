@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.164.0 (2025-07-18)
+------------------
+
+* Feature - This release adds support for TAMS server integration with MediaConvert inputs.
+
 1.163.0 (2025-07-17)
 ------------------
 
