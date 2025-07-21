@@ -13,8 +13,6 @@ module Aws
       option(:sigv4_region)
       option(:unsigned_operations, default: [])
 
-      SUPPORTED_AUTH_TYPES = %w[sigv4 bearer sigv4-s3express sigv4a none].freeze
-
       def add_handlers(handlers, cfg)
         operations = cfg.api.operation_names - cfg.unsigned_operations
         handlers.add(Handler, step: :sign, operations: operations)

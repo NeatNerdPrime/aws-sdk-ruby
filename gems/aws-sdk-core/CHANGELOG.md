@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - Support an auth scheme signing preference list using `ENV['AWS_AUTH_SCHEME_PREFERENCE']` or `auth_scheme_preference` in shared configuration.
+
 * Feature - Support metric tracking for Bedrock Bearer tokens.
 
 3.226.3 (2025-07-17)
