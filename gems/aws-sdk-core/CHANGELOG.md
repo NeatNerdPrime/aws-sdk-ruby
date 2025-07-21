@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - Support metric tracking for Bedrock Bearer tokens.
+
 3.226.3 (2025-07-17)
 ------------------
 
