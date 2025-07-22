@@ -903,8 +903,7 @@ module Aws::EMR
     #   The cross reference for the persistent application user interface.
     #
     # @option params [String] :profiler_type
-    #   The profiler type for the persistent application user interface. Valid
-    #   values are SHS, TEZUI, or YTS.
+    #   The profiler type for the persistent application user interface.
     #
     # @return [Types::CreatePersistentAppUIOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -1378,6 +1377,7 @@ module Aws::EMR
     #   resp.cluster.os_release_label #=> String
     #   resp.cluster.ebs_root_volume_iops #=> Integer
     #   resp.cluster.ebs_root_volume_throughput #=> Integer
+    #   resp.cluster.extended_support #=> Boolean
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -2909,20 +2909,26 @@ module Aws::EMR
     #   `ActionOnFailure` setting may not behave as expected. For more
     #   information see Step$ActionOnFailure.
     #
+    # @option params [Boolean] :extended_support
+    #   Reserved.
+    #
     # @return [Types::ModifyClusterOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::ModifyClusterOutput#step_concurrency_level #step_concurrency_level} => Integer
+    #   * {Types::ModifyClusterOutput#extended_support #extended_support} => Boolean
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.modify_cluster({
     #     cluster_id: "String", # required
     #     step_concurrency_level: 1,
+    #     extended_support: false,
     #   })
     #
     # @example Response structure
     #
     #   resp.step_concurrency_level #=> Integer
+    #   resp.extended_support #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ModifyCluster AWS API Documentation
     #
@@ -3723,6 +3729,9 @@ module Aws::EMR
     #   Linux AMI that is used for each Amazon EC2 instance. Available in
     #   Amazon EMR releases 6.15.0 and later.
     #
+    # @option params [Boolean] :extended_support
+    #   Reserved.
+    #
     # @return [Types::RunJobFlowOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::RunJobFlowOutput#job_flow_id #job_flow_id} => String
@@ -4007,6 +4016,7 @@ module Aws::EMR
     #     os_release_label: "XmlStringMaxLen256",
     #     ebs_root_volume_iops: 1,
     #     ebs_root_volume_throughput: 1,
+    #     extended_support: false,
     #   })
     #
     # @example Response structure
@@ -4507,7 +4517,7 @@ module Aws::EMR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-emr'
-      context[:gem_version] = '1.112.0'
+      context[:gem_version] = '1.113.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

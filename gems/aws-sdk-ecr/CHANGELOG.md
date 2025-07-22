@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.106.0 (2025-07-22)
+------------------
+
+* Feature - Add support for Image Tag Mutability Exception feature, allowing repositories to define wildcard-based patterns that override the default image tag mutability settings.
+
 1.105.0 (2025-07-21)
 ------------------
 

@@ -976,6 +976,10 @@ module Aws::ECR
     #   image tags within the repository will be immutable which will prevent
     #   them from being overwritten.
     #
+    # @option params [Array<Types::ImageTagMutabilityExclusionFilter>] :image_tag_mutability_exclusion_filters
+    #   Creates a repository with a list of filters that define which image
+    #   tags can override the default image tag mutability setting.
+    #
     # @option params [Types::ImageScanningConfiguration] :image_scanning_configuration
     #   The image scanning configuration for the repository. This determines
     #   whether images are scanned for known vulnerabilities after being
@@ -1019,7 +1023,13 @@ module Aws::ECR
     #         value: "TagValue", # required
     #       },
     #     ],
-    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE
+    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE, IMMUTABLE_WITH_EXCLUSION, MUTABLE_WITH_EXCLUSION
+    #     image_tag_mutability_exclusion_filters: [
+    #       {
+    #         filter_type: "WILDCARD", # required, accepts WILDCARD
+    #         filter: "ImageTagMutabilityExclusionFilterValue", # required
+    #       },
+    #     ],
     #     image_scanning_configuration: {
     #       scan_on_push: false,
     #     },
@@ -1036,7 +1046,10 @@ module Aws::ECR
     #   resp.repository.repository_name #=> String
     #   resp.repository.repository_uri #=> String
     #   resp.repository.created_at #=> Time
-    #   resp.repository.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository.image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository.image_scanning_configuration.scan_on_push #=> Boolean
     #   resp.repository.encryption_configuration.encryption_type #=> String, one of "AES256", "KMS", "KMS_DSSE"
     #   resp.repository.encryption_configuration.kms_key #=> String
@@ -1098,6 +1111,11 @@ module Aws::ECR
     #   allow image tags to be overwritten. If `IMMUTABLE` is specified, all
     #   image tags within the repository will be immutable which will prevent
     #   them from being overwritten.
+    #
+    # @option params [Array<Types::ImageTagMutabilityExclusionFilter>] :image_tag_mutability_exclusion_filters
+    #   Creates a repository creation template with a list of filters that
+    #   define which image tags can override the default image tag mutability
+    #   setting.
     #
     # @option params [String] :repository_policy
     #   The repository policy to apply to repositories created using the
@@ -1193,7 +1211,13 @@ module Aws::ECR
     #         value: "TagValue", # required
     #       },
     #     ],
-    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE
+    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE, IMMUTABLE_WITH_EXCLUSION, MUTABLE_WITH_EXCLUSION
+    #     image_tag_mutability_exclusion_filters: [
+    #       {
+    #         filter_type: "WILDCARD", # required, accepts WILDCARD
+    #         filter: "ImageTagMutabilityExclusionFilterValue", # required
+    #       },
+    #     ],
     #     repository_policy: "RepositoryPolicyText",
     #     lifecycle_policy: "LifecyclePolicyTextForRepositoryCreationTemplate",
     #     applied_for: ["REPLICATION"], # required, accepts REPLICATION, PULL_THROUGH_CACHE
@@ -1210,7 +1234,10 @@ module Aws::ECR
     #   resp.repository_creation_template.resource_tags #=> Array
     #   resp.repository_creation_template.resource_tags[0].key #=> String
     #   resp.repository_creation_template.resource_tags[0].value #=> String
-    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository_creation_template.repository_policy #=> String
     #   resp.repository_creation_template.lifecycle_policy #=> String
     #   resp.repository_creation_template.applied_for #=> Array
@@ -1393,7 +1420,10 @@ module Aws::ECR
     #   resp.repository.repository_name #=> String
     #   resp.repository.repository_uri #=> String
     #   resp.repository.created_at #=> Time
-    #   resp.repository.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository.image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository.image_scanning_configuration.scan_on_push #=> Boolean
     #   resp.repository.encryption_configuration.encryption_type #=> String, one of "AES256", "KMS", "KMS_DSSE"
     #   resp.repository.encryption_configuration.kms_key #=> String
@@ -1457,7 +1487,10 @@ module Aws::ECR
     #   resp.repository_creation_template.resource_tags #=> Array
     #   resp.repository_creation_template.resource_tags[0].key #=> String
     #   resp.repository_creation_template.resource_tags[0].value #=> String
-    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository_creation_template.repository_policy #=> String
     #   resp.repository_creation_template.lifecycle_policy #=> String
     #   resp.repository_creation_template.applied_for #=> Array
@@ -2035,7 +2068,10 @@ module Aws::ECR
     #   resp.repositories[0].repository_name #=> String
     #   resp.repositories[0].repository_uri #=> String
     #   resp.repositories[0].created_at #=> Time
-    #   resp.repositories[0].image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repositories[0].image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repositories[0].image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repositories[0].image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repositories[0].image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repositories[0].image_scanning_configuration.scan_on_push #=> Boolean
     #   resp.repositories[0].encryption_configuration.encryption_type #=> String, one of "AES256", "KMS", "KMS_DSSE"
     #   resp.repositories[0].encryption_configuration.kms_key #=> String
@@ -2159,7 +2195,10 @@ module Aws::ECR
     #   resp.repository_creation_templates[0].resource_tags #=> Array
     #   resp.repository_creation_templates[0].resource_tags[0].key #=> String
     #   resp.repository_creation_templates[0].resource_tags[0].value #=> String
-    #   resp.repository_creation_templates[0].image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository_creation_templates[0].image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository_creation_templates[0].image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository_creation_templates[0].image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository_creation_templates[0].image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository_creation_templates[0].repository_policy #=> String
     #   resp.repository_creation_templates[0].lifecycle_policy #=> String
     #   resp.repository_creation_templates[0].applied_for #=> Array
@@ -2930,25 +2969,39 @@ module Aws::ECR
     #   all image tags within the repository will be immutable which will
     #   prevent them from being overwritten.
     #
+    # @option params [Array<Types::ImageTagMutabilityExclusionFilter>] :image_tag_mutability_exclusion_filters
+    #   Creates or updates a repository with filters that define which image
+    #   tags can override the default image tag mutability setting.
+    #
     # @return [Types::PutImageTagMutabilityResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::PutImageTagMutabilityResponse#registry_id #registry_id} => String
     #   * {Types::PutImageTagMutabilityResponse#repository_name #repository_name} => String
     #   * {Types::PutImageTagMutabilityResponse#image_tag_mutability #image_tag_mutability} => String
+    #   * {Types::PutImageTagMutabilityResponse#image_tag_mutability_exclusion_filters #image_tag_mutability_exclusion_filters} => Array&lt;Types::ImageTagMutabilityExclusionFilter&gt;
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.put_image_tag_mutability({
     #     registry_id: "RegistryId",
     #     repository_name: "RepositoryName", # required
-    #     image_tag_mutability: "MUTABLE", # required, accepts MUTABLE, IMMUTABLE
+    #     image_tag_mutability: "MUTABLE", # required, accepts MUTABLE, IMMUTABLE, IMMUTABLE_WITH_EXCLUSION, MUTABLE_WITH_EXCLUSION
+    #     image_tag_mutability_exclusion_filters: [
+    #       {
+    #         filter_type: "WILDCARD", # required, accepts WILDCARD
+    #         filter: "ImageTagMutabilityExclusionFilterValue", # required
+    #       },
+    #     ],
     #   })
     #
     # @example Response structure
     #
     #   resp.registry_id #=> String
     #   resp.repository_name #=> String
-    #   resp.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.image_tag_mutability_exclusion_filters[0].filter #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImageTagMutability AWS API Documentation
     #
@@ -3511,6 +3564,10 @@ module Aws::ECR
     #   specified, all image tags within the repository will be immutable
     #   which will prevent them from being overwritten.
     #
+    # @option params [Array<Types::ImageTagMutabilityExclusionFilter>] :image_tag_mutability_exclusion_filters
+    #   Updates a repository with filters that define which image tags can
+    #   override the default image tag mutability setting.
+    #
     # @option params [String] :repository_policy
     #   Updates the repository policy created using the template. A repository
     #   policy is a permissions policy associated with a repository to control
@@ -3596,7 +3653,13 @@ module Aws::ECR
     #         value: "TagValue", # required
     #       },
     #     ],
-    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE
+    #     image_tag_mutability: "MUTABLE", # accepts MUTABLE, IMMUTABLE, IMMUTABLE_WITH_EXCLUSION, MUTABLE_WITH_EXCLUSION
+    #     image_tag_mutability_exclusion_filters: [
+    #       {
+    #         filter_type: "WILDCARD", # required, accepts WILDCARD
+    #         filter: "ImageTagMutabilityExclusionFilterValue", # required
+    #       },
+    #     ],
     #     repository_policy: "RepositoryPolicyText",
     #     lifecycle_policy: "LifecyclePolicyTextForRepositoryCreationTemplate",
     #     applied_for: ["REPLICATION"], # accepts REPLICATION, PULL_THROUGH_CACHE
@@ -3613,7 +3676,10 @@ module Aws::ECR
     #   resp.repository_creation_template.resource_tags #=> Array
     #   resp.repository_creation_template.resource_tags[0].key #=> String
     #   resp.repository_creation_template.resource_tags[0].value #=> String
-    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE"
+    #   resp.repository_creation_template.image_tag_mutability #=> String, one of "MUTABLE", "IMMUTABLE", "IMMUTABLE_WITH_EXCLUSION", "MUTABLE_WITH_EXCLUSION"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters #=> Array
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter_type #=> String, one of "WILDCARD"
+    #   resp.repository_creation_template.image_tag_mutability_exclusion_filters[0].filter #=> String
     #   resp.repository_creation_template.repository_policy #=> String
     #   resp.repository_creation_template.lifecycle_policy #=> String
     #   resp.repository_creation_template.applied_for #=> Array
@@ -3771,7 +3837,7 @@ module Aws::ECR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecr'
-      context[:gem_version] = '1.105.0'
+      context[:gem_version] = '1.106.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

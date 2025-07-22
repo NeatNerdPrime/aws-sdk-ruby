@@ -4180,9 +4180,10 @@ module Aws::Lambda
 
     # For asynchronous function invocation, use Invoke.
     #
-    # Invokes a function asynchronously.
+    #  Invokes a function asynchronously.
     #
-    # <note markdown="1"> If you do use the InvokeAsync action, note that it doesn't support
+    #  <note markdown="1"> If you do use the InvokeAsync action, note that
+    # it doesn't support
     # the use of X-Ray active tracing. Trace ID is not propagated to the
     # function, even if X-Ray active tracing is turned on.
     #
@@ -8362,7 +8363,7 @@ module Aws::Lambda
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lambda'
-      context[:gem_version] = '1.154.0'
+      context[:gem_version] = '1.155.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
