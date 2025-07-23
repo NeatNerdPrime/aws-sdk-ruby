@@ -5327,7 +5327,8 @@ module Aws
                            },
                            ?worker_type: ("Standard" | "G.1X" | "G.2X" | "G.025X" | "G.4X" | "G.8X" | "Z.2X"),
                            ?number_of_workers: ::Integer,
-                           ?execution_class: ("FLEX" | "STANDARD")
+                           ?execution_class: ("FLEX" | "STANDARD"),
+                           ?execution_role_session_policy: ::String
                          ) -> _StartJobRunResponseSuccess
                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartJobRunResponseSuccess
 

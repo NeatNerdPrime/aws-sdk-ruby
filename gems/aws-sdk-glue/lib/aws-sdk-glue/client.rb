@@ -2473,6 +2473,7 @@ module Aws::Glue
     #   resp.workflows[0].last_run.graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.workflows[0].last_run.graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.workflows[0].last_run.graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.workflows[0].last_run.graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.workflows[0].last_run.graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.workflows[0].last_run.graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.workflows[0].last_run.graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -2546,6 +2547,7 @@ module Aws::Glue
     #   resp.workflows[0].graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.workflows[0].graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.workflows[0].graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.workflows[0].graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.workflows[0].graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.workflows[0].graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.workflows[0].graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -10315,6 +10317,7 @@ module Aws::Glue
     #   resp.job_run.maintenance_window #=> String
     #   resp.job_run.profile_name #=> String
     #   resp.job_run.state_detail #=> String
+    #   resp.job_run.execution_role_session_policy #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobRun AWS API Documentation
     #
@@ -10389,6 +10392,7 @@ module Aws::Glue
     #   resp.job_runs[0].maintenance_window #=> String
     #   resp.job_runs[0].profile_name #=> String
     #   resp.job_runs[0].state_detail #=> String
+    #   resp.job_runs[0].execution_role_session_policy #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobRuns AWS API Documentation
@@ -14537,6 +14541,7 @@ module Aws::Glue
     #   resp.workflow.last_run.graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.workflow.last_run.graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.workflow.last_run.graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.workflow.last_run.graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.workflow.last_run.graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.workflow.last_run.graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.workflow.last_run.graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -14610,6 +14615,7 @@ module Aws::Glue
     #   resp.workflow.graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.workflow.graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.workflow.graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.workflow.graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.workflow.graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.workflow.graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.workflow.graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -14737,6 +14743,7 @@ module Aws::Glue
     #   resp.run.graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.run.graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.run.graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.run.graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.run.graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.run.graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.run.graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -14903,6 +14910,7 @@ module Aws::Glue
     #   resp.runs[0].graph.nodes[0].job_details.job_runs[0].maintenance_window #=> String
     #   resp.runs[0].graph.nodes[0].job_details.job_runs[0].profile_name #=> String
     #   resp.runs[0].graph.nodes[0].job_details.job_runs[0].state_detail #=> String
+    #   resp.runs[0].graph.nodes[0].job_details.job_runs[0].execution_role_session_policy #=> String
     #   resp.runs[0].graph.nodes[0].crawler_details.crawls #=> Array
     #   resp.runs[0].graph.nodes[0].crawler_details.crawls[0].state #=> String, one of "RUNNING", "CANCELLING", "CANCELLED", "SUCCEEDED", "FAILED", "ERROR"
     #   resp.runs[0].graph.nodes[0].crawler_details.crawls[0].started_on #=> Time
@@ -17833,6 +17841,12 @@ module Aws::Glue
     #   will be allowed to set `ExecutionClass` to `FLEX`. The flexible
     #   execution class is available for Spark jobs.
     #
+    # @option params [String] :execution_role_session_policy
+    #   This inline session policy to the StartJobRun API allows you to
+    #   dynamically restrict the permissions of the specified execution role
+    #   for the scope of the job, without requiring the creation of additional
+    #   IAM roles.
+    #
     # @return [Types::StartJobRunResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::StartJobRunResponse#job_run_id #job_run_id} => String
@@ -17856,6 +17870,7 @@ module Aws::Glue
     #     worker_type: "Standard", # accepts Standard, G.1X, G.2X, G.025X, G.4X, G.8X, Z.2X
     #     number_of_workers: 1,
     #     execution_class: "FLEX", # accepts FLEX, STANDARD
+    #     execution_role_session_policy: "OrchestrationPolicyJsonString",
     #   })
     #
     # @example Response structure
@@ -20467,7 +20482,7 @@ module Aws::Glue
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-glue'
-      context[:gem_version] = '1.226.0'
+      context[:gem_version] = '1.227.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -14145,6 +14145,7 @@ module Aws
       def stop_instances: (
                             instance_ids: Array[::String],
                             ?hibernate: bool,
+                            ?skip_os_shutdown: bool,
                             ?dry_run: bool,
                             ?force: bool
                           ) -> _StopInstancesResponseSuccess
@@ -14172,6 +14173,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#terminate_instances-instance_method
       def terminate_instances: (
                                  instance_ids: Array[::String],
+                                 ?skip_os_shutdown: bool,
                                  ?dry_run: bool
                                ) -> _TerminateInstancesResponseSuccess
                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _TerminateInstancesResponseSuccess

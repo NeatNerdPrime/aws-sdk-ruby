@@ -301,12 +301,12 @@ module Aws::EC2
     #   The ID of the AMI. An AMI ID is required to launch an instance and
     #   must be specified here or in a launch template.
     # @option options [String] :instance_type
-    #   The instance type. For more information, see [Amazon EC2 instance
-    #   types][1] in the *Amazon EC2 User Guide*.
+    #   The instance type. For more information, see [Amazon EC2 Instance
+    #   Types Guide][1].
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html
     # @option options [Integer] :ipv_6_address_count
     #   The number of IPv6 addresses to associate with the primary network
     #   interface. Amazon EC2 chooses the IPv6 addresses from the range of
@@ -335,8 +335,8 @@ module Aws::EC2
     #
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html
     # @option options [String] :key_name
-    #   The name of the key pair. You can create a key pair using
-    #   [CreateKeyPair][1] or [ImportKeyPair][2].
+    #   The name of the key pair. For more information, see [Create a key pair
+    #   for your EC2 instance][1].
     #
     #   If you do not specify a key pair, you can't connect to the instance
     #   unless you choose an AMI that is configured to allow users another way
@@ -344,8 +344,7 @@ module Aws::EC2
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateKeyPair.html
-    #   [2]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ImportKeyPair.html
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html
     # @option options [required, Integer] :max_count
     #   The maximum number of instances to launch. If you specify a value that
     #   is more capacity than Amazon EC2 can launch in the target Availability
@@ -389,16 +388,11 @@ module Aws::EC2
     #
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html
     # @option options [Array<String>] :security_group_ids
-    #   The IDs of the security groups. You can create a security group using
-    #   [CreateSecurityGroup][1].
+    #   The IDs of the security groups.
     #
     #   If you specify a network interface, you must specify any security
     #   groups as part of the network interface instead of using this
     #   parameter.
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html
     # @option options [Array<String>] :security_groups
     #   \[Default VPC\] The names of the security groups.
     #
@@ -416,11 +410,11 @@ module Aws::EC2
     #   The user data to make available to the instance. User data must be
     #   base64-encoded. Depending on the tool or SDK that you're using, the
     #   base64-encoding might be performed for you. For more information, see
-    #   [Work with instance user data][1].
+    #   [Run commands at launch using instance user data][1].
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-add-user-data.html
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html
     # @option options [Array<Types::ElasticGpuSpecification>] :elastic_gpu_specification
     #   An elastic GPU to associate with the instance.
     #
@@ -508,23 +502,22 @@ module Aws::EC2
     #   The license configurations.
     # @option options [Types::InstanceMetadataOptionsRequest] :metadata_options
     #   The metadata options for the instance. For more information, see
-    #   [Instance metadata and user data][1].
+    #   [Configure the Instance Metadata Service options][1].
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html
     # @option options [Types::EnclaveOptionsRequest] :enclave_options
     #   Indicates whether the instance is enabled for Amazon Web Services
-    #   Nitro Enclaves. For more information, see [What is Amazon Web Services
-    #   Nitro Enclaves?][1] in the *Amazon Web Services Nitro Enclaves User
-    #   Guide*.
+    #   Nitro Enclaves. For more information, see [Amazon Web Services Nitro
+    #   Enclaves User Guide][1].
     #
     #   You can't enable Amazon Web Services Nitro Enclaves and hibernation
     #   on the same instance.
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html
+    #   [1]: https://docs.aws.amazon.com/enclaves/latest/user/
     # @option options [Types::PrivateDnsNameOptionsRequest] :private_dns_name_options
     #   The options for the instance hostname. The default values are
     #   inherited from the subnet. Applies only if creating a network
@@ -533,11 +526,11 @@ module Aws::EC2
     #   The maintenance and recovery options for the instance.
     # @option options [Boolean] :disable_api_stop
     #   Indicates whether an instance is enabled for stop protection. For more
-    #   information, see [Stop protection][1].
+    #   information, see [Enable stop protection for your EC2 instances][1].
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html#Using_StopProtection
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html
     # @option options [Boolean] :enable_primary_ipv_6
     #   If you’re launching an instance into a dual-stack or IPv6-only subnet,
     #   you can enable assigning a primary IPv6 address. A primary IPv6
@@ -594,13 +587,14 @@ module Aws::EC2
     #   randomly generated token is used for the request to ensure
     #   idempotency.
     #
-    #   For more information, see [Ensuring Idempotency][1].
+    #   For more information, see [Ensuring idempotency in Amazon EC2 API
+    #   requests][1].
     #
     #   Constraints: Maximum 64 ASCII characters
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
     # @option options [String] :additional_info
     #   Reserved.
     # @option options [Array<Types::InstanceNetworkInterfaceSpecification>] :network_interfaces

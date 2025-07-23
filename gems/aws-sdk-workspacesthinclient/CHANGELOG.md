@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.31.0 (2025-07-23)
+------------------
+
+* Feature - Added the lastUserId parameter to the ListDevices and GetDevice API.
+
 1.30.0 (2025-07-21)
 ------------------
 

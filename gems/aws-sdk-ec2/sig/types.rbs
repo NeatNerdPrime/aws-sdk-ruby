@@ -15459,6 +15459,7 @@ module Aws::EC2
     class StopInstancesRequest
       attr_accessor instance_ids: ::Array[::String]
       attr_accessor hibernate: bool
+      attr_accessor skip_os_shutdown: bool
       attr_accessor dry_run: bool
       attr_accessor force: bool
       SENSITIVE: []
@@ -15688,6 +15689,7 @@ module Aws::EC2
 
     class TerminateInstancesRequest
       attr_accessor instance_ids: ::Array[::String]
+      attr_accessor skip_os_shutdown: bool
       attr_accessor dry_run: bool
       SENSITIVE: []
     end

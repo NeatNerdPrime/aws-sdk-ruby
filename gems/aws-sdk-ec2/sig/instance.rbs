@@ -443,6 +443,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Instance.html#stop-instance_method
       def stop: (
                   ?hibernate: bool,
+                  ?skip_os_shutdown: bool,
                   ?dry_run: bool,
                   ?force: bool
                 ) -> Types::StopInstancesResult
@@ -450,6 +451,7 @@ module Aws
 
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Instance.html#terminate-instance_method
       def terminate: (
+                       ?skip_os_shutdown: bool,
                        ?dry_run: bool
                      ) -> Types::TerminateInstancesResult
                    | (?Hash[Symbol, untyped]) -> Types::TerminateInstancesResult
@@ -550,12 +552,14 @@ module Aws
 
         def batch_stop: (
                           ?hibernate: bool,
+                          ?skip_os_shutdown: bool,
                           ?dry_run: bool,
                           ?force: bool
                         ) -> void
                     | (?Hash[Symbol, untyped]) -> void
 
         def batch_terminate!: (
+                                ?skip_os_shutdown: bool,
                                 ?dry_run: bool
                               ) -> void
                           | (?Hash[Symbol, untyped]) -> void

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.541.0 (2025-07-23)
+------------------
+
+* Feature - Added support for skip-os-shutdown option for the EC2 instance stop and terminate operations. This feature enables customers to bypass the graceful OS shutdown, supporting faster state transitions when instance data preservation isn't critical.
+
 1.540.0 (2025-07-21)
 ------------------
 

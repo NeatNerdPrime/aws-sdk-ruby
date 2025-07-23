@@ -780,6 +780,7 @@ module Aws::WorkSpacesThinClient
     #   resp.device.updated_at #=> Time
     #   resp.device.arn #=> String
     #   resp.device.kms_key_arn #=> String
+    #   resp.device.last_user_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/workspaces-thin-client-2023-08-22/GetDevice AWS API Documentation
     #
@@ -929,6 +930,7 @@ module Aws::WorkSpacesThinClient
     #   resp.devices[0].created_at #=> Time
     #   resp.devices[0].updated_at #=> Time
     #   resp.devices[0].arn #=> String
+    #   resp.devices[0].last_user_id #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/workspaces-thin-client-2023-08-22/ListDevices AWS API Documentation
@@ -1188,6 +1190,7 @@ module Aws::WorkSpacesThinClient
     #   resp.device.created_at #=> Time
     #   resp.device.updated_at #=> Time
     #   resp.device.arn #=> String
+    #   resp.device.last_user_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/workspaces-thin-client-2023-08-22/UpdateDevice AWS API Documentation
     #
@@ -1336,7 +1339,7 @@ module Aws::WorkSpacesThinClient
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-workspacesthinclient'
-      context[:gem_version] = '1.30.0'
+      context[:gem_version] = '1.31.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
