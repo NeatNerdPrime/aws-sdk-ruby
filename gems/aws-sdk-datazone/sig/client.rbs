@@ -3116,7 +3116,7 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#search-instance_method
       def search: (
-                    ?additional_attributes: Array[("FORMS" | "TIME_SERIES_DATA_POINT_FORMS")],
+                    ?additional_attributes: Array[("FORMS" | "TIME_SERIES_DATA_POINT_FORMS" | "TEXT_MATCH_RATIONALE")],
                     domain_identifier: ::String,
                     ?filters: {
                       and: Array[
@@ -3164,13 +3164,20 @@ module Aws
 
       interface _SearchListingsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::SearchListingsOutput]
+        def aggregates: () -> ::Array[Types::AggregationOutput]
         def items: () -> ::Array[Types::SearchResultItem]
         def next_token: () -> ::String
         def total_match_count: () -> ::Integer
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#search_listings-instance_method
       def search_listings: (
-                             ?additional_attributes: Array[("FORMS" | "TIME_SERIES_DATA_POINT_FORMS")],
+                             ?additional_attributes: Array[("FORMS" | "TIME_SERIES_DATA_POINT_FORMS" | "TEXT_MATCH_RATIONALE")],
+                             ?aggregations: Array[
+                               {
+                                 attribute: ::String,
+                                 display_value: ::String?
+                               },
+                             ],
                              domain_identifier: ::String,
                              ?filters: {
                                and: Array[

@@ -985,6 +985,9 @@ module Aws::DataZone
     # @option params [String] :external_identifier
     #   The external identifier of the asset.
     #
+    #   If the value for the `externalIdentifier` parameter is specified, it
+    #   must be a unique value.
+    #
     # @option params [Array<Types::FormInput>] :forms_input
     #   Metadata forms attached to the asset.
     #
@@ -4673,6 +4676,11 @@ module Aws::DataZone
     #
     # @option params [required, String] :identifier
     #   The ID of the Amazon DataZone asset.
+    #
+    #   This parameter supports either the value of `assetId` or
+    #   `externalIdentifier` as input. If you are passing the value of
+    #   `externalIdentifier`, you must prefix this value with
+    #   `externalIdentifer%2F`.
     #
     # @option params [String] :revision
     #   The revision of the Amazon DataZone asset.
@@ -10096,7 +10104,7 @@ module Aws::DataZone
     # @example Request syntax with placeholder values
     #
     #   resp = client.search({
-    #     additional_attributes: ["FORMS"], # accepts FORMS, TIME_SERIES_DATA_POINT_FORMS
+    #     additional_attributes: ["FORMS"], # accepts FORMS, TIME_SERIES_DATA_POINT_FORMS, TEXT_MATCH_RATIONALE
     #     domain_identifier: "DomainId", # required
     #     filters: {
     #       and: [
@@ -10145,6 +10153,13 @@ module Aws::DataZone
     #   resp.items[0].asset_item.additional_attributes.latest_time_series_data_point_forms_output[0].timestamp #=> Time
     #   resp.items[0].asset_item.additional_attributes.latest_time_series_data_point_forms_output[0].type_identifier #=> String
     #   resp.items[0].asset_item.additional_attributes.latest_time_series_data_point_forms_output[0].type_revision #=> String
+    #   resp.items[0].asset_item.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].asset_item.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].asset_item.additional_attributes.read_only_forms_output #=> Array
     #   resp.items[0].asset_item.additional_attributes.read_only_forms_output[0].content #=> String
     #   resp.items[0].asset_item.additional_attributes.read_only_forms_output[0].form_name #=> String
@@ -10164,6 +10179,13 @@ module Aws::DataZone
     #   resp.items[0].asset_item.owning_project_id #=> String
     #   resp.items[0].asset_item.type_identifier #=> String
     #   resp.items[0].asset_item.type_revision #=> String
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].data_product_item.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].data_product_item.created_at #=> Time
     #   resp.items[0].data_product_item.created_by #=> String
     #   resp.items[0].data_product_item.description #=> String
@@ -10175,6 +10197,13 @@ module Aws::DataZone
     #   resp.items[0].data_product_item.id #=> String
     #   resp.items[0].data_product_item.name #=> String
     #   resp.items[0].data_product_item.owning_project_id #=> String
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].glossary_item.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].glossary_item.created_at #=> Time
     #   resp.items[0].glossary_item.created_by #=> String
     #   resp.items[0].glossary_item.description #=> String
@@ -10185,6 +10214,13 @@ module Aws::DataZone
     #   resp.items[0].glossary_item.status #=> String, one of "DISABLED", "ENABLED"
     #   resp.items[0].glossary_item.updated_at #=> Time
     #   resp.items[0].glossary_item.updated_by #=> String
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].glossary_term_item.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].glossary_term_item.created_at #=> Time
     #   resp.items[0].glossary_term_item.created_by #=> String
     #   resp.items[0].glossary_term_item.domain_id #=> String
@@ -10280,6 +10316,10 @@ module Aws::DataZone
     # @option params [Array<String>] :additional_attributes
     #   Specifies additional attributes for the search.
     #
+    # @option params [Array<Types::AggregationListItem>] :aggregations
+    #   Enables you to specify one or more attributes to compute and return
+    #   counts grouped by field values.
+    #
     # @option params [required, String] :domain_identifier
     #   The identifier of the domain in which to search listings.
     #
@@ -10312,6 +10352,7 @@ module Aws::DataZone
     #
     # @return [Types::SearchListingsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::SearchListingsOutput#aggregates #aggregates} => Array&lt;Types::AggregationOutput&gt;
     #   * {Types::SearchListingsOutput#items #items} => Array&lt;Types::SearchResultItem&gt;
     #   * {Types::SearchListingsOutput#next_token #next_token} => String
     #   * {Types::SearchListingsOutput#total_match_count #total_match_count} => Integer
@@ -10321,7 +10362,13 @@ module Aws::DataZone
     # @example Request syntax with placeholder values
     #
     #   resp = client.search_listings({
-    #     additional_attributes: ["FORMS"], # accepts FORMS, TIME_SERIES_DATA_POINT_FORMS
+    #     additional_attributes: ["FORMS"], # accepts FORMS, TIME_SERIES_DATA_POINT_FORMS, TEXT_MATCH_RATIONALE
+    #     aggregations: [
+    #       {
+    #         attribute: "Attribute", # required
+    #         display_value: "AggregationDisplayValue",
+    #       },
+    #     ],
     #     domain_identifier: "DomainId", # required
     #     filters: {
     #       and: [
@@ -10346,7 +10393,7 @@ module Aws::DataZone
     #         attribute: "Attribute", # required
     #       },
     #     ],
-    #     search_text: "String",
+    #     search_text: "SearchListingsInputSearchTextString",
     #     sort: {
     #       attribute: "Attribute", # required
     #       order: "ASCENDING", # accepts ASCENDING, DESCENDING
@@ -10355,6 +10402,13 @@ module Aws::DataZone
     #
     # @example Response structure
     #
+    #   resp.aggregates #=> Array
+    #   resp.aggregates[0].attribute #=> String
+    #   resp.aggregates[0].display_value #=> String
+    #   resp.aggregates[0].items #=> Array
+    #   resp.aggregates[0].items[0].count #=> Integer
+    #   resp.aggregates[0].items[0].display_value #=> String
+    #   resp.aggregates[0].items[0].value #=> String
     #   resp.items #=> Array
     #   resp.items[0].asset_listing.additional_attributes.forms #=> String
     #   resp.items[0].asset_listing.additional_attributes.latest_time_series_data_point_forms #=> Array
@@ -10364,6 +10418,13 @@ module Aws::DataZone
     #   resp.items[0].asset_listing.additional_attributes.latest_time_series_data_point_forms[0].timestamp #=> Time
     #   resp.items[0].asset_listing.additional_attributes.latest_time_series_data_point_forms[0].type_identifier #=> String
     #   resp.items[0].asset_listing.additional_attributes.latest_time_series_data_point_forms[0].type_revision #=> String
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].asset_listing.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].asset_listing.created_at #=> Time
     #   resp.items[0].asset_listing.description #=> String
     #   resp.items[0].asset_listing.entity_id #=> String
@@ -10379,6 +10440,13 @@ module Aws::DataZone
     #   resp.items[0].asset_listing.name #=> String
     #   resp.items[0].asset_listing.owning_project_id #=> String
     #   resp.items[0].data_product_listing.additional_attributes.forms #=> String
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale #=> Array
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches #=> Array
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches[0].attribute #=> String
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets #=> Array
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].end_offset #=> Integer
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches[0].match_offsets[0].start_offset #=> Integer
+    #   resp.items[0].data_product_listing.additional_attributes.match_rationale[0].text_matches[0].text #=> String
     #   resp.items[0].data_product_listing.created_at #=> Time
     #   resp.items[0].data_product_listing.description #=> String
     #   resp.items[0].data_product_listing.entity_id #=> String
@@ -12741,7 +12809,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.43.0'
+      context[:gem_version] = '1.44.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

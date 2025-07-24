@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.50.0 (2025-07-24)
+------------------
+
+* Feature - Add Git integration and README support for HealthOmics workflows
+
 1.49.0 (2025-07-21)
 ------------------
 
