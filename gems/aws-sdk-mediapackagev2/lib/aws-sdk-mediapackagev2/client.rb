@@ -662,6 +662,7 @@ module Aws::MediaPackageV2
     #     description: "ResourceDescription",
     #     input_switch_configuration: {
     #       mqcs_input_switching: false,
+    #       preferred_input: 1,
     #     },
     #     output_header_configuration: {
     #       publish_mqcs: false,
@@ -687,6 +688,7 @@ module Aws::MediaPackageV2
     #   resp.tags #=> Hash
     #   resp.tags["TagKey"] #=> String
     #   resp.input_switch_configuration.mqcs_input_switching #=> Boolean
+    #   resp.input_switch_configuration.preferred_input #=> Integer
     #   resp.output_header_configuration.publish_mqcs #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediapackagev2-2022-12-25/CreateChannel AWS API Documentation
@@ -2344,8 +2346,7 @@ module Aws::MediaPackageV2
     end
 
     # Retrieves the specified channel that's configured in AWS Elemental
-    # MediaPackage, including the origin endpoints that are associated with
-    # it.
+    # MediaPackage.
     #
     # @option params [required, String] :channel_group_name
     #   The name that describes the channel group. The name is the primary
@@ -2431,6 +2432,7 @@ module Aws::MediaPackageV2
     #   resp.tags #=> Hash
     #   resp.tags["TagKey"] #=> String
     #   resp.input_switch_configuration.mqcs_input_switching #=> Boolean
+    #   resp.input_switch_configuration.preferred_input #=> Integer
     #   resp.output_header_configuration.publish_mqcs #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediapackagev2-2022-12-25/GetChannel AWS API Documentation
@@ -2443,8 +2445,7 @@ module Aws::MediaPackageV2
     end
 
     # Retrieves the specified channel group that's configured in AWS
-    # Elemental MediaPackage, including the channels and origin endpoints
-    # that are associated with it.
+    # Elemental MediaPackage.
     #
     # @option params [required, String] :channel_group_name
     #   The name that describes the channel group. The name is the primary
@@ -3198,8 +3199,7 @@ module Aws::MediaPackageV2
     end
 
     # Retrieves all channels in a specific channel group that are configured
-    # in AWS Elemental MediaPackage, including the origin endpoints that are
-    # associated with it.
+    # in AWS Elemental MediaPackage.
     #
     # @option params [required, String] :channel_group_name
     #   The name that describes the channel group. The name is the primary
@@ -4360,6 +4360,7 @@ module Aws::MediaPackageV2
     #     description: "ResourceDescription",
     #     input_switch_configuration: {
     #       mqcs_input_switching: false,
+    #       preferred_input: 1,
     #     },
     #     output_header_configuration: {
     #       publish_mqcs: false,
@@ -4382,6 +4383,7 @@ module Aws::MediaPackageV2
     #   resp.tags #=> Hash
     #   resp.tags["TagKey"] #=> String
     #   resp.input_switch_configuration.mqcs_input_switching #=> Boolean
+    #   resp.input_switch_configuration.preferred_input #=> Integer
     #   resp.output_header_configuration.publish_mqcs #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediapackagev2-2022-12-25/UpdateChannel AWS API Documentation
@@ -5174,7 +5176,7 @@ module Aws::MediaPackageV2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-mediapackagev2'
-      context[:gem_version] = '1.44.0'
+      context[:gem_version] = '1.45.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.88.0 (2025-07-25)
+------------------
+
+* Feature - Adds IPv6 and PrivateLink support for AWS Budgets in IAD.
+
 1.87.0 (2025-07-21)
 ------------------
 

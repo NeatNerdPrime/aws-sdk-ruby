@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.98.0 (2025-07-25)
+------------------
+
+* Feature - Documentation updates for Amazon SQS fair queues feature.
+
 1.97.0 (2025-07-21)
 ------------------
 

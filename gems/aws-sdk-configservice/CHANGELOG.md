@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.133.0 (2025-07-25)
+------------------
+
+* Feature - Documentation improvements have been made to the EvaluationModel and DescribeConfigurationRecorders APIs.
+
 1.132.0 (2025-07-21)
 ------------------
 

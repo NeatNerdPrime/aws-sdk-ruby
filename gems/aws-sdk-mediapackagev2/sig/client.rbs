@@ -114,7 +114,8 @@ module Aws
                             ?input_type: ("HLS" | "CMAF"),
                             ?description: ::String,
                             ?input_switch_configuration: {
-                              mqcs_input_switching: bool?
+                              mqcs_input_switching: bool?,
+                              preferred_input: ::Integer?
                             },
                             ?output_header_configuration: {
                               publish_mqcs: bool?
@@ -721,7 +722,8 @@ module Aws
                             ?etag: ::String,
                             ?description: ::String,
                             ?input_switch_configuration: {
-                              mqcs_input_switching: bool?
+                              mqcs_input_switching: bool?,
+                              preferred_input: ::Integer?
                             },
                             ?output_header_configuration: {
                               publish_mqcs: bool?

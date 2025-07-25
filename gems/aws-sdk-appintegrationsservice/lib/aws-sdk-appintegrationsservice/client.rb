@@ -521,6 +521,19 @@ module Aws::AppIntegrationsService
     #   The configuration of events or requests that the application has
     #   access to.
     #
+    # @option params [Boolean] :is_service
+    #   Indicates whether the application is a service.
+    #
+    # @option params [Integer] :initialization_timeout
+    #   The maximum time in milliseconds allowed to establish a connection
+    #   with the workspace.
+    #
+    # @option params [Types::ApplicationConfig] :application_config
+    #   The configuration settings for the application.
+    #
+    # @option params [Types::IframeConfig] :iframe_config
+    #   The iframe configuration for the application.
+    #
     # @return [Types::CreateApplicationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateApplicationResponse#arn #arn} => String
@@ -578,6 +591,17 @@ module Aws::AppIntegrationsService
     #       "TagKey" => "TagValue",
     #     },
     #     permissions: ["Permission"],
+    #     is_service: false,
+    #     initialization_timeout: 1,
+    #     application_config: {
+    #       contact_handling: {
+    #         scope: "CROSS_CONTACTS", # accepts CROSS_CONTACTS, PER_CONTACT
+    #       },
+    #     },
+    #     iframe_config: {
+    #       allow: ["IframePermission"],
+    #       sandbox: ["IframePermission"],
+    #     },
     #   })
     #
     # @example Response structure
@@ -982,6 +1006,10 @@ module Aws::AppIntegrationsService
     #   * {Types::GetApplicationResponse#last_modified_time #last_modified_time} => Time
     #   * {Types::GetApplicationResponse#tags #tags} => Hash&lt;String,String&gt;
     #   * {Types::GetApplicationResponse#permissions #permissions} => Array&lt;String&gt;
+    #   * {Types::GetApplicationResponse#is_service #is_service} => Boolean
+    #   * {Types::GetApplicationResponse#initialization_timeout #initialization_timeout} => Integer
+    #   * {Types::GetApplicationResponse#application_config #application_config} => Types::ApplicationConfig
+    #   * {Types::GetApplicationResponse#iframe_config #iframe_config} => Types::IframeConfig
     #
     #
     # @example Example: To get an application
@@ -1033,6 +1061,13 @@ module Aws::AppIntegrationsService
     #   resp.tags["TagKey"] #=> String
     #   resp.permissions #=> Array
     #   resp.permissions[0] #=> String
+    #   resp.is_service #=> Boolean
+    #   resp.initialization_timeout #=> Integer
+    #   resp.application_config.contact_handling.scope #=> String, one of "CROSS_CONTACTS", "PER_CONTACT"
+    #   resp.iframe_config.allow #=> Array
+    #   resp.iframe_config.allow[0] #=> String
+    #   resp.iframe_config.sandbox #=> Array
+    #   resp.iframe_config.sandbox[0] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/appintegrations-2020-07-29/GetApplication AWS API Documentation
     #
@@ -1271,6 +1306,7 @@ module Aws::AppIntegrationsService
     #   resp.applications[0].namespace #=> String
     #   resp.applications[0].created_time #=> Time
     #   resp.applications[0].last_modified_time #=> Time
+    #   resp.applications[0].is_service #=> Boolean
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/appintegrations-2020-07-29/ListApplications AWS API Documentation
@@ -1604,6 +1640,19 @@ module Aws::AppIntegrationsService
     #   The configuration of events or requests that the application has
     #   access to.
     #
+    # @option params [Boolean] :is_service
+    #   Indicates whether the application is a service.
+    #
+    # @option params [Integer] :initialization_timeout
+    #   The maximum time in milliseconds allowed to establish a connection
+    #   with the workspace.
+    #
+    # @option params [Types::ApplicationConfig] :application_config
+    #   The configuration settings for the application.
+    #
+    # @option params [Types::IframeConfig] :iframe_config
+    #   The iframe configuration for the application.
+    #
     # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
     #
     #
@@ -1646,6 +1695,17 @@ module Aws::AppIntegrationsService
     #       },
     #     ],
     #     permissions: ["Permission"],
+    #     is_service: false,
+    #     initialization_timeout: 1,
+    #     application_config: {
+    #       contact_handling: {
+    #         scope: "CROSS_CONTACTS", # accepts CROSS_CONTACTS, PER_CONTACT
+    #       },
+    #     },
+    #     iframe_config: {
+    #       allow: ["IframePermission"],
+    #       sandbox: ["IframePermission"],
+    #     },
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/appintegrations-2020-07-29/UpdateApplication AWS API Documentation
@@ -1788,7 +1848,7 @@ module Aws::AppIntegrationsService
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-appintegrationsservice'
-      context[:gem_version] = '1.52.0'
+      context[:gem_version] = '1.53.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

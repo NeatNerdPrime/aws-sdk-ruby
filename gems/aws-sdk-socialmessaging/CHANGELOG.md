@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.11.0 (2025-07-25)
+------------------
+
+* Feature - This release introduces new WhatsApp template management APIs that enable customers to programmatically create and submit templates for approval, monitor approval status, and manage the complete template lifecycle
+
 1.10.0 (2025-07-21)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.45.0 (2025-07-25)
+------------------
+
+* Feature - This release adds support for specifying a preferred input for channels using CMAF ingest.
+
 1.44.0 (2025-07-21)
 ------------------
 

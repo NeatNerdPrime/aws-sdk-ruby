@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.542.0 (2025-07-25)
+------------------
+
+* Feature - Transit Gateway native integration with AWS Network Firewall. Adding new enum value for the new Transit Gateway Attachment type.
+
 1.541.0 (2025-07-23)
 ------------------
 

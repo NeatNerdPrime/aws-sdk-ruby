@@ -672,7 +672,7 @@ module Aws::EC2
     #   resp.associations.transit_gateway_multicast_domain_id #=> String
     #   resp.associations.transit_gateway_attachment_id #=> String
     #   resp.associations.resource_id #=> String
-    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations.resource_owner_id #=> String
     #   resp.associations.subnets #=> Array
     #   resp.associations.subnets[0].subnet_id #=> String
@@ -2708,7 +2708,7 @@ module Aws::EC2
     #   resp.associations.transit_gateway_multicast_domain_id #=> String
     #   resp.associations.transit_gateway_attachment_id #=> String
     #   resp.associations.resource_id #=> String
-    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations.resource_owner_id #=> String
     #   resp.associations.subnets #=> Array
     #   resp.associations.subnets[0].subnet_id #=> String
@@ -2757,7 +2757,7 @@ module Aws::EC2
     #   resp.association.transit_gateway_policy_table_id #=> String
     #   resp.association.transit_gateway_attachment_id #=> String
     #   resp.association.resource_id #=> String
-    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.association.state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssociateTransitGatewayPolicyTable AWS API Documentation
@@ -2802,7 +2802,7 @@ module Aws::EC2
     #   resp.association.transit_gateway_route_table_id #=> String
     #   resp.association.transit_gateway_attachment_id #=> String
     #   resp.association.resource_id #=> String
-    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.association.state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssociateTransitGatewayRouteTable AWS API Documentation
@@ -15150,7 +15150,7 @@ module Aws::EC2
     #   resp.transit_gateway_prefix_list_reference.state #=> String, one of "pending", "available", "modifying", "deleting"
     #   resp.transit_gateway_prefix_list_reference.blackhole #=> Boolean
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.transit_gateway_attachment_id #=> String
-    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateTransitGatewayPrefixListReference AWS API Documentation
@@ -15205,7 +15205,7 @@ module Aws::EC2
     #   resp.route.transit_gateway_attachments #=> Array
     #   resp.route.transit_gateway_attachments[0].resource_id #=> String
     #   resp.route.transit_gateway_attachments[0].transit_gateway_attachment_id #=> String
-    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.route.type #=> String, one of "static", "propagated"
     #   resp.route.state #=> String, one of "pending", "active", "blackhole", "deleting", "deleted"
     #
@@ -20657,7 +20657,7 @@ module Aws::EC2
     #   resp.transit_gateway_prefix_list_reference.state #=> String, one of "pending", "available", "modifying", "deleting"
     #   resp.transit_gateway_prefix_list_reference.blackhole #=> Boolean
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.transit_gateway_attachment_id #=> String
-    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteTransitGatewayPrefixListReference AWS API Documentation
@@ -20705,7 +20705,7 @@ module Aws::EC2
     #   resp.route.transit_gateway_attachments #=> Array
     #   resp.route.transit_gateway_attachments[0].resource_id #=> String
     #   resp.route.transit_gateway_attachments[0].transit_gateway_attachment_id #=> String
-    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.route.type #=> String, one of "static", "propagated"
     #   resp.route.state #=> String, one of "pending", "active", "blackhole", "deleting", "deleted"
     #
@@ -38972,7 +38972,7 @@ module Aws::EC2
     #   resp.transit_gateway_attachments[0].transit_gateway_id #=> String
     #   resp.transit_gateway_attachments[0].transit_gateway_owner_id #=> String
     #   resp.transit_gateway_attachments[0].resource_owner_id #=> String
-    #   resp.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_attachments[0].resource_id #=> String
     #   resp.transit_gateway_attachments[0].state #=> String, one of "initiating", "initiatingRequest", "pendingAcceptance", "rollingBack", "pending", "available", "modifying", "deleting", "deleted", "failed", "rejected", "rejecting", "failing"
     #   resp.transit_gateway_attachments[0].association.transit_gateway_route_table_id #=> String
@@ -43758,7 +43758,7 @@ module Aws::EC2
     #
     #   resp.propagation.transit_gateway_attachment_id #=> String
     #   resp.propagation.resource_id #=> String
-    #   resp.propagation.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.propagation.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.propagation.transit_gateway_route_table_id #=> String
     #   resp.propagation.state #=> String, one of "enabling", "enabled", "disabling", "disabled"
     #   resp.propagation.transit_gateway_route_table_announcement_id #=> String
@@ -44615,7 +44615,7 @@ module Aws::EC2
     #   resp.associations.transit_gateway_multicast_domain_id #=> String
     #   resp.associations.transit_gateway_attachment_id #=> String
     #   resp.associations.resource_id #=> String
-    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations.resource_owner_id #=> String
     #   resp.associations.subnets #=> Array
     #   resp.associations.subnets[0].subnet_id #=> String
@@ -44662,7 +44662,7 @@ module Aws::EC2
     #   resp.association.transit_gateway_policy_table_id #=> String
     #   resp.association.transit_gateway_attachment_id #=> String
     #   resp.association.resource_id #=> String
-    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.association.state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DisassociateTransitGatewayPolicyTable AWS API Documentation
@@ -44706,7 +44706,7 @@ module Aws::EC2
     #   resp.association.transit_gateway_route_table_id #=> String
     #   resp.association.transit_gateway_attachment_id #=> String
     #   resp.association.resource_id #=> String
-    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.association.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.association.state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DisassociateTransitGatewayRouteTable AWS API Documentation
@@ -45690,7 +45690,7 @@ module Aws::EC2
     #
     #   resp.propagation.transit_gateway_attachment_id #=> String
     #   resp.propagation.resource_id #=> String
-    #   resp.propagation.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.propagation.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.propagation.transit_gateway_route_table_id #=> String
     #   resp.propagation.state #=> String, one of "enabling", "enabled", "disabling", "disabled"
     #   resp.propagation.transit_gateway_route_table_announcement_id #=> String
@@ -49856,7 +49856,7 @@ module Aws::EC2
     #   resp.multicast_domain_associations #=> Array
     #   resp.multicast_domain_associations[0].transit_gateway_attachment_id #=> String
     #   resp.multicast_domain_associations[0].resource_id #=> String
-    #   resp.multicast_domain_associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.multicast_domain_associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.multicast_domain_associations[0].resource_owner_id #=> String
     #   resp.multicast_domain_associations[0].subnet.subnet_id #=> String
     #   resp.multicast_domain_associations[0].subnet.state #=> String, one of "pendingAcceptance", "associating", "associated", "disassociating", "disassociated", "rejected", "failed"
@@ -49921,7 +49921,7 @@ module Aws::EC2
     #   resp.associations[0].transit_gateway_policy_table_id #=> String
     #   resp.associations[0].transit_gateway_attachment_id #=> String
     #   resp.associations[0].resource_id #=> String
-    #   resp.associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations[0].state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #   resp.next_token #=> String
     #
@@ -50071,7 +50071,7 @@ module Aws::EC2
     #   resp.transit_gateway_prefix_list_references[0].state #=> String, one of "pending", "available", "modifying", "deleting"
     #   resp.transit_gateway_prefix_list_references[0].blackhole #=> Boolean
     #   resp.transit_gateway_prefix_list_references[0].transit_gateway_attachment.transit_gateway_attachment_id #=> String
-    #   resp.transit_gateway_prefix_list_references[0].transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_prefix_list_references[0].transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_prefix_list_references[0].transit_gateway_attachment.resource_id #=> String
     #   resp.next_token #=> String
     #
@@ -50141,7 +50141,7 @@ module Aws::EC2
     #   resp.associations #=> Array
     #   resp.associations[0].transit_gateway_attachment_id #=> String
     #   resp.associations[0].resource_id #=> String
-    #   resp.associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations[0].state #=> String, one of "associating", "associated", "disassociating", "disassociated"
     #   resp.next_token #=> String
     #
@@ -50211,7 +50211,7 @@ module Aws::EC2
     #   resp.transit_gateway_route_table_propagations #=> Array
     #   resp.transit_gateway_route_table_propagations[0].transit_gateway_attachment_id #=> String
     #   resp.transit_gateway_route_table_propagations[0].resource_id #=> String
-    #   resp.transit_gateway_route_table_propagations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_route_table_propagations[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_route_table_propagations[0].state #=> String, one of "enabling", "enabled", "disabling", "disabled"
     #   resp.transit_gateway_route_table_propagations[0].transit_gateway_route_table_announcement_id #=> String
     #   resp.next_token #=> String
@@ -56078,7 +56078,7 @@ module Aws::EC2
     #   resp.transit_gateway_prefix_list_reference.state #=> String, one of "pending", "available", "modifying", "deleting"
     #   resp.transit_gateway_prefix_list_reference.blackhole #=> Boolean
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.transit_gateway_attachment_id #=> String
-    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.transit_gateway_prefix_list_reference.transit_gateway_attachment.resource_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyTransitGatewayPrefixListReference AWS API Documentation
@@ -59956,7 +59956,7 @@ module Aws::EC2
     #   resp.associations.transit_gateway_multicast_domain_id #=> String
     #   resp.associations.transit_gateway_attachment_id #=> String
     #   resp.associations.resource_id #=> String
-    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.associations.resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.associations.resource_owner_id #=> String
     #   resp.associations.subnets #=> Array
     #   resp.associations.subnets[0].subnet_id #=> String
@@ -60838,7 +60838,7 @@ module Aws::EC2
     #   resp.route.transit_gateway_attachments #=> Array
     #   resp.route.transit_gateway_attachments[0].resource_id #=> String
     #   resp.route.transit_gateway_attachments[0].transit_gateway_attachment_id #=> String
-    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.route.transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.route.type #=> String, one of "static", "propagated"
     #   resp.route.state #=> String, one of "pending", "active", "blackhole", "deleting", "deleted"
     #
@@ -64083,7 +64083,7 @@ module Aws::EC2
     #   resp.multicast_groups[0].transit_gateway_attachment_id #=> String
     #   resp.multicast_groups[0].subnet_id #=> String
     #   resp.multicast_groups[0].resource_id #=> String
-    #   resp.multicast_groups[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.multicast_groups[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.multicast_groups[0].resource_owner_id #=> String
     #   resp.multicast_groups[0].network_interface_id #=> String
     #   resp.multicast_groups[0].group_member #=> Boolean
@@ -64178,7 +64178,7 @@ module Aws::EC2
     #   resp.routes[0].transit_gateway_attachments #=> Array
     #   resp.routes[0].transit_gateway_attachments[0].resource_id #=> String
     #   resp.routes[0].transit_gateway_attachments[0].transit_gateway_attachment_id #=> String
-    #   resp.routes[0].transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering"
+    #   resp.routes[0].transit_gateway_attachments[0].resource_type #=> String, one of "vpc", "vpn", "direct-connect-gateway", "connect", "peering", "tgw-peering", "network-function"
     #   resp.routes[0].type #=> String, one of "static", "propagated"
     #   resp.routes[0].state #=> String, one of "pending", "active", "blackhole", "deleting", "deleted"
     #   resp.additional_routes_available #=> Boolean
@@ -66435,7 +66435,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.541.0'
+      context[:gem_version] = '1.542.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
