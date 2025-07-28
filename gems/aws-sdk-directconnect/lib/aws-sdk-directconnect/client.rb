@@ -614,6 +614,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -655,6 +656,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/AllocateConnectionOnInterconnect AWS API Documentation
     #
@@ -725,6 +727,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -772,6 +775,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/AllocateHostedConnection AWS API Documentation
     #
@@ -868,7 +872,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -1003,7 +1007,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -1104,7 +1108,7 @@ module Aws::DirectConnect
     #   resp.virtual_interface.amazon_address #=> String
     #   resp.virtual_interface.customer_address #=> String
     #   resp.virtual_interface.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.virtual_interface.customer_router_config #=> String
     #   resp.virtual_interface.mtu #=> Integer
     #   resp.virtual_interface.jumbo_frame_capable #=> Boolean
@@ -1190,6 +1194,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -1228,6 +1233,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/AssociateConnectionWithLag AWS API Documentation
     #
@@ -1279,6 +1285,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -1317,6 +1324,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/AssociateHostedConnection AWS API Documentation
     #
@@ -1328,8 +1336,8 @@ module Aws::DirectConnect
     end
 
     # Associates a MAC Security (MACsec) Connection Key Name (CKN)/
-    # Connectivity Association Key (CAK) pair with an Direct Connect
-    # dedicated connection.
+    # Connectivity Association Key (CAK) pair with a Direct Connect
+    # connection.
     #
     # You must supply either the `secretARN,` or the CKN/CAK (`ckn` and
     # `cak`) pair in the request.
@@ -1343,15 +1351,15 @@ module Aws::DirectConnect
     # [1]: https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-key-consideration
     #
     # @option params [required, String] :connection_id
-    #   The ID of the dedicated connection (dxcon-xxxx), or the ID of the LAG
-    #   (dxlag-xxxx).
+    #   The ID of the dedicated connection (dxcon-xxxx), interconnect
+    #   (dxcon-xxxx), or LAG (dxlag-xxxx).
     #
-    #   You can use DescribeConnections or DescribeLags to retrieve connection
-    #   ID.
+    #   You can use DescribeConnections, DescribeInterconnects, or
+    #   DescribeLags to retrieve connection ID.
     #
     # @option params [String] :secret_arn
     #   The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key
-    #   to associate with the dedicated connection.
+    #   to associate with the connection.
     #
     #   You can use DescribeConnections or DescribeLags to retrieve the MAC
     #   Security (MACsec) secret key.
@@ -1360,8 +1368,7 @@ module Aws::DirectConnect
     #   request parameters.
     #
     # @option params [String] :ckn
-    #   The MAC Security (MACsec) CKN to associate with the dedicated
-    #   connection.
+    #   The MAC Security (MACsec) CKN to associate with the connection.
     #
     #   You can create the CKN/CAK pair using an industry standard tool.
     #
@@ -1371,8 +1378,7 @@ module Aws::DirectConnect
     #   parameter and not use the `secretARN` request parameter.
     #
     # @option params [String] :cak
-    #   The MAC Security (MACsec) CAK to associate with the dedicated
-    #   connection.
+    #   The MAC Security (MACsec) CAK to associate with the connection.
     #
     #   You can create the CKN/CAK pair using an industry standard tool.
     #
@@ -1487,7 +1493,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -1616,7 +1622,7 @@ module Aws::DirectConnect
     #
     # @example Response structure
     #
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/ConfirmPrivateVirtualInterface AWS API Documentation
     #
@@ -1648,7 +1654,7 @@ module Aws::DirectConnect
     #
     # @example Response structure
     #
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/ConfirmPublicVirtualInterface AWS API Documentation
     #
@@ -1685,7 +1691,7 @@ module Aws::DirectConnect
     #
     # @example Response structure
     #
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/ConfirmTransitVirtualInterface AWS API Documentation
     #
@@ -1764,7 +1770,7 @@ module Aws::DirectConnect
     #   resp.virtual_interface.amazon_address #=> String
     #   resp.virtual_interface.customer_address #=> String
     #   resp.virtual_interface.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.virtual_interface.customer_router_config #=> String
     #   resp.virtual_interface.mtu #=> Integer
     #   resp.virtual_interface.jumbo_frame_capable #=> Boolean
@@ -1838,13 +1844,13 @@ module Aws::DirectConnect
     #   Indicates whether you want the connection to support MAC Security
     #   (MACsec).
     #
-    #   MAC Security (MACsec) is only available on dedicated connections. For
-    #   information about MAC Security (MACsec) prerequisties, see [MACsec
-    #   prerequisties][1] in the *Direct Connect User Guide*.
+    #   MAC Security (MACsec) is unavailable on hosted connections. For
+    #   information about MAC Security (MACsec) prerequisites, see [MAC
+    #   Security in Direct Connect][1] in the *Direct Connect User Guide*.
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-prerequisites
+    #   [1]: https://docs.aws.amazon.com/directconnect/latest/UserGuide/MACSec.html
     #
     # @return [Types::Connection] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -1870,6 +1876,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -1918,6 +1925,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/CreateConnection AWS API Documentation
     #
@@ -2174,6 +2182,10 @@ module Aws::DirectConnect
     # @option params [String] :provider_name
     #   The name of the service provider associated with the interconnect.
     #
+    # @option params [Boolean] :request_mac_sec
+    #   Indicates whether you want the interconnect to support MAC Security
+    #   (MACsec).
+    #
     # @return [Types::Interconnect] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::Interconnect#interconnect_id #interconnect_id} => String
@@ -2191,6 +2203,10 @@ module Aws::DirectConnect
     #   * {Types::Interconnect#has_logical_redundancy #has_logical_redundancy} => String
     #   * {Types::Interconnect#tags #tags} => Array&lt;Types::Tag&gt;
     #   * {Types::Interconnect#provider_name #provider_name} => String
+    #   * {Types::Interconnect#mac_sec_capable #mac_sec_capable} => Boolean
+    #   * {Types::Interconnect#port_encryption_status #port_encryption_status} => String
+    #   * {Types::Interconnect#encryption_mode #encryption_mode} => String
+    #   * {Types::Interconnect#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
     #
     # @example Request syntax with placeholder values
     #
@@ -2206,6 +2222,7 @@ module Aws::DirectConnect
     #       },
     #     ],
     #     provider_name: "ProviderName",
+    #     request_mac_sec: false,
     #   })
     #
     # @example Response structure
@@ -2227,6 +2244,14 @@ module Aws::DirectConnect
     #   resp.tags[0].key #=> String
     #   resp.tags[0].value #=> String
     #   resp.provider_name #=> String
+    #   resp.mac_sec_capable #=> Boolean
+    #   resp.port_encryption_status #=> String
+    #   resp.encryption_mode #=> String
+    #   resp.mac_sec_keys #=> Array
+    #   resp.mac_sec_keys[0].secret_arn #=> String
+    #   resp.mac_sec_keys[0].ckn #=> String
+    #   resp.mac_sec_keys[0].state #=> String
+    #   resp.mac_sec_keys[0].start_on #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/CreateInterconnect AWS API Documentation
     #
@@ -2398,6 +2423,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #   resp.allows_hosted_connections #=> Boolean
     #   resp.jumbo_frame_capable #=> Boolean
     #   resp.has_logical_redundancy #=> String, one of "unknown", "yes", "no"
@@ -2515,7 +2541,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -2636,7 +2662,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -2743,7 +2769,7 @@ module Aws::DirectConnect
     #   resp.virtual_interface.amazon_address #=> String
     #   resp.virtual_interface.customer_address #=> String
     #   resp.virtual_interface.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.virtual_interface.customer_router_config #=> String
     #   resp.virtual_interface.mtu #=> Integer
     #   resp.virtual_interface.jumbo_frame_capable #=> Boolean
@@ -2825,7 +2851,7 @@ module Aws::DirectConnect
     #   resp.virtual_interface.amazon_address #=> String
     #   resp.virtual_interface.customer_address #=> String
     #   resp.virtual_interface.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.virtual_interface.customer_router_config #=> String
     #   resp.virtual_interface.mtu #=> Integer
     #   resp.virtual_interface.jumbo_frame_capable #=> Boolean
@@ -2895,6 +2921,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -2932,6 +2959,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DeleteConnection AWS API Documentation
     #
@@ -3190,6 +3218,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #   resp.allows_hosted_connections #=> Boolean
     #   resp.jumbo_frame_capable #=> Boolean
     #   resp.has_logical_redundancy #=> String, one of "unknown", "yes", "no"
@@ -3231,7 +3260,7 @@ module Aws::DirectConnect
     #
     # @example Response structure
     #
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DeleteVirtualInterface AWS API Documentation
     #
@@ -3344,6 +3373,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeConnections AWS API Documentation
     #
@@ -3409,6 +3439,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeConnectionsOnInterconnect AWS API Documentation
     #
@@ -3781,6 +3812,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeHostedConnections AWS API Documentation
     #
@@ -3882,6 +3914,14 @@ module Aws::DirectConnect
     #   resp.interconnects[0].tags[0].key #=> String
     #   resp.interconnects[0].tags[0].value #=> String
     #   resp.interconnects[0].provider_name #=> String
+    #   resp.interconnects[0].mac_sec_capable #=> Boolean
+    #   resp.interconnects[0].port_encryption_status #=> String
+    #   resp.interconnects[0].encryption_mode #=> String
+    #   resp.interconnects[0].mac_sec_keys #=> Array
+    #   resp.interconnects[0].mac_sec_keys[0].secret_arn #=> String
+    #   resp.interconnects[0].mac_sec_keys[0].ckn #=> String
+    #   resp.interconnects[0].mac_sec_keys[0].state #=> String
+    #   resp.interconnects[0].mac_sec_keys[0].start_on #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DescribeInterconnects AWS API Documentation
     #
@@ -3951,6 +3991,7 @@ module Aws::DirectConnect
     #   resp.lags[0].connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.lags[0].connections[0].mac_sec_keys[0].state #=> String
     #   resp.lags[0].connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.lags[0].connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #   resp.lags[0].allows_hosted_connections #=> Boolean
     #   resp.lags[0].jumbo_frame_capable #=> Boolean
     #   resp.lags[0].has_logical_redundancy #=> String, one of "unknown", "yes", "no"
@@ -4214,7 +4255,7 @@ module Aws::DirectConnect
     #   resp.virtual_interfaces[0].amazon_address #=> String
     #   resp.virtual_interfaces[0].customer_address #=> String
     #   resp.virtual_interfaces[0].address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interfaces[0].virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interfaces[0].virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.virtual_interfaces[0].customer_router_config #=> String
     #   resp.virtual_interfaces[0].mtu #=> Integer
     #   resp.virtual_interfaces[0].jumbo_frame_capable #=> Boolean
@@ -4294,6 +4335,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -4332,6 +4374,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/DisassociateConnectionFromLag AWS API Documentation
     #
@@ -4343,14 +4386,14 @@ module Aws::DirectConnect
     end
 
     # Removes the association between a MAC Security (MACsec) security key
-    # and an Direct Connect dedicated connection.
+    # and a Direct Connect connection.
     #
     # @option params [required, String] :connection_id
-    #   The ID of the dedicated connection (dxcon-xxxx), or the ID of the LAG
-    #   (dxlag-xxxx).
+    #   The ID of the dedicated connection (dxcon-xxxx), interconnect
+    #   (dxcon-xxxx), or LAG (dxlag-xxxx).
     #
-    #   You can use DescribeConnections or DescribeLags to retrieve connection
-    #   ID.
+    #   You can use DescribeConnections, DescribeInterconnects, or
+    #   DescribeLags to retrieve connection ID.
     #
     # @option params [required, String] :secret_arn
     #   The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret
@@ -4618,7 +4661,7 @@ module Aws::DirectConnect
       req.send_request(options)
     end
 
-    # Updates the Direct Connect dedicated connection configuration.
+    # Updates the Direct Connect connection configuration.
     #
     # You can update the following parameters for a connection:
     #
@@ -4627,7 +4670,7 @@ module Aws::DirectConnect
     # * The connection's MAC Security (MACsec) encryption mode.
     #
     # @option params [required, String] :connection_id
-    #   The ID of the dedicated connection.
+    #   The ID of the connection.
     #
     #   You can use DescribeConnections to retrieve the connection ID.
     #
@@ -4664,6 +4707,7 @@ module Aws::DirectConnect
     #   * {Types::Connection#port_encryption_status #port_encryption_status} => String
     #   * {Types::Connection#encryption_mode #encryption_mode} => String
     #   * {Types::Connection#mac_sec_keys #mac_sec_keys} => Array&lt;Types::MacSecKey&gt;
+    #   * {Types::Connection#partner_interconnect_mac_sec_capable #partner_interconnect_mac_sec_capable} => Boolean
     #
     # @example Request syntax with placeholder values
     #
@@ -4703,6 +4747,7 @@ module Aws::DirectConnect
     #   resp.mac_sec_keys[0].ckn #=> String
     #   resp.mac_sec_keys[0].state #=> String
     #   resp.mac_sec_keys[0].start_on #=> String
+    #   resp.partner_interconnect_mac_sec_capable #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/directconnect-2012-10-25/UpdateConnection AWS API Documentation
     #
@@ -4931,6 +4976,7 @@ module Aws::DirectConnect
     #   resp.connections[0].mac_sec_keys[0].ckn #=> String
     #   resp.connections[0].mac_sec_keys[0].state #=> String
     #   resp.connections[0].mac_sec_keys[0].start_on #=> String
+    #   resp.connections[0].partner_interconnect_mac_sec_capable #=> Boolean
     #   resp.allows_hosted_connections #=> Boolean
     #   resp.jumbo_frame_capable #=> Boolean
     #   resp.has_logical_redundancy #=> String, one of "unknown", "yes", "no"
@@ -5033,7 +5079,7 @@ module Aws::DirectConnect
     #   resp.amazon_address #=> String
     #   resp.customer_address #=> String
     #   resp.address_family #=> String, one of "ipv4", "ipv6"
-    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "deleting", "deleted", "rejected", "unknown"
+    #   resp.virtual_interface_state #=> String, one of "confirming", "verifying", "pending", "available", "down", "testing", "deleting", "deleted", "rejected", "unknown"
     #   resp.customer_router_config #=> String
     #   resp.mtu #=> Integer
     #   resp.jumbo_frame_capable #=> Boolean
@@ -5087,7 +5133,7 @@ module Aws::DirectConnect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-directconnect'
-      context[:gem_version] = '1.93.0'
+      context[:gem_version] = '1.94.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

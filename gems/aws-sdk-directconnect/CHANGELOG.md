@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.94.0 (2025-07-28)
+------------------
+
+* Feature - Enable MACSec support and features on Interconnects.
+
 1.93.0 (2025-07-21)
 ------------------
 

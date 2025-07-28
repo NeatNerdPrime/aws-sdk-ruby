@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.89.0 (2025-07-28)
+------------------
+
+* Feature - Add support for native anomaly detection in IoT SiteWise using new Computation Model APIs
+
 1.88.0 (2025-07-21)
 ------------------
 

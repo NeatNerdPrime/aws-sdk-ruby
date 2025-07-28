@@ -521,6 +521,16 @@ module Aws::OSIS
     # @option params [Array<Types::Tag>] :tags
     #   List of tags to add to the pipeline upon creation.
     #
+    # @option params [String] :pipeline_role_arn
+    #   The Amazon Resource Name (ARN) of an IAM role that provides the
+    #   required permissions for a pipeline to read from the source and write
+    #   to the sink. For more information, see [Setting up roles and users in
+    #   Amazon OpenSearch Ingestion][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/pipeline-security-overview.html
+    #
     # @return [Types::CreatePipelineResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreatePipelineResponse#pipeline #pipeline} => Types::Pipeline
@@ -559,6 +569,7 @@ module Aws::OSIS
     #         value: "TagValue", # required
     #       },
     #     ],
+    #     pipeline_role_arn: "PipelineRoleArn",
     #   })
     #
     # @example Response structure
@@ -598,6 +609,7 @@ module Aws::OSIS
     #   resp.pipeline.tags #=> Array
     #   resp.pipeline.tags[0].key #=> String
     #   resp.pipeline.tags[0].value #=> String
+    #   resp.pipeline.pipeline_role_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/osis-2022-01-01/CreatePipeline AWS API Documentation
     #
@@ -687,6 +699,7 @@ module Aws::OSIS
     #   resp.pipeline.tags #=> Array
     #   resp.pipeline.tags[0].key #=> String
     #   resp.pipeline.tags[0].value #=> String
+    #   resp.pipeline.pipeline_role_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/osis-2022-01-01/GetPipeline AWS API Documentation
     #
@@ -969,6 +982,7 @@ module Aws::OSIS
     #   resp.pipeline.tags #=> Array
     #   resp.pipeline.tags[0].key #=> String
     #   resp.pipeline.tags[0].value #=> String
+    #   resp.pipeline.pipeline_role_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/osis-2022-01-01/StartPipeline AWS API Documentation
     #
@@ -1036,6 +1050,7 @@ module Aws::OSIS
     #   resp.pipeline.tags #=> Array
     #   resp.pipeline.tags[0].key #=> String
     #   resp.pipeline.tags[0].value #=> String
+    #   resp.pipeline.pipeline_role_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/osis-2022-01-01/StopPipeline AWS API Documentation
     #
@@ -1146,6 +1161,16 @@ module Aws::OSIS
     #   Key-value pairs to configure encryption for data that is written to a
     #   persistent buffer.
     #
+    # @option params [String] :pipeline_role_arn
+    #   The Amazon Resource Name (ARN) of an IAM role that provides the
+    #   required permissions for a pipeline to read from the source and write
+    #   to the sink. For more information, see [Setting up roles and users in
+    #   Amazon OpenSearch Ingestion][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/pipeline-security-overview.html
+    #
     # @return [Types::UpdatePipelineResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdatePipelineResponse#pipeline #pipeline} => Types::Pipeline
@@ -1169,6 +1194,7 @@ module Aws::OSIS
     #     encryption_at_rest_options: {
     #       kms_key_arn: "KmsKeyArn", # required
     #     },
+    #     pipeline_role_arn: "PipelineRoleArn",
     #   })
     #
     # @example Response structure
@@ -1208,6 +1234,7 @@ module Aws::OSIS
     #   resp.pipeline.tags #=> Array
     #   resp.pipeline.tags[0].key #=> String
     #   resp.pipeline.tags[0].value #=> String
+    #   resp.pipeline.pipeline_role_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/osis-2022-01-01/UpdatePipeline AWS API Documentation
     #
@@ -1276,7 +1303,7 @@ module Aws::OSIS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-osis'
-      context[:gem_version] = '1.34.0'
+      context[:gem_version] = '1.35.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
