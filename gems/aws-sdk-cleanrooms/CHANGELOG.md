@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.48.0 (2025-07-29)
+------------------
+
+* Feature - This feature provides the ability to update the table reference and allowed columns on an existing configured table.
+
 1.47.0 (2025-07-21)
 ------------------
 

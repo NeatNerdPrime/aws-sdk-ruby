@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.40.0 (2025-07-29)
+------------------
+
+* Feature - This is to support Granular access control support for SAML with IAMFedraton in AOSS
+
 1.39.0 (2025-07-21)
 ------------------
 
