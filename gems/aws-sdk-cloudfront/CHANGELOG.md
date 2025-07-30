@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.122.0 (2025-07-30)
+------------------
+
+* Feature - This release adds new origin timeout options: 1) ResponseCompletionTimeout and 2) OriginReadTimeout (for S3 origins)
+
 1.121.0 (2025-07-21)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.71.0 (2025-07-30)
+------------------
+
+* Feature - Added TxPowerIndexMin, TxPowerIndexMax, NbTransMin and NbTransMax params to ServiceProfile.
+
 1.70.0 (2025-07-21)
 ------------------
 

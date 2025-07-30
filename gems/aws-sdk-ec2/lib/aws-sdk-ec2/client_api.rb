@@ -15233,6 +15233,7 @@ module Aws::EC2
     Route.add_member(:vpc_peering_connection_id, Shapes::ShapeRef.new(shape: String, location_name: "vpcPeeringConnectionId"))
     Route.add_member(:core_network_arn, Shapes::ShapeRef.new(shape: CoreNetworkArn, location_name: "coreNetworkArn"))
     Route.add_member(:odb_network_arn, Shapes::ShapeRef.new(shape: OdbNetworkArn, location_name: "odbNetworkArn"))
+    Route.add_member(:ip_address, Shapes::ShapeRef.new(shape: String, location_name: "ipAddress"))
     Route.struct_class = Types::Route
 
     RouteList.member = Shapes::ShapeRef.new(shape: Route, location_name: "item")

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.543.0 (2025-07-30)
+------------------
+
+* Feature - Release to show the next hop IP address for routes propagated by VPC Route Server into VPC route tables.
+
 1.542.0 (2025-07-25)
 ------------------
 

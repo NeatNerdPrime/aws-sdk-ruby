@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.89.0 (2025-07-30)
+------------------
+
+* Feature - Add support for setting Serverless Scaling Configuration on clusters.
+
 1.88.0 (2025-07-21)
 ------------------
 
