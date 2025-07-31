@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - Add `bigdecimal` as a dependency. For systems that are not able to build native extension gems, prefer the locally installed `bigdecimal` with `bundle install --prefer-local`.
+
 3.227.0 (2025-07-21)
 ------------------
 
