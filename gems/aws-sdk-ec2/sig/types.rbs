@@ -15690,6 +15690,7 @@ module Aws::EC2
 
     class TerminateInstancesRequest
       attr_accessor instance_ids: ::Array[::String]
+      attr_accessor force: bool
       attr_accessor skip_os_shutdown: bool
       attr_accessor dry_run: bool
       SENSITIVE: []

@@ -16335,6 +16335,7 @@ module Aws::EC2
     TerminateConnectionStatusSet.member = Shapes::ShapeRef.new(shape: TerminateConnectionStatus, location_name: "item")
 
     TerminateInstancesRequest.add_member(:instance_ids, Shapes::ShapeRef.new(shape: InstanceIdStringList, required: true, location_name: "InstanceId"))
+    TerminateInstancesRequest.add_member(:force, Shapes::ShapeRef.new(shape: Boolean, location_name: "Force"))
     TerminateInstancesRequest.add_member(:skip_os_shutdown, Shapes::ShapeRef.new(shape: Boolean, location_name: "SkipOsShutdown"))
     TerminateInstancesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "dryRun"))
     TerminateInstancesRequest.struct_class = Types::TerminateInstancesRequest

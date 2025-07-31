@@ -1561,10 +1561,17 @@ module Aws::EC2
     # @example Request syntax with placeholder values
     #
     #   instance.terminate({
+    #     force: false,
     #     skip_os_shutdown: false,
     #     dry_run: false,
     #   })
     # @param [Hash] options ({})
+    # @option options [Boolean] :force
+    #   Forces the instances to terminate. The instance will first attempt a
+    #   graceful shutdown, which includes flushing file system caches and
+    #   metadata. If the graceful shutdown fails to complete within the
+    #   timeout period, the instance shuts down forcibly without flushing the
+    #   file system caches and metadata.
     # @option options [Boolean] :skip_os_shutdown
     #   Specifies whether to bypass the graceful OS shutdown process when the
     #   instance is terminated.
@@ -2160,10 +2167,17 @@ module Aws::EC2
       # @example Request syntax with placeholder values
       #
       #   instance.batch_terminate!({
+      #     force: false,
       #     skip_os_shutdown: false,
       #     dry_run: false,
       #   })
       # @param options ({})
+      # @option options [Boolean] :force
+      #   Forces the instances to terminate. The instance will first attempt a
+      #   graceful shutdown, which includes flushing file system caches and
+      #   metadata. If the graceful shutdown fails to complete within the
+      #   timeout period, the instance shuts down forcibly without flushing the
+      #   file system caches and metadata.
       # @option options [Boolean] :skip_os_shutdown
       #   Specifies whether to bypass the graceful OS shutdown process when the
       #   instance is terminated.

@@ -72999,6 +72999,14 @@ module Aws::EC2
     #   request into smaller batches.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] force
+    #   Forces the instances to terminate. The instance will first attempt a
+    #   graceful shutdown, which includes flushing file system caches and
+    #   metadata. If the graceful shutdown fails to complete within the
+    #   timeout period, the instance shuts down forcibly without flushing
+    #   the file system caches and metadata.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] skip_os_shutdown
     #   Specifies whether to bypass the graceful OS shutdown process when
     #   the instance is terminated.
@@ -73017,6 +73025,7 @@ module Aws::EC2
     #
     class TerminateInstancesRequest < Struct.new(
       :instance_ids,
+      :force,
       :skip_os_shutdown,
       :dry_run)
       SENSITIVE = []
