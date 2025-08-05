@@ -128,6 +128,1883 @@ module Aws::Bedrock
       class Unknown < AutomatedEvaluationCustomMetricSource; end
     end
 
+    # Represents the result of an Automated Reasoning validation check,
+    # indicating whether the content is logically valid, invalid, or falls
+    # into other categories based on the policy rules.
+    #
+    # @note AutomatedReasoningCheckFinding is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningCheckFinding corresponding to the set member.
+    #
+    # @!attribute [rw] valid
+    #   Indicates that the claims are true. The claims are implied by the
+    #   premises and the Automated Reasoning policy. Given the Automated
+    #   Reasoning policy and premises, it is not possible for these claims
+    #   to be false.
+    #   @return [Types::AutomatedReasoningCheckValidFinding]
+    #
+    # @!attribute [rw] invalid
+    #   Indicates that the claims are false. The claims are not implied by
+    #   the premises and Automated Reasoning policy. Furthermore, there
+    #   exist different claims that are consistent with the premises and
+    #   Automated Reasoning policy.
+    #   @return [Types::AutomatedReasoningCheckInvalidFinding]
+    #
+    # @!attribute [rw] satisfiable
+    #   Indicates that the claims can be true or false. It depends on what
+    #   assumptions are made for the claim to be implied from the premises
+    #   and Automated Reasoning policy rules. In this situation, different
+    #   assumptions can make input claims false and alternative claims true.
+    #   @return [Types::AutomatedReasoningCheckSatisfiableFinding]
+    #
+    # @!attribute [rw] impossible
+    #   Indicates that Automated Reasoning cannot make a statement about the
+    #   claims. This can happen if the premises are logically incorrect, or
+    #   if there is a conflict within the Automated Reasoning policy itself.
+    #   @return [Types::AutomatedReasoningCheckImpossibleFinding]
+    #
+    # @!attribute [rw] translation_ambiguous
+    #   Indicates that an ambiguity was detected in the translation, making
+    #   it unsound to continue with validity checking. Additional context or
+    #   follow-up questions might be needed to get translation to succeed.
+    #   @return [Types::AutomatedReasoningCheckTranslationAmbiguousFinding]
+    #
+    # @!attribute [rw] too_complex
+    #   Indicates that the input contains too much information for Automated
+    #   Reasoning to process within its latency limits.
+    #   @return [Types::AutomatedReasoningCheckTooComplexFinding]
+    #
+    # @!attribute [rw] no_translations
+    #   Identifies that some or all of the input prompt wasn't translated
+    #   into logic. This can happen if the input isn't relevant to the
+    #   Automated Reasoning policy, or if the policy doesn't have variables
+    #   to model relevant input.
+    #   @return [Types::AutomatedReasoningCheckNoTranslationsFinding]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckFinding < Struct.new(
+      :valid,
+      :invalid,
+      :satisfiable,
+      :impossible,
+      :translation_ambiguous,
+      :too_complex,
+      :no_translations,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Valid < AutomatedReasoningCheckFinding; end
+      class Invalid < AutomatedReasoningCheckFinding; end
+      class Satisfiable < AutomatedReasoningCheckFinding; end
+      class Impossible < AutomatedReasoningCheckFinding; end
+      class TranslationAmbiguous < AutomatedReasoningCheckFinding; end
+      class TooComplex < AutomatedReasoningCheckFinding; end
+      class NoTranslations < AutomatedReasoningCheckFinding; end
+      class Unknown < AutomatedReasoningCheckFinding; end
+    end
+
+    # Indicates that no valid claims can be made due to logical
+    # contradictions in the premises or rules.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding evaluates.
+    #   @return [Types::AutomatedReasoningCheckTranslation]
+    #
+    # @!attribute [rw] contradicting_rules
+    #   The automated reasoning policy rules that contradict the claims
+    #   and/or premises in the input.
+    #   @return [Array<Types::AutomatedReasoningCheckRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::AutomatedReasoningCheckLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckImpossibleFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckImpossibleFinding < Struct.new(
+      :translation,
+      :contradicting_rules,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # References a portion of the original input text that corresponds to
+    # logical elements.
+    #
+    # @!attribute [rw] text
+    #   The specific text from the original input that this reference points
+    #   to.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckInputTextReference AWS API Documentation
+    #
+    class AutomatedReasoningCheckInputTextReference < Struct.new(
+      :text)
+      SENSITIVE = [:text]
+      include Aws::Structure
+    end
+
+    # Indicates that the claims are logically false and contradictory to the
+    # established rules or premises.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding invalidates.
+    #   @return [Types::AutomatedReasoningCheckTranslation]
+    #
+    # @!attribute [rw] contradicting_rules
+    #   The automated reasoning policy rules that contradict the claims in
+    #   the input.
+    #   @return [Array<Types::AutomatedReasoningCheckRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::AutomatedReasoningCheckLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckInvalidFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckInvalidFinding < Struct.new(
+      :translation,
+      :contradicting_rules,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Identifies logical issues in the translated statements that exist
+    # independent of any policy rules, such as statements that are always
+    # true or always false.
+    #
+    # @!attribute [rw] type
+    #   The category of the detected logical issue, such as statements that
+    #   are always true or always false.
+    #   @return [String]
+    #
+    # @!attribute [rw] premises
+    #   The logical statements that serve as premises under which the claims
+    #   are validated.
+    #   @return [Array<Types::AutomatedReasoningLogicStatement>]
+    #
+    # @!attribute [rw] claims
+    #   The logical statements that are validated while assuming the policy
+    #   and premises.
+    #   @return [Array<Types::AutomatedReasoningLogicStatement>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckLogicWarning AWS API Documentation
+    #
+    class AutomatedReasoningCheckLogicWarning < Struct.new(
+      :type,
+      :premises,
+      :claims)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that no relevant logical information could be extracted from
+    # the input for validation.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckNoTranslationsFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckNoTranslationsFinding < Aws::EmptyStructure; end
+
+    # References a specific automated reasoning policy rule that was applied
+    # during evaluation.
+    #
+    # @!attribute [rw] id
+    #   The unique identifier of the automated reasoning rule.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_version_arn
+    #   The ARN of the automated reasoning policy version that contains this
+    #   rule.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckRule AWS API Documentation
+    #
+    class AutomatedReasoningCheckRule < Struct.new(
+      :id,
+      :policy_version_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the claims could be either true or false depending on
+    # additional assumptions not provided in the input.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding evaluates.
+    #   @return [Types::AutomatedReasoningCheckTranslation]
+    #
+    # @!attribute [rw] claims_true_scenario
+    #   An example scenario demonstrating how the claims could be logically
+    #   true.
+    #   @return [Types::AutomatedReasoningCheckScenario]
+    #
+    # @!attribute [rw] claims_false_scenario
+    #   An example scenario demonstrating how the claims could be logically
+    #   false.
+    #   @return [Types::AutomatedReasoningCheckScenario]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::AutomatedReasoningCheckLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckSatisfiableFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckSatisfiableFinding < Struct.new(
+      :translation,
+      :claims_true_scenario,
+      :claims_false_scenario,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a logical scenario where claims can be evaluated as true or
+    # false, containing specific logical assignments.
+    #
+    # @!attribute [rw] statements
+    #   List of logical assignments and statements that define this
+    #   scenario.
+    #   @return [Array<Types::AutomatedReasoningLogicStatement>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckScenario AWS API Documentation
+    #
+    class AutomatedReasoningCheckScenario < Struct.new(
+      :statements)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the input exceeds the processing capacity due to the
+    # volume or complexity of the logical information.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckTooComplexFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckTooComplexFinding < Aws::EmptyStructure; end
+
+    # Contains the logical translation of natural language input into formal
+    # logical statements, including premises, claims, and confidence scores.
+    #
+    # @!attribute [rw] premises
+    #   The logical statements that serve as the foundation or assumptions
+    #   for the claims.
+    #   @return [Array<Types::AutomatedReasoningLogicStatement>]
+    #
+    # @!attribute [rw] claims
+    #   The logical statements that are being validated against the premises
+    #   and policy rules.
+    #   @return [Array<Types::AutomatedReasoningLogicStatement>]
+    #
+    # @!attribute [rw] untranslated_premises
+    #   References to portions of the original input text that correspond to
+    #   the premises but could not be fully translated.
+    #   @return [Array<Types::AutomatedReasoningCheckInputTextReference>]
+    #
+    # @!attribute [rw] untranslated_claims
+    #   References to portions of the original input text that correspond to
+    #   the claims but could not be fully translated.
+    #   @return [Array<Types::AutomatedReasoningCheckInputTextReference>]
+    #
+    # @!attribute [rw] confidence
+    #   A confidence score between 0 and 1 indicating how certain the system
+    #   is about the logical translation.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckTranslation AWS API Documentation
+    #
+    class AutomatedReasoningCheckTranslation < Struct.new(
+      :premises,
+      :claims,
+      :untranslated_premises,
+      :untranslated_claims,
+      :confidence)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the input has multiple valid logical interpretations,
+    # requiring additional context or clarification.
+    #
+    # @!attribute [rw] options
+    #   Different logical interpretations that were detected during
+    #   translation of the input.
+    #   @return [Array<Types::AutomatedReasoningCheckTranslationOption>]
+    #
+    # @!attribute [rw] difference_scenarios
+    #   Scenarios showing how the different translation options differ in
+    #   meaning.
+    #   @return [Array<Types::AutomatedReasoningCheckScenario>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckTranslationAmbiguousFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckTranslationAmbiguousFinding < Struct.new(
+      :options,
+      :difference_scenarios)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents one possible logical interpretation of ambiguous input
+    # content.
+    #
+    # @!attribute [rw] translations
+    #   Different logical interpretations that were detected during
+    #   translation of the input.
+    #   @return [Array<Types::AutomatedReasoningCheckTranslation>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckTranslationOption AWS API Documentation
+    #
+    class AutomatedReasoningCheckTranslationOption < Struct.new(
+      :translations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the claims are definitively true and logically implied
+    # by the premises, with no possible alternative interpretations.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding validates.
+    #   @return [Types::AutomatedReasoningCheckTranslation]
+    #
+    # @!attribute [rw] claims_true_scenario
+    #   An example scenario demonstrating how the claims are logically true.
+    #   @return [Types::AutomatedReasoningCheckScenario]
+    #
+    # @!attribute [rw] supporting_rules
+    #   The automated reasoning policy rules that support why this result is
+    #   considered valid.
+    #   @return [Array<Types::AutomatedReasoningCheckRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::AutomatedReasoningCheckLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningCheckValidFinding AWS API Documentation
+    #
+    class AutomatedReasoningCheckValidFinding < Struct.new(
+      :translation,
+      :claims_true_scenario,
+      :supporting_rules,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a logical statement that can be expressed both in formal
+    # logic notation and natural language, providing dual representations
+    # for better understanding and validation.
+    #
+    # @!attribute [rw] logic
+    #   The formal logic representation of the statement using mathematical
+    #   notation and logical operators.
+    #   @return [String]
+    #
+    # @!attribute [rw] natural_language
+    #   The natural language representation of the logical statement,
+    #   providing a human-readable interpretation of the formal logic.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningLogicStatement AWS API Documentation
+    #
+    class AutomatedReasoningLogicStatement < Struct.new(
+      :logic,
+      :natural_language)
+      SENSITIVE = [:logic, :natural_language]
+      include Aws::Structure
+    end
+
+    # An annotation for adding a new rule to an Automated Reasoning policy
+    # using a formal logical expression.
+    #
+    # @!attribute [rw] expression
+    #   The formal logical expression that defines the rule, using
+    #   mathematical notation and referencing policy variables and types.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddRuleAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddRuleAnnotation < Struct.new(
+      :expression)
+      SENSITIVE = [:expression]
+      include Aws::Structure
+    end
+
+    # An annotation for adding a new rule to the policy by converting a
+    # natural language description into a formal logical expression.
+    #
+    # @!attribute [rw] natural_language
+    #   The natural language description of the rule that should be
+    #   converted into a formal logical expression.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation < Struct.new(
+      :natural_language)
+      SENSITIVE = [:natural_language]
+      include Aws::Structure
+    end
+
+    # A mutation operation that adds a new rule to the policy definition
+    # during the build process.
+    #
+    # @!attribute [rw] rule
+    #   Represents a formal logic rule in an Automated Reasoning policy. For
+    #   example, rules can be expressed as if-then statements that define
+    #   logical constraints.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionRule]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddRuleMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddRuleMutation < Struct.new(
+      :rule)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An annotation for adding a new custom type to an Automated Reasoning
+    # policy, defining a set of possible values for variables.
+    #
+    # @!attribute [rw] name
+    #   The name of the new custom type. This name will be used to reference
+    #   the type in variable definitions and rules.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A description of what the custom type represents and how it should
+    #   be used in the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] values
+    #   The list of possible values that variables of this type can take,
+    #   each with its own description and identifier.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionTypeValue>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddTypeAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddTypeAnnotation < Struct.new(
+      :name,
+      :description,
+      :values)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # A mutation operation that adds a new custom type to the policy
+    # definition during the build process.
+    #
+    # @!attribute [rw] type
+    #   Represents a custom user-defined viarble type in an Automated
+    #   Reasoning policy. Types are enum-based and provide additional
+    #   context beyond predefined variable types.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionType]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddTypeMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddTypeMutation < Struct.new(
+      :type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a single value that can be added to an existing custom type
+    # in the policy.
+    #
+    # @!attribute [rw] value
+    #   The identifier or name of the new value to add to the type.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A description of what this new type value represents and when it
+    #   should be used.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddTypeValue AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddTypeValue < Struct.new(
+      :value,
+      :description)
+      SENSITIVE = [:description]
+      include Aws::Structure
+    end
+
+    # An annotation for adding a new variable to an Automated Reasoning
+    # policy, which can be used in rule expressions.
+    #
+    # @!attribute [rw] name
+    #   The name of the new variable. This name will be used to reference
+    #   the variable in rule expressions.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The type of the variable, which can be a built-in type (like string
+    #   or number) or a custom type defined in the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A description of what the variable represents and how it should be
+    #   used in rules.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddVariableAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddVariableAnnotation < Struct.new(
+      :name,
+      :type,
+      :description)
+      SENSITIVE = [:name, :type, :description]
+      include Aws::Structure
+    end
+
+    # A mutation operation that adds a new variable to the policy definition
+    # during the build process.
+    #
+    # @!attribute [rw] variable
+    #   Represents a variable in an Automated Reasoning policy. Variables
+    #   represent concepts that can have values assigned during natural
+    #   language translation.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionVariable]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAddVariableMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAddVariableMutation < Struct.new(
+      :variable)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains the various operations that can be performed on an Automated
+    # Reasoning policy, including adding, updating, and deleting rules,
+    # variables, and types.
+    #
+    # @note AutomatedReasoningPolicyAnnotation is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note AutomatedReasoningPolicyAnnotation is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyAnnotation corresponding to the set member.
+    #
+    # @!attribute [rw] add_type
+    #   An operation to add a new custom type to the policy, defining a set
+    #   of possible values for policy variables.
+    #   @return [Types::AutomatedReasoningPolicyAddTypeAnnotation]
+    #
+    # @!attribute [rw] update_type
+    #   An operation to modify an existing custom type in the policy, such
+    #   as changing its name, description, or allowed values.
+    #   @return [Types::AutomatedReasoningPolicyUpdateTypeAnnotation]
+    #
+    # @!attribute [rw] delete_type
+    #   An operation to remove a custom type from the policy. The type must
+    #   not be referenced by any variables or rules.
+    #   @return [Types::AutomatedReasoningPolicyDeleteTypeAnnotation]
+    #
+    # @!attribute [rw] add_variable
+    #   An operation to add a new variable to the policy, which can be used
+    #   in rule expressions to represent dynamic values.
+    #   @return [Types::AutomatedReasoningPolicyAddVariableAnnotation]
+    #
+    # @!attribute [rw] update_variable
+    #   An operation to modify an existing variable in the policy, such as
+    #   changing its name, type, or description.
+    #   @return [Types::AutomatedReasoningPolicyUpdateVariableAnnotation]
+    #
+    # @!attribute [rw] delete_variable
+    #   An operation to remove a variable from the policy. The variable must
+    #   not be referenced by any rules.
+    #   @return [Types::AutomatedReasoningPolicyDeleteVariableAnnotation]
+    #
+    # @!attribute [rw] add_rule
+    #   An operation to add a new logical rule to the policy using formal
+    #   mathematical expressions.
+    #   @return [Types::AutomatedReasoningPolicyAddRuleAnnotation]
+    #
+    # @!attribute [rw] update_rule
+    #   An operation to modify an existing rule in the policy, such as
+    #   changing its logical expression or conditions.
+    #   @return [Types::AutomatedReasoningPolicyUpdateRuleAnnotation]
+    #
+    # @!attribute [rw] delete_rule
+    #   An operation to remove a rule from the policy.
+    #   @return [Types::AutomatedReasoningPolicyDeleteRuleAnnotation]
+    #
+    # @!attribute [rw] add_rule_from_natural_language
+    #   An operation to add a new rule by converting natural language
+    #   descriptions into formal logical expressions.
+    #   @return [Types::AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation]
+    #
+    # @!attribute [rw] update_from_rules_feedback
+    #   An operation to update the policy based on feedback about how
+    #   specific rules performed during testing or validation.
+    #   @return [Types::AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation]
+    #
+    # @!attribute [rw] update_from_scenario_feedback
+    #   An operation to update the policy based on feedback about how it
+    #   performed on specific test scenarios.
+    #   @return [Types::AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation]
+    #
+    # @!attribute [rw] ingest_content
+    #   An operation to process and incorporate new content into the policy,
+    #   extracting additional rules and concepts.
+    #   @return [Types::AutomatedReasoningPolicyIngestContentAnnotation]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyAnnotation < Struct.new(
+      :add_type,
+      :update_type,
+      :delete_type,
+      :add_variable,
+      :update_variable,
+      :delete_variable,
+      :add_rule,
+      :update_rule,
+      :delete_rule,
+      :add_rule_from_natural_language,
+      :update_from_rules_feedback,
+      :update_from_scenario_feedback,
+      :ingest_content,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class AddType < AutomatedReasoningPolicyAnnotation; end
+      class UpdateType < AutomatedReasoningPolicyAnnotation; end
+      class DeleteType < AutomatedReasoningPolicyAnnotation; end
+      class AddVariable < AutomatedReasoningPolicyAnnotation; end
+      class UpdateVariable < AutomatedReasoningPolicyAnnotation; end
+      class DeleteVariable < AutomatedReasoningPolicyAnnotation; end
+      class AddRule < AutomatedReasoningPolicyAnnotation; end
+      class UpdateRule < AutomatedReasoningPolicyAnnotation; end
+      class DeleteRule < AutomatedReasoningPolicyAnnotation; end
+      class AddRuleFromNaturalLanguage < AutomatedReasoningPolicyAnnotation; end
+      class UpdateFromRulesFeedback < AutomatedReasoningPolicyAnnotation; end
+      class UpdateFromScenarioFeedback < AutomatedReasoningPolicyAnnotation; end
+      class IngestContent < AutomatedReasoningPolicyAnnotation; end
+      class Unknown < AutomatedReasoningPolicyAnnotation; end
+    end
+
+    # Contains detailed logging information about the policy build process,
+    # including steps taken, decisions made, and any issues encountered.
+    #
+    # @!attribute [rw] entries
+    #   A list of log entries documenting each step in the policy build
+    #   process, including timestamps, status, and detailed messages.
+    #   @return [Array<Types::AutomatedReasoningPolicyBuildLogEntry>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildLog AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildLog < Struct.new(
+      :entries)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a single entry in the policy build log, containing
+    # information about a specific step or event in the build process.
+    #
+    # @!attribute [rw] annotation
+    #   The annotation or operation that was being processed when this log
+    #   entry was created.
+    #   @return [Types::AutomatedReasoningPolicyAnnotation]
+    #
+    # @!attribute [rw] status
+    #   The status of the build step (e.g., SUCCESS, FAILED, IN\_PROGRESS).
+    #   @return [String]
+    #
+    # @!attribute [rw] build_steps
+    #   Detailed information about the specific build steps that were
+    #   executed, including any sub-operations or transformations.
+    #   @return [Array<Types::AutomatedReasoningPolicyBuildStep>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildLogEntry AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildLogEntry < Struct.new(
+      :annotation,
+      :status,
+      :build_steps)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains the various assets generated during a policy build workflow,
+    # including logs, quality reports, and the final policy definition.
+    #
+    # @note AutomatedReasoningPolicyBuildResultAssets is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyBuildResultAssets corresponding to the set member.
+    #
+    # @!attribute [rw] policy_definition
+    #   Contains the formal logic rules, variables, and custom variable
+    #   types that define an Automated Reasoning policy. The policy
+    #   definition specifies the constraints used to validate foundation
+    #   model responses for accuracy and logical consistency.
+    #   @return [Types::AutomatedReasoningPolicyDefinition]
+    #
+    # @!attribute [rw] quality_report
+    #   A comprehensive report analyzing the quality of the generated
+    #   policy, including metrics about rule coverage, potential conflicts,
+    #   and unused elements.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionQualityReport]
+    #
+    # @!attribute [rw] build_log
+    #   The complete build log containing detailed information about each
+    #   step in the policy generation process.
+    #   @return [Types::AutomatedReasoningPolicyBuildLog]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildResultAssets AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildResultAssets < Struct.new(
+      :policy_definition,
+      :quality_report,
+      :build_log,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class PolicyDefinition < AutomatedReasoningPolicyBuildResultAssets; end
+      class QualityReport < AutomatedReasoningPolicyBuildResultAssets; end
+      class BuildLog < AutomatedReasoningPolicyBuildResultAssets; end
+      class Unknown < AutomatedReasoningPolicyBuildResultAssets; end
+    end
+
+    # Represents a single step in the policy build process, containing
+    # context about what was being processed and any messages or results.
+    #
+    # @!attribute [rw] context
+    #   Contextual information about what was being processed during this
+    #   build step, such as the type of operation or the source material
+    #   being analyzed.
+    #   @return [Types::AutomatedReasoningPolicyBuildStepContext]
+    #
+    # @!attribute [rw] prior_element
+    #   Reference to the previous element or step in the build process,
+    #   helping to trace the sequence of operations.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionElement]
+    #
+    # @!attribute [rw] messages
+    #   A list of messages generated during this build step, including
+    #   informational messages, warnings, and error details.
+    #   @return [Array<Types::AutomatedReasoningPolicyBuildStepMessage>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildStep AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildStep < Struct.new(
+      :context,
+      :prior_element,
+      :messages)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Provides context about what type of operation was being performed
+    # during a build step.
+    #
+    # @note AutomatedReasoningPolicyBuildStepContext is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyBuildStepContext corresponding to the set member.
+    #
+    # @!attribute [rw] planning
+    #   Indicates that this build step was part of the planning phase, where
+    #   the system determines what operations to perform.
+    #   @return [Types::AutomatedReasoningPolicyPlanning]
+    #
+    # @!attribute [rw] mutation
+    #   Indicates that this build step involved modifying the policy
+    #   structure, such as adding or updating rules, variables, or types.
+    #   @return [Types::AutomatedReasoningPolicyMutation]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildStepContext AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildStepContext < Struct.new(
+      :planning,
+      :mutation,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Planning < AutomatedReasoningPolicyBuildStepContext; end
+      class Mutation < AutomatedReasoningPolicyBuildStepContext; end
+      class Unknown < AutomatedReasoningPolicyBuildStepContext; end
+    end
+
+    # Represents a message generated during a build step, providing
+    # information about what happened or any issues encountered.
+    #
+    # @!attribute [rw] message
+    #   The content of the message, describing what occurred during the
+    #   build step.
+    #   @return [String]
+    #
+    # @!attribute [rw] message_type
+    #   The type of message (e.g., INFO, WARNING, ERROR) indicating its
+    #   severity and purpose.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildStepMessage AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildStepMessage < Struct.new(
+      :message,
+      :message_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a source document used in the policy build workflow,
+    # containing the content and metadata needed for policy generation.
+    #
+    # @!attribute [rw] document
+    #   The actual content of the source document that will be analyzed to
+    #   extract policy rules and concepts.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_content_type
+    #   The MIME type of the document content (e.g., text/plain,
+    #   application/pdf, text/markdown).
+    #   @return [String]
+    #
+    # @!attribute [rw] document_name
+    #   A descriptive name for the document that helps identify its purpose
+    #   and content.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_description
+    #   A detailed description of the document's content and how it should
+    #   be used in the policy generation process.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildWorkflowDocument AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildWorkflowDocument < Struct.new(
+      :document,
+      :document_content_type,
+      :document_name,
+      :document_description)
+      SENSITIVE = [:document_name, :document_description]
+      include Aws::Structure
+    end
+
+    # Contains content and instructions for repairing or improving an
+    # existing Automated Reasoning policy.
+    #
+    # @!attribute [rw] annotations
+    #   Specific annotations or modifications to apply during the policy
+    #   repair process, such as rule corrections or variable updates.
+    #   @return [Array<Types::AutomatedReasoningPolicyAnnotation>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildWorkflowRepairContent AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildWorkflowRepairContent < Struct.new(
+      :annotations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the source content for a policy build workflow, which can
+    # include documents, repair instructions, or other input materials.
+    #
+    # @!attribute [rw] policy_definition
+    #   Contains the formal logic rules, variables, and custom variable
+    #   types that define an Automated Reasoning policy. The policy
+    #   definition specifies the constraints used to validate foundation
+    #   model responses for accuracy and logical consistency.
+    #   @return [Types::AutomatedReasoningPolicyDefinition]
+    #
+    # @!attribute [rw] workflow_content
+    #   The actual content to be processed in the build workflow, such as
+    #   documents to analyze or repair instructions to apply.
+    #   @return [Types::AutomatedReasoningPolicyWorkflowTypeContent]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildWorkflowSource AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildWorkflowSource < Struct.new(
+      :policy_definition,
+      :workflow_content)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Provides a summary of a policy build workflow, including its current
+    # status, timing information, and key identifiers.
+    #
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   associated with this build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current status of the build workflow (e.g., RUNNING, COMPLETED,
+    #   FAILED, CANCELLED).
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_type
+    #   The type of build workflow (e.g., DOCUMENT\_INGESTION,
+    #   POLICY\_REPAIR).
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the build workflow was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the build workflow was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyBuildWorkflowSummary AWS API Documentation
+    #
+    class AutomatedReasoningPolicyBuildWorkflowSummary < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :status,
+      :build_workflow_type,
+      :created_at,
+      :updated_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains the formal logic rules, variables, and custom variable types
+    # that define an Automated Reasoning policy. The policy definition
+    # specifies the constraints used to validate foundation model responses
+    # for accuracy and logical consistency.
+    #
+    # @!attribute [rw] version
+    #   The version of the policy definition format.
+    #   @return [String]
+    #
+    # @!attribute [rw] types
+    #   The custom user-defined vairable types used in the policy. Types are
+    #   enum-based variable types that provide additional context beyond the
+    #   predefined variable types.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionType>]
+    #
+    # @!attribute [rw] rules
+    #   The formal logic rules extracted from the source document. Rules
+    #   define the logical constraints that determine whether model
+    #   responses are valid, invalid, or satisfiable.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionRule>]
+    #
+    # @!attribute [rw] variables
+    #   The variables that represent concepts in the policy. Variables can
+    #   have values assigned when translating natural language into formal
+    #   logic. Their descriptions are crucial for accurate translation.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionVariable>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinition AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinition < Struct.new(
+      :version,
+      :types,
+      :rules,
+      :variables)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a single element in an Automated Reasoning policy
+    # definition, such as a rule, variable, or type definition.
+    #
+    # @note AutomatedReasoningPolicyDefinitionElement is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyDefinitionElement corresponding to the set member.
+    #
+    # @!attribute [rw] policy_definition_variable
+    #   Represents a variable in an Automated Reasoning policy. Variables
+    #   represent concepts that can have values assigned during natural
+    #   language translation.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionVariable]
+    #
+    # @!attribute [rw] policy_definition_type
+    #   Represents a custom user-defined viarble type in an Automated
+    #   Reasoning policy. Types are enum-based and provide additional
+    #   context beyond predefined variable types.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionType]
+    #
+    # @!attribute [rw] policy_definition_rule
+    #   Represents a formal logic rule in an Automated Reasoning policy. For
+    #   example, rules can be expressed as if-then statements that define
+    #   logical constraints.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionRule]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionElement AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionElement < Struct.new(
+      :policy_definition_variable,
+      :policy_definition_type,
+      :policy_definition_rule,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class PolicyDefinitionVariable < AutomatedReasoningPolicyDefinitionElement; end
+      class PolicyDefinitionType < AutomatedReasoningPolicyDefinitionElement; end
+      class PolicyDefinitionRule < AutomatedReasoningPolicyDefinitionElement; end
+      class Unknown < AutomatedReasoningPolicyDefinitionElement; end
+    end
+
+    # Provides a comprehensive analysis of the quality and completeness of
+    # an Automated Reasoning policy definition, highlighting potential
+    # issues and optimization opportunities.
+    #
+    # @!attribute [rw] type_count
+    #   The total number of custom types defined in the policy.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] variable_count
+    #   The total number of variables defined in the policy.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] rule_count
+    #   The total number of rules defined in the policy.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] unused_types
+    #   A list of custom types that are defined but not referenced by any
+    #   variables or rules, suggesting they may be unnecessary.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] unused_type_values
+    #   A list of type values that are defined but never used in any rules,
+    #   indicating potential cleanup opportunities.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionTypeValuePair>]
+    #
+    # @!attribute [rw] unused_variables
+    #   A list of variables that are defined but not referenced by any
+    #   rules, suggesting they may be unnecessary.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] conflicting_rules
+    #   A list of rules that may conflict with each other, potentially
+    #   leading to inconsistent policy behavior.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] disjoint_rule_sets
+    #   Groups of rules that operate on completely separate sets of
+    #   variables, indicating the policy may be addressing multiple
+    #   unrelated concerns.
+    #   @return [Array<Types::AutomatedReasoningPolicyDisjointRuleSet>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionQualityReport AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionQualityReport < Struct.new(
+      :type_count,
+      :variable_count,
+      :rule_count,
+      :unused_types,
+      :unused_type_values,
+      :unused_variables,
+      :conflicting_rules,
+      :disjoint_rule_sets)
+      SENSITIVE = [:unused_types, :unused_variables]
+      include Aws::Structure
+    end
+
+    # Represents a formal logic rule in an Automated Reasoning policy. For
+    # example, rules can be expressed as if-then statements that define
+    # logical constraints.
+    #
+    # @!attribute [rw] id
+    #   The unique identifier of the rule within the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] expression
+    #   The formal logic expression of the rule.
+    #   @return [String]
+    #
+    # @!attribute [rw] alternate_expression
+    #   The human-readable form of the rule expression, often in natural
+    #   language or simplified notation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionRule AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionRule < Struct.new(
+      :id,
+      :expression,
+      :alternate_expression)
+      SENSITIVE = [:expression, :alternate_expression]
+      include Aws::Structure
+    end
+
+    # Represents a custom user-defined viarble type in an Automated
+    # Reasoning policy. Types are enum-based and provide additional context
+    # beyond predefined variable types.
+    #
+    # @!attribute [rw] name
+    #   The name of the custom type.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of what the custom type represents.
+    #   @return [String]
+    #
+    # @!attribute [rw] values
+    #   The possible values for this enum-based type, each with its own
+    #   description.
+    #   @return [Array<Types::AutomatedReasoningPolicyDefinitionTypeValue>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionType AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionType < Struct.new(
+      :name,
+      :description,
+      :values)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # Represents a single value within a custom type definition, including
+    # its identifier and description.
+    #
+    # @!attribute [rw] value
+    #   The actual value or identifier for this type value.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A human-readable description explaining what this type value
+    #   represents and when it should be used.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionTypeValue AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionTypeValue < Struct.new(
+      :value,
+      :description)
+      SENSITIVE = [:description]
+      include Aws::Structure
+    end
+
+    # Associates a type name with a specific value name, used for
+    # referencing type values in rules and other policy elements.
+    #
+    # @!attribute [rw] type_name
+    #   The name of the custom type that contains the referenced value.
+    #   @return [String]
+    #
+    # @!attribute [rw] value_name
+    #   The name of the specific value within the type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionTypeValuePair AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionTypeValuePair < Struct.new(
+      :type_name,
+      :value_name)
+      SENSITIVE = [:type_name]
+      include Aws::Structure
+    end
+
+    # Represents a variable in an Automated Reasoning policy. Variables
+    # represent concepts that can have values assigned during natural
+    # language translation.
+    #
+    # @!attribute [rw] name
+    #   The name of the variable. Use descriptive names that clearly
+    #   indicate the concept being represented.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The data type of the variable. Valid types include bool, int, real,
+    #   enum, and custom types that you can provide.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the variable that explains what it represents and
+    #   how users might refer to it. Clear and comprehensive descriptions
+    #   are essential for accurate natural language translation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDefinitionVariable AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDefinitionVariable < Struct.new(
+      :name,
+      :type,
+      :description)
+      SENSITIVE = [:name, :type, :description]
+      include Aws::Structure
+    end
+
+    # An annotation for removing a rule from an Automated Reasoning policy.
+    #
+    # @!attribute [rw] rule_id
+    #   The unique identifier of the rule to delete from the policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteRuleAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteRuleAnnotation < Struct.new(
+      :rule_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A mutation operation that removes a rule from the policy definition
+    # during the build process.
+    #
+    # @!attribute [rw] id
+    #   The unique identifier of the rule to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteRuleMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteRuleMutation < Struct.new(
+      :id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An annotation for removing a custom type from an Automated Reasoning
+    # policy.
+    #
+    # @!attribute [rw] name
+    #   The name of the custom type to delete from the policy. The type must
+    #   not be referenced by any variables or rules.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteTypeAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteTypeAnnotation < Struct.new(
+      :name)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # A mutation operation that removes a custom type from the policy
+    # definition during the build process.
+    #
+    # @!attribute [rw] name
+    #   The name of the custom type to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteTypeMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteTypeMutation < Struct.new(
+      :name)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # Represents a value to be removed from an existing custom type in the
+    # policy.
+    #
+    # @!attribute [rw] value
+    #   The identifier or name of the value to remove from the type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteTypeValue AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteTypeValue < Struct.new(
+      :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An annotation for removing a variable from an Automated Reasoning
+    # policy.
+    #
+    # @!attribute [rw] name
+    #   The name of the variable to delete from the policy. The variable
+    #   must not be referenced by any rules.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteVariableAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteVariableAnnotation < Struct.new(
+      :name)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # A mutation operation that removes a variable from the policy
+    # definition during the build process.
+    #
+    # @!attribute [rw] name
+    #   The name of the variable to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDeleteVariableMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDeleteVariableMutation < Struct.new(
+      :name)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # Represents a set of rules that operate on completely separate
+    # variables, indicating they address different concerns or domains
+    # within the policy.
+    #
+    # @!attribute [rw] variables
+    #   The set of variables that are used by the rules in this disjoint
+    #   set.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] rules
+    #   The list of rules that form this disjoint set, all operating on the
+    #   same set of variables.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyDisjointRuleSet AWS API Documentation
+    #
+    class AutomatedReasoningPolicyDisjointRuleSet < Struct.new(
+      :variables,
+      :rules)
+      SENSITIVE = [:variables]
+      include Aws::Structure
+    end
+
+    # An annotation for processing and incorporating new content into an
+    # Automated Reasoning policy.
+    #
+    # @!attribute [rw] content
+    #   The new content to be analyzed and incorporated into the policy,
+    #   such as additional documents or rule descriptions.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyIngestContentAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyIngestContentAnnotation < Struct.new(
+      :content)
+      SENSITIVE = [:content]
+      include Aws::Structure
+    end
+
+    # A container for various mutation operations that can be applied to an
+    # Automated Reasoning policy, including adding, updating, and deleting
+    # policy elements.
+    #
+    # @note AutomatedReasoningPolicyMutation is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyMutation corresponding to the set member.
+    #
+    # @!attribute [rw] add_type
+    #   A mutation to add a new custom type to the policy.
+    #   @return [Types::AutomatedReasoningPolicyAddTypeMutation]
+    #
+    # @!attribute [rw] update_type
+    #   A mutation to modify an existing custom type in the policy.
+    #   @return [Types::AutomatedReasoningPolicyUpdateTypeMutation]
+    #
+    # @!attribute [rw] delete_type
+    #   A mutation to remove a custom type from the policy.
+    #   @return [Types::AutomatedReasoningPolicyDeleteTypeMutation]
+    #
+    # @!attribute [rw] add_variable
+    #   A mutation to add a new variable to the policy.
+    #   @return [Types::AutomatedReasoningPolicyAddVariableMutation]
+    #
+    # @!attribute [rw] update_variable
+    #   A mutation to modify an existing variable in the policy.
+    #   @return [Types::AutomatedReasoningPolicyUpdateVariableMutation]
+    #
+    # @!attribute [rw] delete_variable
+    #   A mutation to remove a variable from the policy.
+    #   @return [Types::AutomatedReasoningPolicyDeleteVariableMutation]
+    #
+    # @!attribute [rw] add_rule
+    #   A mutation to add a new rule to the policy.
+    #   @return [Types::AutomatedReasoningPolicyAddRuleMutation]
+    #
+    # @!attribute [rw] update_rule
+    #   A mutation to modify an existing rule in the policy.
+    #   @return [Types::AutomatedReasoningPolicyUpdateRuleMutation]
+    #
+    # @!attribute [rw] delete_rule
+    #   A mutation to remove a rule from the policy.
+    #   @return [Types::AutomatedReasoningPolicyDeleteRuleMutation]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyMutation < Struct.new(
+      :add_type,
+      :update_type,
+      :delete_type,
+      :add_variable,
+      :update_variable,
+      :delete_variable,
+      :add_rule,
+      :update_rule,
+      :delete_rule,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class AddType < AutomatedReasoningPolicyMutation; end
+      class UpdateType < AutomatedReasoningPolicyMutation; end
+      class DeleteType < AutomatedReasoningPolicyMutation; end
+      class AddVariable < AutomatedReasoningPolicyMutation; end
+      class UpdateVariable < AutomatedReasoningPolicyMutation; end
+      class DeleteVariable < AutomatedReasoningPolicyMutation; end
+      class AddRule < AutomatedReasoningPolicyMutation; end
+      class UpdateRule < AutomatedReasoningPolicyMutation; end
+      class DeleteRule < AutomatedReasoningPolicyMutation; end
+      class Unknown < AutomatedReasoningPolicyMutation; end
+    end
+
+    # Represents the planning phase of policy build workflow, where the
+    # system analyzes source content and determines what operations to
+    # perform.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyPlanning AWS API Documentation
+    #
+    class AutomatedReasoningPolicyPlanning < Aws::EmptyStructure; end
+
+    # Represents a test scenario used to validate an Automated Reasoning
+    # policy, including the test conditions and expected outcomes.
+    #
+    # @!attribute [rw] expression
+    #   The logical expression or condition that defines this test scenario.
+    #   @return [String]
+    #
+    # @!attribute [rw] alternate_expression
+    #   An alternative way to express the same test scenario, used for
+    #   validation and comparison purposes.
+    #   @return [String]
+    #
+    # @!attribute [rw] rule_ids
+    #   The list of rule identifiers that are expected to be triggered or
+    #   evaluated by this test scenario.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] expected_result
+    #   The expected outcome when this scenario is evaluated against the
+    #   policy (e.g., PASS, FAIL, VIOLATION).
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyScenario AWS API Documentation
+    #
+    class AutomatedReasoningPolicyScenario < Struct.new(
+      :expression,
+      :alternate_expression,
+      :rule_ids,
+      :expected_result)
+      SENSITIVE = [:expression, :alternate_expression]
+      include Aws::Structure
+    end
+
+    # Contains summary information about an Automated Reasoning policy,
+    # including metadata and timestamps.
+    #
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] version
+    #   The version of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_id
+    #   The unique identifier of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the policy was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the policy was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicySummary AWS API Documentation
+    #
+    class AutomatedReasoningPolicySummary < Struct.new(
+      :policy_arn,
+      :name,
+      :description,
+      :version,
+      :policy_id,
+      :created_at,
+      :updated_at)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # Represents a test for validating an Automated Reasoning policy. tests
+    # contain sample inputs and expected outcomes to verify policy behavior.
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] guard_content
+    #   The output content to be validated by the policy, typically
+    #   representing a foundation model response.
+    #   @return [String]
+    #
+    # @!attribute [rw] query_content
+    #   The input query or prompt that generated the content. This provides
+    #   context for the validation.
+    #   @return [String]
+    #
+    # @!attribute [rw] expected_aggregated_findings_result
+    #   The expected result of the Automated Reasoning check for this test.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the test was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the test was last updated.
+    #   @return [Time]
+    #
+    # @!attribute [rw] confidence_threshold
+    #   The minimum confidence level for logic validation. Content meeting
+    #   this threshold is considered high-confidence and can be validated.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyTestCase AWS API Documentation
+    #
+    class AutomatedReasoningPolicyTestCase < Struct.new(
+      :test_case_id,
+      :guard_content,
+      :query_content,
+      :expected_aggregated_findings_result,
+      :created_at,
+      :updated_at,
+      :confidence_threshold)
+      SENSITIVE = [:guard_content, :query_content]
+      include Aws::Structure
+    end
+
+    # Contains the results of testing an Automated Reasoning policy against
+    # various scenarios and validation checks.
+    #
+    # @!attribute [rw] test_case
+    #   Represents a test for validating an Automated Reasoning policy.
+    #   tests contain sample inputs and expected outcomes to verify policy
+    #   behavior.
+    #   @return [Types::AutomatedReasoningPolicyTestCase]
+    #
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   that was tested.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_run_status
+    #   The overall status of the test run (e.g., COMPLETED, FAILED,
+    #   IN\_PROGRESS).
+    #   @return [String]
+    #
+    # @!attribute [rw] test_findings
+    #   Detailed findings from the test run, including any issues,
+    #   violations, or unexpected behaviors discovered.
+    #   @return [Array<Types::AutomatedReasoningCheckFinding>]
+    #
+    # @!attribute [rw] test_run_result
+    #   The overall result of the test run, indicating whether the policy
+    #   passed or failed validation.
+    #   @return [String]
+    #
+    # @!attribute [rw] aggregated_test_findings_result
+    #   A summary of all test findings, aggregated to provide an overall
+    #   assessment of policy quality and correctness.
+    #   @return [String]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the test results were last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyTestResult AWS API Documentation
+    #
+    class AutomatedReasoningPolicyTestResult < Struct.new(
+      :test_case,
+      :policy_arn,
+      :test_run_status,
+      :test_findings,
+      :test_run_result,
+      :aggregated_test_findings_result,
+      :updated_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An annotation for managing values within custom types, including
+    # adding, updating, or removing specific type values.
+    #
+    # @note AutomatedReasoningPolicyTypeValueAnnotation is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note AutomatedReasoningPolicyTypeValueAnnotation is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of AutomatedReasoningPolicyTypeValueAnnotation corresponding to the set member.
+    #
+    # @!attribute [rw] add_type_value
+    #   An operation to add a new value to an existing custom type.
+    #   @return [Types::AutomatedReasoningPolicyAddTypeValue]
+    #
+    # @!attribute [rw] update_type_value
+    #   An operation to modify an existing value within a custom type.
+    #   @return [Types::AutomatedReasoningPolicyUpdateTypeValue]
+    #
+    # @!attribute [rw] delete_type_value
+    #   An operation to remove a value from an existing custom type.
+    #   @return [Types::AutomatedReasoningPolicyDeleteTypeValue]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyTypeValueAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyTypeValueAnnotation < Struct.new(
+      :add_type_value,
+      :update_type_value,
+      :delete_type_value,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class AddTypeValue < AutomatedReasoningPolicyTypeValueAnnotation; end
+      class UpdateTypeValue < AutomatedReasoningPolicyTypeValueAnnotation; end
+      class DeleteTypeValue < AutomatedReasoningPolicyTypeValueAnnotation; end
+      class Unknown < AutomatedReasoningPolicyTypeValueAnnotation; end
+    end
+
+    # An annotation for updating the policy based on feedback about how
+    # specific rules performed during testing or real-world usage.
+    #
+    # @!attribute [rw] rule_ids
+    #   The list of rule identifiers that the feedback applies to.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] feedback
+    #   The feedback information about rule performance, including
+    #   suggestions for improvements or corrections.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation < Struct.new(
+      :rule_ids,
+      :feedback)
+      SENSITIVE = [:feedback]
+      include Aws::Structure
+    end
+
+    # An annotation for updating the policy based on feedback about how it
+    # performed on specific test scenarios.
+    #
+    # @!attribute [rw] rule_ids
+    #   The list of rule identifiers that were involved in the scenario
+    #   being evaluated.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] scenario_expression
+    #   The logical expression that defines the test scenario that generated
+    #   this feedback.
+    #   @return [String]
+    #
+    # @!attribute [rw] feedback
+    #   The feedback information about scenario performance, including any
+    #   issues or improvements identified.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation < Struct.new(
+      :rule_ids,
+      :scenario_expression,
+      :feedback)
+      SENSITIVE = [:scenario_expression, :feedback]
+      include Aws::Structure
+    end
+
+    # An annotation for modifying an existing rule in an Automated Reasoning
+    # policy.
+    #
+    # @!attribute [rw] rule_id
+    #   The unique identifier of the rule to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] expression
+    #   The new formal logical expression for the rule, replacing the
+    #   previous expression.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateRuleAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateRuleAnnotation < Struct.new(
+      :rule_id,
+      :expression)
+      SENSITIVE = [:expression]
+      include Aws::Structure
+    end
+
+    # A mutation operation that modifies an existing rule in the policy
+    # definition during the build process.
+    #
+    # @!attribute [rw] rule
+    #   Represents a formal logic rule in an Automated Reasoning policy. For
+    #   example, rules can be expressed as if-then statements that define
+    #   logical constraints.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionRule]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateRuleMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateRuleMutation < Struct.new(
+      :rule)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An annotation for modifying an existing custom type in an Automated
+    # Reasoning policy.
+    #
+    # @!attribute [rw] name
+    #   The current name of the custom type to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] new_name
+    #   The new name for the custom type, if you want to rename it. If not
+    #   provided, the name remains unchanged.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The new description for the custom type, replacing the previous
+    #   description.
+    #   @return [String]
+    #
+    # @!attribute [rw] values
+    #   The updated list of values for the custom type, which can include
+    #   additions, modifications, or removals.
+    #   @return [Array<Types::AutomatedReasoningPolicyTypeValueAnnotation>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateTypeAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateTypeAnnotation < Struct.new(
+      :name,
+      :new_name,
+      :description,
+      :values)
+      SENSITIVE = [:name, :new_name, :description]
+      include Aws::Structure
+    end
+
+    # A mutation operation that modifies an existing custom type in the
+    # policy definition during the build process.
+    #
+    # @!attribute [rw] type
+    #   Represents a custom user-defined viarble type in an Automated
+    #   Reasoning policy. Types are enum-based and provide additional
+    #   context beyond predefined variable types.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionType]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateTypeMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateTypeMutation < Struct.new(
+      :type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a modification to a value within an existing custom type.
+    #
+    # @!attribute [rw] value
+    #   The current identifier or name of the type value to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] new_value
+    #   The new identifier or name for the type value, if you want to rename
+    #   it.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The new description for the type value, replacing the previous
+    #   description.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateTypeValue AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateTypeValue < Struct.new(
+      :value,
+      :new_value,
+      :description)
+      SENSITIVE = [:description]
+      include Aws::Structure
+    end
+
+    # An annotation for modifying an existing variable in an Automated
+    # Reasoning policy.
+    #
+    # @!attribute [rw] name
+    #   The current name of the variable to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] new_name
+    #   The new name for the variable, if you want to rename it. If not
+    #   provided, the name remains unchanged.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The new description for the variable, replacing the previous
+    #   description.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateVariableAnnotation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateVariableAnnotation < Struct.new(
+      :name,
+      :new_name,
+      :description)
+      SENSITIVE = [:name, :new_name, :description]
+      include Aws::Structure
+    end
+
+    # A mutation operation that modifies an existing variable in the policy
+    # definition during the build process.
+    #
+    # @!attribute [rw] variable
+    #   Represents a variable in an Automated Reasoning policy. Variables
+    #   represent concepts that can have values assigned during natural
+    #   language translation.
+    #   @return [Types::AutomatedReasoningPolicyDefinitionVariable]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyUpdateVariableMutation AWS API Documentation
+    #
+    class AutomatedReasoningPolicyUpdateVariableMutation < Struct.new(
+      :variable)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the content and configuration for different types of policy
+    # build workflows.
+    #
+    # @note AutomatedReasoningPolicyWorkflowTypeContent is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] documents
+    #   The list of documents to be processed in a document ingestion
+    #   workflow.
+    #   @return [Array<Types::AutomatedReasoningPolicyBuildWorkflowDocument>]
+    #
+    # @!attribute [rw] policy_repair_assets
+    #   The assets and instructions needed for a policy repair workflow,
+    #   including repair annotations and guidance.
+    #   @return [Types::AutomatedReasoningPolicyBuildWorkflowRepairContent]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/AutomatedReasoningPolicyWorkflowTypeContent AWS API Documentation
+    #
+    class AutomatedReasoningPolicyWorkflowTypeContent < Struct.new(
+      :documents,
+      :policy_repair_assets,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Documents < AutomatedReasoningPolicyWorkflowTypeContent; end
+      class PolicyRepairAssets < AutomatedReasoningPolicyWorkflowTypeContent; end
+      class Unknown < AutomatedReasoningPolicyWorkflowTypeContent; end
+    end
+
     # A JSON array that provides the status of the evaluation jobs being
     # deleted.
     #
@@ -246,6 +2123,30 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose build workflow you want to cancel.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow to cancel. You can get
+    #   this ID from the StartAutomatedReasoningPolicyBuildWorkflow response
+    #   or by listing build workflows.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CancelAutomatedReasoningPolicyBuildWorkflowRequest AWS API Documentation
+    #
+    class CancelAutomatedReasoningPolicyBuildWorkflowRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CancelAutomatedReasoningPolicyBuildWorkflowResponse AWS API Documentation
+    #
+    class CancelAutomatedReasoningPolicyBuildWorkflowResponse < Aws::EmptyStructure; end
+
     # CloudWatch logging configuration.
     #
     # @!attribute [rw] log_group_name
@@ -280,6 +2181,277 @@ module Aws::Bedrock
     class ConflictException < Struct.new(
       :message)
       SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] name
+    #   A unique name for the Automated Reasoning policy. The name must be
+    #   between 1 and 63 characters and can contain letters, numbers,
+    #   hyphens, and underscores.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A description of the Automated Reasoning policy. Use this to provide
+    #   context about the policy's purpose and the types of validations it
+    #   performs.
+    #   @return [String]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than once. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request but doesn't return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_definition
+    #   The policy definition that contains the formal logic rules,
+    #   variables, and custom variable types used to validate foundation
+    #   model responses in your application.
+    #   @return [Types::AutomatedReasoningPolicyDefinition]
+    #
+    # @!attribute [rw] tags
+    #   A list of tags to associate with the Automated Reasoning policy.
+    #   Tags help you organize and manage your policies.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyRequest AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyRequest < Struct.new(
+      :name,
+      :description,
+      :client_request_token,
+      :policy_definition,
+      :tags)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   that you created.
+    #   @return [String]
+    #
+    # @!attribute [rw] version
+    #   The version number of the newly created Automated Reasoning policy.
+    #   The initial version is always DRAFT.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] definition_hash
+    #   The hash of the policy definition. This is used as a concurrency
+    #   token for creating policy versions that you can use in your
+    #   application.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the policy was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the policy was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyResponse AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyResponse < Struct.new(
+      :policy_arn,
+      :version,
+      :name,
+      :description,
+      :definition_hash,
+      :created_at,
+      :updated_at)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to create the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] guard_content
+    #   The output content that's validated by the Automated Reasoning
+    #   policy. This represents the foundation model response that will be
+    #   checked for accuracy.
+    #   @return [String]
+    #
+    # @!attribute [rw] query_content
+    #   The input query or prompt that generated the content. This provides
+    #   context for the validation.
+    #   @return [String]
+    #
+    # @!attribute [rw] expected_aggregated_findings_result
+    #   The expected result of the Automated Reasoning check. Valid values
+    #   include: , TOO\_COMPLEX, and NO\_TRANSLATIONS.
+    #
+    #   * `VALID` - The claims are true. The claims are implied by the
+    #     premises and the Automated Reasoning policy. Given the Automated
+    #     Reasoning policy and premises, it is not possible for these claims
+    #     to be false. In other words, there are no alternative answers that
+    #     are true that contradict the claims.
+    #
+    #   * `INVALID` - The claims are false. The claims are not implied by
+    #     the premises and Automated Reasoning policy. Furthermore, there
+    #     exists different claims that are consistent with the premises and
+    #     Automated Reasoning policy.
+    #
+    #   * `SATISFIABLE` - The claims can be true or false. It depends on
+    #     what assumptions are made for the claim to be implied from the
+    #     premises and Automated Reasoning policy rules. In this situation,
+    #     different assumptions can make input claims false and alternative
+    #     claims true.
+    #
+    #   * `IMPOSSIBLE` - Automated Reasoning can’t make a statement about
+    #     the claims. This can happen if the premises are logically
+    #     incorrect, or if there is a conflict within the Automated
+    #     Reasoning policy itself.
+    #
+    #   * `TRANSLATION_AMBIGUOUS` - Detected an ambiguity in the translation
+    #     meant it would be unsound to continue with validity checking.
+    #     Additional context or follow-up questions might be needed to get
+    #     translation to succeed.
+    #
+    #   * `TOO_COMPLEX` - The input contains too much information for
+    #     Automated Reasoning to process within its latency limits.
+    #
+    #   * `NO_TRANSLATIONS` - Identifies that some or all of the input
+    #     prompt wasn't translated into logic. This can happen if the input
+    #     isn't relevant to the Automated Reasoning policy, or if the
+    #     policy doesn't have variables to model relevant input. If
+    #     Automated Reasoning can't translate anything, you get a single
+    #     `NO_TRANSLATIONS` finding. You might also see a `NO_TRANSLATIONS`
+    #     (along with other findings) if some part of the validation isn't
+    #     translated.
+    #   @return [String]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] confidence_threshold
+    #   The minimum confidence level for logic validation. Content that
+    #   meets the threshold is considered a high-confidence finding that can
+    #   be validated.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyTestCaseRequest AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyTestCaseRequest < Struct.new(
+      :policy_arn,
+      :guard_content,
+      :query_content,
+      :expected_aggregated_findings_result,
+      :client_request_token,
+      :confidence_threshold)
+      SENSITIVE = [:guard_content, :query_content]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy for which the test was
+    #   created.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the created test.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyTestCaseResponse AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyTestCaseResponse < Struct.new(
+      :policy_arn,
+      :test_case_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to create a version.
+    #   @return [String]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_updated_definition_hash
+    #   The hash of the current policy definition used as a concurrency
+    #   token to ensure the policy hasn't been modified since you last
+    #   retrieved it.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   A list of tags to associate with the policy version.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyVersionRequest AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyVersionRequest < Struct.new(
+      :policy_arn,
+      :client_request_token,
+      :last_updated_definition_hash,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The versioned Amazon Resource Name (ARN) of the policy version.
+    #   @return [String]
+    #
+    # @!attribute [rw] version
+    #   The version number of the policy version.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the policy version.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the policy version.
+    #   @return [String]
+    #
+    # @!attribute [rw] definition_hash
+    #   The hash of the policy definition for this version.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the policy version was created.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyVersionResponse AWS API Documentation
+    #
+    class CreateAutomatedReasoningPolicyVersionResponse < Struct.new(
+      :policy_arn,
+      :version,
+      :name,
+      :description,
+      :definition_hash,
+      :created_at)
+      SENSITIVE = [:name, :description]
       include Aws::Structure
     end
 
@@ -594,6 +2766,11 @@ module Aws::Bedrock
     #   guardrail.
     #   @return [Types::GuardrailContextualGroundingPolicyConfig]
     #
+    # @!attribute [rw] automated_reasoning_policy_config
+    #   Optional configuration for integrating Automated Reasoning policies
+    #   with the new guardrail.
+    #   @return [Types::GuardrailAutomatedReasoningPolicyConfig]
+    #
     # @!attribute [rw] cross_region_config
     #   The system-defined guardrail profile that you're using with your
     #   guardrail. Guardrail profiles define the destination Amazon Web
@@ -648,6 +2825,7 @@ module Aws::Bedrock
       :word_policy_config,
       :sensitive_information_policy_config,
       :contextual_grounding_policy_config,
+      :automated_reasoning_policy_config,
       :cross_region_config,
       :blocked_input_messaging,
       :blocked_outputs_messaging,
@@ -1653,6 +3831,80 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose build workflow you want to delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow to delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_updated_at
+    #   The timestamp when the build workflow was last updated. This is used
+    #   for optimistic concurrency control to prevent accidental deletion of
+    #   workflows that have been modified.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyBuildWorkflowRequest AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyBuildWorkflowRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :last_updated_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyBuildWorkflowResponse AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyBuildWorkflowResponse < Aws::EmptyStructure; end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyRequest AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyRequest < Struct.new(
+      :policy_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyResponse AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyResponse < Aws::EmptyStructure; end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   that contains the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the test to delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_updated_at
+    #   The timestamp when the test was last updated. This is used as a
+    #   concurrency token to prevent conflicting modifications.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyTestCaseRequest AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyTestCaseRequest < Struct.new(
+      :policy_arn,
+      :test_case_id,
+      :last_updated_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyTestCaseResponse AWS API Documentation
+    #
+    class DeleteAutomatedReasoningPolicyTestCaseResponse < Aws::EmptyStructure; end
+
     # @!attribute [rw] custom_model_deployment_identifier
     #   The Amazon Resource Name (ARN) or name of the custom model
     #   deployment to delete.
@@ -2421,6 +4673,33 @@ module Aws::Bedrock
       class Unknown < EvaluatorModelConfig; end
     end
 
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   export. Can be either the unversioned ARN for the draft policy or a
+    #   versioned ARN for a specific policy version.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ExportAutomatedReasoningPolicyVersionRequest AWS API Documentation
+    #
+    class ExportAutomatedReasoningPolicyVersionRequest < Struct.new(
+      :policy_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_definition
+    #   The exported policy definition containing the formal logic rules,
+    #   variables, and custom variable types.
+    #   @return [Types::AutomatedReasoningPolicyDefinition]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ExportAutomatedReasoningPolicyVersionResponse AWS API Documentation
+    #
+    class ExportAutomatedReasoningPolicyVersionResponse < Struct.new(
+      :policy_definition)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The unique external source of the content contained in the wrapper
     # object.
     #
@@ -2720,6 +4999,360 @@ module Aws::Bedrock
       :guardrail_configuration,
       :kb_inference_config,
       :additional_model_request_fields)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose annotations you want to retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow whose annotations you
+    #   want to retrieve.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyAnnotationsRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyAnnotationsRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] annotations
+    #   The current set of annotations containing rules, variables, and
+    #   types extracted from the source documents. These can be modified
+    #   before finalizing the policy.
+    #   @return [Array<Types::AutomatedReasoningPolicyAnnotation>]
+    #
+    # @!attribute [rw] annotation_set_hash
+    #   A hash value representing the current state of the annotations. This
+    #   is used for optimistic concurrency control when updating
+    #   annotations.
+    #   @return [String]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the annotations were last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyAnnotationsResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyAnnotationsResponse < Struct.new(
+      :policy_arn,
+      :name,
+      :build_workflow_id,
+      :annotations,
+      :annotation_set_hash,
+      :updated_at)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose build workflow you want to retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow to retrieve.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflowRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyBuildWorkflowRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current status of the build workflow (e.g., RUNNING, COMPLETED,
+    #   FAILED, CANCELLED).
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_type
+    #   The type of build workflow being executed (e.g.,
+    #   DOCUMENT\_INGESTION, POLICY\_REPAIR).
+    #   @return [String]
+    #
+    # @!attribute [rw] document_name
+    #   The name of the source document used in the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_content_type
+    #   The content type of the source document (e.g., text/plain,
+    #   application/pdf).
+    #   @return [String]
+    #
+    # @!attribute [rw] document_description
+    #   A detailed description of the document's content and how it should
+    #   be used in the policy generation process.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the build workflow was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the build workflow was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflowResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyBuildWorkflowResponse < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :status,
+      :build_workflow_type,
+      :document_name,
+      :document_content_type,
+      :document_description,
+      :created_at,
+      :updated_at)
+      SENSITIVE = [:document_name, :document_description]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose build workflow assets you want to retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow whose result assets you
+    #   want to retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] asset_type
+    #   The type of asset to retrieve (e.g., BUILD\_LOG, QUALITY\_REPORT,
+    #   POLICY\_DEFINITION).
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :asset_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_assets
+    #   The requested build workflow asset. This is a union type that
+    #   returns only one of the available asset types (logs, reports, or
+    #   generated artifacts) based on the specific asset type requested in
+    #   the API call.
+    #   @return [Types::AutomatedReasoningPolicyBuildResultAssets]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :build_workflow_assets)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which you want to get the next test scenario.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow associated with the test
+    #   scenarios.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyNextScenarioRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyNextScenarioRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] scenario
+    #   The next test scenario to validate, including the test expression
+    #   and expected results.
+    #   @return [Types::AutomatedReasoningPolicyScenario]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyNextScenarioResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyNextScenarioResponse < Struct.new(
+      :policy_arn,
+      :scenario)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   retrieve. Can be either the unversioned ARN for the draft policy or
+    #   an ARN for a specific policy version.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyRequest < Struct.new(
+      :policy_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] version
+    #   The version of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_id
+    #   The unique identifier of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] definition_hash
+    #   The hash of the policy definition used as a concurrency token.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The timestamp when the policy was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the policy was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyResponse < Struct.new(
+      :policy_arn,
+      :name,
+      :version,
+      :policy_id,
+      :description,
+      :definition_hash,
+      :created_at,
+      :updated_at)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   that contains the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the test to retrieve.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestCaseRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyTestCaseRequest < Struct.new(
+      :policy_arn,
+      :test_case_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy that contains the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case
+    #   The test details including the content, query, expected result, and
+    #   metadata.
+    #   @return [Types::AutomatedReasoningPolicyTestCase]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestCaseResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyTestCaseResponse < Struct.new(
+      :policy_arn,
+      :test_case)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The build workflow identifier. The build workflow must display a
+    #   `COMPLETED` status to get results.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the test for which to retrieve results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestResultRequest AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyTestResultRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :test_case_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] test_result
+    #   The test result containing validation findings, execution status,
+    #   and detailed analysis.
+    #   @return [Types::AutomatedReasoningPolicyTestResult]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestResultResponse AWS API Documentation
+    #
+    class GetAutomatedReasoningPolicyTestResultResponse < Struct.new(
+      :test_result)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3150,6 +5783,11 @@ module Aws::Bedrock
     #   The contextual grounding policy used in the guardrail.
     #   @return [Types::GuardrailContextualGroundingPolicy]
     #
+    # @!attribute [rw] automated_reasoning_policy
+    #   The current Automated Reasoning policy configuration for the
+    #   guardrail, if any is configured.
+    #   @return [Types::GuardrailAutomatedReasoningPolicy]
+    #
     # @!attribute [rw] cross_region_details
     #   Details about the system-defined guardrail profile that you're
     #   using with your guardrail, including the guardrail profile ID and
@@ -3201,6 +5839,7 @@ module Aws::Bedrock
       :word_policy,
       :sensitive_information_policy,
       :contextual_grounding_policy,
+      :automated_reasoning_policy,
       :cross_region_details,
       :created_at,
       :updated_at,
@@ -4054,6 +6693,52 @@ module Aws::Bedrock
     #
     class GetUseCaseForModelAccessResponse < Struct.new(
       :form_data)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents the configuration of Automated Reasoning policies within a
+    # Amazon Bedrock Guardrail, including the policies to apply and
+    # confidence thresholds.
+    #
+    # @!attribute [rw] policies
+    #   The list of Automated Reasoning policy ARNs that should be applied
+    #   as part of this guardrail configuration.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] confidence_threshold
+    #   The minimum confidence level required for Automated Reasoning policy
+    #   violations to trigger guardrail actions. Values range from 0.0 to
+    #   1.0.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GuardrailAutomatedReasoningPolicy AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningPolicy < Struct.new(
+      :policies,
+      :confidence_threshold)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration settings for integrating Automated Reasoning policies
+    # with Amazon Bedrock Guardrails.
+    #
+    # @!attribute [rw] policies
+    #   The list of Automated Reasoning policy ARNs to include in the
+    #   guardrail configuration.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] confidence_threshold
+    #   The confidence threshold for triggering guardrail actions based on
+    #   Automated Reasoning policy violations.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GuardrailAutomatedReasoningPolicyConfig AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningPolicyConfig < Struct.new(
+      :policies,
+      :confidence_threshold)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6137,6 +8822,185 @@ module Aws::Bedrock
     #
     class LegalTerm < Struct.new(
       :url)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   Optional filter to list only the policy versions with the specified
+    #   Amazon Resource Name (ARN). If not provided, the DRAFT versions for
+    #   all policies are listed.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   The pagination token from a previous request to retrieve the next
+    #   page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of policies to return in a single call.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPoliciesRequest AWS API Documentation
+    #
+    class ListAutomatedReasoningPoliciesRequest < Struct.new(
+      :policy_arn,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] automated_reasoning_policy_summaries
+    #   A list of Automated Reasoning policy summaries.
+    #   @return [Array<Types::AutomatedReasoningPolicySummary>]
+    #
+    # @!attribute [rw] next_token
+    #   The pagination token to use in a subsequent request to retrieve the
+    #   next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPoliciesResponse AWS API Documentation
+    #
+    class ListAutomatedReasoningPoliciesResponse < Struct.new(
+      :automated_reasoning_policy_summaries,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose build workflows you want to list.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   A pagination token from a previous request to continue listing build
+    #   workflows from where the previous request left off.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of build workflows to return in a single
+    #   response. Valid range is 1-100.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyBuildWorkflowsRequest AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyBuildWorkflowsRequest < Struct.new(
+      :policy_arn,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] automated_reasoning_policy_build_workflow_summaries
+    #   A list of build workflow summaries, each containing key information
+    #   about a build workflow including its status and timestamps.
+    #   @return [Array<Types::AutomatedReasoningPolicyBuildWorkflowSummary>]
+    #
+    # @!attribute [rw] next_token
+    #   A pagination token to use in subsequent requests to retrieve
+    #   additional build workflows.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyBuildWorkflowsResponse AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyBuildWorkflowsResponse < Struct.new(
+      :automated_reasoning_policy_build_workflow_summaries,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to list tests.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   The pagination token from a previous request to retrieve the next
+    #   page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of tests to return in a single call.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestCasesRequest AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyTestCasesRequest < Struct.new(
+      :policy_arn,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] test_cases
+    #   A list of tests for the specified policy.
+    #   @return [Array<Types::AutomatedReasoningPolicyTestCase>]
+    #
+    # @!attribute [rw] next_token
+    #   The pagination token to use in a subsequent request to retrieve the
+    #   next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestCasesResponse AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyTestCasesResponse < Struct.new(
+      :test_cases,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose test results you want to list.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow whose test results you
+    #   want to list.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   A pagination token from a previous request to continue listing test
+    #   results from where the previous request left off.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of test results to return in a single response.
+    #   Valid range is 1-100.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestResultsRequest AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyTestResultsRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] test_results
+    #   A list of test results, each containing information about how the
+    #   policy performed on specific test scenarios.
+    #   @return [Array<Types::AutomatedReasoningPolicyTestResult>]
+    #
+    # @!attribute [rw] next_token
+    #   A pagination token to use in subsequent requests to retrieve
+    #   additional test results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestResultsResponse AWS API Documentation
+    #
+    class ListAutomatedReasoningPolicyTestResultsResponse < Struct.new(
+      :test_results,
+      :next_token)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8411,6 +11275,22 @@ module Aws::Bedrock
       class Unknown < RerankingMetadataSelectiveModeConfiguration; end
     end
 
+    # Thrown when attempting to delete or modify a resource that is
+    # currently being used by other resources or operations. For example,
+    # trying to delete an Automated Reasoning policy that is referenced by
+    # an active guardrail.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ResourceInUseException AWS API Documentation
+    #
+    class ResourceInUseException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The specified resource Amazon Resource Name (ARN) was not found. Check
     # the Amazon Resource Name (ARN) and try your request again.
     #
@@ -8778,6 +11658,110 @@ module Aws::Bedrock
       include Aws::Structure
     end
 
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to start the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_type
+    #   The type of build workflow to start (e.g., DOCUMENT\_INGESTION for
+    #   processing new documents, POLICY\_REPAIR for fixing existing
+    #   policies).
+    #   @return [String]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than once. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request but doesn't return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] source_content
+    #   The source content for the build workflow, such as documents to
+    #   analyze or repair instructions for existing policies.
+    #   @return [Types::AutomatedReasoningPolicyBuildWorkflowSource]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyBuildWorkflowRequest AWS API Documentation
+    #
+    class StartAutomatedReasoningPolicyBuildWorkflowRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_type,
+      :client_request_token,
+      :source_content)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the newly started build workflow. Use this
+    #   ID to track the workflow's progress and retrieve its results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyBuildWorkflowResponse AWS API Documentation
+    #
+    class StartAutomatedReasoningPolicyBuildWorkflowResponse < Struct.new(
+      :policy_arn,
+      :build_workflow_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   test.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The build workflow identifier. The build workflow must show a
+    #   `COMPLETED` status before running tests.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_ids
+    #   The list of test identifiers to run. If not provided, all tests for
+    #   the policy are run.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request but doesn't return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyTestWorkflowRequest AWS API Documentation
+    #
+    class StartAutomatedReasoningPolicyTestWorkflowRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :test_case_ids,
+      :client_request_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy for which the test
+    #   workflow was started.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyTestWorkflowResponse AWS API Documentation
+    #
+    class StartAutomatedReasoningPolicyTestWorkflowResponse < Struct.new(
+      :policy_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # For a Distillation job, the status details for sub-tasks of the job.
     # Possible statuses for each sub-task include the following:
     #
@@ -9124,6 +12108,203 @@ module Aws::Bedrock
     #
     class UntagResourceResponse < Aws::EmptyStructure; end
 
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   whose annotations you want to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow whose annotations you
+    #   want to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] annotations
+    #   The updated annotations containing modified rules, variables, and
+    #   types for the policy.
+    #   @return [Array<Types::AutomatedReasoningPolicyAnnotation>]
+    #
+    # @!attribute [rw] last_updated_annotation_set_hash
+    #   The hash value of the annotation set that you're updating. This is
+    #   used for optimistic concurrency control to prevent conflicting
+    #   updates.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyAnnotationsRequest AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyAnnotationsRequest < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :annotations,
+      :last_updated_annotation_set_hash)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] build_workflow_id
+    #   The unique identifier of the build workflow.
+    #   @return [String]
+    #
+    # @!attribute [rw] annotation_set_hash
+    #   The new hash value representing the updated state of the
+    #   annotations.
+    #   @return [String]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the annotations were updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyAnnotationsResponse AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyAnnotationsResponse < Struct.new(
+      :policy_arn,
+      :build_workflow_id,
+      :annotation_set_hash,
+      :updated_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   update. This must be the ARN of a draft policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_definition
+    #   The updated policy definition containing the formal logic rules,
+    #   variables, and types.
+    #   @return [Types::AutomatedReasoningPolicyDefinition]
+    #
+    # @!attribute [rw] name
+    #   The updated name for the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The updated description for the Automated Reasoning policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyRequest AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyRequest < Struct.new(
+      :policy_arn,
+      :policy_definition,
+      :name,
+      :description)
+      SENSITIVE = [:name, :description]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the updated policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The updated name of the policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] definition_hash
+    #   The hash of the updated policy definition.
+    #   @return [String]
+    #
+    # @!attribute [rw] updated_at
+    #   The timestamp when the policy was last updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyResponse AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyResponse < Struct.new(
+      :policy_arn,
+      :name,
+      :definition_hash,
+      :updated_at)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy
+    #   that contains the test.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the test to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] guard_content
+    #   The updated content to be validated by the Automated Reasoning
+    #   policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] query_content
+    #   The updated input query or prompt that generated the content.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_updated_at
+    #   The timestamp when the test was last updated. This is used as a
+    #   concurrency token to prevent conflicting modifications.
+    #   @return [Time]
+    #
+    # @!attribute [rw] expected_aggregated_findings_result
+    #   The updated expected result of the Automated Reasoning check.
+    #   @return [String]
+    #
+    # @!attribute [rw] confidence_threshold
+    #   The updated minimum confidence level for logic validation. If null
+    #   is provided, the threshold will be removed.
+    #   @return [Float]
+    #
+    # @!attribute [rw] kms_key_arn
+    #   The KMS key ARN for encrypting the test at rest. If not provided,
+    #   the key will not be updated. Use `DISCARD` to remove the key.
+    #   @return [String]
+    #
+    # @!attribute [rw] client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyTestCaseRequest AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyTestCaseRequest < Struct.new(
+      :policy_arn,
+      :test_case_id,
+      :guard_content,
+      :query_content,
+      :last_updated_at,
+      :expected_aggregated_findings_result,
+      :confidence_threshold,
+      :kms_key_arn,
+      :client_request_token)
+      SENSITIVE = [:guard_content, :query_content]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_arn
+    #   The Amazon Resource Name (ARN) of the policy that contains the
+    #   updated test.
+    #   @return [String]
+    #
+    # @!attribute [rw] test_case_id
+    #   The unique identifier of the updated test.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyTestCaseResponse AWS API Documentation
+    #
+    class UpdateAutomatedReasoningPolicyTestCaseResponse < Struct.new(
+      :policy_arn,
+      :test_case_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] guardrail_identifier
     #   The unique identifier of the guardrail. This can be an ID or the
     #   ARN.
@@ -9157,6 +12338,11 @@ module Aws::Bedrock
     #   The contextual grounding policy configuration used to update a
     #   guardrail.
     #   @return [Types::GuardrailContextualGroundingPolicyConfig]
+    #
+    # @!attribute [rw] automated_reasoning_policy_config
+    #   Updated configuration for Automated Reasoning policies associated
+    #   with the guardrail.
+    #   @return [Types::GuardrailAutomatedReasoningPolicyConfig]
     #
     # @!attribute [rw] cross_region_config
     #   The system-defined guardrail profile that you're using with your
@@ -9194,6 +12380,7 @@ module Aws::Bedrock
       :word_policy_config,
       :sensitive_information_policy_config,
       :contextual_grounding_policy_config,
+      :automated_reasoning_policy_config,
       :cross_region_config,
       :blocked_input_messaging,
       :blocked_outputs_messaging,

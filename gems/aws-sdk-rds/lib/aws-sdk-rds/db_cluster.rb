@@ -649,6 +649,18 @@ module Aws::RDS
       data[:serverless_v2_scaling_configuration]
     end
 
+    # The version of the Aurora Serverless V2 platform used by the DB
+    # cluster. For more information, see [Using Aurora Serverless v2][1] in
+    # the *Amazon Aurora User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html
+    # @return [String]
+    def serverless_v2_platform_version
+      data[:serverless_v2_platform_version]
+    end
+
     # The network type of the DB instance.
     #
     # The network type is determined by the `DBSubnetGroup` specified for

@@ -531,6 +531,7 @@ module Aws::EKS
     Cluster.add_member(:remote_network_config, Shapes::ShapeRef.new(shape: RemoteNetworkConfigResponse, location_name: "remoteNetworkConfig"))
     Cluster.add_member(:compute_config, Shapes::ShapeRef.new(shape: ComputeConfigResponse, location_name: "computeConfig"))
     Cluster.add_member(:storage_config, Shapes::ShapeRef.new(shape: StorageConfigResponse, location_name: "storageConfig"))
+    Cluster.add_member(:deletion_protection, Shapes::ShapeRef.new(shape: BoxedBoolean, location_name: "deletionProtection"))
     Cluster.struct_class = Types::Cluster
 
     ClusterHealth.add_member(:issues, Shapes::ShapeRef.new(shape: ClusterIssueList, location_name: "issues"))
@@ -638,6 +639,7 @@ module Aws::EKS
     CreateClusterRequest.add_member(:remote_network_config, Shapes::ShapeRef.new(shape: RemoteNetworkConfigRequest, location_name: "remoteNetworkConfig"))
     CreateClusterRequest.add_member(:compute_config, Shapes::ShapeRef.new(shape: ComputeConfigRequest, location_name: "computeConfig"))
     CreateClusterRequest.add_member(:storage_config, Shapes::ShapeRef.new(shape: StorageConfigRequest, location_name: "storageConfig"))
+    CreateClusterRequest.add_member(:deletion_protection, Shapes::ShapeRef.new(shape: BoxedBoolean, location_name: "deletionProtection"))
     CreateClusterRequest.struct_class = Types::CreateClusterRequest
 
     CreateClusterResponse.add_member(:cluster, Shapes::ShapeRef.new(shape: Cluster, location_name: "cluster"))
@@ -1468,6 +1470,7 @@ module Aws::EKS
     UpdateClusterConfigRequest.add_member(:kubernetes_network_config, Shapes::ShapeRef.new(shape: KubernetesNetworkConfigRequest, location_name: "kubernetesNetworkConfig"))
     UpdateClusterConfigRequest.add_member(:storage_config, Shapes::ShapeRef.new(shape: StorageConfigRequest, location_name: "storageConfig"))
     UpdateClusterConfigRequest.add_member(:remote_network_config, Shapes::ShapeRef.new(shape: RemoteNetworkConfigRequest, location_name: "remoteNetworkConfig"))
+    UpdateClusterConfigRequest.add_member(:deletion_protection, Shapes::ShapeRef.new(shape: BoxedBoolean, location_name: "deletionProtection"))
     UpdateClusterConfigRequest.struct_class = Types::UpdateClusterConfigRequest
 
     UpdateClusterConfigResponse.add_member(:update, Shapes::ShapeRef.new(shape: Update, location_name: "update"))
@@ -1775,6 +1778,7 @@ module Aws::EKS
         o.errors << Shapes::ShapeRef.new(shape: ClientException)
         o.errors << Shapes::ShapeRef.new(shape: ServerException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidRequestException)
       end)
 
       api.add_operation(:delete_eks_anywhere_subscription, Seahorse::Model::Operation.new.tap do |o|

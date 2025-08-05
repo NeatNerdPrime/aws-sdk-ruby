@@ -723,6 +723,75 @@ module Aws::SageMaker
       req.send_request(options)
     end
 
+    # Adds nodes to a HyperPod cluster by incrementing the target count for
+    # one or more instance groups. This operation returns a unique
+    # `NodeLogicalId` for each node being added, which can be used to track
+    # the provisioning status of the node. This API provides a safer
+    # alternative to `UpdateCluster` for scaling operations by avoiding
+    # unintended configuration changes.
+    #
+    # <note markdown="1"> This API is only supported for clusters using `Continuous` as the
+    # `NodeProvisioningMode`.
+    #
+    #  </note>
+    #
+    # @option params [required, String] :cluster_name
+    #   The name of the HyperPod cluster to which you want to add nodes.
+    #
+    # @option params [String] :client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. This token is valid for 8 hours. If you
+    #   retry the request with the same client token within this timeframe and
+    #   the same parameters, the API returns the same set of `NodeLogicalIds`
+    #   with their latest status.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [required, Array<Types::AddClusterNodeSpecification>] :nodes_to_add
+    #   A list of instance groups and the number of nodes to add to each. You
+    #   can specify up to 5 instance groups in a single request, with a
+    #   maximum of 50 nodes total across all instance groups.
+    #
+    # @return [Types::BatchAddClusterNodesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::BatchAddClusterNodesResponse#successful #successful} => Array&lt;Types::NodeAdditionResult&gt;
+    #   * {Types::BatchAddClusterNodesResponse#failed #failed} => Array&lt;Types::BatchAddClusterNodesError&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.batch_add_cluster_nodes({
+    #     cluster_name: "ClusterNameOrArn", # required
+    #     client_token: "BatchAddClusterNodesRequestClientTokenString",
+    #     nodes_to_add: [ # required
+    #       {
+    #         instance_group_name: "ClusterInstanceGroupName", # required
+    #         increment_target_count_by: 1, # required
+    #       },
+    #     ],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.successful #=> Array
+    #   resp.successful[0].node_logical_id #=> String
+    #   resp.successful[0].instance_group_name #=> String
+    #   resp.successful[0].status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress", "NotFound"
+    #   resp.failed #=> Array
+    #   resp.failed[0].instance_group_name #=> String
+    #   resp.failed[0].error_code #=> String, one of "InstanceGroupNotFound", "InvalidInstanceGroupStatus"
+    #   resp.failed[0].failed_count #=> Integer
+    #   resp.failed[0].message #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchAddClusterNodes AWS API Documentation
+    #
+    # @overload batch_add_cluster_nodes(params = {})
+    # @param [Hash] params ({})
+    def batch_add_cluster_nodes(params = {}, options = {})
+      req = build_request(:batch_add_cluster_nodes, params)
+      req.send_request(options)
+    end
+
     # Deletes specific nodes within a SageMaker HyperPod cluster.
     # `BatchDeleteClusterNodes` accepts a cluster name and a list of node
     # IDs.
@@ -764,16 +833,25 @@ module Aws::SageMaker
     #
     #   [1]: http://aws.amazon.com/contact-us/
     #
+    # @option params [Array<String>] :node_logical_ids
+    #   A list of `NodeLogicalIds` identifying the nodes to be deleted. You
+    #   can specify up to 50 `NodeLogicalIds`. You must specify either
+    #   `NodeLogicalIds`, `InstanceIds`, or both, with a combined maximum of
+    #   50 identifiers.
+    #
     # @return [Types::BatchDeleteClusterNodesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::BatchDeleteClusterNodesResponse#failed #failed} => Array&lt;Types::BatchDeleteClusterNodesError&gt;
     #   * {Types::BatchDeleteClusterNodesResponse#successful #successful} => Array&lt;String&gt;
+    #   * {Types::BatchDeleteClusterNodesResponse#failed_node_logical_ids #failed_node_logical_ids} => Array&lt;Types::BatchDeleteClusterNodeLogicalIdsError&gt;
+    #   * {Types::BatchDeleteClusterNodesResponse#successful_node_logical_ids #successful_node_logical_ids} => Array&lt;String&gt;
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.batch_delete_cluster_nodes({
     #     cluster_name: "ClusterNameOrArn", # required
     #     node_ids: ["ClusterNodeId"],
+    #     node_logical_ids: ["ClusterNodeLogicalId"],
     #   })
     #
     # @example Response structure
@@ -784,6 +862,12 @@ module Aws::SageMaker
     #   resp.failed[0].node_id #=> String
     #   resp.successful #=> Array
     #   resp.successful[0] #=> String
+    #   resp.failed_node_logical_ids #=> Array
+    #   resp.failed_node_logical_ids[0].code #=> String, one of "NodeIdNotFound", "InvalidNodeStatus", "NodeIdInUse"
+    #   resp.failed_node_logical_ids[0].message #=> String
+    #   resp.failed_node_logical_ids[0].node_logical_id #=> String
+    #   resp.successful_node_logical_ids #=> Array
+    #   resp.successful_node_logical_ids[0] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchDeleteClusterNodes AWS API Documentation
     #
@@ -2106,6 +2190,20 @@ module Aws::SageMaker
     #   administrators will need to manually manage any faulty cluster
     #   instances.
     #
+    # @option params [String] :node_provisioning_mode
+    #   The mode for provisioning nodes in the cluster. You can specify the
+    #   following modes:
+    #
+    #   * **Continuous**: Scaling behavior that enables 1) concurrent
+    #     operation execution within instance groups, 2) continuous retry
+    #     mechanisms for failed operations, 3) enhanced customer visibility
+    #     into cluster events through detailed event streams, 4) partial
+    #     provisioning capabilities. Your clusters and instance groups remain
+    #     `InService` while scaling. This mode is only supported for EKS
+    #     orchestrated clusters.
+    #
+    #   ^
+    #
     # @return [Types::CreateClusterResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateClusterResponse#cluster_arn #cluster_arn} => String
@@ -2159,6 +2257,7 @@ module Aws::SageMaker
     #             ],
     #           },
     #         },
+    #         image_id: "ImageId",
     #       },
     #     ],
     #     restricted_instance_groups: [
@@ -2226,6 +2325,7 @@ module Aws::SageMaker
     #       },
     #     },
     #     node_recovery: "Automatic", # accepts Automatic, None
+    #     node_provisioning_mode: "Continuous", # accepts Continuous
     #   })
     #
     # @example Response structure
@@ -13147,6 +13247,7 @@ module Aws::SageMaker
     #   * {Types::DescribeClusterResponse#vpc_config #vpc_config} => Types::VpcConfig
     #   * {Types::DescribeClusterResponse#orchestrator #orchestrator} => Types::ClusterOrchestrator
     #   * {Types::DescribeClusterResponse#node_recovery #node_recovery} => String
+    #   * {Types::DescribeClusterResponse#node_provisioning_mode #node_provisioning_mode} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -13189,6 +13290,8 @@ module Aws::SageMaker
     #   resp.instance_groups[0].scheduled_update_config.deployment_config.wait_interval_in_seconds #=> Integer
     #   resp.instance_groups[0].scheduled_update_config.deployment_config.auto_rollback_configuration #=> Array
     #   resp.instance_groups[0].scheduled_update_config.deployment_config.auto_rollback_configuration[0].alarm_name #=> String
+    #   resp.instance_groups[0].current_image_id #=> String
+    #   resp.instance_groups[0].desired_image_id #=> String
     #   resp.restricted_instance_groups #=> Array
     #   resp.restricted_instance_groups[0].current_count #=> Integer
     #   resp.restricted_instance_groups[0].target_count #=> Integer
@@ -13224,6 +13327,7 @@ module Aws::SageMaker
     #   resp.vpc_config.subnets[0] #=> String
     #   resp.orchestrator.eks.cluster_arn #=> String
     #   resp.node_recovery #=> String, one of "Automatic", "None"
+    #   resp.node_provisioning_mode #=> String, one of "Continuous"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeCluster AWS API Documentation
     #
@@ -13231,6 +13335,72 @@ module Aws::SageMaker
     # @param [Hash] params ({})
     def describe_cluster(params = {}, options = {})
       req = build_request(:describe_cluster, params)
+      req.send_request(options)
+    end
+
+    # Retrieves detailed information about a specific event for a given
+    # HyperPod cluster. This functionality is only supported when the
+    # `NodeProvisioningMode` is set to `Continuous`.
+    #
+    # @option params [required, String] :event_id
+    #   The unique identifier (UUID) of the event to describe. This ID can be
+    #   obtained from the `ListClusterEvents` operation.
+    #
+    # @option params [required, String] :cluster_name
+    #   The name or Amazon Resource Name (ARN) of the HyperPod cluster
+    #   associated with the event.
+    #
+    # @return [Types::DescribeClusterEventResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeClusterEventResponse#event_details #event_details} => Types::ClusterEventDetail
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_cluster_event({
+    #     event_id: "EventId", # required
+    #     cluster_name: "ClusterNameOrArn", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.event_details.event_id #=> String
+    #   resp.event_details.cluster_arn #=> String
+    #   resp.event_details.cluster_name #=> String
+    #   resp.event_details.instance_group_name #=> String
+    #   resp.event_details.instance_id #=> String
+    #   resp.event_details.resource_type #=> String, one of "Cluster", "InstanceGroup", "Instance"
+    #   resp.event_details.event_time #=> Time
+    #   resp.event_details.event_details.event_metadata.cluster.failure_message #=> String
+    #   resp.event_details.event_details.event_metadata.cluster.eks_role_access_entries #=> Array
+    #   resp.event_details.event_details.event_metadata.cluster.eks_role_access_entries[0] #=> String
+    #   resp.event_details.event_details.event_metadata.cluster.slr_access_entry #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.failure_message #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.availability_zone_id #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.capacity_reservation.arn #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.capacity_reservation.type #=> String, one of "ODCR", "CRG"
+    #   resp.event_details.event_details.event_metadata.instance_group.subnet_id #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.security_group_ids #=> Array
+    #   resp.event_details.event_details.event_metadata.instance_group.security_group_ids[0] #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group.ami_override #=> String
+    #   resp.event_details.event_details.event_metadata.instance_group_scaling.instance_count #=> Integer
+    #   resp.event_details.event_details.event_metadata.instance_group_scaling.target_count #=> Integer
+    #   resp.event_details.event_details.event_metadata.instance_group_scaling.failure_message #=> String
+    #   resp.event_details.event_details.event_metadata.instance.customer_eni #=> String
+    #   resp.event_details.event_details.event_metadata.instance.additional_enis.efa_enis #=> Array
+    #   resp.event_details.event_details.event_metadata.instance.additional_enis.efa_enis[0] #=> String
+    #   resp.event_details.event_details.event_metadata.instance.capacity_reservation.arn #=> String
+    #   resp.event_details.event_details.event_metadata.instance.capacity_reservation.type #=> String, one of "ODCR", "CRG"
+    #   resp.event_details.event_details.event_metadata.instance.failure_message #=> String
+    #   resp.event_details.event_details.event_metadata.instance.lcs_execution_state #=> String
+    #   resp.event_details.event_details.event_metadata.instance.node_logical_id #=> String
+    #   resp.event_details.description #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterEvent AWS API Documentation
+    #
+    # @overload describe_cluster_event(params = {})
+    # @param [Hash] params ({})
+    def describe_cluster_event(params = {}, options = {})
+      req = build_request(:describe_cluster_event, params)
       req.send_request(options)
     end
 
@@ -13244,6 +13414,12 @@ module Aws::SageMaker
     # @option params [String] :node_id
     #   The ID of the SageMaker HyperPod cluster node.
     #
+    # @option params [String] :node_logical_id
+    #   The logical identifier of the node to describe. You can specify either
+    #   `NodeLogicalId` or `InstanceId`, but not both. `NodeLogicalId` can be
+    #   used to describe nodes that are still being provisioned and don't yet
+    #   have an `InstanceId` assigned.
+    #
     # @return [Types::DescribeClusterNodeResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::DescribeClusterNodeResponse#node_details #node_details} => Types::ClusterNodeDetails
@@ -13253,13 +13429,15 @@ module Aws::SageMaker
     #   resp = client.describe_cluster_node({
     #     cluster_name: "ClusterNameOrArn", # required
     #     node_id: "ClusterNodeId",
+    #     node_logical_id: "ClusterNodeLogicalId",
     #   })
     #
     # @example Response structure
     #
     #   resp.node_details.instance_group_name #=> String
     #   resp.node_details.instance_id #=> String
-    #   resp.node_details.instance_status.status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress"
+    #   resp.node_details.node_logical_id #=> String
+    #   resp.node_details.instance_status.status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress", "NotFound"
     #   resp.node_details.instance_status.message #=> String
     #   resp.node_details.instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.c5.large", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.12xlarge", "ml.c5.18xlarge", "ml.c5.24xlarge", "ml.c5n.large", "ml.c5n.2xlarge", "ml.c5n.4xlarge", "ml.c5n.9xlarge", "ml.c5n.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.8xlarge", "ml.m5.12xlarge", "ml.m5.16xlarge", "ml.m5.24xlarge", "ml.t3.medium", "ml.t3.large", "ml.t3.xlarge", "ml.t3.2xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.16xlarge", "ml.g6.12xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.gr6.4xlarge", "ml.gr6.8xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.16xlarge", "ml.g6e.12xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.p5e.48xlarge", "ml.p5en.48xlarge", "ml.p6-b200.48xlarge", "ml.trn2.48xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.i3en.large", "ml.i3en.xlarge", "ml.i3en.2xlarge", "ml.i3en.3xlarge", "ml.i3en.6xlarge", "ml.i3en.12xlarge", "ml.i3en.24xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge"
     #   resp.node_details.launch_time #=> Time
@@ -13278,6 +13456,8 @@ module Aws::SageMaker
     #   resp.node_details.private_dns_hostname #=> String
     #   resp.node_details.placement.availability_zone #=> String
     #   resp.node_details.placement.availability_zone_id #=> String
+    #   resp.node_details.current_image_id #=> String
+    #   resp.node_details.desired_image_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterNode AWS API Documentation
     #
@@ -19666,6 +19846,95 @@ module Aws::SageMaker
       req.send_request(options)
     end
 
+    # Retrieves a list of event summaries for a specified HyperPod cluster.
+    # The operation supports filtering, sorting, and pagination of results.
+    # This functionality is only supported when the `NodeProvisioningMode`
+    # is set to `Continuous`.
+    #
+    # @option params [required, String] :cluster_name
+    #   The name or Amazon Resource Name (ARN) of the HyperPod cluster for
+    #   which to list events.
+    #
+    # @option params [String] :instance_group_name
+    #   The name of the instance group to filter events. If specified, only
+    #   events related to this instance group are returned.
+    #
+    # @option params [String] :node_id
+    #   The EC2 instance ID to filter events. If specified, only events
+    #   related to this instance are returned.
+    #
+    # @option params [Time,DateTime,Date,Integer,String] :event_time_after
+    #   The start of the time range for filtering events. Only events that
+    #   occurred after this time are included in the results.
+    #
+    # @option params [Time,DateTime,Date,Integer,String] :event_time_before
+    #   The end of the time range for filtering events. Only events that
+    #   occurred before this time are included in the results.
+    #
+    # @option params [String] :sort_by
+    #   The field to use for sorting the event list. Currently, the only
+    #   supported value is `EventTime`.
+    #
+    # @option params [String] :sort_order
+    #   The order in which to sort the results. Valid values are `Ascending`
+    #   or `Descending` (the default is `Descending`).
+    #
+    # @option params [String] :resource_type
+    #   The type of resource for which to filter events. Valid values are
+    #   `Cluster`, `InstanceGroup`, or `Instance`.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of events to return in the response. Valid range is
+    #   1 to 100.
+    #
+    # @option params [String] :next_token
+    #   A token to retrieve the next set of results. This token is obtained
+    #   from the output of a previous `ListClusterEvents` call.
+    #
+    # @return [Types::ListClusterEventsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListClusterEventsResponse#next_token #next_token} => String
+    #   * {Types::ListClusterEventsResponse#events #events} => Array&lt;Types::ClusterEventSummary&gt;
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_cluster_events({
+    #     cluster_name: "ClusterNameOrArn", # required
+    #     instance_group_name: "ClusterInstanceGroupName",
+    #     node_id: "ClusterNodeId",
+    #     event_time_after: Time.now,
+    #     event_time_before: Time.now,
+    #     sort_by: "EventTime", # accepts EventTime
+    #     sort_order: "Ascending", # accepts Ascending, Descending
+    #     resource_type: "Cluster", # accepts Cluster, InstanceGroup, Instance
+    #     max_results: 1,
+    #     next_token: "NextToken",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.next_token #=> String
+    #   resp.events #=> Array
+    #   resp.events[0].event_id #=> String
+    #   resp.events[0].cluster_arn #=> String
+    #   resp.events[0].cluster_name #=> String
+    #   resp.events[0].instance_group_name #=> String
+    #   resp.events[0].instance_id #=> String
+    #   resp.events[0].resource_type #=> String, one of "Cluster", "InstanceGroup", "Instance"
+    #   resp.events[0].event_time #=> Time
+    #   resp.events[0].description #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterEvents AWS API Documentation
+    #
+    # @overload list_cluster_events(params = {})
+    # @param [Hash] params ({})
+    def list_cluster_events(params = {}, options = {})
+      req = build_request(:list_cluster_events, params)
+      req.send_request(options)
+    end
+
     # Retrieves the list of instances (also called *nodes* interchangeably)
     # in a SageMaker HyperPod cluster.
     #
@@ -19729,6 +19998,12 @@ module Aws::SageMaker
     # @option params [String] :sort_order
     #   The sort order for results. The default value is `Ascending`.
     #
+    # @option params [Boolean] :include_node_logical_ids
+    #   Specifies whether to include nodes that are still being provisioned in
+    #   the response. When set to true, the response includes all nodes
+    #   regardless of their provisioning status. When set to `False`
+    #   (default), only nodes with assigned `InstanceIds` are returned.
+    #
     # @return [Types::ListClusterNodesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::ListClusterNodesResponse#next_token #next_token} => String
@@ -19747,6 +20022,7 @@ module Aws::SageMaker
     #     next_token: "NextToken",
     #     sort_by: "CREATION_TIME", # accepts CREATION_TIME, NAME
     #     sort_order: "Ascending", # accepts Ascending, Descending
+    #     include_node_logical_ids: false,
     #   })
     #
     # @example Response structure
@@ -19755,10 +20031,11 @@ module Aws::SageMaker
     #   resp.cluster_node_summaries #=> Array
     #   resp.cluster_node_summaries[0].instance_group_name #=> String
     #   resp.cluster_node_summaries[0].instance_id #=> String
+    #   resp.cluster_node_summaries[0].node_logical_id #=> String
     #   resp.cluster_node_summaries[0].instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.c5.large", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.12xlarge", "ml.c5.18xlarge", "ml.c5.24xlarge", "ml.c5n.large", "ml.c5n.2xlarge", "ml.c5n.4xlarge", "ml.c5n.9xlarge", "ml.c5n.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.8xlarge", "ml.m5.12xlarge", "ml.m5.16xlarge", "ml.m5.24xlarge", "ml.t3.medium", "ml.t3.large", "ml.t3.xlarge", "ml.t3.2xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.16xlarge", "ml.g6.12xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.gr6.4xlarge", "ml.gr6.8xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.16xlarge", "ml.g6e.12xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.p5e.48xlarge", "ml.p5en.48xlarge", "ml.p6-b200.48xlarge", "ml.trn2.48xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.i3en.large", "ml.i3en.xlarge", "ml.i3en.2xlarge", "ml.i3en.3xlarge", "ml.i3en.6xlarge", "ml.i3en.12xlarge", "ml.i3en.24xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge"
     #   resp.cluster_node_summaries[0].launch_time #=> Time
     #   resp.cluster_node_summaries[0].last_software_update_time #=> Time
-    #   resp.cluster_node_summaries[0].instance_status.status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress"
+    #   resp.cluster_node_summaries[0].instance_status.status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress", "NotFound"
     #   resp.cluster_node_summaries[0].instance_status.message #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterNodes AWS API Documentation
@@ -26954,6 +27231,7 @@ module Aws::SageMaker
     #             ],
     #           },
     #         },
+    #         image_id: "ImageId",
     #       },
     #     ],
     #     restricted_instance_groups: [
@@ -27094,6 +27372,31 @@ module Aws::SageMaker
     # @option params [Types::DeploymentConfiguration] :deployment_config
     #   The configuration to use when updating the AMI versions.
     #
+    # @option params [String] :image_id
+    #   When configuring your HyperPod cluster, you can specify an image ID
+    #   using one of the following options:
+    #
+    #   * `HyperPodPublicAmiId`: Use a HyperPod public AMI
+    #
+    #   * `CustomAmiId`: Use your custom AMI
+    #
+    #   * `default`: Use the default latest system image
+    #
+    #   f you choose to use a custom AMI (`CustomAmiId`), ensure it meets the
+    #   following requirements:
+    #
+    #   * Encryption: The custom AMI must be unencrypted.
+    #
+    #   * Ownership: The custom AMI must be owned by the same Amazon Web
+    #     Services account that is creating the HyperPod cluster.
+    #
+    #   * Volume support: Only the primary AMI snapshot volume is supported;
+    #     additional AMI volumes are not supported.
+    #
+    #   When updating the instance group's AMI through the
+    #   `UpdateClusterSoftware` operation, if an instance group uses a custom
+    #   AMI, you must provide an `ImageId` or use the default as input.
+    #
     # @return [Types::UpdateClusterSoftwareResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdateClusterSoftwareResponse#cluster_arn #cluster_arn} => String
@@ -27125,6 +27428,7 @@ module Aws::SageMaker
     #         },
     #       ],
     #     },
+    #     image_id: "ImageId",
     #   })
     #
     # @example Response structure
@@ -30579,7 +30883,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.318.0'
+      context[:gem_version] = '1.319.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

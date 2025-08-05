@@ -31,6 +31,145 @@ module Aws::Bedrock
     AutomatedEvaluationCustomMetricConfig = Shapes::StructureShape.new(name: 'AutomatedEvaluationCustomMetricConfig')
     AutomatedEvaluationCustomMetricSource = Shapes::UnionShape.new(name: 'AutomatedEvaluationCustomMetricSource')
     AutomatedEvaluationCustomMetrics = Shapes::ListShape.new(name: 'AutomatedEvaluationCustomMetrics')
+    AutomatedReasoningCheckDifferenceScenarioList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckDifferenceScenarioList')
+    AutomatedReasoningCheckFinding = Shapes::UnionShape.new(name: 'AutomatedReasoningCheckFinding')
+    AutomatedReasoningCheckFindingList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckFindingList')
+    AutomatedReasoningCheckImpossibleFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckImpossibleFinding')
+    AutomatedReasoningCheckInputTextReference = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckInputTextReference')
+    AutomatedReasoningCheckInputTextReferenceList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckInputTextReferenceList')
+    AutomatedReasoningCheckInvalidFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckInvalidFinding')
+    AutomatedReasoningCheckLogicWarning = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckLogicWarning')
+    AutomatedReasoningCheckLogicWarningType = Shapes::StringShape.new(name: 'AutomatedReasoningCheckLogicWarningType')
+    AutomatedReasoningCheckNoTranslationsFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckNoTranslationsFinding')
+    AutomatedReasoningCheckResult = Shapes::StringShape.new(name: 'AutomatedReasoningCheckResult')
+    AutomatedReasoningCheckRule = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckRule')
+    AutomatedReasoningCheckRuleList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckRuleList')
+    AutomatedReasoningCheckSatisfiableFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckSatisfiableFinding')
+    AutomatedReasoningCheckScenario = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckScenario')
+    AutomatedReasoningCheckTooComplexFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckTooComplexFinding')
+    AutomatedReasoningCheckTranslation = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckTranslation')
+    AutomatedReasoningCheckTranslationAmbiguousFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckTranslationAmbiguousFinding')
+    AutomatedReasoningCheckTranslationConfidence = Shapes::FloatShape.new(name: 'AutomatedReasoningCheckTranslationConfidence')
+    AutomatedReasoningCheckTranslationList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckTranslationList')
+    AutomatedReasoningCheckTranslationOption = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckTranslationOption')
+    AutomatedReasoningCheckTranslationOptionList = Shapes::ListShape.new(name: 'AutomatedReasoningCheckTranslationOptionList')
+    AutomatedReasoningCheckValidFinding = Shapes::StructureShape.new(name: 'AutomatedReasoningCheckValidFinding')
+    AutomatedReasoningConfidenceFilterThreshold = Shapes::FloatShape.new(name: 'AutomatedReasoningConfidenceFilterThreshold')
+    AutomatedReasoningLogicStatement = Shapes::StructureShape.new(name: 'AutomatedReasoningLogicStatement')
+    AutomatedReasoningLogicStatementContent = Shapes::StringShape.new(name: 'AutomatedReasoningLogicStatementContent')
+    AutomatedReasoningLogicStatementList = Shapes::ListShape.new(name: 'AutomatedReasoningLogicStatementList')
+    AutomatedReasoningNaturalLanguageStatementContent = Shapes::StringShape.new(name: 'AutomatedReasoningNaturalLanguageStatementContent')
+    AutomatedReasoningPolicyAddRuleAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddRuleAnnotation')
+    AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation')
+    AutomatedReasoningPolicyAddRuleMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddRuleMutation')
+    AutomatedReasoningPolicyAddTypeAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddTypeAnnotation')
+    AutomatedReasoningPolicyAddTypeMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddTypeMutation')
+    AutomatedReasoningPolicyAddTypeValue = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddTypeValue')
+    AutomatedReasoningPolicyAddVariableAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddVariableAnnotation')
+    AutomatedReasoningPolicyAddVariableMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyAddVariableMutation')
+    AutomatedReasoningPolicyAnnotation = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyAnnotation')
+    AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage')
+    AutomatedReasoningPolicyAnnotationIngestContent = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyAnnotationIngestContent')
+    AutomatedReasoningPolicyAnnotationList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyAnnotationList')
+    AutomatedReasoningPolicyAnnotationRuleNaturalLanguage = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyAnnotationRuleNaturalLanguage')
+    AutomatedReasoningPolicyAnnotationStatus = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyAnnotationStatus')
+    AutomatedReasoningPolicyArn = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyArn')
+    AutomatedReasoningPolicyBuildDocumentContentType = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildDocumentContentType')
+    AutomatedReasoningPolicyBuildDocumentDescription = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildDocumentDescription')
+    AutomatedReasoningPolicyBuildDocumentName = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildDocumentName')
+    AutomatedReasoningPolicyBuildLog = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildLog')
+    AutomatedReasoningPolicyBuildLogEntry = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildLogEntry')
+    AutomatedReasoningPolicyBuildLogEntryList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyBuildLogEntryList')
+    AutomatedReasoningPolicyBuildMessageType = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildMessageType')
+    AutomatedReasoningPolicyBuildResultAssetType = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildResultAssetType')
+    AutomatedReasoningPolicyBuildResultAssets = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyBuildResultAssets')
+    AutomatedReasoningPolicyBuildStep = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildStep')
+    AutomatedReasoningPolicyBuildStepContext = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyBuildStepContext')
+    AutomatedReasoningPolicyBuildStepList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyBuildStepList')
+    AutomatedReasoningPolicyBuildStepMessage = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildStepMessage')
+    AutomatedReasoningPolicyBuildStepMessageList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyBuildStepMessageList')
+    AutomatedReasoningPolicyBuildWorkflowDocument = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowDocument')
+    AutomatedReasoningPolicyBuildWorkflowDocumentDocumentBlob = Shapes::BlobShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowDocumentDocumentBlob')
+    AutomatedReasoningPolicyBuildWorkflowDocumentList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowDocumentList')
+    AutomatedReasoningPolicyBuildWorkflowId = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowId')
+    AutomatedReasoningPolicyBuildWorkflowRepairContent = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowRepairContent')
+    AutomatedReasoningPolicyBuildWorkflowSource = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowSource')
+    AutomatedReasoningPolicyBuildWorkflowStatus = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowStatus')
+    AutomatedReasoningPolicyBuildWorkflowSummaries = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowSummaries')
+    AutomatedReasoningPolicyBuildWorkflowSummary = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowSummary')
+    AutomatedReasoningPolicyBuildWorkflowType = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyBuildWorkflowType')
+    AutomatedReasoningPolicyConflictedRuleIdList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyConflictedRuleIdList')
+    AutomatedReasoningPolicyDefinition = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinition')
+    AutomatedReasoningPolicyDefinitionElement = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyDefinitionElement')
+    AutomatedReasoningPolicyDefinitionQualityReport = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionQualityReport')
+    AutomatedReasoningPolicyDefinitionRule = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionRule')
+    AutomatedReasoningPolicyDefinitionRuleAlternateExpression = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionRuleAlternateExpression')
+    AutomatedReasoningPolicyDefinitionRuleExpression = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionRuleExpression')
+    AutomatedReasoningPolicyDefinitionRuleId = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionRuleId')
+    AutomatedReasoningPolicyDefinitionRuleIdList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionRuleIdList')
+    AutomatedReasoningPolicyDefinitionRuleList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionRuleList')
+    AutomatedReasoningPolicyDefinitionType = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionType')
+    AutomatedReasoningPolicyDefinitionTypeDescription = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeDescription')
+    AutomatedReasoningPolicyDefinitionTypeList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeList')
+    AutomatedReasoningPolicyDefinitionTypeName = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeName')
+    AutomatedReasoningPolicyDefinitionTypeNameList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeNameList')
+    AutomatedReasoningPolicyDefinitionTypeValue = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValue')
+    AutomatedReasoningPolicyDefinitionTypeValueDescription = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValueDescription')
+    AutomatedReasoningPolicyDefinitionTypeValueList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValueList')
+    AutomatedReasoningPolicyDefinitionTypeValueName = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValueName')
+    AutomatedReasoningPolicyDefinitionTypeValuePair = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValuePair')
+    AutomatedReasoningPolicyDefinitionTypeValuePairList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionTypeValuePairList')
+    AutomatedReasoningPolicyDefinitionVariable = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDefinitionVariable')
+    AutomatedReasoningPolicyDefinitionVariableDescription = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionVariableDescription')
+    AutomatedReasoningPolicyDefinitionVariableList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionVariableList')
+    AutomatedReasoningPolicyDefinitionVariableName = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDefinitionVariableName')
+    AutomatedReasoningPolicyDefinitionVariableNameList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDefinitionVariableNameList')
+    AutomatedReasoningPolicyDeleteRuleAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteRuleAnnotation')
+    AutomatedReasoningPolicyDeleteRuleMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteRuleMutation')
+    AutomatedReasoningPolicyDeleteTypeAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteTypeAnnotation')
+    AutomatedReasoningPolicyDeleteTypeMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteTypeMutation')
+    AutomatedReasoningPolicyDeleteTypeValue = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteTypeValue')
+    AutomatedReasoningPolicyDeleteVariableAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteVariableAnnotation')
+    AutomatedReasoningPolicyDeleteVariableMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDeleteVariableMutation')
+    AutomatedReasoningPolicyDescription = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyDescription')
+    AutomatedReasoningPolicyDisjointRuleSet = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyDisjointRuleSet')
+    AutomatedReasoningPolicyDisjointRuleSetList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDisjointRuleSetList')
+    AutomatedReasoningPolicyDisjointedRuleIdList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyDisjointedRuleIdList')
+    AutomatedReasoningPolicyFormatVersion = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyFormatVersion')
+    AutomatedReasoningPolicyHash = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyHash')
+    AutomatedReasoningPolicyId = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyId')
+    AutomatedReasoningPolicyIngestContentAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyIngestContentAnnotation')
+    AutomatedReasoningPolicyMutation = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyMutation')
+    AutomatedReasoningPolicyName = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyName')
+    AutomatedReasoningPolicyPlanning = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyPlanning')
+    AutomatedReasoningPolicyScenario = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyScenario')
+    AutomatedReasoningPolicyScenarioAlternateExpression = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyScenarioAlternateExpression')
+    AutomatedReasoningPolicyScenarioExpression = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyScenarioExpression')
+    AutomatedReasoningPolicySummaries = Shapes::ListShape.new(name: 'AutomatedReasoningPolicySummaries')
+    AutomatedReasoningPolicySummary = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicySummary')
+    AutomatedReasoningPolicyTestCase = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyTestCase')
+    AutomatedReasoningPolicyTestCaseId = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyTestCaseId')
+    AutomatedReasoningPolicyTestCaseIdList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyTestCaseIdList')
+    AutomatedReasoningPolicyTestCaseList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyTestCaseList')
+    AutomatedReasoningPolicyTestGuardContent = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyTestGuardContent')
+    AutomatedReasoningPolicyTestList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyTestList')
+    AutomatedReasoningPolicyTestQueryContent = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyTestQueryContent')
+    AutomatedReasoningPolicyTestResult = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyTestResult')
+    AutomatedReasoningPolicyTestRunResult = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyTestRunResult')
+    AutomatedReasoningPolicyTestRunStatus = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyTestRunStatus')
+    AutomatedReasoningPolicyTypeValueAnnotation = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyTypeValueAnnotation')
+    AutomatedReasoningPolicyTypeValueAnnotationList = Shapes::ListShape.new(name: 'AutomatedReasoningPolicyTypeValueAnnotationList')
+    AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation')
+    AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation')
+    AutomatedReasoningPolicyUpdateRuleAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateRuleAnnotation')
+    AutomatedReasoningPolicyUpdateRuleMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateRuleMutation')
+    AutomatedReasoningPolicyUpdateTypeAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateTypeAnnotation')
+    AutomatedReasoningPolicyUpdateTypeMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateTypeMutation')
+    AutomatedReasoningPolicyUpdateTypeValue = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateTypeValue')
+    AutomatedReasoningPolicyUpdateVariableAnnotation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateVariableAnnotation')
+    AutomatedReasoningPolicyUpdateVariableMutation = Shapes::StructureShape.new(name: 'AutomatedReasoningPolicyUpdateVariableMutation')
+    AutomatedReasoningPolicyVersion = Shapes::StringShape.new(name: 'AutomatedReasoningPolicyVersion')
+    AutomatedReasoningPolicyWorkflowTypeContent = Shapes::UnionShape.new(name: 'AutomatedReasoningPolicyWorkflowTypeContent')
     BaseModelIdentifier = Shapes::StringShape.new(name: 'BaseModelIdentifier')
     BatchDeleteEvaluationJobError = Shapes::StructureShape.new(name: 'BatchDeleteEvaluationJobError')
     BatchDeleteEvaluationJobErrors = Shapes::ListShape.new(name: 'BatchDeleteEvaluationJobErrors')
@@ -48,10 +187,18 @@ module Aws::Bedrock
     BucketName = Shapes::StringShape.new(name: 'BucketName')
     ByteContentBlob = Shapes::BlobShape.new(name: 'ByteContentBlob')
     ByteContentDoc = Shapes::StructureShape.new(name: 'ByteContentDoc')
+    CancelAutomatedReasoningPolicyBuildWorkflowRequest = Shapes::StructureShape.new(name: 'CancelAutomatedReasoningPolicyBuildWorkflowRequest')
+    CancelAutomatedReasoningPolicyBuildWorkflowResponse = Shapes::StructureShape.new(name: 'CancelAutomatedReasoningPolicyBuildWorkflowResponse')
     CloudWatchConfig = Shapes::StructureShape.new(name: 'CloudWatchConfig')
     CommitmentDuration = Shapes::StringShape.new(name: 'CommitmentDuration')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ContentType = Shapes::StringShape.new(name: 'ContentType')
+    CreateAutomatedReasoningPolicyRequest = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyRequest')
+    CreateAutomatedReasoningPolicyResponse = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyResponse')
+    CreateAutomatedReasoningPolicyTestCaseRequest = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyTestCaseRequest')
+    CreateAutomatedReasoningPolicyTestCaseResponse = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyTestCaseResponse')
+    CreateAutomatedReasoningPolicyVersionRequest = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyVersionRequest')
+    CreateAutomatedReasoningPolicyVersionResponse = Shapes::StructureShape.new(name: 'CreateAutomatedReasoningPolicyVersionResponse')
     CreateCustomModelDeploymentRequest = Shapes::StructureShape.new(name: 'CreateCustomModelDeploymentRequest')
     CreateCustomModelDeploymentResponse = Shapes::StructureShape.new(name: 'CreateCustomModelDeploymentResponse')
     CreateCustomModelRequest = Shapes::StructureShape.new(name: 'CreateCustomModelRequest')
@@ -100,6 +247,12 @@ module Aws::Bedrock
     CustomizationConfig = Shapes::UnionShape.new(name: 'CustomizationConfig')
     CustomizationType = Shapes::StringShape.new(name: 'CustomizationType')
     DataProcessingDetails = Shapes::StructureShape.new(name: 'DataProcessingDetails')
+    DeleteAutomatedReasoningPolicyBuildWorkflowRequest = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyBuildWorkflowRequest')
+    DeleteAutomatedReasoningPolicyBuildWorkflowResponse = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyBuildWorkflowResponse')
+    DeleteAutomatedReasoningPolicyRequest = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyRequest')
+    DeleteAutomatedReasoningPolicyResponse = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyResponse')
+    DeleteAutomatedReasoningPolicyTestCaseRequest = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyTestCaseRequest')
+    DeleteAutomatedReasoningPolicyTestCaseResponse = Shapes::StructureShape.new(name: 'DeleteAutomatedReasoningPolicyTestCaseResponse')
     DeleteCustomModelDeploymentRequest = Shapes::StructureShape.new(name: 'DeleteCustomModelDeploymentRequest')
     DeleteCustomModelDeploymentResponse = Shapes::StructureShape.new(name: 'DeleteCustomModelDeploymentResponse')
     DeleteCustomModelRequest = Shapes::StructureShape.new(name: 'DeleteCustomModelRequest')
@@ -173,6 +326,8 @@ module Aws::Bedrock
     EvaluatorModelConfig = Shapes::UnionShape.new(name: 'EvaluatorModelConfig')
     EvaluatorModelIdentifier = Shapes::StringShape.new(name: 'EvaluatorModelIdentifier')
     EvaluatorModelIdentifiers = Shapes::ListShape.new(name: 'EvaluatorModelIdentifiers')
+    ExportAutomatedReasoningPolicyVersionRequest = Shapes::StructureShape.new(name: 'ExportAutomatedReasoningPolicyVersionRequest')
+    ExportAutomatedReasoningPolicyVersionResponse = Shapes::StructureShape.new(name: 'ExportAutomatedReasoningPolicyVersionResponse')
     ExternalSource = Shapes::StructureShape.new(name: 'ExternalSource')
     ExternalSourceType = Shapes::StringShape.new(name: 'ExternalSourceType')
     ExternalSources = Shapes::ListShape.new(name: 'ExternalSources')
@@ -193,6 +348,20 @@ module Aws::Bedrock
     FoundationModelSummary = Shapes::StructureShape.new(name: 'FoundationModelSummary')
     FoundationModelSummaryList = Shapes::ListShape.new(name: 'FoundationModelSummaryList')
     GenerationConfiguration = Shapes::StructureShape.new(name: 'GenerationConfiguration')
+    GetAutomatedReasoningPolicyAnnotationsRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyAnnotationsRequest')
+    GetAutomatedReasoningPolicyAnnotationsResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyAnnotationsResponse')
+    GetAutomatedReasoningPolicyBuildWorkflowRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyBuildWorkflowRequest')
+    GetAutomatedReasoningPolicyBuildWorkflowResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyBuildWorkflowResponse')
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest')
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse')
+    GetAutomatedReasoningPolicyNextScenarioRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyNextScenarioRequest')
+    GetAutomatedReasoningPolicyNextScenarioResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyNextScenarioResponse')
+    GetAutomatedReasoningPolicyRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyRequest')
+    GetAutomatedReasoningPolicyResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyResponse')
+    GetAutomatedReasoningPolicyTestCaseRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyTestCaseRequest')
+    GetAutomatedReasoningPolicyTestCaseResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyTestCaseResponse')
+    GetAutomatedReasoningPolicyTestResultRequest = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyTestResultRequest')
+    GetAutomatedReasoningPolicyTestResultResponse = Shapes::StructureShape.new(name: 'GetAutomatedReasoningPolicyTestResultResponse')
     GetCustomModelDeploymentRequest = Shapes::StructureShape.new(name: 'GetCustomModelDeploymentRequest')
     GetCustomModelDeploymentResponse = Shapes::StructureShape.new(name: 'GetCustomModelDeploymentResponse')
     GetCustomModelRequest = Shapes::StructureShape.new(name: 'GetCustomModelRequest')
@@ -228,6 +397,10 @@ module Aws::Bedrock
     GetUseCaseForModelAccessRequest = Shapes::StructureShape.new(name: 'GetUseCaseForModelAccessRequest')
     GetUseCaseForModelAccessResponse = Shapes::StructureShape.new(name: 'GetUseCaseForModelAccessResponse')
     GuardrailArn = Shapes::StringShape.new(name: 'GuardrailArn')
+    GuardrailAutomatedReasoningPolicy = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningPolicy')
+    GuardrailAutomatedReasoningPolicyConfig = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningPolicyConfig')
+    GuardrailAutomatedReasoningPolicyConfigPoliciesList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningPolicyConfigPoliciesList')
+    GuardrailAutomatedReasoningPolicyPoliciesList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningPolicyPoliciesList')
     GuardrailBlockedMessaging = Shapes::StringShape.new(name: 'GuardrailBlockedMessaging')
     GuardrailConfiguration = Shapes::StructureShape.new(name: 'GuardrailConfiguration')
     GuardrailConfigurationGuardrailIdString = Shapes::StringShape.new(name: 'GuardrailConfigurationGuardrailIdString')
@@ -370,6 +543,14 @@ module Aws::Bedrock
     KnowledgeBaseVectorSearchConfiguration = Shapes::StructureShape.new(name: 'KnowledgeBaseVectorSearchConfiguration')
     KnowledgeBaseVectorSearchConfigurationNumberOfResultsInteger = Shapes::IntegerShape.new(name: 'KnowledgeBaseVectorSearchConfigurationNumberOfResultsInteger')
     LegalTerm = Shapes::StructureShape.new(name: 'LegalTerm')
+    ListAutomatedReasoningPoliciesRequest = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPoliciesRequest')
+    ListAutomatedReasoningPoliciesResponse = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPoliciesResponse')
+    ListAutomatedReasoningPolicyBuildWorkflowsRequest = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyBuildWorkflowsRequest')
+    ListAutomatedReasoningPolicyBuildWorkflowsResponse = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyBuildWorkflowsResponse')
+    ListAutomatedReasoningPolicyTestCasesRequest = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyTestCasesRequest')
+    ListAutomatedReasoningPolicyTestCasesResponse = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyTestCasesResponse')
+    ListAutomatedReasoningPolicyTestResultsRequest = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyTestResultsRequest')
+    ListAutomatedReasoningPolicyTestResultsResponse = Shapes::StructureShape.new(name: 'ListAutomatedReasoningPolicyTestResultsResponse')
     ListCustomModelDeploymentsRequest = Shapes::StructureShape.new(name: 'ListCustomModelDeploymentsRequest')
     ListCustomModelDeploymentsResponse = Shapes::StructureShape.new(name: 'ListCustomModelDeploymentsResponse')
     ListCustomModelsRequest = Shapes::StructureShape.new(name: 'ListCustomModelsRequest')
@@ -515,6 +696,7 @@ module Aws::Bedrock
     RequestMetadataMapValueString = Shapes::StringShape.new(name: 'RequestMetadataMapValueString')
     RerankingMetadataSelectionMode = Shapes::StringShape.new(name: 'RerankingMetadataSelectionMode')
     RerankingMetadataSelectiveModeConfiguration = Shapes::UnionShape.new(name: 'RerankingMetadataSelectiveModeConfiguration')
+    ResourceInUseException = Shapes::StructureShape.new(name: 'ResourceInUseException')
     ResourceNotFoundException = Shapes::StructureShape.new(name: 'ResourceNotFoundException')
     RetrievalFilter = Shapes::UnionShape.new(name: 'RetrievalFilter')
     RetrievalFilterList = Shapes::ListShape.new(name: 'RetrievalFilterList')
@@ -540,6 +722,10 @@ module Aws::Bedrock
     SortJobsBy = Shapes::StringShape.new(name: 'SortJobsBy')
     SortModelsBy = Shapes::StringShape.new(name: 'SortModelsBy')
     SortOrder = Shapes::StringShape.new(name: 'SortOrder')
+    StartAutomatedReasoningPolicyBuildWorkflowRequest = Shapes::StructureShape.new(name: 'StartAutomatedReasoningPolicyBuildWorkflowRequest')
+    StartAutomatedReasoningPolicyBuildWorkflowResponse = Shapes::StructureShape.new(name: 'StartAutomatedReasoningPolicyBuildWorkflowResponse')
+    StartAutomatedReasoningPolicyTestWorkflowRequest = Shapes::StructureShape.new(name: 'StartAutomatedReasoningPolicyTestWorkflowRequest')
+    StartAutomatedReasoningPolicyTestWorkflowResponse = Shapes::StructureShape.new(name: 'StartAutomatedReasoningPolicyTestWorkflowResponse')
     Status = Shapes::StringShape.new(name: 'Status')
     StatusDetails = Shapes::StructureShape.new(name: 'StatusDetails')
     StopEvaluationJobRequest = Shapes::StructureShape.new(name: 'StopEvaluationJobRequest')
@@ -575,6 +761,12 @@ module Aws::Bedrock
     TrainingMetrics = Shapes::StructureShape.new(name: 'TrainingMetrics')
     UntagResourceRequest = Shapes::StructureShape.new(name: 'UntagResourceRequest')
     UntagResourceResponse = Shapes::StructureShape.new(name: 'UntagResourceResponse')
+    UpdateAutomatedReasoningPolicyAnnotationsRequest = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyAnnotationsRequest')
+    UpdateAutomatedReasoningPolicyAnnotationsResponse = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyAnnotationsResponse')
+    UpdateAutomatedReasoningPolicyRequest = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyRequest')
+    UpdateAutomatedReasoningPolicyResponse = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyResponse')
+    UpdateAutomatedReasoningPolicyTestCaseRequest = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyTestCaseRequest')
+    UpdateAutomatedReasoningPolicyTestCaseResponse = Shapes::StructureShape.new(name: 'UpdateAutomatedReasoningPolicyTestCaseResponse')
     UpdateGuardrailRequest = Shapes::StructureShape.new(name: 'UpdateGuardrailRequest')
     UpdateGuardrailResponse = Shapes::StructureShape.new(name: 'UpdateGuardrailResponse')
     UpdateMarketplaceModelEndpointRequest = Shapes::StructureShape.new(name: 'UpdateMarketplaceModelEndpointRequest')
@@ -625,6 +817,446 @@ module Aws::Bedrock
 
     AutomatedEvaluationCustomMetrics.member = Shapes::ShapeRef.new(shape: AutomatedEvaluationCustomMetricSource)
 
+    AutomatedReasoningCheckDifferenceScenarioList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckScenario)
+
+    AutomatedReasoningCheckFinding.add_member(:valid, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckValidFinding, location_name: "valid"))
+    AutomatedReasoningCheckFinding.add_member(:invalid, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckInvalidFinding, location_name: "invalid"))
+    AutomatedReasoningCheckFinding.add_member(:satisfiable, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckSatisfiableFinding, location_name: "satisfiable"))
+    AutomatedReasoningCheckFinding.add_member(:impossible, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckImpossibleFinding, location_name: "impossible"))
+    AutomatedReasoningCheckFinding.add_member(:translation_ambiguous, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationAmbiguousFinding, location_name: "translationAmbiguous"))
+    AutomatedReasoningCheckFinding.add_member(:too_complex, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTooComplexFinding, location_name: "tooComplex"))
+    AutomatedReasoningCheckFinding.add_member(:no_translations, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckNoTranslationsFinding, location_name: "noTranslations"))
+    AutomatedReasoningCheckFinding.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningCheckFinding.add_member_subclass(:valid, Types::AutomatedReasoningCheckFinding::Valid)
+    AutomatedReasoningCheckFinding.add_member_subclass(:invalid, Types::AutomatedReasoningCheckFinding::Invalid)
+    AutomatedReasoningCheckFinding.add_member_subclass(:satisfiable, Types::AutomatedReasoningCheckFinding::Satisfiable)
+    AutomatedReasoningCheckFinding.add_member_subclass(:impossible, Types::AutomatedReasoningCheckFinding::Impossible)
+    AutomatedReasoningCheckFinding.add_member_subclass(:translation_ambiguous, Types::AutomatedReasoningCheckFinding::TranslationAmbiguous)
+    AutomatedReasoningCheckFinding.add_member_subclass(:too_complex, Types::AutomatedReasoningCheckFinding::TooComplex)
+    AutomatedReasoningCheckFinding.add_member_subclass(:no_translations, Types::AutomatedReasoningCheckFinding::NoTranslations)
+    AutomatedReasoningCheckFinding.add_member_subclass(:unknown, Types::AutomatedReasoningCheckFinding::Unknown)
+    AutomatedReasoningCheckFinding.struct_class = Types::AutomatedReasoningCheckFinding
+
+    AutomatedReasoningCheckFindingList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckFinding)
+
+    AutomatedReasoningCheckImpossibleFinding.add_member(:translation, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslation, location_name: "translation"))
+    AutomatedReasoningCheckImpossibleFinding.add_member(:contradicting_rules, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckRuleList, location_name: "contradictingRules"))
+    AutomatedReasoningCheckImpossibleFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckLogicWarning, location_name: "logicWarning"))
+    AutomatedReasoningCheckImpossibleFinding.struct_class = Types::AutomatedReasoningCheckImpossibleFinding
+
+    AutomatedReasoningCheckInputTextReference.add_member(:text, Shapes::ShapeRef.new(shape: AutomatedReasoningNaturalLanguageStatementContent, location_name: "text"))
+    AutomatedReasoningCheckInputTextReference.struct_class = Types::AutomatedReasoningCheckInputTextReference
+
+    AutomatedReasoningCheckInputTextReferenceList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckInputTextReference)
+
+    AutomatedReasoningCheckInvalidFinding.add_member(:translation, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslation, location_name: "translation"))
+    AutomatedReasoningCheckInvalidFinding.add_member(:contradicting_rules, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckRuleList, location_name: "contradictingRules"))
+    AutomatedReasoningCheckInvalidFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckLogicWarning, location_name: "logicWarning"))
+    AutomatedReasoningCheckInvalidFinding.struct_class = Types::AutomatedReasoningCheckInvalidFinding
+
+    AutomatedReasoningCheckLogicWarning.add_member(:type, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckLogicWarningType, location_name: "type"))
+    AutomatedReasoningCheckLogicWarning.add_member(:premises, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementList, location_name: "premises"))
+    AutomatedReasoningCheckLogicWarning.add_member(:claims, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementList, location_name: "claims"))
+    AutomatedReasoningCheckLogicWarning.struct_class = Types::AutomatedReasoningCheckLogicWarning
+
+    AutomatedReasoningCheckNoTranslationsFinding.struct_class = Types::AutomatedReasoningCheckNoTranslationsFinding
+
+    AutomatedReasoningCheckRule.add_member(:id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId, location_name: "id"))
+    AutomatedReasoningCheckRule.add_member(:policy_version_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, location_name: "policyVersionArn"))
+    AutomatedReasoningCheckRule.struct_class = Types::AutomatedReasoningCheckRule
+
+    AutomatedReasoningCheckRuleList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckRule)
+
+    AutomatedReasoningCheckSatisfiableFinding.add_member(:translation, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslation, location_name: "translation"))
+    AutomatedReasoningCheckSatisfiableFinding.add_member(:claims_true_scenario, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckScenario, location_name: "claimsTrueScenario"))
+    AutomatedReasoningCheckSatisfiableFinding.add_member(:claims_false_scenario, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckScenario, location_name: "claimsFalseScenario"))
+    AutomatedReasoningCheckSatisfiableFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckLogicWarning, location_name: "logicWarning"))
+    AutomatedReasoningCheckSatisfiableFinding.struct_class = Types::AutomatedReasoningCheckSatisfiableFinding
+
+    AutomatedReasoningCheckScenario.add_member(:statements, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementList, location_name: "statements"))
+    AutomatedReasoningCheckScenario.struct_class = Types::AutomatedReasoningCheckScenario
+
+    AutomatedReasoningCheckTooComplexFinding.struct_class = Types::AutomatedReasoningCheckTooComplexFinding
+
+    AutomatedReasoningCheckTranslation.add_member(:premises, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementList, location_name: "premises"))
+    AutomatedReasoningCheckTranslation.add_member(:claims, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementList, required: true, location_name: "claims"))
+    AutomatedReasoningCheckTranslation.add_member(:untranslated_premises, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckInputTextReferenceList, location_name: "untranslatedPremises"))
+    AutomatedReasoningCheckTranslation.add_member(:untranslated_claims, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckInputTextReferenceList, location_name: "untranslatedClaims"))
+    AutomatedReasoningCheckTranslation.add_member(:confidence, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationConfidence, required: true, location_name: "confidence"))
+    AutomatedReasoningCheckTranslation.struct_class = Types::AutomatedReasoningCheckTranslation
+
+    AutomatedReasoningCheckTranslationAmbiguousFinding.add_member(:options, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationOptionList, location_name: "options"))
+    AutomatedReasoningCheckTranslationAmbiguousFinding.add_member(:difference_scenarios, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckDifferenceScenarioList, location_name: "differenceScenarios"))
+    AutomatedReasoningCheckTranslationAmbiguousFinding.struct_class = Types::AutomatedReasoningCheckTranslationAmbiguousFinding
+
+    AutomatedReasoningCheckTranslationList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslation)
+
+    AutomatedReasoningCheckTranslationOption.add_member(:translations, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationList, location_name: "translations"))
+    AutomatedReasoningCheckTranslationOption.struct_class = Types::AutomatedReasoningCheckTranslationOption
+
+    AutomatedReasoningCheckTranslationOptionList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationOption)
+
+    AutomatedReasoningCheckValidFinding.add_member(:translation, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslation, location_name: "translation"))
+    AutomatedReasoningCheckValidFinding.add_member(:claims_true_scenario, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckScenario, location_name: "claimsTrueScenario"))
+    AutomatedReasoningCheckValidFinding.add_member(:supporting_rules, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckRuleList, location_name: "supportingRules"))
+    AutomatedReasoningCheckValidFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckLogicWarning, location_name: "logicWarning"))
+    AutomatedReasoningCheckValidFinding.struct_class = Types::AutomatedReasoningCheckValidFinding
+
+    AutomatedReasoningLogicStatement.add_member(:logic, Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatementContent, required: true, location_name: "logic"))
+    AutomatedReasoningLogicStatement.add_member(:natural_language, Shapes::ShapeRef.new(shape: AutomatedReasoningNaturalLanguageStatementContent, location_name: "naturalLanguage"))
+    AutomatedReasoningLogicStatement.struct_class = Types::AutomatedReasoningLogicStatement
+
+    AutomatedReasoningLogicStatementList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningLogicStatement)
+
+    AutomatedReasoningPolicyAddRuleAnnotation.add_member(:expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleExpression, required: true, location_name: "expression"))
+    AutomatedReasoningPolicyAddRuleAnnotation.struct_class = Types::AutomatedReasoningPolicyAddRuleAnnotation
+
+    AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation.add_member(:natural_language, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationRuleNaturalLanguage, required: true, location_name: "naturalLanguage"))
+    AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation.struct_class = Types::AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation
+
+    AutomatedReasoningPolicyAddRuleMutation.add_member(:rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRule, required: true, location_name: "rule"))
+    AutomatedReasoningPolicyAddRuleMutation.struct_class = Types::AutomatedReasoningPolicyAddRuleMutation
+
+    AutomatedReasoningPolicyAddTypeAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyAddTypeAnnotation.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeDescription, required: true, location_name: "description"))
+    AutomatedReasoningPolicyAddTypeAnnotation.add_member(:values, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueList, required: true, location_name: "values"))
+    AutomatedReasoningPolicyAddTypeAnnotation.struct_class = Types::AutomatedReasoningPolicyAddTypeAnnotation
+
+    AutomatedReasoningPolicyAddTypeMutation.add_member(:type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionType, required: true, location_name: "type"))
+    AutomatedReasoningPolicyAddTypeMutation.struct_class = Types::AutomatedReasoningPolicyAddTypeMutation
+
+    AutomatedReasoningPolicyAddTypeValue.add_member(:value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, required: true, location_name: "value"))
+    AutomatedReasoningPolicyAddTypeValue.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueDescription, location_name: "description"))
+    AutomatedReasoningPolicyAddTypeValue.struct_class = Types::AutomatedReasoningPolicyAddTypeValue
+
+    AutomatedReasoningPolicyAddVariableAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyAddVariableAnnotation.add_member(:type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "type"))
+    AutomatedReasoningPolicyAddVariableAnnotation.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableDescription, required: true, location_name: "description"))
+    AutomatedReasoningPolicyAddVariableAnnotation.struct_class = Types::AutomatedReasoningPolicyAddVariableAnnotation
+
+    AutomatedReasoningPolicyAddVariableMutation.add_member(:variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariable, required: true, location_name: "variable"))
+    AutomatedReasoningPolicyAddVariableMutation.struct_class = Types::AutomatedReasoningPolicyAddVariableMutation
+
+    AutomatedReasoningPolicyAnnotation.add_member(:add_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddTypeAnnotation, location_name: "addType"))
+    AutomatedReasoningPolicyAnnotation.add_member(:update_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateTypeAnnotation, location_name: "updateType"))
+    AutomatedReasoningPolicyAnnotation.add_member(:delete_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteTypeAnnotation, location_name: "deleteType"))
+    AutomatedReasoningPolicyAnnotation.add_member(:add_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddVariableAnnotation, location_name: "addVariable"))
+    AutomatedReasoningPolicyAnnotation.add_member(:update_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateVariableAnnotation, location_name: "updateVariable"))
+    AutomatedReasoningPolicyAnnotation.add_member(:delete_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteVariableAnnotation, location_name: "deleteVariable"))
+    AutomatedReasoningPolicyAnnotation.add_member(:add_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddRuleAnnotation, location_name: "addRule"))
+    AutomatedReasoningPolicyAnnotation.add_member(:update_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateRuleAnnotation, location_name: "updateRule"))
+    AutomatedReasoningPolicyAnnotation.add_member(:delete_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteRuleAnnotation, location_name: "deleteRule"))
+    AutomatedReasoningPolicyAnnotation.add_member(:add_rule_from_natural_language, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation, location_name: "addRuleFromNaturalLanguage"))
+    AutomatedReasoningPolicyAnnotation.add_member(:update_from_rules_feedback, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation, location_name: "updateFromRulesFeedback"))
+    AutomatedReasoningPolicyAnnotation.add_member(:update_from_scenario_feedback, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation, location_name: "updateFromScenarioFeedback"))
+    AutomatedReasoningPolicyAnnotation.add_member(:ingest_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyIngestContentAnnotation, location_name: "ingestContent"))
+    AutomatedReasoningPolicyAnnotation.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:add_type, Types::AutomatedReasoningPolicyAnnotation::AddType)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:update_type, Types::AutomatedReasoningPolicyAnnotation::UpdateType)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:delete_type, Types::AutomatedReasoningPolicyAnnotation::DeleteType)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:add_variable, Types::AutomatedReasoningPolicyAnnotation::AddVariable)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:update_variable, Types::AutomatedReasoningPolicyAnnotation::UpdateVariable)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:delete_variable, Types::AutomatedReasoningPolicyAnnotation::DeleteVariable)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:add_rule, Types::AutomatedReasoningPolicyAnnotation::AddRule)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:update_rule, Types::AutomatedReasoningPolicyAnnotation::UpdateRule)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:delete_rule, Types::AutomatedReasoningPolicyAnnotation::DeleteRule)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:add_rule_from_natural_language, Types::AutomatedReasoningPolicyAnnotation::AddRuleFromNaturalLanguage)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:update_from_rules_feedback, Types::AutomatedReasoningPolicyAnnotation::UpdateFromRulesFeedback)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:update_from_scenario_feedback, Types::AutomatedReasoningPolicyAnnotation::UpdateFromScenarioFeedback)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:ingest_content, Types::AutomatedReasoningPolicyAnnotation::IngestContent)
+    AutomatedReasoningPolicyAnnotation.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyAnnotation::Unknown)
+    AutomatedReasoningPolicyAnnotation.struct_class = Types::AutomatedReasoningPolicyAnnotation
+
+    AutomatedReasoningPolicyAnnotationList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotation)
+
+    AutomatedReasoningPolicyBuildLog.add_member(:entries, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildLogEntryList, required: true, location_name: "entries"))
+    AutomatedReasoningPolicyBuildLog.struct_class = Types::AutomatedReasoningPolicyBuildLog
+
+    AutomatedReasoningPolicyBuildLogEntry.add_member(:annotation, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotation, required: true, location_name: "annotation"))
+    AutomatedReasoningPolicyBuildLogEntry.add_member(:status, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationStatus, required: true, location_name: "status"))
+    AutomatedReasoningPolicyBuildLogEntry.add_member(:build_steps, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildStepList, required: true, location_name: "buildSteps"))
+    AutomatedReasoningPolicyBuildLogEntry.struct_class = Types::AutomatedReasoningPolicyBuildLogEntry
+
+    AutomatedReasoningPolicyBuildLogEntryList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildLogEntry)
+
+    AutomatedReasoningPolicyBuildResultAssets.add_member(:policy_definition, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinition, location_name: "policyDefinition"))
+    AutomatedReasoningPolicyBuildResultAssets.add_member(:quality_report, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionQualityReport, location_name: "qualityReport"))
+    AutomatedReasoningPolicyBuildResultAssets.add_member(:build_log, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildLog, location_name: "buildLog"))
+    AutomatedReasoningPolicyBuildResultAssets.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyBuildResultAssets.add_member_subclass(:policy_definition, Types::AutomatedReasoningPolicyBuildResultAssets::PolicyDefinition)
+    AutomatedReasoningPolicyBuildResultAssets.add_member_subclass(:quality_report, Types::AutomatedReasoningPolicyBuildResultAssets::QualityReport)
+    AutomatedReasoningPolicyBuildResultAssets.add_member_subclass(:build_log, Types::AutomatedReasoningPolicyBuildResultAssets::BuildLog)
+    AutomatedReasoningPolicyBuildResultAssets.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyBuildResultAssets::Unknown)
+    AutomatedReasoningPolicyBuildResultAssets.struct_class = Types::AutomatedReasoningPolicyBuildResultAssets
+
+    AutomatedReasoningPolicyBuildStep.add_member(:context, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildStepContext, required: true, location_name: "context"))
+    AutomatedReasoningPolicyBuildStep.add_member(:prior_element, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionElement, location_name: "priorElement"))
+    AutomatedReasoningPolicyBuildStep.add_member(:messages, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildStepMessageList, required: true, location_name: "messages"))
+    AutomatedReasoningPolicyBuildStep.struct_class = Types::AutomatedReasoningPolicyBuildStep
+
+    AutomatedReasoningPolicyBuildStepContext.add_member(:planning, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyPlanning, location_name: "planning"))
+    AutomatedReasoningPolicyBuildStepContext.add_member(:mutation, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyMutation, location_name: "mutation"))
+    AutomatedReasoningPolicyBuildStepContext.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyBuildStepContext.add_member_subclass(:planning, Types::AutomatedReasoningPolicyBuildStepContext::Planning)
+    AutomatedReasoningPolicyBuildStepContext.add_member_subclass(:mutation, Types::AutomatedReasoningPolicyBuildStepContext::Mutation)
+    AutomatedReasoningPolicyBuildStepContext.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyBuildStepContext::Unknown)
+    AutomatedReasoningPolicyBuildStepContext.struct_class = Types::AutomatedReasoningPolicyBuildStepContext
+
+    AutomatedReasoningPolicyBuildStepList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildStep)
+
+    AutomatedReasoningPolicyBuildStepMessage.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "message"))
+    AutomatedReasoningPolicyBuildStepMessage.add_member(:message_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildMessageType, required: true, location_name: "messageType"))
+    AutomatedReasoningPolicyBuildStepMessage.struct_class = Types::AutomatedReasoningPolicyBuildStepMessage
+
+    AutomatedReasoningPolicyBuildStepMessageList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildStepMessage)
+
+    AutomatedReasoningPolicyBuildWorkflowDocument.add_member(:document, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowDocumentDocumentBlob, required: true, location_name: "document"))
+    AutomatedReasoningPolicyBuildWorkflowDocument.add_member(:document_content_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentContentType, required: true, location_name: "documentContentType"))
+    AutomatedReasoningPolicyBuildWorkflowDocument.add_member(:document_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentName, required: true, location_name: "documentName"))
+    AutomatedReasoningPolicyBuildWorkflowDocument.add_member(:document_description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentDescription, location_name: "documentDescription"))
+    AutomatedReasoningPolicyBuildWorkflowDocument.struct_class = Types::AutomatedReasoningPolicyBuildWorkflowDocument
+
+    AutomatedReasoningPolicyBuildWorkflowDocumentList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowDocument)
+
+    AutomatedReasoningPolicyBuildWorkflowRepairContent.add_member(:annotations, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationList, required: true, location_name: "annotations"))
+    AutomatedReasoningPolicyBuildWorkflowRepairContent.struct_class = Types::AutomatedReasoningPolicyBuildWorkflowRepairContent
+
+    AutomatedReasoningPolicyBuildWorkflowSource.add_member(:policy_definition, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinition, location_name: "policyDefinition"))
+    AutomatedReasoningPolicyBuildWorkflowSource.add_member(:workflow_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyWorkflowTypeContent, location_name: "workflowContent"))
+    AutomatedReasoningPolicyBuildWorkflowSource.struct_class = Types::AutomatedReasoningPolicyBuildWorkflowSource
+
+    AutomatedReasoningPolicyBuildWorkflowSummaries.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowSummary)
+
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:status, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowStatus, required: true, location_name: "status"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:build_workflow_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowType, required: true, location_name: "buildWorkflowType"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    AutomatedReasoningPolicyBuildWorkflowSummary.struct_class = Types::AutomatedReasoningPolicyBuildWorkflowSummary
+
+    AutomatedReasoningPolicyConflictedRuleIdList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId)
+
+    AutomatedReasoningPolicyDefinition.add_member(:version, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyFormatVersion, location_name: "version"))
+    AutomatedReasoningPolicyDefinition.add_member(:types, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeList, location_name: "types"))
+    AutomatedReasoningPolicyDefinition.add_member(:rules, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleList, location_name: "rules"))
+    AutomatedReasoningPolicyDefinition.add_member(:variables, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableList, location_name: "variables"))
+    AutomatedReasoningPolicyDefinition.struct_class = Types::AutomatedReasoningPolicyDefinition
+
+    AutomatedReasoningPolicyDefinitionElement.add_member(:policy_definition_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariable, location_name: "policyDefinitionVariable"))
+    AutomatedReasoningPolicyDefinitionElement.add_member(:policy_definition_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionType, location_name: "policyDefinitionType"))
+    AutomatedReasoningPolicyDefinitionElement.add_member(:policy_definition_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRule, location_name: "policyDefinitionRule"))
+    AutomatedReasoningPolicyDefinitionElement.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyDefinitionElement.add_member_subclass(:policy_definition_variable, Types::AutomatedReasoningPolicyDefinitionElement::PolicyDefinitionVariable)
+    AutomatedReasoningPolicyDefinitionElement.add_member_subclass(:policy_definition_type, Types::AutomatedReasoningPolicyDefinitionElement::PolicyDefinitionType)
+    AutomatedReasoningPolicyDefinitionElement.add_member_subclass(:policy_definition_rule, Types::AutomatedReasoningPolicyDefinitionElement::PolicyDefinitionRule)
+    AutomatedReasoningPolicyDefinitionElement.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyDefinitionElement::Unknown)
+    AutomatedReasoningPolicyDefinitionElement.struct_class = Types::AutomatedReasoningPolicyDefinitionElement
+
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:type_count, Shapes::ShapeRef.new(shape: Integer, required: true, location_name: "typeCount"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:variable_count, Shapes::ShapeRef.new(shape: Integer, required: true, location_name: "variableCount"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:rule_count, Shapes::ShapeRef.new(shape: Integer, required: true, location_name: "ruleCount"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:unused_types, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeNameList, required: true, location_name: "unusedTypes"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:unused_type_values, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValuePairList, required: true, location_name: "unusedTypeValues"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:unused_variables, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableNameList, required: true, location_name: "unusedVariables"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:conflicting_rules, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyConflictedRuleIdList, required: true, location_name: "conflictingRules"))
+    AutomatedReasoningPolicyDefinitionQualityReport.add_member(:disjoint_rule_sets, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDisjointRuleSetList, required: true, location_name: "disjointRuleSets"))
+    AutomatedReasoningPolicyDefinitionQualityReport.struct_class = Types::AutomatedReasoningPolicyDefinitionQualityReport
+
+    AutomatedReasoningPolicyDefinitionRule.add_member(:id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId, required: true, location_name: "id"))
+    AutomatedReasoningPolicyDefinitionRule.add_member(:expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleExpression, required: true, location_name: "expression"))
+    AutomatedReasoningPolicyDefinitionRule.add_member(:alternate_expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleAlternateExpression, location_name: "alternateExpression"))
+    AutomatedReasoningPolicyDefinitionRule.struct_class = Types::AutomatedReasoningPolicyDefinitionRule
+
+    AutomatedReasoningPolicyDefinitionRuleIdList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId)
+
+    AutomatedReasoningPolicyDefinitionRuleList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRule)
+
+    AutomatedReasoningPolicyDefinitionType.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDefinitionType.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeDescription, location_name: "description"))
+    AutomatedReasoningPolicyDefinitionType.add_member(:values, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueList, required: true, location_name: "values"))
+    AutomatedReasoningPolicyDefinitionType.struct_class = Types::AutomatedReasoningPolicyDefinitionType
+
+    AutomatedReasoningPolicyDefinitionTypeList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionType)
+
+    AutomatedReasoningPolicyDefinitionTypeNameList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName)
+
+    AutomatedReasoningPolicyDefinitionTypeValue.add_member(:value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, required: true, location_name: "value"))
+    AutomatedReasoningPolicyDefinitionTypeValue.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueDescription, location_name: "description"))
+    AutomatedReasoningPolicyDefinitionTypeValue.struct_class = Types::AutomatedReasoningPolicyDefinitionTypeValue
+
+    AutomatedReasoningPolicyDefinitionTypeValueList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValue)
+
+    AutomatedReasoningPolicyDefinitionTypeValuePair.add_member(:type_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "typeName"))
+    AutomatedReasoningPolicyDefinitionTypeValuePair.add_member(:value_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, required: true, location_name: "valueName"))
+    AutomatedReasoningPolicyDefinitionTypeValuePair.struct_class = Types::AutomatedReasoningPolicyDefinitionTypeValuePair
+
+    AutomatedReasoningPolicyDefinitionTypeValuePairList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValuePair)
+
+    AutomatedReasoningPolicyDefinitionVariable.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDefinitionVariable.add_member(:type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "type"))
+    AutomatedReasoningPolicyDefinitionVariable.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableDescription, required: true, location_name: "description"))
+    AutomatedReasoningPolicyDefinitionVariable.struct_class = Types::AutomatedReasoningPolicyDefinitionVariable
+
+    AutomatedReasoningPolicyDefinitionVariableList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariable)
+
+    AutomatedReasoningPolicyDefinitionVariableNameList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName)
+
+    AutomatedReasoningPolicyDeleteRuleAnnotation.add_member(:rule_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId, required: true, location_name: "ruleId"))
+    AutomatedReasoningPolicyDeleteRuleAnnotation.struct_class = Types::AutomatedReasoningPolicyDeleteRuleAnnotation
+
+    AutomatedReasoningPolicyDeleteRuleMutation.add_member(:id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId, required: true, location_name: "id"))
+    AutomatedReasoningPolicyDeleteRuleMutation.struct_class = Types::AutomatedReasoningPolicyDeleteRuleMutation
+
+    AutomatedReasoningPolicyDeleteTypeAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDeleteTypeAnnotation.struct_class = Types::AutomatedReasoningPolicyDeleteTypeAnnotation
+
+    AutomatedReasoningPolicyDeleteTypeMutation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDeleteTypeMutation.struct_class = Types::AutomatedReasoningPolicyDeleteTypeMutation
+
+    AutomatedReasoningPolicyDeleteTypeValue.add_member(:value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, required: true, location_name: "value"))
+    AutomatedReasoningPolicyDeleteTypeValue.struct_class = Types::AutomatedReasoningPolicyDeleteTypeValue
+
+    AutomatedReasoningPolicyDeleteVariableAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDeleteVariableAnnotation.struct_class = Types::AutomatedReasoningPolicyDeleteVariableAnnotation
+
+    AutomatedReasoningPolicyDeleteVariableMutation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyDeleteVariableMutation.struct_class = Types::AutomatedReasoningPolicyDeleteVariableMutation
+
+    AutomatedReasoningPolicyDisjointRuleSet.add_member(:variables, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableNameList, required: true, location_name: "variables"))
+    AutomatedReasoningPolicyDisjointRuleSet.add_member(:rules, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDisjointedRuleIdList, required: true, location_name: "rules"))
+    AutomatedReasoningPolicyDisjointRuleSet.struct_class = Types::AutomatedReasoningPolicyDisjointRuleSet
+
+    AutomatedReasoningPolicyDisjointRuleSetList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDisjointRuleSet)
+
+    AutomatedReasoningPolicyDisjointedRuleIdList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId)
+
+    AutomatedReasoningPolicyIngestContentAnnotation.add_member(:content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationIngestContent, required: true, location_name: "content"))
+    AutomatedReasoningPolicyIngestContentAnnotation.struct_class = Types::AutomatedReasoningPolicyIngestContentAnnotation
+
+    AutomatedReasoningPolicyMutation.add_member(:add_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddTypeMutation, location_name: "addType"))
+    AutomatedReasoningPolicyMutation.add_member(:update_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateTypeMutation, location_name: "updateType"))
+    AutomatedReasoningPolicyMutation.add_member(:delete_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteTypeMutation, location_name: "deleteType"))
+    AutomatedReasoningPolicyMutation.add_member(:add_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddVariableMutation, location_name: "addVariable"))
+    AutomatedReasoningPolicyMutation.add_member(:update_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateVariableMutation, location_name: "updateVariable"))
+    AutomatedReasoningPolicyMutation.add_member(:delete_variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteVariableMutation, location_name: "deleteVariable"))
+    AutomatedReasoningPolicyMutation.add_member(:add_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddRuleMutation, location_name: "addRule"))
+    AutomatedReasoningPolicyMutation.add_member(:update_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateRuleMutation, location_name: "updateRule"))
+    AutomatedReasoningPolicyMutation.add_member(:delete_rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteRuleMutation, location_name: "deleteRule"))
+    AutomatedReasoningPolicyMutation.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyMutation.add_member_subclass(:add_type, Types::AutomatedReasoningPolicyMutation::AddType)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:update_type, Types::AutomatedReasoningPolicyMutation::UpdateType)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:delete_type, Types::AutomatedReasoningPolicyMutation::DeleteType)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:add_variable, Types::AutomatedReasoningPolicyMutation::AddVariable)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:update_variable, Types::AutomatedReasoningPolicyMutation::UpdateVariable)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:delete_variable, Types::AutomatedReasoningPolicyMutation::DeleteVariable)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:add_rule, Types::AutomatedReasoningPolicyMutation::AddRule)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:update_rule, Types::AutomatedReasoningPolicyMutation::UpdateRule)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:delete_rule, Types::AutomatedReasoningPolicyMutation::DeleteRule)
+    AutomatedReasoningPolicyMutation.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyMutation::Unknown)
+    AutomatedReasoningPolicyMutation.struct_class = Types::AutomatedReasoningPolicyMutation
+
+    AutomatedReasoningPolicyPlanning.struct_class = Types::AutomatedReasoningPolicyPlanning
+
+    AutomatedReasoningPolicyScenario.add_member(:expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyScenarioExpression, required: true, location_name: "expression"))
+    AutomatedReasoningPolicyScenario.add_member(:alternate_expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyScenarioAlternateExpression, required: true, location_name: "alternateExpression"))
+    AutomatedReasoningPolicyScenario.add_member(:rule_ids, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleIdList, required: true, location_name: "ruleIds"))
+    AutomatedReasoningPolicyScenario.add_member(:expected_result, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckResult, required: true, location_name: "expectedResult"))
+    AutomatedReasoningPolicyScenario.struct_class = Types::AutomatedReasoningPolicyScenario
+
+    AutomatedReasoningPolicySummaries.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicySummary)
+
+    AutomatedReasoningPolicySummary.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    AutomatedReasoningPolicySummary.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    AutomatedReasoningPolicySummary.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    AutomatedReasoningPolicySummary.add_member(:version, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyVersion, required: true, location_name: "version"))
+    AutomatedReasoningPolicySummary.add_member(:policy_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyId, required: true, location_name: "policyId"))
+    AutomatedReasoningPolicySummary.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    AutomatedReasoningPolicySummary.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    AutomatedReasoningPolicySummary.struct_class = Types::AutomatedReasoningPolicySummary
+
+    AutomatedReasoningPolicyTestCase.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location_name: "testCaseId"))
+    AutomatedReasoningPolicyTestCase.add_member(:guard_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestGuardContent, required: true, location_name: "guardContent"))
+    AutomatedReasoningPolicyTestCase.add_member(:query_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestQueryContent, location_name: "queryContent"))
+    AutomatedReasoningPolicyTestCase.add_member(:expected_aggregated_findings_result, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckResult, location_name: "expectedAggregatedFindingsResult"))
+    AutomatedReasoningPolicyTestCase.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    AutomatedReasoningPolicyTestCase.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    AutomatedReasoningPolicyTestCase.add_member(:confidence_threshold, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationConfidence, location_name: "confidenceThreshold"))
+    AutomatedReasoningPolicyTestCase.struct_class = Types::AutomatedReasoningPolicyTestCase
+
+    AutomatedReasoningPolicyTestCaseIdList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId)
+
+    AutomatedReasoningPolicyTestCaseList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCase)
+
+    AutomatedReasoningPolicyTestList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestResult)
+
+    AutomatedReasoningPolicyTestResult.add_member(:test_case, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCase, required: true, location_name: "testCase"))
+    AutomatedReasoningPolicyTestResult.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    AutomatedReasoningPolicyTestResult.add_member(:test_run_status, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestRunStatus, required: true, location_name: "testRunStatus"))
+    AutomatedReasoningPolicyTestResult.add_member(:test_findings, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckFindingList, location_name: "testFindings"))
+    AutomatedReasoningPolicyTestResult.add_member(:test_run_result, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestRunResult, location_name: "testRunResult"))
+    AutomatedReasoningPolicyTestResult.add_member(:aggregated_test_findings_result, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckResult, location_name: "aggregatedTestFindingsResult"))
+    AutomatedReasoningPolicyTestResult.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    AutomatedReasoningPolicyTestResult.struct_class = Types::AutomatedReasoningPolicyTestResult
+
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member(:add_type_value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAddTypeValue, location_name: "addTypeValue"))
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member(:update_type_value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyUpdateTypeValue, location_name: "updateTypeValue"))
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member(:delete_type_value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDeleteTypeValue, location_name: "deleteTypeValue"))
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member_subclass(:add_type_value, Types::AutomatedReasoningPolicyTypeValueAnnotation::AddTypeValue)
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member_subclass(:update_type_value, Types::AutomatedReasoningPolicyTypeValueAnnotation::UpdateTypeValue)
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member_subclass(:delete_type_value, Types::AutomatedReasoningPolicyTypeValueAnnotation::DeleteTypeValue)
+    AutomatedReasoningPolicyTypeValueAnnotation.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyTypeValueAnnotation::Unknown)
+    AutomatedReasoningPolicyTypeValueAnnotation.struct_class = Types::AutomatedReasoningPolicyTypeValueAnnotation
+
+    AutomatedReasoningPolicyTypeValueAnnotationList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTypeValueAnnotation)
+
+    AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation.add_member(:rule_ids, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleIdList, location_name: "ruleIds"))
+    AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation.add_member(:feedback, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage, required: true, location_name: "feedback"))
+    AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation.struct_class = Types::AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation
+
+    AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation.add_member(:rule_ids, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleIdList, location_name: "ruleIds"))
+    AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation.add_member(:scenario_expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyScenarioExpression, required: true, location_name: "scenarioExpression"))
+    AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation.add_member(:feedback, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage, location_name: "feedback"))
+    AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation.struct_class = Types::AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation
+
+    AutomatedReasoningPolicyUpdateRuleAnnotation.add_member(:rule_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleId, required: true, location_name: "ruleId"))
+    AutomatedReasoningPolicyUpdateRuleAnnotation.add_member(:expression, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRuleExpression, required: true, location_name: "expression"))
+    AutomatedReasoningPolicyUpdateRuleAnnotation.struct_class = Types::AutomatedReasoningPolicyUpdateRuleAnnotation
+
+    AutomatedReasoningPolicyUpdateRuleMutation.add_member(:rule, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionRule, required: true, location_name: "rule"))
+    AutomatedReasoningPolicyUpdateRuleMutation.struct_class = Types::AutomatedReasoningPolicyUpdateRuleMutation
+
+    AutomatedReasoningPolicyUpdateTypeAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyUpdateTypeAnnotation.add_member(:new_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeName, location_name: "newName"))
+    AutomatedReasoningPolicyUpdateTypeAnnotation.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeDescription, location_name: "description"))
+    AutomatedReasoningPolicyUpdateTypeAnnotation.add_member(:values, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTypeValueAnnotationList, required: true, location_name: "values"))
+    AutomatedReasoningPolicyUpdateTypeAnnotation.struct_class = Types::AutomatedReasoningPolicyUpdateTypeAnnotation
+
+    AutomatedReasoningPolicyUpdateTypeMutation.add_member(:type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionType, required: true, location_name: "type"))
+    AutomatedReasoningPolicyUpdateTypeMutation.struct_class = Types::AutomatedReasoningPolicyUpdateTypeMutation
+
+    AutomatedReasoningPolicyUpdateTypeValue.add_member(:value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, required: true, location_name: "value"))
+    AutomatedReasoningPolicyUpdateTypeValue.add_member(:new_value, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueName, location_name: "newValue"))
+    AutomatedReasoningPolicyUpdateTypeValue.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionTypeValueDescription, location_name: "description"))
+    AutomatedReasoningPolicyUpdateTypeValue.struct_class = Types::AutomatedReasoningPolicyUpdateTypeValue
+
+    AutomatedReasoningPolicyUpdateVariableAnnotation.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, required: true, location_name: "name"))
+    AutomatedReasoningPolicyUpdateVariableAnnotation.add_member(:new_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableName, location_name: "newName"))
+    AutomatedReasoningPolicyUpdateVariableAnnotation.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariableDescription, location_name: "description"))
+    AutomatedReasoningPolicyUpdateVariableAnnotation.struct_class = Types::AutomatedReasoningPolicyUpdateVariableAnnotation
+
+    AutomatedReasoningPolicyUpdateVariableMutation.add_member(:variable, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinitionVariable, required: true, location_name: "variable"))
+    AutomatedReasoningPolicyUpdateVariableMutation.struct_class = Types::AutomatedReasoningPolicyUpdateVariableMutation
+
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member(:documents, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowDocumentList, location_name: "documents"))
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member(:policy_repair_assets, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowRepairContent, location_name: "policyRepairAssets"))
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member_subclass(:documents, Types::AutomatedReasoningPolicyWorkflowTypeContent::Documents)
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member_subclass(:policy_repair_assets, Types::AutomatedReasoningPolicyWorkflowTypeContent::PolicyRepairAssets)
+    AutomatedReasoningPolicyWorkflowTypeContent.add_member_subclass(:unknown, Types::AutomatedReasoningPolicyWorkflowTypeContent::Unknown)
+    AutomatedReasoningPolicyWorkflowTypeContent.struct_class = Types::AutomatedReasoningPolicyWorkflowTypeContent
+
     BatchDeleteEvaluationJobError.add_member(:job_identifier, Shapes::ShapeRef.new(shape: EvaluationJobIdentifier, required: true, location_name: "jobIdentifier"))
     BatchDeleteEvaluationJobError.add_member(:code, Shapes::ShapeRef.new(shape: String, required: true, location_name: "code"))
     BatchDeleteEvaluationJobError.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
@@ -655,6 +1287,12 @@ module Aws::Bedrock
     ByteContentDoc.add_member(:data, Shapes::ShapeRef.new(shape: ByteContentBlob, required: true, location_name: "data"))
     ByteContentDoc.struct_class = Types::ByteContentDoc
 
+    CancelAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    CancelAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    CancelAutomatedReasoningPolicyBuildWorkflowRequest.struct_class = Types::CancelAutomatedReasoningPolicyBuildWorkflowRequest
+
+    CancelAutomatedReasoningPolicyBuildWorkflowResponse.struct_class = Types::CancelAutomatedReasoningPolicyBuildWorkflowResponse
+
     CloudWatchConfig.add_member(:log_group_name, Shapes::ShapeRef.new(shape: LogGroupName, required: true, location_name: "logGroupName"))
     CloudWatchConfig.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, required: true, location_name: "roleArn"))
     CloudWatchConfig.add_member(:large_data_delivery_s3_config, Shapes::ShapeRef.new(shape: S3Config, location_name: "largeDataDeliveryS3Config"))
@@ -662,6 +1300,48 @@ module Aws::Bedrock
 
     ConflictException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     ConflictException.struct_class = Types::ConflictException
+
+    CreateAutomatedReasoningPolicyRequest.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    CreateAutomatedReasoningPolicyRequest.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    CreateAutomatedReasoningPolicyRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location_name: "clientRequestToken", metadata: {"idempotencyToken" => true}))
+    CreateAutomatedReasoningPolicyRequest.add_member(:policy_definition, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinition, location_name: "policyDefinition"))
+    CreateAutomatedReasoningPolicyRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tags"))
+    CreateAutomatedReasoningPolicyRequest.struct_class = Types::CreateAutomatedReasoningPolicyRequest
+
+    CreateAutomatedReasoningPolicyResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:version, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyVersion, required: true, location_name: "version"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:definition_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, location_name: "definitionHash"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    CreateAutomatedReasoningPolicyResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    CreateAutomatedReasoningPolicyResponse.struct_class = Types::CreateAutomatedReasoningPolicyResponse
+
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:guard_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestGuardContent, required: true, location_name: "guardContent"))
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:query_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestQueryContent, location_name: "queryContent"))
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:expected_aggregated_findings_result, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckResult, required: true, location_name: "expectedAggregatedFindingsResult"))
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location_name: "clientRequestToken", metadata: {"idempotencyToken" => true}))
+    CreateAutomatedReasoningPolicyTestCaseRequest.add_member(:confidence_threshold, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationConfidence, location_name: "confidenceThreshold"))
+    CreateAutomatedReasoningPolicyTestCaseRequest.struct_class = Types::CreateAutomatedReasoningPolicyTestCaseRequest
+
+    CreateAutomatedReasoningPolicyTestCaseResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    CreateAutomatedReasoningPolicyTestCaseResponse.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location_name: "testCaseId"))
+    CreateAutomatedReasoningPolicyTestCaseResponse.struct_class = Types::CreateAutomatedReasoningPolicyTestCaseResponse
+
+    CreateAutomatedReasoningPolicyVersionRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    CreateAutomatedReasoningPolicyVersionRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location_name: "clientRequestToken", metadata: {"idempotencyToken" => true}))
+    CreateAutomatedReasoningPolicyVersionRequest.add_member(:last_updated_definition_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "lastUpdatedDefinitionHash"))
+    CreateAutomatedReasoningPolicyVersionRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tags"))
+    CreateAutomatedReasoningPolicyVersionRequest.struct_class = Types::CreateAutomatedReasoningPolicyVersionRequest
+
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:version, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyVersion, required: true, location_name: "version"))
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:definition_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "definitionHash"))
+    CreateAutomatedReasoningPolicyVersionResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    CreateAutomatedReasoningPolicyVersionResponse.struct_class = Types::CreateAutomatedReasoningPolicyVersionResponse
 
     CreateCustomModelDeploymentRequest.add_member(:model_deployment_name, Shapes::ShapeRef.new(shape: ModelDeploymentName, required: true, location_name: "modelDeploymentName"))
     CreateCustomModelDeploymentRequest.add_member(:model_arn, Shapes::ShapeRef.new(shape: CustomModelArn, required: true, location_name: "modelArn"))
@@ -713,6 +1393,7 @@ module Aws::Bedrock
     CreateGuardrailRequest.add_member(:word_policy_config, Shapes::ShapeRef.new(shape: GuardrailWordPolicyConfig, location_name: "wordPolicyConfig"))
     CreateGuardrailRequest.add_member(:sensitive_information_policy_config, Shapes::ShapeRef.new(shape: GuardrailSensitiveInformationPolicyConfig, location_name: "sensitiveInformationPolicyConfig"))
     CreateGuardrailRequest.add_member(:contextual_grounding_policy_config, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicyConfig, location_name: "contextualGroundingPolicyConfig"))
+    CreateGuardrailRequest.add_member(:automated_reasoning_policy_config, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyConfig, location_name: "automatedReasoningPolicyConfig"))
     CreateGuardrailRequest.add_member(:cross_region_config, Shapes::ShapeRef.new(shape: GuardrailCrossRegionConfig, location_name: "crossRegionConfig"))
     CreateGuardrailRequest.add_member(:blocked_input_messaging, Shapes::ShapeRef.new(shape: GuardrailBlockedMessaging, required: true, location_name: "blockedInputMessaging"))
     CreateGuardrailRequest.add_member(:blocked_outputs_messaging, Shapes::ShapeRef.new(shape: GuardrailBlockedMessaging, required: true, location_name: "blockedOutputsMessaging"))
@@ -889,6 +1570,25 @@ module Aws::Bedrock
     DataProcessingDetails.add_member(:creation_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "creationTime"))
     DataProcessingDetails.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "lastModifiedTime"))
     DataProcessingDetails.struct_class = Types::DataProcessingDetails
+
+    DeleteAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    DeleteAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    DeleteAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location: "querystring", location_name: "updatedAt"))
+    DeleteAutomatedReasoningPolicyBuildWorkflowRequest.struct_class = Types::DeleteAutomatedReasoningPolicyBuildWorkflowRequest
+
+    DeleteAutomatedReasoningPolicyBuildWorkflowResponse.struct_class = Types::DeleteAutomatedReasoningPolicyBuildWorkflowResponse
+
+    DeleteAutomatedReasoningPolicyRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    DeleteAutomatedReasoningPolicyRequest.struct_class = Types::DeleteAutomatedReasoningPolicyRequest
+
+    DeleteAutomatedReasoningPolicyResponse.struct_class = Types::DeleteAutomatedReasoningPolicyResponse
+
+    DeleteAutomatedReasoningPolicyTestCaseRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    DeleteAutomatedReasoningPolicyTestCaseRequest.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location: "uri", location_name: "testCaseId"))
+    DeleteAutomatedReasoningPolicyTestCaseRequest.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location: "querystring", location_name: "updatedAt"))
+    DeleteAutomatedReasoningPolicyTestCaseRequest.struct_class = Types::DeleteAutomatedReasoningPolicyTestCaseRequest
+
+    DeleteAutomatedReasoningPolicyTestCaseResponse.struct_class = Types::DeleteAutomatedReasoningPolicyTestCaseResponse
 
     DeleteCustomModelDeploymentRequest.add_member(:custom_model_deployment_identifier, Shapes::ShapeRef.new(shape: CustomModelDeploymentIdentifier, required: true, location: "uri", location_name: "customModelDeploymentIdentifier"))
     DeleteCustomModelDeploymentRequest.struct_class = Types::DeleteCustomModelDeploymentRequest
@@ -1080,6 +1780,14 @@ module Aws::Bedrock
 
     EvaluatorModelIdentifiers.member = Shapes::ShapeRef.new(shape: EvaluatorModelIdentifier)
 
+    ExportAutomatedReasoningPolicyVersionRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    ExportAutomatedReasoningPolicyVersionRequest.struct_class = Types::ExportAutomatedReasoningPolicyVersionRequest
+
+    ExportAutomatedReasoningPolicyVersionResponse.add_member(:policy_definition, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinition, required: true, location_name: "policyDefinition"))
+    ExportAutomatedReasoningPolicyVersionResponse.struct_class = Types::ExportAutomatedReasoningPolicyVersionResponse
+    ExportAutomatedReasoningPolicyVersionResponse[:payload] = :policy_definition
+    ExportAutomatedReasoningPolicyVersionResponse[:payload_member] = ExportAutomatedReasoningPolicyVersionResponse.member(:policy_definition)
+
     ExternalSource.add_member(:source_type, Shapes::ShapeRef.new(shape: ExternalSourceType, required: true, location_name: "sourceType"))
     ExternalSource.add_member(:s3_location, Shapes::ShapeRef.new(shape: S3ObjectDoc, location_name: "s3Location"))
     ExternalSource.add_member(:byte_content, Shapes::ShapeRef.new(shape: ByteContentDoc, location_name: "byteContent"))
@@ -1141,6 +1849,80 @@ module Aws::Bedrock
     GenerationConfiguration.add_member(:kb_inference_config, Shapes::ShapeRef.new(shape: KbInferenceConfig, location_name: "kbInferenceConfig"))
     GenerationConfiguration.add_member(:additional_model_request_fields, Shapes::ShapeRef.new(shape: AdditionalModelRequestFields, location_name: "additionalModelRequestFields"))
     GenerationConfiguration.struct_class = Types::GenerationConfiguration
+
+    GetAutomatedReasoningPolicyAnnotationsRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyAnnotationsRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyAnnotationsRequest.struct_class = Types::GetAutomatedReasoningPolicyAnnotationsRequest
+
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:annotations, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationList, required: true, location_name: "annotations"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:annotation_set_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "annotationSetHash"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    GetAutomatedReasoningPolicyAnnotationsResponse.struct_class = Types::GetAutomatedReasoningPolicyAnnotationsResponse
+
+    GetAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyBuildWorkflowRequest.struct_class = Types::GetAutomatedReasoningPolicyBuildWorkflowRequest
+
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:status, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowStatus, required: true, location_name: "status"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:build_workflow_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowType, required: true, location_name: "buildWorkflowType"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:document_name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentName, location_name: "documentName"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:document_content_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentContentType, location_name: "documentContentType"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:document_description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildDocumentDescription, location_name: "documentDescription"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    GetAutomatedReasoningPolicyBuildWorkflowResponse.struct_class = Types::GetAutomatedReasoningPolicyBuildWorkflowResponse
+
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest.add_member(:asset_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildResultAssetType, required: true, location: "querystring", location_name: "assetType"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest.struct_class = Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest
+
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.add_member(:build_workflow_assets, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildResultAssets, location_name: "buildWorkflowAssets"))
+    GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse.struct_class = Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse
+
+    GetAutomatedReasoningPolicyNextScenarioRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyNextScenarioRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyNextScenarioRequest.struct_class = Types::GetAutomatedReasoningPolicyNextScenarioRequest
+
+    GetAutomatedReasoningPolicyNextScenarioResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyNextScenarioResponse.add_member(:scenario, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyScenario, location_name: "scenario"))
+    GetAutomatedReasoningPolicyNextScenarioResponse.struct_class = Types::GetAutomatedReasoningPolicyNextScenarioResponse
+
+    GetAutomatedReasoningPolicyRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyRequest.struct_class = Types::GetAutomatedReasoningPolicyRequest
+
+    GetAutomatedReasoningPolicyResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyResponse.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    GetAutomatedReasoningPolicyResponse.add_member(:version, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyVersion, required: true, location_name: "version"))
+    GetAutomatedReasoningPolicyResponse.add_member(:policy_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyId, required: true, location_name: "policyId"))
+    GetAutomatedReasoningPolicyResponse.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    GetAutomatedReasoningPolicyResponse.add_member(:definition_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "definitionHash"))
+    GetAutomatedReasoningPolicyResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "createdAt"))
+    GetAutomatedReasoningPolicyResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    GetAutomatedReasoningPolicyResponse.struct_class = Types::GetAutomatedReasoningPolicyResponse
+
+    GetAutomatedReasoningPolicyTestCaseRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyTestCaseRequest.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location: "uri", location_name: "testCaseId"))
+    GetAutomatedReasoningPolicyTestCaseRequest.struct_class = Types::GetAutomatedReasoningPolicyTestCaseRequest
+
+    GetAutomatedReasoningPolicyTestCaseResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    GetAutomatedReasoningPolicyTestCaseResponse.add_member(:test_case, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCase, required: true, location_name: "testCase"))
+    GetAutomatedReasoningPolicyTestCaseResponse.struct_class = Types::GetAutomatedReasoningPolicyTestCaseResponse
+
+    GetAutomatedReasoningPolicyTestResultRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    GetAutomatedReasoningPolicyTestResultRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    GetAutomatedReasoningPolicyTestResultRequest.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location: "uri", location_name: "testCaseId"))
+    GetAutomatedReasoningPolicyTestResultRequest.struct_class = Types::GetAutomatedReasoningPolicyTestResultRequest
+
+    GetAutomatedReasoningPolicyTestResultResponse.add_member(:test_result, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestResult, required: true, location_name: "testResult"))
+    GetAutomatedReasoningPolicyTestResultResponse.struct_class = Types::GetAutomatedReasoningPolicyTestResultResponse
 
     GetCustomModelDeploymentRequest.add_member(:custom_model_deployment_identifier, Shapes::ShapeRef.new(shape: CustomModelDeploymentIdentifier, required: true, location: "uri", location_name: "customModelDeploymentIdentifier"))
     GetCustomModelDeploymentRequest.struct_class = Types::GetCustomModelDeploymentRequest
@@ -1227,6 +2009,7 @@ module Aws::Bedrock
     GetGuardrailResponse.add_member(:word_policy, Shapes::ShapeRef.new(shape: GuardrailWordPolicy, location_name: "wordPolicy"))
     GetGuardrailResponse.add_member(:sensitive_information_policy, Shapes::ShapeRef.new(shape: GuardrailSensitiveInformationPolicy, location_name: "sensitiveInformationPolicy"))
     GetGuardrailResponse.add_member(:contextual_grounding_policy, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicy, location_name: "contextualGroundingPolicy"))
+    GetGuardrailResponse.add_member(:automated_reasoning_policy, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicy, location_name: "automatedReasoningPolicy"))
     GetGuardrailResponse.add_member(:cross_region_details, Shapes::ShapeRef.new(shape: GuardrailCrossRegionDetails, location_name: "crossRegionDetails"))
     GetGuardrailResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "createdAt"))
     GetGuardrailResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
@@ -1396,6 +2179,18 @@ module Aws::Bedrock
 
     GetUseCaseForModelAccessResponse.add_member(:form_data, Shapes::ShapeRef.new(shape: AcknowledgementFormDataBody, required: true, location_name: "formData"))
     GetUseCaseForModelAccessResponse.struct_class = Types::GetUseCaseForModelAccessResponse
+
+    GuardrailAutomatedReasoningPolicy.add_member(:policies, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyPoliciesList, required: true, location_name: "policies"))
+    GuardrailAutomatedReasoningPolicy.add_member(:confidence_threshold, Shapes::ShapeRef.new(shape: AutomatedReasoningConfidenceFilterThreshold, location_name: "confidenceThreshold"))
+    GuardrailAutomatedReasoningPolicy.struct_class = Types::GuardrailAutomatedReasoningPolicy
+
+    GuardrailAutomatedReasoningPolicyConfig.add_member(:policies, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyConfigPoliciesList, required: true, location_name: "policies"))
+    GuardrailAutomatedReasoningPolicyConfig.add_member(:confidence_threshold, Shapes::ShapeRef.new(shape: AutomatedReasoningConfidenceFilterThreshold, location_name: "confidenceThreshold"))
+    GuardrailAutomatedReasoningPolicyConfig.struct_class = Types::GuardrailAutomatedReasoningPolicyConfig
+
+    GuardrailAutomatedReasoningPolicyConfigPoliciesList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn)
+
+    GuardrailAutomatedReasoningPolicyPoliciesList.member = Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn)
 
     GuardrailConfiguration.add_member(:guardrail_id, Shapes::ShapeRef.new(shape: GuardrailConfigurationGuardrailIdString, required: true, location_name: "guardrailId"))
     GuardrailConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailConfigurationGuardrailVersionString, required: true, location_name: "guardrailVersion"))
@@ -1724,6 +2519,43 @@ module Aws::Bedrock
 
     LegalTerm.add_member(:url, Shapes::ShapeRef.new(shape: String, location_name: "url"))
     LegalTerm.struct_class = Types::LegalTerm
+
+    ListAutomatedReasoningPoliciesRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, location: "querystring", location_name: "policyArn"))
+    ListAutomatedReasoningPoliciesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListAutomatedReasoningPoliciesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
+    ListAutomatedReasoningPoliciesRequest.struct_class = Types::ListAutomatedReasoningPoliciesRequest
+
+    ListAutomatedReasoningPoliciesResponse.add_member(:automated_reasoning_policy_summaries, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicySummaries, required: true, location_name: "automatedReasoningPolicySummaries"))
+    ListAutomatedReasoningPoliciesResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "nextToken"))
+    ListAutomatedReasoningPoliciesResponse.struct_class = Types::ListAutomatedReasoningPoliciesResponse
+
+    ListAutomatedReasoningPolicyBuildWorkflowsRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    ListAutomatedReasoningPolicyBuildWorkflowsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListAutomatedReasoningPolicyBuildWorkflowsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
+    ListAutomatedReasoningPolicyBuildWorkflowsRequest.struct_class = Types::ListAutomatedReasoningPolicyBuildWorkflowsRequest
+
+    ListAutomatedReasoningPolicyBuildWorkflowsResponse.add_member(:automated_reasoning_policy_build_workflow_summaries, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowSummaries, required: true, location_name: "automatedReasoningPolicyBuildWorkflowSummaries"))
+    ListAutomatedReasoningPolicyBuildWorkflowsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "nextToken"))
+    ListAutomatedReasoningPolicyBuildWorkflowsResponse.struct_class = Types::ListAutomatedReasoningPolicyBuildWorkflowsResponse
+
+    ListAutomatedReasoningPolicyTestCasesRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    ListAutomatedReasoningPolicyTestCasesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListAutomatedReasoningPolicyTestCasesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
+    ListAutomatedReasoningPolicyTestCasesRequest.struct_class = Types::ListAutomatedReasoningPolicyTestCasesRequest
+
+    ListAutomatedReasoningPolicyTestCasesResponse.add_member(:test_cases, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseList, required: true, location_name: "testCases"))
+    ListAutomatedReasoningPolicyTestCasesResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "nextToken"))
+    ListAutomatedReasoningPolicyTestCasesResponse.struct_class = Types::ListAutomatedReasoningPolicyTestCasesResponse
+
+    ListAutomatedReasoningPolicyTestResultsRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    ListAutomatedReasoningPolicyTestResultsRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    ListAutomatedReasoningPolicyTestResultsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListAutomatedReasoningPolicyTestResultsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
+    ListAutomatedReasoningPolicyTestResultsRequest.struct_class = Types::ListAutomatedReasoningPolicyTestResultsRequest
+
+    ListAutomatedReasoningPolicyTestResultsResponse.add_member(:test_results, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestList, required: true, location_name: "testResults"))
+    ListAutomatedReasoningPolicyTestResultsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "nextToken"))
+    ListAutomatedReasoningPolicyTestResultsResponse.struct_class = Types::ListAutomatedReasoningPolicyTestResultsResponse
 
     ListCustomModelDeploymentsRequest.add_member(:created_before, Shapes::ShapeRef.new(shape: Timestamp, location: "querystring", location_name: "createdBefore"))
     ListCustomModelDeploymentsRequest.add_member(:created_after, Shapes::ShapeRef.new(shape: Timestamp, location: "querystring", location_name: "createdAfter"))
@@ -2187,6 +3019,9 @@ module Aws::Bedrock
     RerankingMetadataSelectiveModeConfiguration.add_member_subclass(:unknown, Types::RerankingMetadataSelectiveModeConfiguration::Unknown)
     RerankingMetadataSelectiveModeConfiguration.struct_class = Types::RerankingMetadataSelectiveModeConfiguration
 
+    ResourceInUseException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
+    ResourceInUseException.struct_class = Types::ResourceInUseException
+
     ResourceNotFoundException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     ResourceNotFoundException.struct_class = Types::ResourceNotFoundException
 
@@ -2258,6 +3093,27 @@ module Aws::Bedrock
 
     ServiceUnavailableException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     ServiceUnavailableException.struct_class = Types::ServiceUnavailableException
+
+    StartAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    StartAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:build_workflow_type, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowType, required: true, location: "uri", location_name: "buildWorkflowType"))
+    StartAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location: "header", location_name: "x-amz-client-token", metadata: {"idempotencyToken" => true}))
+    StartAutomatedReasoningPolicyBuildWorkflowRequest.add_member(:source_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowSource, required: true, location_name: "sourceContent"))
+    StartAutomatedReasoningPolicyBuildWorkflowRequest.struct_class = Types::StartAutomatedReasoningPolicyBuildWorkflowRequest
+    StartAutomatedReasoningPolicyBuildWorkflowRequest[:payload] = :source_content
+    StartAutomatedReasoningPolicyBuildWorkflowRequest[:payload_member] = StartAutomatedReasoningPolicyBuildWorkflowRequest.member(:source_content)
+
+    StartAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    StartAutomatedReasoningPolicyBuildWorkflowResponse.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    StartAutomatedReasoningPolicyBuildWorkflowResponse.struct_class = Types::StartAutomatedReasoningPolicyBuildWorkflowResponse
+
+    StartAutomatedReasoningPolicyTestWorkflowRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    StartAutomatedReasoningPolicyTestWorkflowRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    StartAutomatedReasoningPolicyTestWorkflowRequest.add_member(:test_case_ids, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseIdList, location_name: "testCaseIds"))
+    StartAutomatedReasoningPolicyTestWorkflowRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location_name: "clientRequestToken", metadata: {"idempotencyToken" => true}))
+    StartAutomatedReasoningPolicyTestWorkflowRequest.struct_class = Types::StartAutomatedReasoningPolicyTestWorkflowRequest
+
+    StartAutomatedReasoningPolicyTestWorkflowResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    StartAutomatedReasoningPolicyTestWorkflowResponse.struct_class = Types::StartAutomatedReasoningPolicyTestWorkflowResponse
 
     StatusDetails.add_member(:validation_details, Shapes::ShapeRef.new(shape: ValidationDetails, location_name: "validationDetails"))
     StatusDetails.add_member(:data_processing_details, Shapes::ShapeRef.new(shape: DataProcessingDetails, location_name: "dataProcessingDetails"))
@@ -2339,6 +3195,45 @@ module Aws::Bedrock
 
     UntagResourceResponse.struct_class = Types::UntagResourceResponse
 
+    UpdateAutomatedReasoningPolicyAnnotationsRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyAnnotationsRequest.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location: "uri", location_name: "buildWorkflowId"))
+    UpdateAutomatedReasoningPolicyAnnotationsRequest.add_member(:annotations, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyAnnotationList, required: true, location_name: "annotations"))
+    UpdateAutomatedReasoningPolicyAnnotationsRequest.add_member(:last_updated_annotation_set_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "lastUpdatedAnnotationSetHash"))
+    UpdateAutomatedReasoningPolicyAnnotationsRequest.struct_class = Types::UpdateAutomatedReasoningPolicyAnnotationsRequest
+
+    UpdateAutomatedReasoningPolicyAnnotationsResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyAnnotationsResponse.add_member(:build_workflow_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyBuildWorkflowId, required: true, location_name: "buildWorkflowId"))
+    UpdateAutomatedReasoningPolicyAnnotationsResponse.add_member(:annotation_set_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "annotationSetHash"))
+    UpdateAutomatedReasoningPolicyAnnotationsResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    UpdateAutomatedReasoningPolicyAnnotationsResponse.struct_class = Types::UpdateAutomatedReasoningPolicyAnnotationsResponse
+
+    UpdateAutomatedReasoningPolicyRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyRequest.add_member(:policy_definition, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDefinition, required: true, location_name: "policyDefinition"))
+    UpdateAutomatedReasoningPolicyRequest.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, location_name: "name"))
+    UpdateAutomatedReasoningPolicyRequest.add_member(:description, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyDescription, location_name: "description"))
+    UpdateAutomatedReasoningPolicyRequest.struct_class = Types::UpdateAutomatedReasoningPolicyRequest
+
+    UpdateAutomatedReasoningPolicyResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyResponse.add_member(:name, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyName, required: true, location_name: "name"))
+    UpdateAutomatedReasoningPolicyResponse.add_member(:definition_hash, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyHash, required: true, location_name: "definitionHash"))
+    UpdateAutomatedReasoningPolicyResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "updatedAt"))
+    UpdateAutomatedReasoningPolicyResponse.struct_class = Types::UpdateAutomatedReasoningPolicyResponse
+
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location: "uri", location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location: "uri", location_name: "testCaseId"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:guard_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestGuardContent, required: true, location_name: "guardContent"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:query_content, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestQueryContent, location_name: "queryContent"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "lastUpdatedAt"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:expected_aggregated_findings_result, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckResult, required: true, location_name: "expectedAggregatedFindingsResult"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:confidence_threshold, Shapes::ShapeRef.new(shape: AutomatedReasoningCheckTranslationConfidence, location_name: "confidenceThreshold"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:kms_key_arn, Shapes::ShapeRef.new(shape: KmsKeyArn, location_name: "kmsKeyArn"))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.add_member(:client_request_token, Shapes::ShapeRef.new(shape: IdempotencyToken, location_name: "clientRequestToken", metadata: {"idempotencyToken" => true}))
+    UpdateAutomatedReasoningPolicyTestCaseRequest.struct_class = Types::UpdateAutomatedReasoningPolicyTestCaseRequest
+
+    UpdateAutomatedReasoningPolicyTestCaseResponse.add_member(:policy_arn, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyArn, required: true, location_name: "policyArn"))
+    UpdateAutomatedReasoningPolicyTestCaseResponse.add_member(:test_case_id, Shapes::ShapeRef.new(shape: AutomatedReasoningPolicyTestCaseId, required: true, location_name: "testCaseId"))
+    UpdateAutomatedReasoningPolicyTestCaseResponse.struct_class = Types::UpdateAutomatedReasoningPolicyTestCaseResponse
+
     UpdateGuardrailRequest.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, required: true, location: "uri", location_name: "guardrailIdentifier"))
     UpdateGuardrailRequest.add_member(:name, Shapes::ShapeRef.new(shape: GuardrailName, required: true, location_name: "name"))
     UpdateGuardrailRequest.add_member(:description, Shapes::ShapeRef.new(shape: GuardrailDescription, location_name: "description"))
@@ -2347,6 +3242,7 @@ module Aws::Bedrock
     UpdateGuardrailRequest.add_member(:word_policy_config, Shapes::ShapeRef.new(shape: GuardrailWordPolicyConfig, location_name: "wordPolicyConfig"))
     UpdateGuardrailRequest.add_member(:sensitive_information_policy_config, Shapes::ShapeRef.new(shape: GuardrailSensitiveInformationPolicyConfig, location_name: "sensitiveInformationPolicyConfig"))
     UpdateGuardrailRequest.add_member(:contextual_grounding_policy_config, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicyConfig, location_name: "contextualGroundingPolicyConfig"))
+    UpdateGuardrailRequest.add_member(:automated_reasoning_policy_config, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyConfig, location_name: "automatedReasoningPolicyConfig"))
     UpdateGuardrailRequest.add_member(:cross_region_config, Shapes::ShapeRef.new(shape: GuardrailCrossRegionConfig, location_name: "crossRegionConfig"))
     UpdateGuardrailRequest.add_member(:blocked_input_messaging, Shapes::ShapeRef.new(shape: GuardrailBlockedMessaging, required: true, location_name: "blockedInputMessaging"))
     UpdateGuardrailRequest.add_member(:blocked_outputs_messaging, Shapes::ShapeRef.new(shape: GuardrailBlockedMessaging, required: true, location_name: "blockedOutputsMessaging"))
@@ -2445,6 +3341,65 @@ module Aws::Bedrock
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:cancel_automated_reasoning_policy_build_workflow, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CancelAutomatedReasoningPolicyBuildWorkflow"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/cancel"
+        o.input = Shapes::ShapeRef.new(shape: CancelAutomatedReasoningPolicyBuildWorkflowRequest)
+        o.output = Shapes::ShapeRef.new(shape: CancelAutomatedReasoningPolicyBuildWorkflowResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:create_automated_reasoning_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateAutomatedReasoningPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies"
+        o.input = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyTagsException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:create_automated_reasoning_policy_test_case, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateAutomatedReasoningPolicyTestCase"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/test-cases"
+        o.input = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyTestCaseRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyTestCaseResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:create_automated_reasoning_policy_version, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateAutomatedReasoningPolicyVersion"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/versions"
+        o.input = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyVersionRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateAutomatedReasoningPolicyVersionResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 
@@ -2660,6 +3615,48 @@ module Aws::Bedrock
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 
+      api.add_operation(:delete_automated_reasoning_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteAutomatedReasoningPolicy"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}"
+        o.input = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:delete_automated_reasoning_policy_build_workflow, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteAutomatedReasoningPolicyBuildWorkflow"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}"
+        o.input = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyBuildWorkflowRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyBuildWorkflowResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:delete_automated_reasoning_policy_test_case, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteAutomatedReasoningPolicyTestCase"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/test-cases/{testCaseId}"
+        o.input = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyTestCaseRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteAutomatedReasoningPolicyTestCaseResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUseException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
       api.add_operation(:delete_custom_model, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteCustomModel"
         o.http_method = "DELETE"
@@ -2803,6 +3800,110 @@ module Aws::Bedrock
         o.output = Shapes::ShapeRef.new(shape: DeregisterMarketplaceModelEndpointResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:export_automated_reasoning_policy_version, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ExportAutomatedReasoningPolicyVersion"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/export"
+        o.input = Shapes::ShapeRef.new(shape: ExportAutomatedReasoningPolicyVersionRequest)
+        o.output = Shapes::ShapeRef.new(shape: ExportAutomatedReasoningPolicyVersionResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicy"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_annotations, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyAnnotations"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/annotations"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyAnnotationsRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyAnnotationsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_build_workflow, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyBuildWorkflow"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyBuildWorkflowRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyBuildWorkflowResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_build_workflow_result_assets, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyBuildWorkflowResultAssets"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/result-assets"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_next_scenario, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyNextScenario"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/scenarios"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyNextScenarioRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyNextScenarioResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_test_case, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyTestCase"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/test-cases/{testCaseId}"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyTestCaseRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyTestCaseResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:get_automated_reasoning_policy_test_result, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAutomatedReasoningPolicyTestResult"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/test-cases/{testCaseId}/test-results"
+        o.input = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyTestResultRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAutomatedReasoningPolicyTestResultResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
@@ -3025,6 +4126,83 @@ module Aws::Bedrock
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:list_automated_reasoning_policies, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListAutomatedReasoningPolicies"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies"
+        o.input = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPoliciesRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPoliciesResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:list_automated_reasoning_policy_build_workflows, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListAutomatedReasoningPolicyBuildWorkflows"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows"
+        o.input = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyBuildWorkflowsRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyBuildWorkflowsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:list_automated_reasoning_policy_test_cases, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListAutomatedReasoningPolicyTestCases"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/test-cases"
+        o.input = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyTestCasesRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyTestCasesResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:list_automated_reasoning_policy_test_results, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListAutomatedReasoningPolicyTestResults"
+        o.http_method = "GET"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/test-results"
+        o.input = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyTestResultsRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListAutomatedReasoningPolicyTestResultsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
       end)
 
       api.add_operation(:list_custom_model_deployments, Seahorse::Model::Operation.new.tap do |o|
@@ -3340,6 +4518,36 @@ module Aws::Bedrock
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 
+      api.add_operation(:start_automated_reasoning_policy_build_workflow, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "StartAutomatedReasoningPolicyBuildWorkflow"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowType}/start"
+        o.input = Shapes::ShapeRef.new(shape: StartAutomatedReasoningPolicyBuildWorkflowRequest)
+        o.output = Shapes::ShapeRef.new(shape: StartAutomatedReasoningPolicyBuildWorkflowResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUseException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:start_automated_reasoning_policy_test_workflow, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "StartAutomatedReasoningPolicyTestWorkflow"
+        o.http_method = "POST"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/test-workflows"
+        o.input = Shapes::ShapeRef.new(shape: StartAutomatedReasoningPolicyTestWorkflowRequest)
+        o.output = Shapes::ShapeRef.new(shape: StartAutomatedReasoningPolicyTestWorkflowResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUseException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
       api.add_operation(:stop_evaluation_job, Seahorse::Model::Operation.new.tap do |o|
         o.name = "StopEvaluationJob"
         o.http_method = "POST"
@@ -3406,6 +4614,50 @@ module Aws::Bedrock
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:update_automated_reasoning_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateAutomatedReasoningPolicy"
+        o.http_method = "PATCH"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}"
+        o.input = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyTagsException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:update_automated_reasoning_policy_annotations, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateAutomatedReasoningPolicyAnnotations"
+        o.http_method = "PATCH"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/build-workflows/{buildWorkflowId}/annotations"
+        o.input = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyAnnotationsRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyAnnotationsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+      end)
+
+      api.add_operation(:update_automated_reasoning_policy_test_case, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateAutomatedReasoningPolicyTestCase"
+        o.http_method = "PATCH"
+        o.http_request_uri = "/automated-reasoning-policies/{policyArn}/test-cases/{testCaseId}"
+        o.input = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyTestCaseRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateAutomatedReasoningPolicyTestCaseResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUseException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 

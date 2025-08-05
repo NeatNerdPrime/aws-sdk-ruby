@@ -422,7 +422,127 @@ module Aws::BedrockRuntime
       attr_accessor word_policy: Types::GuardrailWordPolicyAssessment
       attr_accessor sensitive_information_policy: Types::GuardrailSensitiveInformationPolicyAssessment
       attr_accessor contextual_grounding_policy: Types::GuardrailContextualGroundingPolicyAssessment
+      attr_accessor automated_reasoning_policy: Types::GuardrailAutomatedReasoningPolicyAssessment
       attr_accessor invocation_metrics: Types::GuardrailInvocationMetrics
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningFinding
+      attr_accessor valid: Types::GuardrailAutomatedReasoningValidFinding
+      attr_accessor invalid: Types::GuardrailAutomatedReasoningInvalidFinding
+      attr_accessor satisfiable: Types::GuardrailAutomatedReasoningSatisfiableFinding
+      attr_accessor impossible: Types::GuardrailAutomatedReasoningImpossibleFinding
+      attr_accessor translation_ambiguous: Types::GuardrailAutomatedReasoningTranslationAmbiguousFinding
+      attr_accessor too_complex: Types::GuardrailAutomatedReasoningTooComplexFinding
+      attr_accessor no_translations: Types::GuardrailAutomatedReasoningNoTranslationsFinding
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Valid < GuardrailAutomatedReasoningFinding
+      end
+      class Invalid < GuardrailAutomatedReasoningFinding
+      end
+      class Satisfiable < GuardrailAutomatedReasoningFinding
+      end
+      class Impossible < GuardrailAutomatedReasoningFinding
+      end
+      class TranslationAmbiguous < GuardrailAutomatedReasoningFinding
+      end
+      class TooComplex < GuardrailAutomatedReasoningFinding
+      end
+      class NoTranslations < GuardrailAutomatedReasoningFinding
+      end
+      class Unknown < GuardrailAutomatedReasoningFinding
+      end
+    end
+
+    class GuardrailAutomatedReasoningImpossibleFinding
+      attr_accessor translation: Types::GuardrailAutomatedReasoningTranslation
+      attr_accessor contradicting_rules: ::Array[Types::GuardrailAutomatedReasoningRule]
+      attr_accessor logic_warning: Types::GuardrailAutomatedReasoningLogicWarning
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningInputTextReference
+      attr_accessor text: ::String
+      SENSITIVE: [:text]
+    end
+
+    class GuardrailAutomatedReasoningInvalidFinding
+      attr_accessor translation: Types::GuardrailAutomatedReasoningTranslation
+      attr_accessor contradicting_rules: ::Array[Types::GuardrailAutomatedReasoningRule]
+      attr_accessor logic_warning: Types::GuardrailAutomatedReasoningLogicWarning
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningLogicWarning
+      attr_accessor type: ("ALWAYS_FALSE" | "ALWAYS_TRUE")
+      attr_accessor premises: ::Array[Types::GuardrailAutomatedReasoningStatement]
+      attr_accessor claims: ::Array[Types::GuardrailAutomatedReasoningStatement]
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningNoTranslationsFinding < Aws::EmptyStructure
+    end
+
+    class GuardrailAutomatedReasoningPolicyAssessment
+      attr_accessor findings: ::Array[Types::GuardrailAutomatedReasoningFinding]
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningRule
+      attr_accessor identifier: ::String
+      attr_accessor policy_version_arn: ::String
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningSatisfiableFinding
+      attr_accessor translation: Types::GuardrailAutomatedReasoningTranslation
+      attr_accessor claims_true_scenario: Types::GuardrailAutomatedReasoningScenario
+      attr_accessor claims_false_scenario: Types::GuardrailAutomatedReasoningScenario
+      attr_accessor logic_warning: Types::GuardrailAutomatedReasoningLogicWarning
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningScenario
+      attr_accessor statements: ::Array[Types::GuardrailAutomatedReasoningStatement]
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningStatement
+      attr_accessor logic: ::String
+      attr_accessor natural_language: ::String
+      SENSITIVE: [:logic, :natural_language]
+    end
+
+    class GuardrailAutomatedReasoningTooComplexFinding < Aws::EmptyStructure
+    end
+
+    class GuardrailAutomatedReasoningTranslation
+      attr_accessor premises: ::Array[Types::GuardrailAutomatedReasoningStatement]
+      attr_accessor claims: ::Array[Types::GuardrailAutomatedReasoningStatement]
+      attr_accessor untranslated_premises: ::Array[Types::GuardrailAutomatedReasoningInputTextReference]
+      attr_accessor untranslated_claims: ::Array[Types::GuardrailAutomatedReasoningInputTextReference]
+      attr_accessor confidence: ::Float
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningTranslationAmbiguousFinding
+      attr_accessor options: ::Array[Types::GuardrailAutomatedReasoningTranslationOption]
+      attr_accessor difference_scenarios: ::Array[Types::GuardrailAutomatedReasoningScenario]
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningTranslationOption
+      attr_accessor translations: ::Array[Types::GuardrailAutomatedReasoningTranslation]
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningValidFinding
+      attr_accessor translation: Types::GuardrailAutomatedReasoningTranslation
+      attr_accessor claims_true_scenario: Types::GuardrailAutomatedReasoningScenario
+      attr_accessor supporting_rules: ::Array[Types::GuardrailAutomatedReasoningRule]
+      attr_accessor logic_warning: Types::GuardrailAutomatedReasoningLogicWarning
       SENSITIVE: []
     end
 
@@ -640,6 +760,8 @@ module Aws::BedrockRuntime
       attr_accessor sensitive_information_policy_free_units: ::Integer
       attr_accessor contextual_grounding_policy_units: ::Integer
       attr_accessor content_policy_image_units: ::Integer
+      attr_accessor automated_reasoning_policy_units: ::Integer
+      attr_accessor automated_reasoning_policies: ::Integer
       SENSITIVE: []
     end
 

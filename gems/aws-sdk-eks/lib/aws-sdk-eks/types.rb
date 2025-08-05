@@ -949,6 +949,14 @@ module Aws::EKS
     #   storage capability in the *Amazon EKS User Guide*.
     #   @return [Types::StorageConfigResponse]
     #
+    # @!attribute [rw] deletion_protection
+    #   The current deletion protection setting for the cluster. When
+    #   `true`, deletion protection is enabled and the cluster cannot be
+    #   deleted until protection is disabled. When `false`, the cluster can
+    #   be deleted normally. This setting only applies to clusters in an
+    #   active state.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/Cluster AWS API Documentation
     #
     class Cluster < Struct.new(
@@ -977,7 +985,8 @@ module Aws::EKS
       :zonal_shift_config,
       :remote_network_config,
       :compute_config,
-      :storage_config)
+      :storage_config,
+      :deletion_protection)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1738,6 +1747,13 @@ module Aws::EKS
     #   Amazon Web Services account.
     #   @return [Types::StorageConfigRequest]
     #
+    # @!attribute [rw] deletion_protection
+    #   Indicates whether to enable deletion protection for the cluster.
+    #   When enabled, the cluster cannot be deleted unless deletion
+    #   protection is first disabled. This helps prevent accidental cluster
+    #   deletion. Default value is `false`.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/CreateClusterRequest AWS API Documentation
     #
     class CreateClusterRequest < Struct.new(
@@ -1757,7 +1773,8 @@ module Aws::EKS
       :zonal_shift_config,
       :remote_network_config,
       :compute_config,
-      :storage_config)
+      :storage_config,
+      :deletion_protection)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6913,6 +6930,13 @@ module Aws::EKS
     #   change, or remove this configuration after the cluster is created.
     #   @return [Types::RemoteNetworkConfigRequest]
     #
+    # @!attribute [rw] deletion_protection
+    #   Specifies whether to enable or disable deletion protection for the
+    #   cluster. When enabled (`true`), the cluster cannot be deleted until
+    #   deletion protection is explicitly disabled. When disabled (`false`),
+    #   the cluster can be deleted normally.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/UpdateClusterConfigRequest AWS API Documentation
     #
     class UpdateClusterConfigRequest < Struct.new(
@@ -6926,7 +6950,8 @@ module Aws::EKS
       :compute_config,
       :kubernetes_network_config,
       :storage_config,
-      :remote_network_config)
+      :remote_network_config,
+      :deletion_protection)
       SENSITIVE = []
       include Aws::Structure
     end

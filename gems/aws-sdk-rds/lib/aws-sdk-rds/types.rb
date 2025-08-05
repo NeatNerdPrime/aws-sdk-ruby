@@ -4012,8 +4012,12 @@ module Aws::RDS
     #   can't set the `AvailabilityZone` parameter if the DB instance is a
     #   Multi-AZ deployment.
     #
-    #   This setting doesn't apply to Amazon Aurora because the DB instance
-    #   Availability Zones (AZs) are managed by the DB cluster.
+    #   This setting doesn't apply to the following DB instances:
+    #
+    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
+    #     the DB cluster.)
+    #
+    #   * RDS Custom
     #   @return [Boolean]
     #
     # @!attribute [rw] engine_version
@@ -7445,6 +7449,16 @@ module Aws::RDS
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html
     #   @return [Types::ServerlessV2ScalingConfigurationInfo]
     #
+    # @!attribute [rw] serverless_v2_platform_version
+    #   The version of the Aurora Serverless V2 platform used by the DB
+    #   cluster. For more information, see [Using Aurora Serverless v2][1]
+    #   in the *Amazon Aurora User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html
+    #   @return [String]
+    #
     # @!attribute [rw] network_type
     #   The network type of the DB instance.
     #
@@ -7615,6 +7629,7 @@ module Aws::RDS
       :performance_insights_kms_key_id,
       :performance_insights_retention_period,
       :serverless_v2_scaling_configuration,
+      :serverless_v2_platform_version,
       :network_type,
       :db_system_id,
       :master_user_secret,
@@ -27499,22 +27514,24 @@ module Aws::RDS
     end
 
     # Specifies any Aurora Serverless v2 properties or limits that differ
-    # between Aurora engine versions. You can test the values of this
-    # attribute when deciding which Aurora version to use in a new or
-    # upgraded DB cluster. You can also retrieve the version of an existing
-    # DB cluster and check whether that version supports certain Aurora
-    # Serverless v2 features before you attempt to use those features.
+    # between Aurora engine versions and platform versions. You can test the
+    # values of this attribute when deciding which Aurora version to use in
+    # a new or upgraded DB cluster. You can also retrieve the version of an
+    # existing DB cluster and check whether that version supports certain
+    # Aurora Serverless v2 features before you attempt to use those
+    # features.
     #
     # @!attribute [rw] min_capacity
-    #   If the minimum capacity is 0 ACUs, the engine version supports the
-    #   automatic pause/resume feature of Aurora Serverless v2.
+    #   If the minimum capacity is 0 ACUs, the engine version or platform
+    #   version supports the automatic pause/resume feature of Aurora
+    #   Serverless v2.
     #   @return [Float]
     #
     # @!attribute [rw] max_capacity
     #   Specifies the upper Aurora Serverless v2 capacity limit for a
-    #   particular engine version. Depending on the engine version, the
-    #   maximum capacity for an Aurora Serverless v2 cluster might be `256`
-    #   or `128`.
+    #   particular engine version or platform version. Depending on the
+    #   engine version, the maximum capacity for an Aurora Serverless v2
+    #   cluster might be `256` or `128`.
     #   @return [Float]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ServerlessV2FeaturesSupport AWS API Documentation
@@ -27551,7 +27568,9 @@ module Aws::RDS
     #   in an Aurora Serverless v2 cluster. You can specify ACU values in
     #   half-step increments, such as 32, 32.5, 33, and so on. The largest
     #   value that you can use is 256 for recent Aurora versions, or 128 for
-    #   older versions.
+    #   older versions. You can check the attributes of your engine version
+    #   or platform version to determine the specific maximum capacity
+    #   supported.
     #   @return [Float]
     #
     # @!attribute [rw] seconds_until_auto_pause
@@ -27596,7 +27615,9 @@ module Aws::RDS
     #   in an Aurora Serverless v2 cluster. You can specify ACU values in
     #   half-step increments, such as 32, 32.5, 33, and so on. The largest
     #   value that you can use is 256 for recent Aurora versions, or 128 for
-    #   older versions.
+    #   older versions. You can check the attributes of your engine version
+    #   or platform version to determine the specific maximum capacity
+    #   supported.
     #   @return [Float]
     #
     # @!attribute [rw] seconds_until_auto_pause

@@ -136,6 +136,27 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Specifies an instance group and the number of nodes to add to it.
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group to which you want to add nodes.
+    #   @return [String]
+    #
+    # @!attribute [rw] increment_target_count_by
+    #   The number of nodes to add to the specified instance group. The
+    #   total number of nodes across all instance groups in a single request
+    #   cannot exceed 50.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AddClusterNodeSpecification AWS API Documentation
+    #
+    class AddClusterNodeSpecification < Struct.new(
+      :instance_group_name,
+      :increment_target_count_by)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] resource_arn
     #   The Amazon Resource Name (ARN) of the resource that you want to tag.
     #   @return [String]
@@ -168,6 +189,22 @@ module Aws::SageMaker
     #
     class AddTagsOutput < Struct.new(
       :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about additional Elastic Network Interfaces (ENIs)
+    # associated with an instance.
+    #
+    # @!attribute [rw] efa_enis
+    #   A list of Elastic Fabric Adapter (EFA) ENIs associated with the
+    #   instance.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AdditionalEnis AWS API Documentation
+    #
+    class AdditionalEnis < Struct.new(
+      :efa_enis)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3043,6 +3080,93 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Information about an error that occurred during the node addition
+    # operation.
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group for which the error occurred.
+    #   @return [String]
+    #
+    # @!attribute [rw] error_code
+    #   The error code associated with the failure. Possible values include
+    #   `InstanceGroupNotFound` and `InvalidInstanceGroupState`.
+    #   @return [String]
+    #
+    # @!attribute [rw] failed_count
+    #   The number of nodes that failed to be added to the specified
+    #   instance group.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] message
+    #   A descriptive message providing additional details about the error.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchAddClusterNodesError AWS API Documentation
+    #
+    class BatchAddClusterNodesError < Struct.new(
+      :instance_group_name,
+      :error_code,
+      :failed_count,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] cluster_name
+    #   The name of the HyperPod cluster to which you want to add nodes.
+    #   @return [String]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. This token is valid for 8 hours. If you
+    #   retry the request with the same client token within this timeframe
+    #   and the same parameters, the API returns the same set of
+    #   `NodeLogicalIds` with their latest status.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] nodes_to_add
+    #   A list of instance groups and the number of nodes to add to each.
+    #   You can specify up to 5 instance groups in a single request, with a
+    #   maximum of 50 nodes total across all instance groups.
+    #   @return [Array<Types::AddClusterNodeSpecification>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchAddClusterNodesRequest AWS API Documentation
+    #
+    class BatchAddClusterNodesRequest < Struct.new(
+      :cluster_name,
+      :client_token,
+      :nodes_to_add)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] successful
+    #   A list of `NodeLogicalIDs` that were successfully added to the
+    #   cluster. The `NodeLogicalID` is unique per cluster and does not
+    #   change between instance replacements. Each entry includes a
+    #   `NodeLogicalId` that can be used to track the node's provisioning
+    #   status (with `DescribeClusterNode`), the instance group name, and
+    #   the current status of the node.
+    #   @return [Array<Types::NodeAdditionResult>]
+    #
+    # @!attribute [rw] failed
+    #   A list of errors that occurred during the node addition operation.
+    #   Each entry includes the instance group name, error code, number of
+    #   failed additions, and an error message.
+    #   @return [Array<Types::BatchAddClusterNodesError>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchAddClusterNodesResponse AWS API Documentation
+    #
+    class BatchAddClusterNodesResponse < Struct.new(
+      :successful,
+      :failed)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Configuration to control how SageMaker captures inference data for
     # batch transform jobs.
     #
@@ -3079,6 +3203,32 @@ module Aws::SageMaker
       :destination_s3_uri,
       :kms_key_id,
       :generate_inference_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about an error that occurred when attempting to delete a
+    # node identified by its `NodeLogicalId`.
+    #
+    # @!attribute [rw] code
+    #   The error code associated with the failure. Possible values include
+    #   `NodeLogicalIdNotFound`, `InvalidNodeStatus`, and `InternalError`.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   A descriptive message providing additional details about the error.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_logical_id
+    #   The `NodeLogicalId` of the node that could not be deleted.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchDeleteClusterNodeLogicalIdsError AWS API Documentation
+    #
+    class BatchDeleteClusterNodeLogicalIdsError < Struct.new(
+      :code,
+      :message,
+      :node_logical_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3136,11 +3286,19 @@ module Aws::SageMaker
     #   [1]: http://aws.amazon.com/contact-us/
     #   @return [Array<String>]
     #
+    # @!attribute [rw] node_logical_ids
+    #   A list of `NodeLogicalIds` identifying the nodes to be deleted. You
+    #   can specify up to 50 `NodeLogicalIds`. You must specify either
+    #   `NodeLogicalIds`, `InstanceIds`, or both, with a combined maximum of
+    #   50 identifiers.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchDeleteClusterNodesRequest AWS API Documentation
     #
     class BatchDeleteClusterNodesRequest < Struct.new(
       :cluster_name,
-      :node_ids)
+      :node_ids,
+      :node_logical_ids)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3154,11 +3312,23 @@ module Aws::SageMaker
     #   cluster.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] failed_node_logical_ids
+    #   A list of `NodeLogicalIds` that could not be deleted, along with
+    #   error information explaining why the deletion failed.
+    #   @return [Array<Types::BatchDeleteClusterNodeLogicalIdsError>]
+    #
+    # @!attribute [rw] successful_node_logical_ids
+    #   A list of `NodeLogicalIds` that were successfully deleted from the
+    #   cluster.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchDeleteClusterNodesResponse AWS API Documentation
     #
     class BatchDeleteClusterNodesResponse < Struct.new(
       :failed,
-      :successful)
+      :successful,
+      :failed_node_logical_ids,
+      :successful_node_logical_ids)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3629,6 +3799,27 @@ module Aws::SageMaker
       :kendra_settings,
       :generative_ai_settings,
       :emr_serverless_settings)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about the Capacity Reservation used by an instance or
+    # instance group.
+    #
+    # @!attribute [rw] arn
+    #   The Amazon Resource Name (ARN) of the Capacity Reservation.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The type of Capacity Reservation. Valid values are `ODCR` (On-Demand
+    #   Capacity Reservation) or `CRG` (Capacity Reservation Group).
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CapacityReservation AWS API Documentation
+    #
+    class CapacityReservation < Struct.new(
+      :arn,
+      :type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4534,6 +4725,118 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Detailed information about a specific event in a HyperPod cluster.
+    #
+    # @!attribute [rw] event_id
+    #   The unique identifier (UUID) of the event.
+    #   @return [String]
+    #
+    # @!attribute [rw] cluster_arn
+    #   The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster
+    #   associated with the event.
+    #   @return [String]
+    #
+    # @!attribute [rw] cluster_name
+    #   The name of the SageMaker HyperPod cluster associated with the
+    #   event.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group associated with the event, if
+    #   applicable.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_id
+    #   The EC2 instance ID associated with the event, if applicable.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The type of resource associated with the event. Valid values are
+    #   "Cluster", "InstanceGroup", or "Instance".
+    #   @return [String]
+    #
+    # @!attribute [rw] event_time
+    #   The timestamp when the event occurred.
+    #   @return [Time]
+    #
+    # @!attribute [rw] event_details
+    #   Additional details about the event, including event-specific
+    #   metadata.
+    #   @return [Types::EventDetails]
+    #
+    # @!attribute [rw] description
+    #   A human-readable description of the event.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterEventDetail AWS API Documentation
+    #
+    class ClusterEventDetail < Struct.new(
+      :event_id,
+      :cluster_arn,
+      :cluster_name,
+      :instance_group_name,
+      :instance_id,
+      :resource_type,
+      :event_time,
+      :event_details,
+      :description)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A summary of an event in a SageMaker HyperPod cluster.
+    #
+    # @!attribute [rw] event_id
+    #   The unique identifier (UUID) of the event.
+    #   @return [String]
+    #
+    # @!attribute [rw] cluster_arn
+    #   The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster
+    #   associated with the event.
+    #   @return [String]
+    #
+    # @!attribute [rw] cluster_name
+    #   The name of the SageMaker HyperPod cluster associated with the
+    #   event.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group associated with the event, if
+    #   applicable.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_id
+    #   The EC2 instance ID associated with the event, if applicable.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The type of resource associated with the event. Valid values are
+    #   "Cluster", "InstanceGroup", or "Instance".
+    #   @return [String]
+    #
+    # @!attribute [rw] event_time
+    #   The timestamp when the event occurred.
+    #   @return [Time]
+    #
+    # @!attribute [rw] description
+    #   A brief, human-readable description of the event.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterEventSummary AWS API Documentation
+    #
+    class ClusterEventSummary < Struct.new(
+      :event_id,
+      :cluster_arn,
+      :cluster_name,
+      :instance_group_name,
+      :instance_id,
+      :resource_type,
+      :event_time,
+      :description)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Details of an instance group in a SageMaker HyperPod cluster.
     #
     # @!attribute [rw] current_count
@@ -4630,6 +4933,16 @@ module Aws::SageMaker
     #   updating the AMI.
     #   @return [Types::ScheduledUpdateConfig]
     #
+    # @!attribute [rw] current_image_id
+    #   The ID of the Amazon Machine Image (AMI) currently in use by the
+    #   instance group.
+    #   @return [String]
+    #
+    # @!attribute [rw] desired_image_id
+    #   The ID of the Amazon Machine Image (AMI) desired for the instance
+    #   group.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterInstanceGroupDetails AWS API Documentation
     #
     class ClusterInstanceGroupDetails < Struct.new(
@@ -4646,7 +4959,9 @@ module Aws::SageMaker
       :training_plan_arn,
       :training_plan_status,
       :override_vpc_config,
-      :scheduled_update_config)
+      :scheduled_update_config,
+      :current_image_id,
+      :desired_image_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4756,6 +5071,33 @@ module Aws::SageMaker
     #   update the AMI.
     #   @return [Types::ScheduledUpdateConfig]
     #
+    # @!attribute [rw] image_id
+    #   When configuring your HyperPod cluster, you can specify an image ID
+    #   using one of the following options:
+    #
+    #   * `HyperPodPublicAmiId`: Use a HyperPod public AMI
+    #
+    #   * `CustomAmiId`: Use your custom AMI
+    #
+    #   * `default`: Use the default latest system image
+    #
+    #   f you choose to use a custom AMI (`CustomAmiId`), ensure it meets
+    #   the following requirements:
+    #
+    #   * Encryption: The custom AMI must be unencrypted.
+    #
+    #   * Ownership: The custom AMI must be owned by the same Amazon Web
+    #     Services account that is creating the HyperPod cluster.
+    #
+    #   * Volume support: Only the primary AMI snapshot volume is supported;
+    #     additional AMI volumes are not supported.
+    #
+    #   When updating the instance group's AMI through the
+    #   `UpdateClusterSoftware` operation, if an instance group uses a
+    #   custom AMI, you must provide an `ImageId` or use the default as
+    #   input.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterInstanceGroupSpecification AWS API Documentation
     #
     class ClusterInstanceGroupSpecification < Struct.new(
@@ -4769,7 +5111,8 @@ module Aws::SageMaker
       :on_start_deep_health_checks,
       :training_plan_arn,
       :override_vpc_config,
-      :scheduled_update_config)
+      :scheduled_update_config,
+      :image_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4879,6 +5222,37 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Metadata information about a SageMaker HyperPod cluster showing
+    # information about the cluster level operations, such as creating,
+    # updating, and deleting.
+    #
+    # @!attribute [rw] failure_message
+    #   An error message describing why the cluster level operation (such as
+    #   creating, updating, or deleting) failed.
+    #   @return [String]
+    #
+    # @!attribute [rw] eks_role_access_entries
+    #   A list of Amazon EKS IAM role ARNs associated with the cluster. This
+    #   is created by SageMaker HyperPod on your behalf and only applies for
+    #   EKS-orchestrated clusters.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] slr_access_entry
+    #   The Service-Linked Role (SLR) associated with the cluster. This is
+    #   created by SageMaker HyperPod on your behalf and only applies for
+    #   EKS-orchestrated clusters.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterMetadata AWS API Documentation
+    #
+    class ClusterMetadata < Struct.new(
+      :failure_message,
+      :eks_role_access_entries,
+      :slr_access_entry)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Details of an instance (also called a *node* interchangeably) in a
     # SageMaker HyperPod cluster.
     #
@@ -4888,6 +5262,13 @@ module Aws::SageMaker
     #
     # @!attribute [rw] instance_id
     #   The ID of the instance.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_logical_id
+    #   A unique identifier for the node that persists throughout its
+    #   lifecycle, from provisioning request to termination. This identifier
+    #   can be used to track the node even before it has an assigned
+    #   `InstanceId`.
     #   @return [String]
     #
     # @!attribute [rw] instance_status
@@ -4947,11 +5328,21 @@ module Aws::SageMaker
     #   The placement details of the SageMaker HyperPod cluster node.
     #   @return [Types::ClusterInstancePlacement]
     #
+    # @!attribute [rw] current_image_id
+    #   The ID of the Amazon Machine Image (AMI) currently in use by the
+    #   node.
+    #   @return [String]
+    #
+    # @!attribute [rw] desired_image_id
+    #   The ID of the Amazon Machine Image (AMI) desired for the node.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterNodeDetails AWS API Documentation
     #
     class ClusterNodeDetails < Struct.new(
       :instance_group_name,
       :instance_id,
+      :node_logical_id,
       :instance_status,
       :instance_type,
       :launch_time,
@@ -4963,7 +5354,9 @@ module Aws::SageMaker
       :private_primary_ip,
       :private_primary_ipv_6,
       :private_dns_hostname,
-      :placement)
+      :placement,
+      :current_image_id,
+      :desired_image_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4977,6 +5370,15 @@ module Aws::SageMaker
     #
     # @!attribute [rw] instance_id
     #   The ID of the instance.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_logical_id
+    #   A unique identifier for the node that persists throughout its
+    #   lifecycle, from provisioning request to termination. This identifier
+    #   can be used to track the node even before it has an assigned
+    #   `InstanceId`. This field is only included when
+    #   `IncludeNodeLogicalIds` is set to `True` in the `ListClusterNodes`
+    #   request.
     #   @return [String]
     #
     # @!attribute [rw] instance_type
@@ -5001,6 +5403,7 @@ module Aws::SageMaker
     class ClusterNodeSummary < Struct.new(
       :instance_group_name,
       :instance_id,
+      :node_logical_id,
       :instance_type,
       :launch_time,
       :last_software_update_time,
@@ -6833,6 +7236,21 @@ module Aws::SageMaker
     #   cluster instances.
     #   @return [String]
     #
+    # @!attribute [rw] node_provisioning_mode
+    #   The mode for provisioning nodes in the cluster. You can specify the
+    #   following modes:
+    #
+    #   * **Continuous**: Scaling behavior that enables 1) concurrent
+    #     operation execution within instance groups, 2) continuous retry
+    #     mechanisms for failed operations, 3) enhanced customer visibility
+    #     into cluster events through detailed event streams, 4) partial
+    #     provisioning capabilities. Your clusters and instance groups
+    #     remain `InService` while scaling. This mode is only supported for
+    #     EKS orchestrated clusters.
+    #
+    #   ^
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateClusterRequest AWS API Documentation
     #
     class CreateClusterRequest < Struct.new(
@@ -6842,7 +7260,8 @@ module Aws::SageMaker
       :vpc_config,
       :tags,
       :orchestrator,
-      :node_recovery)
+      :node_recovery,
+      :node_provisioning_mode)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -14391,6 +14810,39 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # @!attribute [rw] event_id
+    #   The unique identifier (UUID) of the event to describe. This ID can
+    #   be obtained from the `ListClusterEvents` operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] cluster_name
+    #   The name or Amazon Resource Name (ARN) of the HyperPod cluster
+    #   associated with the event.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterEventRequest AWS API Documentation
+    #
+    class DescribeClusterEventRequest < Struct.new(
+      :event_id,
+      :cluster_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] event_details
+    #   Detailed information about the requested cluster event, including
+    #   event metadata for various resource types such as `Cluster`,
+    #   `InstanceGroup`, `Instance`, and their associated attributes.
+    #   @return [Types::ClusterEventDetail]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterEventResponse AWS API Documentation
+    #
+    class DescribeClusterEventResponse < Struct.new(
+      :event_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] cluster_name
     #   The string name or the Amazon Resource Name (ARN) of the SageMaker
     #   HyperPod cluster in which the node is.
@@ -14400,11 +14852,19 @@ module Aws::SageMaker
     #   The ID of the SageMaker HyperPod cluster node.
     #   @return [String]
     #
+    # @!attribute [rw] node_logical_id
+    #   The logical identifier of the node to describe. You can specify
+    #   either `NodeLogicalId` or `InstanceId`, but not both.
+    #   `NodeLogicalId` can be used to describe nodes that are still being
+    #   provisioned and don't yet have an `InstanceId` assigned.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterNodeRequest AWS API Documentation
     #
     class DescribeClusterNodeRequest < Struct.new(
       :cluster_name,
-      :node_id)
+      :node_id,
+      :node_logical_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -14484,6 +14944,10 @@ module Aws::SageMaker
     #   cluster.
     #   @return [String]
     #
+    # @!attribute [rw] node_provisioning_mode
+    #   The mode used for provisioning nodes in the cluster.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterResponse AWS API Documentation
     #
     class DescribeClusterResponse < Struct.new(
@@ -14496,7 +14960,8 @@ module Aws::SageMaker
       :restricted_instance_groups,
       :vpc_config,
       :orchestrator,
-      :node_recovery)
+      :node_recovery,
+      :node_provisioning_mode)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -22293,6 +22758,61 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Detailed information about a specific event, including event metadata.
+    #
+    # @!attribute [rw] event_metadata
+    #   Metadata specific to the event, which may include information about
+    #   the cluster, instance group, or instance involved.
+    #   @return [Types::EventMetadata]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/EventDetails AWS API Documentation
+    #
+    class EventDetails < Struct.new(
+      :event_metadata)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Metadata associated with a cluster event, which may include details
+    # about various resource types.
+    #
+    # @note EventMetadata is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of EventMetadata corresponding to the set member.
+    #
+    # @!attribute [rw] cluster
+    #   Metadata specific to cluster-level events.
+    #   @return [Types::ClusterMetadata]
+    #
+    # @!attribute [rw] instance_group
+    #   Metadata specific to instance group-level events.
+    #   @return [Types::InstanceGroupMetadata]
+    #
+    # @!attribute [rw] instance_group_scaling
+    #   Metadata related to instance group scaling events.
+    #   @return [Types::InstanceGroupScalingMetadata]
+    #
+    # @!attribute [rw] instance
+    #   Metadata specific to instance-level events.
+    #   @return [Types::InstanceMetadata]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/EventMetadata AWS API Documentation
+    #
+    class EventMetadata < Struct.new(
+      :cluster,
+      :instance_group,
+      :instance_group_scaling,
+      :instance,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Cluster < EventMetadata; end
+      class InstanceGroup < EventMetadata; end
+      class InstanceGroupScaling < EventMetadata; end
+      class Instance < EventMetadata; end
+      class Unknown < EventMetadata; end
+    end
+
     # The properties of an experiment as returned by the [Search][1] API.
     # For information about experiments, see the [CreateExperiment][2] API.
     #
@@ -27531,6 +28051,117 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Metadata information about an instance group in a SageMaker HyperPod
+    # cluster.
+    #
+    # @!attribute [rw] failure_message
+    #   An error message describing why the instance group level operation
+    #   (such as creating, scaling, or deleting) failed.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone where the instance group is located.
+    #   @return [String]
+    #
+    # @!attribute [rw] capacity_reservation
+    #   Information about the Capacity Reservation used by the instance
+    #   group.
+    #   @return [Types::CapacityReservation]
+    #
+    # @!attribute [rw] subnet_id
+    #   The ID of the subnet where the instance group is located.
+    #   @return [String]
+    #
+    # @!attribute [rw] security_group_ids
+    #   A list of security group IDs associated with the instance group.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] ami_override
+    #   If you use a custom Amazon Machine Image (AMI) for the instance
+    #   group, this field shows the ID of the custom AMI.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/InstanceGroupMetadata AWS API Documentation
+    #
+    class InstanceGroupMetadata < Struct.new(
+      :failure_message,
+      :availability_zone_id,
+      :capacity_reservation,
+      :subnet_id,
+      :security_group_ids,
+      :ami_override)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Metadata information about scaling operations for an instance group.
+    #
+    # @!attribute [rw] instance_count
+    #   The current number of instances in the group.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] target_count
+    #   The desired number of instances for the group after scaling.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] failure_message
+    #   An error message describing why the scaling operation failed, if
+    #   applicable.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/InstanceGroupScalingMetadata AWS API Documentation
+    #
+    class InstanceGroupScalingMetadata < Struct.new(
+      :instance_count,
+      :target_count,
+      :failure_message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Metadata information about an instance in a HyperPod cluster.
+    #
+    # @!attribute [rw] customer_eni
+    #   The ID of the customer-managed Elastic Network Interface (ENI)
+    #   associated with the instance.
+    #   @return [String]
+    #
+    # @!attribute [rw] additional_enis
+    #   Information about additional Elastic Network Interfaces (ENIs)
+    #   associated with the instance.
+    #   @return [Types::AdditionalEnis]
+    #
+    # @!attribute [rw] capacity_reservation
+    #   Information about the Capacity Reservation used by the instance.
+    #   @return [Types::CapacityReservation]
+    #
+    # @!attribute [rw] failure_message
+    #   An error message describing why the instance creation or update
+    #   failed, if applicable.
+    #   @return [String]
+    #
+    # @!attribute [rw] lcs_execution_state
+    #   The execution state of the Lifecycle Script (LCS) for the instance.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_logical_id
+    #   The unique logical identifier of the node within the cluster. The ID
+    #   used here is the same object as in the `BatchAddClusterNodes` API.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/InstanceMetadata AWS API Documentation
+    #
+    class InstanceMetadata < Struct.new(
+      :customer_eni,
+      :additional_enis,
+      :capacity_reservation,
+      :failure_message,
+      :lcs_execution_state,
+      :node_logical_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Information on the IMDS configuration of the notebook instance
     #
     # @!attribute [rw] minimum_instance_metadata_service_version
@@ -29073,6 +29704,91 @@ module Aws::SageMaker
     end
 
     # @!attribute [rw] cluster_name
+    #   The name or Amazon Resource Name (ARN) of the HyperPod cluster for
+    #   which to list events.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group to filter events. If specified, only
+    #   events related to this instance group are returned.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_id
+    #   The EC2 instance ID to filter events. If specified, only events
+    #   related to this instance are returned.
+    #   @return [String]
+    #
+    # @!attribute [rw] event_time_after
+    #   The start of the time range for filtering events. Only events that
+    #   occurred after this time are included in the results.
+    #   @return [Time]
+    #
+    # @!attribute [rw] event_time_before
+    #   The end of the time range for filtering events. Only events that
+    #   occurred before this time are included in the results.
+    #   @return [Time]
+    #
+    # @!attribute [rw] sort_by
+    #   The field to use for sorting the event list. Currently, the only
+    #   supported value is `EventTime`.
+    #   @return [String]
+    #
+    # @!attribute [rw] sort_order
+    #   The order in which to sort the results. Valid values are `Ascending`
+    #   or `Descending` (the default is `Descending`).
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The type of resource for which to filter events. Valid values are
+    #   `Cluster`, `InstanceGroup`, or `Instance`.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of events to return in the response. Valid range
+    #   is 1 to 100.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   A token to retrieve the next set of results. This token is obtained
+    #   from the output of a previous `ListClusterEvents` call.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterEventsRequest AWS API Documentation
+    #
+    class ListClusterEventsRequest < Struct.new(
+      :cluster_name,
+      :instance_group_name,
+      :node_id,
+      :event_time_after,
+      :event_time_before,
+      :sort_by,
+      :sort_order,
+      :resource_type,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   A token to retrieve the next set of results. Include this token in
+    #   subsequent `ListClusterEvents` calls to fetch more events.
+    #   @return [String]
+    #
+    # @!attribute [rw] events
+    #   A list of event summaries matching the specified criteria.
+    #   @return [Array<Types::ClusterEventSummary>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterEventsResponse AWS API Documentation
+    #
+    class ListClusterEventsResponse < Struct.new(
+      :next_token,
+      :events)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] cluster_name
     #   The string name or the Amazon Resource Name (ARN) of the SageMaker
     #   HyperPod cluster in which you want to retrieve the list of nodes.
     #   @return [String]
@@ -29140,6 +29856,13 @@ module Aws::SageMaker
     #   The sort order for results. The default value is `Ascending`.
     #   @return [String]
     #
+    # @!attribute [rw] include_node_logical_ids
+    #   Specifies whether to include nodes that are still being provisioned
+    #   in the response. When set to true, the response includes all nodes
+    #   regardless of their provisioning status. When set to `False`
+    #   (default), only nodes with assigned `InstanceIds` are returned.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterNodesRequest AWS API Documentation
     #
     class ListClusterNodesRequest < Struct.new(
@@ -29150,7 +29873,8 @@ module Aws::SageMaker
       :max_results,
       :next_token,
       :sort_by,
-      :sort_order)
+      :sort_order,
+      :include_node_logical_ids)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -37691,6 +38415,33 @@ module Aws::SageMaker
       :enable_inter_container_traffic_encryption,
       :enable_network_isolation,
       :vpc_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about a node that was successfully added to the cluster.
+    #
+    # @!attribute [rw] node_logical_id
+    #   A unique identifier assigned to the node that can be used to track
+    #   its provisioning status through the `DescribeClusterNode` operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_group_name
+    #   The name of the instance group to which the node was added.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current status of the node. Possible values include `Pending`,
+    #   `Running`, `Failed`, `ShuttingDown`, `SystemUpdating`,
+    #   `DeepHealthCheckInProgress`, and `NotFound`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/NodeAdditionResult AWS API Documentation
+    #
+    class NodeAdditionResult < Struct.new(
+      :node_logical_id,
+      :instance_group_name,
+      :status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -49393,12 +50144,40 @@ module Aws::SageMaker
     #   The configuration to use when updating the AMI versions.
     #   @return [Types::DeploymentConfiguration]
     #
+    # @!attribute [rw] image_id
+    #   When configuring your HyperPod cluster, you can specify an image ID
+    #   using one of the following options:
+    #
+    #   * `HyperPodPublicAmiId`: Use a HyperPod public AMI
+    #
+    #   * `CustomAmiId`: Use your custom AMI
+    #
+    #   * `default`: Use the default latest system image
+    #
+    #   f you choose to use a custom AMI (`CustomAmiId`), ensure it meets
+    #   the following requirements:
+    #
+    #   * Encryption: The custom AMI must be unencrypted.
+    #
+    #   * Ownership: The custom AMI must be owned by the same Amazon Web
+    #     Services account that is creating the HyperPod cluster.
+    #
+    #   * Volume support: Only the primary AMI snapshot volume is supported;
+    #     additional AMI volumes are not supported.
+    #
+    #   When updating the instance group's AMI through the
+    #   `UpdateClusterSoftware` operation, if an instance group uses a
+    #   custom AMI, you must provide an `ImageId` or use the default as
+    #   input.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateClusterSoftwareRequest AWS API Documentation
     #
     class UpdateClusterSoftwareRequest < Struct.new(
       :cluster_name,
       :instance_groups,
-      :deployment_config)
+      :deployment_config,
+      :image_id)
       SENSITIVE = []
       include Aws::Structure
     end

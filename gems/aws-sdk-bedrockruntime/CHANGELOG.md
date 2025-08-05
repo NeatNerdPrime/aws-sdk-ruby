@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.55.0 (2025-08-05)
+------------------
+
+* Feature - This release adds support for Automated Reasoning checks output models for the Amazon Bedrock Guardrails ApplyGuardrail API.
+
 1.54.0 (2025-08-04)
 ------------------
 

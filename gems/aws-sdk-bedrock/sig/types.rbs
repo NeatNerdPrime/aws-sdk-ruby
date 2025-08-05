@@ -43,6 +43,579 @@ module Aws::Bedrock
       end
     end
 
+    class AutomatedReasoningCheckFinding
+      attr_accessor valid: Types::AutomatedReasoningCheckValidFinding
+      attr_accessor invalid: Types::AutomatedReasoningCheckInvalidFinding
+      attr_accessor satisfiable: Types::AutomatedReasoningCheckSatisfiableFinding
+      attr_accessor impossible: Types::AutomatedReasoningCheckImpossibleFinding
+      attr_accessor translation_ambiguous: Types::AutomatedReasoningCheckTranslationAmbiguousFinding
+      attr_accessor too_complex: Types::AutomatedReasoningCheckTooComplexFinding
+      attr_accessor no_translations: Types::AutomatedReasoningCheckNoTranslationsFinding
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Valid < AutomatedReasoningCheckFinding
+      end
+      class Invalid < AutomatedReasoningCheckFinding
+      end
+      class Satisfiable < AutomatedReasoningCheckFinding
+      end
+      class Impossible < AutomatedReasoningCheckFinding
+      end
+      class TranslationAmbiguous < AutomatedReasoningCheckFinding
+      end
+      class TooComplex < AutomatedReasoningCheckFinding
+      end
+      class NoTranslations < AutomatedReasoningCheckFinding
+      end
+      class Unknown < AutomatedReasoningCheckFinding
+      end
+    end
+
+    class AutomatedReasoningCheckImpossibleFinding
+      attr_accessor translation: Types::AutomatedReasoningCheckTranslation
+      attr_accessor contradicting_rules: ::Array[Types::AutomatedReasoningCheckRule]
+      attr_accessor logic_warning: Types::AutomatedReasoningCheckLogicWarning
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckInputTextReference
+      attr_accessor text: ::String
+      SENSITIVE: [:text]
+    end
+
+    class AutomatedReasoningCheckInvalidFinding
+      attr_accessor translation: Types::AutomatedReasoningCheckTranslation
+      attr_accessor contradicting_rules: ::Array[Types::AutomatedReasoningCheckRule]
+      attr_accessor logic_warning: Types::AutomatedReasoningCheckLogicWarning
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckLogicWarning
+      attr_accessor type: ("ALWAYS_TRUE" | "ALWAYS_FALSE")
+      attr_accessor premises: ::Array[Types::AutomatedReasoningLogicStatement]
+      attr_accessor claims: ::Array[Types::AutomatedReasoningLogicStatement]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckNoTranslationsFinding < Aws::EmptyStructure
+    end
+
+    class AutomatedReasoningCheckRule
+      attr_accessor id: ::String
+      attr_accessor policy_version_arn: ::String
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckSatisfiableFinding
+      attr_accessor translation: Types::AutomatedReasoningCheckTranslation
+      attr_accessor claims_true_scenario: Types::AutomatedReasoningCheckScenario
+      attr_accessor claims_false_scenario: Types::AutomatedReasoningCheckScenario
+      attr_accessor logic_warning: Types::AutomatedReasoningCheckLogicWarning
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckScenario
+      attr_accessor statements: ::Array[Types::AutomatedReasoningLogicStatement]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckTooComplexFinding < Aws::EmptyStructure
+    end
+
+    class AutomatedReasoningCheckTranslation
+      attr_accessor premises: ::Array[Types::AutomatedReasoningLogicStatement]
+      attr_accessor claims: ::Array[Types::AutomatedReasoningLogicStatement]
+      attr_accessor untranslated_premises: ::Array[Types::AutomatedReasoningCheckInputTextReference]
+      attr_accessor untranslated_claims: ::Array[Types::AutomatedReasoningCheckInputTextReference]
+      attr_accessor confidence: ::Float
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckTranslationAmbiguousFinding
+      attr_accessor options: ::Array[Types::AutomatedReasoningCheckTranslationOption]
+      attr_accessor difference_scenarios: ::Array[Types::AutomatedReasoningCheckScenario]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckTranslationOption
+      attr_accessor translations: ::Array[Types::AutomatedReasoningCheckTranslation]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningCheckValidFinding
+      attr_accessor translation: Types::AutomatedReasoningCheckTranslation
+      attr_accessor claims_true_scenario: Types::AutomatedReasoningCheckScenario
+      attr_accessor supporting_rules: ::Array[Types::AutomatedReasoningCheckRule]
+      attr_accessor logic_warning: Types::AutomatedReasoningCheckLogicWarning
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningLogicStatement
+      attr_accessor logic: ::String
+      attr_accessor natural_language: ::String
+      SENSITIVE: [:logic, :natural_language]
+    end
+
+    class AutomatedReasoningPolicyAddRuleAnnotation
+      attr_accessor expression: ::String
+      SENSITIVE: [:expression]
+    end
+
+    class AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation
+      attr_accessor natural_language: ::String
+      SENSITIVE: [:natural_language]
+    end
+
+    class AutomatedReasoningPolicyAddRuleMutation
+      attr_accessor rule: Types::AutomatedReasoningPolicyDefinitionRule
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyAddTypeAnnotation
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor values: ::Array[Types::AutomatedReasoningPolicyDefinitionTypeValue]
+      SENSITIVE: [:name, :description]
+    end
+
+    class AutomatedReasoningPolicyAddTypeMutation
+      attr_accessor type: Types::AutomatedReasoningPolicyDefinitionType
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyAddTypeValue
+      attr_accessor value: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:description]
+    end
+
+    class AutomatedReasoningPolicyAddVariableAnnotation
+      attr_accessor name: ::String
+      attr_accessor type: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:name, :type, :description]
+    end
+
+    class AutomatedReasoningPolicyAddVariableMutation
+      attr_accessor variable: Types::AutomatedReasoningPolicyDefinitionVariable
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyAnnotation
+      attr_accessor add_type: Types::AutomatedReasoningPolicyAddTypeAnnotation
+      attr_accessor update_type: Types::AutomatedReasoningPolicyUpdateTypeAnnotation
+      attr_accessor delete_type: Types::AutomatedReasoningPolicyDeleteTypeAnnotation
+      attr_accessor add_variable: Types::AutomatedReasoningPolicyAddVariableAnnotation
+      attr_accessor update_variable: Types::AutomatedReasoningPolicyUpdateVariableAnnotation
+      attr_accessor delete_variable: Types::AutomatedReasoningPolicyDeleteVariableAnnotation
+      attr_accessor add_rule: Types::AutomatedReasoningPolicyAddRuleAnnotation
+      attr_accessor update_rule: Types::AutomatedReasoningPolicyUpdateRuleAnnotation
+      attr_accessor delete_rule: Types::AutomatedReasoningPolicyDeleteRuleAnnotation
+      attr_accessor add_rule_from_natural_language: Types::AutomatedReasoningPolicyAddRuleFromNaturalLanguageAnnotation
+      attr_accessor update_from_rules_feedback: Types::AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation
+      attr_accessor update_from_scenario_feedback: Types::AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation
+      attr_accessor ingest_content: Types::AutomatedReasoningPolicyIngestContentAnnotation
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class AddType < AutomatedReasoningPolicyAnnotation
+      end
+      class UpdateType < AutomatedReasoningPolicyAnnotation
+      end
+      class DeleteType < AutomatedReasoningPolicyAnnotation
+      end
+      class AddVariable < AutomatedReasoningPolicyAnnotation
+      end
+      class UpdateVariable < AutomatedReasoningPolicyAnnotation
+      end
+      class DeleteVariable < AutomatedReasoningPolicyAnnotation
+      end
+      class AddRule < AutomatedReasoningPolicyAnnotation
+      end
+      class UpdateRule < AutomatedReasoningPolicyAnnotation
+      end
+      class DeleteRule < AutomatedReasoningPolicyAnnotation
+      end
+      class AddRuleFromNaturalLanguage < AutomatedReasoningPolicyAnnotation
+      end
+      class UpdateFromRulesFeedback < AutomatedReasoningPolicyAnnotation
+      end
+      class UpdateFromScenarioFeedback < AutomatedReasoningPolicyAnnotation
+      end
+      class IngestContent < AutomatedReasoningPolicyAnnotation
+      end
+      class Unknown < AutomatedReasoningPolicyAnnotation
+      end
+    end
+
+    class AutomatedReasoningPolicyBuildLog
+      attr_accessor entries: ::Array[Types::AutomatedReasoningPolicyBuildLogEntry]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildLogEntry
+      attr_accessor annotation: Types::AutomatedReasoningPolicyAnnotation
+      attr_accessor status: ("APPLIED" | "FAILED")
+      attr_accessor build_steps: ::Array[Types::AutomatedReasoningPolicyBuildStep]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildResultAssets
+      attr_accessor policy_definition: Types::AutomatedReasoningPolicyDefinition
+      attr_accessor quality_report: Types::AutomatedReasoningPolicyDefinitionQualityReport
+      attr_accessor build_log: Types::AutomatedReasoningPolicyBuildLog
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class PolicyDefinition < AutomatedReasoningPolicyBuildResultAssets
+      end
+      class QualityReport < AutomatedReasoningPolicyBuildResultAssets
+      end
+      class BuildLog < AutomatedReasoningPolicyBuildResultAssets
+      end
+      class Unknown < AutomatedReasoningPolicyBuildResultAssets
+      end
+    end
+
+    class AutomatedReasoningPolicyBuildStep
+      attr_accessor context: Types::AutomatedReasoningPolicyBuildStepContext
+      attr_accessor prior_element: Types::AutomatedReasoningPolicyDefinitionElement
+      attr_accessor messages: ::Array[Types::AutomatedReasoningPolicyBuildStepMessage]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildStepContext
+      attr_accessor planning: Types::AutomatedReasoningPolicyPlanning
+      attr_accessor mutation: Types::AutomatedReasoningPolicyMutation
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Planning < AutomatedReasoningPolicyBuildStepContext
+      end
+      class Mutation < AutomatedReasoningPolicyBuildStepContext
+      end
+      class Unknown < AutomatedReasoningPolicyBuildStepContext
+      end
+    end
+
+    class AutomatedReasoningPolicyBuildStepMessage
+      attr_accessor message: ::String
+      attr_accessor message_type: ("INFO" | "WARNING" | "ERROR")
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildWorkflowDocument
+      attr_accessor document: ::String
+      attr_accessor document_content_type: ("pdf" | "txt")
+      attr_accessor document_name: ::String
+      attr_accessor document_description: ::String
+      SENSITIVE: [:document_name, :document_description]
+    end
+
+    class AutomatedReasoningPolicyBuildWorkflowRepairContent
+      attr_accessor annotations: ::Array[Types::AutomatedReasoningPolicyAnnotation]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildWorkflowSource
+      attr_accessor policy_definition: Types::AutomatedReasoningPolicyDefinition
+      attr_accessor workflow_content: Types::AutomatedReasoningPolicyWorkflowTypeContent
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyBuildWorkflowSummary
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor status: ("SCHEDULED" | "CANCEL_REQUESTED" | "PREPROCESSING" | "BUILDING" | "TESTING" | "COMPLETED" | "FAILED" | "CANCELLED")
+      attr_accessor build_workflow_type: ("INGEST_CONTENT" | "REFINE_POLICY" | "IMPORT_POLICY")
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDefinition
+      attr_accessor version: ::String
+      attr_accessor types: ::Array[Types::AutomatedReasoningPolicyDefinitionType]
+      attr_accessor rules: ::Array[Types::AutomatedReasoningPolicyDefinitionRule]
+      attr_accessor variables: ::Array[Types::AutomatedReasoningPolicyDefinitionVariable]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDefinitionElement
+      attr_accessor policy_definition_variable: Types::AutomatedReasoningPolicyDefinitionVariable
+      attr_accessor policy_definition_type: Types::AutomatedReasoningPolicyDefinitionType
+      attr_accessor policy_definition_rule: Types::AutomatedReasoningPolicyDefinitionRule
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class PolicyDefinitionVariable < AutomatedReasoningPolicyDefinitionElement
+      end
+      class PolicyDefinitionType < AutomatedReasoningPolicyDefinitionElement
+      end
+      class PolicyDefinitionRule < AutomatedReasoningPolicyDefinitionElement
+      end
+      class Unknown < AutomatedReasoningPolicyDefinitionElement
+      end
+    end
+
+    class AutomatedReasoningPolicyDefinitionQualityReport
+      attr_accessor type_count: ::Integer
+      attr_accessor variable_count: ::Integer
+      attr_accessor rule_count: ::Integer
+      attr_accessor unused_types: ::Array[::String]
+      attr_accessor unused_type_values: ::Array[Types::AutomatedReasoningPolicyDefinitionTypeValuePair]
+      attr_accessor unused_variables: ::Array[::String]
+      attr_accessor conflicting_rules: ::Array[::String]
+      attr_accessor disjoint_rule_sets: ::Array[Types::AutomatedReasoningPolicyDisjointRuleSet]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDefinitionRule
+      attr_accessor id: ::String
+      attr_accessor expression: ::String
+      attr_accessor alternate_expression: ::String
+      SENSITIVE: [:expression, :alternate_expression]
+    end
+
+    class AutomatedReasoningPolicyDefinitionType
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor values: ::Array[Types::AutomatedReasoningPolicyDefinitionTypeValue]
+      SENSITIVE: [:name, :description]
+    end
+
+    class AutomatedReasoningPolicyDefinitionTypeValue
+      attr_accessor value: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:description]
+    end
+
+    class AutomatedReasoningPolicyDefinitionTypeValuePair
+      attr_accessor type_name: ::String
+      attr_accessor value_name: ::String
+      SENSITIVE: [:type_name]
+    end
+
+    class AutomatedReasoningPolicyDefinitionVariable
+      attr_accessor name: ::String
+      attr_accessor type: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:name, :type, :description]
+    end
+
+    class AutomatedReasoningPolicyDeleteRuleAnnotation
+      attr_accessor rule_id: ::String
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDeleteRuleMutation
+      attr_accessor id: ::String
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDeleteTypeAnnotation
+      attr_accessor name: ::String
+      SENSITIVE: [:name]
+    end
+
+    class AutomatedReasoningPolicyDeleteTypeMutation
+      attr_accessor name: ::String
+      SENSITIVE: [:name]
+    end
+
+    class AutomatedReasoningPolicyDeleteTypeValue
+      attr_accessor value: ::String
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyDeleteVariableAnnotation
+      attr_accessor name: ::String
+      SENSITIVE: [:name]
+    end
+
+    class AutomatedReasoningPolicyDeleteVariableMutation
+      attr_accessor name: ::String
+      SENSITIVE: [:name]
+    end
+
+    class AutomatedReasoningPolicyDisjointRuleSet
+      attr_accessor variables: ::Array[::String]
+      attr_accessor rules: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyIngestContentAnnotation
+      attr_accessor content: ::String
+      SENSITIVE: [:content]
+    end
+
+    class AutomatedReasoningPolicyMutation
+      attr_accessor add_type: Types::AutomatedReasoningPolicyAddTypeMutation
+      attr_accessor update_type: Types::AutomatedReasoningPolicyUpdateTypeMutation
+      attr_accessor delete_type: Types::AutomatedReasoningPolicyDeleteTypeMutation
+      attr_accessor add_variable: Types::AutomatedReasoningPolicyAddVariableMutation
+      attr_accessor update_variable: Types::AutomatedReasoningPolicyUpdateVariableMutation
+      attr_accessor delete_variable: Types::AutomatedReasoningPolicyDeleteVariableMutation
+      attr_accessor add_rule: Types::AutomatedReasoningPolicyAddRuleMutation
+      attr_accessor update_rule: Types::AutomatedReasoningPolicyUpdateRuleMutation
+      attr_accessor delete_rule: Types::AutomatedReasoningPolicyDeleteRuleMutation
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class AddType < AutomatedReasoningPolicyMutation
+      end
+      class UpdateType < AutomatedReasoningPolicyMutation
+      end
+      class DeleteType < AutomatedReasoningPolicyMutation
+      end
+      class AddVariable < AutomatedReasoningPolicyMutation
+      end
+      class UpdateVariable < AutomatedReasoningPolicyMutation
+      end
+      class DeleteVariable < AutomatedReasoningPolicyMutation
+      end
+      class AddRule < AutomatedReasoningPolicyMutation
+      end
+      class UpdateRule < AutomatedReasoningPolicyMutation
+      end
+      class DeleteRule < AutomatedReasoningPolicyMutation
+      end
+      class Unknown < AutomatedReasoningPolicyMutation
+      end
+    end
+
+    class AutomatedReasoningPolicyPlanning < Aws::EmptyStructure
+    end
+
+    class AutomatedReasoningPolicyScenario
+      attr_accessor expression: ::String
+      attr_accessor alternate_expression: ::String
+      attr_accessor rule_ids: ::Array[::String]
+      attr_accessor expected_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION")
+      SENSITIVE: [:expression, :alternate_expression]
+    end
+
+    class AutomatedReasoningPolicySummary
+      attr_accessor policy_arn: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor version: ::String
+      attr_accessor policy_id: ::String
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:name, :description]
+    end
+
+    class AutomatedReasoningPolicyTestCase
+      attr_accessor test_case_id: ::String
+      attr_accessor guard_content: ::String
+      attr_accessor query_content: ::String
+      attr_accessor expected_aggregated_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION")
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      attr_accessor confidence_threshold: ::Float
+      SENSITIVE: [:guard_content, :query_content]
+    end
+
+    class AutomatedReasoningPolicyTestResult
+      attr_accessor test_case: Types::AutomatedReasoningPolicyTestCase
+      attr_accessor policy_arn: ::String
+      attr_accessor test_run_status: ("NOT_STARTED" | "SCHEDULED" | "IN_PROGRESS" | "COMPLETED" | "FAILED")
+      attr_accessor test_findings: ::Array[Types::AutomatedReasoningCheckFinding]
+      attr_accessor test_run_result: ("PASSED" | "FAILED")
+      attr_accessor aggregated_test_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION")
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyTypeValueAnnotation
+      attr_accessor add_type_value: Types::AutomatedReasoningPolicyAddTypeValue
+      attr_accessor update_type_value: Types::AutomatedReasoningPolicyUpdateTypeValue
+      attr_accessor delete_type_value: Types::AutomatedReasoningPolicyDeleteTypeValue
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class AddTypeValue < AutomatedReasoningPolicyTypeValueAnnotation
+      end
+      class UpdateTypeValue < AutomatedReasoningPolicyTypeValueAnnotation
+      end
+      class DeleteTypeValue < AutomatedReasoningPolicyTypeValueAnnotation
+      end
+      class Unknown < AutomatedReasoningPolicyTypeValueAnnotation
+      end
+    end
+
+    class AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation
+      attr_accessor rule_ids: ::Array[::String]
+      attr_accessor feedback: ::String
+      SENSITIVE: [:feedback]
+    end
+
+    class AutomatedReasoningPolicyUpdateFromScenarioFeedbackAnnotation
+      attr_accessor rule_ids: ::Array[::String]
+      attr_accessor scenario_expression: ::String
+      attr_accessor feedback: ::String
+      SENSITIVE: [:scenario_expression, :feedback]
+    end
+
+    class AutomatedReasoningPolicyUpdateRuleAnnotation
+      attr_accessor rule_id: ::String
+      attr_accessor expression: ::String
+      SENSITIVE: [:expression]
+    end
+
+    class AutomatedReasoningPolicyUpdateRuleMutation
+      attr_accessor rule: Types::AutomatedReasoningPolicyDefinitionRule
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyUpdateTypeAnnotation
+      attr_accessor name: ::String
+      attr_accessor new_name: ::String
+      attr_accessor description: ::String
+      attr_accessor values: ::Array[Types::AutomatedReasoningPolicyTypeValueAnnotation]
+      SENSITIVE: [:name, :new_name, :description]
+    end
+
+    class AutomatedReasoningPolicyUpdateTypeMutation
+      attr_accessor type: Types::AutomatedReasoningPolicyDefinitionType
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyUpdateTypeValue
+      attr_accessor value: ::String
+      attr_accessor new_value: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:description]
+    end
+
+    class AutomatedReasoningPolicyUpdateVariableAnnotation
+      attr_accessor name: ::String
+      attr_accessor new_name: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:name, :new_name, :description]
+    end
+
+    class AutomatedReasoningPolicyUpdateVariableMutation
+      attr_accessor variable: Types::AutomatedReasoningPolicyDefinitionVariable
+      SENSITIVE: []
+    end
+
+    class AutomatedReasoningPolicyWorkflowTypeContent
+      attr_accessor documents: ::Array[Types::AutomatedReasoningPolicyBuildWorkflowDocument]
+      attr_accessor policy_repair_assets: Types::AutomatedReasoningPolicyBuildWorkflowRepairContent
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Documents < AutomatedReasoningPolicyWorkflowTypeContent
+      end
+      class PolicyRepairAssets < AutomatedReasoningPolicyWorkflowTypeContent
+      end
+      class Unknown < AutomatedReasoningPolicyWorkflowTypeContent
+      end
+    end
+
     class BatchDeleteEvaluationJobError
       attr_accessor job_identifier: ::String
       attr_accessor code: ::String
@@ -79,6 +652,15 @@ module Aws::Bedrock
       SENSITIVE: [:identifier, :data]
     end
 
+    class CancelAutomatedReasoningPolicyBuildWorkflowRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      SENSITIVE: []
+    end
+
+    class CancelAutomatedReasoningPolicyBuildWorkflowResponse < Aws::EmptyStructure
+    end
+
     class CloudWatchConfig
       attr_accessor log_group_name: ::String
       attr_accessor role_arn: ::String
@@ -89,6 +671,60 @@ module Aws::Bedrock
     class ConflictException
       attr_accessor message: ::String
       SENSITIVE: []
+    end
+
+    class CreateAutomatedReasoningPolicyRequest
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor client_request_token: ::String
+      attr_accessor policy_definition: Types::AutomatedReasoningPolicyDefinition
+      attr_accessor tags: ::Array[Types::Tag]
+      SENSITIVE: [:name, :description]
+    end
+
+    class CreateAutomatedReasoningPolicyResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor version: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor definition_hash: ::String
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:name, :description]
+    end
+
+    class CreateAutomatedReasoningPolicyTestCaseRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor guard_content: ::String
+      attr_accessor query_content: ::String
+      attr_accessor expected_aggregated_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION")
+      attr_accessor client_request_token: ::String
+      attr_accessor confidence_threshold: ::Float
+      SENSITIVE: [:guard_content, :query_content]
+    end
+
+    class CreateAutomatedReasoningPolicyTestCaseResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case_id: ::String
+      SENSITIVE: []
+    end
+
+    class CreateAutomatedReasoningPolicyVersionRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor client_request_token: ::String
+      attr_accessor last_updated_definition_hash: ::String
+      attr_accessor tags: ::Array[Types::Tag]
+      SENSITIVE: []
+    end
+
+    class CreateAutomatedReasoningPolicyVersionResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor version: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor definition_hash: ::String
+      attr_accessor created_at: ::Time
+      SENSITIVE: [:name, :description]
     end
 
     class CreateCustomModelDeploymentRequest
@@ -158,6 +794,7 @@ module Aws::Bedrock
       attr_accessor word_policy_config: Types::GuardrailWordPolicyConfig
       attr_accessor sensitive_information_policy_config: Types::GuardrailSensitiveInformationPolicyConfig
       attr_accessor contextual_grounding_policy_config: Types::GuardrailContextualGroundingPolicyConfig
+      attr_accessor automated_reasoning_policy_config: Types::GuardrailAutomatedReasoningPolicyConfig
       attr_accessor cross_region_config: Types::GuardrailCrossRegionConfig
       attr_accessor blocked_input_messaging: ::String
       attr_accessor blocked_outputs_messaging: ::String
@@ -385,6 +1022,34 @@ module Aws::Bedrock
       attr_accessor creation_time: ::Time
       attr_accessor last_modified_time: ::Time
       SENSITIVE: []
+    end
+
+    class DeleteAutomatedReasoningPolicyBuildWorkflowRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor last_updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class DeleteAutomatedReasoningPolicyBuildWorkflowResponse < Aws::EmptyStructure
+    end
+
+    class DeleteAutomatedReasoningPolicyRequest
+      attr_accessor policy_arn: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteAutomatedReasoningPolicyResponse < Aws::EmptyStructure
+    end
+
+    class DeleteAutomatedReasoningPolicyTestCaseRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case_id: ::String
+      attr_accessor last_updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class DeleteAutomatedReasoningPolicyTestCaseResponse < Aws::EmptyStructure
     end
 
     class DeleteCustomModelDeploymentRequest
@@ -650,6 +1315,16 @@ module Aws::Bedrock
       end
     end
 
+    class ExportAutomatedReasoningPolicyVersionRequest
+      attr_accessor policy_arn: ::String
+      SENSITIVE: []
+    end
+
+    class ExportAutomatedReasoningPolicyVersionResponse
+      attr_accessor policy_definition: Types::AutomatedReasoningPolicyDefinition
+      SENSITIVE: []
+    end
+
     class ExternalSource
       attr_accessor source_type: ("S3" | "BYTE_CONTENT")
       attr_accessor s3_location: Types::S3ObjectDoc
@@ -721,6 +1396,108 @@ module Aws::Bedrock
       attr_accessor guardrail_configuration: Types::GuardrailConfiguration
       attr_accessor kb_inference_config: Types::KbInferenceConfig
       attr_accessor additional_model_request_fields: ::Hash[::String, untyped]
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyAnnotationsRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyAnnotationsResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor name: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor annotations: ::Array[Types::AutomatedReasoningPolicyAnnotation]
+      attr_accessor annotation_set_hash: ::String
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:name]
+    end
+
+    class GetAutomatedReasoningPolicyBuildWorkflowRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyBuildWorkflowResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor status: ("SCHEDULED" | "CANCEL_REQUESTED" | "PREPROCESSING" | "BUILDING" | "TESTING" | "COMPLETED" | "FAILED" | "CANCELLED")
+      attr_accessor build_workflow_type: ("INGEST_CONTENT" | "REFINE_POLICY" | "IMPORT_POLICY")
+      attr_accessor document_name: ::String
+      attr_accessor document_content_type: ("pdf" | "txt")
+      attr_accessor document_description: ::String
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:document_name, :document_description]
+    end
+
+    class GetAutomatedReasoningPolicyBuildWorkflowResultAssetsRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor asset_type: ("BUILD_LOG" | "QUALITY_REPORT" | "POLICY_DEFINITION")
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor build_workflow_assets: Types::AutomatedReasoningPolicyBuildResultAssets
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyNextScenarioRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyNextScenarioResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor scenario: Types::AutomatedReasoningPolicyScenario
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyRequest
+      attr_accessor policy_arn: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor name: ::String
+      attr_accessor version: ::String
+      attr_accessor policy_id: ::String
+      attr_accessor description: ::String
+      attr_accessor definition_hash: ::String
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:name, :description]
+    end
+
+    class GetAutomatedReasoningPolicyTestCaseRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyTestCaseResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case: Types::AutomatedReasoningPolicyTestCase
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyTestResultRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor test_case_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAutomatedReasoningPolicyTestResultResponse
+      attr_accessor test_result: Types::AutomatedReasoningPolicyTestResult
       SENSITIVE: []
     end
 
@@ -832,6 +1609,7 @@ module Aws::Bedrock
       attr_accessor word_policy: Types::GuardrailWordPolicy
       attr_accessor sensitive_information_policy: Types::GuardrailSensitiveInformationPolicy
       attr_accessor contextual_grounding_policy: Types::GuardrailContextualGroundingPolicy
+      attr_accessor automated_reasoning_policy: Types::GuardrailAutomatedReasoningPolicy
       attr_accessor cross_region_details: Types::GuardrailCrossRegionDetails
       attr_accessor created_at: ::Time
       attr_accessor updated_at: ::Time
@@ -1042,6 +1820,18 @@ module Aws::Bedrock
 
     class GetUseCaseForModelAccessResponse
       attr_accessor form_data: ::String
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningPolicy
+      attr_accessor policies: ::Array[::String]
+      attr_accessor confidence_threshold: ::Float
+      SENSITIVE: []
+    end
+
+    class GuardrailAutomatedReasoningPolicyConfig
+      attr_accessor policies: ::Array[::String]
+      attr_accessor confidence_threshold: ::Float
       SENSITIVE: []
     end
 
@@ -1430,6 +2220,59 @@ module Aws::Bedrock
 
     class LegalTerm
       attr_accessor url: ::String
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPoliciesRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPoliciesResponse
+      attr_accessor automated_reasoning_policy_summaries: ::Array[Types::AutomatedReasoningPolicySummary]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyBuildWorkflowsRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyBuildWorkflowsResponse
+      attr_accessor automated_reasoning_policy_build_workflow_summaries: ::Array[Types::AutomatedReasoningPolicyBuildWorkflowSummary]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyTestCasesRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyTestCasesResponse
+      attr_accessor test_cases: ::Array[Types::AutomatedReasoningPolicyTestCase]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyTestResultsRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class ListAutomatedReasoningPolicyTestResultsResponse
+      attr_accessor test_results: ::Array[Types::AutomatedReasoningPolicyTestResult]
+      attr_accessor next_token: ::String
       SENSITIVE: []
     end
 
@@ -2016,6 +2859,11 @@ module Aws::Bedrock
       end
     end
 
+    class ResourceInUseException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
     class ResourceNotFoundException
       attr_accessor message: ::String
       SENSITIVE: []
@@ -2118,6 +2966,33 @@ module Aws::Bedrock
 
     class ServiceUnavailableException
       attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class StartAutomatedReasoningPolicyBuildWorkflowRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_type: ("INGEST_CONTENT" | "REFINE_POLICY" | "IMPORT_POLICY")
+      attr_accessor client_request_token: ::String
+      attr_accessor source_content: Types::AutomatedReasoningPolicyBuildWorkflowSource
+      SENSITIVE: []
+    end
+
+    class StartAutomatedReasoningPolicyBuildWorkflowResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      SENSITIVE: []
+    end
+
+    class StartAutomatedReasoningPolicyTestWorkflowRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor test_case_ids: ::Array[::String]
+      attr_accessor client_request_token: ::String
+      SENSITIVE: []
+    end
+
+    class StartAutomatedReasoningPolicyTestWorkflowResponse
+      attr_accessor policy_arn: ::String
       SENSITIVE: []
     end
 
@@ -2232,6 +3107,57 @@ module Aws::Bedrock
     class UntagResourceResponse < Aws::EmptyStructure
     end
 
+    class UpdateAutomatedReasoningPolicyAnnotationsRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor annotations: ::Array[Types::AutomatedReasoningPolicyAnnotation]
+      attr_accessor last_updated_annotation_set_hash: ::String
+      SENSITIVE: []
+    end
+
+    class UpdateAutomatedReasoningPolicyAnnotationsResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor build_workflow_id: ::String
+      attr_accessor annotation_set_hash: ::String
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class UpdateAutomatedReasoningPolicyRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor policy_definition: Types::AutomatedReasoningPolicyDefinition
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      SENSITIVE: [:name, :description]
+    end
+
+    class UpdateAutomatedReasoningPolicyResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor name: ::String
+      attr_accessor definition_hash: ::String
+      attr_accessor updated_at: ::Time
+      SENSITIVE: [:name]
+    end
+
+    class UpdateAutomatedReasoningPolicyTestCaseRequest
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case_id: ::String
+      attr_accessor guard_content: ::String
+      attr_accessor query_content: ::String
+      attr_accessor last_updated_at: ::Time
+      attr_accessor expected_aggregated_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION")
+      attr_accessor confidence_threshold: ::Float
+      attr_accessor kms_key_arn: ::String
+      attr_accessor client_request_token: ::String
+      SENSITIVE: [:guard_content, :query_content]
+    end
+
+    class UpdateAutomatedReasoningPolicyTestCaseResponse
+      attr_accessor policy_arn: ::String
+      attr_accessor test_case_id: ::String
+      SENSITIVE: []
+    end
+
     class UpdateGuardrailRequest
       attr_accessor guardrail_identifier: ::String
       attr_accessor name: ::String
@@ -2241,6 +3167,7 @@ module Aws::Bedrock
       attr_accessor word_policy_config: Types::GuardrailWordPolicyConfig
       attr_accessor sensitive_information_policy_config: Types::GuardrailSensitiveInformationPolicyConfig
       attr_accessor contextual_grounding_policy_config: Types::GuardrailContextualGroundingPolicyConfig
+      attr_accessor automated_reasoning_policy_config: Types::GuardrailAutomatedReasoningPolicyConfig
       attr_accessor cross_region_config: Types::GuardrailCrossRegionConfig
       attr_accessor blocked_input_messaging: ::String
       attr_accessor blocked_outputs_messaging: ::String

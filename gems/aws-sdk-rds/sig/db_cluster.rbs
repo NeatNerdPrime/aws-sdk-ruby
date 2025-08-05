@@ -231,6 +231,9 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS/DBCluster.html#serverless_v2_scaling_configuration-instance_method
       def serverless_v2_scaling_configuration: () -> Types::ServerlessV2ScalingConfigurationInfo
 
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS/DBCluster.html#serverless_v2_platform_version-instance_method
+      def serverless_v2_platform_version: () -> ::String
+
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RDS/DBCluster.html#network_type-instance_method
       def network_type: () -> ::String
 

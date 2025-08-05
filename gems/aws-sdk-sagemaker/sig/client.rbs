@@ -137,15 +137,36 @@ module Aws
                                       ) -> _AttachClusterNodeVolumeResponseSuccess
                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _AttachClusterNodeVolumeResponseSuccess
 
+      interface _BatchAddClusterNodesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::BatchAddClusterNodesResponse]
+        def successful: () -> ::Array[Types::NodeAdditionResult]
+        def failed: () -> ::Array[Types::BatchAddClusterNodesError]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#batch_add_cluster_nodes-instance_method
+      def batch_add_cluster_nodes: (
+                                     cluster_name: ::String,
+                                     ?client_token: ::String,
+                                     nodes_to_add: Array[
+                                       {
+                                         instance_group_name: ::String,
+                                         increment_target_count_by: ::Integer
+                                       },
+                                     ]
+                                   ) -> _BatchAddClusterNodesResponseSuccess
+                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchAddClusterNodesResponseSuccess
+
       interface _BatchDeleteClusterNodesResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::BatchDeleteClusterNodesResponse]
         def failed: () -> ::Array[Types::BatchDeleteClusterNodesError]
         def successful: () -> ::Array[::String]
+        def failed_node_logical_ids: () -> ::Array[Types::BatchDeleteClusterNodeLogicalIdsError]
+        def successful_node_logical_ids: () -> ::Array[::String]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#batch_delete_cluster_nodes-instance_method
       def batch_delete_cluster_nodes: (
                                         cluster_name: ::String,
-                                        ?node_ids: Array[::String]
+                                        ?node_ids: Array[::String],
+                                        ?node_logical_ids: Array[::String]
                                       ) -> _BatchDeleteClusterNodesResponseSuccess
                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchDeleteClusterNodesResponseSuccess
 
@@ -787,7 +808,8 @@ module Aws
                                       },
                                     ]?
                                   }?
-                                }?
+                                }?,
+                                image_id: ::String?
                               },
                             ],
                             ?restricted_instance_groups: Array[
@@ -854,7 +876,8 @@ module Aws
                                 cluster_arn: ::String
                               }
                             },
-                            ?node_recovery: ("Automatic" | "None")
+                            ?node_recovery: ("Automatic" | "None"),
+                            ?node_provisioning_mode: ("Continuous")
                           ) -> _CreateClusterResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateClusterResponseSuccess
 
@@ -5343,12 +5366,24 @@ module Aws
         def vpc_config: () -> Types::VpcConfig
         def orchestrator: () -> Types::ClusterOrchestrator
         def node_recovery: () -> ("Automatic" | "None")
+        def node_provisioning_mode: () -> ("Continuous")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#describe_cluster-instance_method
       def describe_cluster: (
                               cluster_name: ::String
                             ) -> _DescribeClusterResponseSuccess
                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeClusterResponseSuccess
+
+      interface _DescribeClusterEventResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DescribeClusterEventResponse]
+        def event_details: () -> Types::ClusterEventDetail
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#describe_cluster_event-instance_method
+      def describe_cluster_event: (
+                                    event_id: ::String,
+                                    cluster_name: ::String
+                                  ) -> _DescribeClusterEventResponseSuccess
+                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeClusterEventResponseSuccess
 
       interface _DescribeClusterNodeResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DescribeClusterNodeResponse]
@@ -5357,7 +5392,8 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#describe_cluster_node-instance_method
       def describe_cluster_node: (
                                    cluster_name: ::String,
-                                   ?node_id: ::String
+                                   ?node_id: ::String,
+                                   ?node_logical_id: ::String
                                  ) -> _DescribeClusterNodeResponseSuccess
                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeClusterNodeResponseSuccess
 
@@ -6967,6 +7003,26 @@ module Aws
                                            ) -> _ListCandidatesForAutoMLJobResponseSuccess
                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListCandidatesForAutoMLJobResponseSuccess
 
+      interface _ListClusterEventsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ListClusterEventsResponse]
+        def next_token: () -> ::String
+        def events: () -> ::Array[Types::ClusterEventSummary]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#list_cluster_events-instance_method
+      def list_cluster_events: (
+                                 cluster_name: ::String,
+                                 ?instance_group_name: ::String,
+                                 ?node_id: ::String,
+                                 ?event_time_after: ::Time,
+                                 ?event_time_before: ::Time,
+                                 ?sort_by: ("EventTime"),
+                                 ?sort_order: ("Ascending" | "Descending"),
+                                 ?resource_type: ("Cluster" | "InstanceGroup" | "Instance"),
+                                 ?max_results: ::Integer,
+                                 ?next_token: ::String
+                               ) -> _ListClusterEventsResponseSuccess
+                             | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListClusterEventsResponseSuccess
+
       interface _ListClusterNodesResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::ListClusterNodesResponse]
         def next_token: () -> ::String
@@ -6981,7 +7037,8 @@ module Aws
                                 ?max_results: ::Integer,
                                 ?next_token: ::String,
                                 ?sort_by: ("CREATION_TIME" | "NAME"),
-                                ?sort_order: ("Ascending" | "Descending")
+                                ?sort_order: ("Ascending" | "Descending"),
+                                ?include_node_logical_ids: bool
                               ) -> _ListClusterNodesResponseSuccess
                             | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListClusterNodesResponseSuccess
 
@@ -8799,7 +8856,8 @@ module Aws
                                       },
                                     ]?
                                   }?
-                                }?
+                                }?,
+                                image_id: ::String?
                               },
                             ],
                             ?restricted_instance_groups: Array[
@@ -8907,7 +8965,8 @@ module Aws
                                            alarm_name: ::String
                                          },
                                        ]?
-                                     }
+                                     },
+                                     ?image_id: ::String
                                    ) -> _UpdateClusterSoftwareResponseSuccess
                                  | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateClusterSoftwareResponseSuccess
 

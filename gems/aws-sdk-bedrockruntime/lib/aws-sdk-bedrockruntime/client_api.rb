@@ -29,6 +29,7 @@ module Aws::BedrockRuntime
     AsyncInvokeSummaries = Shapes::ListShape.new(name: 'AsyncInvokeSummaries')
     AsyncInvokeSummary = Shapes::StructureShape.new(name: 'AsyncInvokeSummary')
     AutoToolChoice = Shapes::StructureShape.new(name: 'AutoToolChoice')
+    AutomatedReasoningRuleIdentifier = Shapes::StringShape.new(name: 'AutomatedReasoningRuleIdentifier')
     BidirectionalInputPayloadPart = Shapes::StructureShape.new(name: 'BidirectionalInputPayloadPart')
     BidirectionalOutputPayloadPart = Shapes::StructureShape.new(name: 'BidirectionalOutputPayloadPart')
     Blob = Shapes::BlobShape.new(name: 'Blob')
@@ -100,6 +101,36 @@ module Aws::BedrockRuntime
     GuardrailAssessmentList = Shapes::ListShape.new(name: 'GuardrailAssessmentList')
     GuardrailAssessmentListMap = Shapes::MapShape.new(name: 'GuardrailAssessmentListMap')
     GuardrailAssessmentMap = Shapes::MapShape.new(name: 'GuardrailAssessmentMap')
+    GuardrailAutomatedReasoningDifferenceScenarioList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningDifferenceScenarioList')
+    GuardrailAutomatedReasoningFinding = Shapes::UnionShape.new(name: 'GuardrailAutomatedReasoningFinding')
+    GuardrailAutomatedReasoningFindingList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningFindingList')
+    GuardrailAutomatedReasoningImpossibleFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningImpossibleFinding')
+    GuardrailAutomatedReasoningInputTextReference = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningInputTextReference')
+    GuardrailAutomatedReasoningInputTextReferenceList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningInputTextReferenceList')
+    GuardrailAutomatedReasoningInvalidFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningInvalidFinding')
+    GuardrailAutomatedReasoningLogicWarning = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningLogicWarning')
+    GuardrailAutomatedReasoningLogicWarningType = Shapes::StringShape.new(name: 'GuardrailAutomatedReasoningLogicWarningType')
+    GuardrailAutomatedReasoningNoTranslationsFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningNoTranslationsFinding')
+    GuardrailAutomatedReasoningPoliciesProcessed = Shapes::IntegerShape.new(name: 'GuardrailAutomatedReasoningPoliciesProcessed')
+    GuardrailAutomatedReasoningPolicyAssessment = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningPolicyAssessment')
+    GuardrailAutomatedReasoningPolicyUnitsProcessed = Shapes::IntegerShape.new(name: 'GuardrailAutomatedReasoningPolicyUnitsProcessed')
+    GuardrailAutomatedReasoningPolicyVersionArn = Shapes::StringShape.new(name: 'GuardrailAutomatedReasoningPolicyVersionArn')
+    GuardrailAutomatedReasoningRule = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningRule')
+    GuardrailAutomatedReasoningRuleList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningRuleList')
+    GuardrailAutomatedReasoningSatisfiableFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningSatisfiableFinding')
+    GuardrailAutomatedReasoningScenario = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningScenario')
+    GuardrailAutomatedReasoningStatement = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningStatement')
+    GuardrailAutomatedReasoningStatementList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningStatementList')
+    GuardrailAutomatedReasoningStatementLogicContent = Shapes::StringShape.new(name: 'GuardrailAutomatedReasoningStatementLogicContent')
+    GuardrailAutomatedReasoningStatementNaturalLanguageContent = Shapes::StringShape.new(name: 'GuardrailAutomatedReasoningStatementNaturalLanguageContent')
+    GuardrailAutomatedReasoningTooComplexFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningTooComplexFinding')
+    GuardrailAutomatedReasoningTranslation = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningTranslation')
+    GuardrailAutomatedReasoningTranslationAmbiguousFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningTranslationAmbiguousFinding')
+    GuardrailAutomatedReasoningTranslationConfidence = Shapes::FloatShape.new(name: 'GuardrailAutomatedReasoningTranslationConfidence')
+    GuardrailAutomatedReasoningTranslationList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningTranslationList')
+    GuardrailAutomatedReasoningTranslationOption = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningTranslationOption')
+    GuardrailAutomatedReasoningTranslationOptionList = Shapes::ListShape.new(name: 'GuardrailAutomatedReasoningTranslationOptionList')
+    GuardrailAutomatedReasoningValidFinding = Shapes::StructureShape.new(name: 'GuardrailAutomatedReasoningValidFinding')
     GuardrailConfiguration = Shapes::StructureShape.new(name: 'GuardrailConfiguration')
     GuardrailContentBlock = Shapes::UnionShape.new(name: 'GuardrailContentBlock')
     GuardrailContentBlockList = Shapes::ListShape.new(name: 'GuardrailContentBlockList')
@@ -590,6 +621,7 @@ module Aws::BedrockRuntime
     GuardrailAssessment.add_member(:word_policy, Shapes::ShapeRef.new(shape: GuardrailWordPolicyAssessment, location_name: "wordPolicy"))
     GuardrailAssessment.add_member(:sensitive_information_policy, Shapes::ShapeRef.new(shape: GuardrailSensitiveInformationPolicyAssessment, location_name: "sensitiveInformationPolicy"))
     GuardrailAssessment.add_member(:contextual_grounding_policy, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicyAssessment, location_name: "contextualGroundingPolicy"))
+    GuardrailAssessment.add_member(:automated_reasoning_policy, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyAssessment, location_name: "automatedReasoningPolicy"))
     GuardrailAssessment.add_member(:invocation_metrics, Shapes::ShapeRef.new(shape: GuardrailInvocationMetrics, location_name: "invocationMetrics"))
     GuardrailAssessment.struct_class = Types::GuardrailAssessment
 
@@ -600,6 +632,100 @@ module Aws::BedrockRuntime
 
     GuardrailAssessmentMap.key = Shapes::ShapeRef.new(shape: String)
     GuardrailAssessmentMap.value = Shapes::ShapeRef.new(shape: GuardrailAssessment)
+
+    GuardrailAutomatedReasoningDifferenceScenarioList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningScenario)
+
+    GuardrailAutomatedReasoningFinding.add_member(:valid, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningValidFinding, location_name: "valid"))
+    GuardrailAutomatedReasoningFinding.add_member(:invalid, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningInvalidFinding, location_name: "invalid"))
+    GuardrailAutomatedReasoningFinding.add_member(:satisfiable, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningSatisfiableFinding, location_name: "satisfiable"))
+    GuardrailAutomatedReasoningFinding.add_member(:impossible, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningImpossibleFinding, location_name: "impossible"))
+    GuardrailAutomatedReasoningFinding.add_member(:translation_ambiguous, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslationAmbiguousFinding, location_name: "translationAmbiguous"))
+    GuardrailAutomatedReasoningFinding.add_member(:too_complex, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTooComplexFinding, location_name: "tooComplex"))
+    GuardrailAutomatedReasoningFinding.add_member(:no_translations, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningNoTranslationsFinding, location_name: "noTranslations"))
+    GuardrailAutomatedReasoningFinding.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:valid, Types::GuardrailAutomatedReasoningFinding::Valid)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:invalid, Types::GuardrailAutomatedReasoningFinding::Invalid)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:satisfiable, Types::GuardrailAutomatedReasoningFinding::Satisfiable)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:impossible, Types::GuardrailAutomatedReasoningFinding::Impossible)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:translation_ambiguous, Types::GuardrailAutomatedReasoningFinding::TranslationAmbiguous)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:too_complex, Types::GuardrailAutomatedReasoningFinding::TooComplex)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:no_translations, Types::GuardrailAutomatedReasoningFinding::NoTranslations)
+    GuardrailAutomatedReasoningFinding.add_member_subclass(:unknown, Types::GuardrailAutomatedReasoningFinding::Unknown)
+    GuardrailAutomatedReasoningFinding.struct_class = Types::GuardrailAutomatedReasoningFinding
+
+    GuardrailAutomatedReasoningFindingList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningFinding)
+
+    GuardrailAutomatedReasoningImpossibleFinding.add_member(:translation, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslation, location_name: "translation"))
+    GuardrailAutomatedReasoningImpossibleFinding.add_member(:contradicting_rules, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningRuleList, location_name: "contradictingRules"))
+    GuardrailAutomatedReasoningImpossibleFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarning, location_name: "logicWarning"))
+    GuardrailAutomatedReasoningImpossibleFinding.struct_class = Types::GuardrailAutomatedReasoningImpossibleFinding
+
+    GuardrailAutomatedReasoningInputTextReference.add_member(:text, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementNaturalLanguageContent, location_name: "text"))
+    GuardrailAutomatedReasoningInputTextReference.struct_class = Types::GuardrailAutomatedReasoningInputTextReference
+
+    GuardrailAutomatedReasoningInputTextReferenceList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningInputTextReference)
+
+    GuardrailAutomatedReasoningInvalidFinding.add_member(:translation, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslation, location_name: "translation"))
+    GuardrailAutomatedReasoningInvalidFinding.add_member(:contradicting_rules, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningRuleList, location_name: "contradictingRules"))
+    GuardrailAutomatedReasoningInvalidFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarning, location_name: "logicWarning"))
+    GuardrailAutomatedReasoningInvalidFinding.struct_class = Types::GuardrailAutomatedReasoningInvalidFinding
+
+    GuardrailAutomatedReasoningLogicWarning.add_member(:type, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarningType, location_name: "type"))
+    GuardrailAutomatedReasoningLogicWarning.add_member(:premises, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementList, location_name: "premises"))
+    GuardrailAutomatedReasoningLogicWarning.add_member(:claims, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementList, location_name: "claims"))
+    GuardrailAutomatedReasoningLogicWarning.struct_class = Types::GuardrailAutomatedReasoningLogicWarning
+
+    GuardrailAutomatedReasoningNoTranslationsFinding.struct_class = Types::GuardrailAutomatedReasoningNoTranslationsFinding
+
+    GuardrailAutomatedReasoningPolicyAssessment.add_member(:findings, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningFindingList, location_name: "findings"))
+    GuardrailAutomatedReasoningPolicyAssessment.struct_class = Types::GuardrailAutomatedReasoningPolicyAssessment
+
+    GuardrailAutomatedReasoningRule.add_member(:identifier, Shapes::ShapeRef.new(shape: AutomatedReasoningRuleIdentifier, location_name: "identifier"))
+    GuardrailAutomatedReasoningRule.add_member(:policy_version_arn, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyVersionArn, location_name: "policyVersionArn"))
+    GuardrailAutomatedReasoningRule.struct_class = Types::GuardrailAutomatedReasoningRule
+
+    GuardrailAutomatedReasoningRuleList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningRule)
+
+    GuardrailAutomatedReasoningSatisfiableFinding.add_member(:translation, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslation, location_name: "translation"))
+    GuardrailAutomatedReasoningSatisfiableFinding.add_member(:claims_true_scenario, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningScenario, location_name: "claimsTrueScenario"))
+    GuardrailAutomatedReasoningSatisfiableFinding.add_member(:claims_false_scenario, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningScenario, location_name: "claimsFalseScenario"))
+    GuardrailAutomatedReasoningSatisfiableFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarning, location_name: "logicWarning"))
+    GuardrailAutomatedReasoningSatisfiableFinding.struct_class = Types::GuardrailAutomatedReasoningSatisfiableFinding
+
+    GuardrailAutomatedReasoningScenario.add_member(:statements, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementList, location_name: "statements"))
+    GuardrailAutomatedReasoningScenario.struct_class = Types::GuardrailAutomatedReasoningScenario
+
+    GuardrailAutomatedReasoningStatement.add_member(:logic, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementLogicContent, location_name: "logic"))
+    GuardrailAutomatedReasoningStatement.add_member(:natural_language, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementNaturalLanguageContent, location_name: "naturalLanguage"))
+    GuardrailAutomatedReasoningStatement.struct_class = Types::GuardrailAutomatedReasoningStatement
+
+    GuardrailAutomatedReasoningStatementList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatement)
+
+    GuardrailAutomatedReasoningTooComplexFinding.struct_class = Types::GuardrailAutomatedReasoningTooComplexFinding
+
+    GuardrailAutomatedReasoningTranslation.add_member(:premises, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementList, location_name: "premises"))
+    GuardrailAutomatedReasoningTranslation.add_member(:claims, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningStatementList, location_name: "claims"))
+    GuardrailAutomatedReasoningTranslation.add_member(:untranslated_premises, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningInputTextReferenceList, location_name: "untranslatedPremises"))
+    GuardrailAutomatedReasoningTranslation.add_member(:untranslated_claims, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningInputTextReferenceList, location_name: "untranslatedClaims"))
+    GuardrailAutomatedReasoningTranslation.add_member(:confidence, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslationConfidence, location_name: "confidence"))
+    GuardrailAutomatedReasoningTranslation.struct_class = Types::GuardrailAutomatedReasoningTranslation
+
+    GuardrailAutomatedReasoningTranslationAmbiguousFinding.add_member(:options, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslationOptionList, location_name: "options"))
+    GuardrailAutomatedReasoningTranslationAmbiguousFinding.add_member(:difference_scenarios, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningDifferenceScenarioList, location_name: "differenceScenarios"))
+    GuardrailAutomatedReasoningTranslationAmbiguousFinding.struct_class = Types::GuardrailAutomatedReasoningTranslationAmbiguousFinding
+
+    GuardrailAutomatedReasoningTranslationList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslation)
+
+    GuardrailAutomatedReasoningTranslationOption.add_member(:translations, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslationList, location_name: "translations"))
+    GuardrailAutomatedReasoningTranslationOption.struct_class = Types::GuardrailAutomatedReasoningTranslationOption
+
+    GuardrailAutomatedReasoningTranslationOptionList.member = Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslationOption)
+
+    GuardrailAutomatedReasoningValidFinding.add_member(:translation, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningTranslation, location_name: "translation"))
+    GuardrailAutomatedReasoningValidFinding.add_member(:claims_true_scenario, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningScenario, location_name: "claimsTrueScenario"))
+    GuardrailAutomatedReasoningValidFinding.add_member(:supporting_rules, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningRuleList, location_name: "supportingRules"))
+    GuardrailAutomatedReasoningValidFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarning, location_name: "logicWarning"))
+    GuardrailAutomatedReasoningValidFinding.struct_class = Types::GuardrailAutomatedReasoningValidFinding
 
     GuardrailConfiguration.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, required: true, location_name: "guardrailIdentifier"))
     GuardrailConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, required: true, location_name: "guardrailVersion"))
@@ -768,6 +894,8 @@ module Aws::BedrockRuntime
     GuardrailUsage.add_member(:sensitive_information_policy_free_units, Shapes::ShapeRef.new(shape: GuardrailSensitiveInformationPolicyFreeUnitsProcessed, required: true, location_name: "sensitiveInformationPolicyFreeUnits"))
     GuardrailUsage.add_member(:contextual_grounding_policy_units, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicyUnitsProcessed, required: true, location_name: "contextualGroundingPolicyUnits"))
     GuardrailUsage.add_member(:content_policy_image_units, Shapes::ShapeRef.new(shape: GuardrailContentPolicyImageUnitsProcessed, location_name: "contentPolicyImageUnits"))
+    GuardrailUsage.add_member(:automated_reasoning_policy_units, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyUnitsProcessed, location_name: "automatedReasoningPolicyUnits"))
+    GuardrailUsage.add_member(:automated_reasoning_policies, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPoliciesProcessed, location_name: "automatedReasoningPolicies"))
     GuardrailUsage.struct_class = Types::GuardrailUsage
 
     GuardrailWordPolicyAssessment.add_member(:custom_words, Shapes::ShapeRef.new(shape: GuardrailCustomWordList, required: true, location_name: "customWords"))

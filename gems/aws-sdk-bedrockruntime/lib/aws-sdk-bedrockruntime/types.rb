@@ -1490,6 +1490,11 @@ module Aws::BedrockRuntime
     #   The contextual grounding policy used for the guardrail assessment.
     #   @return [Types::GuardrailContextualGroundingPolicyAssessment]
     #
+    # @!attribute [rw] automated_reasoning_policy
+    #   The automated reasoning policy assessment results, including logical
+    #   validation findings for the input content.
+    #   @return [Types::GuardrailAutomatedReasoningPolicyAssessment]
+    #
     # @!attribute [rw] invocation_metrics
     #   The invocation metrics for the guardrail assessment.
     #   @return [Types::GuardrailInvocationMetrics]
@@ -1502,7 +1507,406 @@ module Aws::BedrockRuntime
       :word_policy,
       :sensitive_information_policy,
       :contextual_grounding_policy,
+      :automated_reasoning_policy,
       :invocation_metrics)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a logical validation result from automated reasoning policy
+    # evaluation. The finding indicates whether claims in the input are
+    # logically valid, invalid, satisfiable, impossible, or have other
+    # logical issues.
+    #
+    # @note GuardrailAutomatedReasoningFinding is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of GuardrailAutomatedReasoningFinding corresponding to the set member.
+    #
+    # @!attribute [rw] valid
+    #   Indicates that the claims are definitively true and logically
+    #   implied by the premises, with no possible alternative
+    #   interpretations.
+    #   @return [Types::GuardrailAutomatedReasoningValidFinding]
+    #
+    # @!attribute [rw] invalid
+    #   Indicates that the claims are logically false and contradictory to
+    #   the established rules or premises.
+    #   @return [Types::GuardrailAutomatedReasoningInvalidFinding]
+    #
+    # @!attribute [rw] satisfiable
+    #   Indicates that the claims could be either true or false depending on
+    #   additional assumptions not provided in the input.
+    #   @return [Types::GuardrailAutomatedReasoningSatisfiableFinding]
+    #
+    # @!attribute [rw] impossible
+    #   Indicates that no valid claims can be made due to logical
+    #   contradictions in the premises or rules.
+    #   @return [Types::GuardrailAutomatedReasoningImpossibleFinding]
+    #
+    # @!attribute [rw] translation_ambiguous
+    #   Indicates that the input has multiple valid logical interpretations,
+    #   requiring additional context or clarification.
+    #   @return [Types::GuardrailAutomatedReasoningTranslationAmbiguousFinding]
+    #
+    # @!attribute [rw] too_complex
+    #   Indicates that the input exceeds the processing capacity due to the
+    #   volume or complexity of the logical information.
+    #   @return [Types::GuardrailAutomatedReasoningTooComplexFinding]
+    #
+    # @!attribute [rw] no_translations
+    #   Indicates that no relevant logical information could be extracted
+    #   from the input for validation.
+    #   @return [Types::GuardrailAutomatedReasoningNoTranslationsFinding]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningFinding < Struct.new(
+      :valid,
+      :invalid,
+      :satisfiable,
+      :impossible,
+      :translation_ambiguous,
+      :too_complex,
+      :no_translations,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Valid < GuardrailAutomatedReasoningFinding; end
+      class Invalid < GuardrailAutomatedReasoningFinding; end
+      class Satisfiable < GuardrailAutomatedReasoningFinding; end
+      class Impossible < GuardrailAutomatedReasoningFinding; end
+      class TranslationAmbiguous < GuardrailAutomatedReasoningFinding; end
+      class TooComplex < GuardrailAutomatedReasoningFinding; end
+      class NoTranslations < GuardrailAutomatedReasoningFinding; end
+      class Unknown < GuardrailAutomatedReasoningFinding; end
+    end
+
+    # Indicates that no valid claims can be made due to logical
+    # contradictions in the premises or rules.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding evaluates.
+    #   @return [Types::GuardrailAutomatedReasoningTranslation]
+    #
+    # @!attribute [rw] contradicting_rules
+    #   The automated reasoning policy rules that contradict the claims
+    #   and/or premises in the input.
+    #   @return [Array<Types::GuardrailAutomatedReasoningRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::GuardrailAutomatedReasoningLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningImpossibleFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningImpossibleFinding < Struct.new(
+      :translation,
+      :contradicting_rules,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # References a portion of the original input text that corresponds to
+    # logical elements.
+    #
+    # @!attribute [rw] text
+    #   The specific text from the original input that this reference points
+    #   to.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningInputTextReference AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningInputTextReference < Struct.new(
+      :text)
+      SENSITIVE = [:text]
+      include Aws::Structure
+    end
+
+    # Indicates that the claims are logically false and contradictory to the
+    # established rules or premises.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding invalidates.
+    #   @return [Types::GuardrailAutomatedReasoningTranslation]
+    #
+    # @!attribute [rw] contradicting_rules
+    #   The automated reasoning policy rules that contradict the claims in
+    #   the input.
+    #   @return [Array<Types::GuardrailAutomatedReasoningRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::GuardrailAutomatedReasoningLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningInvalidFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningInvalidFinding < Struct.new(
+      :translation,
+      :contradicting_rules,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Identifies logical issues in the translated statements that exist
+    # independent of any policy rules, such as statements that are always
+    # true or always false.
+    #
+    # @!attribute [rw] type
+    #   The category of the detected logical issue, such as statements that
+    #   are always true or always false.
+    #   @return [String]
+    #
+    # @!attribute [rw] premises
+    #   The logical statements that serve as premises under which the claims
+    #   are validated.
+    #   @return [Array<Types::GuardrailAutomatedReasoningStatement>]
+    #
+    # @!attribute [rw] claims
+    #   The logical statements that are validated while assuming the policy
+    #   and premises.
+    #   @return [Array<Types::GuardrailAutomatedReasoningStatement>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningLogicWarning AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningLogicWarning < Struct.new(
+      :type,
+      :premises,
+      :claims)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that no relevant logical information could be extracted from
+    # the input for validation.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningNoTranslationsFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningNoTranslationsFinding < Aws::EmptyStructure; end
+
+    # Contains the results of automated reasoning policy evaluation,
+    # including logical findings about the validity of claims made in the
+    # input content.
+    #
+    # @!attribute [rw] findings
+    #   List of logical validation results produced by evaluating the input
+    #   content against automated reasoning policies.
+    #   @return [Array<Types::GuardrailAutomatedReasoningFinding>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningPolicyAssessment AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningPolicyAssessment < Struct.new(
+      :findings)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # References a specific automated reasoning policy rule that was applied
+    # during evaluation.
+    #
+    # @!attribute [rw] identifier
+    #   The unique identifier of the automated reasoning rule.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_version_arn
+    #   The ARN of the automated reasoning policy version that contains this
+    #   rule.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningRule AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningRule < Struct.new(
+      :identifier,
+      :policy_version_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the claims could be either true or false depending on
+    # additional assumptions not provided in the input.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding evaluates.
+    #   @return [Types::GuardrailAutomatedReasoningTranslation]
+    #
+    # @!attribute [rw] claims_true_scenario
+    #   An example scenario demonstrating how the claims could be logically
+    #   true.
+    #   @return [Types::GuardrailAutomatedReasoningScenario]
+    #
+    # @!attribute [rw] claims_false_scenario
+    #   An example scenario demonstrating how the claims could be logically
+    #   false.
+    #   @return [Types::GuardrailAutomatedReasoningScenario]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::GuardrailAutomatedReasoningLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningSatisfiableFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningSatisfiableFinding < Struct.new(
+      :translation,
+      :claims_true_scenario,
+      :claims_false_scenario,
+      :logic_warning)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a logical scenario where claims can be evaluated as true or
+    # false, containing specific logical assignments.
+    #
+    # @!attribute [rw] statements
+    #   List of logical assignments and statements that define this
+    #   scenario.
+    #   @return [Array<Types::GuardrailAutomatedReasoningStatement>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningScenario AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningScenario < Struct.new(
+      :statements)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A logical statement that includes both formal logic representation and
+    # natural language explanation.
+    #
+    # @!attribute [rw] logic
+    #   The formal logical representation of the statement.
+    #   @return [String]
+    #
+    # @!attribute [rw] natural_language
+    #   The natural language explanation of the logical statement.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningStatement AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningStatement < Struct.new(
+      :logic,
+      :natural_language)
+      SENSITIVE = [:logic, :natural_language]
+      include Aws::Structure
+    end
+
+    # Indicates that the input exceeds the processing capacity due to the
+    # volume or complexity of the logical information.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningTooComplexFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningTooComplexFinding < Aws::EmptyStructure; end
+
+    # Contains the logical translation of natural language input into formal
+    # logical statements, including premises, claims, and confidence scores.
+    #
+    # @!attribute [rw] premises
+    #   The logical statements that serve as the foundation or assumptions
+    #   for the claims.
+    #   @return [Array<Types::GuardrailAutomatedReasoningStatement>]
+    #
+    # @!attribute [rw] claims
+    #   The logical statements that are being validated against the premises
+    #   and policy rules.
+    #   @return [Array<Types::GuardrailAutomatedReasoningStatement>]
+    #
+    # @!attribute [rw] untranslated_premises
+    #   References to portions of the original input text that correspond to
+    #   the premises but could not be fully translated.
+    #   @return [Array<Types::GuardrailAutomatedReasoningInputTextReference>]
+    #
+    # @!attribute [rw] untranslated_claims
+    #   References to portions of the original input text that correspond to
+    #   the claims but could not be fully translated.
+    #   @return [Array<Types::GuardrailAutomatedReasoningInputTextReference>]
+    #
+    # @!attribute [rw] confidence
+    #   A confidence score between 0 and 1 indicating how certain the system
+    #   is about the logical translation.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningTranslation AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningTranslation < Struct.new(
+      :premises,
+      :claims,
+      :untranslated_premises,
+      :untranslated_claims,
+      :confidence)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the input has multiple valid logical interpretations,
+    # requiring additional context or clarification.
+    #
+    # @!attribute [rw] options
+    #   Different logical interpretations that were detected during
+    #   translation of the input.
+    #   @return [Array<Types::GuardrailAutomatedReasoningTranslationOption>]
+    #
+    # @!attribute [rw] difference_scenarios
+    #   Scenarios showing how the different translation options differ in
+    #   meaning.
+    #   @return [Array<Types::GuardrailAutomatedReasoningScenario>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningTranslationAmbiguousFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningTranslationAmbiguousFinding < Struct.new(
+      :options,
+      :difference_scenarios)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents one possible logical interpretation of ambiguous input
+    # content.
+    #
+    # @!attribute [rw] translations
+    #   Example translations that provide this possible interpretation of
+    #   the input.
+    #   @return [Array<Types::GuardrailAutomatedReasoningTranslation>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningTranslationOption AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningTranslationOption < Struct.new(
+      :translations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Indicates that the claims are definitively true and logically implied
+    # by the premises, with no possible alternative interpretations.
+    #
+    # @!attribute [rw] translation
+    #   The logical translation of the input that this finding validates.
+    #   @return [Types::GuardrailAutomatedReasoningTranslation]
+    #
+    # @!attribute [rw] claims_true_scenario
+    #   An example scenario demonstrating how the claims are logically true.
+    #   @return [Types::GuardrailAutomatedReasoningScenario]
+    #
+    # @!attribute [rw] supporting_rules
+    #   The automated reasoning policy rules that support why this result is
+    #   considered valid.
+    #   @return [Array<Types::GuardrailAutomatedReasoningRule>]
+    #
+    # @!attribute [rw] logic_warning
+    #   Indication of a logic issue with the translation without needing to
+    #   consider the automated reasoning policy rules.
+    #   @return [Types::GuardrailAutomatedReasoningLogicWarning]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningValidFinding AWS API Documentation
+    #
+    class GuardrailAutomatedReasoningValidFinding < Struct.new(
+      :translation,
+      :claims_true_scenario,
+      :supporting_rules,
+      :logic_warning)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2208,6 +2612,16 @@ module Aws::BedrockRuntime
     #   The content policy image units processed by the guardrail.
     #   @return [Integer]
     #
+    # @!attribute [rw] automated_reasoning_policy_units
+    #   The number of text units processed by the automated reasoning
+    #   policy.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] automated_reasoning_policies
+    #   The number of automated reasoning policies that were processed
+    #   during the guardrail evaluation.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailUsage AWS API Documentation
     #
     class GuardrailUsage < Struct.new(
@@ -2217,7 +2631,9 @@ module Aws::BedrockRuntime
       :sensitive_information_policy_units,
       :sensitive_information_policy_free_units,
       :contextual_grounding_policy_units,
-      :content_policy_image_units)
+      :content_policy_image_units,
+      :automated_reasoning_policy_units,
+      :automated_reasoning_policies)
       SENSITIVE = []
       include Aws::Structure
     end

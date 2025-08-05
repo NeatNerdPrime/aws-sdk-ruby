@@ -546,6 +546,315 @@ module Aws::Bedrock
       req.send_request(options)
     end
 
+    # Cancels a running Automated Reasoning policy build workflow. This
+    # stops the policy generation process and prevents further processing of
+    # the source documents.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   build workflow you want to cancel.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow to cancel. You can get
+    #   this ID from the StartAutomatedReasoningPolicyBuildWorkflow response
+    #   or by listing build workflows.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.cancel_automated_reasoning_policy_build_workflow({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CancelAutomatedReasoningPolicyBuildWorkflow AWS API Documentation
+    #
+    # @overload cancel_automated_reasoning_policy_build_workflow(params = {})
+    # @param [Hash] params ({})
+    def cancel_automated_reasoning_policy_build_workflow(params = {}, options = {})
+      req = build_request(:cancel_automated_reasoning_policy_build_workflow, params)
+      req.send_request(options)
+    end
+
+    # Creates an Automated Reasoning policy for Amazon Bedrock Guardrails.
+    # Automated Reasoning policies use mathematical techniques to detect
+    # hallucinations, suggest corrections, and highlight unstated
+    # assumptions in the responses of your GenAI application.
+    #
+    # To create a policy, you upload a source document that describes the
+    # rules that you're encoding. Automated Reasoning extracts important
+    # concepts from the source document that will become variables in the
+    # policy and infers policy rules.
+    #
+    # @option params [required, String] :name
+    #   A unique name for the Automated Reasoning policy. The name must be
+    #   between 1 and 63 characters and can contain letters, numbers, hyphens,
+    #   and underscores.
+    #
+    # @option params [String] :description
+    #   A description of the Automated Reasoning policy. Use this to provide
+    #   context about the policy's purpose and the types of validations it
+    #   performs.
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than once. If this token matches a previous request,
+    #   Amazon Bedrock ignores the request but doesn't return an error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [Types::AutomatedReasoningPolicyDefinition] :policy_definition
+    #   The policy definition that contains the formal logic rules, variables,
+    #   and custom variable types used to validate foundation model responses
+    #   in your application.
+    #
+    # @option params [Array<Types::Tag>] :tags
+    #   A list of tags to associate with the Automated Reasoning policy. Tags
+    #   help you organize and manage your policies.
+    #
+    # @return [Types::CreateAutomatedReasoningPolicyResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#policy_arn #policy_arn} => String
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#version #version} => String
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#name #name} => String
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#description #description} => String
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#definition_hash #definition_hash} => String
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#created_at #created_at} => Time
+    #   * {Types::CreateAutomatedReasoningPolicyResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_automated_reasoning_policy({
+    #     name: "AutomatedReasoningPolicyName", # required
+    #     description: "AutomatedReasoningPolicyDescription",
+    #     client_request_token: "IdempotencyToken",
+    #     policy_definition: {
+    #       version: "AutomatedReasoningPolicyFormatVersion",
+    #       types: [
+    #         {
+    #           name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionTypeDescription",
+    #           values: [ # required
+    #             {
+    #               value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #               description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #             },
+    #           ],
+    #         },
+    #       ],
+    #       rules: [
+    #         {
+    #           id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #           expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #           alternate_expression: "AutomatedReasoningPolicyDefinitionRuleAlternateExpression",
+    #         },
+    #       ],
+    #       variables: [
+    #         {
+    #           name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #           type: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionVariableDescription", # required
+    #         },
+    #       ],
+    #     },
+    #     tags: [
+    #       {
+    #         key: "TagKey", # required
+    #         value: "TagValue", # required
+    #       },
+    #     ],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.version #=> String
+    #   resp.name #=> String
+    #   resp.description #=> String
+    #   resp.definition_hash #=> String
+    #   resp.created_at #=> Time
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicy AWS API Documentation
+    #
+    # @overload create_automated_reasoning_policy(params = {})
+    # @param [Hash] params ({})
+    def create_automated_reasoning_policy(params = {}, options = {})
+      req = build_request(:create_automated_reasoning_policy, params)
+      req.send_request(options)
+    end
+
+    # Creates a test for an Automated Reasoning policy. Tests validate that
+    # your policy works as expected by providing sample inputs and expected
+    # outcomes. Use tests to verify policy behavior before deploying to
+    # production.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to create the test.
+    #
+    # @option params [required, String] :guard_content
+    #   The output content that's validated by the Automated Reasoning
+    #   policy. This represents the foundation model response that will be
+    #   checked for accuracy.
+    #
+    # @option params [String] :query_content
+    #   The input query or prompt that generated the content. This provides
+    #   context for the validation.
+    #
+    # @option params [required, String] :expected_aggregated_findings_result
+    #   The expected result of the Automated Reasoning check. Valid values
+    #   include: , TOO\_COMPLEX, and NO\_TRANSLATIONS.
+    #
+    #   * `VALID` - The claims are true. The claims are implied by the
+    #     premises and the Automated Reasoning policy. Given the Automated
+    #     Reasoning policy and premises, it is not possible for these claims
+    #     to be false. In other words, there are no alternative answers that
+    #     are true that contradict the claims.
+    #
+    #   * `INVALID` - The claims are false. The claims are not implied by the
+    #     premises and Automated Reasoning policy. Furthermore, there exists
+    #     different claims that are consistent with the premises and Automated
+    #     Reasoning policy.
+    #
+    #   * `SATISFIABLE` - The claims can be true or false. It depends on what
+    #     assumptions are made for the claim to be implied from the premises
+    #     and Automated Reasoning policy rules. In this situation, different
+    #     assumptions can make input claims false and alternative claims true.
+    #
+    #   * `IMPOSSIBLE` - Automated Reasoning can’t make a statement about the
+    #     claims. This can happen if the premises are logically incorrect, or
+    #     if there is a conflict within the Automated Reasoning policy itself.
+    #
+    #   * `TRANSLATION_AMBIGUOUS` - Detected an ambiguity in the translation
+    #     meant it would be unsound to continue with validity checking.
+    #     Additional context or follow-up questions might be needed to get
+    #     translation to succeed.
+    #
+    #   * `TOO_COMPLEX` - The input contains too much information for
+    #     Automated Reasoning to process within its latency limits.
+    #
+    #   * `NO_TRANSLATIONS` - Identifies that some or all of the input prompt
+    #     wasn't translated into logic. This can happen if the input isn't
+    #     relevant to the Automated Reasoning policy, or if the policy
+    #     doesn't have variables to model relevant input. If Automated
+    #     Reasoning can't translate anything, you get a single
+    #     `NO_TRANSLATIONS` finding. You might also see a `NO_TRANSLATIONS`
+    #     (along with other findings) if some part of the validation isn't
+    #     translated.
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [Float] :confidence_threshold
+    #   The minimum confidence level for logic validation. Content that meets
+    #   the threshold is considered a high-confidence finding that can be
+    #   validated.
+    #
+    # @return [Types::CreateAutomatedReasoningPolicyTestCaseResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateAutomatedReasoningPolicyTestCaseResponse#policy_arn #policy_arn} => String
+    #   * {Types::CreateAutomatedReasoningPolicyTestCaseResponse#test_case_id #test_case_id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_automated_reasoning_policy_test_case({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     guard_content: "AutomatedReasoningPolicyTestGuardContent", # required
+    #     query_content: "AutomatedReasoningPolicyTestQueryContent",
+    #     expected_aggregated_findings_result: "VALID", # required, accepts VALID, INVALID, SATISFIABLE, IMPOSSIBLE, TRANSLATION_AMBIGUOUS, TOO_COMPLEX, NO_TRANSLATION
+    #     client_request_token: "IdempotencyToken",
+    #     confidence_threshold: 1.0,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.test_case_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyTestCase AWS API Documentation
+    #
+    # @overload create_automated_reasoning_policy_test_case(params = {})
+    # @param [Hash] params ({})
+    def create_automated_reasoning_policy_test_case(params = {}, options = {})
+      req = build_request(:create_automated_reasoning_policy_test_case, params)
+      req.send_request(options)
+    end
+
+    # Creates a new version of an existing Automated Reasoning policy. This
+    # allows you to iterate on your policy rules while maintaining previous
+    # versions for rollback or comparison purposes.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to create a version.
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [required, String] :last_updated_definition_hash
+    #   The hash of the current policy definition used as a concurrency token
+    #   to ensure the policy hasn't been modified since you last retrieved
+    #   it.
+    #
+    # @option params [Array<Types::Tag>] :tags
+    #   A list of tags to associate with the policy version.
+    #
+    # @return [Types::CreateAutomatedReasoningPolicyVersionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#policy_arn #policy_arn} => String
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#version #version} => String
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#name #name} => String
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#description #description} => String
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#definition_hash #definition_hash} => String
+    #   * {Types::CreateAutomatedReasoningPolicyVersionResponse#created_at #created_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_automated_reasoning_policy_version({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     client_request_token: "IdempotencyToken",
+    #     last_updated_definition_hash: "AutomatedReasoningPolicyHash", # required
+    #     tags: [
+    #       {
+    #         key: "TagKey", # required
+    #         value: "TagValue", # required
+    #       },
+    #     ],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.version #=> String
+    #   resp.name #=> String
+    #   resp.description #=> String
+    #   resp.definition_hash #=> String
+    #   resp.created_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/CreateAutomatedReasoningPolicyVersion AWS API Documentation
+    #
+    # @overload create_automated_reasoning_policy_version(params = {})
+    # @param [Hash] params ({})
+    def create_automated_reasoning_policy_version(params = {}, options = {})
+      req = build_request(:create_automated_reasoning_policy_version, params)
+      req.send_request(options)
+    end
+
     # Creates a new custom model in Amazon Bedrock. After the model is
     # active, you can use it for inference.
     #
@@ -1378,6 +1687,10 @@ module Aws::Bedrock
     #   The contextual grounding policy configuration used to create a
     #   guardrail.
     #
+    # @option params [Types::GuardrailAutomatedReasoningPolicyConfig] :automated_reasoning_policy_config
+    #   Optional configuration for integrating Automated Reasoning policies
+    #   with the new guardrail.
+    #
     # @option params [Types::GuardrailCrossRegionConfig] :cross_region_config
     #   The system-defined guardrail profile that you're using with your
     #   guardrail. Guardrail profiles define the destination Amazon Web
@@ -1516,6 +1829,10 @@ module Aws::Bedrock
     #           enabled: false,
     #         },
     #       ],
+    #     },
+    #     automated_reasoning_policy_config: {
+    #       policies: ["AutomatedReasoningPolicyArn"], # required
+    #       confidence_threshold: 1.0,
     #     },
     #     cross_region_config: {
     #       guardrail_profile_identifier: "GuardrailCrossRegionGuardrailProfileIdentifier", # required
@@ -2444,6 +2761,100 @@ module Aws::Bedrock
       req.send_request(options)
     end
 
+    # Deletes an Automated Reasoning policy or policy version. This
+    # operation is idempotent. If you delete a policy more than once, each
+    # call succeeds. Deleting a policy removes it permanently and cannot be
+    # undone.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   delete.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_automated_reasoning_policy({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicy AWS API Documentation
+    #
+    # @overload delete_automated_reasoning_policy(params = {})
+    # @param [Hash] params ({})
+    def delete_automated_reasoning_policy(params = {}, options = {})
+      req = build_request(:delete_automated_reasoning_policy, params)
+      req.send_request(options)
+    end
+
+    # Deletes an Automated Reasoning policy build workflow and its
+    # associated artifacts. This permanently removes the workflow history
+    # and any generated assets.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   build workflow you want to delete.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow to delete.
+    #
+    # @option params [required, Time,DateTime,Date,Integer,String] :last_updated_at
+    #   The timestamp when the build workflow was last updated. This is used
+    #   for optimistic concurrency control to prevent accidental deletion of
+    #   workflows that have been modified.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_automated_reasoning_policy_build_workflow({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     last_updated_at: Time.now, # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyBuildWorkflow AWS API Documentation
+    #
+    # @overload delete_automated_reasoning_policy_build_workflow(params = {})
+    # @param [Hash] params ({})
+    def delete_automated_reasoning_policy_build_workflow(params = {}, options = {})
+      req = build_request(:delete_automated_reasoning_policy_build_workflow, params)
+      req.send_request(options)
+    end
+
+    # Deletes an Automated Reasoning policy test. This operation is
+    # idempotent; if you delete a test more than once, each call succeeds.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy that
+    #   contains the test.
+    #
+    # @option params [required, String] :test_case_id
+    #   The unique identifier of the test to delete.
+    #
+    # @option params [required, Time,DateTime,Date,Integer,String] :last_updated_at
+    #   The timestamp when the test was last updated. This is used as a
+    #   concurrency token to prevent conflicting modifications.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_automated_reasoning_policy_test_case({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     test_case_id: "AutomatedReasoningPolicyTestCaseId", # required
+    #     last_updated_at: Time.now, # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/DeleteAutomatedReasoningPolicyTestCase AWS API Documentation
+    #
+    # @overload delete_automated_reasoning_policy_test_case(params = {})
+    # @param [Hash] params ({})
+    def delete_automated_reasoning_policy_test_case(params = {}, options = {})
+      req = build_request(:delete_automated_reasoning_policy_test_case, params)
+      req.send_request(options)
+    end
+
     # Deletes a custom model that you created earlier. For more information,
     # see [Custom models][1] in the [Amazon Bedrock User Guide][2].
     #
@@ -2733,6 +3144,624 @@ module Aws::Bedrock
     # @param [Hash] params ({})
     def deregister_marketplace_model_endpoint(params = {}, options = {})
       req = build_request(:deregister_marketplace_model_endpoint, params)
+      req.send_request(options)
+    end
+
+    # Exports the policy definition for an Automated Reasoning policy
+    # version. Returns the complete policy definition including rules,
+    # variables, and custom variable types in a structured format.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   export. Can be either the unversioned ARN for the draft policy or a
+    #   versioned ARN for a specific policy version.
+    #
+    # @return [Types::ExportAutomatedReasoningPolicyVersionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ExportAutomatedReasoningPolicyVersionResponse#policy_definition #policy_definition} => Types::AutomatedReasoningPolicyDefinition
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.export_automated_reasoning_policy_version({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_definition.version #=> String
+    #   resp.policy_definition.types #=> Array
+    #   resp.policy_definition.types[0].name #=> String
+    #   resp.policy_definition.types[0].description #=> String
+    #   resp.policy_definition.types[0].values #=> Array
+    #   resp.policy_definition.types[0].values[0].value #=> String
+    #   resp.policy_definition.types[0].values[0].description #=> String
+    #   resp.policy_definition.rules #=> Array
+    #   resp.policy_definition.rules[0].id #=> String
+    #   resp.policy_definition.rules[0].expression #=> String
+    #   resp.policy_definition.rules[0].alternate_expression #=> String
+    #   resp.policy_definition.variables #=> Array
+    #   resp.policy_definition.variables[0].name #=> String
+    #   resp.policy_definition.variables[0].type #=> String
+    #   resp.policy_definition.variables[0].description #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ExportAutomatedReasoningPolicyVersion AWS API Documentation
+    #
+    # @overload export_automated_reasoning_policy_version(params = {})
+    # @param [Hash] params ({})
+    def export_automated_reasoning_policy_version(params = {}, options = {})
+      req = build_request(:export_automated_reasoning_policy_version, params)
+      req.send_request(options)
+    end
+
+    # Retrieves details about an Automated Reasoning policy or policy
+    # version. Returns information including the policy definition,
+    # metadata, and timestamps.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   retrieve. Can be either the unversioned ARN for the draft policy or an
+    #   ARN for a specific policy version.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#name #name} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#version #version} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#policy_id #policy_id} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#description #description} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#definition_hash #definition_hash} => String
+    #   * {Types::GetAutomatedReasoningPolicyResponse#created_at #created_at} => Time
+    #   * {Types::GetAutomatedReasoningPolicyResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.name #=> String
+    #   resp.version #=> String
+    #   resp.policy_id #=> String
+    #   resp.description #=> String
+    #   resp.definition_hash #=> String
+    #   resp.created_at #=> Time
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicy AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the current annotations for an Automated Reasoning policy
+    # build workflow. Annotations contain corrections to the rules,
+    # variables and types to be applied to the policy.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   annotations you want to retrieve.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow whose annotations you want
+    #   to retrieve.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyAnnotationsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#name #name} => String
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#build_workflow_id #build_workflow_id} => String
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#annotations #annotations} => Array&lt;Types::AutomatedReasoningPolicyAnnotation&gt;
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#annotation_set_hash #annotation_set_hash} => String
+    #   * {Types::GetAutomatedReasoningPolicyAnnotationsResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_annotations({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.name #=> String
+    #   resp.build_workflow_id #=> String
+    #   resp.annotations #=> Array
+    #   resp.annotations[0].add_type.name #=> String
+    #   resp.annotations[0].add_type.description #=> String
+    #   resp.annotations[0].add_type.values #=> Array
+    #   resp.annotations[0].add_type.values[0].value #=> String
+    #   resp.annotations[0].add_type.values[0].description #=> String
+    #   resp.annotations[0].update_type.name #=> String
+    #   resp.annotations[0].update_type.new_name #=> String
+    #   resp.annotations[0].update_type.description #=> String
+    #   resp.annotations[0].update_type.values #=> Array
+    #   resp.annotations[0].update_type.values[0].add_type_value.value #=> String
+    #   resp.annotations[0].update_type.values[0].add_type_value.description #=> String
+    #   resp.annotations[0].update_type.values[0].update_type_value.value #=> String
+    #   resp.annotations[0].update_type.values[0].update_type_value.new_value #=> String
+    #   resp.annotations[0].update_type.values[0].update_type_value.description #=> String
+    #   resp.annotations[0].update_type.values[0].delete_type_value.value #=> String
+    #   resp.annotations[0].delete_type.name #=> String
+    #   resp.annotations[0].add_variable.name #=> String
+    #   resp.annotations[0].add_variable.type #=> String
+    #   resp.annotations[0].add_variable.description #=> String
+    #   resp.annotations[0].update_variable.name #=> String
+    #   resp.annotations[0].update_variable.new_name #=> String
+    #   resp.annotations[0].update_variable.description #=> String
+    #   resp.annotations[0].delete_variable.name #=> String
+    #   resp.annotations[0].add_rule.expression #=> String
+    #   resp.annotations[0].update_rule.rule_id #=> String
+    #   resp.annotations[0].update_rule.expression #=> String
+    #   resp.annotations[0].delete_rule.rule_id #=> String
+    #   resp.annotations[0].add_rule_from_natural_language.natural_language #=> String
+    #   resp.annotations[0].update_from_rules_feedback.rule_ids #=> Array
+    #   resp.annotations[0].update_from_rules_feedback.rule_ids[0] #=> String
+    #   resp.annotations[0].update_from_rules_feedback.feedback #=> String
+    #   resp.annotations[0].update_from_scenario_feedback.rule_ids #=> Array
+    #   resp.annotations[0].update_from_scenario_feedback.rule_ids[0] #=> String
+    #   resp.annotations[0].update_from_scenario_feedback.scenario_expression #=> String
+    #   resp.annotations[0].update_from_scenario_feedback.feedback #=> String
+    #   resp.annotations[0].ingest_content.content #=> String
+    #   resp.annotation_set_hash #=> String
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyAnnotations AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_annotations(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_annotations(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_annotations, params)
+      req.send_request(options)
+    end
+
+    # Retrieves detailed information about an Automated Reasoning policy
+    # build workflow, including its status, configuration, and metadata.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   build workflow you want to retrieve.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow to retrieve.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyBuildWorkflowResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#build_workflow_id #build_workflow_id} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#status #status} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#build_workflow_type #build_workflow_type} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#document_name #document_name} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#document_content_type #document_content_type} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#document_description #document_description} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#created_at #created_at} => Time
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_build_workflow({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.build_workflow_id #=> String
+    #   resp.status #=> String, one of "SCHEDULED", "CANCEL_REQUESTED", "PREPROCESSING", "BUILDING", "TESTING", "COMPLETED", "FAILED", "CANCELLED"
+    #   resp.build_workflow_type #=> String, one of "INGEST_CONTENT", "REFINE_POLICY", "IMPORT_POLICY"
+    #   resp.document_name #=> String
+    #   resp.document_content_type #=> String, one of "pdf", "txt"
+    #   resp.document_description #=> String
+    #   resp.created_at #=> Time
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflow AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_build_workflow(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_build_workflow(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_build_workflow, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the resulting assets from a completed Automated Reasoning
+    # policy build workflow, including build logs, quality reports, and
+    # generated policy artifacts.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   build workflow assets you want to retrieve.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow whose result assets you
+    #   want to retrieve.
+    #
+    # @option params [required, String] :asset_type
+    #   The type of asset to retrieve (e.g., BUILD\_LOG, QUALITY\_REPORT,
+    #   POLICY\_DEFINITION).
+    #
+    # @return [Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse#build_workflow_id #build_workflow_id} => String
+    #   * {Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse#build_workflow_assets #build_workflow_assets} => Types::AutomatedReasoningPolicyBuildResultAssets
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_build_workflow_result_assets({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     asset_type: "BUILD_LOG", # required, accepts BUILD_LOG, QUALITY_REPORT, POLICY_DEFINITION
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.build_workflow_id #=> String
+    #   resp.build_workflow_assets.policy_definition.version #=> String
+    #   resp.build_workflow_assets.policy_definition.types #=> Array
+    #   resp.build_workflow_assets.policy_definition.types[0].name #=> String
+    #   resp.build_workflow_assets.policy_definition.types[0].description #=> String
+    #   resp.build_workflow_assets.policy_definition.types[0].values #=> Array
+    #   resp.build_workflow_assets.policy_definition.types[0].values[0].value #=> String
+    #   resp.build_workflow_assets.policy_definition.types[0].values[0].description #=> String
+    #   resp.build_workflow_assets.policy_definition.rules #=> Array
+    #   resp.build_workflow_assets.policy_definition.rules[0].id #=> String
+    #   resp.build_workflow_assets.policy_definition.rules[0].expression #=> String
+    #   resp.build_workflow_assets.policy_definition.rules[0].alternate_expression #=> String
+    #   resp.build_workflow_assets.policy_definition.variables #=> Array
+    #   resp.build_workflow_assets.policy_definition.variables[0].name #=> String
+    #   resp.build_workflow_assets.policy_definition.variables[0].type #=> String
+    #   resp.build_workflow_assets.policy_definition.variables[0].description #=> String
+    #   resp.build_workflow_assets.quality_report.type_count #=> Integer
+    #   resp.build_workflow_assets.quality_report.variable_count #=> Integer
+    #   resp.build_workflow_assets.quality_report.rule_count #=> Integer
+    #   resp.build_workflow_assets.quality_report.unused_types #=> Array
+    #   resp.build_workflow_assets.quality_report.unused_types[0] #=> String
+    #   resp.build_workflow_assets.quality_report.unused_type_values #=> Array
+    #   resp.build_workflow_assets.quality_report.unused_type_values[0].type_name #=> String
+    #   resp.build_workflow_assets.quality_report.unused_type_values[0].value_name #=> String
+    #   resp.build_workflow_assets.quality_report.unused_variables #=> Array
+    #   resp.build_workflow_assets.quality_report.unused_variables[0] #=> String
+    #   resp.build_workflow_assets.quality_report.conflicting_rules #=> Array
+    #   resp.build_workflow_assets.quality_report.conflicting_rules[0] #=> String
+    #   resp.build_workflow_assets.quality_report.disjoint_rule_sets #=> Array
+    #   resp.build_workflow_assets.quality_report.disjoint_rule_sets[0].variables #=> Array
+    #   resp.build_workflow_assets.quality_report.disjoint_rule_sets[0].variables[0] #=> String
+    #   resp.build_workflow_assets.quality_report.disjoint_rule_sets[0].rules #=> Array
+    #   resp.build_workflow_assets.quality_report.disjoint_rule_sets[0].rules[0] #=> String
+    #   resp.build_workflow_assets.build_log.entries #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_type.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_type.values #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_type.values[0].value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_type.values[0].description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.new_name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].add_type_value.value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].add_type_value.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].update_type_value.value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].update_type_value.new_value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].update_type_value.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_type.values[0].delete_type_value.value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.delete_type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_variable.type #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_variable.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_variable.new_name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_variable.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.delete_variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_rule.expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_rule.rule_id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_rule.expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.delete_rule.rule_id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.add_rule_from_natural_language.natural_language #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_rules_feedback.rule_ids #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_rules_feedback.rule_ids[0] #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_rules_feedback.feedback #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_scenario_feedback.rule_ids #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_scenario_feedback.rule_ids[0] #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_scenario_feedback.scenario_expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.update_from_scenario_feedback.feedback #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].annotation.ingest_content.content #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].status #=> String, one of "APPLIED", "FAILED"
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_type.type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_type.type.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_type.type.values #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_type.type.values[0].value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_type.type.values[0].description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_type.type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_type.type.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_type.type.values #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_type.type.values[0].value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_type.type.values[0].description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.delete_type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_variable.variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_variable.variable.type #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_variable.variable.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_variable.variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_variable.variable.type #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_variable.variable.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.delete_variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_rule.rule.id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_rule.rule.expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.add_rule.rule.alternate_expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_rule.rule.id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_rule.rule.expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.update_rule.rule.alternate_expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].context.mutation.delete_rule.id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_variable.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_variable.type #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_variable.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_type.name #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_type.description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_type.values #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_type.values[0].value #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_type.values[0].description #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_rule.id #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_rule.expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].prior_element.policy_definition_rule.alternate_expression #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].messages #=> Array
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].messages[0].message #=> String
+    #   resp.build_workflow_assets.build_log.entries[0].build_steps[0].messages[0].message_type #=> String, one of "INFO", "WARNING", "ERROR"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyBuildWorkflowResultAssets AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_build_workflow_result_assets(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_build_workflow_result_assets(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_build_workflow_result_assets, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the next test scenario for validating an Automated Reasoning
+    # policy. This is used during the interactive policy refinement process
+    # to test policy behavior.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which you want to get the next test scenario.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow associated with the test
+    #   scenarios.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyNextScenarioResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyNextScenarioResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyNextScenarioResponse#scenario #scenario} => Types::AutomatedReasoningPolicyScenario
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_next_scenario({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.scenario.expression #=> String
+    #   resp.scenario.alternate_expression #=> String
+    #   resp.scenario.rule_ids #=> Array
+    #   resp.scenario.rule_ids[0] #=> String
+    #   resp.scenario.expected_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyNextScenario AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_next_scenario(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_next_scenario(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_next_scenario, params)
+      req.send_request(options)
+    end
+
+    # Retrieves details about a specific Automated Reasoning policy test.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy that
+    #   contains the test.
+    #
+    # @option params [required, String] :test_case_id
+    #   The unique identifier of the test to retrieve.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyTestCaseResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyTestCaseResponse#policy_arn #policy_arn} => String
+    #   * {Types::GetAutomatedReasoningPolicyTestCaseResponse#test_case #test_case} => Types::AutomatedReasoningPolicyTestCase
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_test_case({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     test_case_id: "AutomatedReasoningPolicyTestCaseId", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.test_case.test_case_id #=> String
+    #   resp.test_case.guard_content #=> String
+    #   resp.test_case.query_content #=> String
+    #   resp.test_case.expected_aggregated_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_case.created_at #=> Time
+    #   resp.test_case.updated_at #=> Time
+    #   resp.test_case.confidence_threshold #=> Float
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestCase AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_test_case(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_test_case(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_test_case, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the test result for a specific Automated Reasoning policy
+    # test. Returns detailed validation findings and execution status.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The build workflow identifier. The build workflow must display a
+    #   `COMPLETED` status to get results.
+    #
+    # @option params [required, String] :test_case_id
+    #   The unique identifier of the test for which to retrieve results.
+    #
+    # @return [Types::GetAutomatedReasoningPolicyTestResultResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAutomatedReasoningPolicyTestResultResponse#test_result #test_result} => Types::AutomatedReasoningPolicyTestResult
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_automated_reasoning_policy_test_result({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     test_case_id: "AutomatedReasoningPolicyTestCaseId", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.test_result.test_case.test_case_id #=> String
+    #   resp.test_result.test_case.guard_content #=> String
+    #   resp.test_result.test_case.query_content #=> String
+    #   resp.test_result.test_case.expected_aggregated_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_result.test_case.created_at #=> Time
+    #   resp.test_result.test_case.updated_at #=> Time
+    #   resp.test_result.test_case.confidence_threshold #=> Float
+    #   resp.test_result.policy_arn #=> String
+    #   resp.test_result.test_run_status #=> String, one of "NOT_STARTED", "SCHEDULED", "IN_PROGRESS", "COMPLETED", "FAILED"
+    #   resp.test_result.test_findings #=> Array
+    #   resp.test_result.test_findings[0].valid.translation.premises #=> Array
+    #   resp.test_result.test_findings[0].valid.translation.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].valid.translation.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].valid.translation.claims #=> Array
+    #   resp.test_result.test_findings[0].valid.translation.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].valid.translation.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].valid.translation.untranslated_premises #=> Array
+    #   resp.test_result.test_findings[0].valid.translation.untranslated_premises[0].text #=> String
+    #   resp.test_result.test_findings[0].valid.translation.untranslated_claims #=> Array
+    #   resp.test_result.test_findings[0].valid.translation.untranslated_claims[0].text #=> String
+    #   resp.test_result.test_findings[0].valid.translation.confidence #=> Float
+    #   resp.test_result.test_findings[0].valid.claims_true_scenario.statements #=> Array
+    #   resp.test_result.test_findings[0].valid.claims_true_scenario.statements[0].logic #=> String
+    #   resp.test_result.test_findings[0].valid.claims_true_scenario.statements[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].valid.supporting_rules #=> Array
+    #   resp.test_result.test_findings[0].valid.supporting_rules[0].id #=> String
+    #   resp.test_result.test_findings[0].valid.supporting_rules[0].policy_version_arn #=> String
+    #   resp.test_result.test_findings[0].valid.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_result.test_findings[0].valid.logic_warning.premises #=> Array
+    #   resp.test_result.test_findings[0].valid.logic_warning.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].valid.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].valid.logic_warning.claims #=> Array
+    #   resp.test_result.test_findings[0].valid.logic_warning.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].valid.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.premises #=> Array
+    #   resp.test_result.test_findings[0].invalid.translation.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.claims #=> Array
+    #   resp.test_result.test_findings[0].invalid.translation.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.untranslated_premises #=> Array
+    #   resp.test_result.test_findings[0].invalid.translation.untranslated_premises[0].text #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.untranslated_claims #=> Array
+    #   resp.test_result.test_findings[0].invalid.translation.untranslated_claims[0].text #=> String
+    #   resp.test_result.test_findings[0].invalid.translation.confidence #=> Float
+    #   resp.test_result.test_findings[0].invalid.contradicting_rules #=> Array
+    #   resp.test_result.test_findings[0].invalid.contradicting_rules[0].id #=> String
+    #   resp.test_result.test_findings[0].invalid.contradicting_rules[0].policy_version_arn #=> String
+    #   resp.test_result.test_findings[0].invalid.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_result.test_findings[0].invalid.logic_warning.premises #=> Array
+    #   resp.test_result.test_findings[0].invalid.logic_warning.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].invalid.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].invalid.logic_warning.claims #=> Array
+    #   resp.test_result.test_findings[0].invalid.logic_warning.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].invalid.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.premises #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.translation.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.claims #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.translation.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.untranslated_premises #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.translation.untranslated_premises[0].text #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.untranslated_claims #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.translation.untranslated_claims[0].text #=> String
+    #   resp.test_result.test_findings[0].satisfiable.translation.confidence #=> Float
+    #   resp.test_result.test_findings[0].satisfiable.claims_true_scenario.statements #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.claims_true_scenario.statements[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.claims_true_scenario.statements[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.claims_false_scenario.statements #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.claims_false_scenario.statements[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.claims_false_scenario.statements[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.premises #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.claims #=> Array
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].satisfiable.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.premises #=> Array
+    #   resp.test_result.test_findings[0].impossible.translation.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.claims #=> Array
+    #   resp.test_result.test_findings[0].impossible.translation.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.untranslated_premises #=> Array
+    #   resp.test_result.test_findings[0].impossible.translation.untranslated_premises[0].text #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.untranslated_claims #=> Array
+    #   resp.test_result.test_findings[0].impossible.translation.untranslated_claims[0].text #=> String
+    #   resp.test_result.test_findings[0].impossible.translation.confidence #=> Float
+    #   resp.test_result.test_findings[0].impossible.contradicting_rules #=> Array
+    #   resp.test_result.test_findings[0].impossible.contradicting_rules[0].id #=> String
+    #   resp.test_result.test_findings[0].impossible.contradicting_rules[0].policy_version_arn #=> String
+    #   resp.test_result.test_findings[0].impossible.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_result.test_findings[0].impossible.logic_warning.premises #=> Array
+    #   resp.test_result.test_findings[0].impossible.logic_warning.premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].impossible.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].impossible.logic_warning.claims #=> Array
+    #   resp.test_result.test_findings[0].impossible.logic_warning.claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].impossible.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].premises #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].premises[0].logic #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].premises[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].claims #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].claims[0].logic #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].claims[0].natural_language #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_premises #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_premises[0].text #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_claims #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_claims[0].text #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.options[0].translations[0].confidence #=> Float
+    #   resp.test_result.test_findings[0].translation_ambiguous.difference_scenarios #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.difference_scenarios[0].statements #=> Array
+    #   resp.test_result.test_findings[0].translation_ambiguous.difference_scenarios[0].statements[0].logic #=> String
+    #   resp.test_result.test_findings[0].translation_ambiguous.difference_scenarios[0].statements[0].natural_language #=> String
+    #   resp.test_result.test_run_result #=> String, one of "PASSED", "FAILED"
+    #   resp.test_result.aggregated_test_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_result.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetAutomatedReasoningPolicyTestResult AWS API Documentation
+    #
+    # @overload get_automated_reasoning_policy_test_result(params = {})
+    # @param [Hash] params ({})
+    def get_automated_reasoning_policy_test_result(params = {}, options = {})
+      req = build_request(:get_automated_reasoning_policy_test_result, params)
       req.send_request(options)
     end
 
@@ -3170,6 +4199,7 @@ module Aws::Bedrock
     #   * {Types::GetGuardrailResponse#word_policy #word_policy} => Types::GuardrailWordPolicy
     #   * {Types::GetGuardrailResponse#sensitive_information_policy #sensitive_information_policy} => Types::GuardrailSensitiveInformationPolicy
     #   * {Types::GetGuardrailResponse#contextual_grounding_policy #contextual_grounding_policy} => Types::GuardrailContextualGroundingPolicy
+    #   * {Types::GetGuardrailResponse#automated_reasoning_policy #automated_reasoning_policy} => Types::GuardrailAutomatedReasoningPolicy
     #   * {Types::GetGuardrailResponse#cross_region_details #cross_region_details} => Types::GuardrailCrossRegionDetails
     #   * {Types::GetGuardrailResponse#created_at #created_at} => Time
     #   * {Types::GetGuardrailResponse#updated_at #updated_at} => Time
@@ -3251,6 +4281,9 @@ module Aws::Bedrock
     #   resp.contextual_grounding_policy.filters[0].threshold #=> Float
     #   resp.contextual_grounding_policy.filters[0].action #=> String, one of "BLOCK", "NONE"
     #   resp.contextual_grounding_policy.filters[0].enabled #=> Boolean
+    #   resp.automated_reasoning_policy.policies #=> Array
+    #   resp.automated_reasoning_policy.policies[0] #=> String
+    #   resp.automated_reasoning_policy.confidence_threshold #=> Float
     #   resp.cross_region_details.guardrail_profile_id #=> String
     #   resp.cross_region_details.guardrail_profile_arn #=> String
     #   resp.created_at #=> Time
@@ -3861,6 +4894,328 @@ module Aws::Bedrock
     # @param [Hash] params ({})
     def get_use_case_for_model_access(params = {}, options = {})
       req = build_request(:get_use_case_for_model_access, params)
+      req.send_request(options)
+    end
+
+    # Lists all Automated Reasoning policies in your account, with optional
+    # filtering by policy ARN. This helps you manage and discover existing
+    # policies.
+    #
+    # @option params [String] :policy_arn
+    #   Optional filter to list only the policy versions with the specified
+    #   Amazon Resource Name (ARN). If not provided, the DRAFT versions for
+    #   all policies are listed.
+    #
+    # @option params [String] :next_token
+    #   The pagination token from a previous request to retrieve the next page
+    #   of results.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of policies to return in a single call.
+    #
+    # @return [Types::ListAutomatedReasoningPoliciesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListAutomatedReasoningPoliciesResponse#automated_reasoning_policy_summaries #automated_reasoning_policy_summaries} => Array&lt;Types::AutomatedReasoningPolicySummary&gt;
+    #   * {Types::ListAutomatedReasoningPoliciesResponse#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_automated_reasoning_policies({
+    #     policy_arn: "AutomatedReasoningPolicyArn",
+    #     next_token: "PaginationToken",
+    #     max_results: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.automated_reasoning_policy_summaries #=> Array
+    #   resp.automated_reasoning_policy_summaries[0].policy_arn #=> String
+    #   resp.automated_reasoning_policy_summaries[0].name #=> String
+    #   resp.automated_reasoning_policy_summaries[0].description #=> String
+    #   resp.automated_reasoning_policy_summaries[0].version #=> String
+    #   resp.automated_reasoning_policy_summaries[0].policy_id #=> String
+    #   resp.automated_reasoning_policy_summaries[0].created_at #=> Time
+    #   resp.automated_reasoning_policy_summaries[0].updated_at #=> Time
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicies AWS API Documentation
+    #
+    # @overload list_automated_reasoning_policies(params = {})
+    # @param [Hash] params ({})
+    def list_automated_reasoning_policies(params = {}, options = {})
+      req = build_request(:list_automated_reasoning_policies, params)
+      req.send_request(options)
+    end
+
+    # Lists all build workflows for an Automated Reasoning policy, showing
+    # the history of policy creation and modification attempts.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   build workflows you want to list.
+    #
+    # @option params [String] :next_token
+    #   A pagination token from a previous request to continue listing build
+    #   workflows from where the previous request left off.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of build workflows to return in a single response.
+    #   Valid range is 1-100.
+    #
+    # @return [Types::ListAutomatedReasoningPolicyBuildWorkflowsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListAutomatedReasoningPolicyBuildWorkflowsResponse#automated_reasoning_policy_build_workflow_summaries #automated_reasoning_policy_build_workflow_summaries} => Array&lt;Types::AutomatedReasoningPolicyBuildWorkflowSummary&gt;
+    #   * {Types::ListAutomatedReasoningPolicyBuildWorkflowsResponse#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_automated_reasoning_policy_build_workflows({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     next_token: "PaginationToken",
+    #     max_results: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.automated_reasoning_policy_build_workflow_summaries #=> Array
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].policy_arn #=> String
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].build_workflow_id #=> String
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].status #=> String, one of "SCHEDULED", "CANCEL_REQUESTED", "PREPROCESSING", "BUILDING", "TESTING", "COMPLETED", "FAILED", "CANCELLED"
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].build_workflow_type #=> String, one of "INGEST_CONTENT", "REFINE_POLICY", "IMPORT_POLICY"
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].created_at #=> Time
+    #   resp.automated_reasoning_policy_build_workflow_summaries[0].updated_at #=> Time
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyBuildWorkflows AWS API Documentation
+    #
+    # @overload list_automated_reasoning_policy_build_workflows(params = {})
+    # @param [Hash] params ({})
+    def list_automated_reasoning_policy_build_workflows(params = {}, options = {})
+      req = build_request(:list_automated_reasoning_policy_build_workflows, params)
+      req.send_request(options)
+    end
+
+    # Lists tests for an Automated Reasoning policy. We recommend using
+    # pagination to ensure that the operation returns quickly and
+    # successfully.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to list tests.
+    #
+    # @option params [String] :next_token
+    #   The pagination token from a previous request to retrieve the next page
+    #   of results.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of tests to return in a single call.
+    #
+    # @return [Types::ListAutomatedReasoningPolicyTestCasesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListAutomatedReasoningPolicyTestCasesResponse#test_cases #test_cases} => Array&lt;Types::AutomatedReasoningPolicyTestCase&gt;
+    #   * {Types::ListAutomatedReasoningPolicyTestCasesResponse#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_automated_reasoning_policy_test_cases({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     next_token: "PaginationToken",
+    #     max_results: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.test_cases #=> Array
+    #   resp.test_cases[0].test_case_id #=> String
+    #   resp.test_cases[0].guard_content #=> String
+    #   resp.test_cases[0].query_content #=> String
+    #   resp.test_cases[0].expected_aggregated_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_cases[0].created_at #=> Time
+    #   resp.test_cases[0].updated_at #=> Time
+    #   resp.test_cases[0].confidence_threshold #=> Float
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestCases AWS API Documentation
+    #
+    # @overload list_automated_reasoning_policy_test_cases(params = {})
+    # @param [Hash] params ({})
+    def list_automated_reasoning_policy_test_cases(params = {}, options = {})
+      req = build_request(:list_automated_reasoning_policy_test_cases, params)
+      req.send_request(options)
+    end
+
+    # Lists test results for an Automated Reasoning policy, showing how the
+    # policy performed against various test scenarios and validation checks.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   test results you want to list.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow whose test results you
+    #   want to list.
+    #
+    # @option params [String] :next_token
+    #   A pagination token from a previous request to continue listing test
+    #   results from where the previous request left off.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of test results to return in a single response.
+    #   Valid range is 1-100.
+    #
+    # @return [Types::ListAutomatedReasoningPolicyTestResultsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListAutomatedReasoningPolicyTestResultsResponse#test_results #test_results} => Array&lt;Types::AutomatedReasoningPolicyTestResult&gt;
+    #   * {Types::ListAutomatedReasoningPolicyTestResultsResponse#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_automated_reasoning_policy_test_results({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     next_token: "PaginationToken",
+    #     max_results: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.test_results #=> Array
+    #   resp.test_results[0].test_case.test_case_id #=> String
+    #   resp.test_results[0].test_case.guard_content #=> String
+    #   resp.test_results[0].test_case.query_content #=> String
+    #   resp.test_results[0].test_case.expected_aggregated_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_results[0].test_case.created_at #=> Time
+    #   resp.test_results[0].test_case.updated_at #=> Time
+    #   resp.test_results[0].test_case.confidence_threshold #=> Float
+    #   resp.test_results[0].policy_arn #=> String
+    #   resp.test_results[0].test_run_status #=> String, one of "NOT_STARTED", "SCHEDULED", "IN_PROGRESS", "COMPLETED", "FAILED"
+    #   resp.test_results[0].test_findings #=> Array
+    #   resp.test_results[0].test_findings[0].valid.translation.premises #=> Array
+    #   resp.test_results[0].test_findings[0].valid.translation.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.claims #=> Array
+    #   resp.test_results[0].test_findings[0].valid.translation.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.untranslated_premises #=> Array
+    #   resp.test_results[0].test_findings[0].valid.translation.untranslated_premises[0].text #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.untranslated_claims #=> Array
+    #   resp.test_results[0].test_findings[0].valid.translation.untranslated_claims[0].text #=> String
+    #   resp.test_results[0].test_findings[0].valid.translation.confidence #=> Float
+    #   resp.test_results[0].test_findings[0].valid.claims_true_scenario.statements #=> Array
+    #   resp.test_results[0].test_findings[0].valid.claims_true_scenario.statements[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].valid.claims_true_scenario.statements[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].valid.supporting_rules #=> Array
+    #   resp.test_results[0].test_findings[0].valid.supporting_rules[0].id #=> String
+    #   resp.test_results[0].test_findings[0].valid.supporting_rules[0].policy_version_arn #=> String
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.premises #=> Array
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.claims #=> Array
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].valid.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.premises #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.translation.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.claims #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.translation.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.untranslated_premises #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.translation.untranslated_premises[0].text #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.untranslated_claims #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.translation.untranslated_claims[0].text #=> String
+    #   resp.test_results[0].test_findings[0].invalid.translation.confidence #=> Float
+    #   resp.test_results[0].test_findings[0].invalid.contradicting_rules #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.contradicting_rules[0].id #=> String
+    #   resp.test_results[0].test_findings[0].invalid.contradicting_rules[0].policy_version_arn #=> String
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.premises #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.claims #=> Array
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].invalid.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.premises #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.claims #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.untranslated_premises #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.untranslated_premises[0].text #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.untranslated_claims #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.untranslated_claims[0].text #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.translation.confidence #=> Float
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_true_scenario.statements #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_true_scenario.statements[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_true_scenario.statements[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_false_scenario.statements #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_false_scenario.statements[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.claims_false_scenario.statements[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.premises #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.claims #=> Array
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].satisfiable.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.premises #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.translation.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.claims #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.translation.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.untranslated_premises #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.translation.untranslated_premises[0].text #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.untranslated_claims #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.translation.untranslated_claims[0].text #=> String
+    #   resp.test_results[0].test_findings[0].impossible.translation.confidence #=> Float
+    #   resp.test_results[0].test_findings[0].impossible.contradicting_rules #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.contradicting_rules[0].id #=> String
+    #   resp.test_results[0].test_findings[0].impossible.contradicting_rules[0].policy_version_arn #=> String
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.type #=> String, one of "ALWAYS_TRUE", "ALWAYS_FALSE"
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.premises #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.claims #=> Array
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].impossible.logic_warning.claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].premises #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].premises[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].premises[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].claims #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].claims[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].claims[0].natural_language #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_premises #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_premises[0].text #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_claims #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].untranslated_claims[0].text #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.options[0].translations[0].confidence #=> Float
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.difference_scenarios #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.difference_scenarios[0].statements #=> Array
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.difference_scenarios[0].statements[0].logic #=> String
+    #   resp.test_results[0].test_findings[0].translation_ambiguous.difference_scenarios[0].statements[0].natural_language #=> String
+    #   resp.test_results[0].test_run_result #=> String, one of "PASSED", "FAILED"
+    #   resp.test_results[0].aggregated_test_findings_result #=> String, one of "VALID", "INVALID", "SATISFIABLE", "IMPOSSIBLE", "TRANSLATION_AMBIGUOUS", "TOO_COMPLEX", "NO_TRANSLATION"
+    #   resp.test_results[0].updated_at #=> Time
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/ListAutomatedReasoningPolicyTestResults AWS API Documentation
+    #
+    # @overload list_automated_reasoning_policy_test_results(params = {})
+    # @param [Hash] params ({})
+    def list_automated_reasoning_policy_test_results(params = {}, options = {})
+      req = build_request(:list_automated_reasoning_policy_test_results, params)
       req.send_request(options)
     end
 
@@ -5256,6 +6611,228 @@ module Aws::Bedrock
       req.send_request(options)
     end
 
+    # Starts a new build workflow for an Automated Reasoning policy. This
+    # initiates the process of analyzing source documents and generating
+    # policy rules, variables, and types.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy for
+    #   which to start the build workflow.
+    #
+    # @option params [required, String] :build_workflow_type
+    #   The type of build workflow to start (e.g., DOCUMENT\_INGESTION for
+    #   processing new documents, POLICY\_REPAIR for fixing existing
+    #   policies).
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than once. If this token matches a previous request,
+    #   Amazon Bedrock ignores the request but doesn't return an error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [required, Types::AutomatedReasoningPolicyBuildWorkflowSource] :source_content
+    #   The source content for the build workflow, such as documents to
+    #   analyze or repair instructions for existing policies.
+    #
+    # @return [Types::StartAutomatedReasoningPolicyBuildWorkflowResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StartAutomatedReasoningPolicyBuildWorkflowResponse#policy_arn #policy_arn} => String
+    #   * {Types::StartAutomatedReasoningPolicyBuildWorkflowResponse#build_workflow_id #build_workflow_id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.start_automated_reasoning_policy_build_workflow({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_type: "INGEST_CONTENT", # required, accepts INGEST_CONTENT, REFINE_POLICY, IMPORT_POLICY
+    #     client_request_token: "IdempotencyToken",
+    #     source_content: { # required
+    #       policy_definition: {
+    #         version: "AutomatedReasoningPolicyFormatVersion",
+    #         types: [
+    #           {
+    #             name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #             description: "AutomatedReasoningPolicyDefinitionTypeDescription",
+    #             values: [ # required
+    #               {
+    #                 value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                 description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #               },
+    #             ],
+    #           },
+    #         ],
+    #         rules: [
+    #           {
+    #             id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #             expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #             alternate_expression: "AutomatedReasoningPolicyDefinitionRuleAlternateExpression",
+    #           },
+    #         ],
+    #         variables: [
+    #           {
+    #             name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #             type: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #             description: "AutomatedReasoningPolicyDefinitionVariableDescription", # required
+    #           },
+    #         ],
+    #       },
+    #       workflow_content: {
+    #         documents: [
+    #           {
+    #             document: "data", # required
+    #             document_content_type: "pdf", # required, accepts pdf, txt
+    #             document_name: "AutomatedReasoningPolicyBuildDocumentName", # required
+    #             document_description: "AutomatedReasoningPolicyBuildDocumentDescription",
+    #           },
+    #         ],
+    #         policy_repair_assets: {
+    #           annotations: [ # required
+    #             {
+    #               add_type: {
+    #                 name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #                 description: "AutomatedReasoningPolicyDefinitionTypeDescription", # required
+    #                 values: [ # required
+    #                   {
+    #                     value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                     description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #                   },
+    #                 ],
+    #               },
+    #               update_type: {
+    #                 name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #                 new_name: "AutomatedReasoningPolicyDefinitionTypeName",
+    #                 description: "AutomatedReasoningPolicyDefinitionTypeDescription",
+    #                 values: [ # required
+    #                   {
+    #                     add_type_value: {
+    #                       value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                       description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #                     },
+    #                     update_type_value: {
+    #                       value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                       new_value: "AutomatedReasoningPolicyDefinitionTypeValueName",
+    #                       description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #                     },
+    #                     delete_type_value: {
+    #                       value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                     },
+    #                   },
+    #                 ],
+    #               },
+    #               delete_type: {
+    #                 name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #               },
+    #               add_variable: {
+    #                 name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #                 type: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #                 description: "AutomatedReasoningPolicyDefinitionVariableDescription", # required
+    #               },
+    #               update_variable: {
+    #                 name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #                 new_name: "AutomatedReasoningPolicyDefinitionVariableName",
+    #                 description: "AutomatedReasoningPolicyDefinitionVariableDescription",
+    #               },
+    #               delete_variable: {
+    #                 name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #               },
+    #               add_rule: {
+    #                 expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #               },
+    #               update_rule: {
+    #                 rule_id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #                 expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #               },
+    #               delete_rule: {
+    #                 rule_id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #               },
+    #               add_rule_from_natural_language: {
+    #                 natural_language: "AutomatedReasoningPolicyAnnotationRuleNaturalLanguage", # required
+    #               },
+    #               update_from_rules_feedback: {
+    #                 rule_ids: ["AutomatedReasoningPolicyDefinitionRuleId"],
+    #                 feedback: "AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage", # required
+    #               },
+    #               update_from_scenario_feedback: {
+    #                 rule_ids: ["AutomatedReasoningPolicyDefinitionRuleId"],
+    #                 scenario_expression: "AutomatedReasoningPolicyScenarioExpression", # required
+    #                 feedback: "AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage",
+    #               },
+    #               ingest_content: {
+    #                 content: "AutomatedReasoningPolicyAnnotationIngestContent", # required
+    #               },
+    #             },
+    #           ],
+    #         },
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.build_workflow_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyBuildWorkflow AWS API Documentation
+    #
+    # @overload start_automated_reasoning_policy_build_workflow(params = {})
+    # @param [Hash] params ({})
+    def start_automated_reasoning_policy_build_workflow(params = {}, options = {})
+      req = build_request(:start_automated_reasoning_policy_build_workflow, params)
+      req.send_request(options)
+    end
+
+    # Initiates a test workflow to validate Automated Reasoning policy
+    # tests. The workflow executes the specified tests against the policy
+    # and generates validation results.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   test.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The build workflow identifier. The build workflow must show a
+    #   `COMPLETED` status before running tests.
+    #
+    # @option params [Array<String>] :test_case_ids
+    #   The list of test identifiers to run. If not provided, all tests for
+    #   the policy are run.
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request but doesn't return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @return [Types::StartAutomatedReasoningPolicyTestWorkflowResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StartAutomatedReasoningPolicyTestWorkflowResponse#policy_arn #policy_arn} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.start_automated_reasoning_policy_test_workflow({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     test_case_ids: ["AutomatedReasoningPolicyTestCaseId"],
+    #     client_request_token: "IdempotencyToken",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/StartAutomatedReasoningPolicyTestWorkflow AWS API Documentation
+    #
+    # @overload start_automated_reasoning_policy_test_workflow(params = {})
+    # @param [Hash] params ({})
+    def start_automated_reasoning_policy_test_workflow(params = {}, options = {})
+      req = build_request(:start_automated_reasoning_policy_test_workflow, params)
+      req.send_request(options)
+    end
+
     # Stops an evaluation job that is current being created or running.
     #
     # @option params [required, String] :job_identifier
@@ -5401,6 +6978,285 @@ module Aws::Bedrock
       req.send_request(options)
     end
 
+    # Updates an existing Automated Reasoning policy with new rules,
+    # variables, or configuration. This creates a new version of the policy
+    # while preserving the previous version.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy to
+    #   update. This must be the ARN of a draft policy.
+    #
+    # @option params [required, Types::AutomatedReasoningPolicyDefinition] :policy_definition
+    #   The updated policy definition containing the formal logic rules,
+    #   variables, and types.
+    #
+    # @option params [String] :name
+    #   The updated name for the Automated Reasoning policy.
+    #
+    # @option params [String] :description
+    #   The updated description for the Automated Reasoning policy.
+    #
+    # @return [Types::UpdateAutomatedReasoningPolicyResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateAutomatedReasoningPolicyResponse#policy_arn #policy_arn} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyResponse#name #name} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyResponse#definition_hash #definition_hash} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_automated_reasoning_policy({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     policy_definition: { # required
+    #       version: "AutomatedReasoningPolicyFormatVersion",
+    #       types: [
+    #         {
+    #           name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionTypeDescription",
+    #           values: [ # required
+    #             {
+    #               value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #               description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #             },
+    #           ],
+    #         },
+    #       ],
+    #       rules: [
+    #         {
+    #           id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #           expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #           alternate_expression: "AutomatedReasoningPolicyDefinitionRuleAlternateExpression",
+    #         },
+    #       ],
+    #       variables: [
+    #         {
+    #           name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #           type: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionVariableDescription", # required
+    #         },
+    #       ],
+    #     },
+    #     name: "AutomatedReasoningPolicyName",
+    #     description: "AutomatedReasoningPolicyDescription",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.name #=> String
+    #   resp.definition_hash #=> String
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicy AWS API Documentation
+    #
+    # @overload update_automated_reasoning_policy(params = {})
+    # @param [Hash] params ({})
+    def update_automated_reasoning_policy(params = {}, options = {})
+      req = build_request(:update_automated_reasoning_policy, params)
+      req.send_request(options)
+    end
+
+    # Updates the annotations for an Automated Reasoning policy build
+    # workflow. This allows you to modify extracted rules, variables, and
+    # types before finalizing the policy.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy whose
+    #   annotations you want to update.
+    #
+    # @option params [required, String] :build_workflow_id
+    #   The unique identifier of the build workflow whose annotations you want
+    #   to update.
+    #
+    # @option params [required, Array<Types::AutomatedReasoningPolicyAnnotation>] :annotations
+    #   The updated annotations containing modified rules, variables, and
+    #   types for the policy.
+    #
+    # @option params [required, String] :last_updated_annotation_set_hash
+    #   The hash value of the annotation set that you're updating. This is
+    #   used for optimistic concurrency control to prevent conflicting
+    #   updates.
+    #
+    # @return [Types::UpdateAutomatedReasoningPolicyAnnotationsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateAutomatedReasoningPolicyAnnotationsResponse#policy_arn #policy_arn} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyAnnotationsResponse#build_workflow_id #build_workflow_id} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyAnnotationsResponse#annotation_set_hash #annotation_set_hash} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyAnnotationsResponse#updated_at #updated_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_automated_reasoning_policy_annotations({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     build_workflow_id: "AutomatedReasoningPolicyBuildWorkflowId", # required
+    #     annotations: [ # required
+    #       {
+    #         add_type: {
+    #           name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionTypeDescription", # required
+    #           values: [ # required
+    #             {
+    #               value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #               description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #             },
+    #           ],
+    #         },
+    #         update_type: {
+    #           name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           new_name: "AutomatedReasoningPolicyDefinitionTypeName",
+    #           description: "AutomatedReasoningPolicyDefinitionTypeDescription",
+    #           values: [ # required
+    #             {
+    #               add_type_value: {
+    #                 value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                 description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #               },
+    #               update_type_value: {
+    #                 value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #                 new_value: "AutomatedReasoningPolicyDefinitionTypeValueName",
+    #                 description: "AutomatedReasoningPolicyDefinitionTypeValueDescription",
+    #               },
+    #               delete_type_value: {
+    #                 value: "AutomatedReasoningPolicyDefinitionTypeValueName", # required
+    #               },
+    #             },
+    #           ],
+    #         },
+    #         delete_type: {
+    #           name: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #         },
+    #         add_variable: {
+    #           name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #           type: "AutomatedReasoningPolicyDefinitionTypeName", # required
+    #           description: "AutomatedReasoningPolicyDefinitionVariableDescription", # required
+    #         },
+    #         update_variable: {
+    #           name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #           new_name: "AutomatedReasoningPolicyDefinitionVariableName",
+    #           description: "AutomatedReasoningPolicyDefinitionVariableDescription",
+    #         },
+    #         delete_variable: {
+    #           name: "AutomatedReasoningPolicyDefinitionVariableName", # required
+    #         },
+    #         add_rule: {
+    #           expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #         },
+    #         update_rule: {
+    #           rule_id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #           expression: "AutomatedReasoningPolicyDefinitionRuleExpression", # required
+    #         },
+    #         delete_rule: {
+    #           rule_id: "AutomatedReasoningPolicyDefinitionRuleId", # required
+    #         },
+    #         add_rule_from_natural_language: {
+    #           natural_language: "AutomatedReasoningPolicyAnnotationRuleNaturalLanguage", # required
+    #         },
+    #         update_from_rules_feedback: {
+    #           rule_ids: ["AutomatedReasoningPolicyDefinitionRuleId"],
+    #           feedback: "AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage", # required
+    #         },
+    #         update_from_scenario_feedback: {
+    #           rule_ids: ["AutomatedReasoningPolicyDefinitionRuleId"],
+    #           scenario_expression: "AutomatedReasoningPolicyScenarioExpression", # required
+    #           feedback: "AutomatedReasoningPolicyAnnotationFeedbackNaturalLanguage",
+    #         },
+    #         ingest_content: {
+    #           content: "AutomatedReasoningPolicyAnnotationIngestContent", # required
+    #         },
+    #       },
+    #     ],
+    #     last_updated_annotation_set_hash: "AutomatedReasoningPolicyHash", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.build_workflow_id #=> String
+    #   resp.annotation_set_hash #=> String
+    #   resp.updated_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyAnnotations AWS API Documentation
+    #
+    # @overload update_automated_reasoning_policy_annotations(params = {})
+    # @param [Hash] params ({})
+    def update_automated_reasoning_policy_annotations(params = {}, options = {})
+      req = build_request(:update_automated_reasoning_policy_annotations, params)
+      req.send_request(options)
+    end
+
+    # Updates an existing Automated Reasoning policy test. You can modify
+    # the content, query, expected result, and confidence threshold.
+    #
+    # @option params [required, String] :policy_arn
+    #   The Amazon Resource Name (ARN) of the Automated Reasoning policy that
+    #   contains the test.
+    #
+    # @option params [required, String] :test_case_id
+    #   The unique identifier of the test to update.
+    #
+    # @option params [required, String] :guard_content
+    #   The updated content to be validated by the Automated Reasoning policy.
+    #
+    # @option params [String] :query_content
+    #   The updated input query or prompt that generated the content.
+    #
+    # @option params [required, Time,DateTime,Date,Integer,String] :last_updated_at
+    #   The timestamp when the test was last updated. This is used as a
+    #   concurrency token to prevent conflicting modifications.
+    #
+    # @option params [required, String] :expected_aggregated_findings_result
+    #   The updated expected result of the Automated Reasoning check.
+    #
+    # @option params [Float] :confidence_threshold
+    #   The updated minimum confidence level for logic validation. If null is
+    #   provided, the threshold will be removed.
+    #
+    # @option params [String] :kms_key_arn
+    #   The KMS key ARN for encrypting the test at rest. If not provided, the
+    #   key will not be updated. Use `DISCARD` to remove the key.
+    #
+    # @option params [String] :client_request_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, Amazon Bedrock ignores the request, but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @return [Types::UpdateAutomatedReasoningPolicyTestCaseResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateAutomatedReasoningPolicyTestCaseResponse#policy_arn #policy_arn} => String
+    #   * {Types::UpdateAutomatedReasoningPolicyTestCaseResponse#test_case_id #test_case_id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_automated_reasoning_policy_test_case({
+    #     policy_arn: "AutomatedReasoningPolicyArn", # required
+    #     test_case_id: "AutomatedReasoningPolicyTestCaseId", # required
+    #     guard_content: "AutomatedReasoningPolicyTestGuardContent", # required
+    #     query_content: "AutomatedReasoningPolicyTestQueryContent",
+    #     last_updated_at: Time.now, # required
+    #     expected_aggregated_findings_result: "VALID", # required, accepts VALID, INVALID, SATISFIABLE, IMPOSSIBLE, TRANSLATION_AMBIGUOUS, TOO_COMPLEX, NO_TRANSLATION
+    #     confidence_threshold: 1.0,
+    #     kms_key_arn: "KmsKeyArn",
+    #     client_request_token: "IdempotencyToken",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.policy_arn #=> String
+    #   resp.test_case_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/UpdateAutomatedReasoningPolicyTestCase AWS API Documentation
+    #
+    # @overload update_automated_reasoning_policy_test_case(params = {})
+    # @param [Hash] params ({})
+    def update_automated_reasoning_policy_test_case(params = {}, options = {})
+      req = build_request(:update_automated_reasoning_policy_test_case, params)
+      req.send_request(options)
+    end
+
     # Updates a guardrail with the values you specify.
     #
     # * Specify a `name` and optional `description`.
@@ -5465,6 +7321,10 @@ module Aws::Bedrock
     # @option params [Types::GuardrailContextualGroundingPolicyConfig] :contextual_grounding_policy_config
     #   The contextual grounding policy configuration used to update a
     #   guardrail.
+    #
+    # @option params [Types::GuardrailAutomatedReasoningPolicyConfig] :automated_reasoning_policy_config
+    #   Updated configuration for Automated Reasoning policies associated with
+    #   the guardrail.
     #
     # @option params [Types::GuardrailCrossRegionConfig] :cross_region_config
     #   The system-defined guardrail profile that you're using with your
@@ -5588,6 +7448,10 @@ module Aws::Bedrock
     #           enabled: false,
     #         },
     #       ],
+    #     },
+    #     automated_reasoning_policy_config: {
+    #       policies: ["AutomatedReasoningPolicyArn"], # required
+    #       confidence_threshold: 1.0,
     #     },
     #     cross_region_config: {
     #       guardrail_profile_identifier: "GuardrailCrossRegionGuardrailProfileIdentifier", # required
@@ -5750,7 +7614,7 @@ module Aws::Bedrock
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrock'
-      context[:gem_version] = '1.57.0'
+      context[:gem_version] = '1.58.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

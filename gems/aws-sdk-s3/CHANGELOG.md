@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+1.196.1 (2025-08-05)
+------------------
+
 * Issue - Add range validation to multipart download to ensure all parts are successfully processed.
 
 * Issue - When multipart uploader fails to complete multipart upload, it calls abort multipart upload.

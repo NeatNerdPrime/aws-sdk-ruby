@@ -89,6 +89,108 @@ module Aws
                                        ) -> _BatchDeleteEvaluationJobResponseSuccess
                                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchDeleteEvaluationJobResponseSuccess
 
+      interface _CancelAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CancelAutomatedReasoningPolicyBuildWorkflowResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#cancel_automated_reasoning_policy_build_workflow-instance_method
+      def cancel_automated_reasoning_policy_build_workflow: (
+                                                              policy_arn: ::String,
+                                                              build_workflow_id: ::String
+                                                            ) -> _CancelAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+                                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CancelAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+
+      interface _CreateAutomatedReasoningPolicyResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateAutomatedReasoningPolicyResponse]
+        def policy_arn: () -> ::String
+        def version: () -> ::String
+        def name: () -> ::String
+        def description: () -> ::String
+        def definition_hash: () -> ::String
+        def created_at: () -> ::Time
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#create_automated_reasoning_policy-instance_method
+      def create_automated_reasoning_policy: (
+                                               name: ::String,
+                                               ?description: ::String,
+                                               ?client_request_token: ::String,
+                                               ?policy_definition: {
+                                                 version: ::String?,
+                                                 types: Array[
+                                                   {
+                                                     name: ::String,
+                                                     description: ::String?,
+                                                     values: Array[
+                                                       {
+                                                         value: ::String,
+                                                         description: ::String?
+                                                       },
+                                                     ]
+                                                   },
+                                                 ]?,
+                                                 rules: Array[
+                                                   {
+                                                     id: ::String,
+                                                     expression: ::String,
+                                                     alternate_expression: ::String?
+                                                   },
+                                                 ]?,
+                                                 variables: Array[
+                                                   {
+                                                     name: ::String,
+                                                     type: ::String,
+                                                     description: ::String
+                                                   },
+                                                 ]?
+                                               },
+                                               ?tags: Array[
+                                                 {
+                                                   key: ::String,
+                                                   value: ::String
+                                                 },
+                                               ]
+                                             ) -> _CreateAutomatedReasoningPolicyResponseSuccess
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAutomatedReasoningPolicyResponseSuccess
+
+      interface _CreateAutomatedReasoningPolicyTestCaseResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateAutomatedReasoningPolicyTestCaseResponse]
+        def policy_arn: () -> ::String
+        def test_case_id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#create_automated_reasoning_policy_test_case-instance_method
+      def create_automated_reasoning_policy_test_case: (
+                                                         policy_arn: ::String,
+                                                         guard_content: ::String,
+                                                         ?query_content: ::String,
+                                                         expected_aggregated_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION"),
+                                                         ?client_request_token: ::String,
+                                                         ?confidence_threshold: ::Float
+                                                       ) -> _CreateAutomatedReasoningPolicyTestCaseResponseSuccess
+                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAutomatedReasoningPolicyTestCaseResponseSuccess
+
+      interface _CreateAutomatedReasoningPolicyVersionResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateAutomatedReasoningPolicyVersionResponse]
+        def policy_arn: () -> ::String
+        def version: () -> ::String
+        def name: () -> ::String
+        def description: () -> ::String
+        def definition_hash: () -> ::String
+        def created_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#create_automated_reasoning_policy_version-instance_method
+      def create_automated_reasoning_policy_version: (
+                                                       policy_arn: ::String,
+                                                       ?client_request_token: ::String,
+                                                       last_updated_definition_hash: ::String,
+                                                       ?tags: Array[
+                                                         {
+                                                           key: ::String,
+                                                           value: ::String
+                                                         },
+                                                       ]
+                                                     ) -> _CreateAutomatedReasoningPolicyVersionResponseSuccess
+                                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAutomatedReasoningPolicyVersionResponseSuccess
+
       interface _CreateCustomModelResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateCustomModelResponse]
         def model_arn: () -> ::String
@@ -650,6 +752,10 @@ module Aws
                                   },
                                 ]
                               },
+                              ?automated_reasoning_policy_config: {
+                                policies: Array[::String],
+                                confidence_threshold: ::Float?
+                              },
                               ?cross_region_config: {
                                 guardrail_profile_identifier: ::String
                               },
@@ -949,6 +1055,37 @@ module Aws
                                                ) -> _CreateProvisionedModelThroughputResponseSuccess
                                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateProvisionedModelThroughputResponseSuccess
 
+      interface _DeleteAutomatedReasoningPolicyResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DeleteAutomatedReasoningPolicyResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#delete_automated_reasoning_policy-instance_method
+      def delete_automated_reasoning_policy: (
+                                               policy_arn: ::String
+                                             ) -> _DeleteAutomatedReasoningPolicyResponseSuccess
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteAutomatedReasoningPolicyResponseSuccess
+
+      interface _DeleteAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DeleteAutomatedReasoningPolicyBuildWorkflowResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#delete_automated_reasoning_policy_build_workflow-instance_method
+      def delete_automated_reasoning_policy_build_workflow: (
+                                                              policy_arn: ::String,
+                                                              build_workflow_id: ::String,
+                                                              last_updated_at: ::Time
+                                                            ) -> _DeleteAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+                                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+
+      interface _DeleteAutomatedReasoningPolicyTestCaseResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DeleteAutomatedReasoningPolicyTestCaseResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#delete_automated_reasoning_policy_test_case-instance_method
+      def delete_automated_reasoning_policy_test_case: (
+                                                         policy_arn: ::String,
+                                                         test_case_id: ::String,
+                                                         last_updated_at: ::Time
+                                                       ) -> _DeleteAutomatedReasoningPolicyTestCaseResponseSuccess
+                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteAutomatedReasoningPolicyTestCaseResponseSuccess
+
       interface _DeleteCustomModelResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DeleteCustomModelResponse]
       end
@@ -1047,6 +1184,118 @@ module Aws
                                                    endpoint_arn: ::String
                                                  ) -> _DeregisterMarketplaceModelEndpointResponseSuccess
                                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeregisterMarketplaceModelEndpointResponseSuccess
+
+      interface _ExportAutomatedReasoningPolicyVersionResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ExportAutomatedReasoningPolicyVersionResponse]
+        def policy_definition: () -> Types::AutomatedReasoningPolicyDefinition
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#export_automated_reasoning_policy_version-instance_method
+      def export_automated_reasoning_policy_version: (
+                                                       policy_arn: ::String
+                                                     ) -> _ExportAutomatedReasoningPolicyVersionResponseSuccess
+                                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ExportAutomatedReasoningPolicyVersionResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyResponse]
+        def policy_arn: () -> ::String
+        def name: () -> ::String
+        def version: () -> ::String
+        def policy_id: () -> ::String
+        def description: () -> ::String
+        def definition_hash: () -> ::String
+        def created_at: () -> ::Time
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy-instance_method
+      def get_automated_reasoning_policy: (
+                                            policy_arn: ::String
+                                          ) -> _GetAutomatedReasoningPolicyResponseSuccess
+                                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyAnnotationsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyAnnotationsResponse]
+        def policy_arn: () -> ::String
+        def name: () -> ::String
+        def build_workflow_id: () -> ::String
+        def annotations: () -> ::Array[Types::AutomatedReasoningPolicyAnnotation]
+        def annotation_set_hash: () -> ::String
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_annotations-instance_method
+      def get_automated_reasoning_policy_annotations: (
+                                                        policy_arn: ::String,
+                                                        build_workflow_id: ::String
+                                                      ) -> _GetAutomatedReasoningPolicyAnnotationsResponseSuccess
+                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyAnnotationsResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyBuildWorkflowResponse]
+        def policy_arn: () -> ::String
+        def build_workflow_id: () -> ::String
+        def status: () -> ("SCHEDULED" | "CANCEL_REQUESTED" | "PREPROCESSING" | "BUILDING" | "TESTING" | "COMPLETED" | "FAILED" | "CANCELLED")
+        def build_workflow_type: () -> ("INGEST_CONTENT" | "REFINE_POLICY" | "IMPORT_POLICY")
+        def document_name: () -> ::String
+        def document_content_type: () -> ("pdf" | "txt")
+        def document_description: () -> ::String
+        def created_at: () -> ::Time
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_build_workflow-instance_method
+      def get_automated_reasoning_policy_build_workflow: (
+                                                           policy_arn: ::String,
+                                                           build_workflow_id: ::String
+                                                         ) -> _GetAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+                                                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponse]
+        def policy_arn: () -> ::String
+        def build_workflow_id: () -> ::String
+        def build_workflow_assets: () -> Types::AutomatedReasoningPolicyBuildResultAssets
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_build_workflow_result_assets-instance_method
+      def get_automated_reasoning_policy_build_workflow_result_assets: (
+                                                                         policy_arn: ::String,
+                                                                         build_workflow_id: ::String,
+                                                                         asset_type: ("BUILD_LOG" | "QUALITY_REPORT" | "POLICY_DEFINITION")
+                                                                       ) -> _GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponseSuccess
+                                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyBuildWorkflowResultAssetsResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyNextScenarioResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyNextScenarioResponse]
+        def policy_arn: () -> ::String
+        def scenario: () -> Types::AutomatedReasoningPolicyScenario
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_next_scenario-instance_method
+      def get_automated_reasoning_policy_next_scenario: (
+                                                          policy_arn: ::String,
+                                                          build_workflow_id: ::String
+                                                        ) -> _GetAutomatedReasoningPolicyNextScenarioResponseSuccess
+                                                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyNextScenarioResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyTestCaseResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyTestCaseResponse]
+        def policy_arn: () -> ::String
+        def test_case: () -> Types::AutomatedReasoningPolicyTestCase
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_test_case-instance_method
+      def get_automated_reasoning_policy_test_case: (
+                                                      policy_arn: ::String,
+                                                      test_case_id: ::String
+                                                    ) -> _GetAutomatedReasoningPolicyTestCaseResponseSuccess
+                                                  | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyTestCaseResponseSuccess
+
+      interface _GetAutomatedReasoningPolicyTestResultResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAutomatedReasoningPolicyTestResultResponse]
+        def test_result: () -> Types::AutomatedReasoningPolicyTestResult
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#get_automated_reasoning_policy_test_result-instance_method
+      def get_automated_reasoning_policy_test_result: (
+                                                        policy_arn: ::String,
+                                                        build_workflow_id: ::String,
+                                                        test_case_id: ::String
+                                                      ) -> _GetAutomatedReasoningPolicyTestResultResponseSuccess
+                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAutomatedReasoningPolicyTestResultResponseSuccess
 
       interface _GetCustomModelResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetCustomModelResponse]
@@ -1151,6 +1400,7 @@ module Aws
         def word_policy: () -> Types::GuardrailWordPolicy
         def sensitive_information_policy: () -> Types::GuardrailSensitiveInformationPolicy
         def contextual_grounding_policy: () -> Types::GuardrailContextualGroundingPolicy
+        def automated_reasoning_policy: () -> Types::GuardrailAutomatedReasoningPolicy
         def cross_region_details: () -> Types::GuardrailCrossRegionDetails
         def created_at: () -> ::Time
         def updated_at: () -> ::Time
@@ -1370,6 +1620,59 @@ module Aws
       def get_use_case_for_model_access: (
                                          ) -> _GetUseCaseForModelAccessResponseSuccess
                                        | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetUseCaseForModelAccessResponseSuccess
+
+      interface _ListAutomatedReasoningPoliciesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ListAutomatedReasoningPoliciesResponse]
+        def automated_reasoning_policy_summaries: () -> ::Array[Types::AutomatedReasoningPolicySummary]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#list_automated_reasoning_policies-instance_method
+      def list_automated_reasoning_policies: (
+                                               ?policy_arn: ::String,
+                                               ?next_token: ::String,
+                                               ?max_results: ::Integer
+                                             ) -> _ListAutomatedReasoningPoliciesResponseSuccess
+                                           | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListAutomatedReasoningPoliciesResponseSuccess
+
+      interface _ListAutomatedReasoningPolicyBuildWorkflowsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ListAutomatedReasoningPolicyBuildWorkflowsResponse]
+        def automated_reasoning_policy_build_workflow_summaries: () -> ::Array[Types::AutomatedReasoningPolicyBuildWorkflowSummary]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#list_automated_reasoning_policy_build_workflows-instance_method
+      def list_automated_reasoning_policy_build_workflows: (
+                                                             policy_arn: ::String,
+                                                             ?next_token: ::String,
+                                                             ?max_results: ::Integer
+                                                           ) -> _ListAutomatedReasoningPolicyBuildWorkflowsResponseSuccess
+                                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListAutomatedReasoningPolicyBuildWorkflowsResponseSuccess
+
+      interface _ListAutomatedReasoningPolicyTestCasesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ListAutomatedReasoningPolicyTestCasesResponse]
+        def test_cases: () -> ::Array[Types::AutomatedReasoningPolicyTestCase]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#list_automated_reasoning_policy_test_cases-instance_method
+      def list_automated_reasoning_policy_test_cases: (
+                                                        policy_arn: ::String,
+                                                        ?next_token: ::String,
+                                                        ?max_results: ::Integer
+                                                      ) -> _ListAutomatedReasoningPolicyTestCasesResponseSuccess
+                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListAutomatedReasoningPolicyTestCasesResponseSuccess
+
+      interface _ListAutomatedReasoningPolicyTestResultsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ListAutomatedReasoningPolicyTestResultsResponse]
+        def test_results: () -> ::Array[Types::AutomatedReasoningPolicyTestResult]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#list_automated_reasoning_policy_test_results-instance_method
+      def list_automated_reasoning_policy_test_results: (
+                                                          policy_arn: ::String,
+                                                          build_workflow_id: ::String,
+                                                          ?next_token: ::String,
+                                                          ?max_results: ::Integer
+                                                        ) -> _ListAutomatedReasoningPolicyTestResultsResponseSuccess
+                                                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListAutomatedReasoningPolicyTestResultsResponseSuccess
 
       interface _ListCustomModelDeploymentsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::ListCustomModelDeploymentsResponse]
@@ -1673,6 +1976,151 @@ module Aws
                                                ) -> _RegisterMarketplaceModelEndpointResponseSuccess
                                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _RegisterMarketplaceModelEndpointResponseSuccess
 
+      interface _StartAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::StartAutomatedReasoningPolicyBuildWorkflowResponse]
+        def policy_arn: () -> ::String
+        def build_workflow_id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#start_automated_reasoning_policy_build_workflow-instance_method
+      def start_automated_reasoning_policy_build_workflow: (
+                                                             policy_arn: ::String,
+                                                             build_workflow_type: ("INGEST_CONTENT" | "REFINE_POLICY" | "IMPORT_POLICY"),
+                                                             ?client_request_token: ::String,
+                                                             source_content: {
+                                                               policy_definition: {
+                                                                 version: ::String?,
+                                                                 types: Array[
+                                                                   {
+                                                                     name: ::String,
+                                                                     description: ::String?,
+                                                                     values: Array[
+                                                                       {
+                                                                         value: ::String,
+                                                                         description: ::String?
+                                                                       },
+                                                                     ]
+                                                                   },
+                                                                 ]?,
+                                                                 rules: Array[
+                                                                   {
+                                                                     id: ::String,
+                                                                     expression: ::String,
+                                                                     alternate_expression: ::String?
+                                                                   },
+                                                                 ]?,
+                                                                 variables: Array[
+                                                                   {
+                                                                     name: ::String,
+                                                                     type: ::String,
+                                                                     description: ::String
+                                                                   },
+                                                                 ]?
+                                                               }?,
+                                                               workflow_content: {
+                                                                 documents: Array[
+                                                                   {
+                                                                     document: ::String,
+                                                                     document_content_type: ("pdf" | "txt"),
+                                                                     document_name: ::String,
+                                                                     document_description: ::String?
+                                                                   },
+                                                                 ]?,
+                                                                 policy_repair_assets: {
+                                                                   annotations: Array[
+                                                                     {
+                                                                       add_type: {
+                                                                         name: ::String,
+                                                                         description: ::String,
+                                                                         values: Array[
+                                                                           {
+                                                                             value: ::String,
+                                                                             description: ::String?
+                                                                           },
+                                                                         ]
+                                                                       }?,
+                                                                       update_type: {
+                                                                         name: ::String,
+                                                                         new_name: ::String?,
+                                                                         description: ::String?,
+                                                                         values: Array[
+                                                                           {
+                                                                             add_type_value: {
+                                                                               value: ::String,
+                                                                               description: ::String?
+                                                                             }?,
+                                                                             update_type_value: {
+                                                                               value: ::String,
+                                                                               new_value: ::String?,
+                                                                               description: ::String?
+                                                                             }?,
+                                                                             delete_type_value: {
+                                                                               value: ::String
+                                                                             }?
+                                                                           },
+                                                                         ]
+                                                                       }?,
+                                                                       delete_type: {
+                                                                         name: ::String
+                                                                       }?,
+                                                                       add_variable: {
+                                                                         name: ::String,
+                                                                         type: ::String,
+                                                                         description: ::String
+                                                                       }?,
+                                                                       update_variable: {
+                                                                         name: ::String,
+                                                                         new_name: ::String?,
+                                                                         description: ::String?
+                                                                       }?,
+                                                                       delete_variable: {
+                                                                         name: ::String
+                                                                       }?,
+                                                                       add_rule: {
+                                                                         expression: ::String
+                                                                       }?,
+                                                                       update_rule: {
+                                                                         rule_id: ::String,
+                                                                         expression: ::String
+                                                                       }?,
+                                                                       delete_rule: {
+                                                                         rule_id: ::String
+                                                                       }?,
+                                                                       add_rule_from_natural_language: {
+                                                                         natural_language: ::String
+                                                                       }?,
+                                                                       update_from_rules_feedback: {
+                                                                         rule_ids: Array[::String]?,
+                                                                         feedback: ::String
+                                                                       }?,
+                                                                       update_from_scenario_feedback: {
+                                                                         rule_ids: Array[::String]?,
+                                                                         scenario_expression: ::String,
+                                                                         feedback: ::String?
+                                                                       }?,
+                                                                       ingest_content: {
+                                                                         content: ::String
+                                                                       }?
+                                                                     },
+                                                                   ]
+                                                                 }?
+                                                               }?
+                                                             }
+                                                           ) -> _StartAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+                                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartAutomatedReasoningPolicyBuildWorkflowResponseSuccess
+
+      interface _StartAutomatedReasoningPolicyTestWorkflowResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::StartAutomatedReasoningPolicyTestWorkflowResponse]
+        def policy_arn: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#start_automated_reasoning_policy_test_workflow-instance_method
+      def start_automated_reasoning_policy_test_workflow: (
+                                                            policy_arn: ::String,
+                                                            build_workflow_id: ::String,
+                                                            ?test_case_ids: Array[::String],
+                                                            ?client_request_token: ::String
+                                                          ) -> _StartAutomatedReasoningPolicyTestWorkflowResponseSuccess
+                                                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartAutomatedReasoningPolicyTestWorkflowResponseSuccess
+
       interface _StopEvaluationJobResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::StopEvaluationJobResponse]
       end
@@ -1724,6 +2172,160 @@ module Aws
                             tag_keys: Array[::String]
                           ) -> _UntagResourceResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UntagResourceResponseSuccess
+
+      interface _UpdateAutomatedReasoningPolicyResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::UpdateAutomatedReasoningPolicyResponse]
+        def policy_arn: () -> ::String
+        def name: () -> ::String
+        def definition_hash: () -> ::String
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#update_automated_reasoning_policy-instance_method
+      def update_automated_reasoning_policy: (
+                                               policy_arn: ::String,
+                                               policy_definition: {
+                                                 version: ::String?,
+                                                 types: Array[
+                                                   {
+                                                     name: ::String,
+                                                     description: ::String?,
+                                                     values: Array[
+                                                       {
+                                                         value: ::String,
+                                                         description: ::String?
+                                                       },
+                                                     ]
+                                                   },
+                                                 ]?,
+                                                 rules: Array[
+                                                   {
+                                                     id: ::String,
+                                                     expression: ::String,
+                                                     alternate_expression: ::String?
+                                                   },
+                                                 ]?,
+                                                 variables: Array[
+                                                   {
+                                                     name: ::String,
+                                                     type: ::String,
+                                                     description: ::String
+                                                   },
+                                                 ]?
+                                               },
+                                               ?name: ::String,
+                                               ?description: ::String
+                                             ) -> _UpdateAutomatedReasoningPolicyResponseSuccess
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateAutomatedReasoningPolicyResponseSuccess
+
+      interface _UpdateAutomatedReasoningPolicyAnnotationsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::UpdateAutomatedReasoningPolicyAnnotationsResponse]
+        def policy_arn: () -> ::String
+        def build_workflow_id: () -> ::String
+        def annotation_set_hash: () -> ::String
+        def updated_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#update_automated_reasoning_policy_annotations-instance_method
+      def update_automated_reasoning_policy_annotations: (
+                                                           policy_arn: ::String,
+                                                           build_workflow_id: ::String,
+                                                           annotations: Array[
+                                                             {
+                                                               add_type: {
+                                                                 name: ::String,
+                                                                 description: ::String,
+                                                                 values: Array[
+                                                                   {
+                                                                     value: ::String,
+                                                                     description: ::String?
+                                                                   },
+                                                                 ]
+                                                               }?,
+                                                               update_type: {
+                                                                 name: ::String,
+                                                                 new_name: ::String?,
+                                                                 description: ::String?,
+                                                                 values: Array[
+                                                                   {
+                                                                     add_type_value: {
+                                                                       value: ::String,
+                                                                       description: ::String?
+                                                                     }?,
+                                                                     update_type_value: {
+                                                                       value: ::String,
+                                                                       new_value: ::String?,
+                                                                       description: ::String?
+                                                                     }?,
+                                                                     delete_type_value: {
+                                                                       value: ::String
+                                                                     }?
+                                                                   },
+                                                                 ]
+                                                               }?,
+                                                               delete_type: {
+                                                                 name: ::String
+                                                               }?,
+                                                               add_variable: {
+                                                                 name: ::String,
+                                                                 type: ::String,
+                                                                 description: ::String
+                                                               }?,
+                                                               update_variable: {
+                                                                 name: ::String,
+                                                                 new_name: ::String?,
+                                                                 description: ::String?
+                                                               }?,
+                                                               delete_variable: {
+                                                                 name: ::String
+                                                               }?,
+                                                               add_rule: {
+                                                                 expression: ::String
+                                                               }?,
+                                                               update_rule: {
+                                                                 rule_id: ::String,
+                                                                 expression: ::String
+                                                               }?,
+                                                               delete_rule: {
+                                                                 rule_id: ::String
+                                                               }?,
+                                                               add_rule_from_natural_language: {
+                                                                 natural_language: ::String
+                                                               }?,
+                                                               update_from_rules_feedback: {
+                                                                 rule_ids: Array[::String]?,
+                                                                 feedback: ::String
+                                                               }?,
+                                                               update_from_scenario_feedback: {
+                                                                 rule_ids: Array[::String]?,
+                                                                 scenario_expression: ::String,
+                                                                 feedback: ::String?
+                                                               }?,
+                                                               ingest_content: {
+                                                                 content: ::String
+                                                               }?
+                                                             },
+                                                           ],
+                                                           last_updated_annotation_set_hash: ::String
+                                                         ) -> _UpdateAutomatedReasoningPolicyAnnotationsResponseSuccess
+                                                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateAutomatedReasoningPolicyAnnotationsResponseSuccess
+
+      interface _UpdateAutomatedReasoningPolicyTestCaseResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::UpdateAutomatedReasoningPolicyTestCaseResponse]
+        def policy_arn: () -> ::String
+        def test_case_id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Bedrock/Client.html#update_automated_reasoning_policy_test_case-instance_method
+      def update_automated_reasoning_policy_test_case: (
+                                                         policy_arn: ::String,
+                                                         test_case_id: ::String,
+                                                         guard_content: ::String,
+                                                         ?query_content: ::String,
+                                                         last_updated_at: ::Time,
+                                                         expected_aggregated_findings_result: ("VALID" | "INVALID" | "SATISFIABLE" | "IMPOSSIBLE" | "TRANSLATION_AMBIGUOUS" | "TOO_COMPLEX" | "NO_TRANSLATION"),
+                                                         ?confidence_threshold: ::Float,
+                                                         ?kms_key_arn: ::String,
+                                                         ?client_request_token: ::String
+                                                       ) -> _UpdateAutomatedReasoningPolicyTestCaseResponseSuccess
+                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateAutomatedReasoningPolicyTestCaseResponseSuccess
 
       interface _UpdateGuardrailResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::UpdateGuardrailResponse]
@@ -1825,6 +2427,10 @@ module Aws
                                     enabled: bool?
                                   },
                                 ]
+                              },
+                              ?automated_reasoning_policy_config: {
+                                policies: Array[::String],
+                                confidence_threshold: ::Float?
                               },
                               ?cross_region_config: {
                                 guardrail_profile_identifier: ::String

@@ -830,6 +830,7 @@ module Aws::RDS
       attr_accessor performance_insights_kms_key_id: ::String
       attr_accessor performance_insights_retention_period: ::Integer
       attr_accessor serverless_v2_scaling_configuration: Types::ServerlessV2ScalingConfigurationInfo
+      attr_accessor serverless_v2_platform_version: ::String
       attr_accessor network_type: ::String
       attr_accessor db_system_id: ::String
       attr_accessor master_user_secret: Types::MasterUserSecret

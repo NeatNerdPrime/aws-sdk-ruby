@@ -3966,6 +3966,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -4985,8 +4986,12 @@ module Aws::RDS
     #   set the `AvailabilityZone` parameter if the DB instance is a Multi-AZ
     #   deployment.
     #
-    #   This setting doesn't apply to Amazon Aurora because the DB instance
-    #   Availability Zones (AZs) are managed by the DB cluster.
+    #   This setting doesn't apply to the following DB instances:
+    #
+    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
+    #     the DB cluster.)
+    #
+    #   * RDS Custom
     #
     # @option params [String] :engine_version
     #   The version number of the database engine to use.
@@ -9461,6 +9466,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -12915,6 +12921,7 @@ module Aws::RDS
     #   resp.db_clusters[0].serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_clusters[0].serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_clusters[0].serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_clusters[0].serverless_v2_platform_version #=> String
     #   resp.db_clusters[0].network_type #=> String
     #   resp.db_clusters[0].db_system_id #=> String
     #   resp.db_clusters[0].master_user_secret.secret_arn #=> String
@@ -18352,6 +18359,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -20079,6 +20087,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -23985,6 +23994,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -24289,6 +24299,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -25892,6 +25903,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -26717,6 +26729,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -27525,6 +27538,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -30702,6 +30716,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -31537,6 +31552,7 @@ module Aws::RDS
     #   resp.db_cluster.serverless_v2_scaling_configuration.min_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.max_capacity #=> Float
     #   resp.db_cluster.serverless_v2_scaling_configuration.seconds_until_auto_pause #=> Integer
+    #   resp.db_cluster.serverless_v2_platform_version #=> String
     #   resp.db_cluster.network_type #=> String
     #   resp.db_cluster.db_system_id #=> String
     #   resp.db_cluster.master_user_secret.secret_arn #=> String
@@ -32414,7 +32430,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.286.0'
+      context[:gem_version] = '1.287.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.319.0 (2025-08-05)
+------------------
+
+* Feature - Add support for SageMaker Hyperpod continuous scaling and custom AMI; Introduce new APIs: ListClusterEvents, DescribeClusterEvent, BatchAddClusterNodes
+
 1.318.0 (2025-08-04)
 ------------------
 

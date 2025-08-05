@@ -257,7 +257,8 @@ module Aws
                               block_storage: {
                                 enabled: bool?
                               }?
-                            }
+                            },
+                            ?deletion_protection: bool
                           ) -> _CreateClusterResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateClusterResponseSuccess
 
@@ -952,7 +953,8 @@ module Aws
                                          cidrs: Array[::String]?
                                        },
                                      ]?
-                                   }
+                                   },
+                                   ?deletion_protection: bool
                                  ) -> _UpdateClusterConfigResponseSuccess
                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateClusterConfigResponseSuccess
 

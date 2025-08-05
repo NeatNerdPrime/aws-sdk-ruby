@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.143.0 (2025-08-05)
+------------------
+
+* Feature - Add support for deletion protection on EKS clusters
+
 1.142.0 (2025-08-04)
 ------------------
 

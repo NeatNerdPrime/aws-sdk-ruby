@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.287.0 (2025-08-05)
+------------------
+
+* Feature - Adds a new Aurora Serverless v2 attribute to the DBCluster resource to expose the platform version. Also updates the attribute to be part of both the engine version and platform version descriptions.
+
 1.286.0 (2025-08-04)
 ------------------
 
