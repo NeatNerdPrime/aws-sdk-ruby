@@ -19,15 +19,7 @@ module Aws
 
       describe '#upload_file' do
         let(:one_meg) { 1024 * 1024 }
-
-        let(:object) do
-          S3::Object.new(
-            bucket_name: 'bucket',
-            key: 'key',
-            client: client
-          )
-        end
-
+        let(:object) { S3::Object.new(bucket_name: 'bucket', key: 'key', client: client) }
         let(:one_mb) { '.' * 1024 * 1024 }
 
         let(:one_meg_file) do
@@ -53,11 +45,7 @@ module Aws
 
         it 'uploads objects with custom options without mutating them' do
           options = {}.freeze
-          expect(client).to receive(:put_object).with({
-            bucket: 'bucket',
-            key: 'key',
-            body: one_meg_file
-          })
+          expect(client).to receive(:put_object).with({ bucket: 'bucket', key: 'key', body: one_meg_file })
           object.upload_file(one_meg_file, options)
         end
 
@@ -70,21 +58,14 @@ module Aws
 
         context 'small objects' do
           it 'uploads small objects using Client#put_object' do
-            expect(client).to receive(:put_object).with({
-              bucket: 'bucket',
-              key: 'key',
-              body: ten_meg_file
-            })
+            expect(client).to receive(:put_object).with({ bucket: 'bucket', key: 'key', body: ten_meg_file })
             object.upload_file(ten_meg_file)
           end
 
           it 'reports progress for small objects' do
-            expect(client).to receive(:put_object).with({
-              bucket: 'bucket',
-              key: 'key',
-              body: ten_meg_file,
-              on_chunk_sent: instance_of(Proc)
-            }) do |args|
+            expect(client)
+              .to receive(:put_object)
+              .with({ bucket: 'bucket', key: 'key', body: ten_meg_file, on_chunk_sent: instance_of(Proc) }) do |args|
               args[:on_chunk_sent].call(ten_meg_file, ten_meg_file.size, ten_meg_file.size)
             end
             callback = proc do |bytes, totals|
@@ -95,35 +76,19 @@ module Aws
           end
 
           it 'accepts an alternative multipart file threshold' do
-            expect(client).to receive(:put_object).with({
-              bucket: 'bucket',
-              key: 'key',
-              body: one_hundred_seventeen_meg_file
-            })
-            object.upload_file(
-              one_hundred_seventeen_meg_file,
-              multipart_threshold: 200 * one_meg
-            )
+            expect(client).to receive(:put_object).with({ bucket: 'bucket', key: 'key', body: one_hundred_seventeen_meg_file })
+            object.upload_file(one_hundred_seventeen_meg_file, multipart_threshold: 200 * one_meg)
           end
 
           it 'accepts paths to files to upload' do
             file = double('file')
-            expect(File).to receive(:open)
-              .with(ten_meg_file.path, 'rb').and_yield(file)
-            expect(client).to receive(:put_object).with({
-              bucket: 'bucket',
-              key: 'key',
-              body: file
-            })
+            expect(File).to receive(:open).with(ten_meg_file.path, 'rb').and_yield(file)
+            expect(client).to receive(:put_object).with({ bucket: 'bucket', key: 'key', body: file })
             object.upload_file(ten_meg_file.path)
           end
 
           it 'does not fail when given :thread_count' do
-            expect(client).to receive(:put_object).with({
-              bucket: 'bucket',
-              key: 'key',
-              body: ten_meg_file
-            })
+            expect(client).to receive(:put_object).with({ bucket: 'bucket', key: 'key', body: ten_meg_file })
             object.upload_file(ten_meg_file, thread_count: 1)
           end
         end
@@ -163,18 +128,26 @@ module Aws
                   { checksum_crc32: 'checksum', etag: 'etag', part_number: 23 },
                   { checksum_crc32: 'checksum', etag: 'etag', part_number: 24 }
                 ]
-              }
+              },
+              mpu_object_size: one_hundred_seventeen_meg_file.size
             )
             object.upload_file(one_hundred_seventeen_meg_file, content_type: 'text/plain')
           end
 
           it 'allows for full object checksums' do
             expect(client).to receive(:create_multipart_upload)
-              .with({bucket: 'bucket', key: 'key', checksum_algorithm: 'CRC32',
-                    checksum_type: 'FULL_OBJECT', content_type: 'text/plain'})
-              .and_call_original
+              .with(
+                {
+                  bucket: 'bucket',
+                  key: 'key',
+                  checksum_algorithm: 'CRC32',
+                  checksum_type: 'FULL_OBJECT',
+                  content_type: 'text/plain'
+                }
+              ).and_call_original
             expect(client).to receive(:upload_part)
-              .with(hash_not_including(checksum_crc32: anything)).exactly(24).times
+              .with(hash_not_including(checksum_crc32: anything))
+              .exactly(24).times
               .and_call_original
             expect(client).to receive(:complete_multipart_upload)
               .with(hash_including(checksum_type: 'FULL_OBJECT', checksum_crc32: 'checksum'))
@@ -207,7 +180,7 @@ module Aws
           end
 
           it 'defaults to THREAD_COUNT without the thread_count option' do
-            expect(Thread).to receive(:new).exactly(S3::MultipartFileUploader::THREAD_COUNT).times.and_return(double(value: nil))
+            expect(Thread).to receive(:new).exactly(S3::MultipartFileUploader::THREAD_COUNT).times.and_yield.and_return(double(value: nil))
             client.stub_responses(:create_multipart_upload, upload_id: 'id')
             client.stub_responses(:complete_multipart_upload)
             object.upload_file(one_hundred_seventeen_meg_file)
@@ -215,7 +188,7 @@ module Aws
 
           it 'respects the thread_count option' do
             custom_thread_count = 20
-            expect(Thread).to receive(:new).exactly(custom_thread_count).times.and_return(double(value: nil))
+            expect(Thread).to receive(:new).exactly(custom_thread_count).times.and_yield.and_return(double(value: nil))
             client.stub_responses(:create_multipart_upload, upload_id: 'id')
             client.stub_responses(:complete_multipart_upload)
             object.upload_file(one_hundred_seventeen_meg_file, thread_count: custom_thread_count)
@@ -249,7 +222,7 @@ module Aws
 
             expect do
               object.upload_file(one_hundred_seventeen_meg_file)
-            end.to raise_error('multipart upload failed: part 3 failed')
+            end.to raise_error(/multipart upload failed: part 3 failed/)
           end
 
           it 'reports when it is unable to abort a failed multipart upload' do
@@ -266,14 +239,22 @@ module Aws
                 RuntimeError.new('part failed')
               ]
             )
-            client.stub_responses(
-              :abort_multipart_upload,
-              [RuntimeError.new('network-error')]
-            )
+            client.stub_responses(:abort_multipart_upload, [RuntimeError.new('network-error')])
             expect { object.upload_file(one_hundred_seventeen_meg_file) }.to raise_error(
               S3::MultipartUploadError,
               /failed to abort multipart upload: network-error. Multipart upload failed: part failed/
             )
+          end
+
+          it 'aborts multipart upload when upload fails to complete' do
+            client.stub_responses(:complete_multipart_upload, RuntimeError.new('network-error'))
+
+            expect(client).to receive(:abort_multipart_upload).with(
+              bucket: 'bucket',
+              key: 'key',
+              upload_id: 'MultipartUploadId'
+            )
+            expect { object.upload_file(one_hundred_seventeen_meg_file) }.to raise_error(Aws::S3::MultipartUploadError)
           end
         end
       end
