@@ -68,6 +68,8 @@ module Aws::Budgets
       attr_accessor auto_adjust_data: Types::AutoAdjustData
       attr_accessor filter_expression: Types::Expression
       attr_accessor metrics: ::Array[("BlendedCost" | "UnblendedCost" | "AmortizedCost" | "NetUnblendedCost" | "NetAmortizedCost" | "UsageQuantity" | "NormalizedUsageAmount" | "Hours")]
+      attr_accessor billing_view_arn: ::String
+      attr_accessor health_status: Types::HealthStatus
       SENSITIVE: []
     end
 
@@ -83,6 +85,7 @@ module Aws::Budgets
       attr_accessor cost_filters: ::Hash[::String, ::Array[::String]]
       attr_accessor cost_types: Types::CostTypes
       attr_accessor time_unit: ("DAILY" | "MONTHLY" | "QUARTERLY" | "ANNUALLY")
+      attr_accessor billing_view_arn: ::String
       attr_accessor budgeted_and_actual_amounts_list: ::Array[Types::BudgetedAndActualAmounts]
       SENSITIVE: []
     end
@@ -412,6 +415,13 @@ module Aws::Budgets
       attr_accessor key: ("AZ" | "INSTANCE_TYPE" | "LINKED_ACCOUNT" | "LINKED_ACCOUNT_NAME" | "OPERATION" | "PURCHASE_TYPE" | "REGION" | "SERVICE" | "SERVICE_CODE" | "USAGE_TYPE" | "USAGE_TYPE_GROUP" | "RECORD_TYPE" | "OPERATING_SYSTEM" | "TENANCY" | "SCOPE" | "PLATFORM" | "SUBSCRIPTION_ID" | "LEGAL_ENTITY_NAME" | "INVOICING_ENTITY" | "DEPLOYMENT_OPTION" | "DATABASE_ENGINE" | "CACHE_ENGINE" | "INSTANCE_TYPE_FAMILY" | "BILLING_ENTITY" | "RESERVATION_ID" | "RESOURCE_ID" | "RIGHTSIZING_TYPE" | "SAVINGS_PLANS_TYPE" | "SAVINGS_PLAN_ARN" | "PAYMENT_OPTION" | "RESERVATION_MODIFIED" | "TAG_KEY" | "COST_CATEGORY_NAME")
       attr_accessor values: ::Array[::String]
       attr_accessor match_options: ::Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]
+      SENSITIVE: []
+    end
+
+    class HealthStatus
+      attr_accessor status: ("HEALTHY" | "UNHEALTHY")
+      attr_accessor status_reason: ("BILLING_VIEW_NO_ACCESS" | "BILLING_VIEW_UNHEALTHY" | "FILTER_INVALID")
+      attr_accessor last_updated_time: ::Time
       SENSITIVE: []
     end
 

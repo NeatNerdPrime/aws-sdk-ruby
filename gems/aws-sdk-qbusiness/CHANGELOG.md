@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.46.0 (2025-08-06)
+------------------
+
+* Feature - Amazon Q Business now supports the GetDocumentContent() API that enables customers to securely access the source documents through clickable citation links at query time
+
 1.45.0 (2025-08-04)
 ------------------
 

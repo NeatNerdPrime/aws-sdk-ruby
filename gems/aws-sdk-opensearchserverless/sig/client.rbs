@@ -168,6 +168,18 @@ module Aws
                              ) -> _CreateCollectionResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateCollectionResponseSuccess
 
+      interface _CreateIndexResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateIndexResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/OpenSearchServerless/Client.html#create_index-instance_method
+      def create_index: (
+                          id: ::String,
+                          index_name: ::String,
+                          ?index_schema: {
+                          }
+                        ) -> _CreateIndexResponseSuccess
+                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateIndexResponseSuccess
+
       interface _CreateLifecyclePolicyResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateLifecyclePolicyResponse]
         def lifecycle_policy_detail: () -> Types::LifecyclePolicyDetail
@@ -261,6 +273,16 @@ module Aws
                              ) -> _DeleteCollectionResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteCollectionResponseSuccess
 
+      interface _DeleteIndexResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DeleteIndexResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/OpenSearchServerless/Client.html#delete_index-instance_method
+      def delete_index: (
+                          id: ::String,
+                          index_name: ::String
+                        ) -> _DeleteIndexResponseSuccess
+                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteIndexResponseSuccess
+
       interface _DeleteLifecyclePolicyResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DeleteLifecyclePolicyResponse]
       end
@@ -323,6 +345,17 @@ module Aws
       def get_account_settings: (
                                 ) -> _GetAccountSettingsResponseSuccess
                               | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAccountSettingsResponseSuccess
+
+      interface _GetIndexResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetIndexResponse]
+        def index_schema: () -> untyped
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/OpenSearchServerless/Client.html#get_index-instance_method
+      def get_index: (
+                       id: ::String,
+                       index_name: ::String
+                     ) -> _GetIndexResponseSuccess
+                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetIndexResponseSuccess
 
       interface _GetPoliciesStatsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetPoliciesStatsResponse]
@@ -518,6 +551,18 @@ module Aws
                                ?client_token: ::String
                              ) -> _UpdateCollectionResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateCollectionResponseSuccess
+
+      interface _UpdateIndexResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::UpdateIndexResponse]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/OpenSearchServerless/Client.html#update_index-instance_method
+      def update_index: (
+                          id: ::String,
+                          index_name: ::String,
+                          ?index_schema: {
+                          }
+                        ) -> _UpdateIndexResponseSuccess
+                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateIndexResponseSuccess
 
       interface _UpdateLifecyclePolicyResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::UpdateLifecyclePolicyResponse]

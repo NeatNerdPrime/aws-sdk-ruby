@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.115.0 (2025-08-06)
+------------------
+
+* Feature - Added support for G6 instances
+
 1.114.0 (2025-08-04)
 ------------------
 

@@ -1224,6 +1224,24 @@ module Aws::AppStream
     #
     #   * stream.graphics-pro.16xlarge
     #
+    #   * stream.graphics.g6.xlarge
+    #
+    #   * stream.graphics.g6.2xlarge
+    #
+    #   * stream.graphics.g6.4xlarge
+    #
+    #   * stream.graphics.g6.8xlarge
+    #
+    #   * stream.graphics.g6.16xlarge
+    #
+    #   * stream.graphics.g6.12xlarge
+    #
+    #   * stream.graphics.g6.24xlarge
+    #
+    #   * stream.graphics.gr6.4xlarge
+    #
+    #   * stream.graphics.gr6.8xlarge
+    #
     #   The following instance types are available for Elastic fleets:
     #
     #   * stream.standard.small
@@ -1531,6 +1549,38 @@ module Aws::AppStream
     #   * stream.graphics-pro.8xlarge
     #
     #   * stream.graphics-pro.16xlarge
+    #
+    #   * stream.graphics.g5.xlarge
+    #
+    #   * stream.graphics.g5.2xlarge
+    #
+    #   * stream.graphics.g5.4xlarge
+    #
+    #   * stream.graphics.g5.8xlarge
+    #
+    #   * stream.graphics.g5.16xlarge
+    #
+    #   * stream.graphics.g5.12xlarge
+    #
+    #   * stream.graphics.g5.24xlarge
+    #
+    #   * stream.graphics.g6.xlarge
+    #
+    #   * stream.graphics.g6.2xlarge
+    #
+    #   * stream.graphics.g6.4xlarge
+    #
+    #   * stream.graphics.g6.8xlarge
+    #
+    #   * stream.graphics.g6.16xlarge
+    #
+    #   * stream.graphics.g6.12xlarge
+    #
+    #   * stream.graphics.g6.24xlarge
+    #
+    #   * stream.graphics.gr6.4xlarge
+    #
+    #   * stream.graphics.gr6.8xlarge
     #   @return [String]
     #
     # @!attribute [rw] description
@@ -3523,6 +3573,38 @@ module Aws::AppStream
     #   * stream.graphics-pro.8xlarge
     #
     #   * stream.graphics-pro.16xlarge
+    #
+    #   * stream.graphics.g5.xlarge
+    #
+    #   * stream.graphics.g5.2xlarge
+    #
+    #   * stream.graphics.g5.4xlarge
+    #
+    #   * stream.graphics.g5.8xlarge
+    #
+    #   * stream.graphics.g5.16xlarge
+    #
+    #   * stream.graphics.g5.12xlarge
+    #
+    #   * stream.graphics.g5.24xlarge
+    #
+    #   * stream.graphics.g6.xlarge
+    #
+    #   * stream.graphics.g6.2xlarge
+    #
+    #   * stream.graphics.g6.4xlarge
+    #
+    #   * stream.graphics.g6.8xlarge
+    #
+    #   * stream.graphics.g6.16xlarge
+    #
+    #   * stream.graphics.g6.12xlarge
+    #
+    #   * stream.graphics.g6.24xlarge
+    #
+    #   * stream.graphics.gr6.4xlarge
+    #
+    #   * stream.graphics.gr6.8xlarge
     #   @return [String]
     #
     # @!attribute [rw] fleet_type
@@ -3756,7 +3838,8 @@ module Aws::AppStream
     #
     # @!attribute [rw] image_builder_name
     #   The name of the image builder that was used to create the private
-    #   image. If the image is shared, this value is null.
+    #   image. If the image is shared, copied, or updated by using Managed
+    #   Image Updates, this value is null.
     #   @return [String]
     #
     # @!attribute [rw] platform
@@ -3959,6 +4042,38 @@ module Aws::AppStream
     #   * stream.graphics-pro.8xlarge
     #
     #   * stream.graphics-pro.16xlarge
+    #
+    #   * stream.graphics.g5.xlarge
+    #
+    #   * stream.graphics.g5.2xlarge
+    #
+    #   * stream.graphics.g5.4xlarge
+    #
+    #   * stream.graphics.g5.8xlarge
+    #
+    #   * stream.graphics.g5.16xlarge
+    #
+    #   * stream.graphics.g5.12xlarge
+    #
+    #   * stream.graphics.g5.24xlarge
+    #
+    #   * stream.graphics.g6.xlarge
+    #
+    #   * stream.graphics.g6.2xlarge
+    #
+    #   * stream.graphics.g6.4xlarge
+    #
+    #   * stream.graphics.g6.8xlarge
+    #
+    #   * stream.graphics.g6.16xlarge
+    #
+    #   * stream.graphics.g6.12xlarge
+    #
+    #   * stream.graphics.g6.24xlarge
+    #
+    #   * stream.graphics.gr6.4xlarge
+    #
+    #   * stream.graphics.gr6.8xlarge
     #   @return [String]
     #
     # @!attribute [rw] platform

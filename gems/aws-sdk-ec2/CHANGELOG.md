@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.546.0 (2025-08-06)
+------------------
+
+* Feature - Mark Elastic Inference Accelerators and Elastic Graphics Processor parameters as deprecated on the RunInstances and LaunchTemplate APIs.
+
 1.545.0 (2025-08-04)
 ------------------
 

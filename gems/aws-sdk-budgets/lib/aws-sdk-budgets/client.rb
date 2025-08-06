@@ -610,6 +610,12 @@ module Aws::Budgets
     #         },
     #       },
     #       metrics: ["BlendedCost"], # accepts BlendedCost, UnblendedCost, AmortizedCost, NetUnblendedCost, NetAmortizedCost, UsageQuantity, NormalizedUsageAmount, Hours
+    #       billing_view_arn: "BillingViewArn",
+    #       health_status: {
+    #         status: "HEALTHY", # accepts HEALTHY, UNHEALTHY
+    #         status_reason: "BILLING_VIEW_NO_ACCESS", # accepts BILLING_VIEW_NO_ACCESS, BILLING_VIEW_UNHEALTHY, FILTER_INVALID
+    #         last_updated_time: Time.now,
+    #       },
     #     },
     #     notifications_with_subscribers: [
     #       {
@@ -1103,6 +1109,10 @@ module Aws::Budgets
     #   resp.budget.filter_expression.cost_categories.match_options[0] #=> String, one of "EQUALS", "ABSENT", "STARTS_WITH", "ENDS_WITH", "CONTAINS", "GREATER_THAN_OR_EQUAL", "CASE_SENSITIVE", "CASE_INSENSITIVE"
     #   resp.budget.metrics #=> Array
     #   resp.budget.metrics[0] #=> String, one of "BlendedCost", "UnblendedCost", "AmortizedCost", "NetUnblendedCost", "NetAmortizedCost", "UsageQuantity", "NormalizedUsageAmount", "Hours"
+    #   resp.budget.billing_view_arn #=> String
+    #   resp.budget.health_status.status #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.budget.health_status.status_reason #=> String, one of "BILLING_VIEW_NO_ACCESS", "BILLING_VIEW_UNHEALTHY", "FILTER_INVALID"
+    #   resp.budget.health_status.last_updated_time #=> Time
     #
     # @overload describe_budget(params = {})
     # @param [Hash] params ({})
@@ -1506,6 +1516,7 @@ module Aws::Budgets
     #   resp.budget_performance_history.cost_types.include_discount #=> Boolean
     #   resp.budget_performance_history.cost_types.use_amortized #=> Boolean
     #   resp.budget_performance_history.time_unit #=> String, one of "DAILY", "MONTHLY", "QUARTERLY", "ANNUALLY"
+    #   resp.budget_performance_history.billing_view_arn #=> String
     #   resp.budget_performance_history.budgeted_and_actual_amounts_list #=> Array
     #   resp.budget_performance_history.budgeted_and_actual_amounts_list[0].budgeted_amount.amount #=> String
     #   resp.budget_performance_history.budgeted_and_actual_amounts_list[0].budgeted_amount.unit #=> String
@@ -1623,6 +1634,10 @@ module Aws::Budgets
     #   resp.budgets[0].filter_expression.cost_categories.match_options[0] #=> String, one of "EQUALS", "ABSENT", "STARTS_WITH", "ENDS_WITH", "CONTAINS", "GREATER_THAN_OR_EQUAL", "CASE_SENSITIVE", "CASE_INSENSITIVE"
     #   resp.budgets[0].metrics #=> Array
     #   resp.budgets[0].metrics[0] #=> String, one of "BlendedCost", "UnblendedCost", "AmortizedCost", "NetUnblendedCost", "NetAmortizedCost", "UsageQuantity", "NormalizedUsageAmount", "Hours"
+    #   resp.budgets[0].billing_view_arn #=> String
+    #   resp.budgets[0].health_status.status #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.budgets[0].health_status.status_reason #=> String, one of "BILLING_VIEW_NO_ACCESS", "BILLING_VIEW_UNHEALTHY", "FILTER_INVALID"
+    #   resp.budgets[0].health_status.last_updated_time #=> Time
     #   resp.next_token #=> String
     #
     # @overload describe_budgets(params = {})
@@ -1985,6 +2000,12 @@ module Aws::Budgets
     #         },
     #       },
     #       metrics: ["BlendedCost"], # accepts BlendedCost, UnblendedCost, AmortizedCost, NetUnblendedCost, NetAmortizedCost, UsageQuantity, NormalizedUsageAmount, Hours
+    #       billing_view_arn: "BillingViewArn",
+    #       health_status: {
+    #         status: "HEALTHY", # accepts HEALTHY, UNHEALTHY
+    #         status_reason: "BILLING_VIEW_NO_ACCESS", # accepts BILLING_VIEW_NO_ACCESS, BILLING_VIEW_UNHEALTHY, FILTER_INVALID
+    #         last_updated_time: Time.now,
+    #       },
     #     },
     #   })
     #
@@ -2248,7 +2269,7 @@ module Aws::Budgets
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-budgets'
-      context[:gem_version] = '1.90.0'
+      context[:gem_version] = '1.91.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

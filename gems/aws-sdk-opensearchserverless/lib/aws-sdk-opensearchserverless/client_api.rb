@@ -55,6 +55,8 @@ module Aws::OpenSearchServerless
     CreateCollectionRequestDescriptionString = Shapes::StringShape.new(name: 'CreateCollectionRequestDescriptionString')
     CreateCollectionResponse = Shapes::StructureShape.new(name: 'CreateCollectionResponse')
     CreateIamIdentityCenterConfigOptions = Shapes::StructureShape.new(name: 'CreateIamIdentityCenterConfigOptions')
+    CreateIndexRequest = Shapes::StructureShape.new(name: 'CreateIndexRequest')
+    CreateIndexResponse = Shapes::StructureShape.new(name: 'CreateIndexResponse')
     CreateLifecyclePolicyRequest = Shapes::StructureShape.new(name: 'CreateLifecyclePolicyRequest')
     CreateLifecyclePolicyResponse = Shapes::StructureShape.new(name: 'CreateLifecyclePolicyResponse')
     CreateSecurityConfigRequest = Shapes::StructureShape.new(name: 'CreateSecurityConfigRequest')
@@ -69,6 +71,8 @@ module Aws::OpenSearchServerless
     DeleteCollectionDetail = Shapes::StructureShape.new(name: 'DeleteCollectionDetail')
     DeleteCollectionRequest = Shapes::StructureShape.new(name: 'DeleteCollectionRequest')
     DeleteCollectionResponse = Shapes::StructureShape.new(name: 'DeleteCollectionResponse')
+    DeleteIndexRequest = Shapes::StructureShape.new(name: 'DeleteIndexRequest')
+    DeleteIndexResponse = Shapes::StructureShape.new(name: 'DeleteIndexResponse')
     DeleteLifecyclePolicyRequest = Shapes::StructureShape.new(name: 'DeleteLifecyclePolicyRequest')
     DeleteLifecyclePolicyResponse = Shapes::StructureShape.new(name: 'DeleteLifecyclePolicyResponse')
     DeleteSecurityConfigRequest = Shapes::StructureShape.new(name: 'DeleteSecurityConfigRequest')
@@ -87,6 +91,8 @@ module Aws::OpenSearchServerless
     GetAccessPolicyResponse = Shapes::StructureShape.new(name: 'GetAccessPolicyResponse')
     GetAccountSettingsRequest = Shapes::StructureShape.new(name: 'GetAccountSettingsRequest')
     GetAccountSettingsResponse = Shapes::StructureShape.new(name: 'GetAccountSettingsResponse')
+    GetIndexRequest = Shapes::StructureShape.new(name: 'GetIndexRequest')
+    GetIndexResponse = Shapes::StructureShape.new(name: 'GetIndexResponse')
     GetPoliciesStatsRequest = Shapes::StructureShape.new(name: 'GetPoliciesStatsRequest')
     GetPoliciesStatsResponse = Shapes::StructureShape.new(name: 'GetPoliciesStatsResponse')
     GetSecurityConfigRequest = Shapes::StructureShape.new(name: 'GetSecurityConfigRequest')
@@ -99,6 +105,8 @@ module Aws::OpenSearchServerless
     IamIdentityCenterGroupAttribute = Shapes::StringShape.new(name: 'IamIdentityCenterGroupAttribute')
     IamIdentityCenterInstanceArn = Shapes::StringShape.new(name: 'IamIdentityCenterInstanceArn')
     IamIdentityCenterUserAttribute = Shapes::StringShape.new(name: 'IamIdentityCenterUserAttribute')
+    IndexName = Shapes::StringShape.new(name: 'IndexName')
+    IndexSchema = Shapes::DocumentShape.new(name: 'IndexSchema', document: true)
     IndexingCapacityValue = Shapes::IntegerShape.new(name: 'IndexingCapacityValue')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     LifecyclePolicyDetail = Shapes::StructureShape.new(name: 'LifecyclePolicyDetail')
@@ -186,6 +194,8 @@ module Aws::OpenSearchServerless
     UpdateCollectionRequestDescriptionString = Shapes::StringShape.new(name: 'UpdateCollectionRequestDescriptionString')
     UpdateCollectionResponse = Shapes::StructureShape.new(name: 'UpdateCollectionResponse')
     UpdateIamIdentityCenterConfigOptions = Shapes::StructureShape.new(name: 'UpdateIamIdentityCenterConfigOptions')
+    UpdateIndexRequest = Shapes::StructureShape.new(name: 'UpdateIndexRequest')
+    UpdateIndexResponse = Shapes::StructureShape.new(name: 'UpdateIndexResponse')
     UpdateLifecyclePolicyRequest = Shapes::StructureShape.new(name: 'UpdateLifecyclePolicyRequest')
     UpdateLifecyclePolicyResponse = Shapes::StructureShape.new(name: 'UpdateLifecyclePolicyResponse')
     UpdateSecurityConfigRequest = Shapes::StructureShape.new(name: 'UpdateSecurityConfigRequest')
@@ -356,6 +366,13 @@ module Aws::OpenSearchServerless
     CreateIamIdentityCenterConfigOptions.add_member(:group_attribute, Shapes::ShapeRef.new(shape: IamIdentityCenterGroupAttribute, location_name: "groupAttribute"))
     CreateIamIdentityCenterConfigOptions.struct_class = Types::CreateIamIdentityCenterConfigOptions
 
+    CreateIndexRequest.add_member(:id, Shapes::ShapeRef.new(shape: CollectionId, required: true, location_name: "id"))
+    CreateIndexRequest.add_member(:index_name, Shapes::ShapeRef.new(shape: IndexName, required: true, location_name: "indexName"))
+    CreateIndexRequest.add_member(:index_schema, Shapes::ShapeRef.new(shape: IndexSchema, location_name: "indexSchema"))
+    CreateIndexRequest.struct_class = Types::CreateIndexRequest
+
+    CreateIndexResponse.struct_class = Types::CreateIndexResponse
+
     CreateLifecyclePolicyRequest.add_member(:type, Shapes::ShapeRef.new(shape: LifecyclePolicyType, required: true, location_name: "type"))
     CreateLifecyclePolicyRequest.add_member(:name, Shapes::ShapeRef.new(shape: PolicyName, required: true, location_name: "name"))
     CreateLifecyclePolicyRequest.add_member(:description, Shapes::ShapeRef.new(shape: PolicyDescription, location_name: "description"))
@@ -422,6 +439,12 @@ module Aws::OpenSearchServerless
     DeleteCollectionResponse.add_member(:delete_collection_detail, Shapes::ShapeRef.new(shape: DeleteCollectionDetail, location_name: "deleteCollectionDetail"))
     DeleteCollectionResponse.struct_class = Types::DeleteCollectionResponse
 
+    DeleteIndexRequest.add_member(:id, Shapes::ShapeRef.new(shape: CollectionId, required: true, location_name: "id"))
+    DeleteIndexRequest.add_member(:index_name, Shapes::ShapeRef.new(shape: IndexName, required: true, location_name: "indexName"))
+    DeleteIndexRequest.struct_class = Types::DeleteIndexRequest
+
+    DeleteIndexResponse.struct_class = Types::DeleteIndexResponse
+
     DeleteLifecyclePolicyRequest.add_member(:type, Shapes::ShapeRef.new(shape: LifecyclePolicyType, required: true, location_name: "type"))
     DeleteLifecyclePolicyRequest.add_member(:name, Shapes::ShapeRef.new(shape: PolicyName, required: true, location_name: "name"))
     DeleteLifecyclePolicyRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
@@ -483,6 +506,13 @@ module Aws::OpenSearchServerless
 
     GetAccountSettingsResponse.add_member(:account_settings_detail, Shapes::ShapeRef.new(shape: AccountSettingsDetail, location_name: "accountSettingsDetail"))
     GetAccountSettingsResponse.struct_class = Types::GetAccountSettingsResponse
+
+    GetIndexRequest.add_member(:id, Shapes::ShapeRef.new(shape: CollectionId, required: true, location_name: "id"))
+    GetIndexRequest.add_member(:index_name, Shapes::ShapeRef.new(shape: IndexName, required: true, location_name: "indexName"))
+    GetIndexRequest.struct_class = Types::GetIndexRequest
+
+    GetIndexResponse.add_member(:index_schema, Shapes::ShapeRef.new(shape: IndexSchema, location_name: "indexSchema"))
+    GetIndexResponse.struct_class = Types::GetIndexResponse
 
     GetPoliciesStatsRequest.struct_class = Types::GetPoliciesStatsRequest
 
@@ -764,6 +794,13 @@ module Aws::OpenSearchServerless
     UpdateIamIdentityCenterConfigOptions.add_member(:group_attribute, Shapes::ShapeRef.new(shape: IamIdentityCenterGroupAttribute, location_name: "groupAttribute"))
     UpdateIamIdentityCenterConfigOptions.struct_class = Types::UpdateIamIdentityCenterConfigOptions
 
+    UpdateIndexRequest.add_member(:id, Shapes::ShapeRef.new(shape: CollectionId, required: true, location_name: "id"))
+    UpdateIndexRequest.add_member(:index_name, Shapes::ShapeRef.new(shape: IndexName, required: true, location_name: "indexName"))
+    UpdateIndexRequest.add_member(:index_schema, Shapes::ShapeRef.new(shape: IndexSchema, location_name: "indexSchema"))
+    UpdateIndexRequest.struct_class = Types::UpdateIndexRequest
+
+    UpdateIndexResponse.struct_class = Types::UpdateIndexResponse
+
     UpdateLifecyclePolicyRequest.add_member(:type, Shapes::ShapeRef.new(shape: LifecyclePolicyType, required: true, location_name: "type"))
     UpdateLifecyclePolicyRequest.add_member(:name, Shapes::ShapeRef.new(shape: PolicyName, required: true, location_name: "name"))
     UpdateLifecyclePolicyRequest.add_member(:policy_version, Shapes::ShapeRef.new(shape: PolicyVersion, required: true, location_name: "policyVersion"))
@@ -938,6 +975,18 @@ module Aws::OpenSearchServerless
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
+      api.add_operation(:create_index, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateIndex"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateIndexRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateIndexResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+      end)
+
       api.add_operation(:create_lifecycle_policy, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateLifecyclePolicy"
         o.http_method = "POST"
@@ -1010,6 +1059,17 @@ module Aws::OpenSearchServerless
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
       end)
 
+      api.add_operation(:delete_index, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteIndex"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteIndexRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteIndexResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+      end)
+
       api.add_operation(:delete_lifecycle_policy, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteLifecyclePolicy"
         o.http_method = "POST"
@@ -1076,6 +1136,17 @@ module Aws::OpenSearchServerless
         o.input = Shapes::ShapeRef.new(shape: GetAccountSettingsRequest)
         o.output = Shapes::ShapeRef.new(shape: GetAccountSettingsResponse)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+      end)
+
+      api.add_operation(:get_index, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIndex"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIndexRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIndexResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
       end)
 
@@ -1272,6 +1343,17 @@ module Aws::OpenSearchServerless
         o.output = Shapes::ShapeRef.new(shape: UpdateCollectionResponse)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+      end)
+
+      api.add_operation(:update_index, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateIndex"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: UpdateIndexRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateIndexResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
       end)
 

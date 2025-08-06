@@ -1201,6 +1201,21 @@ module Aws::QBusiness
       SENSITIVE: []
     end
 
+    class GetDocumentContentRequest
+      attr_accessor application_id: ::String
+      attr_accessor index_id: ::String
+      attr_accessor data_source_id: ::String
+      attr_accessor document_id: ::String
+      attr_accessor output_format: ("RAW")
+      SENSITIVE: []
+    end
+
+    class GetDocumentContentResponse
+      attr_accessor presigned_url: ::String
+      attr_accessor mime_type: ::String
+      SENSITIVE: []
+    end
+
     class GetGroupRequest
       attr_accessor application_id: ::String
       attr_accessor index_id: ::String
@@ -2056,6 +2071,9 @@ module Aws::QBusiness
       attr_accessor citation_number: ::Integer
       attr_accessor updated_at: ::Time
       attr_accessor text_message_segments: ::Array[Types::TextSegment]
+      attr_accessor document_id: ::String
+      attr_accessor index_id: ::String
+      attr_accessor datasource_id: ::String
       SENSITIVE: []
     end
 

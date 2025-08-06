@@ -158,7 +158,13 @@ module Aws
                                  match_options: Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]?
                                }?
                              }?,
-                             metrics: Array[("BlendedCost" | "UnblendedCost" | "AmortizedCost" | "NetUnblendedCost" | "NetAmortizedCost" | "UsageQuantity" | "NormalizedUsageAmount" | "Hours")]?
+                             metrics: Array[("BlendedCost" | "UnblendedCost" | "AmortizedCost" | "NetUnblendedCost" | "NetAmortizedCost" | "UsageQuantity" | "NormalizedUsageAmount" | "Hours")]?,
+                             billing_view_arn: ::String?,
+                             health_status: {
+                               status: ("HEALTHY" | "UNHEALTHY")?,
+                               status_reason: ("BILLING_VIEW_NO_ACCESS" | "BILLING_VIEW_UNHEALTHY" | "FILTER_INVALID")?,
+                               last_updated_time: ::Time?
+                             }?
                            },
                            ?notifications_with_subscribers: Array[
                              {
@@ -624,7 +630,13 @@ module Aws
                                  match_options: Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]?
                                }?
                              }?,
-                             metrics: Array[("BlendedCost" | "UnblendedCost" | "AmortizedCost" | "NetUnblendedCost" | "NetAmortizedCost" | "UsageQuantity" | "NormalizedUsageAmount" | "Hours")]?
+                             metrics: Array[("BlendedCost" | "UnblendedCost" | "AmortizedCost" | "NetUnblendedCost" | "NetAmortizedCost" | "UsageQuantity" | "NormalizedUsageAmount" | "Hours")]?,
+                             billing_view_arn: ::String?,
+                             health_status: {
+                               status: ("HEALTHY" | "UNHEALTHY")?,
+                               status_reason: ("BILLING_VIEW_NO_ACCESS" | "BILLING_VIEW_UNHEALTHY" | "FILTER_INVALID")?,
+                               last_updated_time: ::Time?
+                             }?
                            }
                          ) -> _UpdateBudgetResponseSuccess
                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateBudgetResponseSuccess

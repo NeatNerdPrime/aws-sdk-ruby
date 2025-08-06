@@ -4028,6 +4028,17 @@ module Aws::QBusiness
 
     # The contents of a document.
     #
+    # <note markdown="1"> Documents have size limitations. The maximum file size for a document
+    # is 50 MB. The maximum amount of text that can be extracted from a
+    # single document is 5 MB. For more information, see [Supported document
+    # formats in Amazon Q Business][1].
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/doc-types.html
+    #
     # @note DocumentContent is a union - when making an API calls you must set exactly one of the members.
     #
     # @!attribute [rw] blob
@@ -4793,6 +4804,69 @@ module Aws::QBusiness
       :error,
       :document_enrichment_configuration,
       :media_extraction_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] application_id
+    #   The unique identifier of the Amazon Q Business application
+    #   containing the document. This ensures the request is scoped to the
+    #   correct application environment and its associated security
+    #   policies.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_id
+    #   The identifier of the index where documents are indexed.
+    #   @return [String]
+    #
+    # @!attribute [rw] data_source_id
+    #   The identifier of the data source from which the document was
+    #   ingested. This field is not present if the document is ingested by
+    #   directly calling the BatchPutDocument API. If the document is from a
+    #   file-upload data source, the datasource will be
+    #   "uploaded-docs-file-stat-datasourceid".
+    #   @return [String]
+    #
+    # @!attribute [rw] document_id
+    #   The unique identifier of the document that is indexed via
+    #   BatchPutDocument API or file-upload or connector sync. It is also
+    #   found in chat or chatSync response.
+    #   @return [String]
+    #
+    # @!attribute [rw] output_format
+    #   Raw document outputFormat.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/qbusiness-2023-11-27/GetDocumentContentRequest AWS API Documentation
+    #
+    class GetDocumentContentRequest < Struct.new(
+      :application_id,
+      :index_id,
+      :data_source_id,
+      :document_id,
+      :output_format)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] presigned_url
+    #   A pre-signed URL that provides temporary access to download the
+    #   document content directly from Amazon Q Business. The URL expires
+    #   after 5 minutes for security purposes. This URL is generated only
+    #   after successful ACL validation.
+    #   @return [String]
+    #
+    # @!attribute [rw] mime_type
+    #   The MIME type of the document content (e.g., application/pdf,
+    #   text/plain,
+    #   application/vnd.openxmlformats-officedocument.wordprocessingml.document).
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/qbusiness-2023-11-27/GetDocumentContentResponse AWS API Documentation
+    #
+    class GetDocumentContentResponse < Struct.new(
+      :presigned_url,
+      :mime_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8018,6 +8092,29 @@ module Aws::QBusiness
     #   attribution.
     #   @return [Array<Types::TextSegment>]
     #
+    # @!attribute [rw] document_id
+    #   The unique identifier of the source document used in the citation,
+    #   obtained from the Amazon Q Business index during chat response
+    #   generation. This ID is used as input to the `GetDocumentContent` API
+    #   to retrieve the actual document content for user verification.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_id
+    #   The identifier of the index containing the source document's
+    #   metadata and access control information. This links the citation
+    #   back to the specific Amazon Q Business index where the document's
+    #   searchable content and permissions are stored.
+    #   @return [String]
+    #
+    # @!attribute [rw] datasource_id
+    #   The identifier of the data source from which the document was
+    #   ingested. This field is not present if the document is ingested by
+    #   directly calling the BatchPutDocument API (similar to
+    #   checkDocumentAccess). If the document is from a file-upload data
+    #   source, the datasource will be
+    #   "uploaded-docs-file-stat-datasourceid".
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/qbusiness-2023-11-27/SourceAttribution AWS API Documentation
     #
     class SourceAttribution < Struct.new(
@@ -8026,7 +8123,10 @@ module Aws::QBusiness
       :url,
       :citation_number,
       :updated_at,
-      :text_message_segments)
+      :text_message_segments,
+      :document_id,
+      :index_id,
+      :datasource_id)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -656,6 +656,35 @@ module Aws::OpenSearchServerless
       include Aws::Structure
     end
 
+    # @!attribute [rw] id
+    #   The unique identifier of the collection in which to create the
+    #   index.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_name
+    #   The name of the index to create. Index names must be lowercase and
+    #   can't begin with underscores (\_) or hyphens (-).
+    #   @return [String]
+    #
+    # @!attribute [rw] index_schema
+    #   The JSON schema definition for the index, including field mappings
+    #   and settings.
+    #   @return [Hash,Array,String,Numeric,Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/CreateIndexRequest AWS API Documentation
+    #
+    class CreateIndexRequest < Struct.new(
+      :id,
+      :index_name,
+      :index_schema)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/CreateIndexResponse AWS API Documentation
+    #
+    class CreateIndexResponse < Aws::EmptyStructure; end
+
     # @!attribute [rw] type
     #   The type of lifecycle policy.
     #   @return [String]
@@ -991,6 +1020,28 @@ module Aws::OpenSearchServerless
       include Aws::Structure
     end
 
+    # @!attribute [rw] id
+    #   The unique identifier of the collection containing the index to
+    #   delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_name
+    #   The name of the index to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/DeleteIndexRequest AWS API Documentation
+    #
+    class DeleteIndexRequest < Struct.new(
+      :id,
+      :index_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/DeleteIndexResponse AWS API Documentation
+    #
+    class DeleteIndexResponse < Aws::EmptyStructure; end
+
     # @!attribute [rw] type
     #   The type of lifecycle policy.
     #   @return [String]
@@ -1252,6 +1303,36 @@ module Aws::OpenSearchServerless
     #
     class GetAccountSettingsResponse < Struct.new(
       :account_settings_detail)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] id
+    #   The unique identifier of the collection containing the index.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_name
+    #   The name of the index to retrieve information about.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/GetIndexRequest AWS API Documentation
+    #
+    class GetIndexRequest < Struct.new(
+      :id,
+      :index_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] index_schema
+    #   The JSON schema definition for the index, including field mappings
+    #   and settings.
+    #   @return [Hash,Array,String,Numeric,Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/GetIndexResponse AWS API Documentation
+    #
+    class GetIndexResponse < Struct.new(
+      :index_schema)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2502,6 +2583,34 @@ module Aws::OpenSearchServerless
       SENSITIVE = []
       include Aws::Structure
     end
+
+    # @!attribute [rw] id
+    #   The unique identifier of the collection containing the index to
+    #   update.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_name
+    #   The name of the index to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] index_schema
+    #   The updated JSON schema definition for the index, including field
+    #   mappings and settings.
+    #   @return [Hash,Array,String,Numeric,Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/UpdateIndexRequest AWS API Documentation
+    #
+    class UpdateIndexRequest < Struct.new(
+      :id,
+      :index_name,
+      :index_schema)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/UpdateIndexResponse AWS API Documentation
+    #
+    class UpdateIndexResponse < Aws::EmptyStructure; end
 
     # @!attribute [rw] type
     #   The type of lifecycle policy.

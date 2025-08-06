@@ -836,6 +836,52 @@ module Aws::OpenSearchServerless
       req.send_request(options)
     end
 
+    # Creates an index within an OpenSearch Serverless collection. Unlike
+    # other OpenSearch indexes, indexes created by this API are
+    # automatically configured to conduct automatic semantic enrichment
+    # ingestion and search. For more information, see [About automatic
+    # semantic enrichment][1] in the *OpenSearch User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment
+    #
+    # @option params [required, String] :id
+    #   The unique identifier of the collection in which to create the index.
+    #
+    # @option params [required, String] :index_name
+    #   The name of the index to create. Index names must be lowercase and
+    #   can't begin with underscores (\_) or hyphens (-).
+    #
+    # @option params [Hash,Array,String,Numeric,Boolean] :index_schema
+    #   The JSON schema definition for the index, including field mappings and
+    #   settings.
+    #
+    #   Document type used to carry open content
+    #   (Hash,Array,String,Numeric,Boolean). A document type value is
+    #   serialized using the same format as its surroundings and requires no
+    #   additional encoding or escaping.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_index({
+    #     id: "CollectionId", # required
+    #     index_name: "IndexName", # required
+    #     index_schema: {
+    #     },
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/CreateIndex AWS API Documentation
+    #
+    # @overload create_index(params = {})
+    # @param [Hash] params ({})
+    def create_index(params = {}, options = {})
+      req = build_request(:create_index, params)
+      req.send_request(options)
+    end
+
     # Creates a lifecyle policy to be applied to OpenSearch Serverless
     # indexes. Lifecycle policies define the number of days or hours to
     # retain the data on an OpenSearch Serverless index. For more
@@ -1207,6 +1253,40 @@ module Aws::OpenSearchServerless
       req.send_request(options)
     end
 
+    # Deletes an index from an OpenSearch Serverless collection. Be aware
+    # that the index might be configured to conduct automatic semantic
+    # enrichment ingestion and search. For more information, see [About
+    # automatic semantic enrichment][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment
+    #
+    # @option params [required, String] :id
+    #   The unique identifier of the collection containing the index to
+    #   delete.
+    #
+    # @option params [required, String] :index_name
+    #   The name of the index to delete.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_index({
+    #     id: "CollectionId", # required
+    #     index_name: "IndexName", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/DeleteIndex AWS API Documentation
+    #
+    # @overload delete_index(params = {})
+    # @param [Hash] params ({})
+    def delete_index(params = {}, options = {})
+      req = build_request(:delete_index, params)
+      req.send_request(options)
+    end
+
     # Deletes an OpenSearch Serverless lifecycle policy. For more
     # information, see [Deleting data lifecycle policies][1].
     #
@@ -1421,6 +1501,46 @@ module Aws::OpenSearchServerless
     # @param [Hash] params ({})
     def get_account_settings(params = {}, options = {})
       req = build_request(:get_account_settings, params)
+      req.send_request(options)
+    end
+
+    # Retrieves information about an index in an OpenSearch Serverless
+    # collection, including its schema definition. The index might be
+    # configured to conduct automatic semantic enrichment ingestion and
+    # search. For more information, see [About automatic semantic
+    # enrichment][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment
+    #
+    # @option params [required, String] :id
+    #   The unique identifier of the collection containing the index.
+    #
+    # @option params [required, String] :index_name
+    #   The name of the index to retrieve information about.
+    #
+    # @return [Types::GetIndexResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetIndexResponse#index_schema #index_schema} => Hash,Array,String,Numeric,Boolean
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_index({
+    #     id: "CollectionId", # required
+    #     index_name: "IndexName", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/GetIndex AWS API Documentation
+    #
+    # @overload get_index(params = {})
+    # @param [Hash] params ({})
+    def get_index(params = {}, options = {})
+      req = build_request(:get_index, params)
       req.send_request(options)
     end
 
@@ -2167,6 +2287,52 @@ module Aws::OpenSearchServerless
       req.send_request(options)
     end
 
+    # Updates an existing index in an OpenSearch Serverless collection. This
+    # operation allows you to modify the index schema, including adding new
+    # fields or changing field mappings. You can also enable automatic
+    # semantic enrichment ingestion and search. For more information, see
+    # [About automatic semantic enrichment][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-semantic-enrichment
+    #
+    # @option params [required, String] :id
+    #   The unique identifier of the collection containing the index to
+    #   update.
+    #
+    # @option params [required, String] :index_name
+    #   The name of the index to update.
+    #
+    # @option params [Hash,Array,String,Numeric,Boolean] :index_schema
+    #   The updated JSON schema definition for the index, including field
+    #   mappings and settings.
+    #
+    #   Document type used to carry open content
+    #   (Hash,Array,String,Numeric,Boolean). A document type value is
+    #   serialized using the same format as its surroundings and requires no
+    #   additional encoding or escaping.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_index({
+    #     id: "CollectionId", # required
+    #     index_name: "IndexName", # required
+    #     index_schema: {
+    #     },
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearchserverless-2021-11-01/UpdateIndex AWS API Documentation
+    #
+    # @overload update_index(params = {})
+    # @param [Hash] params ({})
+    def update_index(params = {}, options = {})
+      req = build_request(:update_index, params)
+      req.send_request(options)
+    end
+
     # Updates an OpenSearch Serverless access policy. For more information,
     # see [Updating data lifecycle policies][1].
     #
@@ -2479,7 +2645,7 @@ module Aws::OpenSearchServerless
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-opensearchserverless'
-      context[:gem_version] = '1.42.0'
+      context[:gem_version] = '1.43.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

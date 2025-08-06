@@ -1073,6 +1073,9 @@ module Aws::QBusiness
     #   resp.source_attributions[0].text_message_segments[0].source_details.video_source_details.start_time_milliseconds #=> Integer
     #   resp.source_attributions[0].text_message_segments[0].source_details.video_source_details.end_time_milliseconds #=> Integer
     #   resp.source_attributions[0].text_message_segments[0].source_details.video_source_details.video_extraction_type #=> String, one of "TRANSCRIPT", "SUMMARY"
+    #   resp.source_attributions[0].document_id #=> String
+    #   resp.source_attributions[0].index_id #=> String
+    #   resp.source_attributions[0].datasource_id #=> String
     #   resp.failed_attachments #=> Array
     #   resp.failed_attachments[0].name #=> String
     #   resp.failed_attachments[0].status #=> String, one of "FAILED", "SUCCESS"
@@ -2125,9 +2128,15 @@ module Aws::QBusiness
     # user. For more information on subscriptions and pricing tiers, see
     # [Amazon Q Business pricing][1].
     #
+    # <note markdown="1"> For an example IAM role policy for assigning subscriptions, see [Set
+    # up required permissions][2] in the Amazon Q Business User Guide.
+    #
+    #  </note>
+    #
     #
     #
     # [1]: https://aws.amazon.com/q/business/pricing/
+    # [2]: https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/setting-up.html#permissions
     #
     # @option params [required, String] :application_id
     #   The identifier of the Amazon Q Business application the subscription
@@ -3213,6 +3222,64 @@ module Aws::QBusiness
     # @param [Hash] params ({})
     def get_data_source(params = {}, options = {})
       req = build_request(:get_data_source, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the content of a document that was ingested into Amazon Q
+    # Business. This API validates user authorization against document ACLs
+    # before returning a pre-signed URL for secure document access. You can
+    # download or view source documents referenced in chat responses through
+    # the URL.
+    #
+    # @option params [required, String] :application_id
+    #   The unique identifier of the Amazon Q Business application containing
+    #   the document. This ensures the request is scoped to the correct
+    #   application environment and its associated security policies.
+    #
+    # @option params [required, String] :index_id
+    #   The identifier of the index where documents are indexed.
+    #
+    # @option params [String] :data_source_id
+    #   The identifier of the data source from which the document was
+    #   ingested. This field is not present if the document is ingested by
+    #   directly calling the BatchPutDocument API. If the document is from a
+    #   file-upload data source, the datasource will be
+    #   "uploaded-docs-file-stat-datasourceid".
+    #
+    # @option params [required, String] :document_id
+    #   The unique identifier of the document that is indexed via
+    #   BatchPutDocument API or file-upload or connector sync. It is also
+    #   found in chat or chatSync response.
+    #
+    # @option params [String] :output_format
+    #   Raw document outputFormat.
+    #
+    # @return [Types::GetDocumentContentResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetDocumentContentResponse#presigned_url #presigned_url} => String
+    #   * {Types::GetDocumentContentResponse#mime_type #mime_type} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_document_content({
+    #     application_id: "ApplicationId", # required
+    #     index_id: "IndexId", # required
+    #     data_source_id: "DataSourceId",
+    #     document_id: "DocumentId", # required
+    #     output_format: "RAW", # accepts RAW
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.presigned_url #=> String
+    #   resp.mime_type #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/qbusiness-2023-11-27/GetDocumentContent AWS API Documentation
+    #
+    # @overload get_document_content(params = {})
+    # @param [Hash] params ({})
+    def get_document_content(params = {}, options = {})
+      req = build_request(:get_document_content, params)
       req.send_request(options)
     end
 
@@ -4316,6 +4383,9 @@ module Aws::QBusiness
     #   resp.messages[0].source_attribution[0].text_message_segments[0].source_details.video_source_details.start_time_milliseconds #=> Integer
     #   resp.messages[0].source_attribution[0].text_message_segments[0].source_details.video_source_details.end_time_milliseconds #=> Integer
     #   resp.messages[0].source_attribution[0].text_message_segments[0].source_details.video_source_details.video_extraction_type #=> String, one of "TRANSCRIPT", "SUMMARY"
+    #   resp.messages[0].source_attribution[0].document_id #=> String
+    #   resp.messages[0].source_attribution[0].index_id #=> String
+    #   resp.messages[0].source_attribution[0].datasource_id #=> String
     #   resp.messages[0].action_review.plugin_id #=> String
     #   resp.messages[0].action_review.plugin_type #=> String, one of "SERVICE_NOW", "SALESFORCE", "JIRA", "ZENDESK", "CUSTOM", "QUICKSIGHT", "SERVICENOW_NOW_PLATFORM", "JIRA_CLOUD", "SALESFORCE_CRM", "ZENDESK_SUITE", "ATLASSIAN_CONFLUENCE", "GOOGLE_CALENDAR", "MICROSOFT_TEAMS", "MICROSOFT_EXCHANGE", "PAGERDUTY_ADVANCE", "SMARTSHEET", "ASANA"
     #   resp.messages[0].action_review.payload #=> Hash
@@ -6180,7 +6250,7 @@ module Aws::QBusiness
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-qbusiness'
-      context[:gem_version] = '1.45.0'
+      context[:gem_version] = '1.46.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

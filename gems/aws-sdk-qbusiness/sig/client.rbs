@@ -1141,6 +1141,21 @@ module Aws
                            ) -> _GetDataSourceResponseSuccess
                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetDataSourceResponseSuccess
 
+      interface _GetDocumentContentResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetDocumentContentResponse]
+        def presigned_url: () -> ::String
+        def mime_type: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/QBusiness/Client.html#get_document_content-instance_method
+      def get_document_content: (
+                                  application_id: ::String,
+                                  index_id: ::String,
+                                  ?data_source_id: ::String,
+                                  document_id: ::String,
+                                  ?output_format: ("RAW")
+                                ) -> _GetDocumentContentResponseSuccess
+                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetDocumentContentResponseSuccess
+
       interface _GetGroupResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetGroupResponse]
         def status: () -> Types::GroupStatusDetail

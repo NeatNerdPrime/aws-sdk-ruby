@@ -185,6 +185,16 @@ module Aws::OpenSearchServerless
       SENSITIVE: []
     end
 
+    class CreateIndexRequest
+      attr_accessor id: ::String
+      attr_accessor index_name: ::String
+      attr_accessor index_schema: untyped
+      SENSITIVE: []
+    end
+
+    class CreateIndexResponse < Aws::EmptyStructure
+    end
+
     class CreateLifecyclePolicyRequest
       attr_accessor type: ("retention")
       attr_accessor name: ::String
@@ -278,6 +288,15 @@ module Aws::OpenSearchServerless
       SENSITIVE: []
     end
 
+    class DeleteIndexRequest
+      attr_accessor id: ::String
+      attr_accessor index_name: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteIndexResponse < Aws::EmptyStructure
+    end
+
     class DeleteLifecyclePolicyRequest
       attr_accessor type: ("retention")
       attr_accessor name: ::String
@@ -359,6 +378,17 @@ module Aws::OpenSearchServerless
 
     class GetAccountSettingsResponse
       attr_accessor account_settings_detail: Types::AccountSettingsDetail
+      SENSITIVE: []
+    end
+
+    class GetIndexRequest
+      attr_accessor id: ::String
+      attr_accessor index_name: ::String
+      SENSITIVE: []
+    end
+
+    class GetIndexResponse
+      attr_accessor index_schema: untyped
       SENSITIVE: []
     end
 
@@ -713,6 +743,16 @@ module Aws::OpenSearchServerless
       attr_accessor user_attribute: ("UserId" | "UserName" | "Email")
       attr_accessor group_attribute: ("GroupId" | "GroupName")
       SENSITIVE: []
+    end
+
+    class UpdateIndexRequest
+      attr_accessor id: ::String
+      attr_accessor index_name: ::String
+      attr_accessor index_schema: untyped
+      SENSITIVE: []
+    end
+
+    class UpdateIndexResponse < Aws::EmptyStructure
     end
 
     class UpdateLifecyclePolicyRequest

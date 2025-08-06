@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.43.0 (2025-08-06)
+------------------
+
+* Feature - Features: add Index APIs in OpenSearchServerless to support managed semantic enrichment
+
 1.42.0 (2025-08-04)
 ------------------
 

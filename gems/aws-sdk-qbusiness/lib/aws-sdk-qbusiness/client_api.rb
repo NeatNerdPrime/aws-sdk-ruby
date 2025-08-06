@@ -278,6 +278,8 @@ module Aws::QBusiness
     GetDataAccessorResponse = Shapes::StructureShape.new(name: 'GetDataAccessorResponse')
     GetDataSourceRequest = Shapes::StructureShape.new(name: 'GetDataSourceRequest')
     GetDataSourceResponse = Shapes::StructureShape.new(name: 'GetDataSourceResponse')
+    GetDocumentContentRequest = Shapes::StructureShape.new(name: 'GetDocumentContentRequest')
+    GetDocumentContentResponse = Shapes::StructureShape.new(name: 'GetDocumentContentResponse')
     GetGroupRequest = Shapes::StructureShape.new(name: 'GetGroupRequest')
     GetGroupResponse = Shapes::StructureShape.new(name: 'GetGroupResponse')
     GetIndexRequest = Shapes::StructureShape.new(name: 'GetIndexRequest')
@@ -429,6 +431,7 @@ module Aws::QBusiness
     OrchestrationConfiguration = Shapes::StructureShape.new(name: 'OrchestrationConfiguration')
     OrchestrationControl = Shapes::StringShape.new(name: 'OrchestrationControl')
     Origin = Shapes::StringShape.new(name: 'Origin')
+    OutputFormat = Shapes::StringShape.new(name: 'OutputFormat')
     Payload = Shapes::StringShape.new(name: 'Payload')
     PermissionCondition = Shapes::StructureShape.new(name: 'PermissionCondition')
     PermissionConditionKey = Shapes::StringShape.new(name: 'PermissionConditionKey')
@@ -1560,6 +1563,17 @@ module Aws::QBusiness
     GetDataSourceResponse.add_member(:media_extraction_configuration, Shapes::ShapeRef.new(shape: MediaExtractionConfiguration, location_name: "mediaExtractionConfiguration"))
     GetDataSourceResponse.struct_class = Types::GetDataSourceResponse
 
+    GetDocumentContentRequest.add_member(:application_id, Shapes::ShapeRef.new(shape: ApplicationId, required: true, location: "uri", location_name: "applicationId"))
+    GetDocumentContentRequest.add_member(:index_id, Shapes::ShapeRef.new(shape: IndexId, required: true, location: "uri", location_name: "indexId"))
+    GetDocumentContentRequest.add_member(:data_source_id, Shapes::ShapeRef.new(shape: DataSourceId, location: "querystring", location_name: "dataSourceId"))
+    GetDocumentContentRequest.add_member(:document_id, Shapes::ShapeRef.new(shape: DocumentId, required: true, location: "uri", location_name: "documentId"))
+    GetDocumentContentRequest.add_member(:output_format, Shapes::ShapeRef.new(shape: OutputFormat, location: "querystring", location_name: "outputFormat"))
+    GetDocumentContentRequest.struct_class = Types::GetDocumentContentRequest
+
+    GetDocumentContentResponse.add_member(:presigned_url, Shapes::ShapeRef.new(shape: String, required: true, location_name: "presignedUrl"))
+    GetDocumentContentResponse.add_member(:mime_type, Shapes::ShapeRef.new(shape: String, required: true, location_name: "mimeType"))
+    GetDocumentContentResponse.struct_class = Types::GetDocumentContentResponse
+
     GetGroupRequest.add_member(:application_id, Shapes::ShapeRef.new(shape: ApplicationId, required: true, location: "uri", location_name: "applicationId"))
     GetGroupRequest.add_member(:index_id, Shapes::ShapeRef.new(shape: IndexId, required: true, location: "uri", location_name: "indexId"))
     GetGroupRequest.add_member(:group_name, Shapes::ShapeRef.new(shape: GroupName, required: true, location: "uri", location_name: "groupName"))
@@ -2202,6 +2216,9 @@ module Aws::QBusiness
     SourceAttribution.add_member(:citation_number, Shapes::ShapeRef.new(shape: Integer, location_name: "citationNumber"))
     SourceAttribution.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "updatedAt"))
     SourceAttribution.add_member(:text_message_segments, Shapes::ShapeRef.new(shape: TextSegmentList, location_name: "textMessageSegments"))
+    SourceAttribution.add_member(:document_id, Shapes::ShapeRef.new(shape: String, location_name: "documentId"))
+    SourceAttribution.add_member(:index_id, Shapes::ShapeRef.new(shape: String, location_name: "indexId"))
+    SourceAttribution.add_member(:datasource_id, Shapes::ShapeRef.new(shape: String, location_name: "datasourceId"))
     SourceAttribution.struct_class = Types::SourceAttribution
 
     SourceAttributions.member = Shapes::ShapeRef.new(shape: SourceAttribution)
@@ -3042,6 +3059,19 @@ module Aws::QBusiness
         o.http_request_uri = "/applications/{applicationId}/indices/{indexId}/datasources/{dataSourceId}"
         o.input = Shapes::ShapeRef.new(shape: GetDataSourceRequest)
         o.output = Shapes::ShapeRef.new(shape: GetDataSourceResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+      end)
+
+      api.add_operation(:get_document_content, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetDocumentContent"
+        o.http_method = "GET"
+        o.http_request_uri = "/applications/{applicationId}/index/{indexId}/documents/{documentId}/content"
+        o.input = Shapes::ShapeRef.new(shape: GetDocumentContentRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetDocumentContentResponse)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)

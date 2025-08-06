@@ -31,6 +31,7 @@ module Aws::Budgets
     ApprovalModel = Shapes::StringShape.new(name: 'ApprovalModel')
     AutoAdjustData = Shapes::StructureShape.new(name: 'AutoAdjustData')
     AutoAdjustType = Shapes::StringShape.new(name: 'AutoAdjustType')
+    BillingViewArn = Shapes::StringShape.new(name: 'BillingViewArn')
     Budget = Shapes::StructureShape.new(name: 'Budget')
     BudgetName = Shapes::StringShape.new(name: 'BudgetName')
     BudgetNotificationsForAccount = Shapes::StructureShape.new(name: 'BudgetNotificationsForAccount')
@@ -100,6 +101,9 @@ module Aws::Budgets
     GenericTimestamp = Shapes::TimestampShape.new(name: 'GenericTimestamp')
     Group = Shapes::StringShape.new(name: 'Group')
     Groups = Shapes::ListShape.new(name: 'Groups')
+    HealthStatus = Shapes::StructureShape.new(name: 'HealthStatus')
+    HealthStatusReason = Shapes::StringShape.new(name: 'HealthStatusReason')
+    HealthStatusValue = Shapes::StringShape.new(name: 'HealthStatusValue')
     HistoricalOptions = Shapes::StructureShape.new(name: 'HistoricalOptions')
     IamActionDefinition = Shapes::StructureShape.new(name: 'IamActionDefinition')
     InstanceId = Shapes::StringShape.new(name: 'InstanceId')
@@ -225,6 +229,8 @@ module Aws::Budgets
     Budget.add_member(:auto_adjust_data, Shapes::ShapeRef.new(shape: AutoAdjustData, location_name: "AutoAdjustData"))
     Budget.add_member(:filter_expression, Shapes::ShapeRef.new(shape: Expression, location_name: "FilterExpression"))
     Budget.add_member(:metrics, Shapes::ShapeRef.new(shape: Metrics, location_name: "Metrics"))
+    Budget.add_member(:billing_view_arn, Shapes::ShapeRef.new(shape: BillingViewArn, location_name: "BillingViewArn"))
+    Budget.add_member(:health_status, Shapes::ShapeRef.new(shape: HealthStatus, location_name: "HealthStatus"))
     Budget.struct_class = Types::Budget
 
     BudgetNotificationsForAccount.add_member(:notifications, Shapes::ShapeRef.new(shape: Notifications, location_name: "Notifications"))
@@ -238,6 +244,7 @@ module Aws::Budgets
     BudgetPerformanceHistory.add_member(:cost_filters, Shapes::ShapeRef.new(shape: CostFilters, location_name: "CostFilters"))
     BudgetPerformanceHistory.add_member(:cost_types, Shapes::ShapeRef.new(shape: CostTypes, location_name: "CostTypes"))
     BudgetPerformanceHistory.add_member(:time_unit, Shapes::ShapeRef.new(shape: TimeUnit, location_name: "TimeUnit"))
+    BudgetPerformanceHistory.add_member(:billing_view_arn, Shapes::ShapeRef.new(shape: BillingViewArn, location_name: "BillingViewArn"))
     BudgetPerformanceHistory.add_member(:budgeted_and_actual_amounts_list, Shapes::ShapeRef.new(shape: BudgetedAndActualAmountsList, location_name: "BudgetedAndActualAmountsList"))
     BudgetPerformanceHistory.struct_class = Types::BudgetPerformanceHistory
 
@@ -492,6 +499,11 @@ module Aws::Budgets
 
     Groups.member = Shapes::ShapeRef.new(shape: Group)
 
+    HealthStatus.add_member(:status, Shapes::ShapeRef.new(shape: HealthStatusValue, location_name: "Status"))
+    HealthStatus.add_member(:status_reason, Shapes::ShapeRef.new(shape: HealthStatusReason, location_name: "StatusReason"))
+    HealthStatus.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: GenericTimestamp, location_name: "LastUpdatedTime"))
+    HealthStatus.struct_class = Types::HealthStatus
+
     HistoricalOptions.add_member(:budget_adjustment_period, Shapes::ShapeRef.new(shape: AdjustmentPeriod, required: true, location_name: "BudgetAdjustmentPeriod"))
     HistoricalOptions.add_member(:look_back_available_periods, Shapes::ShapeRef.new(shape: AdjustmentPeriod, location_name: "LookBackAvailablePeriods"))
     HistoricalOptions.struct_class = Types::HistoricalOptions
@@ -683,6 +695,7 @@ module Aws::Budgets
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
       end)
 
       api.add_operation(:create_budget_action, Seahorse::Model::Operation.new.tap do |o|

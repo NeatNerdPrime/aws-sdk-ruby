@@ -318,6 +318,19 @@ module Aws::Budgets
     #   The definition for how the budget data is aggregated.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] billing_view_arn
+    #   The Amazon Resource Name (ARN) that uniquely identifies a specific
+    #   billing view. The ARN is used to specify which particular billing
+    #   view you want to interact with or retrieve information from when
+    #   making API calls related to Amazon Web Services Billing and Cost
+    #   Management features. The BillingViewArn can be retrieved by calling
+    #   the ListBillingViews API.
+    #   @return [String]
+    #
+    # @!attribute [rw] health_status
+    #   The current operational state of a Billing View derived resource.
+    #   @return [Types::HealthStatus]
+    #
     class Budget < Struct.new(
       :budget_name,
       :budget_limit,
@@ -331,7 +344,9 @@ module Aws::Budgets
       :last_updated_time,
       :auto_adjust_data,
       :filter_expression,
-      :metrics)
+      :metrics,
+      :billing_view_arn,
+      :health_status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -383,6 +398,15 @@ module Aws::Budgets
     #   The time unit of the budget, such as MONTHLY or QUARTERLY.
     #   @return [String]
     #
+    # @!attribute [rw] billing_view_arn
+    #   The Amazon Resource Name (ARN) that uniquely identifies a specific
+    #   billing view. The ARN is used to specify which particular billing
+    #   view you want to interact with or retrieve information from when
+    #   making API calls related to Amazon Web Services Billing and Cost
+    #   Management features. The BillingViewArn can be retrieved by calling
+    #   the ListBillingViews API.
+    #   @return [String]
+    #
     # @!attribute [rw] budgeted_and_actual_amounts_list
     #   A list of amounts of cost or usage that you created budgets for,
     #   which are compared to your actual costs or usage.
@@ -394,6 +418,7 @@ module Aws::Budgets
       :cost_filters,
       :cost_types,
       :time_unit,
+      :billing_view_arn,
       :budgeted_and_actual_amounts_list)
       SENSITIVE = []
       include Aws::Structure
@@ -1499,6 +1524,39 @@ module Aws::Budgets
       :key,
       :values,
       :match_options)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Provides information about the current operational state of a billing
+    # view resource, including its ability to access and update based on its
+    # associated billing view.
+    #
+    # @!attribute [rw] status
+    #   The current status of the billing view resource.
+    #   @return [String]
+    #
+    # @!attribute [rw] status_reason
+    #   The reason for the current status.
+    #
+    #   * `BILLING_VIEW_NO_ACCESS`: The billing view resource does not grant
+    #     `billing:GetBillingViewData` permission to this account.
+    #
+    #   * `BILLING_VIEW_UNHEALTHY`: The billing view associated with the
+    #     budget is unhealthy.
+    #
+    #   * `FILTER_INVALID`: The filter contains reference to an account you
+    #     do not have access to.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_updated_time
+    #   A generic time stamp. In Java, it's transformed to a `Date` object.
+    #   @return [Time]
+    #
+    class HealthStatus < Struct.new(
+      :status,
+      :status_reason,
+      :last_updated_time)
       SENSITIVE = []
       include Aws::Structure
     end

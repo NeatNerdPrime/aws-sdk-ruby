@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.91.0 (2025-08-06)
+------------------
+
+* Feature - Adds support for billing views. Billing views let you control access to cost and usage data through an AWS resource, streamlining the process of sharing cost and usage data across account boundaries. With this release, you can now create and view budgets based on billing views.
+
 1.90.0 (2025-08-04)
 ------------------
 
