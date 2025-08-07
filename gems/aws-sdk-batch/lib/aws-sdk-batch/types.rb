@@ -8013,11 +8013,11 @@ module Aws::Batch
     #
     #    </note>
     #
-    #   <note markdown="1"> Fargate Spot is not supported for `ARM64` and Windows-based
-    #   containers on Fargate. A job queue will be blocked if a Fargate
-    #   `ARM64` or Windows job is submitted to a job queue with only Fargate
-    #   Spot compute environments. However, you can attach both `FARGATE`
-    #   and `FARGATE_SPOT` compute environments to the same job queue.
+    #   <note markdown="1"> Fargate Spot is not supported on Windows-based containers on
+    #   Fargate. A job queue will be blocked if a Windows job is submitted
+    #   to a job queue with only Fargate Spot compute environments. However,
+    #   you can attach both `FARGATE` and `FARGATE_SPOT` compute
+    #   environments to the same job queue.
     #
     #    </note>
     #   @return [String]
@@ -8030,11 +8030,11 @@ module Aws::Batch
     #
     #    </note>
     #
-    #   <note markdown="1"> Fargate Spot is not supported for `ARM64` and Windows-based
-    #   containers on Fargate. A job queue will be blocked if a Fargate
-    #   `ARM64` or Windows job is submitted to a job queue with only Fargate
-    #   Spot compute environments. However, you can attach both `FARGATE`
-    #   and `FARGATE_SPOT` compute environments to the same job queue.
+    #   <note markdown="1"> Fargate Spot is not supported on Windows-based containers on
+    #   Fargate. A job queue will be blocked if a Windows job is submitted
+    #   to a job queue with only Fargate Spot compute environments. However,
+    #   you can attach both `FARGATE` and `FARGATE_SPOT` compute
+    #   environments to the same job queue.
     #
     #    </note>
     #   @return [String]

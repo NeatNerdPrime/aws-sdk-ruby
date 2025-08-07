@@ -2350,6 +2350,13 @@ module Aws::Glue
     #   Data Catalog.
     #   @return [Types::DataLakeAccessProperties]
     #
+    # @!attribute [rw] iceberg_optimization_properties
+    #   A structure that specifies Iceberg table optimization properties for
+    #   the catalog. This includes configuration for compaction, retention,
+    #   and orphan file deletion operations that can be applied to Iceberg
+    #   tables in this catalog.
+    #   @return [Types::IcebergOptimizationProperties]
+    #
     # @!attribute [rw] custom_properties
     #   Additional key-value properties for the catalog, such as column
     #   statistics optimizations.
@@ -2359,6 +2366,7 @@ module Aws::Glue
     #
     class CatalogProperties < Struct.new(
       :data_lake_access_properties,
+      :iceberg_optimization_properties,
       :custom_properties)
       SENSITIVE = []
       include Aws::Structure
@@ -2373,6 +2381,13 @@ module Aws::Glue
     #   Data Catalog.
     #   @return [Types::DataLakeAccessPropertiesOutput]
     #
+    # @!attribute [rw] iceberg_optimization_properties
+    #   An `IcebergOptimizationPropertiesOutput` object that specifies
+    #   Iceberg table optimization settings for the catalog, including
+    #   configurations for compaction, retention, and orphan file deletion
+    #   operations.
+    #   @return [Types::IcebergOptimizationPropertiesOutput]
+    #
     # @!attribute [rw] custom_properties
     #   Additional key-value properties for the catalog, such as column
     #   statistics optimizations.
@@ -2382,6 +2397,7 @@ module Aws::Glue
     #
     class CatalogPropertiesOutput < Struct.new(
       :data_lake_access_properties,
+      :iceberg_optimization_properties,
       :custom_properties)
       SENSITIVE = []
       include Aws::Structure
@@ -15827,10 +15843,29 @@ module Aws::Glue
     #   used.
     #   @return [String]
     #
+    # @!attribute [rw] min_input_files
+    #   The minimum number of data files that must be present in a partition
+    #   before compaction will actually compact files. This parameter helps
+    #   control when compaction is triggered, preventing unnecessary
+    #   compaction operations on partitions with few files. If an input is
+    #   not provided, the default value 100 will be used.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] delete_file_threshold
+    #   The minimum number of deletes that must be present in a data file to
+    #   make it eligible for compaction. This parameter helps optimize
+    #   compaction by focusing on files that contain a significant number of
+    #   delete operations, which can improve query performance by removing
+    #   deleted records. If an input is not provided, the default value 1
+    #   will be used.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergCompactionConfiguration AWS API Documentation
     #
     class IcebergCompactionConfiguration < Struct.new(
-      :strategy)
+      :strategy,
+      :min_input_files,
+      :delete_file_threshold)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15897,6 +15932,88 @@ module Aws::Glue
       include Aws::Structure
     end
 
+    # A structure that specifies Iceberg table optimization properties for
+    # the catalog, including configurations for compaction, retention, and
+    # orphan file deletion operations.
+    #
+    # @!attribute [rw] role_arn
+    #   The Amazon Resource Name (ARN) of the IAM role that will be assumed
+    #   to perform Iceberg table optimization operations.
+    #   @return [String]
+    #
+    # @!attribute [rw] compaction
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg table compaction operations, which optimize the layout of
+    #   data files to improve query performance.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] retention
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg table retention operations, which manage the lifecycle of
+    #   table snapshots to control storage costs.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] orphan_file_deletion
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg orphan file deletion operations, which identify and remove
+    #   files that are no longer referenced by the table metadata.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergOptimizationProperties AWS API Documentation
+    #
+    class IcebergOptimizationProperties < Struct.new(
+      :role_arn,
+      :compaction,
+      :retention,
+      :orphan_file_deletion)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A structure that contains the output properties of Iceberg table
+    # optimization configuration for your catalog resource in the Glue Data
+    # Catalog.
+    #
+    # @!attribute [rw] role_arn
+    #   The Amazon Resource Name (ARN) of the IAM role that is used to
+    #   perform Iceberg table optimization operations.
+    #   @return [String]
+    #
+    # @!attribute [rw] compaction
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg table compaction operations, which optimize the layout of
+    #   data files to improve query performance.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] retention
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg table retention operations, which manage the lifecycle of
+    #   table snapshots to control storage costs.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] orphan_file_deletion
+    #   A map of key-value pairs that specify configuration parameters for
+    #   Iceberg orphan file deletion operations, which identify and remove
+    #   files that are no longer referenced by the table metadata.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] last_updated_time
+    #   The timestamp when the Iceberg optimization properties were last
+    #   updated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergOptimizationPropertiesOutput AWS API Documentation
+    #
+    class IcebergOptimizationPropertiesOutput < Struct.new(
+      :role_arn,
+      :compaction,
+      :retention,
+      :orphan_file_deletion,
+      :last_updated_time)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The configuration for an Iceberg orphan file deletion optimizer.
     #
     # @!attribute [rw] orphan_file_retention_period_in_days
@@ -15911,11 +16028,20 @@ module Aws::Glue
     #   top-level table location.
     #   @return [String]
     #
+    # @!attribute [rw] run_rate_in_hours
+    #   The interval in hours between orphan file deletion job runs. This
+    #   parameter controls how frequently the orphan file deletion optimizer
+    #   will run to clean up orphan files. The value must be between 3 and
+    #   168 hours (7 days). If an input is not provided, the default value
+    #   24 will be used.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergOrphanFileDeletionConfiguration AWS API Documentation
     #
     class IcebergOrphanFileDeletionConfiguration < Struct.new(
       :orphan_file_retention_period_in_days,
-      :location)
+      :location,
+      :run_rate_in_hours)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -16030,12 +16156,21 @@ module Aws::Glue
     #   the underlying data and metadata files are not deleted.
     #   @return [Boolean]
     #
+    # @!attribute [rw] run_rate_in_hours
+    #   The interval in hours between retention job runs. This parameter
+    #   controls how frequently the retention optimizer will run to clean up
+    #   expired snapshots. The value must be between 3 and 168 hours (7
+    #   days). If an input is not provided, the default value 24 will be
+    #   used.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/IcebergRetentionConfiguration AWS API Documentation
     #
     class IcebergRetentionConfiguration < Struct.new(
       :snapshot_retention_period_in_days,
       :number_of_snapshots_to_retain,
-      :clean_expired_files)
+      :clean_expired_files,
+      :run_rate_in_hours)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -26574,12 +26709,19 @@ module Aws::Glue
     #   optimizer.
     #   @return [Types::TableOptimizerRun]
     #
+    # @!attribute [rw] configuration_source
+    #   Specifies the source of the optimizer configuration. This indicates
+    #   how the table optimizer was configured and which entity or service
+    #   initiated the configuration.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/TableOptimizer AWS API Documentation
     #
     class TableOptimizer < Struct.new(
       :type,
       :configuration,
-      :last_run)
+      :last_run,
+      :configuration_source)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -28303,7 +28445,7 @@ module Aws::Glue
     end
 
     # Contains the update operations to be applied to an existing Iceberg
-    # table in AWS Glue Data Catalog, defining the new state of the table
+    # table inGlue Data Catalog, defining the new state of the table
     # metadata.
     #
     # @!attribute [rw] updates

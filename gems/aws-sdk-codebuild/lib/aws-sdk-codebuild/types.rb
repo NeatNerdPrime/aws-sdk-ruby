@@ -2204,6 +2204,13 @@ module Aws::CodeBuild
     #    </note>
     #   @return [Types::ScopeConfiguration]
     #
+    # @!attribute [rw] pull_request_build_policy
+    #   A PullRequestBuildPolicy object that defines comment-based approval
+    #   requirements for triggering builds on pull requests. This policy
+    #   helps control when automated builds are executed based on
+    #   contributor permissions and approval workflows.
+    #   @return [Types::PullRequestBuildPolicy]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhookInput AWS API Documentation
     #
     class CreateWebhookInput < Struct.new(
@@ -2212,7 +2219,8 @@ module Aws::CodeBuild
       :filter_groups,
       :build_type,
       :manual_creation,
-      :scope_configuration)
+      :scope_configuration,
+      :pull_request_build_policy)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5504,6 +5512,46 @@ module Aws::CodeBuild
       include Aws::Structure
     end
 
+    # Configuration policy that defines comment-based approval requirements
+    # for triggering builds on pull requests. This policy helps control when
+    # automated builds are executed based on contributor permissions and
+    # approval workflows.
+    #
+    # @!attribute [rw] requires_comment_approval
+    #   Specifies when comment-based approval is required before triggering
+    #   a build on pull requests. This setting determines whether builds run
+    #   automatically or require explicit approval through comments.
+    #
+    #   * *DISABLED*: Builds trigger automatically without requiring comment
+    #     approval
+    #
+    #   * *ALL\_PULL\_REQUESTS*: All pull requests require comment approval
+    #     before builds execute (unless contributor is one of the approver
+    #     roles)
+    #
+    #   * *FORK\_PULL\_REQUESTS*: Only pull requests from forked
+    #     repositories require comment approval (unless contributor is one
+    #     of the approver roles)
+    #   @return [String]
+    #
+    # @!attribute [rw] approver_roles
+    #   List of repository roles that have approval privileges for pull
+    #   request builds when comment approval is required. Only users with
+    #   these roles can provide valid comment approvals. If a pull request
+    #   contributor is one of these roles, their pull request builds will
+    #   trigger automatically. This field is only applicable when
+    #   `requiresCommentApproval` is not *DISABLED*.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/PullRequestBuildPolicy AWS API Documentation
+    #
+    class PullRequestBuildPolicy < Struct.new(
+      :requires_comment_approval,
+      :approver_roles)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] policy
     #   A JSON-formatted resource policy. For more information, see [Sharing
     #   a Project][1] and [Sharing a Report Group][2] in the *CodeBuild User
@@ -6889,13 +6937,16 @@ module Aws::CodeBuild
     #   with the ability to call this API and set this parameter can
     #   override the default settings. Moreover, we encourage that you use a
     #   trustworthy buildspec location like a file in your source repository
-    #   or a Amazon S3 bucket.
+    #   or a Amazon S3 bucket. Alternatively, you can restrict overrides to
+    #   the buildspec by using a condition key: [Prevent unauthorized
+    #   modifications to project buildspec][2].
     #
     #    </note>
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage
+    #   [2]: https://docs.aws.amazon.com/codebuild/latest/userguide/action-context-keys.html#action-context-keys-example-overridebuildspec.html
     #   @return [String]
     #
     # @!attribute [rw] insecure_ssl_override
@@ -8036,6 +8087,13 @@ module Aws::CodeBuild
     #   [1]: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-runner-buildkite.html
     #   @return [String]
     #
+    # @!attribute [rw] pull_request_build_policy
+    #   A PullRequestBuildPolicy object that defines comment-based approval
+    #   requirements for triggering builds on pull requests. This policy
+    #   helps control when automated builds are executed based on
+    #   contributor permissions and approval workflows.
+    #   @return [Types::PullRequestBuildPolicy]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/UpdateWebhookInput AWS API Documentation
     #
     class UpdateWebhookInput < Struct.new(
@@ -8043,7 +8101,8 @@ module Aws::CodeBuild
       :branch_filter,
       :rotate_secret,
       :filter_groups,
-      :build_type)
+      :build_type,
+      :pull_request_build_policy)
       SENSITIVE = []
       include Aws::Structure
     end

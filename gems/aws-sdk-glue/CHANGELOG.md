@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.230.0 (2025-08-07)
+------------------
+
+* Feature - AWS Glue Data Catalog now supports Iceberg Optimization settings at the Catalog level, and supports new options to control the optimization job run rate.
+
 1.229.0 (2025-08-04)
 ------------------
 

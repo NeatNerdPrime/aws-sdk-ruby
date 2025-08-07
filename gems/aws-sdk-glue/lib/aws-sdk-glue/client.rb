@@ -1296,11 +1296,15 @@ module Aws::Glue
     #   resp.table_optimizers[0].table_optimizer.configuration.enabled #=> Boolean
     #   resp.table_optimizers[0].table_optimizer.configuration.vpc_configuration.glue_connection_name #=> String
     #   resp.table_optimizers[0].table_optimizer.configuration.compaction_configuration.iceberg_configuration.strategy #=> String, one of "binpack", "sort", "z-order"
+    #   resp.table_optimizers[0].table_optimizer.configuration.compaction_configuration.iceberg_configuration.min_input_files #=> Integer
+    #   resp.table_optimizers[0].table_optimizer.configuration.compaction_configuration.iceberg_configuration.delete_file_threshold #=> Integer
     #   resp.table_optimizers[0].table_optimizer.configuration.retention_configuration.iceberg_configuration.snapshot_retention_period_in_days #=> Integer
     #   resp.table_optimizers[0].table_optimizer.configuration.retention_configuration.iceberg_configuration.number_of_snapshots_to_retain #=> Integer
     #   resp.table_optimizers[0].table_optimizer.configuration.retention_configuration.iceberg_configuration.clean_expired_files #=> Boolean
+    #   resp.table_optimizers[0].table_optimizer.configuration.retention_configuration.iceberg_configuration.run_rate_in_hours #=> Integer
     #   resp.table_optimizers[0].table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.orphan_file_retention_period_in_days #=> Integer
     #   resp.table_optimizers[0].table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.location #=> String
+    #   resp.table_optimizers[0].table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.run_rate_in_hours #=> Integer
     #   resp.table_optimizers[0].table_optimizer.last_run.event_type #=> String, one of "starting", "completed", "failed", "in_progress"
     #   resp.table_optimizers[0].table_optimizer.last_run.start_timestamp #=> Time
     #   resp.table_optimizers[0].table_optimizer.last_run.end_timestamp #=> Time
@@ -1325,6 +1329,7 @@ module Aws::Glue
     #   resp.table_optimizers[0].table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.dpu_hours #=> Float
     #   resp.table_optimizers[0].table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.number_of_dpus #=> Integer
     #   resp.table_optimizers[0].table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.job_duration_in_hour #=> Float
+    #   resp.table_optimizers[0].table_optimizer.configuration_source #=> String, one of "catalog", "table"
     #   resp.failures #=> Array
     #   resp.failures[0].error.error_code #=> String
     #   resp.failures[0].error.error_message #=> String
@@ -2044,6 +2049,18 @@ module Aws::Glue
     #           data_transfer_role: "IAMRoleArn",
     #           kms_key: "ResourceArnString",
     #           catalog_type: "NameString",
+    #         },
+    #         iceberg_optimization_properties: {
+    #           role_arn: "IAMRoleArn",
+    #           compaction: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
+    #           retention: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
+    #           orphan_file_deletion: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
     #         },
     #         custom_properties: {
     #           "KeyString" => "ParametersMapValue",
@@ -4430,6 +4447,8 @@ module Aws::Glue
     #       compaction_configuration: {
     #         iceberg_configuration: {
     #           strategy: "binpack", # accepts binpack, sort, z-order
+    #           min_input_files: 1,
+    #           delete_file_threshold: 1,
     #         },
     #       },
     #       retention_configuration: {
@@ -4437,12 +4456,14 @@ module Aws::Glue
     #           snapshot_retention_period_in_days: 1,
     #           number_of_snapshots_to_retain: 1,
     #           clean_expired_files: false,
+    #           run_rate_in_hours: 1,
     #         },
     #       },
     #       orphan_file_deletion_configuration: {
     #         iceberg_configuration: {
     #           orphan_file_retention_period_in_days: 1,
     #           location: "MessageString",
+    #           run_rate_in_hours: 1,
     #         },
     #       },
     #     },
@@ -6350,6 +6371,14 @@ module Aws::Glue
     #   resp.catalog.catalog_properties.data_lake_access_properties.redshift_database_name #=> String
     #   resp.catalog.catalog_properties.data_lake_access_properties.status_message #=> String
     #   resp.catalog.catalog_properties.data_lake_access_properties.catalog_type #=> String
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.role_arn #=> String
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.compaction #=> Hash
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.compaction["KeyString"] #=> String
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.retention #=> Hash
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.retention["KeyString"] #=> String
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.orphan_file_deletion #=> Hash
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.orphan_file_deletion["KeyString"] #=> String
+    #   resp.catalog.catalog_properties.iceberg_optimization_properties.last_updated_time #=> Time
     #   resp.catalog.catalog_properties.custom_properties #=> Hash
     #   resp.catalog.catalog_properties.custom_properties["KeyString"] #=> String
     #   resp.catalog.create_table_default_permissions #=> Array
@@ -6470,6 +6499,14 @@ module Aws::Glue
     #   resp.catalog_list[0].catalog_properties.data_lake_access_properties.redshift_database_name #=> String
     #   resp.catalog_list[0].catalog_properties.data_lake_access_properties.status_message #=> String
     #   resp.catalog_list[0].catalog_properties.data_lake_access_properties.catalog_type #=> String
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.role_arn #=> String
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.compaction #=> Hash
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.compaction["KeyString"] #=> String
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.retention #=> Hash
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.retention["KeyString"] #=> String
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.orphan_file_deletion #=> Hash
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.orphan_file_deletion["KeyString"] #=> String
+    #   resp.catalog_list[0].catalog_properties.iceberg_optimization_properties.last_updated_time #=> Time
     #   resp.catalog_list[0].catalog_properties.custom_properties #=> Hash
     #   resp.catalog_list[0].catalog_properties.custom_properties["KeyString"] #=> String
     #   resp.catalog_list[0].create_table_default_permissions #=> Array
@@ -10160,11 +10197,15 @@ module Aws::Glue
     #   resp.table_optimizer.configuration.enabled #=> Boolean
     #   resp.table_optimizer.configuration.vpc_configuration.glue_connection_name #=> String
     #   resp.table_optimizer.configuration.compaction_configuration.iceberg_configuration.strategy #=> String, one of "binpack", "sort", "z-order"
+    #   resp.table_optimizer.configuration.compaction_configuration.iceberg_configuration.min_input_files #=> Integer
+    #   resp.table_optimizer.configuration.compaction_configuration.iceberg_configuration.delete_file_threshold #=> Integer
     #   resp.table_optimizer.configuration.retention_configuration.iceberg_configuration.snapshot_retention_period_in_days #=> Integer
     #   resp.table_optimizer.configuration.retention_configuration.iceberg_configuration.number_of_snapshots_to_retain #=> Integer
     #   resp.table_optimizer.configuration.retention_configuration.iceberg_configuration.clean_expired_files #=> Boolean
+    #   resp.table_optimizer.configuration.retention_configuration.iceberg_configuration.run_rate_in_hours #=> Integer
     #   resp.table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.orphan_file_retention_period_in_days #=> Integer
     #   resp.table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.location #=> String
+    #   resp.table_optimizer.configuration.orphan_file_deletion_configuration.iceberg_configuration.run_rate_in_hours #=> Integer
     #   resp.table_optimizer.last_run.event_type #=> String, one of "starting", "completed", "failed", "in_progress"
     #   resp.table_optimizer.last_run.start_timestamp #=> Time
     #   resp.table_optimizer.last_run.end_timestamp #=> Time
@@ -10189,6 +10230,7 @@ module Aws::Glue
     #   resp.table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.dpu_hours #=> Float
     #   resp.table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.number_of_dpus #=> Integer
     #   resp.table_optimizer.last_run.orphan_file_deletion_metrics.iceberg_metrics.job_duration_in_hour #=> Float
+    #   resp.table_optimizer.configuration_source #=> String, one of "catalog", "table"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTableOptimizer AWS API Documentation
     #
@@ -15584,6 +15626,18 @@ module Aws::Glue
     #           kms_key: "ResourceArnString",
     #           catalog_type: "NameString",
     #         },
+    #         iceberg_optimization_properties: {
+    #           role_arn: "IAMRoleArn",
+    #           compaction: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
+    #           retention: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
+    #           orphan_file_deletion: {
+    #             "KeyString" => "ParametersMapValue",
+    #           },
+    #         },
     #         custom_properties: {
     #           "KeyString" => "ParametersMapValue",
     #         },
@@ -17325,6 +17379,8 @@ module Aws::Glue
     #       compaction_configuration: {
     #         iceberg_configuration: {
     #           strategy: "binpack", # accepts binpack, sort, z-order
+    #           min_input_files: 1,
+    #           delete_file_threshold: 1,
     #         },
     #       },
     #       retention_configuration: {
@@ -17332,12 +17388,14 @@ module Aws::Glue
     #           snapshot_retention_period_in_days: 1,
     #           number_of_snapshots_to_retain: 1,
     #           clean_expired_files: false,
+    #           run_rate_in_hours: 1,
     #         },
     #       },
     #       orphan_file_deletion_configuration: {
     #         iceberg_configuration: {
     #           orphan_file_retention_period_in_days: 1,
     #           location: "MessageString",
+    #           run_rate_in_hours: 1,
     #         },
     #       },
     #     },
@@ -17619,7 +17677,7 @@ module Aws::Glue
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-glue'
-      context[:gem_version] = '1.229.0'
+      context[:gem_version] = '1.230.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

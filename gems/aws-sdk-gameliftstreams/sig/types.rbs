@@ -27,24 +27,24 @@ module Aws::GameLiftStreams
 
     class ApplicationSummary
       attr_accessor arn: ::String
-      attr_accessor created_at: ::Time
-      attr_accessor description: ::String
       attr_accessor id: ::String
+      attr_accessor description: ::String
+      attr_accessor status: ("INITIALIZED" | "PROCESSING" | "READY" | "DELETING" | "ERROR")
+      attr_accessor created_at: ::Time
       attr_accessor last_updated_at: ::Time
       attr_accessor runtime_environment: Types::RuntimeEnvironment
-      attr_accessor status: ("INITIALIZED" | "PROCESSING" | "READY" | "DELETING" | "ERROR")
       SENSITIVE: []
     end
 
     class AssociateApplicationsInput
-      attr_accessor application_identifiers: ::Array[::String]
       attr_accessor identifier: ::String
+      attr_accessor application_identifiers: ::Array[::String]
       SENSITIVE: []
     end
 
     class AssociateApplicationsOutput
-      attr_accessor application_arns: ::Array[::String]
       attr_accessor arn: ::String
+      attr_accessor application_arns: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -54,65 +54,65 @@ module Aws::GameLiftStreams
     end
 
     class CreateApplicationInput
-      attr_accessor application_log_output_uri: ::String
-      attr_accessor application_log_paths: ::Array[::String]
-      attr_accessor application_source_uri: ::String
-      attr_accessor client_token: ::String
       attr_accessor description: ::String
-      attr_accessor executable_path: ::String
       attr_accessor runtime_environment: Types::RuntimeEnvironment
+      attr_accessor executable_path: ::String
+      attr_accessor application_source_uri: ::String
+      attr_accessor application_log_paths: ::Array[::String]
+      attr_accessor application_log_output_uri: ::String
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor client_token: ::String
       SENSITIVE: []
     end
 
     class CreateApplicationOutput
-      attr_accessor application_log_output_uri: ::String
-      attr_accessor application_log_paths: ::Array[::String]
-      attr_accessor application_source_uri: ::String
       attr_accessor arn: ::String
-      attr_accessor associated_stream_groups: ::Array[::String]
-      attr_accessor created_at: ::Time
       attr_accessor description: ::String
-      attr_accessor executable_path: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
-      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
       attr_accessor runtime_environment: Types::RuntimeEnvironment
+      attr_accessor executable_path: ::String
+      attr_accessor application_log_paths: ::Array[::String]
+      attr_accessor application_log_output_uri: ::String
+      attr_accessor application_source_uri: ::String
+      attr_accessor id: ::String
       attr_accessor status: ("INITIALIZED" | "PROCESSING" | "READY" | "DELETING" | "ERROR")
       attr_accessor status_reason: ("internalError" | "accessDenied")
+      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
+      attr_accessor created_at: ::Time
+      attr_accessor last_updated_at: ::Time
+      attr_accessor associated_stream_groups: ::Array[::String]
       SENSITIVE: []
     end
 
     class CreateStreamGroupInput
-      attr_accessor client_token: ::String
-      attr_accessor default_application_identifier: ::String
       attr_accessor description: ::String
-      attr_accessor location_configurations: ::Array[Types::LocationConfiguration]
       attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor default_application_identifier: ::String
+      attr_accessor location_configurations: ::Array[Types::LocationConfiguration]
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor client_token: ::String
       SENSITIVE: []
     end
 
     class CreateStreamGroupOutput
       attr_accessor arn: ::String
-      attr_accessor associated_applications: ::Array[::String]
-      attr_accessor created_at: ::Time
-      attr_accessor default_application: Types::DefaultApplication
       attr_accessor description: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
+      attr_accessor default_application: Types::DefaultApplication
       attr_accessor location_states: ::Array[Types::LocationState]
+      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor id: ::String
       attr_accessor status: ("ACTIVATING" | "UPDATING_LOCATIONS" | "ACTIVE" | "ACTIVE_WITH_ERRORS" | "ERROR" | "DELETING")
       attr_accessor status_reason: ("internalError" | "noAvailableInstances")
-      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor associated_applications: ::Array[::String]
       SENSITIVE: []
     end
 
     class CreateStreamSessionConnectionInput
       attr_accessor client_token: ::String
       attr_accessor identifier: ::String
-      attr_accessor signal_request: ::String
       attr_accessor stream_session_identifier: ::String
+      attr_accessor signal_request: ::String
       SENSITIVE: [:signal_request]
     end
 
@@ -122,8 +122,8 @@ module Aws::GameLiftStreams
     end
 
     class DefaultApplication
-      attr_accessor arn: ::String
       attr_accessor id: ::String
+      attr_accessor arn: ::String
       SENSITIVE: []
     end
 
@@ -138,28 +138,28 @@ module Aws::GameLiftStreams
     end
 
     class DisassociateApplicationsInput
-      attr_accessor application_identifiers: ::Array[::String]
       attr_accessor identifier: ::String
+      attr_accessor application_identifiers: ::Array[::String]
       SENSITIVE: []
     end
 
     class DisassociateApplicationsOutput
-      attr_accessor application_arns: ::Array[::String]
       attr_accessor arn: ::String
+      attr_accessor application_arns: ::Array[::String]
       SENSITIVE: []
     end
 
     class ExportFilesMetadata
-      attr_accessor output_uri: ::String
       attr_accessor status: ("SUCCEEDED" | "FAILED" | "PENDING")
       attr_accessor status_reason: ::String
+      attr_accessor output_uri: ::String
       SENSITIVE: []
     end
 
     class ExportStreamSessionFilesInput
       attr_accessor identifier: ::String
-      attr_accessor output_uri: ::String
       attr_accessor stream_session_identifier: ::String
+      attr_accessor output_uri: ::String
       SENSITIVE: []
     end
 
@@ -172,20 +172,20 @@ module Aws::GameLiftStreams
     end
 
     class GetApplicationOutput
-      attr_accessor application_log_output_uri: ::String
-      attr_accessor application_log_paths: ::Array[::String]
-      attr_accessor application_source_uri: ::String
       attr_accessor arn: ::String
-      attr_accessor associated_stream_groups: ::Array[::String]
-      attr_accessor created_at: ::Time
       attr_accessor description: ::String
-      attr_accessor executable_path: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
-      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
       attr_accessor runtime_environment: Types::RuntimeEnvironment
+      attr_accessor executable_path: ::String
+      attr_accessor application_log_paths: ::Array[::String]
+      attr_accessor application_log_output_uri: ::String
+      attr_accessor application_source_uri: ::String
+      attr_accessor id: ::String
       attr_accessor status: ("INITIALIZED" | "PROCESSING" | "READY" | "DELETING" | "ERROR")
       attr_accessor status_reason: ("internalError" | "accessDenied")
+      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
+      attr_accessor created_at: ::Time
+      attr_accessor last_updated_at: ::Time
+      attr_accessor associated_stream_groups: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -196,16 +196,16 @@ module Aws::GameLiftStreams
 
     class GetStreamGroupOutput
       attr_accessor arn: ::String
-      attr_accessor associated_applications: ::Array[::String]
-      attr_accessor created_at: ::Time
-      attr_accessor default_application: Types::DefaultApplication
       attr_accessor description: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
+      attr_accessor default_application: Types::DefaultApplication
       attr_accessor location_states: ::Array[Types::LocationState]
+      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor id: ::String
       attr_accessor status: ("ACTIVATING" | "UPDATING_LOCATIONS" | "ACTIVE" | "ACTIVE_WITH_ERRORS" | "ERROR" | "DELETING")
       attr_accessor status_reason: ("internalError" | "noAvailableInstances")
-      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor associated_applications: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -216,26 +216,26 @@ module Aws::GameLiftStreams
     end
 
     class GetStreamSessionOutput
-      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
-      attr_accessor additional_launch_args: ::Array[::String]
-      attr_accessor application_arn: ::String
       attr_accessor arn: ::String
-      attr_accessor connection_timeout_seconds: ::Integer
-      attr_accessor created_at: ::Time
       attr_accessor description: ::String
-      attr_accessor export_files_metadata: Types::ExportFilesMetadata
-      attr_accessor last_updated_at: ::Time
-      attr_accessor location: ::String
-      attr_accessor log_file_location_uri: ::String
-      attr_accessor protocol: ("WebRTC")
-      attr_accessor session_length_seconds: ::Integer
-      attr_accessor signal_request: ::String
-      attr_accessor signal_response: ::String
-      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
-      attr_accessor status_reason: ("internalError" | "invalidSignalRequest" | "placementTimeout" | "applicationLogS3DestinationError")
       attr_accessor stream_group_id: ::String
       attr_accessor user_id: ::String
+      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
+      attr_accessor status_reason: ("internalError" | "invalidSignalRequest" | "placementTimeout" | "applicationLogS3DestinationError")
+      attr_accessor protocol: ("WebRTC")
+      attr_accessor location: ::String
+      attr_accessor signal_request: ::String
+      attr_accessor signal_response: ::String
+      attr_accessor connection_timeout_seconds: ::Integer
+      attr_accessor session_length_seconds: ::Integer
+      attr_accessor additional_launch_args: ::Array[::String]
+      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
+      attr_accessor log_file_location_uri: ::String
       attr_accessor web_sdk_protocol_url: ::String
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor application_arn: ::String
+      attr_accessor export_files_metadata: Types::ExportFilesMetadata
       SENSITIVE: [:signal_request, :signal_response]
     end
 
@@ -245,8 +245,8 @@ module Aws::GameLiftStreams
     end
 
     class ListApplicationsInput
-      attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
       SENSITIVE: []
     end
 
@@ -257,8 +257,8 @@ module Aws::GameLiftStreams
     end
 
     class ListStreamGroupsInput
-      attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
       SENSITIVE: []
     end
 
@@ -269,10 +269,10 @@ module Aws::GameLiftStreams
     end
 
     class ListStreamSessionsByAccountInput
-      attr_accessor export_files_status: ("SUCCEEDED" | "FAILED" | "PENDING")
-      attr_accessor max_results: ::Integer
-      attr_accessor next_token: ::String
       attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
+      attr_accessor export_files_status: ("SUCCEEDED" | "FAILED" | "PENDING")
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
       SENSITIVE: []
     end
 
@@ -283,11 +283,11 @@ module Aws::GameLiftStreams
     end
 
     class ListStreamSessionsInput
-      attr_accessor export_files_status: ("SUCCEEDED" | "FAILED" | "PENDING")
-      attr_accessor identifier: ::String
-      attr_accessor max_results: ::Integer
-      attr_accessor next_token: ::String
       attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
+      attr_accessor export_files_status: ("SUCCEEDED" | "FAILED" | "PENDING")
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor identifier: ::String
       SENSITIVE: []
     end
 
@@ -308,20 +308,20 @@ module Aws::GameLiftStreams
     end
 
     class LocationConfiguration
-      attr_accessor always_on_capacity: ::Integer
       attr_accessor location_name: ::String
+      attr_accessor always_on_capacity: ::Integer
       attr_accessor on_demand_capacity: ::Integer
       SENSITIVE: []
     end
 
     class LocationState
-      attr_accessor allocated_capacity: ::Integer
-      attr_accessor always_on_capacity: ::Integer
-      attr_accessor idle_capacity: ::Integer
       attr_accessor location_name: ::String
+      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "ERROR" | "REMOVING")
+      attr_accessor always_on_capacity: ::Integer
       attr_accessor on_demand_capacity: ::Integer
       attr_accessor requested_capacity: ::Integer
-      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "ERROR" | "REMOVING")
+      attr_accessor allocated_capacity: ::Integer
+      attr_accessor idle_capacity: ::Integer
       SENSITIVE: []
     end
 
@@ -354,67 +354,67 @@ module Aws::GameLiftStreams
     end
 
     class StartStreamSessionInput
-      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
-      attr_accessor additional_launch_args: ::Array[::String]
-      attr_accessor application_identifier: ::String
       attr_accessor client_token: ::String
-      attr_accessor connection_timeout_seconds: ::Integer
       attr_accessor description: ::String
       attr_accessor identifier: ::String
-      attr_accessor locations: ::Array[::String]
       attr_accessor protocol: ("WebRTC")
-      attr_accessor session_length_seconds: ::Integer
       attr_accessor signal_request: ::String
+      attr_accessor application_identifier: ::String
       attr_accessor user_id: ::String
+      attr_accessor locations: ::Array[::String]
+      attr_accessor connection_timeout_seconds: ::Integer
+      attr_accessor session_length_seconds: ::Integer
+      attr_accessor additional_launch_args: ::Array[::String]
+      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
       SENSITIVE: [:signal_request]
     end
 
     class StartStreamSessionOutput
-      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
-      attr_accessor additional_launch_args: ::Array[::String]
-      attr_accessor application_arn: ::String
       attr_accessor arn: ::String
-      attr_accessor connection_timeout_seconds: ::Integer
-      attr_accessor created_at: ::Time
       attr_accessor description: ::String
-      attr_accessor export_files_metadata: Types::ExportFilesMetadata
-      attr_accessor last_updated_at: ::Time
-      attr_accessor location: ::String
-      attr_accessor log_file_location_uri: ::String
-      attr_accessor protocol: ("WebRTC")
-      attr_accessor session_length_seconds: ::Integer
-      attr_accessor signal_request: ::String
-      attr_accessor signal_response: ::String
-      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
-      attr_accessor status_reason: ("internalError" | "invalidSignalRequest" | "placementTimeout" | "applicationLogS3DestinationError")
       attr_accessor stream_group_id: ::String
       attr_accessor user_id: ::String
+      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
+      attr_accessor status_reason: ("internalError" | "invalidSignalRequest" | "placementTimeout" | "applicationLogS3DestinationError")
+      attr_accessor protocol: ("WebRTC")
+      attr_accessor location: ::String
+      attr_accessor signal_request: ::String
+      attr_accessor signal_response: ::String
+      attr_accessor connection_timeout_seconds: ::Integer
+      attr_accessor session_length_seconds: ::Integer
+      attr_accessor additional_launch_args: ::Array[::String]
+      attr_accessor additional_environment_variables: ::Hash[::String, ::String]
+      attr_accessor log_file_location_uri: ::String
       attr_accessor web_sdk_protocol_url: ::String
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor application_arn: ::String
+      attr_accessor export_files_metadata: Types::ExportFilesMetadata
       SENSITIVE: [:signal_request, :signal_response]
     end
 
     class StreamGroupSummary
       attr_accessor arn: ::String
-      attr_accessor created_at: ::Time
-      attr_accessor default_application: Types::DefaultApplication
-      attr_accessor description: ::String
       attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
-      attr_accessor status: ("ACTIVATING" | "UPDATING_LOCATIONS" | "ACTIVE" | "ACTIVE_WITH_ERRORS" | "ERROR" | "DELETING")
+      attr_accessor description: ::String
+      attr_accessor default_application: Types::DefaultApplication
       attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor status: ("ACTIVATING" | "UPDATING_LOCATIONS" | "ACTIVE" | "ACTIVE_WITH_ERRORS" | "ERROR" | "DELETING")
+      attr_accessor created_at: ::Time
+      attr_accessor last_updated_at: ::Time
       SENSITIVE: []
     end
 
     class StreamSessionSummary
-      attr_accessor application_arn: ::String
       attr_accessor arn: ::String
-      attr_accessor created_at: ::Time
-      attr_accessor export_files_metadata: Types::ExportFilesMetadata
-      attr_accessor last_updated_at: ::Time
-      attr_accessor location: ::String
-      attr_accessor protocol: ("WebRTC")
-      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
       attr_accessor user_id: ::String
+      attr_accessor status: ("ACTIVATING" | "ACTIVE" | "CONNECTED" | "PENDING_CLIENT_RECONNECTION" | "RECONNECTING" | "TERMINATING" | "TERMINATED" | "ERROR")
+      attr_accessor protocol: ("WebRTC")
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor application_arn: ::String
+      attr_accessor export_files_metadata: Types::ExportFilesMetadata
+      attr_accessor location: ::String
       SENSITIVE: []
     end
 
@@ -448,50 +448,50 @@ module Aws::GameLiftStreams
     end
 
     class UpdateApplicationInput
-      attr_accessor application_log_output_uri: ::String
-      attr_accessor application_log_paths: ::Array[::String]
-      attr_accessor description: ::String
       attr_accessor identifier: ::String
+      attr_accessor description: ::String
+      attr_accessor application_log_paths: ::Array[::String]
+      attr_accessor application_log_output_uri: ::String
       SENSITIVE: []
     end
 
     class UpdateApplicationOutput
-      attr_accessor application_log_output_uri: ::String
-      attr_accessor application_log_paths: ::Array[::String]
-      attr_accessor application_source_uri: ::String
       attr_accessor arn: ::String
-      attr_accessor associated_stream_groups: ::Array[::String]
-      attr_accessor created_at: ::Time
       attr_accessor description: ::String
-      attr_accessor executable_path: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
-      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
       attr_accessor runtime_environment: Types::RuntimeEnvironment
+      attr_accessor executable_path: ::String
+      attr_accessor application_log_paths: ::Array[::String]
+      attr_accessor application_log_output_uri: ::String
+      attr_accessor application_source_uri: ::String
+      attr_accessor id: ::String
       attr_accessor status: ("INITIALIZED" | "PROCESSING" | "READY" | "DELETING" | "ERROR")
       attr_accessor status_reason: ("internalError" | "accessDenied")
+      attr_accessor replication_statuses: ::Array[Types::ReplicationStatus]
+      attr_accessor created_at: ::Time
+      attr_accessor last_updated_at: ::Time
+      attr_accessor associated_stream_groups: ::Array[::String]
       SENSITIVE: []
     end
 
     class UpdateStreamGroupInput
-      attr_accessor description: ::String
       attr_accessor identifier: ::String
       attr_accessor location_configurations: ::Array[Types::LocationConfiguration]
+      attr_accessor description: ::String
       SENSITIVE: []
     end
 
     class UpdateStreamGroupOutput
       attr_accessor arn: ::String
-      attr_accessor associated_applications: ::Array[::String]
-      attr_accessor created_at: ::Time
-      attr_accessor default_application: Types::DefaultApplication
       attr_accessor description: ::String
-      attr_accessor id: ::String
-      attr_accessor last_updated_at: ::Time
+      attr_accessor default_application: Types::DefaultApplication
       attr_accessor location_states: ::Array[Types::LocationState]
+      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor id: ::String
       attr_accessor status: ("ACTIVATING" | "UPDATING_LOCATIONS" | "ACTIVE" | "ACTIVE_WITH_ERRORS" | "ERROR" | "DELETING")
       attr_accessor status_reason: ("internalError" | "noAvailableInstances")
-      attr_accessor stream_class: ("gen4n_high" | "gen4n_ultra" | "gen4n_win2022" | "gen5n_high" | "gen5n_ultra" | "gen5n_win2022")
+      attr_accessor last_updated_at: ::Time
+      attr_accessor created_at: ::Time
+      attr_accessor associated_applications: ::Array[::String]
       SENSITIVE: []
     end
 

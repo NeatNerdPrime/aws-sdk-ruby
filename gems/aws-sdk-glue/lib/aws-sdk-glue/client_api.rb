@@ -251,6 +251,7 @@ module Aws::Glue
     ConfigValueString = Shapes::StringShape.new(name: 'ConfigValueString')
     ConfigurationMap = Shapes::MapShape.new(name: 'ConfigurationMap')
     ConfigurationObject = Shapes::StructureShape.new(name: 'ConfigurationObject')
+    ConfigurationSource = Shapes::StringShape.new(name: 'ConfigurationSource')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ConfusionMatrix = Shapes::StructureShape.new(name: 'ConfusionMatrix')
     Connection = Shapes::StructureShape.new(name: 'Connection')
@@ -812,6 +813,8 @@ module Aws::Glue
     IcebergDocument = Shapes::DocumentShape.new(name: 'IcebergDocument', document: true)
     IcebergInput = Shapes::StructureShape.new(name: 'IcebergInput')
     IcebergNullOrder = Shapes::StringShape.new(name: 'IcebergNullOrder')
+    IcebergOptimizationProperties = Shapes::StructureShape.new(name: 'IcebergOptimizationProperties')
+    IcebergOptimizationPropertiesOutput = Shapes::StructureShape.new(name: 'IcebergOptimizationPropertiesOutput')
     IcebergOrphanFileDeletionConfiguration = Shapes::StructureShape.new(name: 'IcebergOrphanFileDeletionConfiguration')
     IcebergOrphanFileDeletionMetrics = Shapes::StructureShape.new(name: 'IcebergOrphanFileDeletionMetrics')
     IcebergPartitionField = Shapes::StructureShape.new(name: 'IcebergPartitionField')
@@ -2129,10 +2132,12 @@ module Aws::Glue
     CatalogList.member = Shapes::ShapeRef.new(shape: Catalog)
 
     CatalogProperties.add_member(:data_lake_access_properties, Shapes::ShapeRef.new(shape: DataLakeAccessProperties, location_name: "DataLakeAccessProperties"))
+    CatalogProperties.add_member(:iceberg_optimization_properties, Shapes::ShapeRef.new(shape: IcebergOptimizationProperties, location_name: "IcebergOptimizationProperties"))
     CatalogProperties.add_member(:custom_properties, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "CustomProperties"))
     CatalogProperties.struct_class = Types::CatalogProperties
 
     CatalogPropertiesOutput.add_member(:data_lake_access_properties, Shapes::ShapeRef.new(shape: DataLakeAccessPropertiesOutput, location_name: "DataLakeAccessProperties"))
+    CatalogPropertiesOutput.add_member(:iceberg_optimization_properties, Shapes::ShapeRef.new(shape: IcebergOptimizationPropertiesOutput, location_name: "IcebergOptimizationProperties"))
     CatalogPropertiesOutput.add_member(:custom_properties, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "CustomProperties"))
     CatalogPropertiesOutput.struct_class = Types::CatalogPropertiesOutput
 
@@ -4774,6 +4779,8 @@ module Aws::Glue
     HudiTargetList.member = Shapes::ShapeRef.new(shape: HudiTarget)
 
     IcebergCompactionConfiguration.add_member(:strategy, Shapes::ShapeRef.new(shape: CompactionStrategy, location_name: "strategy"))
+    IcebergCompactionConfiguration.add_member(:min_input_files, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "minInputFiles"))
+    IcebergCompactionConfiguration.add_member(:delete_file_threshold, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "deleteFileThreshold"))
     IcebergCompactionConfiguration.struct_class = Types::IcebergCompactionConfiguration
 
     IcebergCompactionMetrics.add_member(:number_of_bytes_compacted, Shapes::ShapeRef.new(shape: metricCounts, location_name: "NumberOfBytesCompacted"))
@@ -4788,8 +4795,22 @@ module Aws::Glue
     IcebergInput.add_member(:create_iceberg_table_input, Shapes::ShapeRef.new(shape: CreateIcebergTableInput, location_name: "CreateIcebergTableInput"))
     IcebergInput.struct_class = Types::IcebergInput
 
+    IcebergOptimizationProperties.add_member(:role_arn, Shapes::ShapeRef.new(shape: IAMRoleArn, location_name: "RoleArn"))
+    IcebergOptimizationProperties.add_member(:compaction, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "Compaction"))
+    IcebergOptimizationProperties.add_member(:retention, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "Retention"))
+    IcebergOptimizationProperties.add_member(:orphan_file_deletion, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "OrphanFileDeletion"))
+    IcebergOptimizationProperties.struct_class = Types::IcebergOptimizationProperties
+
+    IcebergOptimizationPropertiesOutput.add_member(:role_arn, Shapes::ShapeRef.new(shape: IAMRoleArn, location_name: "RoleArn"))
+    IcebergOptimizationPropertiesOutput.add_member(:compaction, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "Compaction"))
+    IcebergOptimizationPropertiesOutput.add_member(:retention, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "Retention"))
+    IcebergOptimizationPropertiesOutput.add_member(:orphan_file_deletion, Shapes::ShapeRef.new(shape: ParametersMap, location_name: "OrphanFileDeletion"))
+    IcebergOptimizationPropertiesOutput.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastUpdatedTime"))
+    IcebergOptimizationPropertiesOutput.struct_class = Types::IcebergOptimizationPropertiesOutput
+
     IcebergOrphanFileDeletionConfiguration.add_member(:orphan_file_retention_period_in_days, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "orphanFileRetentionPeriodInDays"))
     IcebergOrphanFileDeletionConfiguration.add_member(:location, Shapes::ShapeRef.new(shape: MessageString, location_name: "location"))
+    IcebergOrphanFileDeletionConfiguration.add_member(:run_rate_in_hours, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "runRateInHours"))
     IcebergOrphanFileDeletionConfiguration.struct_class = Types::IcebergOrphanFileDeletionConfiguration
 
     IcebergOrphanFileDeletionMetrics.add_member(:number_of_orphan_files_deleted, Shapes::ShapeRef.new(shape: metricCounts, location_name: "NumberOfOrphanFilesDeleted"))
@@ -4813,6 +4834,7 @@ module Aws::Glue
     IcebergRetentionConfiguration.add_member(:snapshot_retention_period_in_days, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "snapshotRetentionPeriodInDays"))
     IcebergRetentionConfiguration.add_member(:number_of_snapshots_to_retain, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "numberOfSnapshotsToRetain"))
     IcebergRetentionConfiguration.add_member(:clean_expired_files, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "cleanExpiredFiles"))
+    IcebergRetentionConfiguration.add_member(:run_rate_in_hours, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "runRateInHours"))
     IcebergRetentionConfiguration.struct_class = Types::IcebergRetentionConfiguration
 
     IcebergRetentionMetrics.add_member(:number_of_data_files_deleted, Shapes::ShapeRef.new(shape: metricCounts, location_name: "NumberOfDataFilesDeleted"))
@@ -6906,6 +6928,7 @@ module Aws::Glue
     TableOptimizer.add_member(:type, Shapes::ShapeRef.new(shape: TableOptimizerType, location_name: "type"))
     TableOptimizer.add_member(:configuration, Shapes::ShapeRef.new(shape: TableOptimizerConfiguration, location_name: "configuration"))
     TableOptimizer.add_member(:last_run, Shapes::ShapeRef.new(shape: TableOptimizerRun, location_name: "lastRun"))
+    TableOptimizer.add_member(:configuration_source, Shapes::ShapeRef.new(shape: ConfigurationSource, location_name: "configurationSource"))
     TableOptimizer.struct_class = Types::TableOptimizer
 
     TableOptimizerConfiguration.add_member(:role_arn, Shapes::ShapeRef.new(shape: ArnString, location_name: "roleArn"))

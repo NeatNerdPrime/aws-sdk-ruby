@@ -857,6 +857,8 @@ module Aws::GuardDuty
     #
     #   * service.action.dnsRequestAction.domainWithSuffix
     #
+    #   * service.action.dnsRequestAction.vpcOwnerAccountId
+    #
     #   * service.action.networkConnectionAction.blocked
     #
     #   * service.action.networkConnectionAction.connectionDirection
@@ -2692,6 +2694,7 @@ module Aws::GuardDuty
     #   resp.findings[0].service.action.dns_request_action.protocol #=> String
     #   resp.findings[0].service.action.dns_request_action.blocked #=> Boolean
     #   resp.findings[0].service.action.dns_request_action.domain_with_suffix #=> String
+    #   resp.findings[0].service.action.dns_request_action.vpc_owner_account_id #=> String
     #   resp.findings[0].service.action.network_connection_action.blocked #=> Boolean
     #   resp.findings[0].service.action.network_connection_action.connection_direction #=> String
     #   resp.findings[0].service.action.network_connection_action.local_port_details.port #=> Integer
@@ -5612,7 +5615,7 @@ module Aws::GuardDuty
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-guardduty'
-      context[:gem_version] = '1.123.0'
+      context[:gem_version] = '1.124.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.121.0 (2025-08-07)
+------------------
+
+* Feature - This feature allows customers to use AWS Batch with Linux with ARM64 CPU Architecture with Fargate Spot compute support.
+
 1.120.0 (2025-08-04)
 ------------------
 

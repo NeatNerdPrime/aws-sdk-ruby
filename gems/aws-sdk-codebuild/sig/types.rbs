@@ -396,6 +396,7 @@ module Aws::CodeBuild
       attr_accessor build_type: ("BUILD" | "BUILD_BATCH" | "RUNNER_BUILDKITE_BUILD")
       attr_accessor manual_creation: bool
       attr_accessor scope_configuration: Types::ScopeConfiguration
+      attr_accessor pull_request_build_policy: Types::PullRequestBuildPolicy
       SENSITIVE: []
     end
 
@@ -1012,6 +1013,12 @@ module Aws::CodeBuild
       SENSITIVE: []
     end
 
+    class PullRequestBuildPolicy
+      attr_accessor requires_comment_approval: ("DISABLED" | "ALL_PULL_REQUESTS" | "FORK_PULL_REQUESTS")
+      attr_accessor approver_roles: ::Array[("GITHUB_READ" | "GITHUB_TRIAGE" | "GITHUB_WRITE" | "GITHUB_MAINTAIN" | "GITHUB_ADMIN" | "GITLAB_GUEST" | "GITLAB_PLANNER" | "GITLAB_REPORTER" | "GITLAB_DEVELOPER" | "GITLAB_MAINTAINER" | "GITLAB_OWNER" | "BITBUCKET_READ" | "BITBUCKET_WRITE" | "BITBUCKET_ADMIN")]
+      SENSITIVE: []
+    end
+
     class PutResourcePolicyInput
       attr_accessor policy: ::String
       attr_accessor resource_arn: ::String
@@ -1492,6 +1499,7 @@ module Aws::CodeBuild
       attr_accessor rotate_secret: bool
       attr_accessor filter_groups: ::Array[::Array[Types::WebhookFilter]]
       attr_accessor build_type: ("BUILD" | "BUILD_BATCH" | "RUNNER_BUILDKITE_BUILD")
+      attr_accessor pull_request_build_policy: Types::PullRequestBuildPolicy
       SENSITIVE: []
     end
 

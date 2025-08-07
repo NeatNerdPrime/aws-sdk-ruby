@@ -511,6 +511,12 @@ module Aws
                                   kms_key: ::String?,
                                   catalog_type: ::String?
                                 }?,
+                                iceberg_optimization_properties: {
+                                  role_arn: ::String?,
+                                  compaction: Hash[::String, ::String]?,
+                                  retention: Hash[::String, ::String]?,
+                                  orphan_file_deletion: Hash[::String, ::String]?
+                                }?,
                                 custom_properties: Hash[::String, ::String]?
                               }?,
                               create_table_default_permissions: Array[
@@ -2929,20 +2935,24 @@ module Aws
                                       }?,
                                       compaction_configuration: {
                                         iceberg_configuration: {
-                                          strategy: ("binpack" | "sort" | "z-order")?
+                                          strategy: ("binpack" | "sort" | "z-order")?,
+                                          min_input_files: ::Integer?,
+                                          delete_file_threshold: ::Integer?
                                         }?
                                       }?,
                                       retention_configuration: {
                                         iceberg_configuration: {
                                           snapshot_retention_period_in_days: ::Integer?,
                                           number_of_snapshots_to_retain: ::Integer?,
-                                          clean_expired_files: bool?
+                                          clean_expired_files: bool?,
+                                          run_rate_in_hours: ::Integer?
                                         }?
                                       }?,
                                       orphan_file_deletion_configuration: {
                                         iceberg_configuration: {
                                           orphan_file_retention_period_in_days: ::Integer?,
-                                          location: ::String?
+                                          location: ::String?,
+                                          run_rate_in_hours: ::Integer?
                                         }?
                                       }?
                                     }
@@ -5788,6 +5798,12 @@ module Aws
                                   kms_key: ::String?,
                                   catalog_type: ::String?
                                 }?,
+                                iceberg_optimization_properties: {
+                                  role_arn: ::String?,
+                                  compaction: Hash[::String, ::String]?,
+                                  retention: Hash[::String, ::String]?,
+                                  orphan_file_deletion: Hash[::String, ::String]?
+                                }?,
                                 custom_properties: Hash[::String, ::String]?
                               }?,
                               create_table_default_permissions: Array[
@@ -8174,20 +8190,24 @@ module Aws
                                       }?,
                                       compaction_configuration: {
                                         iceberg_configuration: {
-                                          strategy: ("binpack" | "sort" | "z-order")?
+                                          strategy: ("binpack" | "sort" | "z-order")?,
+                                          min_input_files: ::Integer?,
+                                          delete_file_threshold: ::Integer?
                                         }?
                                       }?,
                                       retention_configuration: {
                                         iceberg_configuration: {
                                           snapshot_retention_period_in_days: ::Integer?,
                                           number_of_snapshots_to_retain: ::Integer?,
-                                          clean_expired_files: bool?
+                                          clean_expired_files: bool?,
+                                          run_rate_in_hours: ::Integer?
                                         }?
                                       }?,
                                       orphan_file_deletion_configuration: {
                                         iceberg_configuration: {
                                           orphan_file_retention_period_in_days: ::Integer?,
-                                          location: ::String?
+                                          location: ::String?,
+                                          run_rate_in_hours: ::Integer?
                                         }?
                                       }?
                                     }

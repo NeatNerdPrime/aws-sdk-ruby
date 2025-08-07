@@ -2355,6 +2355,12 @@ module Aws::CodeBuild
     #
     #    </note>
     #
+    # @option params [Types::PullRequestBuildPolicy] :pull_request_build_policy
+    #   A PullRequestBuildPolicy object that defines comment-based approval
+    #   requirements for triggering builds on pull requests. This policy helps
+    #   control when automated builds are executed based on contributor
+    #   permissions and approval workflows.
+    #
     # @return [Types::CreateWebhookOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateWebhookOutput#webhook #webhook} => Types::Webhook
@@ -2379,6 +2385,10 @@ module Aws::CodeBuild
     #       name: "String", # required
     #       domain: "String",
     #       scope: "GITHUB_ORGANIZATION", # required, accepts GITHUB_ORGANIZATION, GITHUB_GLOBAL, GITLAB_GROUP
+    #     },
+    #     pull_request_build_policy: {
+    #       requires_comment_approval: "DISABLED", # required, accepts DISABLED, ALL_PULL_REQUESTS, FORK_PULL_REQUESTS
+    #       approver_roles: ["GITHUB_READ"], # accepts GITHUB_READ, GITHUB_TRIAGE, GITHUB_WRITE, GITHUB_MAINTAIN, GITHUB_ADMIN, GITLAB_GUEST, GITLAB_PLANNER, GITLAB_REPORTER, GITLAB_DEVELOPER, GITLAB_MAINTAINER, GITLAB_OWNER, BITBUCKET_READ, BITBUCKET_WRITE, BITBUCKET_ADMIN
     #     },
     #   })
     #
@@ -4373,13 +4383,16 @@ module Aws::CodeBuild
     #   ability to call this API and set this parameter can override the
     #   default settings. Moreover, we encourage that you use a trustworthy
     #   buildspec location like a file in your source repository or a Amazon
-    #   S3 bucket.
+    #   S3 bucket. Alternatively, you can restrict overrides to the buildspec
+    #   by using a condition key: [Prevent unauthorized modifications to
+    #   project buildspec][2].
     #
     #    </note>
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-name-storage
+    #   [2]: https://docs.aws.amazon.com/codebuild/latest/userguide/action-context-keys.html#action-context-keys-example-overridebuildspec.html
     #
     # @option params [Boolean] :insecure_ssl_override
     #   Enable this flag to override the insecure SSL setting that is
@@ -7007,6 +7020,12 @@ module Aws::CodeBuild
     #
     #   [1]: https://docs.aws.amazon.com/codebuild/latest/userguide/sample-runner-buildkite.html
     #
+    # @option params [Types::PullRequestBuildPolicy] :pull_request_build_policy
+    #   A PullRequestBuildPolicy object that defines comment-based approval
+    #   requirements for triggering builds on pull requests. This policy helps
+    #   control when automated builds are executed based on contributor
+    #   permissions and approval workflows.
+    #
     # @return [Types::UpdateWebhookOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdateWebhookOutput#webhook #webhook} => Types::Webhook
@@ -7027,6 +7046,10 @@ module Aws::CodeBuild
     #       ],
     #     ],
     #     build_type: "BUILD", # accepts BUILD, BUILD_BATCH, RUNNER_BUILDKITE_BUILD
+    #     pull_request_build_policy: {
+    #       requires_comment_approval: "DISABLED", # required, accepts DISABLED, ALL_PULL_REQUESTS, FORK_PULL_REQUESTS
+    #       approver_roles: ["GITHUB_READ"], # accepts GITHUB_READ, GITHUB_TRIAGE, GITHUB_WRITE, GITHUB_MAINTAIN, GITHUB_ADMIN, GITLAB_GUEST, GITLAB_PLANNER, GITLAB_REPORTER, GITLAB_DEVELOPER, GITLAB_MAINTAINER, GITLAB_OWNER, BITBUCKET_READ, BITBUCKET_WRITE, BITBUCKET_ADMIN
+    #     },
     #   })
     #
     # @example Response structure
@@ -7076,7 +7099,7 @@ module Aws::CodeBuild
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-codebuild'
-      context[:gem_version] = '1.160.0'
+      context[:gem_version] = '1.161.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

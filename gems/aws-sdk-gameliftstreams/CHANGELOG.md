@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.9.0 (2025-08-07)
+------------------
+
+* Feature - Adds Proton 9.0-2 to the list of runtime environment options available when creating an Amazon GameLift Streams application
+
 1.8.0 (2025-08-04)
 ------------------
 

@@ -641,12 +641,14 @@ module Aws::Glue
 
     class CatalogProperties
       attr_accessor data_lake_access_properties: Types::DataLakeAccessProperties
+      attr_accessor iceberg_optimization_properties: Types::IcebergOptimizationProperties
       attr_accessor custom_properties: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
     class CatalogPropertiesOutput
       attr_accessor data_lake_access_properties: Types::DataLakeAccessPropertiesOutput
+      attr_accessor iceberg_optimization_properties: Types::IcebergOptimizationPropertiesOutput
       attr_accessor custom_properties: ::Hash[::String, ::String]
       SENSITIVE: []
     end
@@ -3924,6 +3926,8 @@ module Aws::Glue
 
     class IcebergCompactionConfiguration
       attr_accessor strategy: ("binpack" | "sort" | "z-order")
+      attr_accessor min_input_files: ::Integer
+      attr_accessor delete_file_threshold: ::Integer
       SENSITIVE: []
     end
 
@@ -3943,9 +3947,27 @@ module Aws::Glue
       SENSITIVE: []
     end
 
+    class IcebergOptimizationProperties
+      attr_accessor role_arn: ::String
+      attr_accessor compaction: ::Hash[::String, ::String]
+      attr_accessor retention: ::Hash[::String, ::String]
+      attr_accessor orphan_file_deletion: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class IcebergOptimizationPropertiesOutput
+      attr_accessor role_arn: ::String
+      attr_accessor compaction: ::Hash[::String, ::String]
+      attr_accessor retention: ::Hash[::String, ::String]
+      attr_accessor orphan_file_deletion: ::Hash[::String, ::String]
+      attr_accessor last_updated_time: ::Time
+      SENSITIVE: []
+    end
+
     class IcebergOrphanFileDeletionConfiguration
       attr_accessor orphan_file_retention_period_in_days: ::Integer
       attr_accessor location: ::String
+      attr_accessor run_rate_in_hours: ::Integer
       SENSITIVE: []
     end
 
@@ -3975,6 +3997,7 @@ module Aws::Glue
       attr_accessor snapshot_retention_period_in_days: ::Integer
       attr_accessor number_of_snapshots_to_retain: ::Integer
       attr_accessor clean_expired_files: bool
+      attr_accessor run_rate_in_hours: ::Integer
       SENSITIVE: []
     end
 
@@ -6483,6 +6506,7 @@ module Aws::Glue
       attr_accessor type: ("compaction" | "retention" | "orphan_file_deletion")
       attr_accessor configuration: Types::TableOptimizerConfiguration
       attr_accessor last_run: Types::TableOptimizerRun
+      attr_accessor configuration_source: ("catalog" | "table")
       SENSITIVE: []
     end
 

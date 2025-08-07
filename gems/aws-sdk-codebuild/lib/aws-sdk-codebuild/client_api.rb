@@ -231,6 +231,10 @@ module Aws::CodeBuild
     ProjectVisibilityType = Shapes::StringShape.new(name: 'ProjectVisibilityType')
     Projects = Shapes::ListShape.new(name: 'Projects')
     ProxyConfiguration = Shapes::StructureShape.new(name: 'ProxyConfiguration')
+    PullRequestBuildApproverRole = Shapes::StringShape.new(name: 'PullRequestBuildApproverRole')
+    PullRequestBuildApproverRoles = Shapes::ListShape.new(name: 'PullRequestBuildApproverRoles')
+    PullRequestBuildCommentApproval = Shapes::StringShape.new(name: 'PullRequestBuildCommentApproval')
+    PullRequestBuildPolicy = Shapes::StructureShape.new(name: 'PullRequestBuildPolicy')
     PutResourcePolicyInput = Shapes::StructureShape.new(name: 'PutResourcePolicyInput')
     PutResourcePolicyOutput = Shapes::StructureShape.new(name: 'PutResourcePolicyOutput')
     RegistryCredential = Shapes::StructureShape.new(name: 'RegistryCredential')
@@ -672,6 +676,7 @@ module Aws::CodeBuild
     CreateWebhookInput.add_member(:build_type, Shapes::ShapeRef.new(shape: WebhookBuildType, location_name: "buildType"))
     CreateWebhookInput.add_member(:manual_creation, Shapes::ShapeRef.new(shape: WrapperBoolean, location_name: "manualCreation"))
     CreateWebhookInput.add_member(:scope_configuration, Shapes::ShapeRef.new(shape: ScopeConfiguration, location_name: "scopeConfiguration"))
+    CreateWebhookInput.add_member(:pull_request_build_policy, Shapes::ShapeRef.new(shape: PullRequestBuildPolicy, location_name: "pullRequestBuildPolicy"))
     CreateWebhookInput.struct_class = Types::CreateWebhookInput
 
     CreateWebhookOutput.add_member(:webhook, Shapes::ShapeRef.new(shape: Webhook, location_name: "webhook"))
@@ -1166,6 +1171,12 @@ module Aws::CodeBuild
     ProxyConfiguration.add_member(:ordered_proxy_rules, Shapes::ShapeRef.new(shape: FleetProxyRules, location_name: "orderedProxyRules"))
     ProxyConfiguration.struct_class = Types::ProxyConfiguration
 
+    PullRequestBuildApproverRoles.member = Shapes::ShapeRef.new(shape: PullRequestBuildApproverRole)
+
+    PullRequestBuildPolicy.add_member(:requires_comment_approval, Shapes::ShapeRef.new(shape: PullRequestBuildCommentApproval, required: true, location_name: "requiresCommentApproval"))
+    PullRequestBuildPolicy.add_member(:approver_roles, Shapes::ShapeRef.new(shape: PullRequestBuildApproverRoles, location_name: "approverRoles"))
+    PullRequestBuildPolicy.struct_class = Types::PullRequestBuildPolicy
+
     PutResourcePolicyInput.add_member(:policy, Shapes::ShapeRef.new(shape: NonEmptyString, required: true, location_name: "policy"))
     PutResourcePolicyInput.add_member(:resource_arn, Shapes::ShapeRef.new(shape: NonEmptyString, required: true, location_name: "resourceArn"))
     PutResourcePolicyInput.struct_class = Types::PutResourcePolicyInput
@@ -1568,6 +1579,7 @@ module Aws::CodeBuild
     UpdateWebhookInput.add_member(:rotate_secret, Shapes::ShapeRef.new(shape: Boolean, location_name: "rotateSecret"))
     UpdateWebhookInput.add_member(:filter_groups, Shapes::ShapeRef.new(shape: FilterGroups, location_name: "filterGroups"))
     UpdateWebhookInput.add_member(:build_type, Shapes::ShapeRef.new(shape: WebhookBuildType, location_name: "buildType"))
+    UpdateWebhookInput.add_member(:pull_request_build_policy, Shapes::ShapeRef.new(shape: PullRequestBuildPolicy, location_name: "pullRequestBuildPolicy"))
     UpdateWebhookInput.struct_class = Types::UpdateWebhookInput
 
     UpdateWebhookOutput.add_member(:webhook, Shapes::ShapeRef.new(shape: Webhook, location_name: "webhook"))

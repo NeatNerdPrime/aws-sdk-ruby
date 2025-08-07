@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.161.0 (2025-08-07)
+------------------
+
+* Feature - AWS CodeBuild now supports comment-based pull request control.
+
 1.160.0 (2025-08-04)
 ------------------
 

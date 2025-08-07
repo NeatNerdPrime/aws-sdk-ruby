@@ -464,6 +464,10 @@ module Aws
                               name: ::String,
                               domain: ::String?,
                               scope: ("GITHUB_ORGANIZATION" | "GITHUB_GLOBAL" | "GITLAB_GROUP")
+                            },
+                            ?pull_request_build_policy: {
+                              requires_comment_approval: ("DISABLED" | "ALL_PULL_REQUESTS" | "FORK_PULL_REQUESTS"),
+                              approver_roles: Array[("GITHUB_READ" | "GITHUB_TRIAGE" | "GITHUB_WRITE" | "GITHUB_MAINTAIN" | "GITHUB_ADMIN" | "GITLAB_GUEST" | "GITLAB_PLANNER" | "GITLAB_REPORTER" | "GITLAB_DEVELOPER" | "GITLAB_MAINTAINER" | "GITLAB_OWNER" | "BITBUCKET_READ" | "BITBUCKET_WRITE" | "BITBUCKET_ADMIN")]?
                             }
                           ) -> _CreateWebhookResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateWebhookResponseSuccess
@@ -1493,7 +1497,11 @@ module Aws
                                 },
                               ],
                             ],
-                            ?build_type: ("BUILD" | "BUILD_BATCH" | "RUNNER_BUILDKITE_BUILD")
+                            ?build_type: ("BUILD" | "BUILD_BATCH" | "RUNNER_BUILDKITE_BUILD"),
+                            ?pull_request_build_policy: {
+                              requires_comment_approval: ("DISABLED" | "ALL_PULL_REQUESTS" | "FORK_PULL_REQUESTS"),
+                              approver_roles: Array[("GITHUB_READ" | "GITHUB_TRIAGE" | "GITHUB_WRITE" | "GITHUB_MAINTAIN" | "GITHUB_ADMIN" | "GITLAB_GUEST" | "GITLAB_PLANNER" | "GITLAB_REPORTER" | "GITLAB_DEVELOPER" | "GITLAB_MAINTAINER" | "GITLAB_OWNER" | "BITBUCKET_READ" | "BITBUCKET_WRITE" | "BITBUCKET_ADMIN")]?
+                            }
                           ) -> _UpdateWebhookResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateWebhookResponseSuccess
     end

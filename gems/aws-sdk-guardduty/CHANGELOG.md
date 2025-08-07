@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.124.0 (2025-08-07)
+------------------
+
+* Feature - Added support for VPC owner account ID associated with DNS request in the GuardDuty finding.
+
 1.123.0 (2025-08-04)
 ------------------
 

@@ -737,6 +737,7 @@ module Aws::GuardDuty
       attr_accessor protocol: ::String
       attr_accessor blocked: bool
       attr_accessor domain_with_suffix: ::String
+      attr_accessor vpc_owner_account_id: ::String
       SENSITIVE: []
     end
 

@@ -1535,6 +1535,8 @@ module Aws::GuardDuty
     #
     #   * service.action.dnsRequestAction.domainWithSuffix
     #
+    #   * service.action.dnsRequestAction.vpcOwnerAccountId
+    #
     #   * service.action.networkConnectionAction.blocked
     #
     #   * service.action.networkConnectionAction.connectionDirection
@@ -3014,13 +3016,19 @@ module Aws::GuardDuty
     #   [1]: https://publicsuffix.org/
     #   @return [String]
     #
+    # @!attribute [rw] vpc_owner_account_id
+    #   The Amazon Web Services account ID that owns the VPC through which
+    #   the DNS request was made.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DnsRequestAction AWS API Documentation
     #
     class DnsRequestAction < Struct.new(
       :domain,
       :protocol,
       :blocked,
-      :domain_with_suffix)
+      :domain_with_suffix,
+      :vpc_owner_account_id)
       SENSITIVE = []
       include Aws::Structure
     end
