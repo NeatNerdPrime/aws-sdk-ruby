@@ -78,6 +78,14 @@ module Aws
                   | (?Hash[Symbol, untyped]) -> instance
 
 
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IoTDataPlane/Client.html#delete_connection-instance_method
+      def delete_connection: (
+                               client_id: ::String,
+                               ?clean_session: bool,
+                               ?prevent_will_message: bool
+                             ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+
       interface _DeleteThingShadowResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DeleteThingShadowResponse]
         def payload: () -> ::String

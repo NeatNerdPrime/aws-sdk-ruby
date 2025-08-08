@@ -28,6 +28,7 @@ module Aws::IoTDataPlane
   #
   # ## Error Classes
   # * {ConflictException}
+  # * {ForbiddenException}
   # * {InternalFailureException}
   # * {InvalidRequestException}
   # * {MethodNotAllowedException}
@@ -49,6 +50,21 @@ module Aws::IoTDataPlane
       # @param [Seahorse::Client::RequestContext] context
       # @param [String] message
       # @param [Aws::IoTDataPlane::Types::ConflictException] data
+      def initialize(context, message, data = Aws::EmptyStructure.new)
+        super(context, message, data)
+      end
+
+      # @return [String]
+      def message
+        @message || @data[:message]
+      end
+    end
+
+    class ForbiddenException < ServiceError
+
+      # @param [Seahorse::Client::RequestContext] context
+      # @param [String] message
+      # @param [Aws::IoTDataPlane::Types::ForbiddenException] data
       def initialize(context, message, data = Aws::EmptyStructure.new)
         super(context, message, data)
       end

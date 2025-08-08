@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.320.0 (2025-08-08)
+------------------
+
+* Feature - Adds support for GB200 UltraServers in Amazon SageMaker training jobs, training plans, and HyperPod clusters
+
 1.319.0 (2025-08-05)
 ------------------
 

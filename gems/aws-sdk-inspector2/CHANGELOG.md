@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.58.0 (2025-08-08)
+------------------
+
+* Feature - Add CVSSV4 to Vulnerability Search API and update enable/disable account id list length to 5
+
 1.57.0 (2025-08-04)
 ------------------
 

@@ -921,6 +921,12 @@ module Aws::Inspector2
       SENSITIVE: []
     end
 
+    class Cvss4
+      attr_accessor base_score: ::Float
+      attr_accessor scoring_vector: ::String
+      SENSITIVE: []
+    end
+
     class CvssScore
       attr_accessor base_score: ::Float
       attr_accessor scoring_vector: ::String
@@ -2533,6 +2539,7 @@ module Aws::Inspector2
       attr_accessor description: ::String
       attr_accessor atig_data: Types::AtigData
       attr_accessor vendor_severity: ::String
+      attr_accessor cvss4: Types::Cvss4
       attr_accessor cvss3: Types::Cvss3
       attr_accessor related_vulnerabilities: ::Array[::String]
       attr_accessor cvss2: Types::Cvss2

@@ -22,6 +22,35 @@ module Aws::IoTDataPlane
       include Aws::Structure
     end
 
+    # @!attribute [rw] client_id
+    #   The unique identifier of the MQTT client to disconnect. The client
+    #   ID can't start with a dollar sign ($).
+    #   @return [String]
+    #
+    # @!attribute [rw] clean_session
+    #   Specifies whether to remove the client's session state when
+    #   disconnecting. Set to `TRUE` to delete all session information,
+    #   including subscriptions and queued messages. Set to `FALSE` to
+    #   preserve the session state. By default, this is set to `FALSE`
+    #   (preserves the session state).
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] prevent_will_message
+    #   Controls if Amazon Web Services IoT Core publishes the client's
+    #   Last Will and Testament (LWT) message upon disconnection. Set to
+    #   `TRUE` to prevent publishing the LWT message. Set to `FALSE` to
+    #   allow publishing. By default, this is set to `FALSE` (allows
+    #   publishing the LWT message).
+    #   @return [Boolean]
+    #
+    class DeleteConnectionRequest < Struct.new(
+      :client_id,
+      :clean_session,
+      :prevent_will_message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The input for the DeleteThingShadow operation.
     #
     # @!attribute [rw] thing_name
@@ -47,6 +76,17 @@ module Aws::IoTDataPlane
     #
     class DeleteThingShadowResponse < Struct.new(
       :payload)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The caller isn't authorized to make the request.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    class ForbiddenException < Struct.new(
+      :message)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -573,6 +573,7 @@ module Aws::Connect
 
     class CommonAttributeAndCondition
       attr_accessor tag_conditions: ::Array[Types::TagCondition]
+      attr_accessor hierarchy_group_condition: Types::HierarchyGroupCondition
       SENSITIVE: []
     end
 
@@ -786,6 +787,28 @@ module Aws::Connect
       attr_accessor version_description: ::String
       attr_accessor version: ::Integer
       SENSITIVE: []
+    end
+
+    class ContactMetricInfo
+      attr_accessor name: ("POSITION_IN_QUEUE")
+      SENSITIVE: []
+    end
+
+    class ContactMetricResult
+      attr_accessor name: ("POSITION_IN_QUEUE")
+      attr_accessor value: Types::ContactMetricValue
+      SENSITIVE: []
+    end
+
+    class ContactMetricValue
+      attr_accessor number: ::Float
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Number < ContactMetricValue
+      end
+      class Unknown < ContactMetricValue
+      end
     end
 
     class ContactNotFoundException
@@ -2520,6 +2543,20 @@ module Aws::Connect
 
     class GetContactAttributesResponse
       attr_accessor attributes: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class GetContactMetricsRequest
+      attr_accessor instance_id: ::String
+      attr_accessor contact_id: ::String
+      attr_accessor metrics: ::Array[Types::ContactMetricInfo]
+      SENSITIVE: []
+    end
+
+    class GetContactMetricsResponse
+      attr_accessor metric_results: ::Array[Types::ContactMetricResult]
+      attr_accessor id: ::String
+      attr_accessor arn: ::String
       SENSITIVE: []
     end
 
@@ -6247,6 +6284,7 @@ module Aws::Connect
       attr_accessor or_conditions: ::Array[Types::UserHierarchyGroupSearchCriteria]
       attr_accessor and_conditions: ::Array[Types::UserHierarchyGroupSearchCriteria]
       attr_accessor string_condition: Types::StringCondition
+      attr_accessor hierarchy_group_condition: Types::HierarchyGroupCondition
       SENSITIVE: []
     end
 

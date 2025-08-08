@@ -246,16 +246,15 @@ module Aws::Inspector2
     CreateSbomExportResponse = Shapes::StructureShape.new(name: 'CreateSbomExportResponse')
     Currency = Shapes::StringShape.new(name: 'Currency')
     Cvss2 = Shapes::StructureShape.new(name: 'Cvss2')
-    Cvss2BaseScore = Shapes::FloatShape.new(name: 'Cvss2BaseScore')
-    Cvss2ScoringVector = Shapes::StringShape.new(name: 'Cvss2ScoringVector')
     Cvss3 = Shapes::StructureShape.new(name: 'Cvss3')
-    Cvss3BaseScore = Shapes::FloatShape.new(name: 'Cvss3BaseScore')
-    Cvss3ScoringVector = Shapes::StringShape.new(name: 'Cvss3ScoringVector')
+    Cvss4 = Shapes::StructureShape.new(name: 'Cvss4')
+    CvssBaseScore = Shapes::FloatShape.new(name: 'CvssBaseScore')
     CvssScore = Shapes::StructureShape.new(name: 'CvssScore')
     CvssScoreAdjustment = Shapes::StructureShape.new(name: 'CvssScoreAdjustment')
     CvssScoreAdjustmentList = Shapes::ListShape.new(name: 'CvssScoreAdjustmentList')
     CvssScoreDetails = Shapes::StructureShape.new(name: 'CvssScoreDetails')
     CvssScoreList = Shapes::ListShape.new(name: 'CvssScoreList')
+    CvssScoringVector = Shapes::StringShape.new(name: 'CvssScoringVector')
     Cwe = Shapes::StringShape.new(name: 'Cwe')
     CweList = Shapes::ListShape.new(name: 'CweList')
     Cwes = Shapes::ListShape.new(name: 'Cwes')
@@ -1481,13 +1480,17 @@ module Aws::Inspector2
     CreateSbomExportResponse.add_member(:report_id, Shapes::ShapeRef.new(shape: ReportId, location_name: "reportId"))
     CreateSbomExportResponse.struct_class = Types::CreateSbomExportResponse
 
-    Cvss2.add_member(:base_score, Shapes::ShapeRef.new(shape: Cvss2BaseScore, location_name: "baseScore"))
-    Cvss2.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: Cvss2ScoringVector, location_name: "scoringVector"))
+    Cvss2.add_member(:base_score, Shapes::ShapeRef.new(shape: CvssBaseScore, location_name: "baseScore"))
+    Cvss2.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: CvssScoringVector, location_name: "scoringVector"))
     Cvss2.struct_class = Types::Cvss2
 
-    Cvss3.add_member(:base_score, Shapes::ShapeRef.new(shape: Cvss3BaseScore, location_name: "baseScore"))
-    Cvss3.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: Cvss3ScoringVector, location_name: "scoringVector"))
+    Cvss3.add_member(:base_score, Shapes::ShapeRef.new(shape: CvssBaseScore, location_name: "baseScore"))
+    Cvss3.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: CvssScoringVector, location_name: "scoringVector"))
     Cvss3.struct_class = Types::Cvss3
+
+    Cvss4.add_member(:base_score, Shapes::ShapeRef.new(shape: CvssBaseScore, location_name: "baseScore"))
+    Cvss4.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: CvssScoringVector, location_name: "scoringVector"))
+    Cvss4.struct_class = Types::Cvss4
 
     CvssScore.add_member(:base_score, Shapes::ShapeRef.new(shape: Double, required: true, location_name: "baseScore"))
     CvssScore.add_member(:scoring_vector, Shapes::ShapeRef.new(shape: NonEmptyString, required: true, location_name: "scoringVector"))
@@ -2809,6 +2812,7 @@ module Aws::Inspector2
     Vulnerability.add_member(:description, Shapes::ShapeRef.new(shape: VulnerabilityDescription, location_name: "description"))
     Vulnerability.add_member(:atig_data, Shapes::ShapeRef.new(shape: AtigData, location_name: "atigData"))
     Vulnerability.add_member(:vendor_severity, Shapes::ShapeRef.new(shape: VendorSeverity, location_name: "vendorSeverity"))
+    Vulnerability.add_member(:cvss4, Shapes::ShapeRef.new(shape: Cvss4, location_name: "cvss4"))
     Vulnerability.add_member(:cvss3, Shapes::ShapeRef.new(shape: Cvss3, location_name: "cvss3"))
     Vulnerability.add_member(:related_vulnerabilities, Shapes::ShapeRef.new(shape: RelatedVulnerabilities, location_name: "relatedVulnerabilities"))
     Vulnerability.add_member(:cvss2, Shapes::ShapeRef.new(shape: Cvss2, location_name: "cvss2"))

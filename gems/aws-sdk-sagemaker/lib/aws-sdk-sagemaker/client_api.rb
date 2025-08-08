@@ -184,6 +184,7 @@ module Aws::SageMaker
     AutotuneMode = Shapes::StringShape.new(name: 'AutotuneMode')
     AvailabilityZone = Shapes::StringShape.new(name: 'AvailabilityZone')
     AvailableInstanceCount = Shapes::IntegerShape.new(name: 'AvailableInstanceCount')
+    AvailableSpareInstanceCount = Shapes::IntegerShape.new(name: 'AvailableSpareInstanceCount')
     AwsManagedHumanLoopRequestSource = Shapes::StringShape.new(name: 'AwsManagedHumanLoopRequestSource')
     BacktestResultsLocation = Shapes::StringShape.new(name: 'BacktestResultsLocation')
     BaseModelName = Shapes::StringShape.new(name: 'BaseModelName')
@@ -410,6 +411,7 @@ module Aws::SageMaker
     ConditionStepMetadata = Shapes::StructureShape.new(name: 'ConditionStepMetadata')
     ConfigKey = Shapes::StringShape.new(name: 'ConfigKey')
     ConfigValue = Shapes::StringShape.new(name: 'ConfigValue')
+    ConfiguredSpareInstanceCount = Shapes::IntegerShape.new(name: 'ConfiguredSpareInstanceCount')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ContainerArgument = Shapes::StringShape.new(name: 'ContainerArgument')
     ContainerArguments = Shapes::ListShape.new(name: 'ContainerArguments')
@@ -817,6 +819,8 @@ module Aws::SageMaker
     DescribeProcessingJobResponse = Shapes::StructureShape.new(name: 'DescribeProcessingJobResponse')
     DescribeProjectInput = Shapes::StructureShape.new(name: 'DescribeProjectInput')
     DescribeProjectOutput = Shapes::StructureShape.new(name: 'DescribeProjectOutput')
+    DescribeReservedCapacityRequest = Shapes::StructureShape.new(name: 'DescribeReservedCapacityRequest')
+    DescribeReservedCapacityResponse = Shapes::StructureShape.new(name: 'DescribeReservedCapacityResponse')
     DescribeSpaceRequest = Shapes::StructureShape.new(name: 'DescribeSpaceRequest')
     DescribeSpaceResponse = Shapes::StructureShape.new(name: 'DescribeSpaceResponse')
     DescribeStudioLifecycleConfigRequest = Shapes::StructureShape.new(name: 'DescribeStudioLifecycleConfigRequest')
@@ -1291,6 +1295,7 @@ module Aws::SageMaker
     InstanceGroups = Shapes::ListShape.new(name: 'InstanceGroups')
     InstanceMetadata = Shapes::StructureShape.new(name: 'InstanceMetadata')
     InstanceMetadataServiceConfiguration = Shapes::StructureShape.new(name: 'InstanceMetadataServiceConfiguration')
+    InstancePlacementConfig = Shapes::StructureShape.new(name: 'InstancePlacementConfig')
     InstanceType = Shapes::StringShape.new(name: 'InstanceType')
     Integer = Shapes::IntegerShape.new(name: 'Integer')
     IntegerParameterRange = Shapes::StructureShape.new(name: 'IntegerParameterRange')
@@ -1531,6 +1536,8 @@ module Aws::SageMaker
     ListTrialComponentsResponse = Shapes::StructureShape.new(name: 'ListTrialComponentsResponse')
     ListTrialsRequest = Shapes::StructureShape.new(name: 'ListTrialsRequest')
     ListTrialsResponse = Shapes::StructureShape.new(name: 'ListTrialsResponse')
+    ListUltraServersByReservedCapacityRequest = Shapes::StructureShape.new(name: 'ListUltraServersByReservedCapacityRequest')
+    ListUltraServersByReservedCapacityResponse = Shapes::StructureShape.new(name: 'ListUltraServersByReservedCapacityResponse')
     ListUserProfilesRequest = Shapes::StructureShape.new(name: 'ListUserProfilesRequest')
     ListUserProfilesResponse = Shapes::StructureShape.new(name: 'ListUserProfilesResponse')
     ListWorkforcesRequest = Shapes::StructureShape.new(name: 'ListWorkforcesRequest')
@@ -1913,6 +1920,8 @@ module Aws::SageMaker
     PipelineVersionName = Shapes::StringShape.new(name: 'PipelineVersionName')
     PipelineVersionSummary = Shapes::StructureShape.new(name: 'PipelineVersionSummary')
     PipelineVersionSummaryList = Shapes::ListShape.new(name: 'PipelineVersionSummaryList')
+    PlacementSpecification = Shapes::StructureShape.new(name: 'PlacementSpecification')
+    PlacementSpecifications = Shapes::ListShape.new(name: 'PlacementSpecifications')
     PlatformIdentifier = Shapes::StringShape.new(name: 'PlatformIdentifier')
     PolicyString = Shapes::StringShape.new(name: 'PolicyString')
     PredefinedMetricSpecification = Shapes::StructureShape.new(name: 'PredefinedMetricSpecification')
@@ -2097,6 +2106,7 @@ module Aws::SageMaker
     ReservedCapacityStatus = Shapes::StringShape.new(name: 'ReservedCapacityStatus')
     ReservedCapacitySummaries = Shapes::ListShape.new(name: 'ReservedCapacitySummaries')
     ReservedCapacitySummary = Shapes::StructureShape.new(name: 'ReservedCapacitySummary')
+    ReservedCapacityType = Shapes::StringShape.new(name: 'ReservedCapacityType')
     ResolvedAttributes = Shapes::StructureShape.new(name: 'ResolvedAttributes')
     ResourceArn = Shapes::StringShape.new(name: 'ResourceArn')
     ResourceCatalog = Shapes::StructureShape.new(name: 'ResourceCatalog')
@@ -2251,6 +2261,7 @@ module Aws::SageMaker
     SpaceSortKey = Shapes::StringShape.new(name: 'SpaceSortKey')
     SpaceStatus = Shapes::StringShape.new(name: 'SpaceStatus')
     SpaceStorageSettings = Shapes::StructureShape.new(name: 'SpaceStorageSettings')
+    SpareInstanceCountPerUltraServer = Shapes::IntegerShape.new(name: 'SpareInstanceCountPerUltraServer')
     SpawnRate = Shapes::IntegerShape.new(name: 'SpawnRate')
     SplitType = Shapes::StringShape.new(name: 'SplitType')
     StageDescription = Shapes::StringShape.new(name: 'StageDescription')
@@ -2499,6 +2510,14 @@ module Aws::SageMaker
     UiTemplate = Shapes::StructureShape.new(name: 'UiTemplate')
     UiTemplateInfo = Shapes::StructureShape.new(name: 'UiTemplateInfo')
     Uid = Shapes::IntegerShape.new(name: 'Uid')
+    UltraServer = Shapes::StructureShape.new(name: 'UltraServer')
+    UltraServerCount = Shapes::IntegerShape.new(name: 'UltraServerCount')
+    UltraServerHealthStatus = Shapes::StringShape.new(name: 'UltraServerHealthStatus')
+    UltraServerInfo = Shapes::StructureShape.new(name: 'UltraServerInfo')
+    UltraServerSummary = Shapes::StructureShape.new(name: 'UltraServerSummary')
+    UltraServerType = Shapes::StringShape.new(name: 'UltraServerType')
+    UltraServers = Shapes::ListShape.new(name: 'UltraServers')
+    UnhealthyInstanceCount = Shapes::IntegerShape.new(name: 'UnhealthyInstanceCount')
     UnifiedStudioDomainId = Shapes::StringShape.new(name: 'UnifiedStudioDomainId')
     UnifiedStudioEnvironmentId = Shapes::StringShape.new(name: 'UnifiedStudioEnvironmentId')
     UnifiedStudioProjectId = Shapes::StringShape.new(name: 'UnifiedStudioProjectId')
@@ -3474,6 +3493,7 @@ module Aws::SageMaker
     ClusterNodeDetails.add_member(:placement, Shapes::ShapeRef.new(shape: ClusterInstancePlacement, location_name: "Placement"))
     ClusterNodeDetails.add_member(:current_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "CurrentImageId"))
     ClusterNodeDetails.add_member(:desired_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "DesiredImageId"))
+    ClusterNodeDetails.add_member(:ultra_server_info, Shapes::ShapeRef.new(shape: UltraServerInfo, location_name: "UltraServerInfo"))
     ClusterNodeDetails.struct_class = Types::ClusterNodeDetails
 
     ClusterNodeIds.member = Shapes::ShapeRef.new(shape: ClusterNodeId)
@@ -3489,6 +3509,7 @@ module Aws::SageMaker
     ClusterNodeSummary.add_member(:launch_time, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "LaunchTime"))
     ClusterNodeSummary.add_member(:last_software_update_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastSoftwareUpdateTime"))
     ClusterNodeSummary.add_member(:instance_status, Shapes::ShapeRef.new(shape: ClusterInstanceStatusDetails, required: true, location_name: "InstanceStatus"))
+    ClusterNodeSummary.add_member(:ultra_server_info, Shapes::ShapeRef.new(shape: UltraServerInfo, location_name: "UltraServerInfo"))
     ClusterNodeSummary.struct_class = Types::ClusterNodeSummary
 
     ClusterOrchestrator.add_member(:eks, Shapes::ShapeRef.new(shape: ClusterOrchestratorEksConfig, required: true, location_name: "Eks"))
@@ -4462,6 +4483,7 @@ module Aws::SageMaker
 
     CreateTrainingPlanRequest.add_member(:training_plan_name, Shapes::ShapeRef.new(shape: TrainingPlanName, required: true, location_name: "TrainingPlanName"))
     CreateTrainingPlanRequest.add_member(:training_plan_offering_id, Shapes::ShapeRef.new(shape: TrainingPlanOfferingId, required: true, location_name: "TrainingPlanOfferingId"))
+    CreateTrainingPlanRequest.add_member(:spare_instance_count_per_ultra_server, Shapes::ShapeRef.new(shape: SpareInstanceCountPerUltraServer, location_name: "SpareInstanceCountPerUltraServer"))
     CreateTrainingPlanRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
     CreateTrainingPlanRequest.struct_class = Types::CreateTrainingPlanRequest
 
@@ -6006,6 +6028,24 @@ module Aws::SageMaker
     DescribeProjectOutput.add_member(:last_modified_by, Shapes::ShapeRef.new(shape: UserContext, location_name: "LastModifiedBy"))
     DescribeProjectOutput.struct_class = Types::DescribeProjectOutput
 
+    DescribeReservedCapacityRequest.add_member(:reserved_capacity_arn, Shapes::ShapeRef.new(shape: ReservedCapacityArn, required: true, location_name: "ReservedCapacityArn"))
+    DescribeReservedCapacityRequest.struct_class = Types::DescribeReservedCapacityRequest
+
+    DescribeReservedCapacityResponse.add_member(:reserved_capacity_arn, Shapes::ShapeRef.new(shape: ReservedCapacityArn, required: true, location_name: "ReservedCapacityArn"))
+    DescribeReservedCapacityResponse.add_member(:reserved_capacity_type, Shapes::ShapeRef.new(shape: ReservedCapacityType, location_name: "ReservedCapacityType"))
+    DescribeReservedCapacityResponse.add_member(:status, Shapes::ShapeRef.new(shape: ReservedCapacityStatus, location_name: "Status"))
+    DescribeReservedCapacityResponse.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZone, location_name: "AvailabilityZone"))
+    DescribeReservedCapacityResponse.add_member(:duration_hours, Shapes::ShapeRef.new(shape: ReservedCapacityDurationHours, location_name: "DurationHours"))
+    DescribeReservedCapacityResponse.add_member(:duration_minutes, Shapes::ShapeRef.new(shape: ReservedCapacityDurationMinutes, location_name: "DurationMinutes"))
+    DescribeReservedCapacityResponse.add_member(:start_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "StartTime"))
+    DescribeReservedCapacityResponse.add_member(:end_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "EndTime"))
+    DescribeReservedCapacityResponse.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, required: true, location_name: "InstanceType"))
+    DescribeReservedCapacityResponse.add_member(:total_instance_count, Shapes::ShapeRef.new(shape: TotalInstanceCount, required: true, location_name: "TotalInstanceCount"))
+    DescribeReservedCapacityResponse.add_member(:available_instance_count, Shapes::ShapeRef.new(shape: AvailableInstanceCount, location_name: "AvailableInstanceCount"))
+    DescribeReservedCapacityResponse.add_member(:in_use_instance_count, Shapes::ShapeRef.new(shape: InUseInstanceCount, location_name: "InUseInstanceCount"))
+    DescribeReservedCapacityResponse.add_member(:ultra_server_summary, Shapes::ShapeRef.new(shape: UltraServerSummary, location_name: "UltraServerSummary"))
+    DescribeReservedCapacityResponse.struct_class = Types::DescribeReservedCapacityResponse
+
     DescribeSpaceRequest.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "DomainId"))
     DescribeSpaceRequest.add_member(:space_name, Shapes::ShapeRef.new(shape: SpaceName, required: true, location_name: "SpaceName"))
     DescribeSpaceRequest.struct_class = Types::DescribeSpaceRequest
@@ -6106,6 +6146,9 @@ module Aws::SageMaker
     DescribeTrainingPlanResponse.add_member(:total_instance_count, Shapes::ShapeRef.new(shape: TotalInstanceCount, location_name: "TotalInstanceCount"))
     DescribeTrainingPlanResponse.add_member(:available_instance_count, Shapes::ShapeRef.new(shape: AvailableInstanceCount, location_name: "AvailableInstanceCount"))
     DescribeTrainingPlanResponse.add_member(:in_use_instance_count, Shapes::ShapeRef.new(shape: InUseInstanceCount, location_name: "InUseInstanceCount"))
+    DescribeTrainingPlanResponse.add_member(:unhealthy_instance_count, Shapes::ShapeRef.new(shape: UnhealthyInstanceCount, location_name: "UnhealthyInstanceCount"))
+    DescribeTrainingPlanResponse.add_member(:available_spare_instance_count, Shapes::ShapeRef.new(shape: AvailableSpareInstanceCount, location_name: "AvailableSpareInstanceCount"))
+    DescribeTrainingPlanResponse.add_member(:total_ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "TotalUltraServerCount"))
     DescribeTrainingPlanResponse.add_member(:target_resources, Shapes::ShapeRef.new(shape: SageMakerResourceNames, location_name: "TargetResources"))
     DescribeTrainingPlanResponse.add_member(:reserved_capacity_summaries, Shapes::ShapeRef.new(shape: ReservedCapacitySummaries, location_name: "ReservedCapacitySummaries"))
     DescribeTrainingPlanResponse.struct_class = Types::DescribeTrainingPlanResponse
@@ -7352,6 +7395,10 @@ module Aws::SageMaker
 
     InstanceMetadataServiceConfiguration.add_member(:minimum_instance_metadata_service_version, Shapes::ShapeRef.new(shape: MinimumInstanceMetadataServiceVersion, required: true, location_name: "MinimumInstanceMetadataServiceVersion"))
     InstanceMetadataServiceConfiguration.struct_class = Types::InstanceMetadataServiceConfiguration
+
+    InstancePlacementConfig.add_member(:enable_multiple_jobs, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableMultipleJobs", metadata: {"box" => true}))
+    InstancePlacementConfig.add_member(:placement_specifications, Shapes::ShapeRef.new(shape: PlacementSpecifications, location_name: "PlacementSpecifications"))
+    InstancePlacementConfig.struct_class = Types::InstancePlacementConfig
 
     IntegerParameterRange.add_member(:name, Shapes::ShapeRef.new(shape: ParameterKey, required: true, location_name: "Name"))
     IntegerParameterRange.add_member(:min_value, Shapes::ShapeRef.new(shape: ParameterValue, required: true, location_name: "MinValue"))
@@ -8630,6 +8677,15 @@ module Aws::SageMaker
     ListTrialsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
     ListTrialsResponse.struct_class = Types::ListTrialsResponse
 
+    ListUltraServersByReservedCapacityRequest.add_member(:reserved_capacity_arn, Shapes::ShapeRef.new(shape: ReservedCapacityArn, required: true, location_name: "ReservedCapacityArn"))
+    ListUltraServersByReservedCapacityRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location_name: "MaxResults"))
+    ListUltraServersByReservedCapacityRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    ListUltraServersByReservedCapacityRequest.struct_class = Types::ListUltraServersByReservedCapacityRequest
+
+    ListUltraServersByReservedCapacityResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    ListUltraServersByReservedCapacityResponse.add_member(:ultra_servers, Shapes::ShapeRef.new(shape: UltraServers, required: true, location_name: "UltraServers"))
+    ListUltraServersByReservedCapacityResponse.struct_class = Types::ListUltraServersByReservedCapacityResponse
+
     ListUserProfilesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
     ListUserProfilesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location_name: "MaxResults"))
     ListUserProfilesRequest.add_member(:sort_order, Shapes::ShapeRef.new(shape: SortOrder, location_name: "SortOrder"))
@@ -9669,6 +9725,12 @@ module Aws::SageMaker
 
     PipelineVersionSummaryList.member = Shapes::ShapeRef.new(shape: PipelineVersionSummary)
 
+    PlacementSpecification.add_member(:ultra_server_id, Shapes::ShapeRef.new(shape: String256, location_name: "UltraServerId"))
+    PlacementSpecification.add_member(:instance_count, Shapes::ShapeRef.new(shape: TrainingInstanceCount, required: true, location_name: "InstanceCount", metadata: {"box" => true}))
+    PlacementSpecification.struct_class = Types::PlacementSpecification
+
+    PlacementSpecifications.member = Shapes::ShapeRef.new(shape: PlacementSpecification)
+
     PredefinedMetricSpecification.add_member(:predefined_metric_type, Shapes::ShapeRef.new(shape: String, location_name: "PredefinedMetricType"))
     PredefinedMetricSpecification.struct_class = Types::PredefinedMetricSpecification
 
@@ -10134,6 +10196,9 @@ module Aws::SageMaker
     RepositoryAuthConfig.add_member(:repository_credentials_provider_arn, Shapes::ShapeRef.new(shape: RepositoryCredentialsProviderArn, required: true, location_name: "RepositoryCredentialsProviderArn"))
     RepositoryAuthConfig.struct_class = Types::RepositoryAuthConfig
 
+    ReservedCapacityOffering.add_member(:reserved_capacity_type, Shapes::ShapeRef.new(shape: ReservedCapacityType, location_name: "ReservedCapacityType"))
+    ReservedCapacityOffering.add_member(:ultra_server_type, Shapes::ShapeRef.new(shape: UltraServerType, location_name: "UltraServerType"))
+    ReservedCapacityOffering.add_member(:ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "UltraServerCount"))
     ReservedCapacityOffering.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, required: true, location_name: "InstanceType"))
     ReservedCapacityOffering.add_member(:instance_count, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceCount, required: true, location_name: "InstanceCount", metadata: {"box" => true}))
     ReservedCapacityOffering.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZone, location_name: "AvailabilityZone"))
@@ -10148,6 +10213,9 @@ module Aws::SageMaker
     ReservedCapacitySummaries.member = Shapes::ShapeRef.new(shape: ReservedCapacitySummary)
 
     ReservedCapacitySummary.add_member(:reserved_capacity_arn, Shapes::ShapeRef.new(shape: ReservedCapacityArn, required: true, location_name: "ReservedCapacityArn"))
+    ReservedCapacitySummary.add_member(:reserved_capacity_type, Shapes::ShapeRef.new(shape: ReservedCapacityType, location_name: "ReservedCapacityType"))
+    ReservedCapacitySummary.add_member(:ultra_server_type, Shapes::ShapeRef.new(shape: UltraServerType, location_name: "UltraServerType"))
+    ReservedCapacitySummary.add_member(:ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "UltraServerCount"))
     ReservedCapacitySummary.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, required: true, location_name: "InstanceType"))
     ReservedCapacitySummary.add_member(:total_instance_count, Shapes::ShapeRef.new(shape: TotalInstanceCount, required: true, location_name: "TotalInstanceCount"))
     ReservedCapacitySummary.add_member(:status, Shapes::ShapeRef.new(shape: ReservedCapacityStatus, required: true, location_name: "Status"))
@@ -10178,6 +10246,7 @@ module Aws::SageMaker
     ResourceConfig.add_member(:keep_alive_period_in_seconds, Shapes::ShapeRef.new(shape: KeepAlivePeriodInSeconds, location_name: "KeepAlivePeriodInSeconds"))
     ResourceConfig.add_member(:instance_groups, Shapes::ShapeRef.new(shape: InstanceGroups, location_name: "InstanceGroups"))
     ResourceConfig.add_member(:training_plan_arn, Shapes::ShapeRef.new(shape: TrainingPlanArn, location_name: "TrainingPlanArn"))
+    ResourceConfig.add_member(:instance_placement_config, Shapes::ShapeRef.new(shape: InstancePlacementConfig, location_name: "InstancePlacementConfig"))
     ResourceConfig.struct_class = Types::ResourceConfig
 
     ResourceConfigForUpdate.add_member(:keep_alive_period_in_seconds, Shapes::ShapeRef.new(shape: KeepAlivePeriodInSeconds, required: true, location_name: "KeepAlivePeriodInSeconds"))
@@ -10349,6 +10418,8 @@ module Aws::SageMaker
 
     SearchTrainingPlanOfferingsRequest.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, location_name: "InstanceType"))
     SearchTrainingPlanOfferingsRequest.add_member(:instance_count, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceCount, location_name: "InstanceCount", metadata: {"box" => true}))
+    SearchTrainingPlanOfferingsRequest.add_member(:ultra_server_type, Shapes::ShapeRef.new(shape: UltraServerType, location_name: "UltraServerType"))
+    SearchTrainingPlanOfferingsRequest.add_member(:ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "UltraServerCount"))
     SearchTrainingPlanOfferingsRequest.add_member(:start_time_after, Shapes::ShapeRef.new(shape: Timestamp, location_name: "StartTimeAfter"))
     SearchTrainingPlanOfferingsRequest.add_member(:end_time_before, Shapes::ShapeRef.new(shape: Timestamp, location_name: "EndTimeBefore"))
     SearchTrainingPlanOfferingsRequest.add_member(:duration_hours, Shapes::ShapeRef.new(shape: TrainingPlanDurationHoursInput, required: true, location_name: "DurationHours"))
@@ -10890,6 +10961,7 @@ module Aws::SageMaker
     TrainingPlanSummary.add_member(:total_instance_count, Shapes::ShapeRef.new(shape: TotalInstanceCount, location_name: "TotalInstanceCount"))
     TrainingPlanSummary.add_member(:available_instance_count, Shapes::ShapeRef.new(shape: AvailableInstanceCount, location_name: "AvailableInstanceCount"))
     TrainingPlanSummary.add_member(:in_use_instance_count, Shapes::ShapeRef.new(shape: InUseInstanceCount, location_name: "InUseInstanceCount"))
+    TrainingPlanSummary.add_member(:total_ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "TotalUltraServerCount"))
     TrainingPlanSummary.add_member(:target_resources, Shapes::ShapeRef.new(shape: SageMakerResourceNames, location_name: "TargetResources"))
     TrainingPlanSummary.add_member(:reserved_capacity_summaries, Shapes::ShapeRef.new(shape: ReservedCapacitySummaries, location_name: "ReservedCapacitySummaries"))
     TrainingPlanSummary.struct_class = Types::TrainingPlanSummary
@@ -11130,6 +11202,31 @@ module Aws::SageMaker
     UiTemplateInfo.add_member(:url, Shapes::ShapeRef.new(shape: TemplateUrl, location_name: "Url"))
     UiTemplateInfo.add_member(:content_sha_256, Shapes::ShapeRef.new(shape: TemplateContentSha256, location_name: "ContentSha256"))
     UiTemplateInfo.struct_class = Types::UiTemplateInfo
+
+    UltraServer.add_member(:ultra_server_id, Shapes::ShapeRef.new(shape: NonEmptyString256, required: true, location_name: "UltraServerId"))
+    UltraServer.add_member(:ultra_server_type, Shapes::ShapeRef.new(shape: UltraServerType, required: true, location_name: "UltraServerType"))
+    UltraServer.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZone, required: true, location_name: "AvailabilityZone"))
+    UltraServer.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, required: true, location_name: "InstanceType"))
+    UltraServer.add_member(:total_instance_count, Shapes::ShapeRef.new(shape: TotalInstanceCount, required: true, location_name: "TotalInstanceCount"))
+    UltraServer.add_member(:configured_spare_instance_count, Shapes::ShapeRef.new(shape: ConfiguredSpareInstanceCount, location_name: "ConfiguredSpareInstanceCount"))
+    UltraServer.add_member(:available_instance_count, Shapes::ShapeRef.new(shape: AvailableInstanceCount, location_name: "AvailableInstanceCount"))
+    UltraServer.add_member(:in_use_instance_count, Shapes::ShapeRef.new(shape: InUseInstanceCount, location_name: "InUseInstanceCount"))
+    UltraServer.add_member(:available_spare_instance_count, Shapes::ShapeRef.new(shape: AvailableSpareInstanceCount, location_name: "AvailableSpareInstanceCount"))
+    UltraServer.add_member(:unhealthy_instance_count, Shapes::ShapeRef.new(shape: UnhealthyInstanceCount, location_name: "UnhealthyInstanceCount"))
+    UltraServer.add_member(:health_status, Shapes::ShapeRef.new(shape: UltraServerHealthStatus, location_name: "HealthStatus"))
+    UltraServer.struct_class = Types::UltraServer
+
+    UltraServerInfo.add_member(:id, Shapes::ShapeRef.new(shape: String, location_name: "Id"))
+    UltraServerInfo.struct_class = Types::UltraServerInfo
+
+    UltraServerSummary.add_member(:ultra_server_type, Shapes::ShapeRef.new(shape: UltraServerType, required: true, location_name: "UltraServerType"))
+    UltraServerSummary.add_member(:instance_type, Shapes::ShapeRef.new(shape: ReservedCapacityInstanceType, required: true, location_name: "InstanceType"))
+    UltraServerSummary.add_member(:ultra_server_count, Shapes::ShapeRef.new(shape: UltraServerCount, location_name: "UltraServerCount"))
+    UltraServerSummary.add_member(:available_spare_instance_count, Shapes::ShapeRef.new(shape: AvailableSpareInstanceCount, location_name: "AvailableSpareInstanceCount"))
+    UltraServerSummary.add_member(:unhealthy_instance_count, Shapes::ShapeRef.new(shape: UnhealthyInstanceCount, location_name: "UnhealthyInstanceCount"))
+    UltraServerSummary.struct_class = Types::UltraServerSummary
+
+    UltraServers.member = Shapes::ShapeRef.new(shape: UltraServer)
 
     UnifiedStudioSettings.add_member(:studio_web_portal_access, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "StudioWebPortalAccess"))
     UnifiedStudioSettings.add_member(:domain_account_id, Shapes::ShapeRef.new(shape: AccountId, location_name: "DomainAccountId"))
@@ -13451,6 +13548,15 @@ module Aws::SageMaker
         o.output = Shapes::ShapeRef.new(shape: DescribeProjectOutput)
       end)
 
+      api.add_operation(:describe_reserved_capacity, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeReservedCapacity"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeReservedCapacityRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeReservedCapacityResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
       api.add_operation(:describe_space, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DescribeSpace"
         o.http_method = "POST"
@@ -14760,6 +14866,21 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: ListTrialsRequest)
         o.output = Shapes::ShapeRef.new(shape: ListTrialsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:list_ultra_servers_by_reserved_capacity, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListUltraServersByReservedCapacity"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ListUltraServersByReservedCapacityRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListUltraServersByReservedCapacityResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",

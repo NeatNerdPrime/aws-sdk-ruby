@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.210.0 (2025-08-08)
+------------------
+
+* Feature - This release adds a new API GetContactMetrics for Amazon Connect.
+
 1.209.0 (2025-08-04)
 ------------------
 

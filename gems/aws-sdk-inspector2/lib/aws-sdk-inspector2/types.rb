@@ -3189,6 +3189,28 @@ module Aws::Inspector2
       include Aws::Structure
     end
 
+    # The Common Vulnerability Scoring System (CVSS) version 4 details for
+    # the vulnerability.
+    #
+    # @!attribute [rw] base_score
+    #   The base CVSS v4 score for the vulnerability finding, which rates
+    #   the severity of the vulnerability on a scale from 0 to 10.
+    #   @return [Float]
+    #
+    # @!attribute [rw] scoring_vector
+    #   The CVSS v4 scoring vector, which contains the metrics and
+    #   measurements that were used to calculate the base score.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/inspector2-2020-06-08/Cvss4 AWS API Documentation
+    #
+    class Cvss4 < Struct.new(
+      :base_score,
+      :scoring_vector)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The CVSS score for a finding.
     #
     # @!attribute [rw] base_score
@@ -7731,7 +7753,7 @@ module Aws::Inspector2
     #   resolve the issue and resume the scanning. No action required from
     #   the user.
     #
-    #   `NO INVENTORY` - Amazon Inspector couldn't find software
+    #   `NO_INVENTORY` - Amazon Inspector couldn't find software
     #   application inventory to scan for vulnerabilities. This might be
     #   caused due to required Amazon Inspector associations being deleted
     #   or failing to run on your resource. Please verify the status of
@@ -9059,6 +9081,11 @@ module Aws::Inspector2
     #   The severity assigned by the vendor.
     #   @return [String]
     #
+    # @!attribute [rw] cvss4
+    #   An object that contains the Common Vulnerability Scoring System
+    #   (CVSS) Version 4 details for the vulnerability.
+    #   @return [Types::Cvss4]
+    #
     # @!attribute [rw] cvss3
     #   An object that contains the Common Vulnerability Scoring System
     #   (CVSS) Version 3 details for the vulnerability.
@@ -9113,6 +9140,7 @@ module Aws::Inspector2
       :description,
       :atig_data,
       :vendor_severity,
+      :cvss4,
       :cvss3,
       :related_vulnerabilities,
       :cvss2,

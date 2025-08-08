@@ -5692,6 +5692,8 @@ module Aws::Inspector2
     #   resp.vulnerabilities[0].atig_data.ttps #=> Array
     #   resp.vulnerabilities[0].atig_data.ttps[0] #=> String
     #   resp.vulnerabilities[0].vendor_severity #=> String
+    #   resp.vulnerabilities[0].cvss4.base_score #=> Float
+    #   resp.vulnerabilities[0].cvss4.scoring_vector #=> String
     #   resp.vulnerabilities[0].cvss3.base_score #=> Float
     #   resp.vulnerabilities[0].cvss3.scoring_vector #=> String
     #   resp.vulnerabilities[0].related_vulnerabilities #=> Array
@@ -6801,7 +6803,7 @@ module Aws::Inspector2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-inspector2'
-      context[:gem_version] = '1.57.0'
+      context[:gem_version] = '1.58.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

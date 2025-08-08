@@ -14,11 +14,15 @@ module Aws::IoTDataPlane
 
     include Seahorse::Model
 
+    CleanSession = Shapes::BooleanShape.new(name: 'CleanSession')
+    ClientId = Shapes::StringShape.new(name: 'ClientId')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ContentType = Shapes::StringShape.new(name: 'ContentType')
     CorrelationData = Shapes::StringShape.new(name: 'CorrelationData')
+    DeleteConnectionRequest = Shapes::StructureShape.new(name: 'DeleteConnectionRequest')
     DeleteThingShadowRequest = Shapes::StructureShape.new(name: 'DeleteThingShadowRequest')
     DeleteThingShadowResponse = Shapes::StructureShape.new(name: 'DeleteThingShadowResponse')
+    ForbiddenException = Shapes::StructureShape.new(name: 'ForbiddenException')
     GetRetainedMessageRequest = Shapes::StructureShape.new(name: 'GetRetainedMessageRequest')
     GetRetainedMessageResponse = Shapes::StructureShape.new(name: 'GetRetainedMessageResponse')
     GetThingShadowRequest = Shapes::StructureShape.new(name: 'GetThingShadowRequest')
@@ -39,6 +43,7 @@ module Aws::IoTDataPlane
     Payload = Shapes::BlobShape.new(name: 'Payload')
     PayloadFormatIndicator = Shapes::StringShape.new(name: 'PayloadFormatIndicator')
     PayloadSize = Shapes::IntegerShape.new(name: 'PayloadSize')
+    PreventWillMessage = Shapes::BooleanShape.new(name: 'PreventWillMessage')
     PublishRequest = Shapes::StructureShape.new(name: 'PublishRequest')
     Qos = Shapes::IntegerShape.new(name: 'Qos')
     RequestEntityTooLargeException = Shapes::StructureShape.new(name: 'RequestEntityTooLargeException')
@@ -64,6 +69,11 @@ module Aws::IoTDataPlane
     ConflictException.add_member(:message, Shapes::ShapeRef.new(shape: errorMessage, location_name: "message"))
     ConflictException.struct_class = Types::ConflictException
 
+    DeleteConnectionRequest.add_member(:client_id, Shapes::ShapeRef.new(shape: ClientId, required: true, location: "uri", location_name: "clientId"))
+    DeleteConnectionRequest.add_member(:clean_session, Shapes::ShapeRef.new(shape: CleanSession, location: "querystring", location_name: "cleanSession"))
+    DeleteConnectionRequest.add_member(:prevent_will_message, Shapes::ShapeRef.new(shape: PreventWillMessage, location: "querystring", location_name: "preventWillMessage"))
+    DeleteConnectionRequest.struct_class = Types::DeleteConnectionRequest
+
     DeleteThingShadowRequest.add_member(:thing_name, Shapes::ShapeRef.new(shape: ThingName, required: true, location: "uri", location_name: "thingName"))
     DeleteThingShadowRequest.add_member(:shadow_name, Shapes::ShapeRef.new(shape: ShadowName, location: "querystring", location_name: "name"))
     DeleteThingShadowRequest.struct_class = Types::DeleteThingShadowRequest
@@ -72,6 +82,9 @@ module Aws::IoTDataPlane
     DeleteThingShadowResponse.struct_class = Types::DeleteThingShadowResponse
     DeleteThingShadowResponse[:payload] = :payload
     DeleteThingShadowResponse[:payload_member] = DeleteThingShadowResponse.member(:payload)
+
+    ForbiddenException.add_member(:message, Shapes::ShapeRef.new(shape: errorMessage, location_name: "message"))
+    ForbiddenException.struct_class = Types::ForbiddenException
 
     GetRetainedMessageRequest.add_member(:topic, Shapes::ShapeRef.new(shape: Topic, required: true, location: "uri", location_name: "topic"))
     GetRetainedMessageRequest.struct_class = Types::GetRetainedMessageRequest
@@ -191,6 +204,19 @@ module Aws::IoTDataPlane
         "signingName" => "iotdata",
         "uid" => "iot-data-2015-05-28",
       }
+
+      api.add_operation(:delete_connection, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteConnection"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/connections/{clientId}"
+        o.input = Shapes::ShapeRef.new(shape: DeleteConnectionRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidRequestException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalFailureException)
+      end)
 
       api.add_operation(:delete_thing_shadow, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteThingShadow"

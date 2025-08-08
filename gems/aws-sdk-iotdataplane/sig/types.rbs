@@ -13,6 +13,13 @@ module Aws::IoTDataPlane
       SENSITIVE: []
     end
 
+    class DeleteConnectionRequest
+      attr_accessor client_id: ::String
+      attr_accessor clean_session: bool
+      attr_accessor prevent_will_message: bool
+      SENSITIVE: []
+    end
+
     class DeleteThingShadowRequest
       attr_accessor thing_name: ::String
       attr_accessor shadow_name: ::String
@@ -21,6 +28,11 @@ module Aws::IoTDataPlane
 
     class DeleteThingShadowResponse
       attr_accessor payload: ::String
+      SENSITIVE: []
+    end
+
+    class ForbiddenException
+      attr_accessor message: ::String
       SENSITIVE: []
     end
 

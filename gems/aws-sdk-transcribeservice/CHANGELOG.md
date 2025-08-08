@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.126.0 (2025-08-08)
+------------------
+
+* Feature - Update documentation to use key ARN only in OutputEncryptionKMSKeyId request parameter
+
 1.125.0 (2025-08-04)
 ------------------
 

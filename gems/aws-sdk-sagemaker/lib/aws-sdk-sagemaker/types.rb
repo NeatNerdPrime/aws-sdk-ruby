@@ -4732,13 +4732,12 @@ module Aws::SageMaker
     #   @return [String]
     #
     # @!attribute [rw] cluster_arn
-    #   The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster
-    #   associated with the event.
+    #   The Amazon Resource Name (ARN) of the HyperPod cluster associated
+    #   with the event.
     #   @return [String]
     #
     # @!attribute [rw] cluster_name
-    #   The name of the SageMaker HyperPod cluster associated with the
-    #   event.
+    #   The name of the HyperPod cluster associated with the event.
     #   @return [String]
     #
     # @!attribute [rw] instance_group_name
@@ -4752,7 +4751,7 @@ module Aws::SageMaker
     #
     # @!attribute [rw] resource_type
     #   The type of resource associated with the event. Valid values are
-    #   "Cluster", "InstanceGroup", or "Instance".
+    #   `Cluster`, `InstanceGroup`, or `Instance`.
     #   @return [String]
     #
     # @!attribute [rw] event_time
@@ -4784,20 +4783,19 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
-    # A summary of an event in a SageMaker HyperPod cluster.
+    # A summary of an event in a HyperPod cluster.
     #
     # @!attribute [rw] event_id
     #   The unique identifier (UUID) of the event.
     #   @return [String]
     #
     # @!attribute [rw] cluster_arn
-    #   The Amazon Resource Name (ARN) of the SageMaker HyperPod cluster
-    #   associated with the event.
+    #   The Amazon Resource Name (ARN) of the HyperPod cluster associated
+    #   with the event.
     #   @return [String]
     #
     # @!attribute [rw] cluster_name
-    #   The name of the SageMaker HyperPod cluster associated with the
-    #   event.
+    #   The name of the HyperPod cluster associated with the event.
     #   @return [String]
     #
     # @!attribute [rw] instance_group_name
@@ -4806,12 +4804,13 @@ module Aws::SageMaker
     #   @return [String]
     #
     # @!attribute [rw] instance_id
-    #   The EC2 instance ID associated with the event, if applicable.
+    #   The Amazon Elastic Compute Cloud (EC2) instance ID associated with
+    #   the event, if applicable.
     #   @return [String]
     #
     # @!attribute [rw] resource_type
     #   The type of resource associated with the event. Valid values are
-    #   "Cluster", "InstanceGroup", or "Instance".
+    #   `Cluster`, `InstanceGroup`, or `Instance`.
     #   @return [String]
     #
     # @!attribute [rw] event_time
@@ -5222,9 +5221,9 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
-    # Metadata information about a SageMaker HyperPod cluster showing
-    # information about the cluster level operations, such as creating,
-    # updating, and deleting.
+    # Metadata information about a HyperPod cluster showing information
+    # about the cluster level operations, such as creating, updating, and
+    # deleting.
     #
     # @!attribute [rw] failure_message
     #   An error message describing why the cluster level operation (such as
@@ -5233,14 +5232,14 @@ module Aws::SageMaker
     #
     # @!attribute [rw] eks_role_access_entries
     #   A list of Amazon EKS IAM role ARNs associated with the cluster. This
-    #   is created by SageMaker HyperPod on your behalf and only applies for
-    #   EKS-orchestrated clusters.
+    #   is created by HyperPod on your behalf and only applies for EKS
+    #   orchestrated clusters.
     #   @return [Array<String>]
     #
     # @!attribute [rw] slr_access_entry
     #   The Service-Linked Role (SLR) associated with the cluster. This is
-    #   created by SageMaker HyperPod on your behalf and only applies for
-    #   EKS-orchestrated clusters.
+    #   created by HyperPod on your behalf and only applies for EKS
+    #   orchestrated clusters.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterMetadata AWS API Documentation
@@ -5337,6 +5336,10 @@ module Aws::SageMaker
     #   The ID of the Amazon Machine Image (AMI) desired for the node.
     #   @return [String]
     #
+    # @!attribute [rw] ultra_server_info
+    #   Contains information about the UltraServer.
+    #   @return [Types::UltraServerInfo]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterNodeDetails AWS API Documentation
     #
     class ClusterNodeDetails < Struct.new(
@@ -5356,7 +5359,8 @@ module Aws::SageMaker
       :private_dns_hostname,
       :placement,
       :current_image_id,
-      :desired_image_id)
+      :desired_image_id,
+      :ultra_server_info)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5398,6 +5402,10 @@ module Aws::SageMaker
     #   The status of the instance.
     #   @return [Types::ClusterInstanceStatusDetails]
     #
+    # @!attribute [rw] ultra_server_info
+    #   Contains information about the UltraServer.
+    #   @return [Types::UltraServerInfo]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterNodeSummary AWS API Documentation
     #
     class ClusterNodeSummary < Struct.new(
@@ -5407,7 +5415,8 @@ module Aws::SageMaker
       :instance_type,
       :launch_time,
       :last_software_update_time,
-      :instance_status)
+      :instance_status,
+      :ultra_server_info)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -7225,7 +7234,7 @@ module Aws::SageMaker
     # @!attribute [rw] orchestrator
     #   The type of orchestrator to use for the SageMaker HyperPod cluster.
     #   Currently, the only supported value is `"eks"`, which is to use an
-    #   Amazon Elastic Kubernetes Service (EKS) cluster as the orchestrator.
+    #   Amazon Elastic Kubernetes Service cluster as the orchestrator.
     #   @return [Types::ClusterOrchestrator]
     #
     # @!attribute [rw] node_recovery
@@ -11619,6 +11628,11 @@ module Aws::SageMaker
     #   creating this plan.
     #   @return [String]
     #
+    # @!attribute [rw] spare_instance_count_per_ultra_server
+    #   Number of spare instances to reserve per UltraServer for enhanced
+    #   resiliency. Default is 1.
+    #   @return [Integer]
+    #
     # @!attribute [rw] tags
     #   An array of key-value pairs to apply to this training plan.
     #   @return [Array<Types::Tag>]
@@ -11628,6 +11642,7 @@ module Aws::SageMaker
     class CreateTrainingPlanRequest < Struct.new(
       :training_plan_name,
       :training_plan_offering_id,
+      :spare_instance_count_per_ultra_server,
       :tags)
       SENSITIVE = []
       include Aws::Structure
@@ -19681,6 +19696,94 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # @!attribute [rw] reserved_capacity_arn
+    #   ARN of the reserved capacity to describe.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeReservedCapacityRequest AWS API Documentation
+    #
+    class DescribeReservedCapacityRequest < Struct.new(
+      :reserved_capacity_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] reserved_capacity_arn
+    #   ARN of the reserved capacity.
+    #   @return [String]
+    #
+    # @!attribute [rw] reserved_capacity_type
+    #   The type of reserved capacity.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current status of the reserved capacity.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone
+    #   The Availability Zone where the reserved capacity is provisioned.
+    #   @return [String]
+    #
+    # @!attribute [rw] duration_hours
+    #   The total duration of the reserved capacity in hours.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] duration_minutes
+    #   The number of minutes for the duration of the reserved capacity. For
+    #   example, if a reserved capacity starts at 08:55 and ends at 11:30,
+    #   the minutes field would be 35.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] start_time
+    #   The timestamp when the reserved capacity becomes active.
+    #   @return [Time]
+    #
+    # @!attribute [rw] end_time
+    #   The timestamp when the reserved capacity expires.
+    #   @return [Time]
+    #
+    # @!attribute [rw] instance_type
+    #   The Amazon EC2 instance type used in the reserved capacity.
+    #   @return [String]
+    #
+    # @!attribute [rw] total_instance_count
+    #   The total number of instances allocated to this reserved capacity.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] available_instance_count
+    #   The number of instances currently available for use in this reserved
+    #   capacity.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] in_use_instance_count
+    #   The number of instances currently in use from this reserved
+    #   capacity.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] ultra_server_summary
+    #   A summary of the UltraServer associated with this reserved capacity.
+    #   @return [Types::UltraServerSummary]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeReservedCapacityResponse AWS API Documentation
+    #
+    class DescribeReservedCapacityResponse < Struct.new(
+      :reserved_capacity_arn,
+      :reserved_capacity_type,
+      :status,
+      :availability_zone,
+      :duration_hours,
+      :duration_minutes,
+      :start_time,
+      :end_time,
+      :instance_type,
+      :total_instance_count,
+      :available_instance_count,
+      :in_use_instance_count,
+      :ultra_server_summary)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] domain_id
     #   The ID of the associated domain.
     #   @return [String]
@@ -20348,6 +20451,19 @@ module Aws::SageMaker
     #   The number of instances currently in use from this training plan.
     #   @return [Integer]
     #
+    # @!attribute [rw] unhealthy_instance_count
+    #   The number of instances in the training plan that are currently in
+    #   an unhealthy state.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] available_spare_instance_count
+    #   The number of available spare instances in the training plan.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] total_ultra_server_count
+    #   The total number of UltraServers reserved to this training plan.
+    #   @return [Integer]
+    #
     # @!attribute [rw] target_resources
     #   The target resources (e.g., SageMaker Training Jobs, SageMaker
     #   HyperPod) that can use this training plan.
@@ -20382,6 +20498,9 @@ module Aws::SageMaker
       :total_instance_count,
       :available_instance_count,
       :in_use_instance_count,
+      :unhealthy_instance_count,
+      :available_spare_instance_count,
+      :total_ultra_server_count,
       :target_resources,
       :reserved_capacity_summaries)
       SENSITIVE = []
@@ -28051,8 +28170,7 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
-    # Metadata information about an instance group in a SageMaker HyperPod
-    # cluster.
+    # Metadata information about an instance group in a HyperPod cluster.
     #
     # @!attribute [rw] failure_message
     #   An error message describing why the instance group level operation
@@ -28176,6 +28294,30 @@ module Aws::SageMaker
     #
     class InstanceMetadataServiceConfiguration < Struct.new(
       :minimum_instance_metadata_service_version)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for how instances are placed and allocated within
+    # UltraServers. This is only applicable for UltraServer capacity.
+    #
+    # @!attribute [rw] enable_multiple_jobs
+    #   If set to true, allows multiple jobs to share the same UltraServer
+    #   instances. If set to false, ensures this job's instances are placed
+    #   on an UltraServer exclusively, with no other jobs sharing the same
+    #   UltraServer. Default is false.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] placement_specifications
+    #   A list of specifications for how instances should be placed on
+    #   specific UltraServers. Maximum of 10 items is supported.
+    #   @return [Array<Types::PlacementSpecification>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/InstancePlacementConfig AWS API Documentation
+    #
+    class InstancePlacementConfig < Struct.new(
+      :enable_multiple_jobs,
+      :placement_specifications)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -35007,6 +35149,49 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # @!attribute [rw] reserved_capacity_arn
+    #   The ARN of the reserved capacity to list UltraServers for.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of UltraServers to return in the response. The
+    #   default value is 10.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   If the previous response was truncated, you receive this token. Use
+    #   it in your next request to receive the next set of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListUltraServersByReservedCapacityRequest AWS API Documentation
+    #
+    class ListUltraServersByReservedCapacityRequest < Struct.new(
+      :reserved_capacity_arn,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   If the response is truncated, SageMaker returns this token. Use it
+    #   in the next request to retrieve the next set of UltraServers.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_servers
+    #   A list of UltraServers that are part of the specified reserved
+    #   capacity.
+    #   @return [Array<Types::UltraServer>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListUltraServersByReservedCapacityResponse AWS API Documentation
+    #
+    class ListUltraServersByReservedCapacityResponse < Struct.new(
+      :next_token,
+      :ultra_servers)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] next_token
     #   If the previous response was truncated, you will receive this token.
     #   Use it in your next request to receive the next set of results.
@@ -40564,6 +40749,27 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Specifies how instances should be placed on a specific UltraServer.
+    #
+    # @!attribute [rw] ultra_server_id
+    #   The unique identifier of the UltraServer where instances should be
+    #   placed.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_count
+    #   The number of ML compute instances required to be placed together on
+    #   the same UltraServer. Minimum value of 1.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/PlacementSpecification AWS API Documentation
+    #
+    class PlacementSpecification < Struct.new(
+      :ultra_server_id,
+      :instance_count)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A specification for a predefined metric.
     #
     # @!attribute [rw] predefined_metric_type
@@ -43442,6 +43648,20 @@ module Aws::SageMaker
     # SageMaker HyperPod clusters using Amazon SageMaker Training Plan, see
     # ` CreateTrainingPlan `.
     #
+    # @!attribute [rw] reserved_capacity_type
+    #   The type of reserved capacity offering.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_type
+    #   The type of UltraServer included in this reserved capacity offering,
+    #   such as ml.u-p6e-gb200x72.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_count
+    #   The number of UltraServers included in this reserved capacity
+    #   offering.
+    #   @return [Integer]
+    #
     # @!attribute [rw] instance_type
     #   The instance type for the reserved capacity offering.
     #   @return [String]
@@ -43475,6 +43695,9 @@ module Aws::SageMaker
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ReservedCapacityOffering AWS API Documentation
     #
     class ReservedCapacityOffering < Struct.new(
+      :reserved_capacity_type,
+      :ultra_server_type,
+      :ultra_server_count,
       :instance_type,
       :instance_count,
       :availability_zone,
@@ -43495,6 +43718,19 @@ module Aws::SageMaker
     # @!attribute [rw] reserved_capacity_arn
     #   The Amazon Resource Name (ARN); of the reserved capacity.
     #   @return [String]
+    #
+    # @!attribute [rw] reserved_capacity_type
+    #   The type of reserved capacity.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_type
+    #   The type of UltraServer included in this reserved capacity, such as
+    #   ml.u-p6e-gb200x72.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_count
+    #   The number of UltraServers included in this reserved capacity.
+    #   @return [Integer]
     #
     # @!attribute [rw] instance_type
     #   The instance type for the reserved capacity.
@@ -43534,6 +43770,9 @@ module Aws::SageMaker
     #
     class ReservedCapacitySummary < Struct.new(
       :reserved_capacity_arn,
+      :reserved_capacity_type,
+      :ultra_server_type,
+      :ultra_server_count,
       :instance_type,
       :total_instance_count,
       :status,
@@ -43706,6 +43945,12 @@ module Aws::SageMaker
     #   resource configuration.
     #   @return [String]
     #
+    # @!attribute [rw] instance_placement_config
+    #   Configuration for how training job instances are placed and
+    #   allocated within UltraServers. Only applicable for UltraServer
+    #   capacity.
+    #   @return [Types::InstancePlacementConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ResourceConfig AWS API Documentation
     #
     class ResourceConfig < Struct.new(
@@ -43715,7 +43960,8 @@ module Aws::SageMaker
       :volume_kms_key_id,
       :keep_alive_period_in_seconds,
       :instance_groups,
-      :training_plan_arn)
+      :training_plan_arn,
+      :instance_placement_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -44891,6 +45137,14 @@ module Aws::SageMaker
     #   match your requirements.
     #   @return [Integer]
     #
+    # @!attribute [rw] ultra_server_type
+    #   The type of UltraServer to search for, such as ml.u-p6e-gb200x72.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_count
+    #   The number of UltraServers to search for.
+    #   @return [Integer]
+    #
     # @!attribute [rw] start_time_after
     #   A filter to search for training plan offerings with a start time
     #   after a specified date.
@@ -44923,6 +45177,8 @@ module Aws::SageMaker
     class SearchTrainingPlanOfferingsRequest < Struct.new(
       :instance_type,
       :instance_count,
+      :ultra_server_type,
+      :ultra_server_count,
       :start_time_after,
       :end_time_before,
       :duration_hours,
@@ -48274,6 +48530,10 @@ module Aws::SageMaker
     #   The number of instances currently in use from this training plan.
     #   @return [Integer]
     #
+    # @!attribute [rw] total_ultra_server_count
+    #   The total number of UltraServers allocated to this training plan.
+    #   @return [Integer]
+    #
     # @!attribute [rw] target_resources
     #   The target resources (e.g., training jobs, HyperPod clusters) that
     #   can use this training plan.
@@ -48309,6 +48569,7 @@ module Aws::SageMaker
       :total_instance_count,
       :available_instance_count,
       :in_use_instance_count,
+      :total_ultra_server_count,
       :target_resources,
       :reserved_capacity_summaries)
       SENSITIVE = []
@@ -49819,6 +50080,125 @@ module Aws::SageMaker
     class UiTemplateInfo < Struct.new(
       :url,
       :content_sha_256)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents a high-performance compute server used for distributed
+    # training in SageMaker AI. An UltraServer consists of multiple
+    # instances within a shared NVLink interconnect domain.
+    #
+    # @!attribute [rw] ultra_server_id
+    #   The unique identifier for the UltraServer.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_type
+    #   The type of UltraServer, such as ml.u-p6e-gb200x72.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone
+    #   The name of the Availability Zone where the UltraServer is
+    #   provisioned.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_type
+    #   The Amazon EC2 instance type used in the UltraServer.
+    #   @return [String]
+    #
+    # @!attribute [rw] total_instance_count
+    #   The total number of instances in this UltraServer.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] configured_spare_instance_count
+    #   The number of spare instances configured for this UltraServer to
+    #   provide enhanced resiliency.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] available_instance_count
+    #   The number of instances currently available for use in this
+    #   UltraServer.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] in_use_instance_count
+    #   The number of instances currently in use in this UltraServer.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] available_spare_instance_count
+    #   The number of available spare instances in the UltraServer.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] unhealthy_instance_count
+    #   The number of instances in this UltraServer that are currently in an
+    #   unhealthy state.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] health_status
+    #   The overall health status of the UltraServer.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UltraServer AWS API Documentation
+    #
+    class UltraServer < Struct.new(
+      :ultra_server_id,
+      :ultra_server_type,
+      :availability_zone,
+      :instance_type,
+      :total_instance_count,
+      :configured_spare_instance_count,
+      :available_instance_count,
+      :in_use_instance_count,
+      :available_spare_instance_count,
+      :unhealthy_instance_count,
+      :health_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains information about the UltraServer object.
+    #
+    # @!attribute [rw] id
+    #   The unique identifier of the UltraServer.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UltraServerInfo AWS API Documentation
+    #
+    class UltraServerInfo < Struct.new(
+      :id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A summary of UltraServer resources and their current status.
+    #
+    # @!attribute [rw] ultra_server_type
+    #   The type of UltraServer, such as ml.u-p6e-gb200x72.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_type
+    #   The Amazon EC2 instance type used in the UltraServer.
+    #   @return [String]
+    #
+    # @!attribute [rw] ultra_server_count
+    #   The number of UltraServers of this type.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] available_spare_instance_count
+    #   The number of available spare instances in the UltraServers.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] unhealthy_instance_count
+    #   The total number of instances across all UltraServers of this type
+    #   that are currently in an unhealthy state.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UltraServerSummary AWS API Documentation
+    #
+    class UltraServerSummary < Struct.new(
+      :ultra_server_type,
+      :instance_type,
+      :ultra_server_count,
+      :available_spare_instance_count,
+      :unhealthy_instance_count)
       SENSITIVE = []
       include Aws::Structure
     end

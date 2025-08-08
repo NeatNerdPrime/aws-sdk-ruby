@@ -231,6 +231,12 @@ module Aws::Connect
     ContactFlowVersionSummaryList = Shapes::ListShape.new(name: 'ContactFlowVersionSummaryList')
     ContactId = Shapes::StringShape.new(name: 'ContactId')
     ContactInitiationMethod = Shapes::StringShape.new(name: 'ContactInitiationMethod')
+    ContactMetricInfo = Shapes::StructureShape.new(name: 'ContactMetricInfo')
+    ContactMetricName = Shapes::StringShape.new(name: 'ContactMetricName')
+    ContactMetricResult = Shapes::StructureShape.new(name: 'ContactMetricResult')
+    ContactMetricResults = Shapes::ListShape.new(name: 'ContactMetricResults')
+    ContactMetricValue = Shapes::UnionShape.new(name: 'ContactMetricValue')
+    ContactMetrics = Shapes::ListShape.new(name: 'ContactMetrics')
     ContactNotFoundException = Shapes::StructureShape.new(name: 'ContactNotFoundException')
     ContactRecordingType = Shapes::StringShape.new(name: 'ContactRecordingType')
     ContactReferences = Shapes::MapShape.new(name: 'ContactReferences')
@@ -608,6 +614,8 @@ module Aws::Connect
     GetAttachedFileResponse = Shapes::StructureShape.new(name: 'GetAttachedFileResponse')
     GetContactAttributesRequest = Shapes::StructureShape.new(name: 'GetContactAttributesRequest')
     GetContactAttributesResponse = Shapes::StructureShape.new(name: 'GetContactAttributesResponse')
+    GetContactMetricsRequest = Shapes::StructureShape.new(name: 'GetContactMetricsRequest')
+    GetContactMetricsResponse = Shapes::StructureShape.new(name: 'GetContactMetricsResponse')
     GetCurrentMetricDataRequest = Shapes::StructureShape.new(name: 'GetCurrentMetricDataRequest')
     GetCurrentMetricDataResponse = Shapes::StructureShape.new(name: 'GetCurrentMetricDataResponse')
     GetCurrentUserDataRequest = Shapes::StructureShape.new(name: 'GetCurrentUserDataRequest')
@@ -2029,6 +2037,7 @@ module Aws::Connect
     ClaimedPhoneNumberSummary.struct_class = Types::ClaimedPhoneNumberSummary
 
     CommonAttributeAndCondition.add_member(:tag_conditions, Shapes::ShapeRef.new(shape: TagAndConditionList, location_name: "TagConditions"))
+    CommonAttributeAndCondition.add_member(:hierarchy_group_condition, Shapes::ShapeRef.new(shape: HierarchyGroupCondition, location_name: "HierarchyGroupCondition"))
     CommonAttributeAndCondition.struct_class = Types::CommonAttributeAndCondition
 
     CommonAttributeOrConditionList.member = Shapes::ShapeRef.new(shape: CommonAttributeAndCondition)
@@ -2222,6 +2231,23 @@ module Aws::Connect
     ContactFlowVersionSummary.struct_class = Types::ContactFlowVersionSummary
 
     ContactFlowVersionSummaryList.member = Shapes::ShapeRef.new(shape: ContactFlowVersionSummary)
+
+    ContactMetricInfo.add_member(:name, Shapes::ShapeRef.new(shape: ContactMetricName, required: true, location_name: "Name"))
+    ContactMetricInfo.struct_class = Types::ContactMetricInfo
+
+    ContactMetricResult.add_member(:name, Shapes::ShapeRef.new(shape: ContactMetricName, required: true, location_name: "Name"))
+    ContactMetricResult.add_member(:value, Shapes::ShapeRef.new(shape: ContactMetricValue, required: true, location_name: "Value"))
+    ContactMetricResult.struct_class = Types::ContactMetricResult
+
+    ContactMetricResults.member = Shapes::ShapeRef.new(shape: ContactMetricResult)
+
+    ContactMetricValue.add_member(:number, Shapes::ShapeRef.new(shape: Double, location_name: "Number"))
+    ContactMetricValue.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    ContactMetricValue.add_member_subclass(:number, Types::ContactMetricValue::Number)
+    ContactMetricValue.add_member_subclass(:unknown, Types::ContactMetricValue::Unknown)
+    ContactMetricValue.struct_class = Types::ContactMetricValue
+
+    ContactMetrics.member = Shapes::ShapeRef.new(shape: ContactMetricInfo)
 
     ContactNotFoundException.add_member(:message, Shapes::ShapeRef.new(shape: Message, location_name: "Message"))
     ContactNotFoundException.struct_class = Types::ContactNotFoundException
@@ -3540,6 +3566,16 @@ module Aws::Connect
 
     GetContactAttributesResponse.add_member(:attributes, Shapes::ShapeRef.new(shape: Attributes, location_name: "Attributes"))
     GetContactAttributesResponse.struct_class = Types::GetContactAttributesResponse
+
+    GetContactMetricsRequest.add_member(:instance_id, Shapes::ShapeRef.new(shape: InstanceIdOrArn, required: true, location_name: "InstanceId"))
+    GetContactMetricsRequest.add_member(:contact_id, Shapes::ShapeRef.new(shape: InstanceIdOrArn, required: true, location_name: "ContactId"))
+    GetContactMetricsRequest.add_member(:metrics, Shapes::ShapeRef.new(shape: ContactMetrics, required: true, location_name: "Metrics"))
+    GetContactMetricsRequest.struct_class = Types::GetContactMetricsRequest
+
+    GetContactMetricsResponse.add_member(:metric_results, Shapes::ShapeRef.new(shape: ContactMetricResults, location_name: "MetricResults"))
+    GetContactMetricsResponse.add_member(:id, Shapes::ShapeRef.new(shape: ContactId, location_name: "Id"))
+    GetContactMetricsResponse.add_member(:arn, Shapes::ShapeRef.new(shape: ARN, location_name: "Arn"))
+    GetContactMetricsResponse.struct_class = Types::GetContactMetricsResponse
 
     GetCurrentMetricDataRequest.add_member(:instance_id, Shapes::ShapeRef.new(shape: InstanceId, required: true, location: "uri", location_name: "InstanceId"))
     GetCurrentMetricDataRequest.add_member(:filters, Shapes::ShapeRef.new(shape: Filters, required: true, location_name: "Filters"))
@@ -6507,6 +6543,7 @@ module Aws::Connect
     UserHierarchyGroupSearchCriteria.add_member(:or_conditions, Shapes::ShapeRef.new(shape: UserHierarchyGroupSearchConditionList, location_name: "OrConditions"))
     UserHierarchyGroupSearchCriteria.add_member(:and_conditions, Shapes::ShapeRef.new(shape: UserHierarchyGroupSearchConditionList, location_name: "AndConditions"))
     UserHierarchyGroupSearchCriteria.add_member(:string_condition, Shapes::ShapeRef.new(shape: StringCondition, location_name: "StringCondition"))
+    UserHierarchyGroupSearchCriteria.add_member(:hierarchy_group_condition, Shapes::ShapeRef.new(shape: HierarchyGroupCondition, location_name: "HierarchyGroupCondition"))
     UserHierarchyGroupSearchCriteria.struct_class = Types::UserHierarchyGroupSearchCriteria
 
     UserHierarchyGroupSearchFilter.add_member(:attribute_filter, Shapes::ShapeRef.new(shape: ControlPlaneAttributeFilter, location_name: "AttributeFilter"))
@@ -8366,6 +8403,20 @@ module Aws::Connect
         o.output = Shapes::ShapeRef.new(shape: GetContactAttributesResponse)
         o.errors << Shapes::ShapeRef.new(shape: InvalidRequestException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServiceException)
+      end)
+
+      api.add_operation(:get_contact_metrics, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetContactMetrics"
+        o.http_method = "POST"
+        o.http_request_uri = "/metrics/contact"
+        o.input = Shapes::ShapeRef.new(shape: GetContactMetricsRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetContactMetricsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidRequestException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServiceException)
       end)
 

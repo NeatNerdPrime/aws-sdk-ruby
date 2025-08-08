@@ -476,6 +476,45 @@ module Aws::IoTDataPlane
 
     # @!group API Operations
 
+    # Disconnects a connected MQTT client from Amazon Web Services IoT Core.
+    # When you disconnect a client, Amazon Web Services IoT Core closes the
+    # client's network connection and optionally cleans the session state.
+    #
+    # @option params [required, String] :client_id
+    #   The unique identifier of the MQTT client to disconnect. The client ID
+    #   can't start with a dollar sign ($).
+    #
+    # @option params [Boolean] :clean_session
+    #   Specifies whether to remove the client's session state when
+    #   disconnecting. Set to `TRUE` to delete all session information,
+    #   including subscriptions and queued messages. Set to `FALSE` to
+    #   preserve the session state. By default, this is set to `FALSE`
+    #   (preserves the session state).
+    #
+    # @option params [Boolean] :prevent_will_message
+    #   Controls if Amazon Web Services IoT Core publishes the client's Last
+    #   Will and Testament (LWT) message upon disconnection. Set to `TRUE` to
+    #   prevent publishing the LWT message. Set to `FALSE` to allow
+    #   publishing. By default, this is set to `FALSE` (allows publishing the
+    #   LWT message).
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_connection({
+    #     client_id: "ClientId", # required
+    #     clean_session: false,
+    #     prevent_will_message: false,
+    #   })
+    #
+    # @overload delete_connection(params = {})
+    # @param [Hash] params ({})
+    def delete_connection(params = {}, options = {})
+      req = build_request(:delete_connection, params)
+      req.send_request(options)
+    end
+
     # Deletes the shadow for the specified thing.
     #
     # Requires permission to access the [DeleteThingShadow][1] action.
@@ -530,7 +569,7 @@ module Aws::IoTDataPlane
     #
     #
     # [1]: https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_ListRetainedMessages.html
-    # [2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions
+    # [2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html
     # [3]: http://aws.amazon.com/iot-core/pricing/#Messaging
     #
     # @option params [required, String] :topic
@@ -669,7 +708,7 @@ module Aws::IoTDataPlane
     #
     #
     # [1]: https://docs.aws.amazon.com/iot/latest/apireference/API_iotdata_GetRetainedMessage.html
-    # [2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiotfleethubfordevicemanagement.html#awsiotfleethubfordevicemanagement-actions-as-permissions
+    # [2]: https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html
     # [3]: http://aws.amazon.com/iot-core/pricing/#Messaging
     #
     # @option params [String] :next_token
@@ -883,7 +922,7 @@ module Aws::IoTDataPlane
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-iotdataplane'
-      context[:gem_version] = '1.79.0'
+      context[:gem_version] = '1.80.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

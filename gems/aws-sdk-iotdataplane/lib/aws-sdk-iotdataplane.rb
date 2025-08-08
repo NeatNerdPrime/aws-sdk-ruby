@@ -23,7 +23,7 @@ Aws::Plugins::GlobalConfiguration.add_identifier(:iotdataplane)
 # structure.
 #
 #     io_t_data_plane = Aws::IoTDataPlane::Client.new
-#     resp = io_t_data_plane.delete_thing_shadow(params)
+#     resp = io_t_data_plane.delete_connection(params)
 #
 # See {Client} for more information.
 #
@@ -54,7 +54,7 @@ module Aws::IoTDataPlane
   autoload :EndpointProvider, 'aws-sdk-iotdataplane/endpoint_provider'
   autoload :Endpoints, 'aws-sdk-iotdataplane/endpoints'
 
-  GEM_VERSION = '1.79.0'
+  GEM_VERSION = '1.80.0'
 
 end
 

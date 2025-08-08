@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.80.0 (2025-08-08)
+------------------
+
+* Feature - Adding DeleteConnection API to IoT Data Plane
+
 1.79.0 (2025-08-04)
 ------------------
 
