@@ -897,7 +897,7 @@ module Aws::EC2
     #     snapshots. To create an AMI with volumes or snapshots that have a
     #     different encryption status (for example, where the source volume
     #     and snapshots are unencrypted, and you want to create an AMI with
-    #     encrypted volumes or snapshots), copy the image instead.
+    #     encrypted volumes or snapshots), use the CopyImage action.
     #
     #   * The only option that can be changed for existing mappings or
     #     snapshots is `DeleteOnTermination`.
@@ -1727,6 +1727,9 @@ module Aws::EC2
     #
     #   * `availability-zone` - The Availability Zone in which the volume was
     #     created.
+    #
+    #   * `availability-zone-id` - The ID of the Availability Zone in which
+    #     the volume was created.
     #
     #   * `create-time` - The time stamp when the volume was created.
     #

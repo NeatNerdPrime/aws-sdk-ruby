@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.547.0 (2025-08-11)
+------------------
+
+* Feature - This release adds AvailabilityZoneId support for CreateVolume, DescribeVolume, LaunchTemplates, RunInstances, DescribeInstances, CreateDefaultSubnet, SpotInstances, and CreateDefaultSubnet APIs.
+
 1.546.0 (2025-08-06)
 ------------------
 
