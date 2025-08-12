@@ -3001,6 +3001,7 @@ module Aws::SageMaker
       attr_accessor user_profile_name: ::String
       attr_accessor space_name: ::String
       attr_accessor status: ("Deleted" | "Deleting" | "Failed" | "InService" | "Pending")
+      attr_accessor effective_trusted_identity_propagation_status: ("ENABLED" | "DISABLED")
       attr_accessor recovery_mode: bool
       attr_accessor last_health_check_timestamp: ::Time
       attr_accessor last_user_activity_timestamp: ::Time
@@ -4575,6 +4576,7 @@ module Aws::SageMaker
       attr_accessor security_group_ids: ::Array[::String]
       attr_accessor r_studio_server_pro_domain_settings: Types::RStudioServerProDomainSettings
       attr_accessor execution_role_identity_config: ("USER_PROFILE_NAME" | "DISABLED")
+      attr_accessor trusted_identity_propagation_settings: Types::TrustedIdentityPropagationSettings
       attr_accessor docker_settings: Types::DockerSettings
       attr_accessor amazon_q_settings: Types::AmazonQSettings
       attr_accessor unified_studio_settings: Types::UnifiedStudioSettings
@@ -4585,6 +4587,7 @@ module Aws::SageMaker
       attr_accessor r_studio_server_pro_domain_settings_for_update: Types::RStudioServerProDomainSettingsForUpdate
       attr_accessor execution_role_identity_config: ("USER_PROFILE_NAME" | "DISABLED")
       attr_accessor security_group_ids: ::Array[::String]
+      attr_accessor trusted_identity_propagation_settings: Types::TrustedIdentityPropagationSettings
       attr_accessor docker_settings: Types::DockerSettings
       attr_accessor amazon_q_settings: Types::AmazonQSettings
       attr_accessor unified_studio_settings: Types::UnifiedStudioSettings
@@ -10392,6 +10395,11 @@ module Aws::SageMaker
       attr_accessor trial_source: Types::TrialSource
       attr_accessor creation_time: ::Time
       attr_accessor last_modified_time: ::Time
+      SENSITIVE: []
+    end
+
+    class TrustedIdentityPropagationSettings
+      attr_accessor status: ("ENABLED" | "DISABLED")
       SENSITIVE: []
     end
 

@@ -4101,6 +4101,7 @@ module Aws::EC2
     AssociateRouteServerResult.struct_class = Types::AssociateRouteServerResult
 
     AssociateRouteTableRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: RouteGatewayId, location_name: "GatewayId"))
+    AssociateRouteTableRequest.add_member(:public_ipv_4_pool, Shapes::ShapeRef.new(shape: Ipv4PoolEc2Id, location_name: "PublicIpv4Pool"))
     AssociateRouteTableRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "dryRun"))
     AssociateRouteTableRequest.add_member(:subnet_id, Shapes::ShapeRef.new(shape: SubnetId, location_name: "subnetId"))
     AssociateRouteTableRequest.add_member(:route_table_id, Shapes::ShapeRef.new(shape: RouteTableId, required: true, location_name: "routeTableId"))
@@ -15358,6 +15359,7 @@ module Aws::EC2
     RouteTableAssociation.add_member(:route_table_id, Shapes::ShapeRef.new(shape: String, location_name: "routeTableId"))
     RouteTableAssociation.add_member(:subnet_id, Shapes::ShapeRef.new(shape: String, location_name: "subnetId"))
     RouteTableAssociation.add_member(:gateway_id, Shapes::ShapeRef.new(shape: String, location_name: "gatewayId"))
+    RouteTableAssociation.add_member(:public_ipv_4_pool, Shapes::ShapeRef.new(shape: String, location_name: "publicIpv4Pool"))
     RouteTableAssociation.add_member(:association_state, Shapes::ShapeRef.new(shape: RouteTableAssociationState, location_name: "associationState"))
     RouteTableAssociation.struct_class = Types::RouteTableAssociation
 

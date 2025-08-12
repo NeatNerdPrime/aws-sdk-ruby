@@ -632,6 +632,7 @@ module Aws::EC2
 
     class AssociateRouteTableRequest
       attr_accessor gateway_id: ::String
+      attr_accessor public_ipv_4_pool: ::String
       attr_accessor dry_run: bool
       attr_accessor subnet_id: ::String
       attr_accessor route_table_id: ::String
@@ -14627,6 +14628,7 @@ module Aws::EC2
       attr_accessor route_table_id: ::String
       attr_accessor subnet_id: ::String
       attr_accessor gateway_id: ::String
+      attr_accessor public_ipv_4_pool: ::String
       attr_accessor association_state: Types::RouteTableAssociationState
       SENSITIVE: []
     end

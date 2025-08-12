@@ -921,8 +921,6 @@ module Aws::EC2
     # starts routing to Amazon Web Services because of BGP propagation
     # delays.
     #
-    # To stop advertising the BYOIP CIDR, use WithdrawByoipCidr.
-    #
     # @option params [required, String] :cidr
     #   The address range, in CIDR notation. This must be the exact range that
     #   you provisioned. You can't advertise only a portion of the
@@ -2500,6 +2498,10 @@ module Aws::EC2
     # @option params [String] :gateway_id
     #   The ID of the internet gateway or virtual private gateway.
     #
+    # @option params [String] :public_ipv_4_pool
+    #   The ID of a public IPv4 pool. A public IPv4 pool is a pool of IPv4
+    #   addresses that you've brought to Amazon Web Services with BYOIP.
+    #
     # @option params [Boolean] :dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -2536,6 +2538,7 @@ module Aws::EC2
     #
     #   resp = client.associate_route_table({
     #     gateway_id: "RouteGatewayId",
+    #     public_ipv_4_pool: "Ipv4PoolEc2Id",
     #     dry_run: false,
     #     subnet_id: "SubnetId",
     #     route_table_id: "RouteTableId", # required
@@ -7891,7 +7894,7 @@ module Aws::EC2
     #     snapshots. To create an AMI with volumes or snapshots that have a
     #     different encryption status (for example, where the source volume
     #     and snapshots are unencrypted, and you want to create an AMI with
-    #     encrypted volumes or snapshots), use the CopyImage action.
+    #     encrypted volumes or snapshots), copy the image instead.
     #
     #   * The only option that can be changed for existing mappings or
     #     snapshots is `DeleteOnTermination`.
@@ -13132,6 +13135,7 @@ module Aws::EC2
     #   resp.route_table.associations[0].route_table_id #=> String
     #   resp.route_table.associations[0].subnet_id #=> String
     #   resp.route_table.associations[0].gateway_id #=> String
+    #   resp.route_table.associations[0].public_ipv_4_pool #=> String
     #   resp.route_table.associations[0].association_state.state #=> String, one of "associating", "associated", "disassociating", "disassociated", "failed"
     #   resp.route_table.associations[0].association_state.status_message #=> String
     #   resp.route_table.propagating_vgws #=> Array
@@ -21622,8 +21626,8 @@ module Aws::EC2
     # (BYOIP) and deletes the corresponding address pool.
     #
     # Before you can release an address range, you must stop advertising it
-    # using WithdrawByoipCidr and you must not have any IP addresses
-    # allocated from its address range.
+    # and you must not have any IP addresses allocated from its address
+    # range.
     #
     # @option params [required, String] :cidr
     #   The address range, in CIDR notation. The prefix must be the same
@@ -22839,11 +22843,9 @@ module Aws::EC2
       req.send_request(options)
     end
 
-    # Describes the IP address ranges that were specified in calls to
-    # ProvisionByoipCidr.
-    #
-    # To describe the address pools that were created when you provisioned
-    # the address ranges, use DescribePublicIpv4Pools or DescribeIpv6Pools.
+    # Describes the IP address ranges that were provisioned for use with
+    # Amazon Web Services resources through through bring your own IP
+    # addresses (BYOIP).
     #
     # @option params [Boolean] :dry_run
     #   Checks whether you have the required permissions for the action,
@@ -26590,8 +26592,8 @@ module Aws::EC2
     #
     #   **Note**: The `blockDeviceMapping` attribute is deprecated. Using this
     #   attribute returns the `Client.AuthFailure` error. To get information
-    #   about the block device mappings for an AMI, use the DescribeImages
-    #   action.
+    #   about the block device mappings for an AMI, describe the image
+    #   instead.
     #
     # @option params [required, String] :image_id
     #   The ID of the AMI.
@@ -26712,13 +26714,13 @@ module Aws::EC2
     # for each image. In `audit-mode`, the `imageAllowed` field is set to
     # `true` for images that meet the account's Allowed AMIs criteria, and
     # `false` for images that don't meet the criteria. For more
-    # information, see EnableAllowedImagesSettings.
+    # information, see [Allowed AMIs][1].
     #
     # The Amazon EC2 API follows an eventual consistency model. This means
     # that the result of an API command you run that creates or modifies
     # resources might not be immediately available to all subsequent
     # commands you run. For guidance on how to manage eventual consistency,
-    # see [Eventual consistency in the Amazon EC2 API][1] in the *Amazon EC2
+    # see [Eventual consistency in the Amazon EC2 API][2] in the *Amazon EC2
     # Developer Guide*.
     #
     # We strongly recommend using only paginated requests. Unpaginated
@@ -26732,7 +26734,8 @@ module Aws::EC2
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/ec2/latest/devguide/eventual-consistency.html
+    # [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-allowed-amis.html
+    # [2]: https://docs.aws.amazon.com/ec2/latest/devguide/eventual-consistency.html
     #
     # @option params [Array<String>] :executable_users
     #   Scopes the images by users with explicit launch permissions. Specify
@@ -31653,9 +31656,6 @@ module Aws::EC2
     # Describes your managed prefix lists and any Amazon Web
     # Services-managed prefix lists.
     #
-    # To view the entries for your prefix list, use
-    # GetManagedPrefixListEntries.
-    #
     # @option params [Boolean] :dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -34136,8 +34136,6 @@ module Aws::EC2
     # format, which includes the prefix list name and prefix list ID of the
     # service and the IP address range for the service.
     #
-    # We recommend that you use DescribeManagedPrefixLists instead.
-    #
     # @option params [Boolean] :dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -35603,6 +35601,7 @@ module Aws::EC2
     #   resp.route_tables[0].associations[0].route_table_id #=> String
     #   resp.route_tables[0].associations[0].subnet_id #=> String
     #   resp.route_tables[0].associations[0].gateway_id #=> String
+    #   resp.route_tables[0].associations[0].public_ipv_4_pool #=> String
     #   resp.route_tables[0].associations[0].association_state.state #=> String, one of "associating", "associated", "disassociating", "disassociated", "failed"
     #   resp.route_tables[0].associations[0].association_state.status_message #=> String
     #   resp.route_tables[0].propagating_vgws #=> Array
@@ -45425,7 +45424,7 @@ module Aws::EC2
     # protection is enabled, the AMI can't be deregistered.
     #
     # To allow the AMI to be deregistered, you must first disable
-    # deregistration protection using DisableImageDeregistrationProtection.
+    # deregistration protection.
     #
     # For more information, see [Protect an Amazon EC2 AMI from
     # deregistration][1] in the *Amazon EC2 User Guide*.
@@ -58403,10 +58402,9 @@ module Aws::EC2
     # EC2-VPC platform. The Elastic IP address must be allocated to your
     # account for more than 24 hours, and it must not be associated with an
     # instance. After the Elastic IP address is moved, it is no longer
-    # available for use in the EC2-Classic platform, unless you move it back
-    # using the RestoreAddressToClassic request. You cannot move an Elastic
-    # IP address that was originally allocated for use in the EC2-VPC
-    # platform to the EC2-Classic platform.
+    # available for use in the EC2-Classic platform. You cannot move an
+    # Elastic IP address that was originally allocated for use in the
+    # EC2-VPC platform to the EC2-Classic platform.
     #
     # @option params [Boolean] :dry_run
     #   Checks whether you have the required permissions for the action,
@@ -58664,7 +58662,7 @@ module Aws::EC2
     # Provisions an IPv4 or IPv6 address range for use with your Amazon Web
     # Services resources through bring your own IP addresses (BYOIP) and
     # creates a corresponding address pool. After the address range is
-    # provisioned, it is ready to be advertised using AdvertiseByoipCidr.
+    # provisioned, it is ready to be advertised.
     #
     # Amazon Web Services verifies that you own the address range and are
     # authorized to advertise it. You must ensure that the address range is
@@ -58675,15 +58673,13 @@ module Aws::EC2
     #
     # Provisioning an address range is an asynchronous operation, so the
     # call returns immediately, but the address range is not ready to use
-    # until its status changes from `pending-provision` to `provisioned`. To
-    # monitor the status of an address range, use DescribeByoipCidrs. To
-    # allocate an Elastic IP address from your IPv4 address pool, use
-    # AllocateAddress with either the specific address from the address pool
-    # or the ID of the address pool.
+    # until its status changes from `pending-provision` to `provisioned`.
+    # For more information, see [Onboard your address range][2].
     #
     #
     #
     # [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html
+    # [2]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/byoip-onboard.html
     #
     # @option params [required, String] :cidr
     #   The public IPv4 or IPv6 address range, in CIDR notation. The most
@@ -59489,13 +59485,6 @@ module Aws::EC2
     # snapshot][1] and [Create an instance-store backed AMI][2] in the
     # *Amazon EC2 User Guide*.
     #
-    # <note markdown="1"> For Amazon EBS-backed instances, CreateImage creates and registers the
-    # AMI in a single request, so you don't have to register the AMI
-    # yourself. We recommend that you always use CreateImage unless you have
-    # a specific reason to use RegisterImage.
-    #
-    #  </note>
-    #
     # If needed, you can deregister an AMI at any time. Any modifications
     # you make to an AMI backed by an instance store volume invalidates its
     # registration. If you make changes to an image, deregister the previous
@@ -59529,17 +59518,17 @@ module Aws::EC2
     # field is empty or doesn't match the expected operating system code
     # (for example, Windows, RedHat, SUSE, or SQL), the AMI creation was
     # unsuccessful, and you should discard the AMI and instead create the
-    # AMI from an instance using CreateImage. For more information, see
-    # [Create an AMI from an instance ][5] in the *Amazon EC2 User Guide*.
+    # AMI from an instance. For more information, see [Create an AMI from an
+    # instance ][5] in the *Amazon EC2 User Guide*.
     #
     # If you purchase a Reserved Instance to apply to an On-Demand Instance
     # that was launched from an AMI with a billing product code, make sure
     # that the Reserved Instance has the matching billing product code. If
     # you purchase a Reserved Instance without the matching billing product
-    # code, the Reserved Instance will not be applied to the On-Demand
-    # Instance. For information about how to obtain the platform details and
-    # billing information of an AMI, see [Understand AMI billing
-    # information][4] in the *Amazon EC2 User Guide*.
+    # code, the Reserved Instance is not applied to the On-Demand Instance.
+    # For information about how to obtain the platform details and billing
+    # information of an AMI, see [Understand AMI billing information][4] in
+    # the *Amazon EC2 User Guide*.
     #
     #
     #
@@ -60234,13 +60223,13 @@ module Aws::EC2
     # Releases the specified Elastic IP address.
     #
     # \[Default VPC\] Releasing an Elastic IP address automatically
-    # disassociates it from any instance that it's associated with. To
-    # disassociate an Elastic IP address without releasing it, use
-    # DisassociateAddress.
+    # disassociates it from any instance that it's associated with.
+    # Alternatively, you can disassociate an Elastic IP address without
+    # releasing it.
     #
-    # \[Nondefault VPC\] You must use DisassociateAddress to disassociate
-    # the Elastic IP address before you can release it. Otherwise, Amazon
-    # EC2 returns an error (`InvalidIPAddress.InUse`).
+    # \[Nondefault VPC\] You must disassociate the Elastic IP address before
+    # you can release it. Otherwise, Amazon EC2 returns an error
+    # (`InvalidIPAddress.InUse`).
     #
     # After releasing an Elastic IP address, it is released to the IP
     # address pool. Be sure to update your DNS records and any servers or
@@ -60250,7 +60239,11 @@ module Aws::EC2
     # Amazon Web Services account.
     #
     # After you release an Elastic IP address, you might be able to recover
-    # it. For more information, see AllocateAddress.
+    # it. For more information, see [Release an Elastic IP address][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing-eips-releasing.html
     #
     # @option params [String] :allocation_id
     #   The allocation ID. This parameter is required.
@@ -64329,10 +64322,10 @@ module Aws::EC2
     # Services Organization).
     #
     # The report is saved to your specified S3 bucket, using the following
-    # path structure (with the *italicized placeholders* representing your
+    # path structure (with the capitalized placeholders representing your
     # specific values):
     #
-    # `s3://amzn-s3-demo-bucket/your-optional-s3-prefix/ec2_targetId_reportId_yyyyMMddThhmmZ.csv`
+    # `s3://AMZN-S3-DEMO-BUCKET/YOUR-OPTIONAL-S3-PREFIX/ec2_TARGETID_REPORTID_YYYYMMDDTHHMMZ.csv`
     #
     # **Prerequisites for generating a report**
     #
@@ -66518,7 +66511,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.547.0'
+      context[:gem_version] = '1.548.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

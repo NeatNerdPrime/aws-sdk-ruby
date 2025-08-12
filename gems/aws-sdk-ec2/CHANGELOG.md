@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.548.0 (2025-08-12)
+------------------
+
+* Feature - Release to allow route table association with a PublicIpv4Pool.
+
 1.547.0 (2025-08-11)
 ------------------
 

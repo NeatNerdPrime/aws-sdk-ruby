@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.321.0 (2025-08-12)
+------------------
+
+* Feature - IAM Identity Center trusted identity propagation is now supported in SageMaker Studio.
+
 1.320.0 (2025-08-08)
 ------------------
 

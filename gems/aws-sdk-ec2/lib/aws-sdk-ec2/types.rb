@@ -2510,6 +2510,11 @@ module Aws::EC2
     #   The ID of the internet gateway or virtual private gateway.
     #   @return [String]
     #
+    # @!attribute [rw] public_ipv_4_pool
+    #   The ID of a public IPv4 pool. A public IPv4 pool is a pool of IPv4
+    #   addresses that you've brought to Amazon Web Services with BYOIP.
+    #   @return [String]
+    #
     # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -2529,6 +2534,7 @@ module Aws::EC2
     #
     class AssociateRouteTableRequest < Struct.new(
       :gateway_id,
+      :public_ipv_4_pool,
       :dry_run,
       :subnet_id,
       :route_table_id)
@@ -9721,7 +9727,7 @@ module Aws::EC2
     #     snapshots. To create an AMI with volumes or snapshots that have a
     #     different encryption status (for example, where the source volume
     #     and snapshots are unencrypted, and you want to create an AMI with
-    #     encrypted volumes or snapshots), use the CopyImage action.
+    #     encrypted volumes or snapshots), copy the image instead.
     #
     #   * The only option that can be changed for existing mappings or
     #     snapshots is `DeleteOnTermination`.
@@ -22428,8 +22434,8 @@ module Aws::EC2
     #
     #   **Note**: The `blockDeviceMapping` attribute is deprecated. Using
     #   this attribute returns the `Client.AuthFailure` error. To get
-    #   information about the block device mappings for an AMI, use the
-    #   DescribeImages action.
+    #   information about the block device mappings for an AMI, describe the
+    #   image instead.
     #   @return [String]
     #
     # @!attribute [rw] image_id
@@ -43027,32 +43033,10 @@ module Aws::EC2
     #
     # @!attribute [rw] source_image_id
     #   The ID of the source AMI from which the AMI was created.
-    #
-    #   The ID only appears if the AMI was created using CreateImage,
-    #   CopyImage, or CreateRestoreImageTask. The ID does not appear if the
-    #   AMI was created using any other API. For some older AMIs, the ID
-    #   might not be available. For more information, see [Identify the
-    #   source AMI used to create a new Amazon EC2 AMI][1] in the *Amazon
-    #   EC2 User Guide*.
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify-source-ami-used-to-create-new-ami.html
     #   @return [String]
     #
     # @!attribute [rw] source_image_region
     #   The Region of the source AMI.
-    #
-    #   The Region only appears if the AMI was created using CreateImage,
-    #   CopyImage, or CreateRestoreImageTask. The Region does not appear if
-    #   the AMI was created using any other API. For some older AMIs, the
-    #   Region might not be available. For more information, see [Identify
-    #   the source AMI used to create a new Amazon EC2 AMI][1] in the
-    #   *Amazon EC2 User Guide*.
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify-source-ami-used-to-create-new-ami.html
     #   @return [String]
     #
     # @!attribute [rw] free_tier_eligible
@@ -67488,6 +67472,11 @@ module Aws::EC2
     #   The ID of the internet gateway or virtual private gateway.
     #   @return [String]
     #
+    # @!attribute [rw] public_ipv_4_pool
+    #   The ID of a public IPv4 pool. A public IPv4 pool is a pool of IPv4
+    #   addresses that you've brought to Amazon Web Services with BYOIP.
+    #   @return [String]
+    #
     # @!attribute [rw] association_state
     #   The state of the association.
     #   @return [Types::RouteTableAssociationState]
@@ -67500,6 +67489,7 @@ module Aws::EC2
       :route_table_id,
       :subnet_id,
       :gateway_id,
+      :public_ipv_4_pool,
       :association_state)
       SENSITIVE = []
       include Aws::Structure

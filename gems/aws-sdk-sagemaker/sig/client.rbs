@@ -1398,6 +1398,9 @@ module Aws
                                }?
                              }?,
                              execution_role_identity_config: ("USER_PROFILE_NAME" | "DISABLED")?,
+                             trusted_identity_propagation_settings: {
+                               status: ("ENABLED" | "DISABLED")
+                             }?,
                              docker_settings: {
                                enable_docker_access: ("ENABLED" | "DISABLED")?,
                                vpc_only_trusted_accounts: Array[::String]?
@@ -5275,6 +5278,7 @@ module Aws
         def user_profile_name: () -> ::String
         def space_name: () -> ::String
         def status: () -> ("Deleted" | "Deleting" | "Failed" | "InService" | "Pending")
+        def effective_trusted_identity_propagation_status: () -> ("ENABLED" | "DISABLED")
         def recovery_mode: () -> bool
         def last_health_check_timestamp: () -> ::Time
         def last_user_activity_timestamp: () -> ::Time
@@ -9359,6 +9363,9 @@ module Aws
                              }?,
                              execution_role_identity_config: ("USER_PROFILE_NAME" | "DISABLED")?,
                              security_group_ids: Array[::String]?,
+                             trusted_identity_propagation_settings: {
+                               status: ("ENABLED" | "DISABLED")
+                             }?,
                              docker_settings: {
                                enable_docker_access: ("ENABLED" | "DISABLED")?,
                                vpc_only_trusted_accounts: Array[::String]?

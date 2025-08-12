@@ -511,6 +511,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#associate_route_table-instance_method
       def associate_route_table: (
                                    ?gateway_id: ::String,
+                                   ?public_ipv_4_pool: ::String,
                                    ?dry_run: bool,
                                    ?subnet_id: ::String,
                                    route_table_id: ::String
