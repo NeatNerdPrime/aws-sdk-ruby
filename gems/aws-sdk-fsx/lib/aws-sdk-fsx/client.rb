@@ -969,11 +969,14 @@ module Aws::FSx
     #   resp.backup.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.backup.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backup.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backup.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backup.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backup.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backup.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backup.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backup.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backup.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backup.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backup.directory_information.domain_name #=> String
     #   resp.backup.directory_information.active_directory_id #=> String
     #   resp.backup.directory_information.resource_arn #=> String
@@ -1132,11 +1135,14 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backup.volume.administrative_actions[0].failure_details.message #=> String
     #   resp.backup.volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.backup.volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -1383,11 +1389,14 @@ module Aws::FSx
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.administrative_actions[0].failure_details.message #=> String
     #   resp.administrative_actions[0].target_volume_values.creation_time #=> Time
     #   resp.administrative_actions[0].target_volume_values.file_system_id #=> String
@@ -1483,9 +1492,8 @@ module Aws::FSx
     # Creates an S3 access point and attaches it to an Amazon FSx volume.
     # For FSx for OpenZFS file systems, the volume must be hosted on a
     # high-availability file system, either Single-AZ or Multi-AZ. For more
-    # information, see [Accessing your data using access
-    # points](fsx/latest/OpenZFSGuide/s3accesspoints-for-FSx.html) in the
-    # Amazon FSx for OpenZFS User Guide.
+    # information, see [Accessing your data using Amazon S3 access
+    # points][1]. in the Amazon FSx for OpenZFS User Guide.
     #
     # The requester requires the following permissions to perform these
     # actions:
@@ -1505,6 +1513,10 @@ module Aws::FSx
     # * DescribeS3AccessPointAttachments
     #
     # * DetachAndDeleteS3AccessPoint
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/s3accesspoints-for-FSx.html
     #
     # @option params [String] :client_request_token
     #   (Optional) An idempotency token for resource creation, in a string of
@@ -1940,11 +1952,14 @@ module Aws::FSx
     #   resp.backup.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.backup.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backup.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backup.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backup.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backup.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backup.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backup.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backup.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backup.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backup.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backup.directory_information.domain_name #=> String
     #   resp.backup.directory_information.active_directory_id #=> String
     #   resp.backup.directory_information.resource_arn #=> String
@@ -2103,11 +2118,14 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backup.volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backup.volume.administrative_actions[0].failure_details.message #=> String
     #   resp.backup.volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.backup.volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -2917,6 +2935,12 @@ module Aws::FSx
     # @option params [Types::CreateFileSystemOpenZFSConfiguration] :open_zfs_configuration
     #   The OpenZFS configuration for the file system that's being created.
     #
+    # @option params [String] :network_type
+    #   The network type of the Amazon FSx file system that you are creating.
+    #   Valid values are `IPV4` (which supports IPv4 only) and `DUAL` (for
+    #   dual-stack mode, which supports both IPv4 and IPv6). The default is
+    #   `IPV4`. Supported only for Amazon FSx for OpenZFS file systems.
+    #
     # @return [Types::CreateFileSystemResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateFileSystemResponse#file_system #file_system} => Types::FileSystem
@@ -3125,12 +3149,14 @@ module Aws::FSx
     #       },
     #       preferred_subnet_id: "SubnetId",
     #       endpoint_ip_address_range: "IpAddressRange",
+    #       endpoint_ipv_6_address_range: "Ipv6AddressRange",
     #       route_table_ids: ["RouteTableId"],
     #       read_cache_configuration: {
     #         sizing_mode: "NO_CACHE", # accepts NO_CACHE, USER_PROVISIONED, PROPORTIONAL_TO_THROUGHPUT_CAPACITY
     #         size_gi_b: 1,
     #       },
     #     },
+    #     network_type: "IPV4", # accepts IPV4, DUAL
     #   })
     #
     # @example Response structure
@@ -3327,11 +3353,14 @@ module Aws::FSx
     #   resp.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/CreateFileSystem AWS API Documentation
     #
@@ -3517,6 +3546,10 @@ module Aws::FSx
     #   provide any other value, Amazon FSx responds with an HTTP status code
     #   400 Bad Request.
     #
+    # @option params [String] :network_type
+    #   Sets the network type for the Amazon FSx for OpenZFS file system that
+    #   you're creating from a backup.
+    #
     # @return [Types::CreateFileSystemFromBackupResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateFileSystemFromBackupResponse#file_system #file_system} => Types::FileSystem
@@ -3690,6 +3723,7 @@ module Aws::FSx
     #       },
     #       preferred_subnet_id: "SubnetId",
     #       endpoint_ip_address_range: "IpAddressRange",
+    #       endpoint_ipv_6_address_range: "Ipv6AddressRange",
     #       route_table_ids: ["RouteTableId"],
     #       read_cache_configuration: {
     #         sizing_mode: "NO_CACHE", # accepts NO_CACHE, USER_PROVISIONED, PROPORTIONAL_TO_THROUGHPUT_CAPACITY
@@ -3697,6 +3731,7 @@ module Aws::FSx
     #       },
     #     },
     #     storage_capacity: 1,
+    #     network_type: "IPV4", # accepts IPV4, DUAL
     #   })
     #
     # @example Response structure
@@ -3893,11 +3928,14 @@ module Aws::FSx
     #   resp.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/CreateFileSystemFromBackup AWS API Documentation
     #
@@ -4098,11 +4136,14 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.snapshot.administrative_actions[0].failure_details.message #=> String
     #   resp.snapshot.administrative_actions[0].target_volume_values.creation_time #=> Time
     #   resp.snapshot.administrative_actions[0].target_volume_values.file_system_id #=> String
@@ -4587,11 +4628,14 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.volume.administrative_actions[0].failure_details.message #=> String
     #   resp.volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -4883,11 +4927,14 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.volume.administrative_actions[0].failure_details.message #=> String
     #   resp.volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -5161,8 +5208,8 @@ module Aws::FSx
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/access-points-list
-    # [2]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/delete-points-list
+    # [1]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/access-points-list.html
+    # [2]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/delete-access-point.html
     # [3]: https://docs.aws.amazon.com/fsx/latest/LustreGuide/unmounting-fs.html
     # [4]: https://docs.aws.amazon.com/fsx/latest/LustreGuide/monitoring-cloudwatch.html#auto-import-export-metrics
     # [5]: https://docs.aws.amazon.com/fsx/latest/LustreGuide/export-data-repo-task-dra.html
@@ -5744,11 +5791,14 @@ module Aws::FSx
     #   resp.backups[0].file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.backups[0].file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backups[0].file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backups[0].file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backups[0].file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backups[0].file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backups[0].file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backups[0].file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backups[0].file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backups[0].file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backups[0].file_system.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backups[0].directory_information.domain_name #=> String
     #   resp.backups[0].directory_information.active_directory_id #=> String
     #   resp.backups[0].directory_information.resource_arn #=> String
@@ -5907,11 +5957,14 @@ module Aws::FSx
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.backups[0].volume.administrative_actions[0].failure_details.message #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.backups[0].volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -6622,11 +6675,14 @@ module Aws::FSx
     #   resp.file_systems[0].open_zfs_configuration.root_volume_id #=> String
     #   resp.file_systems[0].open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_systems[0].open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_systems[0].open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_systems[0].open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_systems[0].open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_systems[0].open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_systems[0].open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_systems[0].open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_systems[0].open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_systems[0].network_type #=> String, one of "IPV4", "DUAL"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DescribeFileSystems AWS API Documentation
@@ -6937,11 +6993,14 @@ module Aws::FSx
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.snapshots[0].administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.snapshots[0].administrative_actions[0].failure_details.message #=> String
     #   resp.snapshots[0].administrative_actions[0].target_volume_values.creation_time #=> Time
     #   resp.snapshots[0].administrative_actions[0].target_volume_values.file_system_id #=> String
@@ -7306,11 +7365,14 @@ module Aws::FSx
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.volumes[0].administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.volumes[0].administrative_actions[0].failure_details.message #=> String
     #   resp.volumes[0].administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.volumes[0].administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -7778,11 +7840,14 @@ module Aws::FSx
     #   resp.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/ReleaseFileSystemNfsV3Locks AWS API Documentation
     #
@@ -7954,11 +8019,14 @@ module Aws::FSx
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.administrative_actions[0].failure_details.message #=> String
     #   resp.administrative_actions[0].target_volume_values.creation_time #=> Time
     #   resp.administrative_actions[0].target_volume_values.file_system_id #=> String
@@ -8273,11 +8341,14 @@ module Aws::FSx
     #   resp.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/StartMisconfiguredStateRecovery AWS API Documentation
     #
@@ -8631,6 +8702,8 @@ module Aws::FSx
     #
     # * `DiskIopsConfiguration`
     #
+    # * `EndpointIpv6AddressRange`
+    #
     # * `ReadCacheConfiguration`
     #
     # * `RemoveRouteTableIds`
@@ -8728,6 +8801,9 @@ module Aws::FSx
     #   The Lustre version you are updating an FSx for Lustre file system to.
     #   Valid values are `2.12` and `2.15`. The value you choose must be newer
     #   than the file system's current Lustre version.
+    #
+    # @option params [String] :network_type
+    #   Changes the network type of an FSx for OpenZFS file system.
     #
     # @return [Types::UpdateFileSystemResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -8863,9 +8939,11 @@ module Aws::FSx
     #         sizing_mode: "NO_CACHE", # accepts NO_CACHE, USER_PROVISIONED, PROPORTIONAL_TO_THROUGHPUT_CAPACITY
     #         size_gi_b: 1,
     #       },
+    #       endpoint_ipv_6_address_range: "Ipv6AddressRange",
     #     },
     #     storage_type: "SSD", # accepts SSD, HDD, INTELLIGENT_TIERING
     #     file_system_type_version: "FileSystemTypeVersion",
+    #     network_type: "IPV4", # accepts IPV4, DUAL
     #   })
     #
     # @example Response structure
@@ -9062,11 +9140,14 @@ module Aws::FSx
     #   resp.file_system.open_zfs_configuration.root_volume_id #=> String
     #   resp.file_system.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.file_system.open_zfs_configuration.route_table_ids #=> Array
     #   resp.file_system.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.file_system.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.file_system.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.file_system.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.file_system.network_type #=> String, one of "IPV4", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/UpdateFileSystem AWS API Documentation
     #
@@ -9286,11 +9367,14 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.snapshot.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.snapshot.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.snapshot.administrative_actions[0].failure_details.message #=> String
     #   resp.snapshot.administrative_actions[0].target_volume_values.creation_time #=> Time
     #   resp.snapshot.administrative_actions[0].target_volume_values.file_system_id #=> String
@@ -9715,11 +9799,14 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.root_volume_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.preferred_subnet_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address_range #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address_range #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids #=> Array
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.route_table_ids[0] #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ip_address #=> String
+    #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.endpoint_ipv_6_address #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.sizing_mode #=> String, one of "NO_CACHE", "USER_PROVISIONED", "PROPORTIONAL_TO_THROUGHPUT_CAPACITY"
     #   resp.volume.administrative_actions[0].target_file_system_values.open_zfs_configuration.read_cache_configuration.size_gi_b #=> Integer
+    #   resp.volume.administrative_actions[0].target_file_system_values.network_type #=> String, one of "IPV4", "DUAL"
     #   resp.volume.administrative_actions[0].failure_details.message #=> String
     #   resp.volume.administrative_actions[0].target_volume_values #=> Types::Volume
     #   resp.volume.administrative_actions[0].target_snapshot_values.resource_arn #=> String
@@ -9789,7 +9876,7 @@ module Aws::FSx
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-fsx'
-      context[:gem_version] = '1.118.0'
+      context[:gem_version] = '1.119.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

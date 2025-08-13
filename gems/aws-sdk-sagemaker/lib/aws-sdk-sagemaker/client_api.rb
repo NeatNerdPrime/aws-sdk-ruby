@@ -14,6 +14,7 @@ module Aws::SageMaker
 
     include Seahorse::Model
 
+    AcceleratorsAmount = Shapes::IntegerShape.new(name: 'AcceleratorsAmount')
     Accept = Shapes::StringShape.new(name: 'Accept')
     AcceptEula = Shapes::BooleanShape.new(name: 'AcceptEula')
     AccountId = Shapes::StringShape.new(name: 'AccountId')
@@ -1577,6 +1578,7 @@ module Aws::SageMaker
     MediaType = Shapes::StringShape.new(name: 'MediaType')
     MemberDefinition = Shapes::StructureShape.new(name: 'MemberDefinition')
     MemberDefinitions = Shapes::ListShape.new(name: 'MemberDefinitions')
+    MemoryInGiBAmount = Shapes::FloatShape.new(name: 'MemoryInGiBAmount')
     MemoryInMb = Shapes::IntegerShape.new(name: 'MemoryInMb')
     MetadataProperties = Shapes::StructureShape.new(name: 'MetadataProperties')
     MetadataPropertyValue = Shapes::StringShape.new(name: 'MetadataPropertyValue')
@@ -2624,6 +2626,7 @@ module Aws::SageMaker
     UsersPerStep = Shapes::IntegerShape.new(name: 'UsersPerStep')
     UtilizationMetric = Shapes::FloatShape.new(name: 'UtilizationMetric')
     UtilizationPercentagePerCore = Shapes::IntegerShape.new(name: 'UtilizationPercentagePerCore')
+    VCpuAmount = Shapes::FloatShape.new(name: 'VCpuAmount')
     ValidationFraction = Shapes::FloatShape.new(name: 'ValidationFraction')
     VariantName = Shapes::StringShape.new(name: 'VariantName')
     VariantProperty = Shapes::StructureShape.new(name: 'VariantProperty')
@@ -3646,6 +3649,9 @@ module Aws::SageMaker
 
     ComputeQuotaResourceConfig.add_member(:instance_type, Shapes::ShapeRef.new(shape: ClusterInstanceType, required: true, location_name: "InstanceType"))
     ComputeQuotaResourceConfig.add_member(:count, Shapes::ShapeRef.new(shape: InstanceCount, location_name: "Count"))
+    ComputeQuotaResourceConfig.add_member(:accelerators, Shapes::ShapeRef.new(shape: AcceleratorsAmount, location_name: "Accelerators"))
+    ComputeQuotaResourceConfig.add_member(:v_cpu, Shapes::ShapeRef.new(shape: VCpuAmount, location_name: "VCpu"))
+    ComputeQuotaResourceConfig.add_member(:memory_in_gi_b, Shapes::ShapeRef.new(shape: MemoryInGiBAmount, location_name: "MemoryInGiB"))
     ComputeQuotaResourceConfig.struct_class = Types::ComputeQuotaResourceConfig
 
     ComputeQuotaResourceConfigList.member = Shapes::ShapeRef.new(shape: ComputeQuotaResourceConfig)

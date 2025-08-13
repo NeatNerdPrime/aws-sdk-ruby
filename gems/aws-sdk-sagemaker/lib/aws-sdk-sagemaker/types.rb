@@ -6108,11 +6108,40 @@ module Aws::SageMaker
     #   HyperPod cluster.
     #   @return [Integer]
     #
+    # @!attribute [rw] accelerators
+    #   The number of accelerators to allocate. If you don't specify a
+    #   value for vCPU and MemoryInGiB, SageMaker AI automatically allocates
+    #   ratio-based values for those parameters based on the number of
+    #   accelerators you provide. For example, if you allocate 16 out of 32
+    #   total accelerators, SageMaker AI uses the ratio of 0.5 and allocates
+    #   values to vCPU and MemoryInGiB.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] v_cpu
+    #   The number of vCPU to allocate. If you specify a value only for
+    #   vCPU, SageMaker AI automatically allocates ratio-based values for
+    #   MemoryInGiB based on this vCPU parameter. For example, if you
+    #   allocate 20 out of 40 total vCPU, SageMaker AI uses the ratio of 0.5
+    #   and allocates values to MemoryInGiB. Accelerators are set to 0.
+    #   @return [Float]
+    #
+    # @!attribute [rw] memory_in_gi_b
+    #   The amount of memory in GiB to allocate. If you specify a value only
+    #   for this parameter, SageMaker AI automatically allocates a
+    #   ratio-based value for vCPU based on this memory that you provide.
+    #   For example, if you allocate 200 out of 400 total memory in GiB,
+    #   SageMaker AI uses the ratio of 0.5 and allocates values to vCPU.
+    #   Accelerators are set to 0.
+    #   @return [Float]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ComputeQuotaResourceConfig AWS API Documentation
     #
     class ComputeQuotaResourceConfig < Struct.new(
       :instance_type,
-      :count)
+      :count,
+      :accelerators,
+      :v_cpu,
+      :memory_in_gi_b)
       SENSITIVE = []
       include Aws::Structure
     end
