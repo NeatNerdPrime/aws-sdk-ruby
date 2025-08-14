@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1147.0 (2025-08-14)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::BCMRecommendedActions`.
+
 1.1146.0 (2025-08-12)
 ------------------
 

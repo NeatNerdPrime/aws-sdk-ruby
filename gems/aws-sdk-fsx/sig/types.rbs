@@ -32,13 +32,14 @@ module Aws::FSx
       attr_accessor administrative_action_type: ("FILE_SYSTEM_UPDATE" | "STORAGE_OPTIMIZATION" | "FILE_SYSTEM_ALIAS_ASSOCIATION" | "FILE_SYSTEM_ALIAS_DISASSOCIATION" | "VOLUME_UPDATE" | "SNAPSHOT_UPDATE" | "RELEASE_NFS_V3_LOCKS" | "VOLUME_RESTORE" | "THROUGHPUT_OPTIMIZATION" | "IOPS_OPTIMIZATION" | "STORAGE_TYPE_OPTIMIZATION" | "MISCONFIGURED_STATE_RECOVERY" | "VOLUME_UPDATE_WITH_SNAPSHOT" | "VOLUME_INITIALIZE_WITH_SNAPSHOT" | "DOWNLOAD_DATA_FROM_BACKUP")
       attr_accessor progress_percent: ::Integer
       attr_accessor request_time: ::Time
-      attr_accessor status: ("FAILED" | "IN_PROGRESS" | "PENDING" | "COMPLETED" | "UPDATED_OPTIMIZING" | "OPTIMIZING")
+      attr_accessor status: ("FAILED" | "IN_PROGRESS" | "PENDING" | "COMPLETED" | "UPDATED_OPTIMIZING" | "OPTIMIZING" | "PAUSED" | "CANCELLED")
       attr_accessor target_file_system_values: Types::FileSystem
       attr_accessor failure_details: Types::AdministrativeActionFailureDetails
       attr_accessor target_volume_values: Types::Volume
       attr_accessor target_snapshot_values: Types::Snapshot
       attr_accessor total_transfer_bytes: ::Integer
       attr_accessor remaining_transfer_bytes: ::Integer
+      attr_accessor message: ::String
       SENSITIVE: []
     end
 

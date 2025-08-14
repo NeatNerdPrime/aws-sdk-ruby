@@ -277,6 +277,10 @@ module Aws::FSx
     #   that you're copying.
     #   @return [Integer]
     #
+    # @!attribute [rw] message
+    #   A detailed error message.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/AdministrativeAction AWS API Documentation
     #
     class AdministrativeAction < Struct.new(
@@ -289,7 +293,8 @@ module Aws::FSx
       :target_volume_values,
       :target_snapshot_values,
       :total_transfer_bytes,
-      :remaining_transfer_bytes)
+      :remaining_transfer_bytes,
+      :message)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9827,12 +9832,12 @@ module Aws::FSx
     #   per GB of storage. The configuration consists of an IOPS mode
     #   (`AUTOMATIC` or `USER_PROVISIONED`), and in the case of
     #   `USER_PROVISIONED` IOPS, the total number of SSD IOPS provisioned.
-    #   For more information, see [Updating SSD storage capacity and
+    #   For more information, see [File system storage capacity and
     #   IOPS][1].
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/increase-primary-storage.html
+    #   [1]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/storage-capacity-and-IOPS.html
     #   @return [Types::DiskIopsConfiguration]
     #
     # @!attribute [rw] throughput_capacity
@@ -10063,9 +10068,10 @@ module Aws::FSx
     # @!attribute [rw] storage_capacity
     #   Use this parameter to increase the storage capacity of an FSx for
     #   Windows File Server, FSx for Lustre, FSx for OpenZFS, or FSx for
-    #   ONTAP file system. Specifies the storage capacity target value, in
-    #   GiB, to increase the storage capacity for the file system that
-    #   you're updating.
+    #   ONTAP file system. For second-generation FSx for ONTAP file systems,
+    #   you can also decrease the storage capacity. Specifies the storage
+    #   capacity target value, in GiB, for the file system that you're
+    #   updating.
     #
     #   <note markdown="1"> You can't make a storage capacity increase request if there is an
     #   existing storage capacity increase request in progress.
@@ -10102,17 +10108,20 @@ module Aws::FSx
     #   storage capacity][3] in the *Amazon FSxfor Windows File Server User
     #   Guide*.
     #
-    #   For ONTAP file systems, the storage capacity target value must be at
-    #   least 10 percent greater than the current storage capacity value.
-    #   For more information, see [Managing storage capacity and provisioned
-    #   IOPS][4] in the *Amazon FSx for NetApp ONTAP User Guide*.
+    #   For ONTAP file systems, when increasing storage capacity, the
+    #   storage capacity target value must be at least 10 percent greater
+    #   than the current storage capacity value. When decreasing storage
+    #   capacity on second-generation file systems, the target value must be
+    #   at least 9 percent smaller than the current SSD storage capacity.
+    #   For more information, see [File system storage capacity and IOPS][4]
+    #   in the Amazon FSx for NetApp ONTAP User Guide.
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-storage-capacity.html
     #   [2]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html
     #   [3]: https://docs.aws.amazon.com/fsx/latest/WindowsGuide/managing-storage-capacity.html
-    #   [4]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html
+    #   [4]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/storage-capacity-and-IOPS.html
     #   @return [Integer]
     #
     # @!attribute [rw] windows_configuration

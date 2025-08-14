@@ -1872,8 +1872,10 @@ module Aws::EC2
     InstanceBlockDeviceMappingSpecificationList = Shapes::ListShape.new(name: 'InstanceBlockDeviceMappingSpecificationList')
     InstanceBootModeValues = Shapes::StringShape.new(name: 'InstanceBootModeValues')
     InstanceCapacity = Shapes::StructureShape.new(name: 'InstanceCapacity')
+    InstanceConnectEndpointDnsNames = Shapes::StructureShape.new(name: 'InstanceConnectEndpointDnsNames')
     InstanceConnectEndpointId = Shapes::StringShape.new(name: 'InstanceConnectEndpointId')
     InstanceConnectEndpointMaxResults = Shapes::IntegerShape.new(name: 'InstanceConnectEndpointMaxResults')
+    InstanceConnectEndpointPublicDnsNames = Shapes::StructureShape.new(name: 'InstanceConnectEndpointPublicDnsNames')
     InstanceConnectEndpointSet = Shapes::ListShape.new(name: 'InstanceConnectEndpointSet')
     InstanceCount = Shapes::StructureShape.new(name: 'InstanceCount')
     InstanceCountList = Shapes::ListShape.new(name: 'InstanceCountList')
@@ -2348,6 +2350,8 @@ module Aws::EC2
     ModifyInstanceAttributeRequest = Shapes::StructureShape.new(name: 'ModifyInstanceAttributeRequest')
     ModifyInstanceCapacityReservationAttributesRequest = Shapes::StructureShape.new(name: 'ModifyInstanceCapacityReservationAttributesRequest')
     ModifyInstanceCapacityReservationAttributesResult = Shapes::StructureShape.new(name: 'ModifyInstanceCapacityReservationAttributesResult')
+    ModifyInstanceConnectEndpointRequest = Shapes::StructureShape.new(name: 'ModifyInstanceConnectEndpointRequest')
+    ModifyInstanceConnectEndpointResult = Shapes::StructureShape.new(name: 'ModifyInstanceConnectEndpointResult')
     ModifyInstanceCpuOptionsRequest = Shapes::StructureShape.new(name: 'ModifyInstanceCpuOptionsRequest')
     ModifyInstanceCpuOptionsResult = Shapes::StructureShape.new(name: 'ModifyInstanceCpuOptionsResult')
     ModifyInstanceCreditSpecificationRequest = Shapes::StructureShape.new(name: 'ModifyInstanceCreditSpecificationRequest')
@@ -9423,6 +9427,7 @@ module Aws::EC2
     Ec2InstanceConnectEndpoint.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIdSet, location_name: "securityGroupIdSet"))
     Ec2InstanceConnectEndpoint.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     Ec2InstanceConnectEndpoint.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "ipAddressType"))
+    Ec2InstanceConnectEndpoint.add_member(:public_dns_names, Shapes::ShapeRef.new(shape: InstanceConnectEndpointPublicDnsNames, location_name: "publicDnsNames"))
     Ec2InstanceConnectEndpoint.struct_class = Types::Ec2InstanceConnectEndpoint
 
     EfaInfo.add_member(:maximum_efa_interfaces, Shapes::ShapeRef.new(shape: MaximumEfaInterfaces, location_name: "maximumEfaInterfaces"))
@@ -11277,6 +11282,14 @@ module Aws::EC2
     InstanceCapacity.add_member(:total_capacity, Shapes::ShapeRef.new(shape: Integer, location_name: "totalCapacity"))
     InstanceCapacity.struct_class = Types::InstanceCapacity
 
+    InstanceConnectEndpointDnsNames.add_member(:dns_name, Shapes::ShapeRef.new(shape: String, location_name: "dnsName"))
+    InstanceConnectEndpointDnsNames.add_member(:fips_dns_name, Shapes::ShapeRef.new(shape: String, location_name: "fipsDnsName"))
+    InstanceConnectEndpointDnsNames.struct_class = Types::InstanceConnectEndpointDnsNames
+
+    InstanceConnectEndpointPublicDnsNames.add_member(:ipv_4, Shapes::ShapeRef.new(shape: InstanceConnectEndpointDnsNames, location_name: "ipv4"))
+    InstanceConnectEndpointPublicDnsNames.add_member(:dualstack, Shapes::ShapeRef.new(shape: InstanceConnectEndpointDnsNames, location_name: "dualstack"))
+    InstanceConnectEndpointPublicDnsNames.struct_class = Types::InstanceConnectEndpointPublicDnsNames
+
     InstanceConnectEndpointSet.member = Shapes::ShapeRef.new(shape: Ec2InstanceConnectEndpoint, location_name: "item")
 
     InstanceCount.add_member(:instance_count, Shapes::ShapeRef.new(shape: Integer, location_name: "instanceCount"))
@@ -12914,6 +12927,16 @@ module Aws::EC2
 
     ModifyInstanceCapacityReservationAttributesResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
     ModifyInstanceCapacityReservationAttributesResult.struct_class = Types::ModifyInstanceCapacityReservationAttributesResult
+
+    ModifyInstanceConnectEndpointRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    ModifyInstanceConnectEndpointRequest.add_member(:instance_connect_endpoint_id, Shapes::ShapeRef.new(shape: InstanceConnectEndpointId, required: true, location_name: "InstanceConnectEndpointId"))
+    ModifyInstanceConnectEndpointRequest.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "IpAddressType"))
+    ModifyInstanceConnectEndpointRequest.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIdStringListRequest, location_name: "SecurityGroupId"))
+    ModifyInstanceConnectEndpointRequest.add_member(:preserve_client_ip, Shapes::ShapeRef.new(shape: Boolean, location_name: "PreserveClientIp"))
+    ModifyInstanceConnectEndpointRequest.struct_class = Types::ModifyInstanceConnectEndpointRequest
+
+    ModifyInstanceConnectEndpointResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
+    ModifyInstanceConnectEndpointResult.struct_class = Types::ModifyInstanceConnectEndpointResult
 
     ModifyInstanceCpuOptionsRequest.add_member(:instance_id, Shapes::ShapeRef.new(shape: InstanceId, required: true, location_name: "InstanceId"))
     ModifyInstanceCpuOptionsRequest.add_member(:core_count, Shapes::ShapeRef.new(shape: Integer, required: true, location_name: "CoreCount"))
@@ -23022,6 +23045,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: ModifyInstanceCapacityReservationAttributesRequest)
         o.output = Shapes::ShapeRef.new(shape: ModifyInstanceCapacityReservationAttributesResult)
+      end)
+
+      api.add_operation(:modify_instance_connect_endpoint, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ModifyInstanceConnectEndpoint"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ModifyInstanceConnectEndpointRequest)
+        o.output = Shapes::ShapeRef.new(shape: ModifyInstanceConnectEndpointResult)
       end)
 
       api.add_operation(:modify_instance_cpu_options, Seahorse::Model::Operation.new.tap do |o|

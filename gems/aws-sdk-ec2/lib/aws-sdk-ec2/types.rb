@@ -31564,9 +31564,6 @@ module Aws::EC2
     #
     #   * `resource-configuration-group-arn` - The Amazon Resource Name
     #     (ARN) of the resource configuration of type GROUP.
-    #
-    #   * `service-network-resource-association-id` - The ID of the
-    #     association.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] max_results
@@ -35082,6 +35079,10 @@ module Aws::EC2
     #   The IP address type of the endpoint.
     #   @return [String]
     #
+    # @!attribute [rw] public_dns_names
+    #   The public DNS names of the endpoint.
+    #   @return [Types::InstanceConnectEndpointPublicDnsNames]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/Ec2InstanceConnectEndpoint AWS API Documentation
     #
     class Ec2InstanceConnectEndpoint < Struct.new(
@@ -35100,7 +35101,8 @@ module Aws::EC2
       :preserve_client_ip,
       :security_group_ids,
       :tags,
-      :ip_address_type)
+      :ip_address_type,
+      :public_dns_names)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -45188,6 +45190,48 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # The DNS names of the endpoint.
+    #
+    # @!attribute [rw] dns_name
+    #   The DNS name of the EC2 Instance Connect Endpoint.
+    #   @return [String]
+    #
+    # @!attribute [rw] fips_dns_name
+    #   The Federal Information Processing Standards (FIPS) compliant DNS
+    #   name of the EC2 Instance Connect Endpoint.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceConnectEndpointDnsNames AWS API Documentation
+    #
+    class InstanceConnectEndpointDnsNames < Struct.new(
+      :dns_name,
+      :fips_dns_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The public DNS names of the endpoint, including IPv4-only and
+    # dualstack DNS names.
+    #
+    # @!attribute [rw] ipv_4
+    #   The IPv4-only DNS name of the EC2 Instance Connect Endpoint.
+    #   @return [Types::InstanceConnectEndpointDnsNames]
+    #
+    # @!attribute [rw] dualstack
+    #   The dualstack DNS name of the EC2 Instance Connect Endpoint. A
+    #   dualstack DNS name supports connections from both IPv4 and IPv6
+    #   clients.
+    #   @return [Types::InstanceConnectEndpointDnsNames]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceConnectEndpointPublicDnsNames AWS API Documentation
+    #
+    class InstanceConnectEndpointPublicDnsNames < Struct.new(
+      :ipv_4,
+      :dualstack)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Describes a Reserved Instance listing state.
     #
     # @!attribute [rw] instance_count
@@ -54591,6 +54635,80 @@ module Aws::EC2
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceCapacityReservationAttributesResult AWS API Documentation
     #
     class ModifyInstanceCapacityReservationAttributesResult < Struct.new(
+      :return)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the operation,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] instance_connect_endpoint_id
+    #   The ID of the EC2 Instance Connect Endpoint to modify.
+    #   @return [String]
+    #
+    # @!attribute [rw] ip_address_type
+    #   The new IP address type for the EC2 Instance Connect Endpoint.
+    #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
+    #   @return [String]
+    #
+    # @!attribute [rw] security_group_ids
+    #   Changes the security groups for the EC2 Instance Connect Endpoint.
+    #   The new set of groups you specify replaces the current set. You must
+    #   specify at least one group, even if it's just the default security
+    #   group in the VPC. You must specify the ID of the security group, not
+    #   the name.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] preserve_client_ip
+    #   Indicates whether the client IP address is preserved as the source.
+    #   The following are the possible values.
+    #
+    #   * `true` - Use the client IP address as the source.
+    #
+    #   * `false` - Use the network interface IP address as the source.
+    #
+    #   <note markdown="1"> `PreserveClientIp=true` is only supported on IPv4 EC2 Instance
+    #   Connect Endpoints. If modifying `PreserveClientIp` to `true`, either
+    #   the endpoint's existing `IpAddressType` must be `ipv4`, or if
+    #   modifying `IpAddressType` in the same request, the new value must be
+    #   `ipv4`.
+    #
+    #    </note>
+    #
+    #   Default: `false`
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceConnectEndpointRequest AWS API Documentation
+    #
+    class ModifyInstanceConnectEndpointRequest < Struct.new(
+      :dry_run,
+      :instance_connect_endpoint_id,
+      :ip_address_type,
+      :security_group_ids,
+      :preserve_client_ip)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] return
+    #   The return value of the request. Returns `true` if the specified
+    #   product code is owned by the requester and associated with the
+    #   specified instance.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceConnectEndpointResult AWS API Documentation
+    #
+    class ModifyInstanceConnectEndpointResult < Struct.new(
       :return)
       SENSITIVE = []
       include Aws::Structure

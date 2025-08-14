@@ -8092,7 +8092,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.owner_id #=> String
     #   resp.instance_connect_endpoint.instance_connect_endpoint_id #=> String
     #   resp.instance_connect_endpoint.instance_connect_endpoint_arn #=> String
-    #   resp.instance_connect_endpoint.state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed"
+    #   resp.instance_connect_endpoint.state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed", "update-in-progress", "update-complete", "update-failed"
     #   resp.instance_connect_endpoint.state_message #=> String
     #   resp.instance_connect_endpoint.dns_name #=> String
     #   resp.instance_connect_endpoint.fips_dns_name #=> String
@@ -8109,6 +8109,10 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.tags[0].key #=> String
     #   resp.instance_connect_endpoint.tags[0].value #=> String
     #   resp.instance_connect_endpoint.ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
+    #   resp.instance_connect_endpoint.public_dns_names.ipv_4.dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.ipv_4.fips_dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.dualstack.dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.dualstack.fips_dns_name #=> String
     #   resp.client_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateInstanceConnectEndpoint AWS API Documentation
@@ -18105,7 +18109,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.owner_id #=> String
     #   resp.instance_connect_endpoint.instance_connect_endpoint_id #=> String
     #   resp.instance_connect_endpoint.instance_connect_endpoint_arn #=> String
-    #   resp.instance_connect_endpoint.state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed"
+    #   resp.instance_connect_endpoint.state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed", "update-in-progress", "update-complete", "update-failed"
     #   resp.instance_connect_endpoint.state_message #=> String
     #   resp.instance_connect_endpoint.dns_name #=> String
     #   resp.instance_connect_endpoint.fips_dns_name #=> String
@@ -18122,6 +18126,10 @@ module Aws::EC2
     #   resp.instance_connect_endpoint.tags[0].key #=> String
     #   resp.instance_connect_endpoint.tags[0].value #=> String
     #   resp.instance_connect_endpoint.ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
+    #   resp.instance_connect_endpoint.public_dns_names.ipv_4.dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.ipv_4.fips_dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.dualstack.dns_name #=> String
+    #   resp.instance_connect_endpoint.public_dns_names.dualstack.fips_dns_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteInstanceConnectEndpoint AWS API Documentation
     #
@@ -27473,7 +27481,7 @@ module Aws::EC2
     #   resp.instance_connect_endpoints[0].owner_id #=> String
     #   resp.instance_connect_endpoints[0].instance_connect_endpoint_id #=> String
     #   resp.instance_connect_endpoints[0].instance_connect_endpoint_arn #=> String
-    #   resp.instance_connect_endpoints[0].state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed"
+    #   resp.instance_connect_endpoints[0].state #=> String, one of "create-in-progress", "create-complete", "create-failed", "delete-in-progress", "delete-complete", "delete-failed", "update-in-progress", "update-complete", "update-failed"
     #   resp.instance_connect_endpoints[0].state_message #=> String
     #   resp.instance_connect_endpoints[0].dns_name #=> String
     #   resp.instance_connect_endpoints[0].fips_dns_name #=> String
@@ -27490,6 +27498,10 @@ module Aws::EC2
     #   resp.instance_connect_endpoints[0].tags[0].key #=> String
     #   resp.instance_connect_endpoints[0].tags[0].value #=> String
     #   resp.instance_connect_endpoints[0].ip_address_type #=> String, one of "ipv4", "dualstack", "ipv6"
+    #   resp.instance_connect_endpoints[0].public_dns_names.ipv_4.dns_name #=> String
+    #   resp.instance_connect_endpoints[0].public_dns_names.ipv_4.fips_dns_name #=> String
+    #   resp.instance_connect_endpoints[0].public_dns_names.dualstack.dns_name #=> String
+    #   resp.instance_connect_endpoints[0].public_dns_names.dualstack.fips_dns_name #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeInstanceConnectEndpoints AWS API Documentation
@@ -41395,9 +41407,6 @@ module Aws::EC2
     #   * `resource-configuration-group-arn` - The Amazon Resource Name (ARN)
     #     of the resource configuration of type GROUP.
     #
-    #   * `service-network-resource-association-id` - The ID of the
-    #     association.
-    #
     # @option params [Integer] :max_results
     #   The maximum page size.
     #
@@ -53208,6 +53217,84 @@ module Aws::EC2
     # @param [Hash] params ({})
     def modify_instance_capacity_reservation_attributes(params = {}, options = {})
       req = build_request(:modify_instance_capacity_reservation_attributes, params)
+      req.send_request(options)
+    end
+
+    # Modifies the specified EC2 Instance Connect Endpoint.
+    #
+    # For more information, see [Modify an EC2 Instance Connect Endpoint][1]
+    # in the *Amazon EC2 User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/modify-ec2-instance-connect-endpoint.html
+    #
+    # @option params [Boolean] :dry_run
+    #   Checks whether you have the required permissions for the operation,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #
+    # @option params [required, String] :instance_connect_endpoint_id
+    #   The ID of the EC2 Instance Connect Endpoint to modify.
+    #
+    # @option params [String] :ip_address_type
+    #   The new IP address type for the EC2 Instance Connect Endpoint.
+    #
+    #   <note markdown="1"> `PreserveClientIp` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. To use `PreserveClientIp`, the value for `IpAddressType`
+    #   must be `ipv4`.
+    #
+    #    </note>
+    #
+    # @option params [Array<String>] :security_group_ids
+    #   Changes the security groups for the EC2 Instance Connect Endpoint. The
+    #   new set of groups you specify replaces the current set. You must
+    #   specify at least one group, even if it's just the default security
+    #   group in the VPC. You must specify the ID of the security group, not
+    #   the name.
+    #
+    # @option params [Boolean] :preserve_client_ip
+    #   Indicates whether the client IP address is preserved as the source.
+    #   The following are the possible values.
+    #
+    #   * `true` - Use the client IP address as the source.
+    #
+    #   * `false` - Use the network interface IP address as the source.
+    #
+    #   <note markdown="1"> `PreserveClientIp=true` is only supported on IPv4 EC2 Instance Connect
+    #   Endpoints. If modifying `PreserveClientIp` to `true`, either the
+    #   endpoint's existing `IpAddressType` must be `ipv4`, or if modifying
+    #   `IpAddressType` in the same request, the new value must be `ipv4`.
+    #
+    #    </note>
+    #
+    #   Default: `false`
+    #
+    # @return [Types::ModifyInstanceConnectEndpointResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ModifyInstanceConnectEndpointResult#return #return} => Boolean
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.modify_instance_connect_endpoint({
+    #     dry_run: false,
+    #     instance_connect_endpoint_id: "InstanceConnectEndpointId", # required
+    #     ip_address_type: "ipv4", # accepts ipv4, dualstack, ipv6
+    #     security_group_ids: ["SecurityGroupId"],
+    #     preserve_client_ip: false,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.return #=> Boolean
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyInstanceConnectEndpoint AWS API Documentation
+    #
+    # @overload modify_instance_connect_endpoint(params = {})
+    # @param [Hash] params ({})
+    def modify_instance_connect_endpoint(params = {}, options = {})
+      req = build_request(:modify_instance_connect_endpoint, params)
       req.send_request(options)
     end
 
@@ -66511,7 +66598,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.548.0'
+      context[:gem_version] = '1.549.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

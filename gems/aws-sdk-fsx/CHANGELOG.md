@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.120.0 (2025-08-14)
+------------------
+
+* Feature - Amazon FSx for NetApp ONTAP 2nd generation file systems now support decreasing SSD storage capacity.
+
 1.119.0 (2025-08-13)
 ------------------
 

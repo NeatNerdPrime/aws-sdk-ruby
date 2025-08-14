@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.549.0 (2025-08-14)
+------------------
+
+* Feature - This release adds ModifyInstanceConnectEndpoint API to update configurations on existing EC2 Instance Connect Endpoints and improves IPv6 support through dualstack DNS names for EC2 Instance Connect Endpoints.
+
 1.548.0 (2025-08-12)
 ------------------
 

@@ -528,6 +528,7 @@ module Aws::FSx
     AdministrativeAction.add_member(:target_snapshot_values, Shapes::ShapeRef.new(shape: Snapshot, location_name: "TargetSnapshotValues"))
     AdministrativeAction.add_member(:total_transfer_bytes, Shapes::ShapeRef.new(shape: TotalTransferBytes, location_name: "TotalTransferBytes"))
     AdministrativeAction.add_member(:remaining_transfer_bytes, Shapes::ShapeRef.new(shape: RemainingTransferBytes, location_name: "RemainingTransferBytes"))
+    AdministrativeAction.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, location_name: "Message"))
     AdministrativeAction.struct_class = Types::AdministrativeAction
 
     AdministrativeActionFailureDetails.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, location_name: "Message"))

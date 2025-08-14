@@ -11198,6 +11198,20 @@ module Aws
                                                            ) -> _ModifyInstanceCapacityReservationAttributesResponseSuccess
                                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ModifyInstanceCapacityReservationAttributesResponseSuccess
 
+      interface _ModifyInstanceConnectEndpointResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::ModifyInstanceConnectEndpointResult]
+        def return: () -> bool
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#modify_instance_connect_endpoint-instance_method
+      def modify_instance_connect_endpoint: (
+                                              ?dry_run: bool,
+                                              instance_connect_endpoint_id: ::String,
+                                              ?ip_address_type: ("ipv4" | "dualstack" | "ipv6"),
+                                              ?security_group_ids: Array[::String],
+                                              ?preserve_client_ip: bool
+                                            ) -> _ModifyInstanceConnectEndpointResponseSuccess
+                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ModifyInstanceConnectEndpointResponseSuccess
+
       interface _ModifyInstanceCpuOptionsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::ModifyInstanceCpuOptionsResult]
         def instance_id: () -> ::String

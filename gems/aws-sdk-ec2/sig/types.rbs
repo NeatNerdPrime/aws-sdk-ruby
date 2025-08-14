@@ -7687,7 +7687,7 @@ module Aws::EC2
       attr_accessor owner_id: ::String
       attr_accessor instance_connect_endpoint_id: ::String
       attr_accessor instance_connect_endpoint_arn: ::String
-      attr_accessor state: ("create-in-progress" | "create-complete" | "create-failed" | "delete-in-progress" | "delete-complete" | "delete-failed")
+      attr_accessor state: ("create-in-progress" | "create-complete" | "create-failed" | "delete-in-progress" | "delete-complete" | "delete-failed" | "update-in-progress" | "update-complete" | "update-failed")
       attr_accessor state_message: ::String
       attr_accessor dns_name: ::String
       attr_accessor fips_dns_name: ::String
@@ -7700,6 +7700,7 @@ module Aws::EC2
       attr_accessor security_group_ids: ::Array[::String]
       attr_accessor tags: ::Array[Types::Tag]
       attr_accessor ip_address_type: ("ipv4" | "dualstack" | "ipv6")
+      attr_accessor public_dns_names: Types::InstanceConnectEndpointPublicDnsNames
       SENSITIVE: []
     end
 
@@ -9955,6 +9956,18 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class InstanceConnectEndpointDnsNames
+      attr_accessor dns_name: ::String
+      attr_accessor fips_dns_name: ::String
+      SENSITIVE: []
+    end
+
+    class InstanceConnectEndpointPublicDnsNames
+      attr_accessor ipv_4: Types::InstanceConnectEndpointDnsNames
+      attr_accessor dualstack: Types::InstanceConnectEndpointDnsNames
+      SENSITIVE: []
+    end
+
     class InstanceCount
       attr_accessor instance_count: ::Integer
       attr_accessor state: ("available" | "sold" | "cancelled" | "pending")
@@ -11741,6 +11754,20 @@ module Aws::EC2
     end
 
     class ModifyInstanceCapacityReservationAttributesResult
+      attr_accessor return: bool
+      SENSITIVE: []
+    end
+
+    class ModifyInstanceConnectEndpointRequest
+      attr_accessor dry_run: bool
+      attr_accessor instance_connect_endpoint_id: ::String
+      attr_accessor ip_address_type: ("ipv4" | "dualstack" | "ipv6")
+      attr_accessor security_group_ids: ::Array[::String]
+      attr_accessor preserve_client_ip: bool
+      SENSITIVE: []
+    end
+
+    class ModifyInstanceConnectEndpointResult
       attr_accessor return: bool
       SENSITIVE: []
     end

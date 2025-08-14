@@ -852,7 +852,7 @@ module Aws::FSx
     #   resp.backup.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backup.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.backup.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.backup.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backup.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backup.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.backup.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.backup.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -936,6 +936,7 @@ module Aws::FSx
     #   resp.backup.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backup.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backup.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backup.file_system.administrative_actions[0].message #=> String
     #   resp.backup.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.backup.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.backup.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -1029,7 +1030,7 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backup.volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.backup.volume.administrative_actions[0].request_time #=> Time
-    #   resp.backup.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backup.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -1158,6 +1159,7 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backup.volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backup.volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backup.volume.administrative_actions[0].message #=> String
     #   resp.backup.volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.backup.volume.open_zfs_configuration.volume_path #=> String
     #   resp.backup.volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -1283,7 +1285,7 @@ module Aws::FSx
     #   resp.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.administrative_actions[0].progress_percent #=> Integer
     #   resp.administrative_actions[0].request_time #=> Time
-    #   resp.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -1479,6 +1481,7 @@ module Aws::FSx
     #   resp.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.administrative_actions[0].message #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/CopySnapshotAndUpdateVolume AWS API Documentation
     #
@@ -1835,7 +1838,7 @@ module Aws::FSx
     #   resp.backup.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backup.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.backup.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.backup.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backup.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backup.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.backup.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.backup.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -1919,6 +1922,7 @@ module Aws::FSx
     #   resp.backup.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backup.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backup.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backup.file_system.administrative_actions[0].message #=> String
     #   resp.backup.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.backup.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.backup.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -2012,7 +2016,7 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backup.volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.backup.volume.administrative_actions[0].request_time #=> Time
-    #   resp.backup.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backup.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.backup.volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -2141,6 +2145,7 @@ module Aws::FSx
     #   resp.backup.volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backup.volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backup.volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backup.volume.administrative_actions[0].message #=> String
     #   resp.backup.volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.backup.volume.open_zfs_configuration.volume_path #=> String
     #   resp.backup.volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -3236,7 +3241,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -3320,6 +3325,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_system.administrative_actions[0].message #=> String
     #   resp.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -3811,7 +3817,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -3895,6 +3901,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_system.administrative_actions[0].message #=> String
     #   resp.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -4030,7 +4037,7 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.snapshot.administrative_actions[0].progress_percent #=> Integer
     #   resp.snapshot.administrative_actions[0].request_time #=> Time
-    #   resp.snapshot.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.snapshot.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.snapshot.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.snapshot.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -4216,6 +4223,7 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].target_snapshot_values #=> Types::Snapshot
     #   resp.snapshot.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.snapshot.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.snapshot.administrative_actions[0].message #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/CreateSnapshot AWS API Documentation
     #
@@ -4522,7 +4530,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.volume.administrative_actions[0].request_time #=> Time
-    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -4651,6 +4659,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.volume.administrative_actions[0].message #=> String
     #   resp.volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.volume.open_zfs_configuration.volume_path #=> String
     #   resp.volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -4821,7 +4830,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.volume.administrative_actions[0].request_time #=> Time
-    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -4950,6 +4959,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.volume.administrative_actions[0].message #=> String
     #   resp.volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.volume.open_zfs_configuration.volume_path #=> String
     #   resp.volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -5674,7 +5684,7 @@ module Aws::FSx
     #   resp.backups[0].file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backups[0].file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.backups[0].file_system.administrative_actions[0].request_time #=> Time
-    #   resp.backups[0].file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backups[0].file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backups[0].file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.backups[0].file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.backups[0].file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -5758,6 +5768,7 @@ module Aws::FSx
     #   resp.backups[0].file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backups[0].file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backups[0].file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backups[0].file_system.administrative_actions[0].message #=> String
     #   resp.backups[0].file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.backups[0].file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.backups[0].file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -5851,7 +5862,7 @@ module Aws::FSx
     #   resp.backups[0].volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.backups[0].volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.backups[0].volume.administrative_actions[0].request_time #=> Time
-    #   resp.backups[0].volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.backups[0].volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.backups[0].volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -5980,6 +5991,7 @@ module Aws::FSx
     #   resp.backups[0].volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.backups[0].volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.backups[0].volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.backups[0].volume.administrative_actions[0].message #=> String
     #   resp.backups[0].volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.backups[0].volume.open_zfs_configuration.volume_path #=> String
     #   resp.backups[0].volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -6558,7 +6570,7 @@ module Aws::FSx
     #   resp.file_systems[0].administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_systems[0].administrative_actions[0].progress_percent #=> Integer
     #   resp.file_systems[0].administrative_actions[0].request_time #=> Time
-    #   resp.file_systems[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_systems[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_systems[0].administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_systems[0].administrative_actions[0].failure_details.message #=> String
     #   resp.file_systems[0].administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -6642,6 +6654,7 @@ module Aws::FSx
     #   resp.file_systems[0].administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_systems[0].administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_systems[0].administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_systems[0].administrative_actions[0].message #=> String
     #   resp.file_systems[0].ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_systems[0].ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_systems[0].ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -6887,7 +6900,7 @@ module Aws::FSx
     #   resp.snapshots[0].administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.snapshots[0].administrative_actions[0].progress_percent #=> Integer
     #   resp.snapshots[0].administrative_actions[0].request_time #=> Time
-    #   resp.snapshots[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.snapshots[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.snapshots[0].administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -7073,6 +7086,7 @@ module Aws::FSx
     #   resp.snapshots[0].administrative_actions[0].target_snapshot_values #=> Types::Snapshot
     #   resp.snapshots[0].administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.snapshots[0].administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.snapshots[0].administrative_actions[0].message #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/DescribeSnapshots AWS API Documentation
@@ -7259,7 +7273,7 @@ module Aws::FSx
     #   resp.volumes[0].administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.volumes[0].administrative_actions[0].progress_percent #=> Integer
     #   resp.volumes[0].administrative_actions[0].request_time #=> Time
-    #   resp.volumes[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.volumes[0].administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.volumes[0].administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -7388,6 +7402,7 @@ module Aws::FSx
     #   resp.volumes[0].administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.volumes[0].administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.volumes[0].administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.volumes[0].administrative_actions[0].message #=> String
     #   resp.volumes[0].open_zfs_configuration.parent_volume_id #=> String
     #   resp.volumes[0].open_zfs_configuration.volume_path #=> String
     #   resp.volumes[0].open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -7723,7 +7738,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -7807,6 +7822,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_system.administrative_actions[0].message #=> String
     #   resp.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -7913,7 +7929,7 @@ module Aws::FSx
     #   resp.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.administrative_actions[0].progress_percent #=> Integer
     #   resp.administrative_actions[0].request_time #=> Time
-    #   resp.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -8109,6 +8125,7 @@ module Aws::FSx
     #   resp.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.administrative_actions[0].message #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/RestoreVolumeFromSnapshot AWS API Documentation
     #
@@ -8224,7 +8241,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -8308,6 +8325,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_system.administrative_actions[0].message #=> String
     #   resp.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -8729,9 +8747,9 @@ module Aws::FSx
     # @option params [Integer] :storage_capacity
     #   Use this parameter to increase the storage capacity of an FSx for
     #   Windows File Server, FSx for Lustre, FSx for OpenZFS, or FSx for ONTAP
-    #   file system. Specifies the storage capacity target value, in GiB, to
-    #   increase the storage capacity for the file system that you're
-    #   updating.
+    #   file system. For second-generation FSx for ONTAP file systems, you can
+    #   also decrease the storage capacity. Specifies the storage capacity
+    #   target value, in GiB, for the file system that you're updating.
     #
     #   <note markdown="1"> You can't make a storage capacity increase request if there is an
     #   existing storage capacity increase request in progress.
@@ -8767,17 +8785,20 @@ module Aws::FSx
     #   of throughput capacity. For more information, see [Managing storage
     #   capacity][3] in the *Amazon FSxfor Windows File Server User Guide*.
     #
-    #   For ONTAP file systems, the storage capacity target value must be at
-    #   least 10 percent greater than the current storage capacity value. For
-    #   more information, see [Managing storage capacity and provisioned
-    #   IOPS][4] in the *Amazon FSx for NetApp ONTAP User Guide*.
+    #   For ONTAP file systems, when increasing storage capacity, the storage
+    #   capacity target value must be at least 10 percent greater than the
+    #   current storage capacity value. When decreasing storage capacity on
+    #   second-generation file systems, the target value must be at least 9
+    #   percent smaller than the current SSD storage capacity. For more
+    #   information, see [File system storage capacity and IOPS][4] in the
+    #   Amazon FSx for NetApp ONTAP User Guide.
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/fsx/latest/LustreGuide/managing-storage-capacity.html
     #   [2]: https://docs.aws.amazon.com/fsx/latest/OpenZFSGuide/managing-storage-capacity.html
     #   [3]: https://docs.aws.amazon.com/fsx/latest/WindowsGuide/managing-storage-capacity.html
-    #   [4]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-storage-capacity.html
+    #   [4]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/storage-capacity-and-IOPS.html
     #
     # @option params [Types::UpdateFileSystemWindowsConfiguration] :windows_configuration
     #   The configuration updates for an Amazon FSx for Windows File Server
@@ -9023,7 +9044,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.file_system.administrative_actions[0].progress_percent #=> Integer
     #   resp.file_system.administrative_actions[0].request_time #=> Time
-    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.file_system.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.file_system.administrative_actions[0].target_file_system_values #=> Types::FileSystem
     #   resp.file_system.administrative_actions[0].failure_details.message #=> String
     #   resp.file_system.administrative_actions[0].target_volume_values.creation_time #=> Time
@@ -9107,6 +9128,7 @@ module Aws::FSx
     #   resp.file_system.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.file_system.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.file_system.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.file_system.administrative_actions[0].message #=> String
     #   resp.file_system.ontap_configuration.automatic_backup_retention_days #=> Integer
     #   resp.file_system.ontap_configuration.daily_automatic_backup_start_time #=> String
     #   resp.file_system.ontap_configuration.deployment_type #=> String, one of "MULTI_AZ_1", "SINGLE_AZ_1", "SINGLE_AZ_2", "MULTI_AZ_2"
@@ -9261,7 +9283,7 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.snapshot.administrative_actions[0].progress_percent #=> Integer
     #   resp.snapshot.administrative_actions[0].request_time #=> Time
-    #   resp.snapshot.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.snapshot.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.snapshot.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.snapshot.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.snapshot.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -9447,6 +9469,7 @@ module Aws::FSx
     #   resp.snapshot.administrative_actions[0].target_snapshot_values #=> Types::Snapshot
     #   resp.snapshot.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.snapshot.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.snapshot.administrative_actions[0].message #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/UpdateSnapshot AWS API Documentation
     #
@@ -9693,7 +9716,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].administrative_action_type #=> String, one of "FILE_SYSTEM_UPDATE", "STORAGE_OPTIMIZATION", "FILE_SYSTEM_ALIAS_ASSOCIATION", "FILE_SYSTEM_ALIAS_DISASSOCIATION", "VOLUME_UPDATE", "SNAPSHOT_UPDATE", "RELEASE_NFS_V3_LOCKS", "VOLUME_RESTORE", "THROUGHPUT_OPTIMIZATION", "IOPS_OPTIMIZATION", "STORAGE_TYPE_OPTIMIZATION", "MISCONFIGURED_STATE_RECOVERY", "VOLUME_UPDATE_WITH_SNAPSHOT", "VOLUME_INITIALIZE_WITH_SNAPSHOT", "DOWNLOAD_DATA_FROM_BACKUP"
     #   resp.volume.administrative_actions[0].progress_percent #=> Integer
     #   resp.volume.administrative_actions[0].request_time #=> Time
-    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING"
+    #   resp.volume.administrative_actions[0].status #=> String, one of "FAILED", "IN_PROGRESS", "PENDING", "COMPLETED", "UPDATED_OPTIMIZING", "OPTIMIZING", "PAUSED", "CANCELLED"
     #   resp.volume.administrative_actions[0].target_file_system_values.owner_id #=> String
     #   resp.volume.administrative_actions[0].target_file_system_values.creation_time #=> Time
     #   resp.volume.administrative_actions[0].target_file_system_values.file_system_id #=> String
@@ -9822,6 +9845,7 @@ module Aws::FSx
     #   resp.volume.administrative_actions[0].target_snapshot_values.administrative_actions #=> Types::AdministrativeActions
     #   resp.volume.administrative_actions[0].total_transfer_bytes #=> Integer
     #   resp.volume.administrative_actions[0].remaining_transfer_bytes #=> Integer
+    #   resp.volume.administrative_actions[0].message #=> String
     #   resp.volume.open_zfs_configuration.parent_volume_id #=> String
     #   resp.volume.open_zfs_configuration.volume_path #=> String
     #   resp.volume.open_zfs_configuration.storage_capacity_reservation_gi_b #=> Integer
@@ -9876,7 +9900,7 @@ module Aws::FSx
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-fsx'
-      context[:gem_version] = '1.119.0'
+      context[:gem_version] = '1.120.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
