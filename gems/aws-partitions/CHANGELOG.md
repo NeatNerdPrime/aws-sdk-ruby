@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1148.0 (2025-08-18)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::BCMDashboards`.
+
 1.1147.0 (2025-08-14)
 ------------------
 

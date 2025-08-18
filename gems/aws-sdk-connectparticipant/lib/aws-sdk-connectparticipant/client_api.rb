@@ -23,6 +23,9 @@ module Aws::ConnectParticipant
     AttachmentName = Shapes::StringShape.new(name: 'AttachmentName')
     AttachmentSizeInBytes = Shapes::IntegerShape.new(name: 'AttachmentSizeInBytes')
     Attachments = Shapes::ListShape.new(name: 'Attachments')
+    Attendee = Shapes::StructureShape.new(name: 'Attendee')
+    AttendeeId = Shapes::StringShape.new(name: 'AttendeeId')
+    AudioFeatures = Shapes::StructureShape.new(name: 'AudioFeatures')
     AuthenticationUrl = Shapes::StringShape.new(name: 'AuthenticationUrl')
     Bool = Shapes::BooleanShape.new(name: 'Bool')
     CancelParticipantAuthenticationRequest = Shapes::StructureShape.new(name: 'CancelParticipantAuthenticationRequest')
@@ -36,6 +39,7 @@ module Aws::ConnectParticipant
     CompleteAttachmentUploadResponse = Shapes::StructureShape.new(name: 'CompleteAttachmentUploadResponse')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ConnectionCredentials = Shapes::StructureShape.new(name: 'ConnectionCredentials')
+    ConnectionData = Shapes::StructureShape.new(name: 'ConnectionData')
     ConnectionType = Shapes::StringShape.new(name: 'ConnectionType')
     ConnectionTypeList = Shapes::ListShape.new(name: 'ConnectionTypeList')
     ContactId = Shapes::StringShape.new(name: 'ContactId')
@@ -57,7 +61,14 @@ module Aws::ConnectParticipant
     Instant = Shapes::StringShape.new(name: 'Instant')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     Item = Shapes::StructureShape.new(name: 'Item')
+    JoinToken = Shapes::StringShape.new(name: 'JoinToken')
     MaxResults = Shapes::IntegerShape.new(name: 'MaxResults')
+    MediaPlacement = Shapes::StructureShape.new(name: 'MediaPlacement')
+    MediaRegion = Shapes::StringShape.new(name: 'MediaRegion')
+    Meeting = Shapes::StructureShape.new(name: 'Meeting')
+    MeetingFeatureStatus = Shapes::StringShape.new(name: 'MeetingFeatureStatus')
+    MeetingFeaturesConfiguration = Shapes::StructureShape.new(name: 'MeetingFeaturesConfiguration')
+    MeetingId = Shapes::StringShape.new(name: 'MeetingId')
     Message = Shapes::StringShape.new(name: 'Message')
     MessageMetadata = Shapes::StructureShape.new(name: 'MessageMetadata')
     MostRecent = Shapes::IntegerShape.new(name: 'MostRecent')
@@ -88,6 +99,7 @@ module Aws::ConnectParticipant
     StartPosition = Shapes::StructureShape.new(name: 'StartPosition')
     ThrottlingException = Shapes::StructureShape.new(name: 'ThrottlingException')
     Transcript = Shapes::ListShape.new(name: 'Transcript')
+    URI = Shapes::StringShape.new(name: 'URI')
     URLExpiryInSeconds = Shapes::IntegerShape.new(name: 'URLExpiryInSeconds')
     UploadMetadata = Shapes::StructureShape.new(name: 'UploadMetadata')
     UploadMetadataSignedHeaders = Shapes::MapShape.new(name: 'UploadMetadataSignedHeaders')
@@ -120,6 +132,13 @@ module Aws::ConnectParticipant
 
     Attachments.member = Shapes::ShapeRef.new(shape: AttachmentItem)
 
+    Attendee.add_member(:attendee_id, Shapes::ShapeRef.new(shape: AttendeeId, location_name: "AttendeeId"))
+    Attendee.add_member(:join_token, Shapes::ShapeRef.new(shape: JoinToken, location_name: "JoinToken"))
+    Attendee.struct_class = Types::Attendee
+
+    AudioFeatures.add_member(:echo_reduction, Shapes::ShapeRef.new(shape: MeetingFeatureStatus, location_name: "EchoReduction"))
+    AudioFeatures.struct_class = Types::AudioFeatures
+
     CancelParticipantAuthenticationRequest.add_member(:session_id, Shapes::ShapeRef.new(shape: SessionId, required: true, location_name: "SessionId"))
     CancelParticipantAuthenticationRequest.add_member(:connection_token, Shapes::ShapeRef.new(shape: ParticipantToken, required: true, location: "header", location_name: "X-Amz-Bearer"))
     CancelParticipantAuthenticationRequest.struct_class = Types::CancelParticipantAuthenticationRequest
@@ -140,6 +159,10 @@ module Aws::ConnectParticipant
     ConnectionCredentials.add_member(:expiry, Shapes::ShapeRef.new(shape: ISO8601Datetime, location_name: "Expiry"))
     ConnectionCredentials.struct_class = Types::ConnectionCredentials
 
+    ConnectionData.add_member(:attendee, Shapes::ShapeRef.new(shape: Attendee, location_name: "Attendee"))
+    ConnectionData.add_member(:meeting, Shapes::ShapeRef.new(shape: Meeting, location_name: "Meeting"))
+    ConnectionData.struct_class = Types::ConnectionData
+
     ConnectionTypeList.member = Shapes::ShapeRef.new(shape: ConnectionType)
 
     CreateParticipantConnectionRequest.add_member(:type, Shapes::ShapeRef.new(shape: ConnectionTypeList, location_name: "Type"))
@@ -149,6 +172,7 @@ module Aws::ConnectParticipant
 
     CreateParticipantConnectionResponse.add_member(:websocket, Shapes::ShapeRef.new(shape: Websocket, location_name: "Websocket"))
     CreateParticipantConnectionResponse.add_member(:connection_credentials, Shapes::ShapeRef.new(shape: ConnectionCredentials, location_name: "ConnectionCredentials"))
+    CreateParticipantConnectionResponse.add_member(:web_rtc_connection, Shapes::ShapeRef.new(shape: ConnectionData, location_name: "WebRTCConnection"))
     CreateParticipantConnectionResponse.struct_class = Types::CreateParticipantConnectionResponse
 
     DescribeViewRequest.add_member(:view_token, Shapes::ShapeRef.new(shape: ViewToken, required: true, location: "uri", location_name: "ViewToken"))
@@ -212,6 +236,22 @@ module Aws::ConnectParticipant
     Item.add_member(:related_contact_id, Shapes::ShapeRef.new(shape: ContactId, location_name: "RelatedContactId"))
     Item.add_member(:contact_id, Shapes::ShapeRef.new(shape: ContactId, location_name: "ContactId"))
     Item.struct_class = Types::Item
+
+    MediaPlacement.add_member(:audio_host_url, Shapes::ShapeRef.new(shape: URI, location_name: "AudioHostUrl"))
+    MediaPlacement.add_member(:audio_fallback_url, Shapes::ShapeRef.new(shape: URI, location_name: "AudioFallbackUrl"))
+    MediaPlacement.add_member(:signaling_url, Shapes::ShapeRef.new(shape: URI, location_name: "SignalingUrl"))
+    MediaPlacement.add_member(:turn_control_url, Shapes::ShapeRef.new(shape: URI, location_name: "TurnControlUrl"))
+    MediaPlacement.add_member(:event_ingestion_url, Shapes::ShapeRef.new(shape: URI, location_name: "EventIngestionUrl"))
+    MediaPlacement.struct_class = Types::MediaPlacement
+
+    Meeting.add_member(:media_region, Shapes::ShapeRef.new(shape: MediaRegion, location_name: "MediaRegion"))
+    Meeting.add_member(:media_placement, Shapes::ShapeRef.new(shape: MediaPlacement, location_name: "MediaPlacement"))
+    Meeting.add_member(:meeting_features, Shapes::ShapeRef.new(shape: MeetingFeaturesConfiguration, location_name: "MeetingFeatures"))
+    Meeting.add_member(:meeting_id, Shapes::ShapeRef.new(shape: MeetingId, location_name: "MeetingId"))
+    Meeting.struct_class = Types::Meeting
+
+    MeetingFeaturesConfiguration.add_member(:audio, Shapes::ShapeRef.new(shape: AudioFeatures, location_name: "Audio"))
+    MeetingFeaturesConfiguration.struct_class = Types::MeetingFeaturesConfiguration
 
     MessageMetadata.add_member(:message_id, Shapes::ShapeRef.new(shape: ChatItemId, location_name: "MessageId"))
     MessageMetadata.add_member(:receipts, Shapes::ShapeRef.new(shape: Receipts, location_name: "Receipts"))

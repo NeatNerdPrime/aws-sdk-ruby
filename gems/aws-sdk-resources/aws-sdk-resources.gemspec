@@ -51,6 +51,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('aws-sdk-autoscaling', '~> 1')
   spec.add_dependency('aws-sdk-autoscalingplans', '~> 1')
   spec.add_dependency('aws-sdk-b2bi', '~> 1')
+  spec.add_dependency('aws-sdk-bcmdashboards', '~> 1')
   spec.add_dependency('aws-sdk-bcmdataexports', '~> 1')
   spec.add_dependency('aws-sdk-bcmpricingcalculator', '~> 1')
   spec.add_dependency('aws-sdk-bcmrecommendedactions', '~> 1')

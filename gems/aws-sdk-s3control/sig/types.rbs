@@ -931,7 +931,7 @@ module Aws::S3Control
     class JobListDescriptor
       attr_accessor job_id: ::String
       attr_accessor description: ::String
-      attr_accessor operation: ("LambdaInvoke" | "S3PutObjectCopy" | "S3PutObjectAcl" | "S3PutObjectTagging" | "S3DeleteObjectTagging" | "S3InitiateRestoreObject" | "S3PutObjectLegalHold" | "S3PutObjectRetention" | "S3ReplicateObject")
+      attr_accessor operation: ("LambdaInvoke" | "S3PutObjectCopy" | "S3PutObjectAcl" | "S3PutObjectTagging" | "S3DeleteObjectTagging" | "S3InitiateRestoreObject" | "S3PutObjectLegalHold" | "S3PutObjectRetention" | "S3ReplicateObject" | "S3ComputeObjectChecksum")
       attr_accessor priority: ::Integer
       attr_accessor status: ("Active" | "Cancelled" | "Cancelling" | "Complete" | "Completing" | "Failed" | "Failing" | "New" | "Paused" | "Pausing" | "Preparing" | "Ready" | "Suspended")
       attr_accessor creation_time: ::Time
@@ -992,6 +992,7 @@ module Aws::S3Control
       attr_accessor s3_put_object_legal_hold: Types::S3SetObjectLegalHoldOperation
       attr_accessor s3_put_object_retention: Types::S3SetObjectRetentionOperation
       attr_accessor s3_replicate_object: Types::S3ReplicateObjectOperation
+      attr_accessor s3_compute_object_checksum: Types::S3ComputeObjectChecksumOperation
       SENSITIVE: []
     end
 
@@ -1009,6 +1010,7 @@ module Aws::S3Control
       attr_accessor enabled: bool
       attr_accessor prefix: ::String
       attr_accessor report_scope: ("AllTasks" | "FailedTasksOnly")
+      attr_accessor expected_bucket_owner: ::String
       SENSITIVE: []
     end
 
@@ -1672,6 +1674,12 @@ module Aws::S3Control
       attr_accessor arn: ::String
       attr_accessor prefix: ::String
       attr_accessor encryption: Types::StorageLensDataExportEncryption
+      SENSITIVE: []
+    end
+
+    class S3ComputeObjectChecksumOperation
+      attr_accessor checksum_algorithm: ("CRC32" | "CRC32C" | "CRC64NVME" | "MD5" | "SHA1" | "SHA256")
+      attr_accessor checksum_type: ("FULL_OBJECT" | "COMPOSITE")
       SENSITIVE: []
     end
 

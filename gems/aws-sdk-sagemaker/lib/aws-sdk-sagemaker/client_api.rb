@@ -3392,6 +3392,8 @@ module Aws::SageMaker
     ClarifyTextConfig.struct_class = Types::ClarifyTextConfig
 
     ClusterEbsVolumeConfig.add_member(:volume_size_in_gb, Shapes::ShapeRef.new(shape: ClusterEbsVolumeSizeInGB, location_name: "VolumeSizeInGB"))
+    ClusterEbsVolumeConfig.add_member(:volume_kms_key_id, Shapes::ShapeRef.new(shape: KmsKeyId, location_name: "VolumeKmsKeyId"))
+    ClusterEbsVolumeConfig.add_member(:root_volume, Shapes::ShapeRef.new(shape: Boolean, location_name: "RootVolume", metadata: {"box" => true}))
     ClusterEbsVolumeConfig.struct_class = Types::ClusterEbsVolumeConfig
 
     ClusterEventDetail.add_member(:event_id, Shapes::ShapeRef.new(shape: EventId, required: true, location_name: "EventId"))

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.323.0 (2025-08-18)
+------------------
+
+* Feature - Customer managed keys now available for volume encryption of SageMaker HyperPod clusters.
+
 1.322.0 (2025-08-13)
 ------------------
 

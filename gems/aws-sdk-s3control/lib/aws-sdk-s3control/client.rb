@@ -506,6 +506,10 @@ module Aws::S3Control
     #   `sso:CreateApplication`, `sso:PutApplicationGrant`, and
     #   `sso:PutApplicationAuthenticationMethod`.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -560,6 +564,10 @@ module Aws::S3Control
     #   For directory users - `identitystore:DescribeUser`
     #
     #   For directory groups - `identitystore:DescribeGroup`
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -693,6 +701,10 @@ module Aws::S3Control
     #   `sso:CreateApplication`, `sso:PutApplicationGrant`, and
     #   `sso:PutApplicationAuthenticationMethod` permissions.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -781,6 +793,10 @@ module Aws::S3Control
     #
     # : You must also have the following permission for the specified IAM
     #   role: `iam:PassRole`
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -888,6 +904,10 @@ module Aws::S3Control
     #
     # * [ListAccessPointsForDirectoryBuckets][9]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html
@@ -979,6 +999,14 @@ module Aws::S3Control
     #   S3][1]. For information about tagging access points, see [Using tags
     #   for attribute-based access control (ABAC)][2].
     #
+    #   <note markdown="1"> * You must have the `s3:TagResource` permission to create an access
+    #     point with tags for a general purpose bucket.
+    #
+    #   * You must have the `s3express:TagResource` permission to create an
+    #     access point with tags for a directory bucket.
+    #
+    #    </note>
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
@@ -1047,6 +1075,10 @@ module Aws::S3Control
     # * [GetAccessPointForObjectLambda][3]
     #
     # * [ListAccessPointsForObjectLambda][4]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -1293,6 +1325,10 @@ module Aws::S3Control
     #
     # * [JobOperation][7]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html
@@ -1470,6 +1506,10 @@ module Aws::S3Control
     #       },
     #       s3_replicate_object: {
     #       },
+    #       s3_compute_object_checksum: {
+    #         checksum_algorithm: "CRC32", # accepts CRC32, CRC32C, CRC64NVME, MD5, SHA1, SHA256
+    #         checksum_type: "FULL_OBJECT", # accepts FULL_OBJECT, COMPOSITE
+    #       },
     #     },
     #     report: { # required
     #       bucket: "S3BucketArnString",
@@ -1477,6 +1517,7 @@ module Aws::S3Control
     #       enabled: false, # required
     #       prefix: "ReportPrefixString",
     #       report_scope: "AllTasks", # accepts AllTasks, FailedTasksOnly
+    #       expected_bucket_owner: "AccountId",
     #     },
     #     client_request_token: "NonEmptyMaxLength64String", # required
     #     manifest: {
@@ -1577,6 +1618,10 @@ module Aws::S3Control
     #
     # * [ListMultiRegionAccessPoints][6]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/CreatingMultiRegionAccessPoints.html
@@ -1658,6 +1703,10 @@ module Aws::S3Control
     #
     # For information about Storage Lens groups errors, see [List of Amazon
     # S3 Storage Lens error codes][3].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -1766,6 +1815,10 @@ module Aws::S3Control
     # : You must have the `s3:DeleteAccessGrant` permission to use this
     #   operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -1806,6 +1859,10 @@ module Aws::S3Control
     # : You must have the `s3:DeleteAccessGrantsInstance` permission to use
     #   this operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_DeleteAccessGrant.html
@@ -1843,6 +1900,10 @@ module Aws::S3Control
     # : You must have the `s3:DeleteAccessGrantsInstanceResourcePolicy`
     #   permission to use this operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -1874,6 +1935,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:DeleteAccessGrantsLocation` permission to use
     #   this operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -1924,6 +1989,10 @@ module Aws::S3Control
     # * [GetAccessPoint][3]
     #
     # * [ListAccessPoints][4]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -1985,6 +2054,10 @@ module Aws::S3Control
     #
     # * [ListAccessPointsForObjectLambda][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateAccessPointForObjectLambda.html
@@ -2033,6 +2106,10 @@ module Aws::S3Control
     # * [PutAccessPointPolicy][2]
     #
     # * [GetAccessPointPolicy][3]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2090,6 +2167,10 @@ module Aws::S3Control
     #
     # * [PutAccessPointPolicyForObjectLambda][2]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_GetAccessPointPolicyForObjectLambda.html
@@ -2132,6 +2213,10 @@ module Aws::S3Control
     # `s3express:DeleteAccessPointScope` action.
     #
     # For information about REST API errors, see [REST error responses][1].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2270,6 +2355,10 @@ module Aws::S3Control
     #
     # * [GetBucketLifecycleConfiguration][6]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketLifecycle.html
@@ -2357,6 +2446,10 @@ module Aws::S3Control
     # * [GetBucketPolicy][5]
     #
     # * [PutBucketPolicy][6]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2448,6 +2541,10 @@ module Aws::S3Control
     #
     # * [GetBucketReplication][7]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketReplication.html
@@ -2524,6 +2621,10 @@ module Aws::S3Control
     #
     # * [PutBucketTagging][5]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteBucketTagging.html
@@ -2587,6 +2688,10 @@ module Aws::S3Control
     #
     # * [PutJobTagging][4]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-managing-jobs.html#batch-ops-job-tags
@@ -2646,6 +2751,10 @@ module Aws::S3Control
     # * [GetMultiRegionAccessPoint][4]
     #
     # * [ListMultiRegionAccessPoints][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2711,6 +2820,10 @@ module Aws::S3Control
     #
     # * [PutPublicAccessBlock][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
@@ -2752,6 +2865,10 @@ module Aws::S3Control
     # S3 User Guide*.
     #
     #  </note>
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2798,6 +2915,10 @@ module Aws::S3Control
     #
     #  </note>
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage_lens.html
@@ -2836,6 +2957,10 @@ module Aws::S3Control
     #
     # For information about Storage Lens groups errors, see [List of Amazon
     # S3 Storage Lens error codes][2].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2885,6 +3010,10 @@ module Aws::S3Control
     # * [UpdateJobPriority][4]
     #
     # * [UpdateJobStatus][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -2981,6 +3110,8 @@ module Aws::S3Control
     #   resp.job.operation.s3_put_object_retention.bypass_governance_retention #=> Boolean
     #   resp.job.operation.s3_put_object_retention.retention.retain_until_date #=> Time
     #   resp.job.operation.s3_put_object_retention.retention.mode #=> String, one of "COMPLIANCE", "GOVERNANCE"
+    #   resp.job.operation.s3_compute_object_checksum.checksum_algorithm #=> String, one of "CRC32", "CRC32C", "CRC64NVME", "MD5", "SHA1", "SHA256"
+    #   resp.job.operation.s3_compute_object_checksum.checksum_type #=> String, one of "FULL_OBJECT", "COMPOSITE"
     #   resp.job.priority #=> Integer
     #   resp.job.progress_summary.total_number_of_tasks #=> Integer
     #   resp.job.progress_summary.number_of_tasks_succeeded #=> Integer
@@ -2995,6 +3126,7 @@ module Aws::S3Control
     #   resp.job.report.enabled #=> Boolean
     #   resp.job.report.prefix #=> String
     #   resp.job.report.report_scope #=> String, one of "AllTasks", "FailedTasksOnly"
+    #   resp.job.report.expected_bucket_owner #=> String
     #   resp.job.creation_time #=> Time
     #   resp.job.termination_date #=> Time
     #   resp.job.role_arn #=> String
@@ -3055,6 +3187,10 @@ module Aws::S3Control
     # * [GetMultiRegionAccessPoint][4]
     #
     # * [ListMultiRegionAccessPoints][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -3132,6 +3268,10 @@ module Aws::S3Control
     # : You must have the `sso:DeleteApplication` permission to use this
     #   operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -3159,6 +3299,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:GetAccessGrant` permission to use this
     #   operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -3221,6 +3365,10 @@ module Aws::S3Control
     #
     #  </note>
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -3271,6 +3419,10 @@ module Aws::S3Control
     #   their S3 Access Grants instance:
     #   `s3:GetAccessGrantsInstanceForPrefix`.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The ID of the Amazon Web Services account that is making this request.
     #
@@ -3310,6 +3462,10 @@ module Aws::S3Control
     # : You must have the `s3:GetAccessGrantsInstanceResourcePolicy`
     #   permission to use this operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -3347,6 +3503,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:GetAccessGrantsLocation` permission to use
     #   this operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -3408,6 +3568,10 @@ module Aws::S3Control
     # * [DeleteAccessPoint][3]
     #
     # * [ListAccessPoints][4]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -3500,6 +3664,10 @@ module Aws::S3Control
     #
     # ^
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_PutAccessPointConfigurationForObjectLambda.html
@@ -3559,6 +3727,10 @@ module Aws::S3Control
     #
     # * [ListAccessPointsForObjectLambda][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateAccessPointForObjectLambda.html
@@ -3614,6 +3786,10 @@ module Aws::S3Control
     # * [PutAccessPointPolicy][1]
     #
     # * [DeleteAccessPointPolicy][2]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -3676,6 +3852,10 @@ module Aws::S3Control
     #
     # * [PutAccessPointPolicyForObjectLambda][2]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_DeleteAccessPointPolicyForObjectLambda.html
@@ -3721,6 +3901,10 @@ module Aws::S3Control
     # through access points, see [Managing Data Access with Amazon S3 access
     # points][1] in the *Amazon S3 User Guide*.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points.html
@@ -3762,6 +3946,10 @@ module Aws::S3Control
     # Returns the status of the resource policy associated with an Object
     # Lambda Access Point.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The account ID for the account that owns the specified Object Lambda
     #   Access Point.
@@ -3799,6 +3987,10 @@ module Aws::S3Control
     # `s3express:GetAccessPointScope` action.
     #
     # For information about REST API errors, see [REST error responses][1].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -3869,6 +4061,10 @@ module Aws::S3Control
     # * [CreateBucket][4]
     #
     # * [DeleteBucket][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -3967,6 +4163,10 @@ module Aws::S3Control
     # * [PutBucketLifecycleConfiguration][7]
     #
     # * [DeleteBucketLifecycleConfiguration][8]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -4092,6 +4292,10 @@ module Aws::S3Control
     # * [PutBucketPolicy][6]
     #
     # * [DeleteBucketPolicy][7]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -4458,6 +4662,10 @@ module Aws::S3Control
     #   `sts:SetContext`, and for IAM users or roles
     #   `sts:SetSourceIdentity`.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html
@@ -4558,6 +4766,10 @@ module Aws::S3Control
     #
     # * [DeleteJobTagging][4]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-managing-jobs.html#batch-ops-job-tags
@@ -4620,6 +4832,10 @@ module Aws::S3Control
     # * [DescribeMultiRegionAccessPointOperation][4]
     #
     # * [ListMultiRegionAccessPoints][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -4699,6 +4915,10 @@ module Aws::S3Control
     #
     # * [PutMultiRegionAccessPointPolicy][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/MultiRegionAccessPointRestrictions.html
@@ -4763,6 +4983,10 @@ module Aws::S3Control
     # * [GetMultiRegionAccessPointPolicy][2]
     #
     # * [PutMultiRegionAccessPointPolicy][3]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -4830,6 +5054,10 @@ module Aws::S3Control
     #
     # * `eu-west-1`
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID for the owner of the Multi-Region
     #   Access Point.
@@ -4879,6 +5107,10 @@ module Aws::S3Control
     # * [DeletePublicAccessBlock][2]
     #
     # * [PutPublicAccessBlock][3]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -4932,6 +5164,10 @@ module Aws::S3Control
     # S3 User Guide*.
     #
     #  </note>
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -5019,6 +5255,10 @@ module Aws::S3Control
     #
     #  </note>
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage_lens.html
@@ -5065,6 +5305,10 @@ module Aws::S3Control
     #
     # For information about Storage Lens groups errors, see [List of Amazon
     # S3 Storage Lens error codes][2].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -5143,6 +5387,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:ListAccessGrants` permission to use this
     #   operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -5256,6 +5504,10 @@ module Aws::S3Control
     # : You must have the `s3:ListAccessGrantsInstances` permission to use
     #   this operation.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
     #
@@ -5312,6 +5564,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:ListAccessGrantsLocations` permission to use
     #   this operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -5402,6 +5658,10 @@ module Aws::S3Control
     # * [DeleteAccessPoint][3]
     #
     # * [GetAccessPoint][4]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -5504,6 +5764,10 @@ module Aws::S3Control
     #
     # For information about REST API errors, see [REST error responses][2].
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_ListAccessPoints.html
@@ -5588,6 +5852,10 @@ module Aws::S3Control
     #
     # * [GetAccessPointForObjectLambda][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_CreateAccessPointForObjectLambda.html
@@ -5662,6 +5930,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:ListCallerAccessGrants` permission to use this
     #   operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -5749,6 +6021,10 @@ module Aws::S3Control
     #
     # * [UpdateJobStatus][5]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html
@@ -5798,7 +6074,7 @@ module Aws::S3Control
     #   resp.jobs #=> Array
     #   resp.jobs[0].job_id #=> String
     #   resp.jobs[0].description #=> String
-    #   resp.jobs[0].operation #=> String, one of "LambdaInvoke", "S3PutObjectCopy", "S3PutObjectAcl", "S3PutObjectTagging", "S3DeleteObjectTagging", "S3InitiateRestoreObject", "S3PutObjectLegalHold", "S3PutObjectRetention", "S3ReplicateObject"
+    #   resp.jobs[0].operation #=> String, one of "LambdaInvoke", "S3PutObjectCopy", "S3PutObjectAcl", "S3PutObjectTagging", "S3DeleteObjectTagging", "S3InitiateRestoreObject", "S3PutObjectLegalHold", "S3PutObjectRetention", "S3ReplicateObject", "S3ComputeObjectChecksum"
     #   resp.jobs[0].priority #=> Integer
     #   resp.jobs[0].status #=> String, one of "Active", "Cancelled", "Cancelling", "Complete", "Completing", "Failed", "Failing", "New", "Paused", "Pausing", "Preparing", "Ready", "Suspended"
     #   resp.jobs[0].creation_time #=> Time
@@ -5841,6 +6117,10 @@ module Aws::S3Control
     # * [DescribeMultiRegionAccessPointOperation][4]
     #
     # * [GetMultiRegionAccessPoint][5]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -5913,6 +6193,10 @@ module Aws::S3Control
     # uses the S3 on Outposts endpoint hostname prefix and
     # `x-amz-outpost-id` in your request, see the [Examples][2] section.
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html
@@ -5983,6 +6267,10 @@ module Aws::S3Control
     #
     #  </note>
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage_lens.html
@@ -6036,6 +6324,10 @@ module Aws::S3Control
     # For information about Storage Lens groups errors, see [List of Amazon
     # S3 Storage Lens error codes][2].
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
@@ -6086,11 +6378,15 @@ module Aws::S3Control
     # <note markdown="1"> This operation is only supported for the following Amazon S3
     # resources:
     #
-    #  * [Directory buckets][1]
+    #  * [Access Points for directory buckets][1]
     #
-    # * [Storage Lens groups][2]
+    # * [Access Points for general purpose buckets][2]
     #
-    # * [S3 Access Grants instances, registered locations, and grants][3].
+    # * [Directory buckets][3]
+    #
+    # * [Storage Lens groups][4]
+    #
+    # * [S3 Access Grants instances, registered locations, and grants][5].
     #
     #  </note>
     #
@@ -6101,15 +6397,15 @@ module Aws::S3Control
     #
     #   For more information about the required Storage Lens Groups
     #   permissions, see [Setting account permissions to use S3 Storage Lens
-    #   groups][4].
+    #   groups][6].
     #
     # Directory bucket permissions
     #
-    # : For directory buckets, you must have the
-    #   `s3express:ListTagsForResource` permission to use this operation.
-    #   For more information about directory buckets policies and
+    # : For directory buckets and access points for directory buckets, you
+    #   must have the `s3express:ListTagsForResource` permission to use this
+    #   operation. For more information about directory buckets policies and
     #   permissions, see [Identity and Access Management (IAM) for S3
-    #   Express One Zone][5] in the *Amazon S3 User Guide*.
+    #   Express One Zone][7] in the *Amazon S3 User Guide*.
     #
     # HTTP Host header syntax
     #
@@ -6117,16 +6413,22 @@ module Aws::S3Control
     #   `s3express-control.region.amazonaws.com`.
     #
     # For information about S3 Tagging errors, see [List of Amazon S3
-    # Tagging error codes][6].
+    # Tagging error codes][8].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
-    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
-    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
-    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
-    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
-    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-db-tagging.html
+    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-tagging.html
+    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
+    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
+    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
+    # [7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
+    # [8]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the resource owner.
@@ -6169,6 +6471,10 @@ module Aws::S3Control
     #
     # : You must have the `s3:PutAccessGrantsInstanceResourcePolicy`
     #   permission to use this operation.
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -6222,6 +6528,10 @@ module Aws::S3Control
     # * [GetAccessPointConfigurationForObjectLambda][1]
     #
     # ^
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -6291,6 +6601,10 @@ module Aws::S3Control
     # * [GetAccessPointPolicy][2]
     #
     # * [DeleteAccessPointPolicy][3]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -6365,6 +6679,10 @@ module Aws::S3Control
     #
     # * [GetAccessPointPolicyForObjectLambda][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/olap-create.html#olap-create-cli
@@ -6413,6 +6731,10 @@ module Aws::S3Control
     # `s3express:PutAccessPointScope` action.
     #
     # For information about REST API errors, see [REST error responses][1].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -7065,6 +7387,10 @@ module Aws::S3Control
     #
     # * [GetBucketLifecycleConfiguration][7]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_PutBucketVersioning.html
@@ -7163,6 +7489,10 @@ module Aws::S3Control
     #
     # * [DeleteJobTagging][4]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/API/API_control_GetJobTagging.html
@@ -7226,6 +7556,10 @@ module Aws::S3Control
     # * [GetMultiRegionAccessPointPolicy][2]
     #
     # * [GetMultiRegionAccessPointPolicyStatus][3]
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -7291,6 +7625,10 @@ module Aws::S3Control
     #
     # * [DeletePublicAccessBlock][3]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html
@@ -7344,6 +7682,10 @@ module Aws::S3Control
     # S3 User Guide*.
     #
     #  </note>
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -7486,6 +7828,10 @@ module Aws::S3Control
     #
     #  </note>
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/storage_lens.html
@@ -7565,6 +7911,10 @@ module Aws::S3Control
     #
     # * `eu-west-1`
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID for the owner of the Multi-Region
     #   Access Point.
@@ -7610,11 +7960,25 @@ module Aws::S3Control
     #
     # <note markdown="1"> This operation is only supported for the following Amazon S3 resource:
     #
-    #  * [Directory buckets][1]
+    #  * [Access Points for directory buckets][1]
     #
-    # * [S3 Storage Lens groups][2]
+    # * [Access Points for general purpose buckets][2]
     #
-    # * [S3 Access Grants instances, registered locations, or grants][3].
+    # * [Directory buckets][3]
+    #
+    # * [S3 Storage Lens groups][4]
+    #
+    # * [S3 Access Grants instances, registered locations, or grants][5].
+    #
+    #  </note>
+    #
+    # <note markdown="1"> This operation is only supported for the following Amazon S3 resource:
+    #
+    #  * [Directory buckets][3]
+    #
+    # * [S3 Storage Lens groups][4]
+    #
+    # * [S3 Access Grants instances, registered locations, or grants][5].
     #
     #  </note>
     #
@@ -7625,15 +7989,15 @@ module Aws::S3Control
     #
     #   For more information about the required Storage Lens Groups
     #   permissions, see [Setting account permissions to use S3 Storage Lens
-    #   groups][4].
+    #   groups][6].
     #
     # Directory bucket permissions
     #
-    # : For directory buckets, you must have the `s3express:TagResource`
-    #   permission to use this operation. For more information about
-    #   directory buckets policies and permissions, see [Identity and Access
-    #   Management (IAM) for S3 Express One Zone][5] in the *Amazon S3 User
-    #   Guide*.
+    # : For directory buckets and access points for directory buckets, you
+    #   must have the `s3express:TagResource` permission to use this
+    #   operation. For more information about directory buckets policies and
+    #   permissions, see [Identity and Access Management (IAM) for S3
+    #   Express One Zone][7] in the *Amazon S3 User Guide*.
     #
     # HTTP Host header syntax
     #
@@ -7641,16 +8005,22 @@ module Aws::S3Control
     #   `s3express-control.region.amazonaws.com`.
     #
     # For information about S3 Tagging errors, see [List of Amazon S3
-    # Tagging error codes][6].
+    # Tagging error codes][8].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
-    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
-    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
-    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
-    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
-    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-db-tagging.html
+    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-tagging.html
+    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
+    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
+    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
+    # [7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
+    # [8]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID that created the S3 resource that
@@ -7696,11 +8066,15 @@ module Aws::S3Control
     # <note markdown="1"> This operation is only supported for the following Amazon S3
     # resources:
     #
-    #  * [Directory buckets][1]
+    #  * [Access Points for directory buckets][1]
     #
-    # * [Storage Lens groups][2]
+    # * [Access Points for general purpose buckets][2]
     #
-    # * [S3 Access Grants instances, registered locations, and grants][3].
+    # * [Directory buckets][3]
+    #
+    # * [Storage Lens groups][4]
+    #
+    # * [S3 Access Grants instances, registered locations, and grants][5].
     #
     #  </note>
     #
@@ -7711,15 +8085,15 @@ module Aws::S3Control
     #
     #   For more information about the required Storage Lens Groups
     #   permissions, see [Setting account permissions to use S3 Storage Lens
-    #   groups][4].
+    #   groups][6].
     #
     # Directory bucket permissions
     #
-    # : For directory buckets, you must have the `s3express:UntagResource`
-    #   permission to use this operation. For more information about
-    #   directory buckets policies and permissions, see [Identity and Access
-    #   Management (IAM) for S3 Express One Zone][5] in the *Amazon S3 User
-    #   Guide*.
+    # : For directory buckets and access points for directory buckets, you
+    #   must have the `s3express:UntagResource` permission to use this
+    #   operation. For more information about directory buckets policies and
+    #   permissions, see [Identity and Access Management (IAM) for S3
+    #   Express One Zone][7] in the *Amazon S3 User Guide*.
     #
     # HTTP Host header syntax
     #
@@ -7727,16 +8101,22 @@ module Aws::S3Control
     #   `s3express-control.region.amazonaws.com`.
     #
     # For information about S3 Tagging errors, see [List of Amazon S3
-    # Tagging error codes][6].
+    # Tagging error codes][8].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
-    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
-    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
-    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
-    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
-    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-db-tagging.html
+    # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-points-tagging.html
+    # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/directory-buckets-tagging.html
+    # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-lens-groups.html
+    # [5]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-grants-tagging.html
+    # [6]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage_lens_iam_permissions.html#storage_lens_groups_permissions
+    # [7]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-permissions.html
+    # [8]: https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#S3TaggingErrorCodeList
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID that owns the resource that you're
@@ -7782,6 +8162,10 @@ module Aws::S3Control
     # Additional Permissions
     #
     # : You must also have the following permission: `iam:PassRole`
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     # @option params [String] :account_id
     #   The Amazon Web Services account ID of the S3 Access Grants instance.
@@ -7858,6 +8242,10 @@ module Aws::S3Control
     #
     # * [UpdateJobStatus][5]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html
@@ -7923,6 +8311,10 @@ module Aws::S3Control
     #
     # * [UpdateJobStatus][5]
     #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/batch-ops.html
@@ -7984,6 +8376,10 @@ module Aws::S3Control
     #
     # For information about Storage Lens groups errors, see [List of Amazon
     # S3 Storage Lens error codes][2].
+    #
+    # You must URL encode any signed header values that contain spaces. For
+    # example, if your header value is `my file.txt`, containing two spaces
+    # after `my`, you must URL encode this value to `my%20%20file.txt`.
     #
     #
     #
@@ -8093,7 +8489,7 @@ module Aws::S3Control
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3control'
-      context[:gem_version] = '1.115.0'
+      context[:gem_version] = '1.116.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

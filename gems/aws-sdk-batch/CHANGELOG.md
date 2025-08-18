@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.122.0 (2025-08-18)
+------------------
+
+* Feature - Added default_x86_64 and default_arm64 as values to the instanceTypes field.
+
 1.121.0 (2025-08-07)
 ------------------
 

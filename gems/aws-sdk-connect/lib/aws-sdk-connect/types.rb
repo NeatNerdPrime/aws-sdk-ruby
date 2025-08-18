@@ -4592,7 +4592,10 @@ module Aws::Connect
     #
     # @!attribute [rw] contact_id
     #   The identifier of the contact in this instance of Amazon Connect.
-    #   Only contacts in the CHAT channel are supported.
+    #   Supports contacts in the CHAT channel and VOICE (WebRTC) channels.
+    #   For WebRTC calls, this should be the initial contact ID that was
+    #   generated when the contact was first created (from the
+    #   StartWebRTCContact API) in the VOICE channel
     #   @return [String]
     #
     # @!attribute [rw] client_token
@@ -4612,9 +4615,8 @@ module Aws::Connect
     # @!attribute [rw] participant_details
     #   Information identifying the participant.
     #
-    #   The only Valid value for `ParticipantRole` is `CUSTOM_BOT`.
-    #
-    #    `DisplayName` is **Required**.
+    #   The only valid value for `ParticipantRole` is `CUSTOM_BOT` for chat
+    #   contact and `CUSTOMER` for voice contact.
     #   @return [Types::ParticipantDetailsToAdd]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/CreateParticipantRequest AWS API Documentation
@@ -18019,11 +18021,24 @@ module Aws::Connect
     #   The display name of the participant.
     #   @return [String]
     #
+    # @!attribute [rw] participant_capabilities
+    #   The configuration for the allowed video and screen sharing
+    #   capabilities for participants present over the call. For more
+    #   information, see [Set up in-app, web, video calling, and screen
+    #   sharing capabilities][1] in the *Amazon Connect Administrator
+    #   Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/inapp-calling.html
+    #   @return [Types::ParticipantCapabilities]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/ParticipantDetailsToAdd AWS API Documentation
     #
     class ParticipantDetailsToAdd < Struct.new(
       :participant_role,
-      :display_name)
+      :display_name,
+      :participant_capabilities)
       SENSITIVE = []
       include Aws::Structure
     end

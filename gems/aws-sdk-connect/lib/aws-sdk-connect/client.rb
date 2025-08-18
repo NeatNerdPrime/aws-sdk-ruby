@@ -2669,13 +2669,15 @@ module Aws::Connect
       req.send_request(options)
     end
 
-    # Adds a new participant into an on-going chat contact. For more
-    # information, see [Customize chat flow experiences by integrating
-    # custom participants][1].
+    # Adds a new participant into an on-going chat contact or webRTC call.
+    # For more information, see [Customize chat flow experiences by
+    # integrating custom participants][1] or [Enable multi-user web, in-app,
+    # and video calling][2].
     #
     #
     #
     # [1]: https://docs.aws.amazon.com/connect/latest/adminguide/chat-customize-flow.html
+    # [2]: https://docs.aws.amazon.com/connect/latest/adminguide/enable-multiuser-inapp.html
     #
     # @option params [required, String] :instance_id
     #   The identifier of the Amazon Connect instance. You can [find the
@@ -2686,8 +2688,11 @@ module Aws::Connect
     #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html
     #
     # @option params [required, String] :contact_id
-    #   The identifier of the contact in this instance of Amazon Connect. Only
-    #   contacts in the CHAT channel are supported.
+    #   The identifier of the contact in this instance of Amazon Connect.
+    #   Supports contacts in the CHAT channel and VOICE (WebRTC) channels. For
+    #   WebRTC calls, this should be the initial contact ID that was generated
+    #   when the contact was first created (from the StartWebRTCContact API)
+    #   in the VOICE channel
     #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
@@ -2705,9 +2710,8 @@ module Aws::Connect
     # @option params [required, Types::ParticipantDetailsToAdd] :participant_details
     #   Information identifying the participant.
     #
-    #   The only Valid value for `ParticipantRole` is `CUSTOM_BOT`.
-    #
-    #    `DisplayName` is **Required**.
+    #   The only valid value for `ParticipantRole` is `CUSTOM_BOT` for chat
+    #   contact and `CUSTOMER` for voice contact.
     #
     # @return [Types::CreateParticipantResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2723,6 +2727,10 @@ module Aws::Connect
     #     participant_details: { # required
     #       participant_role: "AGENT", # accepts AGENT, CUSTOMER, SYSTEM, CUSTOM_BOT, SUPERVISOR
     #       display_name: "DisplayName",
+    #       participant_capabilities: {
+    #         video: "SEND", # accepts SEND
+    #         screen_share: "SEND", # accepts SEND
+    #       },
     #     },
     #   })
     #
@@ -7809,9 +7817,9 @@ module Aws::Connect
     # * If the response is slow due to large result sets, try these
     #   approaches:
     #
-    #   * Narrow the time range of your request
-    #
     #   * Add filters to reduce the amount of data returned
+    #
+    #   ^
     #
     #  </note>
     #
@@ -21535,7 +21543,7 @@ module Aws::Connect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connect'
-      context[:gem_version] = '1.211.0'
+      context[:gem_version] = '1.212.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

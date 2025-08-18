@@ -111,6 +111,9 @@
   "B2bi": {
     "models": "b2bi/2022-06-23"
   },
+  "BCMDashboards": {
+    "models": "bcm-dashboards/2025-08-18"
+  },
   "BCMDataExports": {
     "models": "bcm-data-exports/2023-11-26"
   },

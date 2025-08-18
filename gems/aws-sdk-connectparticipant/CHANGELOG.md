@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.68.0 (2025-08-18)
+------------------
+
+* Feature - Amazon Connect Service Feature: Add support to enable multi-user in-app, web, and video calling.
+
 1.67.0 (2025-08-04)
 ------------------
 

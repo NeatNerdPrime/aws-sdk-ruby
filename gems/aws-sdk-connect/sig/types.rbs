@@ -3985,6 +3985,7 @@ module Aws::Connect
     class ParticipantDetailsToAdd
       attr_accessor participant_role: ("AGENT" | "CUSTOMER" | "SYSTEM" | "CUSTOM_BOT" | "SUPERVISOR")
       attr_accessor display_name: ::String
+      attr_accessor participant_capabilities: Types::ParticipantCapabilities
       SENSITIVE: []
     end
 

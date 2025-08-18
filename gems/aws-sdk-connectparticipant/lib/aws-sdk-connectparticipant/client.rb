@@ -484,6 +484,18 @@ module Aws::ConnectParticipant
     #
     #  </note>
     #
+    # <note markdown="1"> `ConnectionToken` is used for invoking this API instead of
+    # `ParticipantToken`.
+    #
+    #  </note>
+    #
+    # The Amazon Connect Participant Service APIs do not use [Signature
+    # Version 4 authentication][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
+    #
     # @option params [required, String] :session_id
     #   The `sessionId` provided in the `authenticationInitiated` event.
     #
@@ -574,17 +586,24 @@ module Aws::ConnectParticipant
     # For security recommendations, see [Amazon Connect Chat security best
     # practices][1].
     #
+    # For WebRTC security recommendations, see [Amazon Connect WebRTC
+    # security best practices][2].
+    #
     # <note markdown="1"> `ParticipantToken` is used for invoking this API instead of
     # `ConnectionToken`.
     #
     #  </note>
     #
     # The participant token is valid for the lifetime of the participant –
-    # until they are part of a contact.
+    # until they are part of a contact. For WebRTC participants, if they
+    # leave or are disconnected for 60 seconds, a new participant needs to
+    # be created using the [CreateParticipant][3] API.
     #
-    # The response URL for `WEBSOCKET` Type has a connect expiry timeout of
-    # 100s. Clients must manually connect to the returned websocket URL and
-    # subscribe to the desired topic.
+    # **For `WEBSOCKET` Type**:
+    #
+    # The response URL for has a connect expiry timeout of 100s. Clients
+    # must manually connect to the returned websocket URL and subscribe to
+    # the desired topic.
     #
     # For chat, you need to publish the following on the established
     # websocket connection:
@@ -595,29 +614,60 @@ module Aws::ConnectParticipant
     # ConnectionExpiry parameter, clients need to call this API again to
     # obtain a new websocket URL and perform the same steps as before.
     #
+    # The expiry time for the connection token is different than the
+    # `ChatDurationInMinutes`. Expiry time for the connection token is 1
+    # day.
+    #
+    # **For `WEBRTC_CONNECTION` Type**:
+    #
+    # The response includes connection data required for the client
+    # application to join the call using the Amazon Chime SDK client
+    # libraries. The WebRTCConnection response contains Meeting and Attendee
+    # information needed to establish the media connection.
+    #
+    # The attendee join token in WebRTCConnection response is valid for the
+    # lifetime of the participant in the call. If a participant leaves or is
+    # disconnected for 60 seconds, their participant credentials will no
+    # longer be valid, and a new participant will need to be created to
+    # rejoin the call.
+    #
     # **Message streaming support**: This API can also be used together with
-    # the [StartContactStreaming][2] API to create a participant connection
+    # the [StartContactStreaming][4] API to create a participant connection
     # for chat contacts that are not using a websocket. For more information
-    # about message streaming, [Enable real-time chat message streaming][3]
+    # about message streaming, [Enable real-time chat message streaming][5]
     # in the *Amazon Connect Administrator Guide*.
+    #
+    # **Multi-user web, in-app, video calling support**:
+    #
+    # For WebRTC calls, this API is used in conjunction with the
+    # CreateParticipant API to enable multi-party calling. The
+    # StartWebRTCContact API creates the initial contact and routes it to an
+    # agent, while CreateParticipant adds additional participants to the
+    # ongoing call. For more information about multi-party WebRTC calls, see
+    # [Enable multi-user web, in-app, and video calling][6] in the *Amazon
+    # Connect Administrator Guide*.
     #
     # **Feature specifications**: For information about feature
     # specifications, such as the allowed number of open websocket
-    # connections per participant, see [Feature specifications][4] in the
-    # *Amazon Connect Administrator Guide*.
+    # connections per participant or maximum number of WebRTC participants,
+    # see [Feature specifications][7] in the *Amazon Connect Administrator
+    # Guide*.
     #
     # <note markdown="1"> The Amazon Connect Participant Service APIs do not use [Signature
-    # Version 4 authentication][5].
+    # Version 4 authentication][8].
     #
     #  </note>
     #
     #
     #
     # [1]: https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat
-    # [2]: https://docs.aws.amazon.com/connect/latest/APIReference/API_StartContactStreaming.html
-    # [3]: https://docs.aws.amazon.com/connect/latest/adminguide/chat-message-streaming.html
-    # [4]: https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#feature-limits
-    # [5]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
+    # [2]: https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-webrtc-security
+    # [3]: https://docs.aws.amazon.com/connect/latest/APIReference/API_CreateParticipant.html
+    # [4]: https://docs.aws.amazon.com/connect/latest/APIReference/API_StartContactStreaming.html
+    # [5]: https://docs.aws.amazon.com/connect/latest/adminguide/chat-message-streaming.html
+    # [6]: https://docs.aws.amazon.com/connect/latest/adminguide/enable-multiuser-inapp.html
+    # [7]: https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#feature-limits
+    # [8]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
     #
     # @option params [Array<String>] :type
     #   Type of connection information required. If you need
@@ -643,11 +693,12 @@ module Aws::ConnectParticipant
     #
     #   * {Types::CreateParticipantConnectionResponse#websocket #websocket} => Types::Websocket
     #   * {Types::CreateParticipantConnectionResponse#connection_credentials #connection_credentials} => Types::ConnectionCredentials
+    #   * {Types::CreateParticipantConnectionResponse#web_rtc_connection #web_rtc_connection} => Types::ConnectionData
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.create_participant_connection({
-    #     type: ["WEBSOCKET"], # accepts WEBSOCKET, CONNECTION_CREDENTIALS
+    #     type: ["WEBSOCKET"], # accepts WEBSOCKET, CONNECTION_CREDENTIALS, WEBRTC_CONNECTION
     #     participant_token: "ParticipantToken", # required
     #     connect_participant: false,
     #   })
@@ -658,6 +709,16 @@ module Aws::ConnectParticipant
     #   resp.websocket.connection_expiry #=> String
     #   resp.connection_credentials.connection_token #=> String
     #   resp.connection_credentials.expiry #=> String
+    #   resp.web_rtc_connection.attendee.attendee_id #=> String
+    #   resp.web_rtc_connection.attendee.join_token #=> String
+    #   resp.web_rtc_connection.meeting.media_region #=> String
+    #   resp.web_rtc_connection.meeting.media_placement.audio_host_url #=> String
+    #   resp.web_rtc_connection.meeting.media_placement.audio_fallback_url #=> String
+    #   resp.web_rtc_connection.meeting.media_placement.signaling_url #=> String
+    #   resp.web_rtc_connection.meeting.media_placement.turn_control_url #=> String
+    #   resp.web_rtc_connection.meeting.media_placement.event_ingestion_url #=> String
+    #   resp.web_rtc_connection.meeting.meeting_features.audio.echo_reduction #=> String, one of "AVAILABLE", "UNAVAILABLE"
+    #   resp.web_rtc_connection.meeting.meeting_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectparticipant-2018-09-07/CreateParticipantConnection AWS API Documentation
     #
@@ -774,8 +835,13 @@ module Aws::ConnectParticipant
     # For security recommendations, see [Amazon Connect Chat security best
     # practices][1].
     #
-    # <note markdown="1"> `ConnectionToken` is used for invoking this API instead of
-    # `ParticipantToken`.
+    # <note markdown="1"> * The participant role `CUSTOM_BOT` is not permitted to access
+    #   attachments customers may upload. An `AccessDeniedException` can
+    #   indicate that the participant may be a CUSTOM\_BOT, and it doesn't
+    #   have access to attachments.
+    #
+    # * `ConnectionToken` is used for invoking this API instead of
+    #   `ParticipantToken`.
     #
     #  </note>
     #
@@ -842,9 +908,18 @@ module Aws::ConnectParticipant
     #
     #  </note>
     #
+    # <note markdown="1"> `ConnectionToken` is used for invoking this API instead of
+    # `ParticipantToken`.
+    #
+    #  </note>
+    #
+    # The Amazon Connect Participant Service APIs do not use [Signature
+    # Version 4 authentication][2].
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/connect/latest/adminguide/security-best-practices.html#bp-security-chat
+    # [2]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
     #
     # @option params [required, String] :session_id
     #   The sessionId provided in the authenticationInitiated event.
@@ -893,9 +968,11 @@ module Aws::ConnectParticipant
     # chat that has ended, note that chat transcripts contain the following
     # event content types if the event has occurred during the chat session:
     #
-    # * `application/vnd.amazonaws.connect.event.participant.left`
+    # * `application/vnd.amazonaws.connect.event.participant.invited`
     #
     # * `application/vnd.amazonaws.connect.event.participant.joined`
+    #
+    # * `application/vnd.amazonaws.connect.event.participant.left`
     #
     # * `application/vnd.amazonaws.connect.event.chat.ended`
     #
@@ -1003,9 +1080,9 @@ module Aws::ConnectParticipant
     end
 
     # <note markdown="1"> The `application/vnd.amazonaws.connect.event.connection.acknowledged`
-    # ContentType will no longer be supported starting December 31, 2024.
-    # This event has been migrated to the [CreateParticipantConnection][1]
-    # API using the `ConnectParticipant` field.
+    # ContentType is no longer maintained since December 31, 2024. This
+    # event has been migrated to the [CreateParticipantConnection][1] API
+    # using the `ConnectParticipant` field.
     #
     #  </note>
     #
@@ -1036,8 +1113,8 @@ module Aws::ConnectParticipant
     #
     #   * application/vnd.amazonaws.connect.event.typing
     #
-    #   * application/vnd.amazonaws.connect.event.connection.acknowledged
-    #     (will be deprecated on December 31, 2024)
+    #   * application/vnd.amazonaws.connect.event.connection.acknowledged (is
+    #     no longer maintained since December 31, 2024)
     #
     #   * application/vnd.amazonaws.connect.event.message.delivered
     #
@@ -1115,9 +1192,21 @@ module Aws::ConnectParticipant
     # [2]: https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
     #
     # @option params [required, String] :content_type
-    #   The type of the content. Supported types are `text/plain`,
+    #   The type of the content. Possible types are `text/plain`,
     #   `text/markdown`, `application/json`, and
     #   `application/vnd.amazonaws.connect.message.interactive.response`.
+    #
+    #   Supported types on the contact are configured through
+    #   `SupportedMessagingContentTypes` on [StartChatContact][1] and
+    #   [StartOutboundChatContact][2].
+    #
+    #   For Apple Messages for Business, SMS, and WhatsApp Business Messaging
+    #   contacts, only `text/plain` is supported.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/APIReference/API_StartChatContact.html
+    #   [2]: https://docs.aws.amazon.com/connect/latest/APIReference/API_StartOutboundChatContact.html
     #
     # @option params [required, String] :content
     #   The content of the message.
@@ -1277,7 +1366,7 @@ module Aws::ConnectParticipant
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connectparticipant'
-      context[:gem_version] = '1.67.0'
+      context[:gem_version] = '1.68.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -614,9 +614,56 @@ module Aws::Batch
     #   The instances types that can be launched. You can specify instance
     #   families to launch any instance type within those families (for
     #   example, `c5` or `p3`), or you can specify specific sizes within a
-    #   family (such as `c5.8xlarge`). You can also choose `optimal` to
-    #   select instance types (from the C4, M4, and R4 instance families)
-    #   that match the demand of your job queues.
+    #   family (such as `c5.8xlarge`).
+    #
+    #   Batch can select the instance type for you if you choose one of the
+    #   following:
+    #
+    #   * `optimal` to select instance types (from the `c4`, `m4`, `r4`,
+    #     `c5`, `m5`, and `r5` instance families) that match the demand of
+    #     your job queues.
+    #
+    #   * `default_x86_64` to choose x86 based instance types (from the
+    #     `m6i`, `c6i`, `r6i`, and `c7i` instance families) that matches the
+    #     resource demands of the job queue.
+    #
+    #   * `default_arm64` to choose x86 based instance types (from the
+    #     `m6g`, `c6g`, `r6g`, and `c7g` instance families) that matches the
+    #     resource demands of the job queue.
+    #
+    #   <note markdown="1"> Starting on 11/01/2025 the behavior of `optimal` is going to be
+    #   changed to match `default_x86_64`. During the change your instance
+    #   families could be updated to a newer generation. You do not need to
+    #   perform any actions for the upgrade to happen. For more information
+    #   about change, see [Optimal instance type configuration to receive
+    #   automatic instance family updates][1].
+    #
+    #    </note>
+    #
+    #   <note markdown="1"> Instance family availability varies by Amazon Web Services Region.
+    #   For example, some Amazon Web Services Regions may not have any
+    #   fourth generation instance families but have fifth and sixth
+    #   generation instance families.
+    #
+    #    When using `default_x86_64` or `default_arm64` instance bundles,
+    #   Batch selects instance families based on a balance of
+    #   cost-effectiveness and performance. While newer generation instances
+    #   often provide better price-performance, Batch may choose an earlier
+    #   generation instance family if it provides the optimal combination of
+    #   availability, cost, and performance for your workload. For example,
+    #   in an Amazon Web Services Region where both c6i and c7i instances
+    #   are available, Batch might select c6i instances if they offer better
+    #   cost-effectiveness for your specific job requirements. For more
+    #   information on Batch instance types and Amazon Web Services Region
+    #   availability, see [Instance type compute table][2] in the *Batch
+    #   User Guide*.
+    #
+    #    Batch periodically updates your instances in default bundles to
+    #   newer, more cost-effective options. Updates happen automatically
+    #   without requiring any action from you. Your workloads continue
+    #   running during updates with no interruption
+    #
+    #    </note>
     #
     #   <note markdown="1"> This parameter isn't applicable to jobs that are running on Fargate
     #   resources. Don't specify it.
@@ -630,12 +677,10 @@ module Aws::Batch
     #
     #    </note>
     #
-    #   <note markdown="1"> Currently, `optimal` uses instance types from the C4, M4, and R4
-    #   instance families. In Regions that don't have instance types from
-    #   those instance families, instance types from the C5, M5, and R5
-    #   instance families are used.
     #
-    #    </note>
+    #
+    #   [1]: https://docs.aws.amazon.com/batch/latest/userguide/optimal-default-instance-troubleshooting.html
+    #   [2]: https://docs.aws.amazon.com/batch/latest/userguide/instance-type-compute-table.html
     #   @return [Array<String>]
     #
     # @!attribute [rw] image_id
@@ -1048,14 +1093,56 @@ module Aws::Batch
     #   The instances types that can be launched. You can specify instance
     #   families to launch any instance type within those families (for
     #   example, `c5` or `p3`), or you can specify specific sizes within a
-    #   family (such as `c5.8xlarge`). You can also choose `optimal` to
-    #   select instance types (from the C4, M4, and R4 instance families)
-    #   that match the demand of your job queues.
+    #   family (such as `c5.8xlarge`).
     #
-    #   When updating a compute environment, changing this setting requires
-    #   an infrastructure update of the compute environment. For more
-    #   information, see [Updating compute environments][1] in the *Batch
+    #   Batch can select the instance type for you if you choose one of the
+    #   following:
+    #
+    #   * `optimal` to select instance types (from the `c4`, `m4`, `r4`,
+    #     `c5`, `m5`, and `r5` instance families) that match the demand of
+    #     your job queues.
+    #
+    #   * `default_x86_64` to choose x86 based instance types (from the
+    #     `m6i`, `c6i`, `r6i`, and `c7i` instance families) that matches the
+    #     resource demands of the job queue.
+    #
+    #   * `default_arm64` to choose x86 based instance types (from the
+    #     `m6g`, `c6g`, `r6g`, and `c7g` instance families) that matches the
+    #     resource demands of the job queue.
+    #
+    #   <note markdown="1"> Starting on 11/01/2025 the behavior of `optimal` is going to be
+    #   changed to match `default_x86_64`. During the change your instance
+    #   families could be updated to a newer generation. You do not need to
+    #   perform any actions for the upgrade to happen. For more information
+    #   about change, see [Optimal instance type configuration to receive
+    #   automatic instance family updates][1].
+    #
+    #    </note>
+    #
+    #   <note markdown="1"> Instance family availability varies by Amazon Web Services Region.
+    #   For example, some Amazon Web Services Regions may not have any
+    #   fourth generation instance families but have fifth and sixth
+    #   generation instance families.
+    #
+    #    When using `default_x86_64` or `default_arm64` instance bundles,
+    #   Batch selects instance families based on a balance of
+    #   cost-effectiveness and performance. While newer generation instances
+    #   often provide better price-performance, Batch may choose an earlier
+    #   generation instance family if it provides the optimal combination of
+    #   availability, cost, and performance for your workload. For example,
+    #   in an Amazon Web Services Region where both c6i and c7i instances
+    #   are available, Batch might select c6i instances if they offer better
+    #   cost-effectiveness for your specific job requirements. For more
+    #   information on Batch instance types and Amazon Web Services Region
+    #   availability, see [Instance type compute table][2] in the *Batch
     #   User Guide*.
+    #
+    #    Batch periodically updates your instances in default bundles to
+    #   newer, more cost-effective options. Updates happen automatically
+    #   without requiring any action from you. Your workloads continue
+    #   running during updates with no interruption
+    #
+    #    </note>
     #
     #   <note markdown="1"> This parameter isn't applicable to jobs that are running on Fargate
     #   resources. Don't specify it.
@@ -1069,16 +1156,10 @@ module Aws::Batch
     #
     #    </note>
     #
-    #   <note markdown="1"> Currently, `optimal` uses instance types from the C4, M4, and R4
-    #   instance families. In Regions that don't have instance types from
-    #   those instance families, instance types from the C5, M5, and R5
-    #   instance families are used.
-    #
-    #    </note>
     #
     #
-    #
-    #   [1]: https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html
+    #   [1]: https://docs.aws.amazon.com/batch/latest/userguide/optimal-default-instance-troubleshooting.html
+    #   [2]: https://docs.aws.amazon.com/batch/latest/userguide/instance-type-compute-table.html
     #   @return [Array<String>]
     #
     # @!attribute [rw] ec2_key_pair
@@ -6385,7 +6466,8 @@ module Aws::Batch
     #
     #   * Must be a valid Amazon EC2 instance type or family.
     #
-    #   * `optimal` isn't allowed.
+    #   * The following Batch `InstanceTypes` are not allowed: `optimal`,
+    #     `default_x86_64`, and `default_arm64`.
     #
     #   * `targetInstanceTypes` can target only instance types and families
     #     that are included within the [ `ComputeResource.instanceTypes`
@@ -7046,19 +7128,34 @@ module Aws::Batch
     #   @return [String]
     #
     # @!attribute [rw] filters
-    #   The filters to apply to the service job list query. The filter names
-    #   and values can be:
+    #   The filter to apply to the query. Only one filter can be used at a
+    #   time. When the filter is used, `jobStatus` is ignored. The results
+    #   are sorted by the `createdAt` field, with the most recent jobs being
+    #   first.
     #
-    #   * name: `JOB_STATUS`
+    #   JOB\_NAME
     #
-    #     values: `SUBMITTED | PENDING | RUNNABLE | STARTING | RUNNING |
-    #     SUCCEEDED | FAILED | SCHEDULED`
+    #   : The value of the filter is a case-insensitive match for the job
+    #     name. If the value ends with an asterisk (*), the filter matches
+    #     any job name that begins with the string before the '*'. This
+    #     corresponds to the `jobName` value. For example, `test1` matches
+    #     both `Test1` and `test1`, and `test1*` matches both `test1` and
+    #     `Test10`. When the `JOB_NAME` filter is used, the results are
+    #     grouped by the job name and version.
     #
-    #   * name: `JOB_NAME`
+    #   BEFORE\_CREATED\_AT
     #
-    #     values: case-insensitive matches for the job name. If a filter
-    #     value ends with an asterisk (*), it matches any job name that
-    #     begins with the string before the '*'.
+    #   : The value for the filter is the time that's before the job was
+    #     created. This corresponds to the `createdAt` value. The value is a
+    #     string representation of the number of milliseconds since 00:00:00
+    #     UTC (midnight) on January 1, 1970.
+    #
+    #   AFTER\_CREATED\_AT
+    #
+    #   : The value for the filter is the time that's after the job was
+    #     created. This corresponds to the `createdAt` value. The value is a
+    #     string representation of the number of milliseconds since 00:00:00
+    #     UTC (midnight) on January 1, 1970.
     #   @return [Array<Types::KeyValuesPair>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/batch-2016-08-10/ListServiceJobsRequest AWS API Documentation
@@ -9891,9 +9988,8 @@ module Aws::Batch
     # @!attribute [rw] client_token
     #   If this parameter is specified and two update requests with
     #   identical payloads and `clientToken`s are received, these requests
-    #   are considered the same request and the second request is rejected.
-    #   A `clientToken` is valid for 8 hours or until one hour after the
-    #   consumable resource is deleted, whichever is less.
+    #   are considered the same request. Both requests will succeed, but the
+    #   update will only happen once. A `clientToken` is valid for 8 hours.
     #
     #   **A suitable default value is auto-generated.** You should normally
     #   not need to pass this option.

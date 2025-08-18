@@ -41,6 +41,7 @@ module Aws
   autoload :AutoScaling, 'aws-sdk-autoscaling'
   autoload :AutoScalingPlans, 'aws-sdk-autoscalingplans'
   autoload :B2bi, 'aws-sdk-b2bi'
+  autoload :BCMDashboards, 'aws-sdk-bcmdashboards'
   autoload :BCMDataExports, 'aws-sdk-bcmdataexports'
   autoload :BCMPricingCalculator, 'aws-sdk-bcmpricingcalculator'
   autoload :BCMRecommendedActions, 'aws-sdk-bcmrecommendedactions'

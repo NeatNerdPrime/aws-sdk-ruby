@@ -1,0 +1,312 @@
+# WARNING ABOUT GENERATED CODE
+#
+# This file is generated. See the contributing guide for more information:
+# https://github.com/aws/aws-sdk-ruby/blob/version-3/CONTRIBUTING.md
+#
+# WARNING ABOUT GENERATED CODE
+
+module Aws::BCMDashboards
+  module Types
+
+    class AccessDeniedException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class CostAndUsageQuery
+      attr_accessor metrics: ::Array[("AmortizedCost" | "BlendedCost" | "NetAmortizedCost" | "NetUnblendedCost" | "NormalizedUsageAmount" | "UnblendedCost" | "UsageQuantity" | "SpendCoveredBySavingsPlans" | "Hour" | "Unit" | "Cost")]
+      attr_accessor time_range: Types::DateTimeRange
+      attr_accessor granularity: ("HOURLY" | "DAILY" | "MONTHLY")
+      attr_accessor group_by: ::Array[Types::GroupDefinition]
+      attr_accessor filter: Types::Expression
+      SENSITIVE: []
+    end
+
+    class CostCategoryValues
+      attr_accessor key: ::String
+      attr_accessor values: ::Array[::String]
+      attr_accessor match_options: ::Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]
+      SENSITIVE: []
+    end
+
+    class CreateDashboardRequest
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor widgets: ::Array[Types::Widget]
+      attr_accessor resource_tags: ::Array[Types::ResourceTag]
+      SENSITIVE: []
+    end
+
+    class CreateDashboardResponse
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class DashboardReference
+      attr_accessor arn: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor type: ("CUSTOM")
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class DateTimeRange
+      attr_accessor start_time: Types::DateTimeValue
+      attr_accessor end_time: Types::DateTimeValue
+      SENSITIVE: []
+    end
+
+    class DateTimeValue
+      attr_accessor type: ("ABSOLUTE" | "RELATIVE")
+      attr_accessor value: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteDashboardRequest
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteDashboardResponse
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class DimensionValues
+      attr_accessor key: ("AZ" | "INSTANCE_TYPE" | "LINKED_ACCOUNT" | "OPERATION" | "PURCHASE_TYPE" | "REGION" | "SERVICE" | "USAGE_TYPE" | "USAGE_TYPE_GROUP" | "RECORD_TYPE" | "RESOURCE_ID" | "SUBSCRIPTION_ID" | "TAG_KEY" | "OPERATING_SYSTEM" | "TENANCY" | "BILLING_ENTITY" | "RESERVATION_ID" | "COST_CATEGORY_NAME" | "DATABASE_ENGINE" | "LEGAL_ENTITY_NAME" | "SAVINGS_PLANS_TYPE" | "INSTANCE_TYPE_FAMILY" | "CACHE_ENGINE" | "DEPLOYMENT_OPTION" | "SCOPE" | "PLATFORM")
+      attr_accessor values: ::Array[::String]
+      attr_accessor match_options: ::Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]
+      SENSITIVE: []
+    end
+
+    class DisplayConfig
+      attr_accessor graph: ::Hash[::String, Types::GraphDisplayConfig]
+      attr_accessor table: Types::TableDisplayConfigStruct
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Graph < DisplayConfig
+      end
+      class Table < DisplayConfig
+      end
+      class Unknown < DisplayConfig
+      end
+    end
+
+    class Expression
+      attr_accessor or: ::Array[Types::Expression]
+      attr_accessor and: ::Array[Types::Expression]
+      attr_accessor not: Types::Expression
+      attr_accessor dimensions: Types::DimensionValues
+      attr_accessor tags: Types::TagValues
+      attr_accessor cost_categories: Types::CostCategoryValues
+      SENSITIVE: []
+    end
+
+    class GetDashboardRequest
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class GetDashboardResponse
+      attr_accessor arn: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor type: ("CUSTOM")
+      attr_accessor widgets: ::Array[Types::Widget]
+      attr_accessor created_at: ::Time
+      attr_accessor updated_at: ::Time
+      SENSITIVE: []
+    end
+
+    class GetResourcePolicyRequest
+      attr_accessor resource_arn: ::String
+      SENSITIVE: []
+    end
+
+    class GetResourcePolicyResponse
+      attr_accessor resource_arn: ::String
+      attr_accessor policy_document: ::String
+      SENSITIVE: []
+    end
+
+    class GraphDisplayConfig
+      attr_accessor visual_type: ("LINE" | "BAR" | "STACK")
+      SENSITIVE: []
+    end
+
+    class GroupDefinition
+      attr_accessor key: ::String
+      attr_accessor type: ("DIMENSION" | "TAG" | "COST_CATEGORY")
+      SENSITIVE: []
+    end
+
+    class InternalServerException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class ListDashboardsRequest
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListDashboardsResponse
+      attr_accessor dashboards: ::Array[Types::DashboardReference]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListTagsForResourceRequest
+      attr_accessor resource_arn: ::String
+      SENSITIVE: []
+    end
+
+    class ListTagsForResourceResponse
+      attr_accessor resource_tags: ::Array[Types::ResourceTag]
+      SENSITIVE: []
+    end
+
+    class QueryParameters
+      attr_accessor cost_and_usage: Types::CostAndUsageQuery
+      attr_accessor savings_plans_coverage: Types::SavingsPlansCoverageQuery
+      attr_accessor savings_plans_utilization: Types::SavingsPlansUtilizationQuery
+      attr_accessor reservation_coverage: Types::ReservationCoverageQuery
+      attr_accessor reservation_utilization: Types::ReservationUtilizationQuery
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class CostAndUsage < QueryParameters
+      end
+      class SavingsPlansCoverage < QueryParameters
+      end
+      class SavingsPlansUtilization < QueryParameters
+      end
+      class ReservationCoverage < QueryParameters
+      end
+      class ReservationUtilization < QueryParameters
+      end
+      class Unknown < QueryParameters
+      end
+    end
+
+    class ReservationCoverageQuery
+      attr_accessor time_range: Types::DateTimeRange
+      attr_accessor group_by: ::Array[Types::GroupDefinition]
+      attr_accessor granularity: ("HOURLY" | "DAILY" | "MONTHLY")
+      attr_accessor filter: Types::Expression
+      attr_accessor metrics: ::Array[("AmortizedCost" | "BlendedCost" | "NetAmortizedCost" | "NetUnblendedCost" | "NormalizedUsageAmount" | "UnblendedCost" | "UsageQuantity" | "SpendCoveredBySavingsPlans" | "Hour" | "Unit" | "Cost")]
+      SENSITIVE: []
+    end
+
+    class ReservationUtilizationQuery
+      attr_accessor time_range: Types::DateTimeRange
+      attr_accessor group_by: ::Array[Types::GroupDefinition]
+      attr_accessor granularity: ("HOURLY" | "DAILY" | "MONTHLY")
+      attr_accessor filter: Types::Expression
+      SENSITIVE: []
+    end
+
+    class ResourceNotFoundException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class ResourceTag
+      attr_accessor key: ::String
+      attr_accessor value: ::String
+      SENSITIVE: []
+    end
+
+    class SavingsPlansCoverageQuery
+      attr_accessor time_range: Types::DateTimeRange
+      attr_accessor metrics: ::Array[("AmortizedCost" | "BlendedCost" | "NetAmortizedCost" | "NetUnblendedCost" | "NormalizedUsageAmount" | "UnblendedCost" | "UsageQuantity" | "SpendCoveredBySavingsPlans" | "Hour" | "Unit" | "Cost")]
+      attr_accessor granularity: ("HOURLY" | "DAILY" | "MONTHLY")
+      attr_accessor group_by: ::Array[Types::GroupDefinition]
+      attr_accessor filter: Types::Expression
+      SENSITIVE: []
+    end
+
+    class SavingsPlansUtilizationQuery
+      attr_accessor time_range: Types::DateTimeRange
+      attr_accessor granularity: ("HOURLY" | "DAILY" | "MONTHLY")
+      attr_accessor filter: Types::Expression
+      SENSITIVE: []
+    end
+
+    class ServiceQuotaExceededException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class TableDisplayConfigStruct < Aws::EmptyStructure
+    end
+
+    class TagResourceRequest
+      attr_accessor resource_arn: ::String
+      attr_accessor resource_tags: ::Array[Types::ResourceTag]
+      SENSITIVE: []
+    end
+
+    class TagResourceResponse < Aws::EmptyStructure
+    end
+
+    class TagValues
+      attr_accessor key: ::String
+      attr_accessor values: ::Array[::String]
+      attr_accessor match_options: ::Array[("EQUALS" | "ABSENT" | "STARTS_WITH" | "ENDS_WITH" | "CONTAINS" | "GREATER_THAN_OR_EQUAL" | "CASE_SENSITIVE" | "CASE_INSENSITIVE")]
+      SENSITIVE: []
+    end
+
+    class ThrottlingException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class UntagResourceRequest
+      attr_accessor resource_arn: ::String
+      attr_accessor resource_tag_keys: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class UntagResourceResponse < Aws::EmptyStructure
+    end
+
+    class UpdateDashboardRequest
+      attr_accessor arn: ::String
+      attr_accessor name: ::String
+      attr_accessor description: ::String
+      attr_accessor widgets: ::Array[Types::Widget]
+      SENSITIVE: []
+    end
+
+    class UpdateDashboardResponse
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class ValidationException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class Widget
+      attr_accessor title: ::String
+      attr_accessor description: ::String
+      attr_accessor width: ::Integer
+      attr_accessor height: ::Integer
+      attr_accessor horizontal_offset: ::Integer
+      attr_accessor configs: ::Array[Types::WidgetConfig]
+      SENSITIVE: []
+    end
+
+    class WidgetConfig
+      attr_accessor query_parameters: Types::QueryParameters
+      attr_accessor display_config: Types::DisplayConfig
+      SENSITIVE: []
+    end
+  end
+end

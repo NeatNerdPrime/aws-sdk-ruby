@@ -356,6 +356,10 @@ module Aws
                             }
                           }?,
                           s3_replicate_object: {
+                          }?,
+                          s3_compute_object_checksum: {
+                            checksum_algorithm: ("CRC32" | "CRC32C" | "CRC64NVME" | "MD5" | "SHA1" | "SHA256")?,
+                            checksum_type: ("FULL_OBJECT" | "COMPOSITE")?
                           }?
                         },
                         report: {
@@ -363,7 +367,8 @@ module Aws
                           format: ("Report_CSV_20180820")?,
                           enabled: bool,
                           prefix: ::String?,
-                          report_scope: ("AllTasks" | "FailedTasksOnly")?
+                          report_scope: ("AllTasks" | "FailedTasksOnly")?,
+                          expected_bucket_owner: ::String?
                         },
                         client_request_token: ::String,
                         ?manifest: {

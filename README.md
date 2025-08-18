@@ -325,6 +325,7 @@ RubyGems.org page under "LINKS" section.
 | AWS Backup Search                                      | Aws::BackupSearch                        | aws-sdk-backupsearch                        | 2018-05-10  |
 | AWS Batch                                              | Aws::Batch                               | aws-sdk-batch                               | 2016-08-10  |
 | AWS Billing                                            | Aws::Billing                             | aws-sdk-billing                             | 2023-09-07  |
+| AWS Billing and Cost Management Dashboards             | Aws::BCMDashboards                       | aws-sdk-bcmdashboards                       | 2025-08-18  |
 | AWS Billing and Cost Management Data Exports           | Aws::BCMDataExports                      | aws-sdk-bcmdataexports                      | 2023-11-26  |
 | AWS Billing and Cost Management Pricing Calculator     | Aws::BCMPricingCalculator                | aws-sdk-bcmpricingcalculator                | 2024-06-19  |
 | AWS Billing and Cost Management Recommended Actions    | Aws::BCMRecommendedActions               | aws-sdk-bcmrecommendedactions               | 2024-11-14  |

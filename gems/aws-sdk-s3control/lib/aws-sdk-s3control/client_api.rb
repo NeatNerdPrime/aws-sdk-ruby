@@ -62,6 +62,8 @@ module Aws::S3Control
     Buckets = Shapes::ListShape.new(name: 'Buckets')
     CallerAccessGrantsList = Shapes::ListShape.new(name: 'CallerAccessGrantsList')
     CloudWatchMetrics = Shapes::StructureShape.new(name: 'CloudWatchMetrics')
+    ComputeObjectChecksumAlgorithm = Shapes::StringShape.new(name: 'ComputeObjectChecksumAlgorithm')
+    ComputeObjectChecksumType = Shapes::StringShape.new(name: 'ComputeObjectChecksumType')
     ConfigId = Shapes::StringShape.new(name: 'ConfigId')
     ConfirmRemoveSelfBucketAccess = Shapes::BooleanShape.new(name: 'ConfirmRemoveSelfBucketAccess')
     ConfirmationRequired = Shapes::BooleanShape.new(name: 'ConfirmationRequired')
@@ -429,6 +431,7 @@ module Aws::S3Control
     S3BucketDestination = Shapes::StructureShape.new(name: 'S3BucketDestination')
     S3CannedAccessControlList = Shapes::StringShape.new(name: 'S3CannedAccessControlList')
     S3ChecksumAlgorithm = Shapes::StringShape.new(name: 'S3ChecksumAlgorithm')
+    S3ComputeObjectChecksumOperation = Shapes::StructureShape.new(name: 'S3ComputeObjectChecksumOperation')
     S3ContentLength = Shapes::IntegerShape.new(name: 'S3ContentLength')
     S3CopyObjectOperation = Shapes::StructureShape.new(name: 'S3CopyObjectOperation')
     S3DeleteObjectTaggingOperation = Shapes::StructureShape.new(name: 'S3DeleteObjectTaggingOperation')
@@ -1257,6 +1260,7 @@ module Aws::S3Control
     JobOperation.add_member(:s3_put_object_legal_hold, Shapes::ShapeRef.new(shape: S3SetObjectLegalHoldOperation, location_name: "S3PutObjectLegalHold", metadata: {"box" => true}))
     JobOperation.add_member(:s3_put_object_retention, Shapes::ShapeRef.new(shape: S3SetObjectRetentionOperation, location_name: "S3PutObjectRetention", metadata: {"box" => true}))
     JobOperation.add_member(:s3_replicate_object, Shapes::ShapeRef.new(shape: S3ReplicateObjectOperation, location_name: "S3ReplicateObject", metadata: {"box" => true}))
+    JobOperation.add_member(:s3_compute_object_checksum, Shapes::ShapeRef.new(shape: S3ComputeObjectChecksumOperation, location_name: "S3ComputeObjectChecksum", metadata: {"box" => true}))
     JobOperation.struct_class = Types::JobOperation
 
     JobProgressSummary.add_member(:total_number_of_tasks, Shapes::ShapeRef.new(shape: JobTotalNumberOfTasks, location_name: "TotalNumberOfTasks", metadata: {"box" => true}))
@@ -1270,6 +1274,7 @@ module Aws::S3Control
     JobReport.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Enabled"))
     JobReport.add_member(:prefix, Shapes::ShapeRef.new(shape: ReportPrefixString, location_name: "Prefix", metadata: {"box" => true}))
     JobReport.add_member(:report_scope, Shapes::ShapeRef.new(shape: JobReportScope, location_name: "ReportScope", metadata: {"box" => true}))
+    JobReport.add_member(:expected_bucket_owner, Shapes::ShapeRef.new(shape: AccountId, location_name: "ExpectedBucketOwner", metadata: {"box" => true}))
     JobReport.struct_class = Types::JobReport
 
     JobStatusException.add_member(:message, Shapes::ShapeRef.new(shape: ExceptionMessage, location_name: "Message"))
@@ -1793,6 +1798,10 @@ module Aws::S3Control
     S3BucketDestination.add_member(:prefix, Shapes::ShapeRef.new(shape: Prefix, location_name: "Prefix"))
     S3BucketDestination.add_member(:encryption, Shapes::ShapeRef.new(shape: StorageLensDataExportEncryption, location_name: "Encryption"))
     S3BucketDestination.struct_class = Types::S3BucketDestination
+
+    S3ComputeObjectChecksumOperation.add_member(:checksum_algorithm, Shapes::ShapeRef.new(shape: ComputeObjectChecksumAlgorithm, location_name: "ChecksumAlgorithm"))
+    S3ComputeObjectChecksumOperation.add_member(:checksum_type, Shapes::ShapeRef.new(shape: ComputeObjectChecksumType, location_name: "ChecksumType"))
+    S3ComputeObjectChecksumOperation.struct_class = Types::S3ComputeObjectChecksumOperation
 
     S3CopyObjectOperation.add_member(:target_resource, Shapes::ShapeRef.new(shape: S3RegionalOrS3ExpressBucketArnString, location_name: "TargetResource"))
     S3CopyObjectOperation.add_member(:canned_access_control_list, Shapes::ShapeRef.new(shape: S3CannedAccessControlList, location_name: "CannedAccessControlList", metadata: {"box" => true}))

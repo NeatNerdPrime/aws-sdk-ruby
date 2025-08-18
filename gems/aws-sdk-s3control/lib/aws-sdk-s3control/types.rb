@@ -1018,6 +1018,14 @@ module Aws::S3Control
     #   S3][1]. For information about tagging access points, see [Using tags
     #   for attribute-based access control (ABAC)][2].
     #
+    #   <note markdown="1"> * You must have the `s3:TagResource` permission to create an access
+    #     point with tags for a general purpose bucket.
+    #
+    #   * You must have the `s3express:TagResource` permission to create an
+    #     access point with tags for a directory bucket.
+    #
+    #    </note>
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
@@ -4163,6 +4171,11 @@ module Aws::S3Control
     #    </note>
     #   @return [Types::S3ReplicateObjectOperation]
     #
+    # @!attribute [rw] s3_compute_object_checksum
+    #   Directs the specified job to compute checksum values for every
+    #   object in the manifest.
+    #   @return [Types::S3ComputeObjectChecksumOperation]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/JobOperation AWS API Documentation
     #
     class JobOperation < Struct.new(
@@ -4174,7 +4187,8 @@ module Aws::S3Control
       :s3_initiate_restore_object,
       :s3_put_object_legal_hold,
       :s3_put_object_retention,
-      :s3_replicate_object)
+      :s3_replicate_object,
+      :s3_compute_object_checksum)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4239,6 +4253,11 @@ module Aws::S3Control
     #   all tasks or only failed tasks.
     #   @return [String]
     #
+    # @!attribute [rw] expected_bucket_owner
+    #   Lists the Amazon Web Services account ID that owns the target
+    #   bucket, where the completion report is received.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/JobReport AWS API Documentation
     #
     class JobReport < Struct.new(
@@ -4246,7 +4265,8 @@ module Aws::S3Control
       :format,
       :enabled,
       :prefix,
-      :report_scope)
+      :report_scope,
+      :expected_bucket_owner)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -7141,6 +7161,38 @@ module Aws::S3Control
       :arn,
       :prefix,
       :encryption)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Directs the specified job to invoke the `ComputeObjectChecksum`
+    # operation on every object listed in the job's manifest.
+    #
+    # @!attribute [rw] checksum_algorithm
+    #   Indicates the algorithm that you want Amazon S3 to use to create the
+    #   checksum. For more information, see [Checking object integrity][1]
+    #   in the *Amazon S3 User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+    #   @return [String]
+    #
+    # @!attribute [rw] checksum_type
+    #   Indicates the checksum type that you want Amazon S3 to use to
+    #   calculate the object’s checksum value. For more information, see
+    #   [Checking object integrity][1] in the *Amazon S3 User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3control-2018-08-20/S3ComputeObjectChecksumOperation AWS API Documentation
+    #
+    class S3ComputeObjectChecksumOperation < Struct.new(
+      :checksum_algorithm,
+      :checksum_type)
       SENSITIVE = []
       include Aws::Structure
     end

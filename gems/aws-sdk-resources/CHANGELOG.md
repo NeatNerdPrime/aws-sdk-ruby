@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.239.0 (2025-08-18)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-bcmdashboards` gem.
+
 3.238.0 (2025-08-14)
 ------------------
 

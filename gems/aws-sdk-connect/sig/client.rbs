@@ -687,7 +687,11 @@ module Aws
                                 ?client_token: ::String,
                                 participant_details: {
                                   participant_role: ("AGENT" | "CUSTOMER" | "SYSTEM" | "CUSTOM_BOT" | "SUPERVISOR")?,
-                                  display_name: ::String?
+                                  display_name: ::String?,
+                                  participant_capabilities: {
+                                    video: ("SEND")?,
+                                    screen_share: ("SEND")?
+                                  }?
                                 }
                               ) -> _CreateParticipantResponseSuccess
                             | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateParticipantResponseSuccess

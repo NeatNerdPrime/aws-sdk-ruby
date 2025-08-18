@@ -21,6 +21,17 @@ module Aws::ConnectParticipant
       SENSITIVE: []
     end
 
+    class Attendee
+      attr_accessor attendee_id: ::String
+      attr_accessor join_token: ::String
+      SENSITIVE: [:join_token]
+    end
+
+    class AudioFeatures
+      attr_accessor echo_reduction: ("AVAILABLE" | "UNAVAILABLE")
+      SENSITIVE: []
+    end
+
     class CancelParticipantAuthenticationRequest
       attr_accessor session_id: ::String
       attr_accessor connection_token: ::String
@@ -51,8 +62,14 @@ module Aws::ConnectParticipant
       SENSITIVE: []
     end
 
+    class ConnectionData
+      attr_accessor attendee: Types::Attendee
+      attr_accessor meeting: Types::Meeting
+      SENSITIVE: []
+    end
+
     class CreateParticipantConnectionRequest
-      attr_accessor type: ::Array[("WEBSOCKET" | "CONNECTION_CREDENTIALS")]
+      attr_accessor type: ::Array[("WEBSOCKET" | "CONNECTION_CREDENTIALS" | "WEBRTC_CONNECTION")]
       attr_accessor participant_token: ::String
       attr_accessor connect_participant: bool
       SENSITIVE: []
@@ -61,6 +78,7 @@ module Aws::ConnectParticipant
     class CreateParticipantConnectionResponse
       attr_accessor websocket: Types::Websocket
       attr_accessor connection_credentials: Types::ConnectionCredentials
+      attr_accessor web_rtc_connection: Types::ConnectionData
       SENSITIVE: []
     end
 
@@ -146,6 +164,28 @@ module Aws::ConnectParticipant
       attr_accessor message_metadata: Types::MessageMetadata
       attr_accessor related_contact_id: ::String
       attr_accessor contact_id: ::String
+      SENSITIVE: []
+    end
+
+    class MediaPlacement
+      attr_accessor audio_host_url: ::String
+      attr_accessor audio_fallback_url: ::String
+      attr_accessor signaling_url: ::String
+      attr_accessor turn_control_url: ::String
+      attr_accessor event_ingestion_url: ::String
+      SENSITIVE: []
+    end
+
+    class Meeting
+      attr_accessor media_region: ::String
+      attr_accessor media_placement: Types::MediaPlacement
+      attr_accessor meeting_features: Types::MeetingFeaturesConfiguration
+      attr_accessor meeting_id: ::String
+      SENSITIVE: []
+    end
+
+    class MeetingFeaturesConfiguration
+      attr_accessor audio: Types::AudioFeatures
       SENSITIVE: []
     end
 

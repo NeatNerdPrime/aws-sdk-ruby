@@ -281,6 +281,7 @@ module Aws
             'AutoScaling' => 'autoscaling',
             'AutoScalingPlans' => 'autoscaling-plans',
             'B2bi' => 'b2bi',
+            'BCMDashboards' => 'bcm-dashboards',
             'BCMDataExports' => 'bcm-data-exports',
             'BCMPricingCalculator' => 'bcm-pricing-calculator',
             'BCMRecommendedActions' => 'bcm-recommended-actions',

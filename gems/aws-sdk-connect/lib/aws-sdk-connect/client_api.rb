@@ -4666,6 +4666,7 @@ module Aws::Connect
 
     ParticipantDetailsToAdd.add_member(:participant_role, Shapes::ShapeRef.new(shape: ParticipantRole, location_name: "ParticipantRole"))
     ParticipantDetailsToAdd.add_member(:display_name, Shapes::ShapeRef.new(shape: DisplayName, location_name: "DisplayName"))
+    ParticipantDetailsToAdd.add_member(:participant_capabilities, Shapes::ShapeRef.new(shape: ParticipantCapabilities, location_name: "ParticipantCapabilities"))
     ParticipantDetailsToAdd.struct_class = Types::ParticipantDetailsToAdd
 
     ParticipantMetrics.add_member(:participant_id, Shapes::ShapeRef.new(shape: ParticipantId, location_name: "ParticipantId"))
@@ -7214,6 +7215,7 @@ module Aws::Connect
         o.errors << Shapes::ShapeRef.new(shape: InternalServiceException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
       end)
 
       api.add_operation(:create_persistent_contact_association, Seahorse::Model::Operation.new.tap do |o|
