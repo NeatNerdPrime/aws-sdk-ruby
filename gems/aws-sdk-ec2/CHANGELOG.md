@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.550.0 (2025-08-19)
+------------------
+
+* Feature - Add support for "warning" volume status.
+
 1.549.0 (2025-08-14)
 ------------------
 

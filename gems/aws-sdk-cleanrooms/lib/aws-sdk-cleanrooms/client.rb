@@ -533,6 +533,7 @@ module Aws::CleanRooms
     #   resp.collaboration_analysis_templates[0].validations[0].status #=> String, one of "VALID", "INVALID", "UNABLE_TO_VALIDATE"
     #   resp.collaboration_analysis_templates[0].validations[0].reasons #=> Array
     #   resp.collaboration_analysis_templates[0].validations[0].reasons[0].message #=> String
+    #   resp.collaboration_analysis_templates[0].error_message_configuration.type #=> String, one of "DETAILED"
     #   resp.errors #=> Array
     #   resp.errors[0].arn #=> String
     #   resp.errors[0].code #=> String
@@ -793,6 +794,14 @@ module Aws::CleanRooms
     # @option params [Types::AnalysisSchema] :schema
     #   A relation within an analysis.
     #
+    # @option params [Types::ErrorMessageConfiguration] :error_message_configuration
+    #   The configuration that specifies the level of detail in error messages
+    #   returned by analyses using this template. When set to `DETAILED`,
+    #   error messages include more information to help troubleshoot issues
+    #   with PySpark jobs. Detailed error messages may expose underlying data,
+    #   including sensitive information. Recommended for faster
+    #   troubleshooting in development and testing environments.
+    #
     # @return [Types::CreateAnalysisTemplateOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateAnalysisTemplateOutput#analysis_template #analysis_template} => Types::AnalysisTemplate
@@ -837,6 +846,9 @@ module Aws::CleanRooms
     #     schema: {
     #       referenced_tables: ["TableAlias"],
     #     },
+    #     error_message_configuration: {
+    #       type: "DETAILED", # required, accepts DETAILED
+    #     },
     #   })
     #
     # @example Response structure
@@ -873,6 +885,7 @@ module Aws::CleanRooms
     #   resp.analysis_template.validations[0].status #=> String, one of "VALID", "INVALID", "UNABLE_TO_VALIDATE"
     #   resp.analysis_template.validations[0].reasons #=> Array
     #   resp.analysis_template.validations[0].reasons[0].message #=> String
+    #   resp.analysis_template.error_message_configuration.type #=> String, one of "DETAILED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/CreateAnalysisTemplate AWS API Documentation
     #
@@ -2249,6 +2262,7 @@ module Aws::CleanRooms
     #   resp.analysis_template.validations[0].status #=> String, one of "VALID", "INVALID", "UNABLE_TO_VALIDATE"
     #   resp.analysis_template.validations[0].reasons #=> Array
     #   resp.analysis_template.validations[0].reasons[0].message #=> String
+    #   resp.analysis_template.error_message_configuration.type #=> String, one of "DETAILED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/GetAnalysisTemplate AWS API Documentation
     #
@@ -2358,6 +2372,7 @@ module Aws::CleanRooms
     #   resp.collaboration_analysis_template.validations[0].status #=> String, one of "VALID", "INVALID", "UNABLE_TO_VALIDATE"
     #   resp.collaboration_analysis_template.validations[0].reasons #=> Array
     #   resp.collaboration_analysis_template.validations[0].reasons[0].message #=> String
+    #   resp.collaboration_analysis_template.error_message_configuration.type #=> String, one of "DETAILED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/GetCollaborationAnalysisTemplate AWS API Documentation
     #
@@ -4760,6 +4775,7 @@ module Aws::CleanRooms
     #   resp.analysis_template.validations[0].status #=> String, one of "VALID", "INVALID", "UNABLE_TO_VALIDATE"
     #   resp.analysis_template.validations[0].reasons #=> Array
     #   resp.analysis_template.validations[0].reasons[0].message #=> String
+    #   resp.analysis_template.error_message_configuration.type #=> String, one of "DETAILED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/UpdateAnalysisTemplate AWS API Documentation
     #
@@ -5672,7 +5688,7 @@ module Aws::CleanRooms
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cleanrooms'
-      context[:gem_version] = '1.50.0'
+      context[:gem_version] = '1.51.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

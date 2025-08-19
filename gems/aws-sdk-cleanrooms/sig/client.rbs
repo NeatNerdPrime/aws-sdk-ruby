@@ -159,6 +159,9 @@ module Aws
                                       ],
                                       ?schema: {
                                         referenced_tables: Array[::String]?
+                                      },
+                                      ?error_message_configuration: {
+                                        type: ("DETAILED")
                                       }
                                     ) -> _CreateAnalysisTemplateResponseSuccess
                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAnalysisTemplateResponseSuccess

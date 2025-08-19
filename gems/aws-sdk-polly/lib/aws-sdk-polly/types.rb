@@ -827,12 +827,6 @@ module Aws::Polly
     #   Amazon Polly voices and which voices are available for each engine,
     #   see [Available Voices][1].
     #
-    #   Type: String
-    #
-    #   Valid Values: `standard` \| `neural` \| `long-form` \| `generative`
-    #
-    #   Required: Yes
-    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/polly/latest/dg/voicelist.html
@@ -879,10 +873,10 @@ module Aws::Polly
     #   The audio frequency specified in Hz.
     #
     #   The valid values for mp3 and ogg\_vorbis are "8000", "16000",
-    #   "22050", and "24000". The default value for standard voices is
-    #   "22050". The default value for neural voices is "24000". The
-    #   default value for long-form voices is "24000". The default value
-    #   for generative voices is "24000".
+    #   "22050", "24000", "44100" and "48000". The default value for
+    #   standard voices is "22050". The default value for neural voices is
+    #   "24000". The default value for long-form voices is "24000". The
+    #   default value for generative voices is "24000".
     #
     #   Valid values for pcm are "8000" and "16000" The default value is
     #   "16000".

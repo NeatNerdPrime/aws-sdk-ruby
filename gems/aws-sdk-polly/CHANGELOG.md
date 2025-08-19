@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.112.0 (2025-08-19)
+------------------
+
+* Feature - Added support for new output format - Opus.
+
 1.111.0 (2025-08-04)
 ------------------
 

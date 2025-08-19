@@ -160,6 +160,7 @@ module Aws::CleanRooms
       attr_accessor source_metadata: Types::AnalysisSourceMetadata
       attr_accessor analysis_parameters: ::Array[Types::AnalysisParameter]
       attr_accessor validations: ::Array[Types::AnalysisTemplateValidationStatusDetail]
+      attr_accessor error_message_configuration: Types::ErrorMessageConfiguration
       SENSITIVE: []
     end
 
@@ -318,6 +319,7 @@ module Aws::CleanRooms
       attr_accessor source_metadata: Types::AnalysisSourceMetadata
       attr_accessor analysis_parameters: ::Array[Types::AnalysisParameter]
       attr_accessor validations: ::Array[Types::AnalysisTemplateValidationStatusDetail]
+      attr_accessor error_message_configuration: Types::ErrorMessageConfiguration
       SENSITIVE: []
     end
 
@@ -737,6 +739,7 @@ module Aws::CleanRooms
       attr_accessor tags: ::Hash[::String, ::String]
       attr_accessor analysis_parameters: ::Array[Types::AnalysisParameter]
       attr_accessor schema: Types::AnalysisSchema
+      attr_accessor error_message_configuration: Types::ErrorMessageConfiguration
       SENSITIVE: []
     end
 
@@ -1085,6 +1088,11 @@ module Aws::CleanRooms
 
     class DirectAnalysisConfigurationDetails
       attr_accessor receiver_account_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class ErrorMessageConfiguration
+      attr_accessor type: ("DETAILED")
       SENSITIVE: []
     end
 

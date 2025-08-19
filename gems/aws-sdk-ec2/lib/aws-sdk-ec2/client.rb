@@ -40616,7 +40616,7 @@ module Aws::EC2
     #   resp.volume_statuses[0].volume_status.details #=> Array
     #   resp.volume_statuses[0].volume_status.details[0].name #=> String, one of "io-enabled", "io-performance", "initialization-state"
     #   resp.volume_statuses[0].volume_status.details[0].status #=> String
-    #   resp.volume_statuses[0].volume_status.status #=> String, one of "ok", "impaired", "insufficient-data"
+    #   resp.volume_statuses[0].volume_status.status #=> String, one of "ok", "impaired", "insufficient-data", "warning"
     #   resp.volume_statuses[0].attachment_statuses #=> Array
     #   resp.volume_statuses[0].attachment_statuses[0].io_performance #=> String
     #   resp.volume_statuses[0].attachment_statuses[0].instance_id #=> String
@@ -66598,7 +66598,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.549.0'
+      context[:gem_version] = '1.550.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

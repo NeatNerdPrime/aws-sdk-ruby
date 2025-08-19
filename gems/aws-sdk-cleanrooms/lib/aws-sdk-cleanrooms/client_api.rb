@@ -240,6 +240,8 @@ module Aws::CleanRooms
     Document = Shapes::DocumentShape.new(name: 'Document', document: true)
     Double = Shapes::FloatShape.new(name: 'Double')
     Epsilon = Shapes::IntegerShape.new(name: 'Epsilon')
+    ErrorMessageConfiguration = Shapes::StructureShape.new(name: 'ErrorMessageConfiguration')
+    ErrorMessageType = Shapes::StringShape.new(name: 'ErrorMessageType')
     FilterableMemberStatus = Shapes::StringShape.new(name: 'FilterableMemberStatus')
     Float = Shapes::FloatShape.new(name: 'Float')
     GenericResourceName = Shapes::StringShape.new(name: 'GenericResourceName')
@@ -703,6 +705,7 @@ module Aws::CleanRooms
     AnalysisTemplate.add_member(:source_metadata, Shapes::ShapeRef.new(shape: AnalysisSourceMetadata, location_name: "sourceMetadata"))
     AnalysisTemplate.add_member(:analysis_parameters, Shapes::ShapeRef.new(shape: AnalysisParameterList, location_name: "analysisParameters"))
     AnalysisTemplate.add_member(:validations, Shapes::ShapeRef.new(shape: AnalysisTemplateValidationStatusDetailList, location_name: "validations"))
+    AnalysisTemplate.add_member(:error_message_configuration, Shapes::ShapeRef.new(shape: ErrorMessageConfiguration, location_name: "errorMessageConfiguration"))
     AnalysisTemplate.struct_class = Types::AnalysisTemplate
 
     AnalysisTemplateArnList.member = Shapes::ShapeRef.new(shape: AnalysisTemplateArn)
@@ -837,6 +840,7 @@ module Aws::CleanRooms
     CollaborationAnalysisTemplate.add_member(:source_metadata, Shapes::ShapeRef.new(shape: AnalysisSourceMetadata, location_name: "sourceMetadata"))
     CollaborationAnalysisTemplate.add_member(:analysis_parameters, Shapes::ShapeRef.new(shape: AnalysisParameterList, location_name: "analysisParameters"))
     CollaborationAnalysisTemplate.add_member(:validations, Shapes::ShapeRef.new(shape: AnalysisTemplateValidationStatusDetailList, location_name: "validations"))
+    CollaborationAnalysisTemplate.add_member(:error_message_configuration, Shapes::ShapeRef.new(shape: ErrorMessageConfiguration, location_name: "errorMessageConfiguration"))
     CollaborationAnalysisTemplate.struct_class = Types::CollaborationAnalysisTemplate
 
     CollaborationAnalysisTemplateList.member = Shapes::ShapeRef.new(shape: CollaborationAnalysisTemplate)
@@ -1192,6 +1196,7 @@ module Aws::CleanRooms
     CreateAnalysisTemplateInput.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "tags"))
     CreateAnalysisTemplateInput.add_member(:analysis_parameters, Shapes::ShapeRef.new(shape: AnalysisParameterList, location_name: "analysisParameters"))
     CreateAnalysisTemplateInput.add_member(:schema, Shapes::ShapeRef.new(shape: AnalysisSchema, location_name: "schema"))
+    CreateAnalysisTemplateInput.add_member(:error_message_configuration, Shapes::ShapeRef.new(shape: ErrorMessageConfiguration, location_name: "errorMessageConfiguration"))
     CreateAnalysisTemplateInput.struct_class = Types::CreateAnalysisTemplateInput
 
     CreateAnalysisTemplateOutput.add_member(:analysis_template, Shapes::ShapeRef.new(shape: AnalysisTemplate, required: true, location_name: "analysisTemplate"))
@@ -1445,6 +1450,9 @@ module Aws::CleanRooms
 
     DirectAnalysisConfigurationDetails.add_member(:receiver_account_ids, Shapes::ShapeRef.new(shape: ReceiverAccountIds, location_name: "receiverAccountIds"))
     DirectAnalysisConfigurationDetails.struct_class = Types::DirectAnalysisConfigurationDetails
+
+    ErrorMessageConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: ErrorMessageType, required: true, location_name: "type"))
+    ErrorMessageConfiguration.struct_class = Types::ErrorMessageConfiguration
 
     GetAnalysisTemplateInput.add_member(:membership_identifier, Shapes::ShapeRef.new(shape: MembershipIdentifier, required: true, location: "uri", location_name: "membershipIdentifier"))
     GetAnalysisTemplateInput.add_member(:analysis_template_identifier, Shapes::ShapeRef.new(shape: AnalysisTemplateIdentifier, required: true, location: "uri", location_name: "analysisTemplateIdentifier"))

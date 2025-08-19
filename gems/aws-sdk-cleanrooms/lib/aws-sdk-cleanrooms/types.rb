@@ -521,6 +521,15 @@ module Aws::CleanRooms
     #   template.
     #   @return [Array<Types::AnalysisTemplateValidationStatusDetail>]
     #
+    # @!attribute [rw] error_message_configuration
+    #   The configuration that specifies the level of detail in error
+    #   messages returned by analyses using this template. When set to
+    #   `DETAILED`, error messages include more information to help
+    #   troubleshoot issues with PySpark jobs. Detailed error messages may
+    #   expose underlying data, including sensitive information. Recommended
+    #   for faster troubleshooting in development and testing environments.
+    #   @return [Types::ErrorMessageConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/AnalysisTemplate AWS API Documentation
     #
     class AnalysisTemplate < Struct.new(
@@ -539,7 +548,8 @@ module Aws::CleanRooms
       :source,
       :source_metadata,
       :analysis_parameters,
-      :validations)
+      :validations,
+      :error_message_configuration)
       SENSITIVE = [:analysis_parameters]
       include Aws::Structure
     end
@@ -1136,6 +1146,15 @@ module Aws::CleanRooms
     #   The validations that were performed.
     #   @return [Array<Types::AnalysisTemplateValidationStatusDetail>]
     #
+    # @!attribute [rw] error_message_configuration
+    #   The configuration that specifies the level of detail in error
+    #   messages returned by analyses using this template. When set to
+    #   `DETAILED`, error messages include more information to help
+    #   troubleshoot issues with PySpark jobs. Detailed error messages may
+    #   expose underlying data, including sensitive information. Recommended
+    #   for faster troubleshooting in development and testing environments.
+    #   @return [Types::ErrorMessageConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/CollaborationAnalysisTemplate AWS API Documentation
     #
     class CollaborationAnalysisTemplate < Struct.new(
@@ -1153,7 +1172,8 @@ module Aws::CleanRooms
       :source,
       :source_metadata,
       :analysis_parameters,
-      :validations)
+      :validations,
+      :error_message_configuration)
       SENSITIVE = [:analysis_parameters]
       include Aws::Structure
     end
@@ -2794,6 +2814,15 @@ module Aws::CleanRooms
     #   A relation within an analysis.
     #   @return [Types::AnalysisSchema]
     #
+    # @!attribute [rw] error_message_configuration
+    #   The configuration that specifies the level of detail in error
+    #   messages returned by analyses using this template. When set to
+    #   `DETAILED`, error messages include more information to help
+    #   troubleshoot issues with PySpark jobs. Detailed error messages may
+    #   expose underlying data, including sensitive information. Recommended
+    #   for faster troubleshooting in development and testing environments.
+    #   @return [Types::ErrorMessageConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/CreateAnalysisTemplateInput AWS API Documentation
     #
     class CreateAnalysisTemplateInput < Struct.new(
@@ -2804,7 +2833,8 @@ module Aws::CleanRooms
       :source,
       :tags,
       :analysis_parameters,
-      :schema)
+      :schema,
+      :error_message_configuration)
       SENSITIVE = [:analysis_parameters]
       include Aws::Structure
     end
@@ -4001,6 +4031,28 @@ module Aws::CleanRooms
     #
     class DirectAnalysisConfigurationDetails < Struct.new(
       :receiver_account_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A structure that defines the level of detail included in error
+    # messages returned by PySpark jobs. This configuration allows you to
+    # control the verbosity of error messages to help with troubleshooting
+    # PySpark jobs while maintaining appropriate security controls.
+    #
+    # @!attribute [rw] type
+    #   The level of detail for error messages returned by the PySpark job.
+    #   When set to DETAILED, error messages include more information to
+    #   help troubleshoot issues with your PySpark job.
+    #
+    #   Because this setting may expose sensitive data, it is recommended
+    #   for development and testing environments.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/ErrorMessageConfiguration AWS API Documentation
+    #
+    class ErrorMessageConfiguration < Struct.new(
+      :type)
       SENSITIVE = []
       include Aws::Structure
     end

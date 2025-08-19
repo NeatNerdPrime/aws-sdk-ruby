@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.51.0 (2025-08-19)
+------------------
+
+* Feature - Support error message configuration for analysis templates
+
 1.50.0 (2025-08-04)
 ------------------
 

@@ -16769,7 +16769,7 @@ module Aws::EC2
 
     class VolumeStatusInfo
       attr_accessor details: ::Array[Types::VolumeStatusDetails]
-      attr_accessor status: ("ok" | "impaired" | "insufficient-data")
+      attr_accessor status: ("ok" | "impaired" | "insufficient-data" | "warning")
       SENSITIVE: []
     end
 

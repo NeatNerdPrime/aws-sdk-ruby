@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+1.197.0 (2025-08-19)
+------------------
+
 * Issue - When multipart stream uploader fails to complete multipart upload, it calls abort multipart upload.
 
 * Issue - For `Aws::S3::Object` class, the following methods have been deprecated: `download_file`, `upload_file` and `upload_stream`. Use `Aws::S3::TransferManager` instead.

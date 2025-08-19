@@ -736,7 +736,7 @@ module Aws::Polly
     #   resp.synthesis_task.sns_topic_arn #=> String
     #   resp.synthesis_task.lexicon_names #=> Array
     #   resp.synthesis_task.lexicon_names[0] #=> String
-    #   resp.synthesis_task.output_format #=> String, one of "json", "mp3", "ogg_vorbis", "pcm"
+    #   resp.synthesis_task.output_format #=> String, one of "json", "mp3", "ogg_opus", "ogg_vorbis", "pcm"
     #   resp.synthesis_task.sample_rate #=> String
     #   resp.synthesis_task.speech_mark_types #=> Array
     #   resp.synthesis_task.speech_mark_types[0] #=> String, one of "sentence", "ssml", "viseme", "word"
@@ -865,7 +865,7 @@ module Aws::Polly
     #   resp.synthesis_tasks[0].sns_topic_arn #=> String
     #   resp.synthesis_tasks[0].lexicon_names #=> Array
     #   resp.synthesis_tasks[0].lexicon_names[0] #=> String
-    #   resp.synthesis_tasks[0].output_format #=> String, one of "json", "mp3", "ogg_vorbis", "pcm"
+    #   resp.synthesis_tasks[0].output_format #=> String, one of "json", "mp3", "ogg_opus", "ogg_vorbis", "pcm"
     #   resp.synthesis_tasks[0].sample_rate #=> String
     #   resp.synthesis_tasks[0].speech_mark_types #=> Array
     #   resp.synthesis_tasks[0].speech_mark_types[0] #=> String, one of "sentence", "ssml", "viseme", "word"
@@ -1023,7 +1023,7 @@ module Aws::Polly
     #     engine: "standard", # accepts standard, neural, long-form, generative
     #     language_code: "arb", # accepts arb, cmn-CN, cy-GB, da-DK, de-DE, en-AU, en-GB, en-GB-WLS, en-IN, en-US, es-ES, es-MX, es-US, fr-CA, fr-FR, is-IS, it-IT, ja-JP, hi-IN, ko-KR, nb-NO, nl-NL, pl-PL, pt-BR, pt-PT, ro-RO, ru-RU, sv-SE, tr-TR, en-NZ, en-ZA, ca-ES, de-AT, yue-CN, ar-AE, fi-FI, en-IE, nl-BE, fr-BE, cs-CZ, de-CH, en-SG
     #     lexicon_names: ["LexiconName"],
-    #     output_format: "json", # required, accepts json, mp3, ogg_vorbis, pcm
+    #     output_format: "json", # required, accepts json, mp3, ogg_opus, ogg_vorbis, pcm
     #     output_s3_bucket_name: "OutputS3BucketName", # required
     #     output_s3_key_prefix: "OutputS3KeyPrefix",
     #     sample_rate: "SampleRate",
@@ -1046,7 +1046,7 @@ module Aws::Polly
     #   resp.synthesis_task.sns_topic_arn #=> String
     #   resp.synthesis_task.lexicon_names #=> Array
     #   resp.synthesis_task.lexicon_names[0] #=> String
-    #   resp.synthesis_task.output_format #=> String, one of "json", "mp3", "ogg_vorbis", "pcm"
+    #   resp.synthesis_task.output_format #=> String, one of "json", "mp3", "ogg_opus", "ogg_vorbis", "pcm"
     #   resp.synthesis_task.sample_rate #=> String
     #   resp.synthesis_task.speech_mark_types #=> Array
     #   resp.synthesis_task.speech_mark_types[0] #=> String, one of "sentence", "ssml", "viseme", "word"
@@ -1082,12 +1082,6 @@ module Aws::Polly
     #   standard engine, this will result in an error. For information on
     #   Amazon Polly voices and which voices are available for each engine,
     #   see [Available Voices][1].
-    #
-    #   Type: String
-    #
-    #   Valid Values: `standard` \| `neural` \| `long-form` \| `generative`
-    #
-    #   Required: Yes
     #
     #
     #
@@ -1131,10 +1125,10 @@ module Aws::Polly
     #   The audio frequency specified in Hz.
     #
     #   The valid values for mp3 and ogg\_vorbis are "8000", "16000",
-    #   "22050", and "24000". The default value for standard voices is
-    #   "22050". The default value for neural voices is "24000". The
-    #   default value for long-form voices is "24000". The default value for
-    #   generative voices is "24000".
+    #   "22050", "24000", "44100" and "48000". The default value for
+    #   standard voices is "22050". The default value for neural voices is
+    #   "24000". The default value for long-form voices is "24000". The
+    #   default value for generative voices is "24000".
     #
     #   Valid values for pcm are "8000" and "16000" The default value is
     #   "16000".
@@ -1197,7 +1191,7 @@ module Aws::Polly
     #     engine: "standard", # accepts standard, neural, long-form, generative
     #     language_code: "arb", # accepts arb, cmn-CN, cy-GB, da-DK, de-DE, en-AU, en-GB, en-GB-WLS, en-IN, en-US, es-ES, es-MX, es-US, fr-CA, fr-FR, is-IS, it-IT, ja-JP, hi-IN, ko-KR, nb-NO, nl-NL, pl-PL, pt-BR, pt-PT, ro-RO, ru-RU, sv-SE, tr-TR, en-NZ, en-ZA, ca-ES, de-AT, yue-CN, ar-AE, fi-FI, en-IE, nl-BE, fr-BE, cs-CZ, de-CH, en-SG
     #     lexicon_names: ["LexiconName"],
-    #     output_format: "json", # required, accepts json, mp3, ogg_vorbis, pcm
+    #     output_format: "json", # required, accepts json, mp3, ogg_opus, ogg_vorbis, pcm
     #     sample_rate: "SampleRate",
     #     speech_mark_types: ["sentence"], # accepts sentence, ssml, viseme, word
     #     text: "Text", # required
@@ -1238,7 +1232,7 @@ module Aws::Polly
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-polly'
-      context[:gem_version] = '1.111.0'
+      context[:gem_version] = '1.112.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
