@@ -58,6 +58,7 @@ module Aws::CognitoIdentityProvider
   # * {ResourceNotFoundException}
   # * {ScopeDoesNotExistException}
   # * {SoftwareTokenMFANotFoundException}
+  # * {TermsExistsException}
   # * {TierChangeNotAllowedException}
   # * {TooManyFailedAttemptsException}
   # * {TooManyRequestsException}
@@ -548,6 +549,21 @@ module Aws::CognitoIdentityProvider
       # @param [Seahorse::Client::RequestContext] context
       # @param [String] message
       # @param [Aws::CognitoIdentityProvider::Types::SoftwareTokenMFANotFoundException] data
+      def initialize(context, message, data = Aws::EmptyStructure.new)
+        super(context, message, data)
+      end
+
+      # @return [String]
+      def message
+        @message || @data[:message]
+      end
+    end
+
+    class TermsExistsException < ServiceError
+
+      # @param [Seahorse::Client::RequestContext] context
+      # @param [String] message
+      # @param [Aws::CognitoIdentityProvider::Types::TermsExistsException] data
       def initialize(context, message, data = Aws::EmptyStructure.new)
         super(context, message, data)
       end

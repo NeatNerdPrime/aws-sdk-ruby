@@ -1168,6 +1168,32 @@ module Aws::BedrockRuntime
       include Aws::Structure
     end
 
+    # The inputs from a `Converse` API request for token counting.
+    #
+    # This structure mirrors the input format for the `Converse` operation,
+    # allowing you to count tokens for conversation-based inference
+    # requests.
+    #
+    # @!attribute [rw] messages
+    #   An array of messages to count tokens for.
+    #   @return [Array<Types::Message>]
+    #
+    # @!attribute [rw] system
+    #   The system content blocks to count tokens for. System content
+    #   provides instructions or context to the model about how it should
+    #   behave or respond. The token count will include any system content
+    #   provided.
+    #   @return [Array<Types::SystemContentBlock>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/ConverseTokensRequest AWS API Documentation
+    #
+    class ConverseTokensRequest < Struct.new(
+      :messages,
+      :system)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The trace object in a response from [Converse][1]. Currently, you can
     # only trace guardrails.
     #
@@ -1188,6 +1214,85 @@ module Aws::BedrockRuntime
     class ConverseTrace < Struct.new(
       :guardrail,
       :prompt_router)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The input value for token counting. The value should be either an
+    # `InvokeModel` or `Converse` request body.
+    #
+    # @note CountTokensInput is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] invoke_model
+    #   An `InvokeModel` request for which to count tokens. Use this field
+    #   when you want to count tokens for a raw text input that would be
+    #   sent to the `InvokeModel` operation.
+    #   @return [Types::InvokeModelTokensRequest]
+    #
+    # @!attribute [rw] converse
+    #   A `Converse` request for which to count tokens. Use this field when
+    #   you want to count tokens for a conversation-based input that would
+    #   be sent to the `Converse` operation.
+    #   @return [Types::ConverseTokensRequest]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/CountTokensInput AWS API Documentation
+    #
+    class CountTokensInput < Struct.new(
+      :invoke_model,
+      :converse,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class InvokeModel < CountTokensInput; end
+      class Converse < CountTokensInput; end
+      class Unknown < CountTokensInput; end
+    end
+
+    # @!attribute [rw] model_id
+    #   The unique identifier or ARN of the foundation model to use for
+    #   token counting. Each model processes tokens differently, so the
+    #   token count is specific to the model you specify.
+    #   @return [String]
+    #
+    # @!attribute [rw] input
+    #   The input for which to count tokens. The structure of this parameter
+    #   depends on whether you're counting tokens for an `InvokeModel` or
+    #   `Converse` request:
+    #
+    #   * For `InvokeModel` requests, provide the request body in the
+    #     `invokeModel` field
+    #
+    #   * For `Converse` requests, provide the messages and system content
+    #     in the `converse` field
+    #
+    #   The input format must be compatible with the model specified in the
+    #   `modelId` parameter.
+    #   @return [Types::CountTokensInput]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/CountTokensRequest AWS API Documentation
+    #
+    class CountTokensRequest < Struct.new(
+      :model_id,
+      :input)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] input_tokens
+    #   The number of tokens in the provided input according to the
+    #   specified model's tokenization rules. This count represents the
+    #   number of input tokens that would be processed if the same input
+    #   were sent to the model in an inference request. Use this value to
+    #   estimate costs and ensure your inputs stay within model token
+    #   limits.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/CountTokensResponse AWS API Documentation
+    #
+    class CountTokensResponse < Struct.new(
+      :input_tokens)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1521,39 +1626,46 @@ module Aws::BedrockRuntime
     # @note GuardrailAutomatedReasoningFinding is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of GuardrailAutomatedReasoningFinding corresponding to the set member.
     #
     # @!attribute [rw] valid
-    #   Indicates that the claims are definitively true and logically
-    #   implied by the premises, with no possible alternative
-    #   interpretations.
+    #   Contains the result when the automated reasoning evaluation
+    #   determines that the claims in the input are logically valid and
+    #   definitively true based on the provided premises and policy rules.
     #   @return [Types::GuardrailAutomatedReasoningValidFinding]
     #
     # @!attribute [rw] invalid
-    #   Indicates that the claims are logically false and contradictory to
-    #   the established rules or premises.
+    #   Contains the result when the automated reasoning evaluation
+    #   determines that the claims in the input are logically invalid and
+    #   contradict the established premises or policy rules.
     #   @return [Types::GuardrailAutomatedReasoningInvalidFinding]
     #
     # @!attribute [rw] satisfiable
-    #   Indicates that the claims could be either true or false depending on
-    #   additional assumptions not provided in the input.
+    #   Contains the result when the automated reasoning evaluation
+    #   determines that the claims in the input could be either true or
+    #   false depending on additional assumptions not provided in the input
+    #   context.
     #   @return [Types::GuardrailAutomatedReasoningSatisfiableFinding]
     #
     # @!attribute [rw] impossible
-    #   Indicates that no valid claims can be made due to logical
-    #   contradictions in the premises or rules.
+    #   Contains the result when the automated reasoning evaluation
+    #   determines that no valid logical conclusions can be drawn due to
+    #   contradictions in the premises or policy rules themselves.
     #   @return [Types::GuardrailAutomatedReasoningImpossibleFinding]
     #
     # @!attribute [rw] translation_ambiguous
-    #   Indicates that the input has multiple valid logical interpretations,
-    #   requiring additional context or clarification.
+    #   Contains the result when the automated reasoning evaluation detects
+    #   that the input has multiple valid logical interpretations, requiring
+    #   additional context or clarification to proceed with validation.
     #   @return [Types::GuardrailAutomatedReasoningTranslationAmbiguousFinding]
     #
     # @!attribute [rw] too_complex
-    #   Indicates that the input exceeds the processing capacity due to the
-    #   volume or complexity of the logical information.
+    #   Contains the result when the automated reasoning evaluation cannot
+    #   process the input due to its complexity or volume exceeding the
+    #   system's processing capacity for logical analysis.
     #   @return [Types::GuardrailAutomatedReasoningTooComplexFinding]
     #
     # @!attribute [rw] no_translations
-    #   Indicates that no relevant logical information could be extracted
-    #   from the input for validation.
+    #   Contains the result when the automated reasoning evaluation cannot
+    #   extract any relevant logical information from the input that can be
+    #   validated against the policy rules.
     #   @return [Types::GuardrailAutomatedReasoningNoTranslationsFinding]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAutomatedReasoningFinding AWS API Documentation
@@ -2935,6 +3047,28 @@ module Aws::BedrockRuntime
       :body,
       :content_type,
       :performance_config_latency)
+      SENSITIVE = [:body]
+      include Aws::Structure
+    end
+
+    # The body of an `InvokeModel` API request for token counting. This
+    # structure mirrors the input format for the `InvokeModel` operation,
+    # allowing you to count tokens for raw text inference requests.
+    #
+    # @!attribute [rw] body
+    #   The request body to count tokens for, formatted according to the
+    #   model's expected input format. To learn about the input format for
+    #   different models, see [Model inference parameters and responses][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/InvokeModelTokensRequest AWS API Documentation
+    #
+    class InvokeModelTokensRequest < Struct.new(
+      :body)
       SENSITIVE = [:body]
       include Aws::Structure
     end

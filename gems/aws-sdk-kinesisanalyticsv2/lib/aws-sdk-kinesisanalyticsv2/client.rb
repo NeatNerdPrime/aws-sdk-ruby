@@ -1215,6 +1215,10 @@ module Aws::KinesisAnalyticsV2
     #           },
     #         ],
     #       },
+    #       application_encryption_configuration: {
+    #         key_id: "KeyId",
+    #         key_type: "AWS_OWNED_KEY", # required, accepts AWS_OWNED_KEY, CUSTOMER_MANAGED_KEY
+    #       },
     #     },
     #     cloud_watch_logging_options: [
     #       {
@@ -1336,6 +1340,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.group_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.artifact_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.version #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_id #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.application_detail.cloud_watch_logging_option_descriptions #=> Array
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].cloud_watch_logging_option_id #=> String
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].log_stream_arn #=> String
@@ -1884,6 +1890,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.group_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.artifact_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.version #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_id #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.application_detail.cloud_watch_logging_option_descriptions #=> Array
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].cloud_watch_logging_option_id #=> String
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].log_stream_arn #=> String
@@ -1906,14 +1914,19 @@ module Aws::KinesisAnalyticsV2
       req.send_request(options)
     end
 
-    # Returns information about a specific operation performed on a Managed
-    # Service for Apache Flink application
+    # Provides a detailed description of a specified application operation.
+    # To see a list of all the operations of an application, invoke the
+    # ListApplicationOperations operation.
+    #
+    # <note markdown="1"> This operation is supported only for Managed Service for Apache Flink.
+    #
+    #  </note>
     #
     # @option params [required, String] :application_name
-    #   The name of the application
+    #   The name of the application.
     #
     # @option params [required, String] :operation_id
-    #   Identifier of the Operation
+    #   The operation ID of the request.
     #
     # @return [Types::DescribeApplicationOperationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -1973,6 +1986,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.snapshot_details.application_version_id #=> Integer
     #   resp.snapshot_details.snapshot_creation_timestamp #=> Time
     #   resp.snapshot_details.runtime_environment #=> String, one of "SQL-1_0", "FLINK-1_6", "FLINK-1_8", "ZEPPELIN-FLINK-1_0", "FLINK-1_11", "FLINK-1_13", "ZEPPELIN-FLINK-2_0", "FLINK-1_15", "ZEPPELIN-FLINK-3_0", "FLINK-1_18", "FLINK-1_19", "FLINK-1_20"
+    #   resp.snapshot_details.application_encryption_configuration_description.key_id #=> String
+    #   resp.snapshot_details.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationSnapshot AWS API Documentation
     #
@@ -2116,6 +2131,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.application_version_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.group_id #=> String
     #   resp.application_version_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.artifact_id #=> String
     #   resp.application_version_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.version #=> String
+    #   resp.application_version_detail.application_configuration_description.application_encryption_configuration_description.key_id #=> String
+    #   resp.application_version_detail.application_configuration_description.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.application_version_detail.cloud_watch_logging_option_descriptions #=> Array
     #   resp.application_version_detail.cloud_watch_logging_option_descriptions[0].cloud_watch_logging_option_id #=> String
     #   resp.application_version_detail.cloud_watch_logging_option_descriptions[0].log_stream_arn #=> String
@@ -2221,24 +2238,31 @@ module Aws::KinesisAnalyticsV2
       req.send_request(options)
     end
 
-    # Lists information about operations performed on a Managed Service for
-    # Apache Flink application
+    # Lists all the operations performed for the specified application such
+    # as UpdateApplication, StartApplication etc. The response also includes
+    # a summary of the operation.
+    #
+    # To get the complete description of a specific operation, invoke the
+    # DescribeApplicationOperation operation.
+    #
+    # <note markdown="1"> This operation is supported only for Managed Service for Apache Flink.
+    #
+    #  </note>
     #
     # @option params [required, String] :application_name
-    #   The name of the application
+    #   The name of the application.
     #
     # @option params [Integer] :limit
-    #   Limit on the number of records returned in the response
+    #   The limit on the number of records to be returned in the response.
     #
     # @option params [String] :next_token
-    #   If a previous command returned a pagination token, pass it into this
-    #   value to retrieve the next set of results
+    #   A pagination token that can be used in a subsequent request.
     #
     # @option params [String] :operation
-    #   Type of operation performed on an application
+    #   The type of operation that is performed on an application.
     #
     # @option params [String] :operation_status
-    #   Status of the operation performed on an application
+    #   The status of the operation.
     #
     # @return [Types::ListApplicationOperationsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2313,6 +2337,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.snapshot_summaries[0].application_version_id #=> Integer
     #   resp.snapshot_summaries[0].snapshot_creation_timestamp #=> Time
     #   resp.snapshot_summaries[0].runtime_environment #=> String, one of "SQL-1_0", "FLINK-1_6", "FLINK-1_8", "ZEPPELIN-FLINK-1_0", "FLINK-1_11", "FLINK-1_13", "ZEPPELIN-FLINK-2_0", "FLINK-1_15", "ZEPPELIN-FLINK-3_0", "FLINK-1_18", "FLINK-1_19", "FLINK-1_20"
+    #   resp.snapshot_summaries[0].application_encryption_configuration_description.key_id #=> String
+    #   resp.snapshot_summaries[0].application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationSnapshots AWS API Documentation
@@ -2608,6 +2634,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.group_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.artifact_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.version #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_id #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.application_detail.cloud_watch_logging_option_descriptions #=> Array
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].cloud_watch_logging_option_id #=> String
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].log_stream_arn #=> String
@@ -3048,6 +3076,10 @@ module Aws::KinesisAnalyticsV2
     #           },
     #         ],
     #       },
+    #       application_encryption_configuration_update: {
+    #         key_id_update: "KeyId",
+    #         key_type_update: "AWS_OWNED_KEY", # required, accepts AWS_OWNED_KEY, CUSTOMER_MANAGED_KEY
+    #       },
     #     },
     #     service_execution_role_update: "RoleARN",
     #     run_configuration_update: {
@@ -3175,6 +3207,8 @@ module Aws::KinesisAnalyticsV2
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.group_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.artifact_id #=> String
     #   resp.application_detail.application_configuration_description.zeppelin_application_configuration_description.custom_artifacts_configuration_description[0].maven_reference_description.version #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_id #=> String
+    #   resp.application_detail.application_configuration_description.application_encryption_configuration_description.key_type #=> String, one of "AWS_OWNED_KEY", "CUSTOMER_MANAGED_KEY"
     #   resp.application_detail.cloud_watch_logging_option_descriptions #=> Array
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].cloud_watch_logging_option_id #=> String
     #   resp.application_detail.cloud_watch_logging_option_descriptions[0].log_stream_arn #=> String
@@ -3281,7 +3315,7 @@ module Aws::KinesisAnalyticsV2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-kinesisanalyticsv2'
-      context[:gem_version] = '1.79.0'
+      context[:gem_version] = '1.80.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -105,6 +105,9 @@ module Aws
       class SoftwareTokenMFANotFoundException < ::Aws::Errors::ServiceError
         def message: () -> ::String
       end
+      class TermsExistsException < ::Aws::Errors::ServiceError
+        def message: () -> ::String
+      end
       class TierChangeNotAllowedException < ::Aws::Errors::ServiceError
         def message: () -> ::String
       end

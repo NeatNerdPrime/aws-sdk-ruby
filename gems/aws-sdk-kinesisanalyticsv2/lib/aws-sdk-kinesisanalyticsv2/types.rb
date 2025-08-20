@@ -65,8 +65,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Array<Types::CloudWatchLoggingOptionDescription>]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking AddApplicationCloudWatchLoggingOption
-    #   request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationCloudWatchLoggingOptionResponse AWS API Documentation
@@ -357,7 +356,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::VpcConfigurationDescription]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking AddApplicationVpcConfiguration request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/AddApplicationVpcConfigurationResponse AWS API Documentation
@@ -460,8 +459,8 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::ApplicationSnapshotConfiguration]
     #
     # @!attribute [rw] application_system_rollback_configuration
-    #   Describes system rollback configuration for a Managed Service for
-    #   Apache Flink application
+    #   Describes whether system rollbacks are enabled for a Managed Service
+    #   for Apache Flink application.
     #   @return [Types::ApplicationSystemRollbackConfiguration]
     #
     # @!attribute [rw] vpc_configurations
@@ -474,6 +473,10 @@ module Aws::KinesisAnalyticsV2
     #   Studio notebook.
     #   @return [Types::ZeppelinApplicationConfiguration]
     #
+    # @!attribute [rw] application_encryption_configuration
+    #   The configuration to manage encryption at rest.
+    #   @return [Types::ApplicationEncryptionConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationConfiguration AWS API Documentation
     #
     class ApplicationConfiguration < Struct.new(
@@ -484,7 +487,8 @@ module Aws::KinesisAnalyticsV2
       :application_snapshot_configuration,
       :application_system_rollback_configuration,
       :vpc_configurations,
-      :zeppelin_application_configuration)
+      :zeppelin_application_configuration,
+      :application_encryption_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -522,8 +526,8 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::ApplicationSnapshotConfigurationDescription]
     #
     # @!attribute [rw] application_system_rollback_configuration_description
-    #   Describes system rollback configuration for a Managed Service for
-    #   Apache Flink application
+    #   Describes whether system rollbacks are enabled for a Managed Service
+    #   for Apache Flink application.
     #   @return [Types::ApplicationSystemRollbackConfigurationDescription]
     #
     # @!attribute [rw] vpc_configuration_descriptions
@@ -536,6 +540,10 @@ module Aws::KinesisAnalyticsV2
     #   Studio notebook.
     #   @return [Types::ZeppelinApplicationConfigurationDescription]
     #
+    # @!attribute [rw] application_encryption_configuration_description
+    #   Describes the encryption at rest configuration.
+    #   @return [Types::ApplicationEncryptionConfigurationDescription]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationConfigurationDescription AWS API Documentation
     #
     class ApplicationConfigurationDescription < Struct.new(
@@ -547,7 +555,8 @@ module Aws::KinesisAnalyticsV2
       :application_snapshot_configuration_description,
       :application_system_rollback_configuration_description,
       :vpc_configuration_descriptions,
-      :zeppelin_application_configuration_description)
+      :zeppelin_application_configuration_description,
+      :application_encryption_configuration_description)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -579,8 +588,8 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::ApplicationSnapshotConfigurationUpdate]
     #
     # @!attribute [rw] application_system_rollback_configuration_update
-    #   Describes system rollback configuration for a Managed Service for
-    #   Apache Flink application
+    #   Describes whether system rollbacks are enabled for a Managed Service
+    #   for Apache Flink application.
     #   @return [Types::ApplicationSystemRollbackConfigurationUpdate]
     #
     # @!attribute [rw] vpc_configuration_updates
@@ -593,6 +602,10 @@ module Aws::KinesisAnalyticsV2
     #   Studio notebook.
     #   @return [Types::ZeppelinApplicationConfigurationUpdate]
     #
+    # @!attribute [rw] application_encryption_configuration_update
+    #   Represents an update for encryption at rest configuration.
+    #   @return [Types::ApplicationEncryptionConfigurationUpdate]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationConfigurationUpdate AWS API Documentation
     #
     class ApplicationConfigurationUpdate < Struct.new(
@@ -603,7 +616,8 @@ module Aws::KinesisAnalyticsV2
       :application_snapshot_configuration_update,
       :application_system_rollback_configuration_update,
       :vpc_configuration_updates,
-      :zeppelin_application_configuration_update)
+      :zeppelin_application_configuration_update,
+      :application_encryption_configuration_update)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -675,7 +689,8 @@ module Aws::KinesisAnalyticsV2
     #   @return [Integer]
     #
     # @!attribute [rw] application_version_create_timestamp
-    #   The current timestamp when the application version was created.
+    #   The timestamp that indicates when the application version was
+    #   created.
     #   @return [Time]
     #
     # @!attribute [rw] conditional_token
@@ -718,6 +733,66 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
+    # Specifies the configuration to manage encryption at rest.
+    #
+    # @!attribute [rw] key_id
+    #   The key ARN, key ID, alias ARN, or alias name of the KMS key used
+    #   for encryption at rest.
+    #   @return [String]
+    #
+    # @!attribute [rw] key_type
+    #   Specifies the type of key used for encryption at rest.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationEncryptionConfiguration AWS API Documentation
+    #
+    class ApplicationEncryptionConfiguration < Struct.new(
+      :key_id,
+      :key_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes the encryption at rest configuration.
+    #
+    # @!attribute [rw] key_id
+    #   The key ARN, key ID, alias ARN, or alias name of the KMS key used
+    #   for encryption at rest.
+    #   @return [String]
+    #
+    # @!attribute [rw] key_type
+    #   Specifies the type of key used for encryption at rest.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationEncryptionConfigurationDescription AWS API Documentation
+    #
+    class ApplicationEncryptionConfigurationDescription < Struct.new(
+      :key_id,
+      :key_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes configuration updates to encryption at rest.
+    #
+    # @!attribute [rw] key_id_update
+    #   The key ARN, key ID, alias ARN, or alias name of the KMS key to be
+    #   used for encryption at rest.
+    #   @return [String]
+    #
+    # @!attribute [rw] key_type_update
+    #   Specifies the type of key to be used for encryption at rest.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationEncryptionConfigurationUpdate AWS API Documentation
+    #
+    class ApplicationEncryptionConfigurationUpdate < Struct.new(
+      :key_id_update,
+      :key_type_update)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The details of the maintenance configuration for the application.
     #
     # @!attribute [rw] application_maintenance_window_start_time
@@ -751,27 +826,27 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Provides a description of the operation, such as the type and status
-    # of operation
+    # A description of the aplication operation that provides information
+    # about the updates that were made to the application.
     #
     # @!attribute [rw] operation
-    #   Type of operation performed on an application
+    #   The type of operation that is performed on an application.
     #   @return [String]
     #
     # @!attribute [rw] operation_id
-    #   Identifier of the Operation
+    #   The operation ID of the request.
     #   @return [String]
     #
     # @!attribute [rw] start_time
-    #   The timestamp at which the operation was created
+    #   The timestamp that indicates when the operation was created.
     #   @return [Time]
     #
     # @!attribute [rw] end_time
-    #   The timestamp at which the operation finished for the application
+    #   The timestamp that indicates when the operation finished.
     #   @return [Time]
     #
     # @!attribute [rw] operation_status
-    #   Status of the operation performed on an application
+    #   The status of the operation.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationOperationInfo AWS API Documentation
@@ -786,32 +861,32 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Provides a description of the operation, such as the operation-type
-    # and status
+    # A description of the application operation that provides information
+    # about the updates that were made to the application.
     #
     # @!attribute [rw] operation
-    #   Type of operation performed on an application
+    #   The type of operation that is performed on an application.
     #   @return [String]
     #
     # @!attribute [rw] start_time
-    #   The timestamp at which the operation was created
+    #   The timestamp that indicates when the operation was created.
     #   @return [Time]
     #
     # @!attribute [rw] end_time
-    #   The timestamp at which the operation finished for the application
+    #   The timestamp that indicates when the operation finished.
     #   @return [Time]
     #
     # @!attribute [rw] operation_status
-    #   Status of the operation performed on an application
+    #   The status of the operation.
     #   @return [String]
     #
     # @!attribute [rw] application_version_change_details
-    #   Contains information about the application version changes due to an
-    #   operation
+    #   Contains information about the version changes that the operation
+    #   applied to the application.
     #   @return [Types::ApplicationVersionChangeDetails]
     #
     # @!attribute [rw] operation_failure_details
-    #   Provides a description of the operation failure
+    #   Provides a description of the operation failure.
     #   @return [Types::OperationFailureDetails]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationOperationInfoDetails AWS API Documentation
@@ -940,12 +1015,12 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Describes system rollback configuration for a Managed Service for
-    # Apache Flink application
+    # Describes the system rollback configuration for a Managed Service for
+    # Apache Flink application.
     #
     # @!attribute [rw] rollback_enabled
     #   Describes whether system rollbacks are enabled for a Managed Service
-    #   for Apache Flink application
+    #   for Apache Flink application.
     #   @return [Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationSystemRollbackConfiguration AWS API Documentation
@@ -956,12 +1031,12 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Describes system rollback configuration for a Managed Service for
-    # Apache Flink application
+    # Describes the system rollback configuration for a Managed Service for
+    # Apache Flink application.
     #
     # @!attribute [rw] rollback_enabled
     #   Describes whether system rollbacks are enabled for a Managed Service
-    #   for Apache Flink application
+    #   for Apache Flink application.
     #   @return [Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationSystemRollbackConfigurationDescription AWS API Documentation
@@ -972,12 +1047,12 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Describes system rollback configuration for a Managed Service for
-    # Apache Flink application
+    # Describes the system rollback configuration for a Managed Service for
+    # Apache Flink application.
     #
     # @!attribute [rw] rollback_enabled_update
     #   Describes whether system rollbacks are enabled for a Managed Service
-    #   for Apache Flink application
+    #   for Apache Flink application.
     #   @return [Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationSystemRollbackConfigurationUpdate AWS API Documentation
@@ -988,16 +1063,16 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Contains information about the application version changes due to an
-    # operation
+    # Contains information about the version changes that the operation
+    # applied to the application.
     #
     # @!attribute [rw] application_version_updated_from
-    #   The operation was performed on this version of the application
+    #   The new version that the application was updated to.
     #   @return [Integer]
     #
     # @!attribute [rw] application_version_updated_to
-    #   The operation execution resulted in the transition to the following
-    #   version of the application
+    #   The version that the operation execution applied to the
+    #   applicartion.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ApplicationVersionChangeDetails AWS API Documentation
@@ -1122,8 +1197,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    # [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing
-    # [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    # [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing
+    # [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #
     # @!attribute [rw] configuration_type
     #   Describes whether the application uses Managed Service for Apache
@@ -1184,8 +1259,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/large_state_tuning/#tuning-checkpointing
-    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/ops/state/large_state_tuning/#tuning-checkpointing
+    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/CheckpointConfiguration AWS API Documentation
@@ -1761,8 +1836,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Array<Types::CloudWatchLoggingOptionDescription>]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking DeleteApplicationCloudWatchLoggingOption
-    #   request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationCloudWatchLoggingOptionResponse AWS API Documentation
@@ -2007,7 +2081,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Integer]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking DeleteApplicationVpcConfiguration request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DeleteApplicationVpcConfigurationResponse AWS API Documentation
@@ -2071,15 +2145,15 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Request for information about a specific operation performed on a
-    # Managed Service for Apache Flink application
+    # A request for information about a specific operation that was
+    # performed on a Managed Service for Apache Flink application.
     #
     # @!attribute [rw] application_name
-    #   The name of the application
+    #   The name of the application.
     #   @return [String]
     #
     # @!attribute [rw] operation_id
-    #   Identifier of the Operation
+    #   The operation ID of the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationOperationRequest AWS API Documentation
@@ -2091,12 +2165,12 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Provides details of the operation corresponding to the operation-ID on
-    # a Managed Service for Apache Flink application
+    # Provides details of the operation that corresponds to the operation ID
+    # on a Managed Service for Apache Flink application.
     #
     # @!attribute [rw] application_operation_info_details
-    #   Provides a description of the operation, such as the operation-type
-    #   and status
+    #   A description of the application operation that provides information
+    #   about the updates that were made to the application.
     #   @return [Types::ApplicationOperationInfoDetails]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/DescribeApplicationOperationResponse AWS API Documentation
@@ -2328,10 +2402,10 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Provides a description of the operation failure error
+    # A description of the error that caused an operation to fail.
     #
     # @!attribute [rw] error_string
-    #   Error message resulting in failure of the operation
+    #   An error message that is returned when an operation fails.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ErrorInfo AWS API Documentation
@@ -2353,8 +2427,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing
-    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/dev/datastream/fault-tolerance/checkpointing/#enabling-and-configuring-checkpointing
+    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #   @return [Types::CheckpointConfiguration]
     #
     # @!attribute [rw] monitoring_configuration
@@ -2405,8 +2479,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/internals/job_scheduling.html
-    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/internals/job_scheduling.html
+    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/FlinkApplicationConfigurationDescription AWS API Documentation
@@ -2469,8 +2543,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/ops/state/savepoints/#allowing-non-restored-state
-    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    #   [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/ops/state/savepoints/#allowing-non-restored-state
+    #   [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #   @return [Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/FlinkRunConfiguration AWS API Documentation
@@ -3342,27 +3416,26 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Request to list operations performed on an application
+    # A request for a list of operations performed on an application.
     #
     # @!attribute [rw] application_name
-    #   The name of the application
+    #   The name of the application.
     #   @return [String]
     #
     # @!attribute [rw] limit
-    #   Limit on the number of records returned in the response
+    #   The limit on the number of records to be returned in the response.
     #   @return [Integer]
     #
     # @!attribute [rw] next_token
-    #   If a previous command returned a pagination token, pass it into this
-    #   value to retrieve the next set of results
+    #   A pagination token that can be used in a subsequent request.
     #   @return [String]
     #
     # @!attribute [rw] operation
-    #   Type of operation performed on an application
+    #   The type of operation that is performed on an application.
     #   @return [String]
     #
     # @!attribute [rw] operation_status
-    #   Status of the operation performed on an application
+    #   The status of the operation.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationOperationsRequest AWS API Documentation
@@ -3377,15 +3450,15 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Response with the list of operations for an application
+    # A response that returns a list of operations for an application.
     #
     # @!attribute [rw] application_operation_info_list
-    #   List of ApplicationOperationInfo for an application
+    #   A list of `ApplicationOperationInfo` objects that are associated
+    #   with an application.
     #   @return [Array<Types::ApplicationOperationInfo>]
     #
     # @!attribute [rw] next_token
-    #   If a previous command returned a pagination token, pass it into this
-    #   value to retrieve the next set of results
+    #   A pagination token that can be used in a subsequent request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/ListApplicationOperationsResponse AWS API Documentation
@@ -3716,15 +3789,15 @@ module Aws::KinesisAnalyticsV2
       include Aws::Structure
     end
 
-    # Provides a description of the operation failure
+    # Provides a description of the operation failure.
     #
     # @!attribute [rw] rollback_operation_id
-    #   Provides the operation ID of a system-rollback operation executed
-    #   due to failure in the current operation
+    #   The rollback operation ID of the system-rollback operation that
+    #   executed due to failure in the current operation.
     #   @return [String]
     #
     # @!attribute [rw] error_info
-    #   Provides a description of the operation failure error
+    #   A description of the error that caused an operation to fail.
     #   @return [Types::ErrorInfo]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/OperationFailureDetails AWS API Documentation
@@ -3875,8 +3948,8 @@ module Aws::KinesisAnalyticsV2
     #
     #
     #
-    # [1]: https://nightlies.apache.org/flink/flink-docs-release-1.19/dev/parallel.html
-    # [2]: https://nightlies.apache.org/flink/flink-docs-release-1.19/
+    # [1]: https://nightlies.apache.org/flink/flink-docs-release-1.20/dev/parallel.html
+    # [2]: https://nightlies.apache.org/flink/flink-docs-release-1.20/
     #
     # @!attribute [rw] configuration_type
     #   Describes whether the application uses the default parallelism for
@@ -3894,7 +3967,7 @@ module Aws::KinesisAnalyticsV2
     #   application load. The service can increase the `CurrentParallelism`
     #   value up to the maximum parallelism, which is `ParalellismPerKPU`
     #   times the maximum KPUs for the application. The maximum KPUs for an
-    #   application is 32 by default, and can be increased by requesting a
+    #   application is 64 by default, and can be increased by requesting a
     #   limit increase. If application load is reduced, the service can
     #   reduce the `CurrentParallelism` value down to the `Parallelism`
     #   setting.
@@ -3944,7 +4017,7 @@ module Aws::KinesisAnalyticsV2
     #   application load. The service can increase `CurrentParallelism` up
     #   to the maximum parallelism, which is `ParalellismPerKPU` times the
     #   maximum KPUs for the application. The maximum KPUs for an
-    #   application is 32 by default, and can be increased by requesting a
+    #   application is 64 by default, and can be increased by requesting a
     #   limit increase. If application load is reduced, the service can
     #   reduce the `CurrentParallelism` value down to the `Parallelism`
     #   setting.
@@ -4289,7 +4362,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::ApplicationDetail]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking RollbackApplication request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/RollbackApplicationResponse AWS API Documentation
@@ -4645,6 +4718,11 @@ module Aws::KinesisAnalyticsV2
     #   The Flink Runtime for the application snapshot.
     #   @return [String]
     #
+    # @!attribute [rw] application_encryption_configuration_description
+    #   Specifies the encryption settings of data at rest for the
+    #   application snapshot.
+    #   @return [Types::ApplicationEncryptionConfigurationDescription]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/SnapshotDetails AWS API Documentation
     #
     class SnapshotDetails < Struct.new(
@@ -4652,7 +4730,8 @@ module Aws::KinesisAnalyticsV2
       :snapshot_status,
       :application_version_id,
       :snapshot_creation_timestamp,
-      :runtime_environment)
+      :runtime_environment,
+      :application_encryption_configuration_description)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4810,7 +4889,7 @@ module Aws::KinesisAnalyticsV2
     end
 
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking StartApplication request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/StartApplicationResponse AWS API Documentation
@@ -4855,7 +4934,7 @@ module Aws::KinesisAnalyticsV2
     end
 
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking StopApplication request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/StopApplicationResponse AWS API Documentation
@@ -5099,7 +5178,7 @@ module Aws::KinesisAnalyticsV2
     #   @return [Types::ApplicationDetail]
     #
     # @!attribute [rw] operation_id
-    #   Operation ID for tracking UpdateApplication request
+    #   The operation ID that can be used to track the request.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesisanalyticsv2-2018-05-23/UpdateApplicationResponse AWS API Documentation

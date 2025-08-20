@@ -501,7 +501,7 @@ module Aws::Billing
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier you specify to ensure idempotency
@@ -1054,7 +1054,7 @@ module Aws::Billing
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #
     # @return [Types::UpdateBillingViewResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -1134,7 +1134,7 @@ module Aws::Billing
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-billing'
-      context[:gem_version] = '1.11.0'
+      context[:gem_version] = '1.12.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

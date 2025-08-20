@@ -944,6 +944,10 @@ module Aws::EKS
     #
     #   [1]: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html
     #
+    # @option params [Types::AddonNamespaceConfigRequest] :namespace_config
+    #   The namespace configuration for the addon. If specified, this will
+    #   override the default namespace for the addon.
+    #
     # @return [Types::CreateAddonResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateAddonResponse#addon #addon} => Types::Addon
@@ -967,6 +971,9 @@ module Aws::EKS
     #         role_arn: "String", # required
     #       },
     #     ],
+    #     namespace_config: {
+    #       namespace: "namespace",
+    #     },
     #   })
     #
     # @example Response structure
@@ -993,6 +1000,7 @@ module Aws::EKS
     #   resp.addon.configuration_values #=> String
     #   resp.addon.pod_identity_associations #=> Array
     #   resp.addon.pod_identity_associations[0] #=> String
+    #   resp.addon.namespace_config.namespace #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/CreateAddon AWS API Documentation
     #
@@ -2236,6 +2244,7 @@ module Aws::EKS
     #   resp.addon.configuration_values #=> String
     #   resp.addon.pod_identity_associations #=> Array
     #   resp.addon.pod_identity_associations[0] #=> String
+    #   resp.addon.namespace_config.namespace #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/DeleteAddon AWS API Documentation
     #
@@ -2793,6 +2802,7 @@ module Aws::EKS
     #   resp.addon.configuration_values #=> String
     #   resp.addon.pod_identity_associations #=> Array
     #   resp.addon.pod_identity_associations[0] #=> String
+    #   resp.addon.namespace_config.namespace #=> String
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -2948,6 +2958,7 @@ module Aws::EKS
     #   resp.addons[0].owner #=> String
     #   resp.addons[0].marketplace_information.product_id #=> String
     #   resp.addons[0].marketplace_information.product_url #=> String
+    #   resp.addons[0].default_namespace #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/DescribeAddonVersions AWS API Documentation
@@ -5711,7 +5722,7 @@ module Aws::EKS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-eks'
-      context[:gem_version] = '1.143.0'
+      context[:gem_version] = '1.144.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

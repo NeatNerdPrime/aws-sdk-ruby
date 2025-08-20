@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.80.0 (2025-08-20)
+------------------
+
+* Feature - Adds Key Management Service (KMS) support allowing customer-managed key (CMK) encryption for Flink application data.
+
 1.79.0 (2025-08-04)
 ------------------
 

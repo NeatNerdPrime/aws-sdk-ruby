@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.48.0 (2025-08-20)
+------------------
+
+* Feature - This release supports policy grant identifier for cloud formation integration
+
 1.47.0 (2025-08-13)
 ------------------
 

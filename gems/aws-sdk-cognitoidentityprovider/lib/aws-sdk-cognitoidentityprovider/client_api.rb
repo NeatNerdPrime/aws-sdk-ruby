@@ -158,6 +158,8 @@ module Aws::CognitoIdentityProvider
     CreateManagedLoginBrandingResponse = Shapes::StructureShape.new(name: 'CreateManagedLoginBrandingResponse')
     CreateResourceServerRequest = Shapes::StructureShape.new(name: 'CreateResourceServerRequest')
     CreateResourceServerResponse = Shapes::StructureShape.new(name: 'CreateResourceServerResponse')
+    CreateTermsRequest = Shapes::StructureShape.new(name: 'CreateTermsRequest')
+    CreateTermsResponse = Shapes::StructureShape.new(name: 'CreateTermsResponse')
     CreateUserImportJobRequest = Shapes::StructureShape.new(name: 'CreateUserImportJobRequest')
     CreateUserImportJobResponse = Shapes::StructureShape.new(name: 'CreateUserImportJobResponse')
     CreateUserPoolClientRequest = Shapes::StructureShape.new(name: 'CreateUserPoolClientRequest')
@@ -179,6 +181,7 @@ module Aws::CognitoIdentityProvider
     DeleteIdentityProviderRequest = Shapes::StructureShape.new(name: 'DeleteIdentityProviderRequest')
     DeleteManagedLoginBrandingRequest = Shapes::StructureShape.new(name: 'DeleteManagedLoginBrandingRequest')
     DeleteResourceServerRequest = Shapes::StructureShape.new(name: 'DeleteResourceServerRequest')
+    DeleteTermsRequest = Shapes::StructureShape.new(name: 'DeleteTermsRequest')
     DeleteUserAttributesRequest = Shapes::StructureShape.new(name: 'DeleteUserAttributesRequest')
     DeleteUserAttributesResponse = Shapes::StructureShape.new(name: 'DeleteUserAttributesResponse')
     DeleteUserPoolClientRequest = Shapes::StructureShape.new(name: 'DeleteUserPoolClientRequest')
@@ -201,6 +204,8 @@ module Aws::CognitoIdentityProvider
     DescribeResourceServerResponse = Shapes::StructureShape.new(name: 'DescribeResourceServerResponse')
     DescribeRiskConfigurationRequest = Shapes::StructureShape.new(name: 'DescribeRiskConfigurationRequest')
     DescribeRiskConfigurationResponse = Shapes::StructureShape.new(name: 'DescribeRiskConfigurationResponse')
+    DescribeTermsRequest = Shapes::StructureShape.new(name: 'DescribeTermsRequest')
+    DescribeTermsResponse = Shapes::StructureShape.new(name: 'DescribeTermsResponse')
     DescribeUserImportJobRequest = Shapes::StructureShape.new(name: 'DescribeUserImportJobRequest')
     DescribeUserImportJobResponse = Shapes::StructureShape.new(name: 'DescribeUserImportJobResponse')
     DescribeUserPoolClientRequest = Shapes::StructureShape.new(name: 'DescribeUserPoolClientRequest')
@@ -315,7 +320,10 @@ module Aws::CognitoIdentityProvider
     InvalidSmsRoleTrustRelationshipException = Shapes::StructureShape.new(name: 'InvalidSmsRoleTrustRelationshipException')
     InvalidUserPoolConfigurationException = Shapes::StructureShape.new(name: 'InvalidUserPoolConfigurationException')
     LambdaConfigType = Shapes::StructureShape.new(name: 'LambdaConfigType')
+    LanguageIdType = Shapes::StringShape.new(name: 'LanguageIdType')
     LimitExceededException = Shapes::StructureShape.new(name: 'LimitExceededException')
+    LinkUrlType = Shapes::StringShape.new(name: 'LinkUrlType')
+    LinksType = Shapes::MapShape.new(name: 'LinksType')
     ListDevicesRequest = Shapes::StructureShape.new(name: 'ListDevicesRequest')
     ListDevicesResponse = Shapes::StructureShape.new(name: 'ListDevicesResponse')
     ListGroupsRequest = Shapes::StructureShape.new(name: 'ListGroupsRequest')
@@ -329,6 +337,9 @@ module Aws::CognitoIdentityProvider
     ListResourceServersResponse = Shapes::StructureShape.new(name: 'ListResourceServersResponse')
     ListTagsForResourceRequest = Shapes::StructureShape.new(name: 'ListTagsForResourceRequest')
     ListTagsForResourceResponse = Shapes::StructureShape.new(name: 'ListTagsForResourceResponse')
+    ListTermsRequest = Shapes::StructureShape.new(name: 'ListTermsRequest')
+    ListTermsRequestMaxResultsInteger = Shapes::IntegerShape.new(name: 'ListTermsRequestMaxResultsInteger')
+    ListTermsResponse = Shapes::StructureShape.new(name: 'ListTermsResponse')
     ListUserImportJobsRequest = Shapes::StructureShape.new(name: 'ListUserImportJobsRequest')
     ListUserImportJobsResponse = Shapes::StructureShape.new(name: 'ListUserImportJobsResponse')
     ListUserPoolClientsRequest = Shapes::StructureShape.new(name: 'ListUserPoolClientsRequest')
@@ -471,6 +482,14 @@ module Aws::CognitoIdentityProvider
     TagResourceResponse = Shapes::StructureShape.new(name: 'TagResourceResponse')
     TagValueType = Shapes::StringShape.new(name: 'TagValueType')
     TemporaryPasswordValidityDaysType = Shapes::IntegerShape.new(name: 'TemporaryPasswordValidityDaysType')
+    TermsDescriptionListType = Shapes::ListShape.new(name: 'TermsDescriptionListType')
+    TermsDescriptionType = Shapes::StructureShape.new(name: 'TermsDescriptionType')
+    TermsEnforcementType = Shapes::StringShape.new(name: 'TermsEnforcementType')
+    TermsExistsException = Shapes::StructureShape.new(name: 'TermsExistsException')
+    TermsIdType = Shapes::StringShape.new(name: 'TermsIdType')
+    TermsNameType = Shapes::StringShape.new(name: 'TermsNameType')
+    TermsSourceType = Shapes::StringShape.new(name: 'TermsSourceType')
+    TermsType = Shapes::StructureShape.new(name: 'TermsType')
     TierChangeNotAllowedException = Shapes::StructureShape.new(name: 'TierChangeNotAllowedException')
     TimeUnitsType = Shapes::StringShape.new(name: 'TimeUnitsType')
     TokenModelType = Shapes::StringShape.new(name: 'TokenModelType')
@@ -498,6 +517,8 @@ module Aws::CognitoIdentityProvider
     UpdateManagedLoginBrandingResponse = Shapes::StructureShape.new(name: 'UpdateManagedLoginBrandingResponse')
     UpdateResourceServerRequest = Shapes::StructureShape.new(name: 'UpdateResourceServerRequest')
     UpdateResourceServerResponse = Shapes::StructureShape.new(name: 'UpdateResourceServerResponse')
+    UpdateTermsRequest = Shapes::StructureShape.new(name: 'UpdateTermsRequest')
+    UpdateTermsResponse = Shapes::StructureShape.new(name: 'UpdateTermsResponse')
     UpdateUserAttributesRequest = Shapes::StructureShape.new(name: 'UpdateUserAttributesRequest')
     UpdateUserAttributesResponse = Shapes::StructureShape.new(name: 'UpdateUserAttributesResponse')
     UpdateUserPoolClientRequest = Shapes::StructureShape.new(name: 'UpdateUserPoolClientRequest')
@@ -1034,6 +1055,17 @@ module Aws::CognitoIdentityProvider
     CreateResourceServerResponse.add_member(:resource_server, Shapes::ShapeRef.new(shape: ResourceServerType, required: true, location_name: "ResourceServer"))
     CreateResourceServerResponse.struct_class = Types::CreateResourceServerResponse
 
+    CreateTermsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    CreateTermsRequest.add_member(:client_id, Shapes::ShapeRef.new(shape: ClientIdType, required: true, location_name: "ClientId"))
+    CreateTermsRequest.add_member(:terms_name, Shapes::ShapeRef.new(shape: TermsNameType, required: true, location_name: "TermsName"))
+    CreateTermsRequest.add_member(:terms_source, Shapes::ShapeRef.new(shape: TermsSourceType, required: true, location_name: "TermsSource"))
+    CreateTermsRequest.add_member(:enforcement, Shapes::ShapeRef.new(shape: TermsEnforcementType, required: true, location_name: "Enforcement"))
+    CreateTermsRequest.add_member(:links, Shapes::ShapeRef.new(shape: LinksType, location_name: "Links"))
+    CreateTermsRequest.struct_class = Types::CreateTermsRequest
+
+    CreateTermsResponse.add_member(:terms, Shapes::ShapeRef.new(shape: TermsType, location_name: "Terms"))
+    CreateTermsResponse.struct_class = Types::CreateTermsResponse
+
     CreateUserImportJobRequest.add_member(:job_name, Shapes::ShapeRef.new(shape: UserImportJobNameType, required: true, location_name: "JobName"))
     CreateUserImportJobRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
     CreateUserImportJobRequest.add_member(:cloud_watch_logs_role_arn, Shapes::ShapeRef.new(shape: ArnType, required: true, location_name: "CloudWatchLogsRoleArn"))
@@ -1138,6 +1170,10 @@ module Aws::CognitoIdentityProvider
     DeleteResourceServerRequest.add_member(:identifier, Shapes::ShapeRef.new(shape: ResourceServerIdentifierType, required: true, location_name: "Identifier"))
     DeleteResourceServerRequest.struct_class = Types::DeleteResourceServerRequest
 
+    DeleteTermsRequest.add_member(:terms_id, Shapes::ShapeRef.new(shape: TermsIdType, required: true, location_name: "TermsId"))
+    DeleteTermsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    DeleteTermsRequest.struct_class = Types::DeleteTermsRequest
+
     DeleteUserAttributesRequest.add_member(:user_attribute_names, Shapes::ShapeRef.new(shape: AttributeNameListType, required: true, location_name: "UserAttributeNames"))
     DeleteUserAttributesRequest.add_member(:access_token, Shapes::ShapeRef.new(shape: TokenModelType, required: true, location_name: "AccessToken"))
     DeleteUserAttributesRequest.struct_class = Types::DeleteUserAttributesRequest
@@ -1204,6 +1240,13 @@ module Aws::CognitoIdentityProvider
 
     DescribeRiskConfigurationResponse.add_member(:risk_configuration, Shapes::ShapeRef.new(shape: RiskConfigurationType, required: true, location_name: "RiskConfiguration"))
     DescribeRiskConfigurationResponse.struct_class = Types::DescribeRiskConfigurationResponse
+
+    DescribeTermsRequest.add_member(:terms_id, Shapes::ShapeRef.new(shape: TermsIdType, required: true, location_name: "TermsId"))
+    DescribeTermsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    DescribeTermsRequest.struct_class = Types::DescribeTermsRequest
+
+    DescribeTermsResponse.add_member(:terms, Shapes::ShapeRef.new(shape: TermsType, location_name: "Terms"))
+    DescribeTermsResponse.struct_class = Types::DescribeTermsResponse
 
     DescribeUserImportJobRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
     DescribeUserImportJobRequest.add_member(:job_id, Shapes::ShapeRef.new(shape: UserImportJobIdType, required: true, location_name: "JobId"))
@@ -1525,6 +1568,9 @@ module Aws::CognitoIdentityProvider
     LimitExceededException.add_member(:message, Shapes::ShapeRef.new(shape: MessageType, location_name: "message"))
     LimitExceededException.struct_class = Types::LimitExceededException
 
+    LinksType.key = Shapes::ShapeRef.new(shape: LanguageIdType)
+    LinksType.value = Shapes::ShapeRef.new(shape: LinkUrlType)
+
     ListDevicesRequest.add_member(:access_token, Shapes::ShapeRef.new(shape: TokenModelType, required: true, location_name: "AccessToken"))
     ListDevicesRequest.add_member(:limit, Shapes::ShapeRef.new(shape: QueryLimitType, location_name: "Limit"))
     ListDevicesRequest.add_member(:pagination_token, Shapes::ShapeRef.new(shape: SearchPaginationTokenType, location_name: "PaginationToken"))
@@ -1568,6 +1614,15 @@ module Aws::CognitoIdentityProvider
 
     ListTagsForResourceResponse.add_member(:tags, Shapes::ShapeRef.new(shape: UserPoolTagsType, location_name: "Tags"))
     ListTagsForResourceResponse.struct_class = Types::ListTagsForResourceResponse
+
+    ListTermsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    ListTermsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: ListTermsRequestMaxResultsInteger, location_name: "MaxResults"))
+    ListTermsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: StringType, location_name: "NextToken"))
+    ListTermsRequest.struct_class = Types::ListTermsRequest
+
+    ListTermsResponse.add_member(:terms, Shapes::ShapeRef.new(shape: TermsDescriptionListType, required: true, location_name: "Terms"))
+    ListTermsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: StringType, location_name: "NextToken"))
+    ListTermsResponse.struct_class = Types::ListTermsResponse
 
     ListUserImportJobsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
     ListUserImportJobsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: PoolQueryLimitType, required: true, location_name: "MaxResults"))
@@ -1958,6 +2013,29 @@ module Aws::CognitoIdentityProvider
 
     TagResourceResponse.struct_class = Types::TagResourceResponse
 
+    TermsDescriptionListType.member = Shapes::ShapeRef.new(shape: TermsDescriptionType)
+
+    TermsDescriptionType.add_member(:terms_id, Shapes::ShapeRef.new(shape: TermsIdType, required: true, location_name: "TermsId"))
+    TermsDescriptionType.add_member(:terms_name, Shapes::ShapeRef.new(shape: TermsNameType, required: true, location_name: "TermsName"))
+    TermsDescriptionType.add_member(:enforcement, Shapes::ShapeRef.new(shape: TermsEnforcementType, required: true, location_name: "Enforcement"))
+    TermsDescriptionType.add_member(:creation_date, Shapes::ShapeRef.new(shape: DateType, required: true, location_name: "CreationDate"))
+    TermsDescriptionType.add_member(:last_modified_date, Shapes::ShapeRef.new(shape: DateType, required: true, location_name: "LastModifiedDate"))
+    TermsDescriptionType.struct_class = Types::TermsDescriptionType
+
+    TermsExistsException.add_member(:message, Shapes::ShapeRef.new(shape: MessageType, location_name: "message"))
+    TermsExistsException.struct_class = Types::TermsExistsException
+
+    TermsType.add_member(:terms_id, Shapes::ShapeRef.new(shape: TermsIdType, required: true, location_name: "TermsId"))
+    TermsType.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    TermsType.add_member(:client_id, Shapes::ShapeRef.new(shape: ClientIdType, required: true, location_name: "ClientId"))
+    TermsType.add_member(:terms_name, Shapes::ShapeRef.new(shape: TermsNameType, required: true, location_name: "TermsName"))
+    TermsType.add_member(:terms_source, Shapes::ShapeRef.new(shape: TermsSourceType, required: true, location_name: "TermsSource"))
+    TermsType.add_member(:enforcement, Shapes::ShapeRef.new(shape: TermsEnforcementType, required: true, location_name: "Enforcement"))
+    TermsType.add_member(:links, Shapes::ShapeRef.new(shape: LinksType, required: true, location_name: "Links"))
+    TermsType.add_member(:creation_date, Shapes::ShapeRef.new(shape: DateType, required: true, location_name: "CreationDate"))
+    TermsType.add_member(:last_modified_date, Shapes::ShapeRef.new(shape: DateType, required: true, location_name: "LastModifiedDate"))
+    TermsType.struct_class = Types::TermsType
+
     TierChangeNotAllowedException.add_member(:message, Shapes::ShapeRef.new(shape: MessageType, location_name: "message"))
     TierChangeNotAllowedException.struct_class = Types::TierChangeNotAllowedException
 
@@ -2059,6 +2137,17 @@ module Aws::CognitoIdentityProvider
 
     UpdateResourceServerResponse.add_member(:resource_server, Shapes::ShapeRef.new(shape: ResourceServerType, required: true, location_name: "ResourceServer"))
     UpdateResourceServerResponse.struct_class = Types::UpdateResourceServerResponse
+
+    UpdateTermsRequest.add_member(:terms_id, Shapes::ShapeRef.new(shape: TermsIdType, required: true, location_name: "TermsId"))
+    UpdateTermsRequest.add_member(:user_pool_id, Shapes::ShapeRef.new(shape: UserPoolIdType, required: true, location_name: "UserPoolId"))
+    UpdateTermsRequest.add_member(:terms_name, Shapes::ShapeRef.new(shape: TermsNameType, location_name: "TermsName"))
+    UpdateTermsRequest.add_member(:terms_source, Shapes::ShapeRef.new(shape: TermsSourceType, location_name: "TermsSource"))
+    UpdateTermsRequest.add_member(:enforcement, Shapes::ShapeRef.new(shape: TermsEnforcementType, location_name: "Enforcement"))
+    UpdateTermsRequest.add_member(:links, Shapes::ShapeRef.new(shape: LinksType, location_name: "Links"))
+    UpdateTermsRequest.struct_class = Types::UpdateTermsRequest
+
+    UpdateTermsResponse.add_member(:terms, Shapes::ShapeRef.new(shape: TermsType, location_name: "Terms"))
+    UpdateTermsResponse.struct_class = Types::UpdateTermsResponse
 
     UpdateUserAttributesRequest.add_member(:user_attributes, Shapes::ShapeRef.new(shape: AttributeListType, required: true, location_name: "UserAttributes"))
     UpdateUserAttributesRequest.add_member(:access_token, Shapes::ShapeRef.new(shape: TokenModelType, required: true, location_name: "AccessToken"))
@@ -3024,6 +3113,22 @@ module Aws::CognitoIdentityProvider
         o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
       end)
 
+      api.add_operation(:create_terms, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateTerms"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateTermsRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateTermsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ConcurrentModificationException)
+        o.errors << Shapes::ShapeRef.new(shape: TermsExistsException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
+        o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
+      end)
+
       api.add_operation(:create_user_import_job, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateUserImportJob"
         o.http_method = "POST"
@@ -3142,6 +3247,20 @@ module Aws::CognitoIdentityProvider
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
+      end)
+
+      api.add_operation(:delete_terms, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteTerms"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteTermsRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ConcurrentModificationException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
       end)
 
@@ -3304,6 +3423,19 @@ module Aws::CognitoIdentityProvider
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: UserPoolAddOnNotEnabledException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
+      end)
+
+      api.add_operation(:describe_terms, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeTerms"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeTermsRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeTermsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
       end)
 
@@ -3731,6 +3863,19 @@ module Aws::CognitoIdentityProvider
         o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
+      end)
+
+      api.add_operation(:list_terms, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListTerms"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ListTermsRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListTermsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
       end)
 
@@ -4196,6 +4341,21 @@ module Aws::CognitoIdentityProvider
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
+      end)
+
+      api.add_operation(:update_terms, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateTerms"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: UpdateTermsRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateTermsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ConcurrentModificationException)
+        o.errors << Shapes::ShapeRef.new(shape: TermsExistsException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: NotAuthorizedException)
         o.errors << Shapes::ShapeRef.new(shape: InternalErrorException)
       end)
 

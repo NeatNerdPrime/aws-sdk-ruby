@@ -525,6 +525,7 @@ module Aws::DataZone
     GlueRunConfigurationOutputRegionString = Shapes::StringShape.new(name: 'GlueRunConfigurationOutputRegionString')
     GlueSelfGrantStatusOutput = Shapes::StructureShape.new(name: 'GlueSelfGrantStatusOutput')
     GovernanceType = Shapes::StringShape.new(name: 'GovernanceType')
+    GrantIdentifier = Shapes::StringShape.new(name: 'GrantIdentifier')
     GrantedEntity = Shapes::UnionShape.new(name: 'GrantedEntity')
     GrantedEntityInput = Shapes::UnionShape.new(name: 'GrantedEntityInput')
     GreaterThanExpression = Shapes::StructureShape.new(name: 'GreaterThanExpression')
@@ -1194,6 +1195,7 @@ module Aws::DataZone
     AddPolicyGrantInput.add_member(:principal, Shapes::ShapeRef.new(shape: PolicyGrantPrincipal, required: true, location_name: "principal"))
     AddPolicyGrantInput.struct_class = Types::AddPolicyGrantInput
 
+    AddPolicyGrantOutput.add_member(:grant_id, Shapes::ShapeRef.new(shape: GrantIdentifier, location_name: "grantId"))
     AddPolicyGrantOutput.struct_class = Types::AddPolicyGrantOutput
 
     AddToProjectMemberPoolPolicyGrantDetail.add_member(:include_child_domain_units, Shapes::ShapeRef.new(shape: Boolean, location_name: "includeChildDomainUnits"))
@@ -4382,6 +4384,7 @@ module Aws::DataZone
     PolicyGrantMember.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, location_name: "createdAt"))
     PolicyGrantMember.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, location_name: "createdBy"))
     PolicyGrantMember.add_member(:detail, Shapes::ShapeRef.new(shape: PolicyGrantDetail, location_name: "detail"))
+    PolicyGrantMember.add_member(:grant_id, Shapes::ShapeRef.new(shape: GrantIdentifier, location_name: "grantId"))
     PolicyGrantMember.add_member(:principal, Shapes::ShapeRef.new(shape: PolicyGrantPrincipal, location_name: "principal"))
     PolicyGrantMember.struct_class = Types::PolicyGrantMember
 
@@ -4692,6 +4695,7 @@ module Aws::DataZone
     RemovePolicyGrantInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     RemovePolicyGrantInput.add_member(:entity_identifier, Shapes::ShapeRef.new(shape: String, required: true, location: "uri", location_name: "entityIdentifier"))
     RemovePolicyGrantInput.add_member(:entity_type, Shapes::ShapeRef.new(shape: TargetEntityType, required: true, location: "uri", location_name: "entityType"))
+    RemovePolicyGrantInput.add_member(:grant_identifier, Shapes::ShapeRef.new(shape: GrantIdentifier, location_name: "grantIdentifier"))
     RemovePolicyGrantInput.add_member(:policy_type, Shapes::ShapeRef.new(shape: ManagedPolicyType, required: true, location_name: "policyType"))
     RemovePolicyGrantInput.add_member(:principal, Shapes::ShapeRef.new(shape: PolicyGrantPrincipal, required: true, location_name: "principal"))
     RemovePolicyGrantInput.struct_class = Types::RemovePolicyGrantInput
@@ -5777,9 +5781,11 @@ module Aws::DataZone
 
       api.metadata = {
         "apiVersion" => "2018-05-10",
+        "auth" => ["aws.auth#sigv4"],
         "endpointPrefix" => "datazone",
         "jsonVersion" => "1.1",
         "protocol" => "rest-json",
+        "protocols" => ["rest-json"],
         "serviceFullName" => "Amazon DataZone",
         "serviceId" => "DataZone",
         "signatureVersion" => "v4",

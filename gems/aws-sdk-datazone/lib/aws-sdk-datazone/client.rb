@@ -733,7 +733,9 @@ module Aws::DataZone
     # @option params [required, Types::PolicyGrantPrincipal] :principal
     #   The principal to whom the permissions are granted.
     #
-    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    # @return [Types::AddPolicyGrantOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::AddPolicyGrantOutput#grant_id #grant_id} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -814,6 +816,10 @@ module Aws::DataZone
     #       },
     #     },
     #   })
+    #
+    # @example Response structure
+    #
+    #   resp.grant_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/AddPolicyGrant AWS API Documentation
     #
@@ -8906,6 +8912,7 @@ module Aws::DataZone
     #   resp.grant_list[0].detail.override_domain_unit_owners.include_child_domain_units #=> Boolean
     #   resp.grant_list[0].detail.override_project_owners.include_child_domain_units #=> Boolean
     #   resp.grant_list[0].detail.use_asset_type.domain_unit_id #=> String
+    #   resp.grant_list[0].grant_id #=> String
     #   resp.grant_list[0].principal.domain_unit.domain_unit_designation #=> String, one of "OWNER"
     #   resp.grant_list[0].principal.domain_unit.domain_unit_identifier #=> String
     #   resp.grant_list[0].principal.group.group_identifier #=> String
@@ -10221,6 +10228,10 @@ module Aws::DataZone
     # @option params [required, String] :entity_type
     #   The type of the entity from which you want to remove a policy grant.
     #
+    # @option params [String] :grant_identifier
+    #   The ID of the policy grant that is to be removed from a specified
+    #   entity.
+    #
     # @option params [required, String] :policy_type
     #   The type of the policy that you want to remove.
     #
@@ -10236,6 +10247,7 @@ module Aws::DataZone
     #     domain_identifier: "DomainId", # required
     #     entity_identifier: "String", # required
     #     entity_type: "DOMAIN_UNIT", # required, accepts DOMAIN_UNIT, ENVIRONMENT_BLUEPRINT_CONFIGURATION, ENVIRONMENT_PROFILE, ASSET_TYPE
+    #     grant_identifier: "GrantIdentifier",
     #     policy_type: "CREATE_DOMAIN_UNIT", # required, accepts CREATE_DOMAIN_UNIT, OVERRIDE_DOMAIN_UNIT_OWNERS, ADD_TO_PROJECT_MEMBER_POOL, OVERRIDE_PROJECT_OWNERS, CREATE_GLOSSARY, CREATE_FORM_TYPE, CREATE_ASSET_TYPE, CREATE_PROJECT, CREATE_ENVIRONMENT_PROFILE, DELEGATE_CREATE_ENVIRONMENT_PROFILE, CREATE_ENVIRONMENT, CREATE_ENVIRONMENT_FROM_BLUEPRINT, CREATE_PROJECT_FROM_PROJECT_PROFILE, USE_ASSET_TYPE
     #     principal: { # required
     #       domain_unit: {
@@ -13219,7 +13231,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.47.0'
+      context[:gem_version] = '1.48.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

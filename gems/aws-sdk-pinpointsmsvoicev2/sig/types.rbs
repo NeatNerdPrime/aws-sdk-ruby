@@ -85,7 +85,7 @@ module Aws::PinpointSMSVoiceV2
     class ConflictException
       attr_accessor message: ::String
       attr_accessor reason: ("CREATE_REGISTRATION_VERSION_NOT_ALLOWED" | "DELETION_PROTECTION_ENABLED" | "DESTINATION_PHONE_NUMBER_NOT_VERIFIED" | "DESTINATION_PHONE_NUMBER_OPTED_OUT" | "DISASSOCIATE_REGISTRATION_NOT_ALLOWED" | "DISCARD_REGISTRATION_VERSION_NOT_ALLOWED" | "EDIT_REGISTRATION_FIELD_VALUES_NOT_ALLOWED" | "EVENT_DESTINATION_MISMATCH" | "KEYWORD_MISMATCH" | "LAST_PHONE_NUMBER" | "NUMBER_CAPABILITIES_MISMATCH" | "MESSAGE_TYPE_MISMATCH" | "NO_ORIGINATION_IDENTITIES_FOUND" | "OPT_OUT_LIST_MISMATCH" | "PHONE_NUMBER_ASSOCIATED_TO_POOL" | "PHONE_NUMBER_ASSOCIATED_TO_REGISTRATION" | "PHONE_NUMBER_NOT_ASSOCIATED_TO_POOL" | "PHONE_NUMBER_NOT_IN_REGISTRATION_REGION" | "REGISTRATION_ALREADY_SUBMITTED" | "REGISTRATION_NOT_COMPLETE" | "SENDER_ID_ASSOCIATED_TO_POOL" | "RESOURCE_ALREADY_EXISTS" | "RESOURCE_DELETION_NOT_ALLOWED" | "RESOURCE_MODIFICATION_NOT_ALLOWED" | "RESOURCE_NOT_ACTIVE" | "RESOURCE_NOT_EMPTY" | "SELF_MANAGED_OPT_OUTS_MISMATCH" | "SUBMIT_REGISTRATION_VERSION_NOT_ALLOWED" | "TWO_WAY_CONFIG_MISMATCH" | "VERIFICATION_CODE_EXPIRED" | "VERIFICATION_ALREADY_COMPLETE" | "PROTECT_CONFIGURATION_IS_ACCOUNT_DEFAULT" | "PROTECT_CONFIGURATION_ASSOCIATED_WITH_CONFIGURATION_SET" | "PROTECT_CONFIGURATION_NOT_ASSOCIATED_WITH_CONFIGURATION_SET" | "DESTINATION_COUNTRY_BLOCKED_BY_PROTECT_CONFIGURATION" | "DESTINATION_PHONE_NUMBER_BLOCKED_BY_PROTECT_NUMBER_OVERRIDE")
-      attr_accessor resource_type: ("account" | "phone-number" | "sender-id" | "pool" | "configuration-set" | "opt-out-list" | "event-destination" | "keyword" | "opted-out-number" | "registration" | "registration-attachment" | "verified-destination-number" | "protect-configuration" | "policy" | "message")
+      attr_accessor resource_type: ("account" | "phone-number" | "sender-id" | "pool" | "configuration-set" | "opt-out-list" | "event-destination" | "keyword" | "opted-out-number" | "registration" | "registration-attachment" | "verified-destination-number" | "protect-configuration" | "message-template" | "policy" | "message")
       attr_accessor resource_id: ::String
       SENSITIVE: []
     end
@@ -1017,6 +1017,7 @@ module Aws::PinpointSMSVoiceV2
       attr_accessor two_way_channel_role: ::String
       attr_accessor self_managed_opt_outs_enabled: bool
       attr_accessor opt_out_list_name: ::String
+      attr_accessor international_sending_enabled: bool
       attr_accessor deletion_protection_enabled: bool
       attr_accessor pool_id: ::String
       attr_accessor registration_id: ::String
@@ -1388,6 +1389,7 @@ module Aws::PinpointSMSVoiceV2
       attr_accessor opt_out_list_name: ::String
       attr_accessor pool_id: ::String
       attr_accessor registration_id: ::String
+      attr_accessor international_sending_enabled: bool
       attr_accessor deletion_protection_enabled: bool
       attr_accessor tags: ::Array[Types::Tag]
       attr_accessor client_token: ::String
@@ -1409,6 +1411,7 @@ module Aws::PinpointSMSVoiceV2
       attr_accessor two_way_channel_role: ::String
       attr_accessor self_managed_opt_outs_enabled: bool
       attr_accessor opt_out_list_name: ::String
+      attr_accessor international_sending_enabled: bool
       attr_accessor deletion_protection_enabled: bool
       attr_accessor pool_id: ::String
       attr_accessor registration_id: ::String
@@ -1441,7 +1444,7 @@ module Aws::PinpointSMSVoiceV2
 
     class ResourceNotFoundException
       attr_accessor message: ::String
-      attr_accessor resource_type: ("account" | "phone-number" | "sender-id" | "pool" | "configuration-set" | "opt-out-list" | "event-destination" | "keyword" | "opted-out-number" | "registration" | "registration-attachment" | "verified-destination-number" | "protect-configuration" | "policy" | "message")
+      attr_accessor resource_type: ("account" | "phone-number" | "sender-id" | "pool" | "configuration-set" | "opt-out-list" | "event-destination" | "keyword" | "opted-out-number" | "registration" | "registration-attachment" | "verified-destination-number" | "protect-configuration" | "message-template" | "policy" | "message")
       attr_accessor resource_id: ::String
       SENSITIVE: []
     end
@@ -1745,6 +1748,7 @@ module Aws::PinpointSMSVoiceV2
       attr_accessor two_way_channel_role: ::String
       attr_accessor self_managed_opt_outs_enabled: bool
       attr_accessor opt_out_list_name: ::String
+      attr_accessor international_sending_enabled: bool
       attr_accessor deletion_protection_enabled: bool
       SENSITIVE: []
     end
@@ -1764,6 +1768,7 @@ module Aws::PinpointSMSVoiceV2
       attr_accessor two_way_channel_role: ::String
       attr_accessor self_managed_opt_outs_enabled: bool
       attr_accessor opt_out_list_name: ::String
+      attr_accessor international_sending_enabled: bool
       attr_accessor deletion_protection_enabled: bool
       attr_accessor registration_id: ::String
       attr_accessor created_timestamp: ::Time
@@ -1849,7 +1854,7 @@ module Aws::PinpointSMSVoiceV2
 
     class ValidationException
       attr_accessor message: ::String
-      attr_accessor reason: ("CANNOT_ADD_OPTED_OUT_NUMBER" | "CANNOT_PARSE" | "COUNTRY_CODE_MISMATCH" | "DESTINATION_COUNTRY_BLOCKED" | "FIELD_VALIDATION_FAILED" | "ATTACHMENT_TYPE_NOT_SUPPORTED" | "INVALID_ARN" | "INVALID_FILTER_VALUES" | "INVALID_IDENTITY_FOR_DESTINATION_COUNTRY" | "INVALID_NEXT_TOKEN" | "INVALID_PARAMETER" | "INVALID_REQUEST" | "INVALID_REGISTRATION_ASSOCIATION" | "MAXIMUM_SIZE_EXCEEDED" | "MEDIA_TYPE_NOT_SUPPORTED" | "MISSING_PARAMETER" | "PARAMETERS_CANNOT_BE_USED_TOGETHER" | "PHONE_NUMBER_CANNOT_BE_OPTED_IN" | "PHONE_NUMBER_CANNOT_BE_RELEASED" | "PRICE_OVER_THRESHOLD" | "RESOURCE_NOT_ACCESSIBLE" | "REQUESTED_SPEND_LIMIT_HIGHER_THAN_SERVICE_LIMIT" | "SENDER_ID_NOT_REGISTERED" | "SENDER_ID_NOT_SUPPORTED" | "SENDER_ID_REQUIRES_REGISTRATION" | "TWO_WAY_TOPIC_NOT_PRESENT" | "TWO_WAY_NOT_ENABLED" | "TWO_WAY_NOT_SUPPORTED_IN_COUNTRY" | "TWO_WAY_NOT_SUPPORTED_IN_REGION" | "TWO_WAY_CHANNEL_NOT_PRESENT" | "UNKNOWN_REGISTRATION_FIELD" | "UNKNOWN_REGISTRATION_SECTION" | "UNKNOWN_REGISTRATION_TYPE" | "UNKNOWN_REGISTRATION_VERSION" | "UNKNOWN_OPERATION" | "REGISTRATION_FIELD_CANNOT_BE_DELETED" | "VERIFICATION_CODE_MISMATCH" | "VOICE_CAPABILITY_NOT_AVAILABLE" | "UNSPECIFIED_PARAMETER_NOT_SUPPORTED" | "OTHER")
+      attr_accessor reason: ("CANNOT_ADD_OPTED_OUT_NUMBER" | "CANNOT_PARSE" | "COUNTRY_CODE_MISMATCH" | "DESTINATION_COUNTRY_BLOCKED" | "FIELD_VALIDATION_FAILED" | "ATTACHMENT_TYPE_NOT_SUPPORTED" | "INTERNATIONAL_SENDING_NOT_SUPPORTED" | "INVALID_ARN" | "INVALID_FILTER_VALUES" | "INVALID_IDENTITY_FOR_DESTINATION_COUNTRY" | "INVALID_NEXT_TOKEN" | "INVALID_PARAMETER" | "INVALID_REQUEST" | "INVALID_REGISTRATION_ASSOCIATION" | "MAXIMUM_SIZE_EXCEEDED" | "MEDIA_TYPE_NOT_SUPPORTED" | "MISSING_PARAMETER" | "PARAMETERS_CANNOT_BE_USED_TOGETHER" | "PHONE_NUMBER_CANNOT_BE_OPTED_IN" | "PHONE_NUMBER_CANNOT_BE_RELEASED" | "PRICE_OVER_THRESHOLD" | "RESOURCE_NOT_ACCESSIBLE" | "REQUESTED_SPEND_LIMIT_HIGHER_THAN_SERVICE_LIMIT" | "SENDER_ID_NOT_REGISTERED" | "SENDER_ID_NOT_SUPPORTED" | "SENDER_ID_REQUIRES_REGISTRATION" | "TWO_WAY_TOPIC_NOT_PRESENT" | "TWO_WAY_NOT_ENABLED" | "TWO_WAY_NOT_SUPPORTED_IN_COUNTRY" | "TWO_WAY_NOT_SUPPORTED_IN_REGION" | "TWO_WAY_CHANNEL_NOT_PRESENT" | "UNKNOWN_REGISTRATION_FIELD" | "UNKNOWN_REGISTRATION_SECTION" | "UNKNOWN_REGISTRATION_TYPE" | "UNKNOWN_REGISTRATION_VERSION" | "UNKNOWN_OPERATION" | "REGISTRATION_FIELD_CANNOT_BE_DELETED" | "VERIFICATION_CODE_MISMATCH" | "VOICE_CAPABILITY_NOT_AVAILABLE" | "UNSPECIFIED_PARAMETER_NOT_SUPPORTED" | "OTHER")
       attr_accessor fields: ::Array[Types::ValidationExceptionField]
       SENSITIVE: []
     end

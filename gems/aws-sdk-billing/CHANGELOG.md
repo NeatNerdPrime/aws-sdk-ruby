@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.12.0 (2025-08-20)
+------------------
+
+* Feature - Clarify IPv4 and IPv6 endpoints
+
 1.11.0 (2025-08-08)
 ------------------
 

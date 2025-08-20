@@ -125,6 +125,7 @@ module Aws::KinesisAnalyticsV2
       attr_accessor application_system_rollback_configuration: Types::ApplicationSystemRollbackConfiguration
       attr_accessor vpc_configurations: ::Array[Types::VpcConfiguration]
       attr_accessor zeppelin_application_configuration: Types::ZeppelinApplicationConfiguration
+      attr_accessor application_encryption_configuration: Types::ApplicationEncryptionConfiguration
       SENSITIVE: []
     end
 
@@ -138,6 +139,7 @@ module Aws::KinesisAnalyticsV2
       attr_accessor application_system_rollback_configuration_description: Types::ApplicationSystemRollbackConfigurationDescription
       attr_accessor vpc_configuration_descriptions: ::Array[Types::VpcConfigurationDescription]
       attr_accessor zeppelin_application_configuration_description: Types::ZeppelinApplicationConfigurationDescription
+      attr_accessor application_encryption_configuration_description: Types::ApplicationEncryptionConfigurationDescription
       SENSITIVE: []
     end
 
@@ -150,6 +152,7 @@ module Aws::KinesisAnalyticsV2
       attr_accessor application_system_rollback_configuration_update: Types::ApplicationSystemRollbackConfigurationUpdate
       attr_accessor vpc_configuration_updates: ::Array[Types::VpcConfigurationUpdate]
       attr_accessor zeppelin_application_configuration_update: Types::ZeppelinApplicationConfigurationUpdate
+      attr_accessor application_encryption_configuration_update: Types::ApplicationEncryptionConfigurationUpdate
       SENSITIVE: []
     end
 
@@ -172,6 +175,24 @@ module Aws::KinesisAnalyticsV2
       attr_accessor conditional_token: ::String
       attr_accessor application_version_rolled_back_to: ::Integer
       attr_accessor application_mode: ("STREAMING" | "INTERACTIVE")
+      SENSITIVE: []
+    end
+
+    class ApplicationEncryptionConfiguration
+      attr_accessor key_id: ::String
+      attr_accessor key_type: ("AWS_OWNED_KEY" | "CUSTOMER_MANAGED_KEY")
+      SENSITIVE: []
+    end
+
+    class ApplicationEncryptionConfigurationDescription
+      attr_accessor key_id: ::String
+      attr_accessor key_type: ("AWS_OWNED_KEY" | "CUSTOMER_MANAGED_KEY")
+      SENSITIVE: []
+    end
+
+    class ApplicationEncryptionConfigurationUpdate
+      attr_accessor key_id_update: ::String
+      attr_accessor key_type_update: ("AWS_OWNED_KEY" | "CUSTOMER_MANAGED_KEY")
       SENSITIVE: []
     end
 
@@ -1154,6 +1175,7 @@ module Aws::KinesisAnalyticsV2
       attr_accessor application_version_id: ::Integer
       attr_accessor snapshot_creation_timestamp: ::Time
       attr_accessor runtime_environment: ("SQL-1_0" | "FLINK-1_6" | "FLINK-1_8" | "ZEPPELIN-FLINK-1_0" | "FLINK-1_11" | "FLINK-1_13" | "ZEPPELIN-FLINK-2_0" | "FLINK-1_15" | "ZEPPELIN-FLINK-3_0" | "FLINK-1_18" | "FLINK-1_19" | "FLINK-1_20")
+      attr_accessor application_encryption_configuration_description: Types::ApplicationEncryptionConfigurationDescription
       SENSITIVE: []
     end
 

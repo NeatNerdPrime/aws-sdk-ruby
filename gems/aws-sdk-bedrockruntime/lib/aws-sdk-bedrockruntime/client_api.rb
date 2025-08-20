@@ -73,7 +73,11 @@ module Aws::BedrockRuntime
     ConverseStreamRequestAdditionalModelResponseFieldPathsListMemberString = Shapes::StringShape.new(name: 'ConverseStreamRequestAdditionalModelResponseFieldPathsListMemberString')
     ConverseStreamResponse = Shapes::StructureShape.new(name: 'ConverseStreamResponse')
     ConverseStreamTrace = Shapes::StructureShape.new(name: 'ConverseStreamTrace')
+    ConverseTokensRequest = Shapes::StructureShape.new(name: 'ConverseTokensRequest')
     ConverseTrace = Shapes::StructureShape.new(name: 'ConverseTrace')
+    CountTokensInput = Shapes::UnionShape.new(name: 'CountTokensInput')
+    CountTokensRequest = Shapes::StructureShape.new(name: 'CountTokensRequest')
+    CountTokensResponse = Shapes::StructureShape.new(name: 'CountTokensResponse')
     Document = Shapes::DocumentShape.new(name: 'Document', document: true)
     DocumentBlock = Shapes::StructureShape.new(name: 'DocumentBlock')
     DocumentBlockNameString = Shapes::StringShape.new(name: 'DocumentBlockNameString')
@@ -94,6 +98,7 @@ module Aws::BedrockRuntime
     DocumentPageLocationStartInteger = Shapes::IntegerShape.new(name: 'DocumentPageLocationStartInteger')
     DocumentSource = Shapes::UnionShape.new(name: 'DocumentSource')
     DocumentSourceBytesBlob = Shapes::BlobShape.new(name: 'DocumentSourceBytesBlob')
+    FoundationModelVersionIdentifier = Shapes::StringShape.new(name: 'FoundationModelVersionIdentifier')
     GetAsyncInvokeRequest = Shapes::StructureShape.new(name: 'GetAsyncInvokeRequest')
     GetAsyncInvokeResponse = Shapes::StructureShape.new(name: 'GetAsyncInvokeResponse')
     GuardrailAction = Shapes::StringShape.new(name: 'GuardrailAction')
@@ -217,11 +222,13 @@ module Aws::BedrockRuntime
     InferenceConfigurationStopSequencesList = Shapes::ListShape.new(name: 'InferenceConfigurationStopSequencesList')
     InferenceConfigurationTemperatureFloat = Shapes::FloatShape.new(name: 'InferenceConfigurationTemperatureFloat')
     InferenceConfigurationTopPFloat = Shapes::FloatShape.new(name: 'InferenceConfigurationTopPFloat')
+    Integer = Shapes::IntegerShape.new(name: 'Integer')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     InvocationArn = Shapes::StringShape.new(name: 'InvocationArn')
     InvokeModelIdentifier = Shapes::StringShape.new(name: 'InvokeModelIdentifier')
     InvokeModelRequest = Shapes::StructureShape.new(name: 'InvokeModelRequest')
     InvokeModelResponse = Shapes::StructureShape.new(name: 'InvokeModelResponse')
+    InvokeModelTokensRequest = Shapes::StructureShape.new(name: 'InvokeModelTokensRequest')
     InvokeModelWithBidirectionalStreamInput = Shapes::StructureShape.new(name: 'InvokeModelWithBidirectionalStreamInput')
     InvokeModelWithBidirectionalStreamOutput = Shapes::StructureShape.new(name: 'InvokeModelWithBidirectionalStreamOutput')
     InvokeModelWithBidirectionalStreamRequest = Shapes::StructureShape.new(name: 'InvokeModelWithBidirectionalStreamRequest')
@@ -556,9 +563,28 @@ module Aws::BedrockRuntime
     ConverseStreamTrace.add_member(:prompt_router, Shapes::ShapeRef.new(shape: PromptRouterTrace, location_name: "promptRouter"))
     ConverseStreamTrace.struct_class = Types::ConverseStreamTrace
 
+    ConverseTokensRequest.add_member(:messages, Shapes::ShapeRef.new(shape: Messages, location_name: "messages"))
+    ConverseTokensRequest.add_member(:system, Shapes::ShapeRef.new(shape: SystemContentBlocks, location_name: "system"))
+    ConverseTokensRequest.struct_class = Types::ConverseTokensRequest
+
     ConverseTrace.add_member(:guardrail, Shapes::ShapeRef.new(shape: GuardrailTraceAssessment, location_name: "guardrail"))
     ConverseTrace.add_member(:prompt_router, Shapes::ShapeRef.new(shape: PromptRouterTrace, location_name: "promptRouter"))
     ConverseTrace.struct_class = Types::ConverseTrace
+
+    CountTokensInput.add_member(:invoke_model, Shapes::ShapeRef.new(shape: InvokeModelTokensRequest, location_name: "invokeModel"))
+    CountTokensInput.add_member(:converse, Shapes::ShapeRef.new(shape: ConverseTokensRequest, location_name: "converse"))
+    CountTokensInput.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    CountTokensInput.add_member_subclass(:invoke_model, Types::CountTokensInput::InvokeModel)
+    CountTokensInput.add_member_subclass(:converse, Types::CountTokensInput::Converse)
+    CountTokensInput.add_member_subclass(:unknown, Types::CountTokensInput::Unknown)
+    CountTokensInput.struct_class = Types::CountTokensInput
+
+    CountTokensRequest.add_member(:model_id, Shapes::ShapeRef.new(shape: FoundationModelVersionIdentifier, required: true, location: "uri", location_name: "modelId"))
+    CountTokensRequest.add_member(:input, Shapes::ShapeRef.new(shape: CountTokensInput, required: true, location_name: "input"))
+    CountTokensRequest.struct_class = Types::CountTokensRequest
+
+    CountTokensResponse.add_member(:input_tokens, Shapes::ShapeRef.new(shape: Integer, required: true, location_name: "inputTokens"))
+    CountTokensResponse.struct_class = Types::CountTokensResponse
 
     DocumentBlock.add_member(:format, Shapes::ShapeRef.new(shape: DocumentFormat, location_name: "format"))
     DocumentBlock.add_member(:name, Shapes::ShapeRef.new(shape: DocumentBlockNameString, required: true, location_name: "name"))
@@ -944,6 +970,9 @@ module Aws::BedrockRuntime
     InvokeModelResponse[:payload] = :body
     InvokeModelResponse[:payload_member] = InvokeModelResponse.member(:body)
 
+    InvokeModelTokensRequest.add_member(:body, Shapes::ShapeRef.new(shape: Body, required: true, location_name: "body"))
+    InvokeModelTokensRequest.struct_class = Types::InvokeModelTokensRequest
+
     InvokeModelWithBidirectionalStreamInput.add_member(:chunk, Shapes::ShapeRef.new(shape: BidirectionalInputPayloadPart, event: true, location_name: "chunk"))
     InvokeModelWithBidirectionalStreamInput.struct_class = Types::InvokeModelWithBidirectionalStreamInput
 
@@ -1285,6 +1314,20 @@ module Aws::BedrockRuntime
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: ModelNotReadyException)
         o.errors << Shapes::ShapeRef.new(shape: ModelErrorException)
+      end)
+
+      api.add_operation(:count_tokens, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CountTokens"
+        o.http_method = "POST"
+        o.http_request_uri = "/model/{modelId}/count-tokens"
+        o.input = Shapes::ShapeRef.new(shape: CountTokensRequest)
+        o.output = Shapes::ShapeRef.new(shape: CountTokensResponse)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
       end)
 
       api.add_operation(:get_async_invoke, Seahorse::Model::Operation.new.tap do |o|

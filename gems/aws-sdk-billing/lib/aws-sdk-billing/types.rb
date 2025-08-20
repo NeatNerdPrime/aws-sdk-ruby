@@ -50,7 +50,7 @@ module Aws::Billing
     #   @return [String]
     #
     # @!attribute [rw] name
-    #   A list of names of the billing view.
+    #   The account name of the billing view.
     #   @return [String]
     #
     # @!attribute [rw] description
@@ -62,7 +62,7 @@ module Aws::Billing
     #   @return [String]
     #
     # @!attribute [rw] owner_account_id
-    #   The list of owners of the billing view.
+    #   The account owner of the billing view.
     #   @return [String]
     #
     # @!attribute [rw] data_filter_expression
@@ -71,7 +71,7 @@ module Aws::Billing
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #   @return [Types::Expression]
     #
     # @!attribute [rw] created_at
@@ -176,7 +176,7 @@ module Aws::Billing
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #   @return [Types::Expression]
     #
     # @!attribute [rw] client_token
@@ -278,7 +278,7 @@ module Aws::Billing
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    # [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #
     # @!attribute [rw] dimensions
     #   The specific `Dimension` to use for `Expression`.
@@ -665,7 +665,7 @@ module Aws::Billing
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html
+    #   [1]: https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_billing_Expression.html
     #   @return [Types::Expression]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/billing-2023-09-07/UpdateBillingViewRequest AWS API Documentation

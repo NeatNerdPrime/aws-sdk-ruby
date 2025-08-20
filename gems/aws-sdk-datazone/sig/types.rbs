@@ -141,7 +141,9 @@ module Aws::DataZone
       SENSITIVE: []
     end
 
-    class AddPolicyGrantOutput < Aws::EmptyStructure
+    class AddPolicyGrantOutput
+      attr_accessor grant_id: ::String
+      SENSITIVE: []
     end
 
     class AddToProjectMemberPoolPolicyGrantDetail
@@ -4109,6 +4111,7 @@ module Aws::DataZone
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor detail: Types::PolicyGrantDetail
+      attr_accessor grant_id: ::String
       attr_accessor principal: Types::PolicyGrantPrincipal
       SENSITIVE: []
     end
@@ -4502,6 +4505,7 @@ module Aws::DataZone
       attr_accessor domain_identifier: ::String
       attr_accessor entity_identifier: ::String
       attr_accessor entity_type: ("DOMAIN_UNIT" | "ENVIRONMENT_BLUEPRINT_CONFIGURATION" | "ENVIRONMENT_PROFILE" | "ASSET_TYPE")
+      attr_accessor grant_identifier: ::String
       attr_accessor policy_type: ("CREATE_DOMAIN_UNIT" | "OVERRIDE_DOMAIN_UNIT_OWNERS" | "ADD_TO_PROJECT_MEMBER_POOL" | "OVERRIDE_PROJECT_OWNERS" | "CREATE_GLOSSARY" | "CREATE_FORM_TYPE" | "CREATE_ASSET_TYPE" | "CREATE_PROJECT" | "CREATE_ENVIRONMENT_PROFILE" | "DELEGATE_CREATE_ENVIRONMENT_PROFILE" | "CREATE_ENVIRONMENT" | "CREATE_ENVIRONMENT_FROM_BLUEPRINT" | "CREATE_PROJECT_FROM_PROJECT_PROFILE" | "USE_ASSET_TYPE")
       attr_accessor principal: Types::PolicyGrantPrincipal
       SENSITIVE: []

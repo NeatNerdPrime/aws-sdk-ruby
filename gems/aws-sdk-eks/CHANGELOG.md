@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.144.0 (2025-08-20)
+------------------
+
+* Feature - EKS Add-ons Custom Namespace Support
+
 1.143.0 (2025-08-05)
 ------------------
 

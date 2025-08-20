@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.128.0 (2025-08-20)
+------------------
+
+* Feature - This release adds support for the new Terms APIs which allow displaying Terms of Use and Privacy Policy on the Managed Login user-registration page.
+
 1.127.0 (2025-08-11)
 ------------------
 

@@ -10327,11 +10327,11 @@ module Aws::SageMaker
     S3DataSource.add_member(:hub_access_config, Shapes::ShapeRef.new(shape: HubAccessConfig, location_name: "HubAccessConfig"))
     S3DataSource.struct_class = Types::S3DataSource
 
-    S3FileSystem.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3SchemaUri, location_name: "S3Uri"))
+    S3FileSystem.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3SchemaUri, required: true, location_name: "S3Uri"))
     S3FileSystem.struct_class = Types::S3FileSystem
 
     S3FileSystemConfig.add_member(:mount_path, Shapes::ShapeRef.new(shape: String1024, location_name: "MountPath"))
-    S3FileSystemConfig.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3SchemaUri, location_name: "S3Uri"))
+    S3FileSystemConfig.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3SchemaUri, required: true, location_name: "S3Uri"))
     S3FileSystemConfig.struct_class = Types::S3FileSystemConfig
 
     S3ModelDataSource.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3ModelUri, required: true, location_name: "S3Uri"))

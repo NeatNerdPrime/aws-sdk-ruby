@@ -2566,6 +2566,7 @@ module Aws::PinpointSMSVoiceV2
     #   resp.phone_numbers[0].two_way_channel_role #=> String
     #   resp.phone_numbers[0].self_managed_opt_outs_enabled #=> Boolean
     #   resp.phone_numbers[0].opt_out_list_name #=> String
+    #   resp.phone_numbers[0].international_sending_enabled #=> Boolean
     #   resp.phone_numbers[0].deletion_protection_enabled #=> Boolean
     #   resp.phone_numbers[0].pool_id #=> String
     #   resp.phone_numbers[0].registration_id #=> String
@@ -4307,6 +4308,10 @@ module Aws::PinpointSMSVoiceV2
     #   Use this field to attach your phone number for an external
     #   registration process.
     #
+    # @option params [Boolean] :international_sending_enabled
+    #   By default this is set to false. When set to true the international
+    #   sending of phone number is Enabled.
+    #
     # @option params [Boolean] :deletion_protection_enabled
     #   By default this is set to false. When set to true the phone number
     #   can't be deleted.
@@ -4340,6 +4345,7 @@ module Aws::PinpointSMSVoiceV2
     #   * {Types::RequestPhoneNumberResult#two_way_channel_role #two_way_channel_role} => String
     #   * {Types::RequestPhoneNumberResult#self_managed_opt_outs_enabled #self_managed_opt_outs_enabled} => Boolean
     #   * {Types::RequestPhoneNumberResult#opt_out_list_name #opt_out_list_name} => String
+    #   * {Types::RequestPhoneNumberResult#international_sending_enabled #international_sending_enabled} => Boolean
     #   * {Types::RequestPhoneNumberResult#deletion_protection_enabled #deletion_protection_enabled} => Boolean
     #   * {Types::RequestPhoneNumberResult#pool_id #pool_id} => String
     #   * {Types::RequestPhoneNumberResult#registration_id #registration_id} => String
@@ -4356,6 +4362,7 @@ module Aws::PinpointSMSVoiceV2
     #     opt_out_list_name: "OptOutListNameOrArn",
     #     pool_id: "PoolIdOrArn",
     #     registration_id: "RegistrationIdOrArn",
+    #     international_sending_enabled: false,
     #     deletion_protection_enabled: false,
     #     tags: [
     #       {
@@ -4383,6 +4390,7 @@ module Aws::PinpointSMSVoiceV2
     #   resp.two_way_channel_role #=> String
     #   resp.self_managed_opt_outs_enabled #=> Boolean
     #   resp.opt_out_list_name #=> String
+    #   resp.international_sending_enabled #=> Boolean
     #   resp.deletion_protection_enabled #=> Boolean
     #   resp.pool_id #=> String
     #   resp.registration_id #=> String
@@ -5396,6 +5404,10 @@ module Aws::PinpointSMSVoiceV2
     #   The OptOutList to add the phone number to. Valid values for this field
     #   can be either the OutOutListName or OutOutListArn.
     #
+    # @option params [Boolean] :international_sending_enabled
+    #   By default this is set to false. When set to true the international
+    #   sending of phone number is Enabled.
+    #
     # @option params [Boolean] :deletion_protection_enabled
     #   By default this is set to false. When set to true the phone number
     #   can't be deleted.
@@ -5416,6 +5428,7 @@ module Aws::PinpointSMSVoiceV2
     #   * {Types::UpdatePhoneNumberResult#two_way_channel_role #two_way_channel_role} => String
     #   * {Types::UpdatePhoneNumberResult#self_managed_opt_outs_enabled #self_managed_opt_outs_enabled} => Boolean
     #   * {Types::UpdatePhoneNumberResult#opt_out_list_name #opt_out_list_name} => String
+    #   * {Types::UpdatePhoneNumberResult#international_sending_enabled #international_sending_enabled} => Boolean
     #   * {Types::UpdatePhoneNumberResult#deletion_protection_enabled #deletion_protection_enabled} => Boolean
     #   * {Types::UpdatePhoneNumberResult#registration_id #registration_id} => String
     #   * {Types::UpdatePhoneNumberResult#created_timestamp #created_timestamp} => Time
@@ -5429,6 +5442,7 @@ module Aws::PinpointSMSVoiceV2
     #     two_way_channel_role: "IamRoleArn",
     #     self_managed_opt_outs_enabled: false,
     #     opt_out_list_name: "OptOutListNameOrArn",
+    #     international_sending_enabled: false,
     #     deletion_protection_enabled: false,
     #   })
     #
@@ -5449,6 +5463,7 @@ module Aws::PinpointSMSVoiceV2
     #   resp.two_way_channel_role #=> String
     #   resp.self_managed_opt_outs_enabled #=> Boolean
     #   resp.opt_out_list_name #=> String
+    #   resp.international_sending_enabled #=> Boolean
     #   resp.deletion_protection_enabled #=> Boolean
     #   resp.registration_id #=> String
     #   resp.created_timestamp #=> Time
@@ -5777,7 +5792,7 @@ module Aws::PinpointSMSVoiceV2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-pinpointsmsvoicev2'
-      context[:gem_version] = '1.41.0'
+      context[:gem_version] = '1.42.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

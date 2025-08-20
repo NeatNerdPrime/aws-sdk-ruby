@@ -596,6 +596,21 @@ module Aws::CognitoIdentityProvider
       SENSITIVE: []
     end
 
+    class CreateTermsRequest
+      attr_accessor user_pool_id: ::String
+      attr_accessor client_id: ::String
+      attr_accessor terms_name: ::String
+      attr_accessor terms_source: ("LINK")
+      attr_accessor enforcement: ("NONE")
+      attr_accessor links: ::Hash[::String, ::String]
+      SENSITIVE: [:client_id]
+    end
+
+    class CreateTermsResponse
+      attr_accessor terms: Types::TermsType
+      SENSITIVE: []
+    end
+
     class CreateUserImportJobRequest
       attr_accessor job_name: ::String
       attr_accessor user_pool_id: ::String
@@ -728,6 +743,12 @@ module Aws::CognitoIdentityProvider
       SENSITIVE: []
     end
 
+    class DeleteTermsRequest
+      attr_accessor terms_id: ::String
+      attr_accessor user_pool_id: ::String
+      SENSITIVE: []
+    end
+
     class DeleteUserAttributesRequest
       attr_accessor user_attribute_names: ::Array[::String]
       attr_accessor access_token: ::String
@@ -825,6 +846,17 @@ module Aws::CognitoIdentityProvider
 
     class DescribeRiskConfigurationResponse
       attr_accessor risk_configuration: Types::RiskConfigurationType
+      SENSITIVE: []
+    end
+
+    class DescribeTermsRequest
+      attr_accessor terms_id: ::String
+      attr_accessor user_pool_id: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeTermsResponse
+      attr_accessor terms: Types::TermsType
       SENSITIVE: []
     end
 
@@ -1336,6 +1368,19 @@ module Aws::CognitoIdentityProvider
 
     class ListTagsForResourceResponse
       attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class ListTermsRequest
+      attr_accessor user_pool_id: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListTermsResponse
+      attr_accessor terms: ::Array[Types::TermsDescriptionType]
+      attr_accessor next_token: ::String
       SENSITIVE: []
     end
 
@@ -1851,6 +1896,33 @@ module Aws::CognitoIdentityProvider
     class TagResourceResponse < Aws::EmptyStructure
     end
 
+    class TermsDescriptionType
+      attr_accessor terms_id: ::String
+      attr_accessor terms_name: ::String
+      attr_accessor enforcement: ("NONE")
+      attr_accessor creation_date: ::Time
+      attr_accessor last_modified_date: ::Time
+      SENSITIVE: []
+    end
+
+    class TermsExistsException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class TermsType
+      attr_accessor terms_id: ::String
+      attr_accessor user_pool_id: ::String
+      attr_accessor client_id: ::String
+      attr_accessor terms_name: ::String
+      attr_accessor terms_source: ("LINK")
+      attr_accessor enforcement: ("NONE")
+      attr_accessor links: ::Hash[::String, ::String]
+      attr_accessor creation_date: ::Time
+      attr_accessor last_modified_date: ::Time
+      SENSITIVE: [:client_id]
+    end
+
     class TierChangeNotAllowedException
       attr_accessor message: ::String
       SENSITIVE: []
@@ -1997,6 +2069,21 @@ module Aws::CognitoIdentityProvider
 
     class UpdateResourceServerResponse
       attr_accessor resource_server: Types::ResourceServerType
+      SENSITIVE: []
+    end
+
+    class UpdateTermsRequest
+      attr_accessor terms_id: ::String
+      attr_accessor user_pool_id: ::String
+      attr_accessor terms_name: ::String
+      attr_accessor terms_source: ("LINK")
+      attr_accessor enforcement: ("NONE")
+      attr_accessor links: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class UpdateTermsResponse
+      attr_accessor terms: Types::TermsType
       SENSITIVE: []
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.56.0 (2025-08-20)
+------------------
+
+* Feature - Launch CountTokens API to allow token counting
+
 1.55.0 (2025-08-05)
 ------------------
 

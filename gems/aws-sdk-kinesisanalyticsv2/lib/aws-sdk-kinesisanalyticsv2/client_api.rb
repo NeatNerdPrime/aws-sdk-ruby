@@ -34,6 +34,9 @@ module Aws::KinesisAnalyticsV2
     ApplicationConfigurationUpdate = Shapes::StructureShape.new(name: 'ApplicationConfigurationUpdate')
     ApplicationDescription = Shapes::StringShape.new(name: 'ApplicationDescription')
     ApplicationDetail = Shapes::StructureShape.new(name: 'ApplicationDetail')
+    ApplicationEncryptionConfiguration = Shapes::StructureShape.new(name: 'ApplicationEncryptionConfiguration')
+    ApplicationEncryptionConfigurationDescription = Shapes::StructureShape.new(name: 'ApplicationEncryptionConfigurationDescription')
+    ApplicationEncryptionConfigurationUpdate = Shapes::StructureShape.new(name: 'ApplicationEncryptionConfigurationUpdate')
     ApplicationMaintenanceConfigurationDescription = Shapes::StructureShape.new(name: 'ApplicationMaintenanceConfigurationDescription')
     ApplicationMaintenanceConfigurationUpdate = Shapes::StructureShape.new(name: 'ApplicationMaintenanceConfigurationUpdate')
     ApplicationMaintenanceWindowEndTime = Shapes::StringShape.new(name: 'ApplicationMaintenanceWindowEndTime')
@@ -167,6 +170,8 @@ module Aws::KinesisAnalyticsV2
     InvalidRequestException = Shapes::StructureShape.new(name: 'InvalidRequestException')
     JSONMappingParameters = Shapes::StructureShape.new(name: 'JSONMappingParameters')
     JobPlanDescription = Shapes::StringShape.new(name: 'JobPlanDescription')
+    KeyId = Shapes::StringShape.new(name: 'KeyId')
+    KeyType = Shapes::StringShape.new(name: 'KeyType')
     KinesisAnalyticsARN = Shapes::StringShape.new(name: 'KinesisAnalyticsARN')
     KinesisFirehoseInput = Shapes::StructureShape.new(name: 'KinesisFirehoseInput')
     KinesisFirehoseInputDescription = Shapes::StructureShape.new(name: 'KinesisFirehoseInputDescription')
@@ -417,6 +422,7 @@ module Aws::KinesisAnalyticsV2
     ApplicationConfiguration.add_member(:application_system_rollback_configuration, Shapes::ShapeRef.new(shape: ApplicationSystemRollbackConfiguration, location_name: "ApplicationSystemRollbackConfiguration"))
     ApplicationConfiguration.add_member(:vpc_configurations, Shapes::ShapeRef.new(shape: VpcConfigurations, location_name: "VpcConfigurations"))
     ApplicationConfiguration.add_member(:zeppelin_application_configuration, Shapes::ShapeRef.new(shape: ZeppelinApplicationConfiguration, location_name: "ZeppelinApplicationConfiguration"))
+    ApplicationConfiguration.add_member(:application_encryption_configuration, Shapes::ShapeRef.new(shape: ApplicationEncryptionConfiguration, location_name: "ApplicationEncryptionConfiguration"))
     ApplicationConfiguration.struct_class = Types::ApplicationConfiguration
 
     ApplicationConfigurationDescription.add_member(:sql_application_configuration_description, Shapes::ShapeRef.new(shape: SqlApplicationConfigurationDescription, location_name: "SqlApplicationConfigurationDescription"))
@@ -428,6 +434,7 @@ module Aws::KinesisAnalyticsV2
     ApplicationConfigurationDescription.add_member(:application_system_rollback_configuration_description, Shapes::ShapeRef.new(shape: ApplicationSystemRollbackConfigurationDescription, location_name: "ApplicationSystemRollbackConfigurationDescription"))
     ApplicationConfigurationDescription.add_member(:vpc_configuration_descriptions, Shapes::ShapeRef.new(shape: VpcConfigurationDescriptions, location_name: "VpcConfigurationDescriptions"))
     ApplicationConfigurationDescription.add_member(:zeppelin_application_configuration_description, Shapes::ShapeRef.new(shape: ZeppelinApplicationConfigurationDescription, location_name: "ZeppelinApplicationConfigurationDescription"))
+    ApplicationConfigurationDescription.add_member(:application_encryption_configuration_description, Shapes::ShapeRef.new(shape: ApplicationEncryptionConfigurationDescription, location_name: "ApplicationEncryptionConfigurationDescription"))
     ApplicationConfigurationDescription.struct_class = Types::ApplicationConfigurationDescription
 
     ApplicationConfigurationUpdate.add_member(:sql_application_configuration_update, Shapes::ShapeRef.new(shape: SqlApplicationConfigurationUpdate, location_name: "SqlApplicationConfigurationUpdate"))
@@ -438,6 +445,7 @@ module Aws::KinesisAnalyticsV2
     ApplicationConfigurationUpdate.add_member(:application_system_rollback_configuration_update, Shapes::ShapeRef.new(shape: ApplicationSystemRollbackConfigurationUpdate, location_name: "ApplicationSystemRollbackConfigurationUpdate"))
     ApplicationConfigurationUpdate.add_member(:vpc_configuration_updates, Shapes::ShapeRef.new(shape: VpcConfigurationUpdates, location_name: "VpcConfigurationUpdates"))
     ApplicationConfigurationUpdate.add_member(:zeppelin_application_configuration_update, Shapes::ShapeRef.new(shape: ZeppelinApplicationConfigurationUpdate, location_name: "ZeppelinApplicationConfigurationUpdate"))
+    ApplicationConfigurationUpdate.add_member(:application_encryption_configuration_update, Shapes::ShapeRef.new(shape: ApplicationEncryptionConfigurationUpdate, location_name: "ApplicationEncryptionConfigurationUpdate"))
     ApplicationConfigurationUpdate.struct_class = Types::ApplicationConfigurationUpdate
 
     ApplicationDetail.add_member(:application_arn, Shapes::ShapeRef.new(shape: ResourceARN, required: true, location_name: "ApplicationARN"))
@@ -459,6 +467,18 @@ module Aws::KinesisAnalyticsV2
     ApplicationDetail.add_member(:application_version_rolled_back_to, Shapes::ShapeRef.new(shape: ApplicationVersionId, location_name: "ApplicationVersionRolledBackTo"))
     ApplicationDetail.add_member(:application_mode, Shapes::ShapeRef.new(shape: ApplicationMode, location_name: "ApplicationMode"))
     ApplicationDetail.struct_class = Types::ApplicationDetail
+
+    ApplicationEncryptionConfiguration.add_member(:key_id, Shapes::ShapeRef.new(shape: KeyId, location_name: "KeyId"))
+    ApplicationEncryptionConfiguration.add_member(:key_type, Shapes::ShapeRef.new(shape: KeyType, required: true, location_name: "KeyType"))
+    ApplicationEncryptionConfiguration.struct_class = Types::ApplicationEncryptionConfiguration
+
+    ApplicationEncryptionConfigurationDescription.add_member(:key_id, Shapes::ShapeRef.new(shape: KeyId, location_name: "KeyId"))
+    ApplicationEncryptionConfigurationDescription.add_member(:key_type, Shapes::ShapeRef.new(shape: KeyType, required: true, location_name: "KeyType"))
+    ApplicationEncryptionConfigurationDescription.struct_class = Types::ApplicationEncryptionConfigurationDescription
+
+    ApplicationEncryptionConfigurationUpdate.add_member(:key_id_update, Shapes::ShapeRef.new(shape: KeyId, location_name: "KeyIdUpdate"))
+    ApplicationEncryptionConfigurationUpdate.add_member(:key_type_update, Shapes::ShapeRef.new(shape: KeyType, required: true, location_name: "KeyTypeUpdate"))
+    ApplicationEncryptionConfigurationUpdate.struct_class = Types::ApplicationEncryptionConfigurationUpdate
 
     ApplicationMaintenanceConfigurationDescription.add_member(:application_maintenance_window_start_time, Shapes::ShapeRef.new(shape: ApplicationMaintenanceWindowStartTime, required: true, location_name: "ApplicationMaintenanceWindowStartTime"))
     ApplicationMaintenanceConfigurationDescription.add_member(:application_maintenance_window_end_time, Shapes::ShapeRef.new(shape: ApplicationMaintenanceWindowEndTime, required: true, location_name: "ApplicationMaintenanceWindowEndTime"))
@@ -1182,6 +1202,7 @@ module Aws::KinesisAnalyticsV2
     SnapshotDetails.add_member(:application_version_id, Shapes::ShapeRef.new(shape: ApplicationVersionId, required: true, location_name: "ApplicationVersionId"))
     SnapshotDetails.add_member(:snapshot_creation_timestamp, Shapes::ShapeRef.new(shape: Timestamp, location_name: "SnapshotCreationTimestamp"))
     SnapshotDetails.add_member(:runtime_environment, Shapes::ShapeRef.new(shape: RuntimeEnvironment, location_name: "RuntimeEnvironment"))
+    SnapshotDetails.add_member(:application_encryption_configuration_description, Shapes::ShapeRef.new(shape: ApplicationEncryptionConfigurationDescription, location_name: "ApplicationEncryptionConfigurationDescription"))
     SnapshotDetails.struct_class = Types::SnapshotDetails
 
     SnapshotSummaries.member = Shapes::ShapeRef.new(shape: SnapshotDetails)

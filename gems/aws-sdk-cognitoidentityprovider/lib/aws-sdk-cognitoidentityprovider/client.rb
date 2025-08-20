@@ -1665,30 +1665,44 @@ module Aws::CognitoIdentityProvider
     #
     # @option params [Hash<String,String>] :auth_parameters
     #   The authentication parameters. These are inputs corresponding to the
-    #   `AuthFlow` that you're invoking. The required values depend on the
-    #   value of `AuthFlow` for example:
+    #   `AuthFlow` that you're invoking.
     #
-    #   * For `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If
-    #     you don't provide a value for `PREFERRED_CHALLENGE`, Amazon Cognito
-    #     responds with the `AvailableChallenges` parameter that specifies the
-    #     available sign-in methods.
+    #   The following are some authentication flows and their parameters. Add
+    #   a `SECRET_HASH` parameter if your app client has a client secret. Add
+    #   `DEVICE_KEY` if you want to bypass multi-factor authentication with a
+    #   remembered device.
     #
-    #   * For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required),
-    #     `SECRET_HASH` (required if the app client is configured with a
-    #     client secret), `DEVICE_KEY`.
+    #   USER\_AUTH
+    #   : * `USERNAME` (required)
     #
-    #   * For `ADMIN_USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD`
-    #     (required), `SECRET_HASH` (required if the app client is configured
-    #     with a client secret), `DEVICE_KEY`.
+    #     * `PREFERRED_CHALLENGE`. If you don't provide a value for
+    #       `PREFERRED_CHALLENGE`, Amazon Cognito responds with the
+    #       `AvailableChallenges` parameter that specifies the available
+    #       sign-in methods.
     #
-    #   * For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
-    #     `SECRET_HASH` (required if the app client is configured with a
-    #     client secret), `DEVICE_KEY`.
+    #   USER\_SRP\_AUTH
+    #   : * `USERNAME` (required)
     #
-    #   * For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app
-    #     client is configured with client secret), `DEVICE_KEY`. To start the
-    #     authentication flow with password verification, include
-    #     `ChallengeName: SRP_A` and `SRP_A: (The SRP_A Value)`.
+    #     * `SRP_A` (required)
+    #
+    #   ADMIN\_USER\_PASSWORD\_AUTH
+    #   : * `USERNAME` (required)
+    #
+    #     * `PASSWORD` (required)
+    #
+    #   REFRESH\_TOKEN\_AUTH/REFRESH\_TOKEN
+    #   : * `REFRESH_TOKEN`(required)
+    #
+    #     ^
+    #
+    #   CUSTOM\_AUTH
+    #   : * `USERNAME` (required)
+    #
+    #     * `ChallengeName: SRP_A` (when preceding custom authentication with
+    #       SRP authentication)
+    #
+    #     * `SRP_A: (An SRP_A value)` (when preceding custom authentication
+    #       with SRP authentication)
     #
     #   For more information about `SECRET_HASH`, see [Computing secret hash
     #   values][1]. For information about `DEVICE_KEY`, see [Working with user
@@ -2292,8 +2306,12 @@ module Aws::CognitoIdentityProvider
       req.send_request(options)
     end
 
-    # Resets the specified user's password in a user pool. This operation
-    # doesn't change the user's password, but sends a password-reset code.
+    # Begins the password reset process. Sets the requested user’s account
+    # into a `RESET_REQUIRED` status, and sends them a password-reset code.
+    # Your user pool also sends the user a notification with a reset code
+    # and the information that their password has been reset. At sign-in,
+    # your application or the managed login session receives a challenge to
+    # complete the reset by confirming the code and setting a new password.
     #
     # To use this API operation, your user pool must have self-service
     # account recovery configured.
@@ -2471,41 +2489,46 @@ module Aws::CognitoIdentityProvider
     #   Possible challenges include the following:
     #
     #   <note markdown="1"> All of the following challenges require `USERNAME` and, when the app
-    #   client has a client secret, `SECRET_HASH` in the parameters.
+    #   client has a client secret, `SECRET_HASH` in the parameters. Include a
+    #   `DEVICE_KEY` for device authentication.
     #
     #    </note>
     #
     #   * `WEB_AUTHN`: Respond to the challenge with the results of a
-    #     successful authentication with a WebAuthn authenticator, or passkey.
-    #     Examples of WebAuthn authenticators include biometric devices and
-    #     security keys.
+    #     successful authentication with a WebAuthn authenticator, or passkey,
+    #     as `CREDENTIAL`. Examples of WebAuthn authenticators include
+    #     biometric devices and security keys.
     #
-    #   * `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME`
-    #     (required), `PASSWORD` (required), `SECRET_HASH` (required if the
-    #     app client is configured with a client secret), `DEVICE_KEY`.
+    #   * `PASSWORD`: Respond with the user's password as `PASSWORD`.
     #
-    #   * `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME`
-    #     (required), `SRP_A` (required), `SECRET_HASH` (required if the app
-    #     client is configured with a client secret), `DEVICE_KEY`.
+    #   * `PASSWORD_SRP`: Respond with the initial SRP secret as `SRP_A`.
     #
-    #   * `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an
-    #     `ANSWER` that matches one of the challenge types in the
-    #     `AvailableChallenges` response parameter.
+    #   * `SELECT_CHALLENGE`: Respond with a challenge selection as `ANSWER`.
+    #     It must be one of the challenge types in the `AvailableChallenges`
+    #     response parameter. Add the parameters of the selected challenge,
+    #     for example `USERNAME` and `SMS_OTP`.
     #
-    #   * `SMS_MFA`: Respond with an `SMS_MFA_CODE` that your user pool
-    #     delivered in an SMS message.
+    #   * `SMS_MFA`: Respond with the code that your user pool delivered in an
+    #     SMS message, as `SMS_MFA_CODE`
     #
-    #   * `EMAIL_OTP`: Respond with an `EMAIL_OTP_CODE` that your user pool
-    #     delivered in an email message.
+    #   * `EMAIL_MFA`: Respond with the code that your user pool delivered in
+    #     an email message, as `EMAIL_MFA_CODE`
     #
-    #   * `PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`,
-    #     `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP` after client-side SRP
-    #     calculations.
+    #   * `EMAIL_OTP`: Respond with the code that your user pool delivered in
+    #     an email message, as `EMAIL_OTP_CODE` .
+    #
+    #   * `SMS_OTP`: Respond with the code that your user pool delivered in an
+    #     SMS message, as `SMS_OTP_CODE`.
+    #
+    #   * `PASSWORD_VERIFIER`: Respond with the second stage of SRP secrets as
+    #     `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
+    #     `TIMESTAMP`.
     #
     #   * `CUSTOM_CHALLENGE`: This is returned if your custom authentication
     #     flow determines that the user should pass another challenge before
     #     tokens are issued. The parameters of the challenge are determined by
-    #     your Lambda function.
+    #     your Lambda function and issued in the `ChallengeParameters` of a
+    #     challenge response.
     #
     #   * `DEVICE_SRP_AUTH`: Respond with the initial parameters of device SRP
     #     authentication. For more information, see [Signing in with a
@@ -2601,6 +2624,23 @@ module Aws::CognitoIdentityProvider
     #     * `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": {
     #       "ANSWER": "EMAIL_OTP", "USERNAME": "[username]"}`
     #
+    #   WEB\_AUTHN
+    #
+    #   : `"ChallengeName": "WEB_AUTHN", "ChallengeResponses": { "USERNAME":
+    #     "[username]", "CREDENTIAL": "[AuthenticationResponseJSON]"}`
+    #
+    #     See [ AuthenticationResponseJSON][1].
+    #
+    #   PASSWORD
+    #
+    #   : `"ChallengeName": "PASSWORD", "ChallengeResponses": { "USERNAME":
+    #     "[username]", "PASSWORD": "[password]"}`
+    #
+    #   PASSWORD\_SRP
+    #
+    #   : `"ChallengeName": "PASSWORD_SRP", "ChallengeResponses": {
+    #     "USERNAME": "[username]", "SRP_A": "[SRP_A]"}`
+    #
     #   SMS\_OTP
     #
     #   : `"ChallengeName": "SMS_OTP", "ChallengeResponses": {"SMS_OTP_CODE":
@@ -2628,14 +2668,10 @@ module Aws::CognitoIdentityProvider
     #     "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP":
     #     [timestamp], "USERNAME": "[username]"}`
     #
-    #     Add `"DEVICE_KEY"` when you sign in with a remembered device.
-    #
     #   CUSTOM\_CHALLENGE
     #
     #   : `"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses":
     #     {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}`
-    #
-    #     Add `"DEVICE_KEY"` when you sign in with a remembered device.
     #
     #   NEW\_PASSWORD\_REQUIRED
     #
@@ -2686,8 +2722,8 @@ module Aws::CognitoIdentityProvider
     #   SELECT\_MFA\_TYPE
     #
     #   : `"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses":
-    #     {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or
-    #     SOFTWARE_TOKEN_MFA]"}`
+    #     {"USERNAME": "[username]", "ANSWER":
+    #     "[SMS_MFA|EMAIL_MFA|SOFTWARE_TOKEN_MFA]"}`
     #
     #   For more information about `SECRET_HASH`, see [Computing secret hash
     #   values][2]. For information about `DEVICE_KEY`, see [Working with user
@@ -4298,7 +4334,7 @@ module Aws::CognitoIdentityProvider
 
     # Creates a new set of branding settings for a user pool style and
     # associates it with an app client. This operation is the programmatic
-    # option for the creation of a new style in the branding designer.
+    # option for the creation of a new style in the branding editor.
     #
     # Provides values for UI customization in a `Settings` JSON object and
     # image files in an `Assets` array. To send the JSON object `Document`
@@ -4343,7 +4379,7 @@ module Aws::CognitoIdentityProvider
     # @option params [Boolean] :use_cognito_provided_values
     #   When true, applies the default branding style options. These default
     #   options are managed by Amazon Cognito. You can modify them later in
-    #   the branding designer.
+    #   the branding editor.
     #
     #   When you specify `true` for this option, you must also omit values for
     #   `Settings` and `Assets` in the request.
@@ -4352,10 +4388,26 @@ module Aws::CognitoIdentityProvider
     #   A JSON file, encoded as a `Document` type, with the the settings that
     #   you want to apply to your style.
     #
+    #   The following components are not currently implemented and reserved
+    #   for future use:
+    #
+    #   * `signUp`
+    #
+    #   * `instructions`
+    #
+    #   * `sessionTimerDisplay`
+    #
+    #   * `languageSelector` (for localization, see [Managed login
+    #     localization)][1]
+    #
     #   Document type used to carry open content
     #   (Hash,Array,String,Numeric,Boolean). A document type value is
     #   serialized using the same format as its surroundings and requires no
     #   additional encoding or escaping.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-localization
     #
     # @option params [Array<Types::AssetType>] :assets
     #   An array of image files that you want to apply to functions like
@@ -4487,6 +4539,112 @@ module Aws::CognitoIdentityProvider
     # @param [Hash] params ({})
     def create_resource_server(params = {}, options = {})
       req = build_request(:create_resource_server, params)
+      req.send_request(options)
+    end
+
+    # Creates terms documents for the requested app client. When Terms and
+    # conditions and Privacy policy documents are configured, the app client
+    # displays links to them in the sign-up page of managed login for the
+    # app client.
+    #
+    # You can provide URLs for terms documents in the languages that are
+    # supported by [managed login localization][1]. Amazon Cognito directs
+    # users to the terms documents for their current language, with fallback
+    # to `default` if no document exists for the language.
+    #
+    # Each request accepts one type of terms document and a map of
+    # language-to-link for that document type. You must provide both types
+    # of terms documents in at least one language before Amazon Cognito
+    # displays your terms documents. Supply each type in separate requests.
+    #
+    # For more information, see [Terms documents][2].
+    #
+    # <note markdown="1"> Amazon Cognito evaluates Identity and Access Management (IAM) policies
+    # in requests for this API operation. For this operation, you must use
+    # IAM credentials to authorize requests, and you must grant yourself the
+    # corresponding IAM permission in a policy.
+    #
+    #  **Learn more**
+    #
+    #  * [Signing Amazon Web Services API Requests][3]
+    #
+    # * [Using the Amazon Cognito user pools API and user pool endpoints][4]
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-localization
+    # [2]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-terms-documents
+    # [3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+    # [4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+    #
+    # @option params [required, String] :user_pool_id
+    #   The ID of the user pool where you want to create terms documents.
+    #
+    # @option params [required, String] :client_id
+    #   The ID of the app client where you want to create terms documents.
+    #   Must be an app client in the requested user pool.
+    #
+    # @option params [required, String] :terms_name
+    #   A friendly name for the document that you want to create in the
+    #   current request. Must begin with `terms-of-use` or `privacy-policy` as
+    #   identification of the document type. Provide URLs for both
+    #   `terms-of-use` and `privacy-policy` in separate requests.
+    #
+    # @option params [required, String] :terms_source
+    #   This parameter is reserved for future use and currently accepts only
+    #   one value.
+    #
+    # @option params [required, String] :enforcement
+    #   This parameter is reserved for future use and currently accepts only
+    #   one value.
+    #
+    # @option params [Hash<String,String>] :links
+    #   A map of URLs to languages. For each localized language that will view
+    #   the requested `TermsName`, assign a URL. A selection of
+    #   `cognito:default` displays for all languages that don't have a
+    #   language-specific URL.
+    #
+    #   For example, `"cognito:default": "https://terms.example.com",
+    #   "cognito:spanish": "https://terms.example.com/es"`.
+    #
+    # @return [Types::CreateTermsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateTermsResponse#terms #terms} => Types::TermsType
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_terms({
+    #     user_pool_id: "UserPoolIdType", # required
+    #     client_id: "ClientIdType", # required
+    #     terms_name: "TermsNameType", # required
+    #     terms_source: "LINK", # required, accepts LINK
+    #     enforcement: "NONE", # required, accepts NONE
+    #     links: {
+    #       "LanguageIdType" => "LinkUrlType",
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.terms.terms_id #=> String
+    #   resp.terms.user_pool_id #=> String
+    #   resp.terms.client_id #=> String
+    #   resp.terms.terms_name #=> String
+    #   resp.terms.terms_source #=> String, one of "LINK"
+    #   resp.terms.enforcement #=> String, one of "NONE"
+    #   resp.terms.links #=> Hash
+    #   resp.terms.links["LanguageIdType"] #=> String
+    #   resp.terms.creation_date #=> Time
+    #   resp.terms.last_modified_date #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/CreateTerms AWS API Documentation
+    #
+    # @overload create_terms(params = {})
+    # @param [Hash] params ({})
+    def create_terms(params = {}, options = {})
+      req = build_request(:create_terms, params)
       req.send_request(options)
     end
 
@@ -6431,6 +6589,52 @@ module Aws::CognitoIdentityProvider
       req.send_request(options)
     end
 
+    # Deletes the terms documents with the requested ID from your app
+    # client.
+    #
+    # <note markdown="1"> Amazon Cognito evaluates Identity and Access Management (IAM) policies
+    # in requests for this API operation. For this operation, you must use
+    # IAM credentials to authorize requests, and you must grant yourself the
+    # corresponding IAM permission in a policy.
+    #
+    #  **Learn more**
+    #
+    #  * [Signing Amazon Web Services API Requests][1]
+    #
+    # * [Using the Amazon Cognito user pools API and user pool endpoints][2]
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+    # [2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+    #
+    # @option params [required, String] :terms_id
+    #   The ID of the terms documents that you want to delete.
+    #
+    # @option params [required, String] :user_pool_id
+    #   The ID of the user pool that contains the terms documents that you
+    #   want to delete.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_terms({
+    #     terms_id: "TermsIdType", # required
+    #     user_pool_id: "UserPoolIdType", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DeleteTerms AWS API Documentation
+    #
+    # @overload delete_terms(params = {})
+    # @param [Hash] params ({})
+    def delete_terms(params = {}, options = {})
+      req = build_request(:delete_terms, params)
+      req.send_request(options)
+    end
+
     # Deletes the profile of the currently signed-in user. A deleted user
     # profile can no longer be used to sign in and can't be restored.
     #
@@ -6930,6 +7134,68 @@ module Aws::CognitoIdentityProvider
       req.send_request(options)
     end
 
+    # Returns details for the requested terms documents ID. For more
+    # information, see [Terms documents][1].
+    #
+    # <note markdown="1"> Amazon Cognito evaluates Identity and Access Management (IAM) policies
+    # in requests for this API operation. For this operation, you must use
+    # IAM credentials to authorize requests, and you must grant yourself the
+    # corresponding IAM permission in a policy.
+    #
+    #  **Learn more**
+    #
+    #  * [Signing Amazon Web Services API Requests][2]
+    #
+    # * [Using the Amazon Cognito user pools API and user pool endpoints][3]
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-terms-documents
+    # [2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+    # [3]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+    #
+    # @option params [required, String] :terms_id
+    #   The ID of the terms documents that you want to describe.
+    #
+    # @option params [required, String] :user_pool_id
+    #   The ID of the user pool that contains the terms documents that you
+    #   want to describe.
+    #
+    # @return [Types::DescribeTermsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeTermsResponse#terms #terms} => Types::TermsType
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_terms({
+    #     terms_id: "TermsIdType", # required
+    #     user_pool_id: "UserPoolIdType", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.terms.terms_id #=> String
+    #   resp.terms.user_pool_id #=> String
+    #   resp.terms.client_id #=> String
+    #   resp.terms.terms_name #=> String
+    #   resp.terms.terms_source #=> String, one of "LINK"
+    #   resp.terms.enforcement #=> String, one of "NONE"
+    #   resp.terms.links #=> Hash
+    #   resp.terms.links["LanguageIdType"] #=> String
+    #   resp.terms.creation_date #=> Time
+    #   resp.terms.last_modified_date #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/DescribeTerms AWS API Documentation
+    #
+    # @overload describe_terms(params = {})
+    # @param [Hash] params ({})
+    def describe_terms(params = {}, options = {})
+      req = build_request(:describe_terms, params)
+      req.send_request(options)
+    end
+
     # Describes a user import job. For more information about user CSV
     # import, see [Importing users from a CSV file][1].
     #
@@ -7317,10 +7583,13 @@ module Aws::CognitoIdentityProvider
       req.send_request(options)
     end
 
-    # Sends a password-reset confirmation code for the currently signed-in
-    # user.
+    # Sends a password-reset confirmation code to the email address or phone
+    # number of the requested username. The message delivery method is
+    # determined by the user's available attributes and the
+    # `AccountRecoverySetting` configuration of the user pool.
     #
-    # For the `Username` parameter, you can use the username or user alias.
+    # For the `Username` parameter, you can use the username or an email,
+    # phone, or preferred username alias.
     #
     # If neither a verified phone number nor a verified email exists, Amazon
     # Cognito responds with an `InvalidParameterException` error . If your
@@ -7831,7 +8100,8 @@ module Aws::CognitoIdentityProvider
     # @option params [required, String] :refresh_token
     #   A valid refresh token that can authorize the request for new tokens.
     #   When refresh token rotation is active in the requested app client,
-    #   this token is invalidated after the request is complete.
+    #   this token is invalidated after the request is complete and after an
+    #   optional grace period.
     #
     # @option params [required, String] :client_id
     #   The app client that issued the refresh token to the user who wants to
@@ -8449,29 +8719,42 @@ module Aws::CognitoIdentityProvider
     #   The authentication parameters. These are inputs corresponding to the
     #   `AuthFlow` that you're invoking.
     #
-    #   The required values are specific to the InitiateAuthRequest$AuthFlow.
-    #
     #   The following are some authentication flows and their parameters. Add
-    #   a `SECRET_HASH` parameter if your app client has a client secret.
+    #   a `SECRET_HASH` parameter if your app client has a client secret. Add
+    #   `DEVICE_KEY` if you want to bypass multi-factor authentication with a
+    #   remembered device.
     #
-    #   * `USER_AUTH`: `USERNAME` (required), `PREFERRED_CHALLENGE`. If you
-    #     don't provide a value for `PREFERRED_CHALLENGE`, Amazon Cognito
-    #     responds with the `AvailableChallenges` parameter that specifies the
-    #     available sign-in methods.
+    #   USER\_AUTH
+    #   : * `USERNAME` (required)
     #
-    #   * `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required),
-    #     `DEVICE_KEY`.
+    #     * `PREFERRED_CHALLENGE`. If you don't provide a value for
+    #       `PREFERRED_CHALLENGE`, Amazon Cognito responds with the
+    #       `AvailableChallenges` parameter that specifies the available
+    #       sign-in methods.
     #
-    #   * `USER_PASSWORD_AUTH`: `USERNAME` (required), `PASSWORD` (required),
-    #     `DEVICE_KEY`.
+    #   USER\_SRP\_AUTH
+    #   : * `USERNAME` (required)
     #
-    #   * `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
-    #     `DEVICE_KEY`.
+    #     * `SRP_A` (required)
     #
-    #   * `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client
-    #     is configured with client secret), `DEVICE_KEY`. To start the
-    #     authentication flow with password verification, include
-    #     `ChallengeName: SRP_A` and `SRP_A: (The SRP_A Value)`.
+    #   USER\_PASSWORD\_AUTH
+    #   : * `USERNAME` (required)
+    #
+    #     * `PASSWORD` (required)
+    #
+    #   REFRESH\_TOKEN\_AUTH/REFRESH\_TOKEN
+    #   : * `REFRESH_TOKEN`(required)
+    #
+    #     ^
+    #
+    #   CUSTOM\_AUTH
+    #   : * `USERNAME` (required)
+    #
+    #     * `ChallengeName: SRP_A` (when doing SRP authentication before
+    #       custom challenges)
+    #
+    #     * `SRP_A: (An SRP_A value)` (when doing SRP authentication before
+    #       custom challenges)
     #
     #   For more information about `SECRET_HASH`, see [Computing secret hash
     #   values][1]. For information about `DEVICE_KEY`, see [Working with user
@@ -8986,6 +9269,73 @@ module Aws::CognitoIdentityProvider
     # @param [Hash] params ({})
     def list_tags_for_resource(params = {}, options = {})
       req = build_request(:list_tags_for_resource, params)
+      req.send_request(options)
+    end
+
+    # Returns details about all terms documents for the requested user pool.
+    #
+    # <note markdown="1"> Amazon Cognito evaluates Identity and Access Management (IAM) policies
+    # in requests for this API operation. For this operation, you must use
+    # IAM credentials to authorize requests, and you must grant yourself the
+    # corresponding IAM permission in a policy.
+    #
+    #  **Learn more**
+    #
+    #  * [Signing Amazon Web Services API Requests][1]
+    #
+    # * [Using the Amazon Cognito user pools API and user pool endpoints][2]
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+    # [2]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+    #
+    # @option params [required, String] :user_pool_id
+    #   The ID of the user pool where you want to list terms documents.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of terms documents that you want Amazon Cognito to
+    #   return in the response.
+    #
+    # @option params [String] :next_token
+    #   This API operation returns a limited number of results. The pagination
+    #   token is an identifier that you can present in an additional API
+    #   request with the same parameters. When you include the pagination
+    #   token, Amazon Cognito returns the next set of items after the current
+    #   list. Subsequent requests return a new pagination token. By use of
+    #   this token, you can paginate through the full list of items.
+    #
+    # @return [Types::ListTermsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListTermsResponse#terms #terms} => Array&lt;Types::TermsDescriptionType&gt;
+    #   * {Types::ListTermsResponse#next_token #next_token} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_terms({
+    #     user_pool_id: "UserPoolIdType", # required
+    #     max_results: 1,
+    #     next_token: "StringType",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.terms #=> Array
+    #   resp.terms[0].terms_id #=> String
+    #   resp.terms[0].terms_name #=> String
+    #   resp.terms[0].enforcement #=> String, one of "NONE"
+    #   resp.terms[0].creation_date #=> Time
+    #   resp.terms[0].last_modified_date #=> Time
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/ListTerms AWS API Documentation
+    #
+    # @overload list_terms(params = {})
+    # @param [Hash] params ({})
+    def list_terms(params = {}, options = {})
+      req = build_request(:list_terms, params)
       req.send_request(options)
     end
 
@@ -9825,41 +10175,46 @@ module Aws::CognitoIdentityProvider
     #   Possible challenges include the following:
     #
     #   <note markdown="1"> All of the following challenges require `USERNAME` and, when the app
-    #   client has a client secret, `SECRET_HASH` in the parameters.
+    #   client has a client secret, `SECRET_HASH` in the parameters. Include a
+    #   `DEVICE_KEY` for device authentication.
     #
     #    </note>
     #
     #   * `WEB_AUTHN`: Respond to the challenge with the results of a
-    #     successful authentication with a WebAuthn authenticator, or passkey.
-    #     Examples of WebAuthn authenticators include biometric devices and
-    #     security keys.
+    #     successful authentication with a WebAuthn authenticator, or passkey,
+    #     as `CREDENTIAL`. Examples of WebAuthn authenticators include
+    #     biometric devices and security keys.
     #
-    #   * `PASSWORD`: Respond with `USER_PASSWORD_AUTH` parameters: `USERNAME`
-    #     (required), `PASSWORD` (required), `SECRET_HASH` (required if the
-    #     app client is configured with a client secret), `DEVICE_KEY`.
+    #   * `PASSWORD`: Respond with the user's password as `PASSWORD`.
     #
-    #   * `PASSWORD_SRP`: Respond with `USER_SRP_AUTH` parameters: `USERNAME`
-    #     (required), `SRP_A` (required), `SECRET_HASH` (required if the app
-    #     client is configured with a client secret), `DEVICE_KEY`.
+    #   * `PASSWORD_SRP`: Respond with the initial SRP secret as `SRP_A`.
     #
-    #   * `SELECT_CHALLENGE`: Respond to the challenge with `USERNAME` and an
-    #     `ANSWER` that matches one of the challenge types in the
-    #     `AvailableChallenges` response parameter.
+    #   * `SELECT_CHALLENGE`: Respond with a challenge selection as `ANSWER`.
+    #     It must be one of the challenge types in the `AvailableChallenges`
+    #     response parameter. Add the parameters of the selected challenge,
+    #     for example `USERNAME` and `SMS_OTP`.
     #
-    #   * `SMS_MFA`: Respond with an `SMS_MFA_CODE` that your user pool
-    #     delivered in an SMS message.
+    #   * `SMS_MFA`: Respond with the code that your user pool delivered in an
+    #     SMS message, as `SMS_MFA_CODE`
     #
-    #   * `EMAIL_OTP`: Respond with an `EMAIL_OTP_CODE` that your user pool
-    #     delivered in an email message.
+    #   * `EMAIL_MFA`: Respond with the code that your user pool delivered in
+    #     an email message, as `EMAIL_MFA_CODE`
     #
-    #   * `PASSWORD_VERIFIER`: Respond with `PASSWORD_CLAIM_SIGNATURE`,
-    #     `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP` after client-side SRP
-    #     calculations.
+    #   * `EMAIL_OTP`: Respond with the code that your user pool delivered in
+    #     an email message, as `EMAIL_OTP_CODE` .
+    #
+    #   * `SMS_OTP`: Respond with the code that your user pool delivered in an
+    #     SMS message, as `SMS_OTP_CODE`.
+    #
+    #   * `PASSWORD_VERIFIER`: Respond with the second stage of SRP secrets as
+    #     `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and
+    #     `TIMESTAMP`.
     #
     #   * `CUSTOM_CHALLENGE`: This is returned if your custom authentication
     #     flow determines that the user should pass another challenge before
     #     tokens are issued. The parameters of the challenge are determined by
-    #     your Lambda function.
+    #     your Lambda function and issued in the `ChallengeParameters` of a
+    #     challenge response.
     #
     #   * `DEVICE_SRP_AUTH`: Respond with the initial parameters of device SRP
     #     authentication. For more information, see [Signing in with a
@@ -9964,6 +10319,23 @@ module Aws::CognitoIdentityProvider
     #     * `"ChallengeName": "SELECT_CHALLENGE", "ChallengeResponses": {
     #       "ANSWER": "EMAIL_OTP", "USERNAME": "[username]"}`
     #
+    #   WEB\_AUTHN
+    #
+    #   : `"ChallengeName": "WEB_AUTHN", "ChallengeResponses": { "USERNAME":
+    #     "[username]", "CREDENTIAL": "[AuthenticationResponseJSON]"}`
+    #
+    #     See [ AuthenticationResponseJSON][1].
+    #
+    #   PASSWORD
+    #
+    #   : `"ChallengeName": "PASSWORD", "ChallengeResponses": { "USERNAME":
+    #     "[username]", "PASSWORD": "[password]"}`
+    #
+    #   PASSWORD\_SRP
+    #
+    #   : `"ChallengeName": "PASSWORD_SRP", "ChallengeResponses": {
+    #     "USERNAME": "[username]", "SRP_A": "[SRP_A]"}`
+    #
     #   SMS\_OTP
     #
     #   : `"ChallengeName": "SMS_OTP", "ChallengeResponses": {"SMS_OTP_CODE":
@@ -9991,14 +10363,10 @@ module Aws::CognitoIdentityProvider
     #     "PASSWORD_CLAIM_SECRET_BLOCK": "[secret_block]", "TIMESTAMP":
     #     [timestamp], "USERNAME": "[username]"}`
     #
-    #     Add `"DEVICE_KEY"` when you sign in with a remembered device.
-    #
     #   CUSTOM\_CHALLENGE
     #
     #   : `"ChallengeName": "CUSTOM_CHALLENGE", "ChallengeResponses":
     #     {"USERNAME": "[username]", "ANSWER": "[challenge_answer]"}`
-    #
-    #     Add `"DEVICE_KEY"` when you sign in with a remembered device.
     #
     #   NEW\_PASSWORD\_REQUIRED
     #
@@ -10049,8 +10417,8 @@ module Aws::CognitoIdentityProvider
     #   SELECT\_MFA\_TYPE
     #
     #   : `"ChallengeName": "SELECT_MFA_TYPE", "ChallengeResponses":
-    #     {"USERNAME": "[username]", "ANSWER": "[SMS_MFA or
-    #     SOFTWARE_TOKEN_MFA]"}`
+    #     {"USERNAME": "[username]", "ANSWER":
+    #     "[SMS_MFA|EMAIL_MFA|SOFTWARE_TOKEN_MFA]"}`
     #
     #   For more information about `SECRET_HASH`, see [Computing secret hash
     #   values][2]. For information about `DEVICE_KEY`, see [Working with user
@@ -11212,7 +11580,7 @@ module Aws::CognitoIdentityProvider
     # suspicious authentication events. Users invoke this operation when
     # they select the link that corresponds to `{one-click-link-valid}` or
     # `{one-click-link-invalid}` in your notification template. Because
-    # `FeedbackToken` is a required parameter, you can' make requests to
+    # `FeedbackToken` is a required parameter, you can't make requests to
     # `UpdateAuthEventFeedback` without the contents of the notification
     # email message.
     #
@@ -11644,7 +12012,7 @@ module Aws::CognitoIdentityProvider
 
     # Configures the branding settings for a user pool style. This operation
     # is the programmatic option for the configuration of a style in the
-    # branding designer.
+    # branding editor.
     #
     # Provides values for UI customization in a `Settings` JSON object and
     # image files in an `Assets` array.
@@ -11685,7 +12053,7 @@ module Aws::CognitoIdentityProvider
     # @option params [Boolean] :use_cognito_provided_values
     #   When `true`, applies the default branding style options. This option
     #   reverts to default style options that are managed by Amazon Cognito.
-    #   You can modify them later in the branding designer.
+    #   You can modify them later in the branding editor.
     #
     #   When you specify `true` for this option, you must also omit values for
     #   `Settings` and `Assets` in the request.
@@ -11694,10 +12062,26 @@ module Aws::CognitoIdentityProvider
     #   A JSON file, encoded as a `Document` type, with the the settings that
     #   you want to apply to your style.
     #
+    #   The following components are not currently implemented and reserved
+    #   for future use:
+    #
+    #   * `signUp`
+    #
+    #   * `instructions`
+    #
+    #   * `sessionTimerDisplay`
+    #
+    #   * `languageSelector` (for localization, see [Managed login
+    #     localization)][1]
+    #
     #   Document type used to carry open content
     #   (Hash,Array,String,Numeric,Boolean). A document type value is
     #   serialized using the same format as its surroundings and requires no
     #   additional encoding or escaping.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-localization
     #
     # @option params [Array<Types::AssetType>] :assets
     #   An array of image files that you want to apply to roles like
@@ -11830,6 +12214,109 @@ module Aws::CognitoIdentityProvider
     # @param [Hash] params ({})
     def update_resource_server(params = {}, options = {})
       req = build_request(:update_resource_server, params)
+      req.send_request(options)
+    end
+
+    # Modifies existing terms documents for the requested app client. When
+    # Terms and conditions and Privacy policy documents are configured, the
+    # app client displays links to them in the sign-up page of managed login
+    # for the app client.
+    #
+    # You can provide URLs for terms documents in the languages that are
+    # supported by [managed login localization][1]. Amazon Cognito directs
+    # users to the terms documents for their current language, with fallback
+    # to `default` if no document exists for the language.
+    #
+    # Each request accepts one type of terms document and a map of
+    # language-to-link for that document type. You must provide both types
+    # of terms documents in at least one language before Amazon Cognito
+    # displays your terms documents. Supply each type in separate requests.
+    #
+    # For more information, see [Terms documents][2].
+    #
+    # <note markdown="1"> Amazon Cognito evaluates Identity and Access Management (IAM) policies
+    # in requests for this API operation. For this operation, you must use
+    # IAM credentials to authorize requests, and you must grant yourself the
+    # corresponding IAM permission in a policy.
+    #
+    #  **Learn more**
+    #
+    #  * [Signing Amazon Web Services API Requests][3]
+    #
+    # * [Using the Amazon Cognito user pools API and user pool endpoints][4]
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-localization
+    # [2]: https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-managed-login.html#managed-login-terms-documents
+    # [3]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-signing.html
+    # [4]: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pools-API-operations.html
+    #
+    # @option params [required, String] :terms_id
+    #   The ID of the terms document that you want to update.
+    #
+    # @option params [required, String] :user_pool_id
+    #   The ID of the user pool that contains the terms that you want to
+    #   update.
+    #
+    # @option params [String] :terms_name
+    #   The new name that you want to apply to the requested terms documents.
+    #
+    # @option params [String] :terms_source
+    #   This parameter is reserved for future use and currently accepts only
+    #   one value.
+    #
+    # @option params [String] :enforcement
+    #   This parameter is reserved for future use and currently accepts only
+    #   one value.
+    #
+    # @option params [Hash<String,String>] :links
+    #   A map of URLs to languages. For each localized language that will view
+    #   the requested `TermsName`, assign a URL. A selection of
+    #   `cognito:default` displays for all languages that don't have a
+    #   language-specific URL.
+    #
+    #   For example, `"cognito:default": "https://terms.example.com",
+    #   "cognito:spanish": "https://terms.example.com/es"`.
+    #
+    # @return [Types::UpdateTermsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateTermsResponse#terms #terms} => Types::TermsType
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_terms({
+    #     terms_id: "TermsIdType", # required
+    #     user_pool_id: "UserPoolIdType", # required
+    #     terms_name: "TermsNameType",
+    #     terms_source: "LINK", # accepts LINK
+    #     enforcement: "NONE", # accepts NONE
+    #     links: {
+    #       "LanguageIdType" => "LinkUrlType",
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.terms.terms_id #=> String
+    #   resp.terms.user_pool_id #=> String
+    #   resp.terms.client_id #=> String
+    #   resp.terms.terms_name #=> String
+    #   resp.terms.terms_source #=> String, one of "LINK"
+    #   resp.terms.enforcement #=> String, one of "NONE"
+    #   resp.terms.links #=> Hash
+    #   resp.terms.links["LanguageIdType"] #=> String
+    #   resp.terms.creation_date #=> Time
+    #   resp.terms.last_modified_date #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cognito-idp-2016-04-18/UpdateTerms AWS API Documentation
+    #
+    # @overload update_terms(params = {})
+    # @param [Hash] params ({})
+    def update_terms(params = {}, options = {})
+      req = build_request(:update_terms, params)
       req.send_request(options)
     end
 
@@ -12841,7 +13328,7 @@ module Aws::CognitoIdentityProvider
     # @option params [Integer] :managed_login_version
     #   A version number that indicates the state of managed login for your
     #   domain. Version `1` is hosted UI (classic). Version `2` is the newer
-    #   managed login with the branding designer. For more information, see
+    #   managed login with the branding editor. For more information, see
     #   [Managed login][1].
     #
     #
@@ -13025,7 +13512,7 @@ module Aws::CognitoIdentityProvider
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cognitoidentityprovider'
-      context[:gem_version] = '1.127.0'
+      context[:gem_version] = '1.128.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

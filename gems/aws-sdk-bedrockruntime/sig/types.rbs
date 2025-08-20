@@ -331,9 +331,40 @@ module Aws::BedrockRuntime
       SENSITIVE: []
     end
 
+    class ConverseTokensRequest
+      attr_accessor messages: ::Array[Types::Message]
+      attr_accessor system: ::Array[Types::SystemContentBlock]
+      SENSITIVE: []
+    end
+
     class ConverseTrace
       attr_accessor guardrail: Types::GuardrailTraceAssessment
       attr_accessor prompt_router: Types::PromptRouterTrace
+      SENSITIVE: []
+    end
+
+    class CountTokensInput
+      attr_accessor invoke_model: Types::InvokeModelTokensRequest
+      attr_accessor converse: Types::ConverseTokensRequest
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class InvokeModel < CountTokensInput
+      end
+      class Converse < CountTokensInput
+      end
+      class Unknown < CountTokensInput
+      end
+    end
+
+    class CountTokensRequest
+      attr_accessor model_id: ::String
+      attr_accessor input: Types::CountTokensInput
+      SENSITIVE: []
+    end
+
+    class CountTokensResponse
+      attr_accessor input_tokens: ::Integer
       SENSITIVE: []
     end
 
@@ -821,6 +852,11 @@ module Aws::BedrockRuntime
       attr_accessor body: ::String
       attr_accessor content_type: ::String
       attr_accessor performance_config_latency: ("standard" | "optimized")
+      SENSITIVE: [:body]
+    end
+
+    class InvokeModelTokensRequest
+      attr_accessor body: ::String
       SENSITIVE: [:body]
     end
 

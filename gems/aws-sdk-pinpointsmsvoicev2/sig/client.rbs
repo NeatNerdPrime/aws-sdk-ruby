@@ -1234,6 +1234,7 @@ module Aws
         def two_way_channel_role: () -> ::String
         def self_managed_opt_outs_enabled: () -> bool
         def opt_out_list_name: () -> ::String
+        def international_sending_enabled: () -> bool
         def deletion_protection_enabled: () -> bool
         def pool_id: () -> ::String
         def registration_id: () -> ::String
@@ -1249,6 +1250,7 @@ module Aws
                                   ?opt_out_list_name: ::String,
                                   ?pool_id: ::String,
                                   ?registration_id: ::String,
+                                  ?international_sending_enabled: bool,
                                   ?deletion_protection_enabled: bool,
                                   ?tags: Array[
                                     {
@@ -1527,6 +1529,7 @@ module Aws
         def two_way_channel_role: () -> ::String
         def self_managed_opt_outs_enabled: () -> bool
         def opt_out_list_name: () -> ::String
+        def international_sending_enabled: () -> bool
         def deletion_protection_enabled: () -> bool
         def registration_id: () -> ::String
         def created_timestamp: () -> ::Time
@@ -1539,6 +1542,7 @@ module Aws
                                  ?two_way_channel_role: ::String,
                                  ?self_managed_opt_outs_enabled: bool,
                                  ?opt_out_list_name: ::String,
+                                 ?international_sending_enabled: bool,
                                  ?deletion_protection_enabled: bool
                                ) -> _UpdatePhoneNumberResponseSuccess
                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdatePhoneNumberResponseSuccess

@@ -264,6 +264,11 @@ module Aws::EKS
     #   [1]: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html
     #   @return [Array<String>]
     #
+    # @!attribute [rw] namespace_config
+    #   The namespace configuration for the addon. This specifies the
+    #   Kubernetes namespace where the addon is installed.
+    #   @return [Types::AddonNamespaceConfigResponse]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/Addon AWS API Documentation
     #
     class Addon < Struct.new(
@@ -281,7 +286,8 @@ module Aws::EKS
       :owner,
       :marketplace_information,
       :configuration_values,
-      :pod_identity_associations)
+      :pod_identity_associations,
+      :namespace_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -350,6 +356,11 @@ module Aws::EKS
     #   Marketplace.
     #   @return [Types::MarketplaceInformation]
     #
+    # @!attribute [rw] default_namespace
+    #   The default Kubernetes namespace where this addon is typically
+    #   installed if no custom namespace is specified.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/AddonInfo AWS API Documentation
     #
     class AddonInfo < Struct.new(
@@ -358,7 +369,8 @@ module Aws::EKS
       :addon_versions,
       :publisher,
       :owner,
-      :marketplace_information)
+      :marketplace_information,
+      :default_namespace)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -384,6 +396,37 @@ module Aws::EKS
       :code,
       :message,
       :resource_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The namespace configuration request object for specifying a custom
+    # namespace when creating an addon.
+    #
+    # @!attribute [rw] namespace
+    #   The name of the Kubernetes namespace to install the addon in. Must
+    #   be a valid RFC 1123 DNS label.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/AddonNamespaceConfigRequest AWS API Documentation
+    #
+    class AddonNamespaceConfigRequest < Struct.new(
+      :namespace)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The namespace configuration response object containing information
+    # about the namespace where an addon is installed.
+    #
+    # @!attribute [rw] namespace
+    #   The name of the Kubernetes namespace where the addon is installed.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/AddonNamespaceConfigResponse AWS API Documentation
+    #
+    class AddonNamespaceConfigResponse < Struct.new(
+      :namespace)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1545,6 +1588,11 @@ module Aws::EKS
     #   [1]: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html
     #   @return [Array<Types::AddonPodIdentityAssociations>]
     #
+    # @!attribute [rw] namespace_config
+    #   The namespace configuration for the addon. If specified, this will
+    #   override the default namespace for the addon.
+    #   @return [Types::AddonNamespaceConfigRequest]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/eks-2017-11-01/CreateAddonRequest AWS API Documentation
     #
     class CreateAddonRequest < Struct.new(
@@ -1556,7 +1604,8 @@ module Aws::EKS
       :client_request_token,
       :tags,
       :configuration_values,
-      :pod_identity_associations)
+      :pod_identity_associations,
+      :namespace_config)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -441,6 +441,10 @@ module Aws
                                         }?
                                       },
                                     ]?
+                                  }?,
+                                  application_encryption_configuration: {
+                                    key_id: ::String?,
+                                    key_type: ("AWS_OWNED_KEY" | "CUSTOMER_MANAGED_KEY")
                                   }?
                                 },
                                 ?cloud_watch_logging_options: Array[
@@ -965,6 +969,10 @@ module Aws
                                         }?
                                       },
                                     ]?
+                                  }?,
+                                  application_encryption_configuration_update: {
+                                    key_id_update: ::String?,
+                                    key_type_update: ("AWS_OWNED_KEY" | "CUSTOMER_MANAGED_KEY")
                                   }?
                                 },
                                 ?service_execution_role_update: ::String,

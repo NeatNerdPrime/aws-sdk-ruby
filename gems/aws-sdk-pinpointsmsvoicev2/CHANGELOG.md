@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.42.0 (2025-08-20)
+------------------
+
+* Feature - This change added InternationalSendingEnbaled as part of describe/Update/Request phone number API response, and as part of update/Request phone number API request
+
 1.41.0 (2025-08-04)
 ------------------
 

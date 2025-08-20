@@ -482,9 +482,17 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # @!attribute [rw] grant_id
+    #   The ID of the policy grant that was added to a specified entity.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/AddPolicyGrantOutput AWS API Documentation
     #
-    class AddPolicyGrantOutput < Aws::EmptyStructure; end
+    class AddPolicyGrantOutput < Struct.new(
+      :grant_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # The details of the policy grant.
     #
@@ -15241,6 +15249,10 @@ module Aws::DataZone
     #   The details of the policy grant member.
     #   @return [Types::PolicyGrantDetail]
     #
+    # @!attribute [rw] grant_id
+    #   The ID of the policy grant.
+    #   @return [String]
+    #
     # @!attribute [rw] principal
     #   The principal of the policy grant member.
     #   @return [Types::PolicyGrantPrincipal]
@@ -15251,6 +15263,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :detail,
+      :grant_id,
       :principal)
       SENSITIVE = []
       include Aws::Structure
@@ -16538,6 +16551,11 @@ module Aws::DataZone
     #   The type of the entity from which you want to remove a policy grant.
     #   @return [String]
     #
+    # @!attribute [rw] grant_identifier
+    #   The ID of the policy grant that is to be removed from a specified
+    #   entity.
+    #   @return [String]
+    #
     # @!attribute [rw] policy_type
     #   The type of the policy that you want to remove.
     #   @return [String]
@@ -16553,6 +16571,7 @@ module Aws::DataZone
       :domain_identifier,
       :entity_identifier,
       :entity_type,
+      :grant_identifier,
       :policy_type,
       :principal)
       SENSITIVE = []

@@ -31,6 +31,8 @@ module Aws::EKS
     AddonIssue = Shapes::StructureShape.new(name: 'AddonIssue')
     AddonIssueCode = Shapes::StringShape.new(name: 'AddonIssueCode')
     AddonIssueList = Shapes::ListShape.new(name: 'AddonIssueList')
+    AddonNamespaceConfigRequest = Shapes::StructureShape.new(name: 'AddonNamespaceConfigRequest')
+    AddonNamespaceConfigResponse = Shapes::StructureShape.new(name: 'AddonNamespaceConfigResponse')
     AddonPodIdentityAssociations = Shapes::StructureShape.new(name: 'AddonPodIdentityAssociations')
     AddonPodIdentityAssociationsList = Shapes::ListShape.new(name: 'AddonPodIdentityAssociationsList')
     AddonPodIdentityConfiguration = Shapes::StructureShape.new(name: 'AddonPodIdentityConfiguration')
@@ -335,6 +337,7 @@ module Aws::EKS
     labelValue = Shapes::StringShape.new(name: 'labelValue')
     labelsKeyList = Shapes::ListShape.new(name: 'labelsKeyList')
     labelsMap = Shapes::MapShape.new(name: 'labelsMap')
+    namespace = Shapes::StringShape.new(name: 'namespace')
     requiredClaimsKey = Shapes::StringShape.new(name: 'requiredClaimsKey')
     requiredClaimsMap = Shapes::MapShape.new(name: 'requiredClaimsMap')
     requiredClaimsValue = Shapes::StringShape.new(name: 'requiredClaimsValue')
@@ -388,6 +391,7 @@ module Aws::EKS
     Addon.add_member(:marketplace_information, Shapes::ShapeRef.new(shape: MarketplaceInformation, location_name: "marketplaceInformation"))
     Addon.add_member(:configuration_values, Shapes::ShapeRef.new(shape: String, location_name: "configurationValues"))
     Addon.add_member(:pod_identity_associations, Shapes::ShapeRef.new(shape: StringList, location_name: "podIdentityAssociations"))
+    Addon.add_member(:namespace_config, Shapes::ShapeRef.new(shape: AddonNamespaceConfigResponse, location_name: "namespaceConfig"))
     Addon.struct_class = Types::Addon
 
     AddonCompatibilityDetail.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "name"))
@@ -405,6 +409,7 @@ module Aws::EKS
     AddonInfo.add_member(:publisher, Shapes::ShapeRef.new(shape: String, location_name: "publisher"))
     AddonInfo.add_member(:owner, Shapes::ShapeRef.new(shape: String, location_name: "owner"))
     AddonInfo.add_member(:marketplace_information, Shapes::ShapeRef.new(shape: MarketplaceInformation, location_name: "marketplaceInformation"))
+    AddonInfo.add_member(:default_namespace, Shapes::ShapeRef.new(shape: String, location_name: "defaultNamespace"))
     AddonInfo.struct_class = Types::AddonInfo
 
     AddonIssue.add_member(:code, Shapes::ShapeRef.new(shape: AddonIssueCode, location_name: "code"))
@@ -413,6 +418,12 @@ module Aws::EKS
     AddonIssue.struct_class = Types::AddonIssue
 
     AddonIssueList.member = Shapes::ShapeRef.new(shape: AddonIssue)
+
+    AddonNamespaceConfigRequest.add_member(:namespace, Shapes::ShapeRef.new(shape: namespace, location_name: "namespace"))
+    AddonNamespaceConfigRequest.struct_class = Types::AddonNamespaceConfigRequest
+
+    AddonNamespaceConfigResponse.add_member(:namespace, Shapes::ShapeRef.new(shape: namespace, location_name: "namespace"))
+    AddonNamespaceConfigResponse.struct_class = Types::AddonNamespaceConfigResponse
 
     AddonPodIdentityAssociations.add_member(:service_account, Shapes::ShapeRef.new(shape: String, required: true, location_name: "serviceAccount"))
     AddonPodIdentityAssociations.add_member(:role_arn, Shapes::ShapeRef.new(shape: String, required: true, location_name: "roleArn"))
@@ -617,6 +628,7 @@ module Aws::EKS
     CreateAddonRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "tags"))
     CreateAddonRequest.add_member(:configuration_values, Shapes::ShapeRef.new(shape: String, location_name: "configurationValues"))
     CreateAddonRequest.add_member(:pod_identity_associations, Shapes::ShapeRef.new(shape: AddonPodIdentityAssociationsList, location_name: "podIdentityAssociations"))
+    CreateAddonRequest.add_member(:namespace_config, Shapes::ShapeRef.new(shape: AddonNamespaceConfigRequest, location_name: "namespaceConfig"))
     CreateAddonRequest.struct_class = Types::CreateAddonRequest
 
     CreateAddonResponse.add_member(:addon, Shapes::ShapeRef.new(shape: Addon, location_name: "addon"))

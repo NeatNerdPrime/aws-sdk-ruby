@@ -173,7 +173,10 @@ module Aws
                               service_account: ::String,
                               role_arn: ::String
                             },
-                          ]
+                          ],
+                          ?namespace_config: {
+                            namespace: ::String?
+                          }
                         ) -> _CreateAddonResponseSuccess
                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAddonResponseSuccess
 
