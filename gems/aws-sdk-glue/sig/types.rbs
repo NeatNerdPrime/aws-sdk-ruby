@@ -1825,6 +1825,16 @@ module Aws::Glue
       SENSITIVE: []
     end
 
+    class DataQualityGlueTable
+      attr_accessor database_name: ::String
+      attr_accessor table_name: ::String
+      attr_accessor catalog_id: ::String
+      attr_accessor connection_name: ::String
+      attr_accessor additional_options: ::Hash[::String, ::String]
+      attr_accessor pre_processing_query: ::String
+      SENSITIVE: []
+    end
+
     class DataQualityMetricValues
       attr_accessor actual_value: ::Float
       attr_accessor expected_value: ::Float
@@ -1948,6 +1958,7 @@ module Aws::Glue
 
     class DataSource
       attr_accessor glue_table: Types::GlueTable
+      attr_accessor data_quality_glue_table: Types::DataQualityGlueTable
       SENSITIVE: []
     end
 

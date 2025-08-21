@@ -480,7 +480,8 @@ module Aws
                                      on_demand_capacity: ::Integer?
                                    },
                                  ],
-                                 ?description: ::String
+                                 ?description: ::String,
+                                 ?default_application_identifier: ::String
                                ) -> _UpdateStreamGroupResponseSuccess
                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateStreamGroupResponseSuccess
 

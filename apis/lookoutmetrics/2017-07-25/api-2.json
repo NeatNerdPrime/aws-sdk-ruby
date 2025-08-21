@@ -529,8 +529,7 @@
     },
     "ActivateAnomalyDetectorResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "AggregationFunction":{
       "type":"string",
@@ -837,8 +836,7 @@
     },
     "BackTestAnomalyDetectorResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "BackTestConfiguration":{
       "type":"structure",
@@ -1049,8 +1047,7 @@
     },
     "DeactivateAnomalyDetectorResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "DeleteAlertRequest":{
       "type":"structure",
@@ -1061,8 +1058,7 @@
     },
     "DeleteAlertResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "DeleteAnomalyDetectorRequest":{
       "type":"structure",
@@ -1073,8 +1069,7 @@
     },
     "DeleteAnomalyDetectorResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "Delimiter":{
       "type":"string",
@@ -1811,8 +1806,7 @@
     },
     "PutFeedbackResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "QuotaCode":{"type":"string"},
     "QuoteSymbol":{
@@ -2044,8 +2038,7 @@
     },
     "TagResourceResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "TagValue":{
       "type":"string",
@@ -2152,8 +2145,7 @@
     },
     "UntagResourceResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "UpdateAlertRequest":{
       "type":"structure",

@@ -1983,9 +1983,8 @@ module Aws::GuardDuty
     # @!attribute [rw] name
     #   A user-friendly name to identify the threat entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #   @return [String]
     #
     # @!attribute [rw] format
@@ -2134,9 +2133,8 @@ module Aws::GuardDuty
     # @!attribute [rw] name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #   @return [String]
     #
     # @!attribute [rw] format
@@ -10524,9 +10522,8 @@ module Aws::GuardDuty
     # @!attribute [rw] name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #   @return [String]
     #
     # @!attribute [rw] location
@@ -10635,9 +10632,8 @@ module Aws::GuardDuty
     # @!attribute [rw] name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #   @return [String]
     #
     # @!attribute [rw] location

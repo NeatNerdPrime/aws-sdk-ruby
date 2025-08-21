@@ -4877,7 +4877,15 @@ module Aws
                                              catalog_id: ::String?,
                                              connection_name: ::String?,
                                              additional_options: Hash[::String, ::String]?
-                                           }
+                                           }?,
+                                           data_quality_glue_table: {
+                                             database_name: ::String,
+                                             table_name: ::String,
+                                             catalog_id: ::String?,
+                                             connection_name: ::String?,
+                                             additional_options: Hash[::String, ::String]?,
+                                             pre_processing_query: ::String?
+                                           }?
                                          }?,
                                          job_name: ::String?,
                                          job_run_id: ::String?,
@@ -4904,7 +4912,15 @@ module Aws
                                                               catalog_id: ::String?,
                                                               connection_name: ::String?,
                                                               additional_options: Hash[::String, ::String]?
-                                                            }
+                                                            }?,
+                                                            data_quality_glue_table: {
+                                                              database_name: ::String,
+                                                              table_name: ::String,
+                                                              catalog_id: ::String?,
+                                                              connection_name: ::String?,
+                                                              additional_options: Hash[::String, ::String]?,
+                                                              pre_processing_query: ::String?
+                                                            }?
                                                           },
                                                           started_before: ::Time?,
                                                           started_after: ::Time?
@@ -4929,7 +4945,15 @@ module Aws
                                                              catalog_id: ::String?,
                                                              connection_name: ::String?,
                                                              additional_options: Hash[::String, ::String]?
-                                                           }
+                                                           }?,
+                                                           data_quality_glue_table: {
+                                                             database_name: ::String,
+                                                             table_name: ::String,
+                                                             catalog_id: ::String?,
+                                                             connection_name: ::String?,
+                                                             additional_options: Hash[::String, ::String]?,
+                                                             pre_processing_query: ::String?
+                                                           }?
                                                          },
                                                          started_before: ::Time?,
                                                          started_after: ::Time?
@@ -5530,7 +5554,15 @@ module Aws
                                                             catalog_id: ::String?,
                                                             connection_name: ::String?,
                                                             additional_options: Hash[::String, ::String]?
-                                                          }
+                                                          }?,
+                                                          data_quality_glue_table: {
+                                                            database_name: ::String,
+                                                            table_name: ::String,
+                                                            catalog_id: ::String?,
+                                                            connection_name: ::String?,
+                                                            additional_options: Hash[::String, ::String]?,
+                                                            pre_processing_query: ::String?
+                                                          }?
                                                         },
                                                         role: ::String,
                                                         ?number_of_workers: ::Integer,
@@ -5554,7 +5586,15 @@ module Aws
                                                            catalog_id: ::String?,
                                                            connection_name: ::String?,
                                                            additional_options: Hash[::String, ::String]?
-                                                         }
+                                                         }?,
+                                                         data_quality_glue_table: {
+                                                           database_name: ::String,
+                                                           table_name: ::String,
+                                                           catalog_id: ::String?,
+                                                           connection_name: ::String?,
+                                                           additional_options: Hash[::String, ::String]?,
+                                                           pre_processing_query: ::String?
+                                                         }?
                                                        },
                                                        role: ::String,
                                                        ?number_of_workers: ::Integer,
@@ -5573,7 +5613,15 @@ module Aws
                                                              catalog_id: ::String?,
                                                              connection_name: ::String?,
                                                              additional_options: Hash[::String, ::String]?
-                                                           }
+                                                           }?,
+                                                           data_quality_glue_table: {
+                                                             database_name: ::String,
+                                                             table_name: ::String,
+                                                             catalog_id: ::String?,
+                                                             connection_name: ::String?,
+                                                             additional_options: Hash[::String, ::String]?,
+                                                             pre_processing_query: ::String?
+                                                           }?
                                                          }]
                                                      ) -> _StartDataQualityRulesetEvaluationRunResponseSuccess
                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartDataQualityRulesetEvaluationRunResponseSuccess

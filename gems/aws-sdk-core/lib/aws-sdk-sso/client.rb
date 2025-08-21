@@ -698,7 +698,7 @@ module Aws::SSO
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-core'
-      context[:gem_version] = '3.229.0'
+      context[:gem_version] = '3.230.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -12484,7 +12484,7 @@ module Aws::Lightsail
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lightsail'
-      context[:gem_version] = '1.115.0'
+      context[:gem_version] = '1.116.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

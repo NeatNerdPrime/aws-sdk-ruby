@@ -477,6 +477,7 @@ module Aws::GameLiftStreams
       attr_accessor identifier: ::String
       attr_accessor location_configurations: ::Array[Types::LocationConfiguration]
       attr_accessor description: ::String
+      attr_accessor default_application_identifier: ::String
       SENSITIVE: []
     end
 

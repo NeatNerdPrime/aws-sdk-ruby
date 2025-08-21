@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.233.0 (2025-08-21)
+------------------
+
+* Feature - Added support for preprocessing queries in Data Quality operations through new DataQualityGlueTable structure.
+
 1.232.0 (2025-08-15)
 ------------------
 

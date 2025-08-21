@@ -70,21 +70,21 @@ module Aws::GameLiftStreams
     #
     #   A location can be in one of the following states:
     #
-    #   * **ACTIVATING**: Amazon GameLift Streams is preparing the location.
+    #   * `ACTIVATING`: Amazon GameLift Streams is preparing the location.
     #     You cannot stream from, scale the capacity of, or remove this
     #     location yet.
     #
-    #   * **ACTIVE**: The location is provisioned with initial capacity. You
+    #   * `ACTIVE`: The location is provisioned with initial capacity. You
     #     can now stream from, scale the capacity of, or remove this
     #     location.
     #
-    #   * **ERROR**: Amazon GameLift Streams failed to set up this location.
-    #     The StatusReason field describes the error. You can remove this
+    #   * `ERROR`: Amazon GameLift Streams failed to set up this location.
+    #     The `StatusReason` field describes the error. You can remove this
     #     location and try to add it again.
     #
-    #   * **REMOVING**: Amazon GameLift Streams is working to remove this
-    #     location. It releases all provisioned capacity for this location
-    #     in this stream group.
+    #   * `REMOVING`: Amazon GameLift Streams is working to remove this
+    #     location. This will release all provisioned capacity for this
+    #     location in this stream group.
     #   @return [Array<Types::LocationState>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/gameliftstreams-2018-05-10/AddStreamGroupLocationsOutput AWS API Documentation
@@ -626,23 +626,25 @@ module Aws::GameLiftStreams
     #
     # @!attribute [rw] default_application_identifier
     #   The unique identifier of the Amazon GameLift Streams application
-    #   that you want to associate to a stream group as the default
-    #   application. The application must be in `READY` status. By setting
-    #   the default application identifier, you will optimize startup
-    #   performance of this application in your stream group. Once set, this
-    #   application cannot be disassociated from the stream group, unlike
-    #   applications that are associated using AssociateApplications. If not
-    #   set when creating a stream group, you will need to call
-    #   AssociateApplications later, before you can start streaming.
+    #   that you want to set as the default application in a stream group.
+    #   The application that you specify must be in `READY` status. The
+    #   default application is pre-cached on always-on compute resources,
+    #   reducing stream startup times. Other applications are automatically
+    #   cached as needed.
     #
-    #   This value is an [Amazon Resource Name (ARN)][1] or ID that uniquely
+    #   If you do not link an application when you create a stream group,
+    #   you will need to link one later, before you can start streaming,
+    #   using [AssociateApplications][1].
+    #
+    #   This value is an [Amazon Resource Name (ARN)][2] or ID that uniquely
     #   identifies the application resource. Example ARN:
     #   `arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6`.
     #   Example ID: `a-9ZY8X7Wv6`.
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
+    #   [1]: https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_AssociateApplications.html
+    #   [2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
     #   @return [String]
     #
     # @!attribute [rw] location_configurations
@@ -716,21 +718,21 @@ module Aws::GameLiftStreams
     #
     #   A location can be in one of the following states:
     #
-    #   * **ACTIVATING**: Amazon GameLift Streams is preparing the location.
+    #   * `ACTIVATING`: Amazon GameLift Streams is preparing the location.
     #     You cannot stream from, scale the capacity of, or remove this
     #     location yet.
     #
-    #   * **ACTIVE**: The location is provisioned with initial capacity. You
+    #   * `ACTIVE`: The location is provisioned with initial capacity. You
     #     can now stream from, scale the capacity of, or remove this
     #     location.
     #
-    #   * **ERROR**: Amazon GameLift Streams failed to set up this location.
-    #     The StatusReason field describes the error. You can remove this
+    #   * `ERROR`: Amazon GameLift Streams failed to set up this location.
+    #     The `StatusReason` field describes the error. You can remove this
     #     location and try to add it again.
     #
-    #   * **REMOVING**: Amazon GameLift Streams is working to remove this
-    #     location. It releases all provisioned capacity for this location
-    #     in this stream group.
+    #   * `REMOVING`: Amazon GameLift Streams is working to remove this
+    #     location. This will release all provisioned capacity for this
+    #     location in this stream group.
     #   @return [Array<Types::LocationState>]
     #
     # @!attribute [rw] stream_class
@@ -914,8 +916,7 @@ module Aws::GameLiftStreams
     #   Example ID: `sg-1AB2C3De4`.
     #
     #   The stream group that you want to run this stream session with. The
-    #   stream group must be in `ACTIVE` status and have idle stream
-    #   capacity.
+    #   stream group must be in `ACTIVE` status.
     #
     #
     #
@@ -1406,21 +1407,21 @@ module Aws::GameLiftStreams
     #
     #   A location can be in one of the following states:
     #
-    #   * **ACTIVATING**: Amazon GameLift Streams is preparing the location.
+    #   * `ACTIVATING`: Amazon GameLift Streams is preparing the location.
     #     You cannot stream from, scale the capacity of, or remove this
     #     location yet.
     #
-    #   * **ACTIVE**: The location is provisioned with initial capacity. You
+    #   * `ACTIVE`: The location is provisioned with initial capacity. You
     #     can now stream from, scale the capacity of, or remove this
     #     location.
     #
-    #   * **ERROR**: Amazon GameLift Streams failed to set up this location.
-    #     The StatusReason field describes the error. You can remove this
+    #   * `ERROR`: Amazon GameLift Streams failed to set up this location.
+    #     The `StatusReason` field describes the error. You can remove this
     #     location and try to add it again.
     #
-    #   * **REMOVING**: Amazon GameLift Streams is working to remove this
-    #     location. It releases all provisioned capacity for this location
-    #     in this stream group.
+    #   * `REMOVING`: Amazon GameLift Streams is working to remove this
+    #     location. This will release all provisioned capacity for this
+    #     location in this stream group.
     #   @return [Array<Types::LocationState>]
     #
     # @!attribute [rw] stream_class
@@ -1649,8 +1650,39 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] status
-    #   The current status of the stream session. A stream session can host
-    #   clients when in `ACTIVE` status.
+    #   The current status of the stream session. A stream session is ready
+    #   for a client to connect when in `ACTIVE` status.
+    #
+    #   * `ACTIVATING`: The stream session is starting and preparing to
+    #     stream.
+    #
+    #   * `ACTIVE`: The stream session is ready and waiting for a client
+    #     connection. A client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches `ACTIVE` state
+    #     to establish a connection. If no client connects within this
+    #     timeframe, the session automatically terminates.
+    #
+    #   * `CONNECTED`: The stream session has a connected client. A session
+    #     will automatically terminate if there is no user input for 60
+    #     minutes, or if the maximum length of a session specified by
+    #     `SessionLengthSeconds` in `StartStreamSession` is exceeded.
+    #
+    #   * `ERROR`: The stream session failed to activate.
+    #
+    #   * `PENDING_CLIENT_RECONNECTION`: A client has recently disconnected
+    #     and the stream session is waiting for the client to reconnect. A
+    #     client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches
+    #     `PENDING_CLIENT_RECONNECTION` state to re-establish a connection.
+    #     If no client connects within this timeframe, the session
+    #     automatically terminates.
+    #
+    #   * `RECONNECTING`: A client has initiated a reconnect to a session
+    #     that was in `PENDING_CLIENT_RECONNECTION` state.
+    #
+    #   * `TERMINATING`: The stream session is ending.
+    #
+    #   * `TERMINATED`: The stream session has ended.
     #   @return [String]
     #
     # @!attribute [rw] status_reason
@@ -1663,10 +1695,8 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] location
-    #   The location where Amazon GameLift Streams is hosting the stream
-    #   session.
-    #
-    #   A location's name. For example, `us-east-1`. For a complete list of
+    #   The location where Amazon GameLift Streams hosts and streams your
+    #   application. For example, `us-east-1`. For a complete list of
     #   locations that Amazon GameLift Streams supports, refer to [Regions,
     #   quotas, and limitations][1] in the *Amazon GameLift Streams
     #   Developer Guide*.
@@ -1687,15 +1717,18 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] connection_timeout_seconds
-    #   The maximum length of time (in seconds) that Amazon GameLift Streams
-    #   keeps the stream session open. At this point, Amazon GameLift
-    #   Streams ends the stream session regardless of any existing client
-    #   connections.
+    #   The length of time that Amazon GameLift Streams should wait for a
+    #   client to connect or reconnect to the stream session. This time span
+    #   starts when the stream session reaches `ACTIVE` or
+    #   `PENDING_CLIENT_RECONNECTION` state. If no client connects (or
+    #   reconnects) before the timeout, Amazon GameLift Streams terminates
+    #   the stream session.
     #   @return [Integer]
     #
     # @!attribute [rw] session_length_seconds
-    #   The length of time that Amazon GameLift Streams keeps the game
-    #   session open.
+    #   The maximum duration of a session. Amazon GameLift Streams will
+    #   automatically terminate a session after this amount of time has
+    #   elapsed, regardless of any existing client connections.
     #   @return [Integer]
     #
     # @!attribute [rw] additional_launch_args
@@ -1966,13 +1999,13 @@ module Aws::GameLiftStreams
     #
     #   Exported files can be in one of the following states:
     #
-    #   * **SUCCEEDED**: The exported files are successfully stored in S3
+    #   * `SUCCEEDED`: The exported files are successfully stored in an S3
     #     bucket.
     #
-    #   * **FAILED**: The session ended but Amazon GameLift Streams
-    #     couldn't collect and upload the to S3.
+    #   * `FAILED`: The session ended but Amazon GameLift Streams couldn't
+    #     collect and upload the files to S3.
     #
-    #   * **PENDING**: Either the stream session is still in progress, or
+    #   * `PENDING`: Either the stream session is still in progress, or
     #     uploading the exported files to the S3 bucket is in progress.
     #   @return [String]
     #
@@ -2089,14 +2122,16 @@ module Aws::GameLiftStreams
     #   The streaming capacity that is allocated and ready to handle stream
     #   requests without delay. You pay for this capacity whether it's in
     #   use or not. Best for quickest time from streaming request to
-    #   streaming session.
+    #   streaming session. Default is 1 when creating a stream group or
+    #   adding a location.
     #   @return [Integer]
     #
     # @!attribute [rw] on_demand_capacity
     #   The streaming capacity that Amazon GameLift Streams can allocate in
     #   response to stream requests, and then de-allocate when the session
     #   has terminated. This offers a cost control measure at the expense of
-    #   a greater startup time (typically under 5 minutes).
+    #   a greater startup time (typically under 5 minutes). Default is 0
+    #   when creating a stream group or adding a location.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/gameliftstreams-2018-05-10/LocationConfiguration AWS API Documentation
@@ -2129,35 +2164,37 @@ module Aws::GameLiftStreams
     #
     #   A location can be in one of the following states:
     #
-    #   * **ACTIVATING**: Amazon GameLift Streams is preparing the location.
+    #   * `ACTIVATING`: Amazon GameLift Streams is preparing the location.
     #     You cannot stream from, scale the capacity of, or remove this
     #     location yet.
     #
-    #   * **ACTIVE**: The location is provisioned with initial capacity. You
+    #   * `ACTIVE`: The location is provisioned with initial capacity. You
     #     can now stream from, scale the capacity of, or remove this
     #     location.
     #
-    #   * **ERROR**: Amazon GameLift Streams failed to set up this location.
-    #     The StatusReason field describes the error. You can remove this
+    #   * `ERROR`: Amazon GameLift Streams failed to set up this location.
+    #     The `StatusReason` field describes the error. You can remove this
     #     location and try to add it again.
     #
-    #   * **REMOVING**: Amazon GameLift Streams is working to remove this
-    #     location. It releases all provisioned capacity for this location
-    #     in this stream group.
+    #   * `REMOVING`: Amazon GameLift Streams is working to remove this
+    #     location. This will release all provisioned capacity for this
+    #     location in this stream group.
     #   @return [String]
     #
     # @!attribute [rw] always_on_capacity
     #   The streaming capacity that is allocated and ready to handle stream
     #   requests without delay. You pay for this capacity whether it's in
     #   use or not. Best for quickest time from streaming request to
-    #   streaming session.
+    #   streaming session. Default is 1 when creating a stream group or
+    #   adding a location.
     #   @return [Integer]
     #
     # @!attribute [rw] on_demand_capacity
     #   The streaming capacity that Amazon GameLift Streams can allocate in
     #   response to stream requests, and then de-allocate when the session
     #   has terminated. This offers a cost control measure at the expense of
-    #   a greater startup time (typically under 5 minutes).
+    #   a greater startup time (typically under 5 minutes). Default is 0
+    #   when creating a stream group or adding a location.
     #   @return [Integer]
     #
     # @!attribute [rw] requested_capacity
@@ -2208,12 +2245,12 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] locations
-    #   A set of locations to remove this stream group.
+    #   A set of locations to remove this stream group. For example,
+    #   `us-east-1`.
     #
-    #   A set of location names. For example, `us-east-1`. For a complete
-    #   list of locations that Amazon GameLift Streams supports, refer to
-    #   [Regions, quotas, and limitations][1] in the *Amazon GameLift
-    #   Streams Developer Guide*.
+    #   For a complete list of locations that Amazon GameLift Streams
+    #   supports, refer to [Regions, quotas, and limitations][1] in the
+    #   *Amazon GameLift Streams Developer Guide*.
     #
     #
     #
@@ -2393,15 +2430,15 @@ module Aws::GameLiftStreams
     #
     # @!attribute [rw] locations
     #   A list of locations, in order of priority, where you want Amazon
-    #   GameLift Streams to start a stream from. Amazon GameLift Streams
-    #   selects the location with the next available capacity to start a
-    #   single stream session in. If this value is empty, Amazon GameLift
-    #   Streams attempts to start a stream session in the primary location.
+    #   GameLift Streams to start a stream from. For example, `us-east-1`.
+    #   Amazon GameLift Streams selects the location with the next available
+    #   capacity to start a single stream session in. If this value is
+    #   empty, Amazon GameLift Streams attempts to start a stream session in
+    #   the primary location.
     #
-    #   This value is A set of location names. For example, `us-east-1`. For
-    #   a complete list of locations that Amazon GameLift Streams supports,
-    #   refer to [Regions, quotas, and limitations][1] in the *Amazon
-    #   GameLift Streams Developer Guide*.
+    #   For a complete list of locations that Amazon GameLift Streams
+    #   supports, refer to [Regions, quotas, and limitations][1] in the
+    #   *Amazon GameLift Streams Developer Guide*.
     #
     #
     #
@@ -2410,18 +2447,18 @@ module Aws::GameLiftStreams
     #
     # @!attribute [rw] connection_timeout_seconds
     #   Length of time (in seconds) that Amazon GameLift Streams should wait
-    #   for a client to connect or reconnect to the stream session. This
-    #   time span starts when the stream session reaches `ACTIVE` status. If
-    #   no client connects before the timeout, Amazon GameLift Streams stops
-    #   the stream session with status of `TERMINATED`. Default value is
-    #   120.
+    #   for a client to connect or reconnect to the stream session. Applies
+    #   to both connection and reconnection scenarios. This time span starts
+    #   when the stream session reaches `ACTIVE` state. If no client
+    #   connects before the timeout, Amazon GameLift Streams terminates the
+    #   stream session. Default value is 120.
     #   @return [Integer]
     #
     # @!attribute [rw] session_length_seconds
-    #   The maximum length of time (in seconds) that Amazon GameLift Streams
-    #   keeps the stream session open. At this point, Amazon GameLift
-    #   Streams ends the stream session regardless of any existing client
-    #   connections. Default value is 43200.
+    #   The maximum duration of a session. Amazon GameLift Streams will
+    #   automatically terminate a session after this amount of time has
+    #   elapsed, regardless of any existing client connections. Default
+    #   value is 43200 (12 hours).
     #   @return [Integer]
     #
     # @!attribute [rw] additional_launch_args
@@ -2504,8 +2541,39 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] status
-    #   The current status of the stream session. A stream session can host
-    #   clients when in `ACTIVE` status.
+    #   The current status of the stream session. A stream session is ready
+    #   for a client to connect when in `ACTIVE` status.
+    #
+    #   * `ACTIVATING`: The stream session is starting and preparing to
+    #     stream.
+    #
+    #   * `ACTIVE`: The stream session is ready and waiting for a client
+    #     connection. A client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches `ACTIVE` state
+    #     to establish a connection. If no client connects within this
+    #     timeframe, the session automatically terminates.
+    #
+    #   * `CONNECTED`: The stream session has a connected client. A session
+    #     will automatically terminate if there is no user input for 60
+    #     minutes, or if the maximum length of a session specified by
+    #     `SessionLengthSeconds` in `StartStreamSession` is exceeded.
+    #
+    #   * `ERROR`: The stream session failed to activate.
+    #
+    #   * `PENDING_CLIENT_RECONNECTION`: A client has recently disconnected
+    #     and the stream session is waiting for the client to reconnect. A
+    #     client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches
+    #     `PENDING_CLIENT_RECONNECTION` state to re-establish a connection.
+    #     If no client connects within this timeframe, the session
+    #     automatically terminates.
+    #
+    #   * `RECONNECTING`: A client has initiated a reconnect to a session
+    #     that was in `PENDING_CLIENT_RECONNECTION` state.
+    #
+    #   * `TERMINATING`: The stream session is ending.
+    #
+    #   * `TERMINATED`: The stream session has ended.
     #   @return [String]
     #
     # @!attribute [rw] status_reason
@@ -2518,10 +2586,8 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] location
-    #   The location where Amazon GameLift Streams is streaming your
-    #   application from.
-    #
-    #   A location's name. For example, `us-east-1`. For a complete list of
+    #   The location where Amazon GameLift Streams hosts and streams your
+    #   application. For example, `us-east-1`. For a complete list of
     #   locations that Amazon GameLift Streams supports, refer to [Regions,
     #   quotas, and limitations][1] in the *Amazon GameLift Streams
     #   Developer Guide*.
@@ -2542,15 +2608,18 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] connection_timeout_seconds
-    #   The maximum length of time (in seconds) that Amazon GameLift Streams
-    #   keeps the stream session open. At this point, Amazon GameLift
-    #   Streams ends the stream session regardless of any existing client
-    #   connections.
+    #   The length of time that Amazon GameLift Streams should wait for a
+    #   client to connect or reconnect to the stream session. This time span
+    #   starts when the stream session reaches `ACTIVE` or
+    #   `PENDING_CLIENT_RECONNECTION` state. If no client connects (or
+    #   reconnects) before the timeout, Amazon GameLift Streams terminates
+    #   the stream session.
     #   @return [Integer]
     #
     # @!attribute [rw] session_length_seconds
-    #   The length of time that Amazon GameLift Streams keeps the game
-    #   session open.
+    #   The maximum duration of a session. Amazon GameLift Streams will
+    #   automatically terminate a session after this amount of time has
+    #   elapsed, regardless of any existing client connections.
     #   @return [Integer]
     #
     # @!attribute [rw] additional_launch_args
@@ -2610,8 +2679,10 @@ module Aws::GameLiftStreams
     #   @return [Time]
     #
     # @!attribute [rw] application_arn
-    #   An [Amazon Resource Name (ARN)][1] that uniquely identifies the
-    #   application resource. Example ARN:
+    #   The application streaming in this session.
+    #
+    #   This value is an [Amazon Resource Name (ARN)][1] that uniquely
+    #   identifies the application resource. Example ARN:
     #   `arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6`.
     #
     #
@@ -2811,7 +2882,7 @@ module Aws::GameLiftStreams
       include Aws::Structure
     end
 
-    # Describes a Amazon GameLift Streams stream session. To retrieve
+    # Describes an Amazon GameLift Streams stream session. To retrieve
     # additional details for the stream session, call [GetStreamSession][1].
     #
     #
@@ -2834,27 +2905,38 @@ module Aws::GameLiftStreams
     #   @return [String]
     #
     # @!attribute [rw] status
-    #   The current status of the stream session resource. Possible statuses
-    #   include the following:
+    #   The current status of the stream session resource.
     #
     #   * `ACTIVATING`: The stream session is starting and preparing to
     #     stream.
     #
-    #   * `ACTIVE`: The stream session is ready to accept client
-    #     connections.
+    #   * `ACTIVE`: The stream session is ready and waiting for a client
+    #     connection. A client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches `ACTIVE` state
+    #     to establish a connection. If no client connects within this
+    #     timeframe, the session automatically terminates.
     #
-    #   * `CONNECTED`: The stream session has a connected client.
+    #   * `CONNECTED`: The stream session has a connected client. A session
+    #     will automatically terminate if there is no user input for 60
+    #     minutes, or if the maximum length of a session specified by
+    #     `SessionLengthSeconds` in `StartStreamSession` is exceeded.
     #
-    #   * `PENDING_CLIENT_RECONNECTION`: A client has recently disconnected,
-    #     and the stream session is waiting for the client to reconnect.
-    #     After a short time, if the client doesn't reconnect, the stream
-    #     session status transitions to `TERMINATED`.
+    #   * `ERROR`: The stream session failed to activate.
+    #
+    #   * `PENDING_CLIENT_RECONNECTION`: A client has recently disconnected
+    #     and the stream session is waiting for the client to reconnect. A
+    #     client has `ConnectionTimeoutSeconds` (specified in
+    #     `StartStreamSession`) from when the session reaches
+    #     `PENDING_CLIENT_RECONNECTION` state to re-establish a connection.
+    #     If no client connects within this timeframe, the session
+    #     automatically terminates.
+    #
+    #   * `RECONNECTING`: A client has initiated a reconnect to a session
+    #     that was in `PENDING_CLIENT_RECONNECTION` state.
     #
     #   * `TERMINATING`: The stream session is ending.
     #
     #   * `TERMINATED`: The stream session has ended.
-    #
-    #   * `ERROR`: The stream session failed to activate.
     #   @return [String]
     #
     # @!attribute [rw] protocol
@@ -2888,10 +2970,8 @@ module Aws::GameLiftStreams
     #   @return [Types::ExportFilesMetadata]
     #
     # @!attribute [rw] location
-    #   The location where Amazon GameLift Streams is hosting the stream
-    #   session.
-    #
-    #   A location's name. For example, `us-east-1`. For a complete list of
+    #   The location where Amazon GameLift Streams hosts and streams your
+    #   application. For example, `us-east-1`. For a complete list of
     #   locations that Amazon GameLift Streams supports, refer to [Regions,
     #   quotas, and limitations][1] in the *Amazon GameLift Streams
     #   Developer Guide*.
@@ -3243,12 +3323,39 @@ module Aws::GameLiftStreams
     #   A descriptive label for the stream group.
     #   @return [String]
     #
+    # @!attribute [rw] default_application_identifier
+    #   The unique identifier of the Amazon GameLift Streams application
+    #   that you want to set as the default application in a stream group.
+    #   The application that you specify must be in `READY` status. The
+    #   default application is pre-cached on always-on compute resources,
+    #   reducing stream startup times. Other applications are automatically
+    #   cached as needed.
+    #
+    #   Note that this parameter only sets the default application in a
+    #   stream group. To associate a new application to an existing stream
+    #   group, you must use [AssociateApplications][1].
+    #
+    #   When you switch default applications in a stream group, it can take
+    #   up to a few hours for the new default application to be pre-cached.
+    #
+    #   This value is an [Amazon Resource Name (ARN)][2] or ID that uniquely
+    #   identifies the application resource. Example ARN:
+    #   `arn:aws:gameliftstreams:us-west-2:111122223333:application/a-9ZY8X7Wv6`.
+    #   Example ID: `a-9ZY8X7Wv6`.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/gameliftstreams/latest/apireference/API_AssociateApplications.html
+    #   [2]: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/gameliftstreams-2018-05-10/UpdateStreamGroupInput AWS API Documentation
     #
     class UpdateStreamGroupInput < Struct.new(
       :identifier,
       :location_configurations,
-      :description)
+      :description,
+      :default_application_identifier)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3279,21 +3386,21 @@ module Aws::GameLiftStreams
     #
     #   A location can be in one of the following states:
     #
-    #   * **ACTIVATING**: Amazon GameLift Streams is preparing the location.
+    #   * `ACTIVATING`: Amazon GameLift Streams is preparing the location.
     #     You cannot stream from, scale the capacity of, or remove this
     #     location yet.
     #
-    #   * **ACTIVE**: The location is provisioned with initial capacity. You
+    #   * `ACTIVE`: The location is provisioned with initial capacity. You
     #     can now stream from, scale the capacity of, or remove this
     #     location.
     #
-    #   * **ERROR**: Amazon GameLift Streams failed to set up this location.
-    #     The StatusReason field describes the error. You can remove this
+    #   * `ERROR`: Amazon GameLift Streams failed to set up this location.
+    #     The `StatusReason` field describes the error. You can remove this
     #     location and try to add it again.
     #
-    #   * **REMOVING**: Amazon GameLift Streams is working to remove this
-    #     location. It releases all provisioned capacity for this location
-    #     in this stream group.
+    #   * `REMOVING`: Amazon GameLift Streams is working to remove this
+    #     location. This will release all provisioned capacity for this
+    #     location in this stream group.
     #   @return [Array<Types::LocationState>]
     #
     # @!attribute [rw] stream_class

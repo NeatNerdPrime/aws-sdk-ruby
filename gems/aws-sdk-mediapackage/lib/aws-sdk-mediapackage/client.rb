@@ -2056,7 +2056,7 @@ module Aws::MediaPackage
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-mediapackage'
-      context[:gem_version] = '1.92.0'
+      context[:gem_version] = '1.93.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

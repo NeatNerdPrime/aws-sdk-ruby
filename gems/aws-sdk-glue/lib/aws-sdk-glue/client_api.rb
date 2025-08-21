@@ -410,6 +410,7 @@ module Aws::Glue
     DataQualityEncryption = Shapes::StructureShape.new(name: 'DataQualityEncryption')
     DataQualityEncryptionMode = Shapes::StringShape.new(name: 'DataQualityEncryptionMode')
     DataQualityEvaluationRunAdditionalRunOptions = Shapes::StructureShape.new(name: 'DataQualityEvaluationRunAdditionalRunOptions')
+    DataQualityGlueTable = Shapes::StructureShape.new(name: 'DataQualityGlueTable')
     DataQualityMetricValues = Shapes::StructureShape.new(name: 'DataQualityMetricValues')
     DataQualityModelStatus = Shapes::StringShape.new(name: 'DataQualityModelStatus')
     DataQualityObservation = Shapes::StructureShape.new(name: 'DataQualityObservation')
@@ -1145,6 +1146,7 @@ module Aws::Glue
     PositiveLong = Shapes::IntegerShape.new(name: 'PositiveLong')
     PostgreSQLCatalogSource = Shapes::StructureShape.new(name: 'PostgreSQLCatalogSource')
     PostgreSQLCatalogTarget = Shapes::StructureShape.new(name: 'PostgreSQLCatalogTarget')
+    PreProcessingQueryString = Shapes::StringShape.new(name: 'PreProcessingQueryString')
     Predecessor = Shapes::StructureShape.new(name: 'Predecessor')
     PredecessorList = Shapes::ListShape.new(name: 'PredecessorList')
     Predicate = Shapes::StructureShape.new(name: 'Predicate')
@@ -3183,6 +3185,14 @@ module Aws::Glue
     DataQualityEvaluationRunAdditionalRunOptions.add_member(:composite_rule_evaluation_method, Shapes::ShapeRef.new(shape: DQCompositeRuleEvaluationMethod, location_name: "CompositeRuleEvaluationMethod"))
     DataQualityEvaluationRunAdditionalRunOptions.struct_class = Types::DataQualityEvaluationRunAdditionalRunOptions
 
+    DataQualityGlueTable.add_member(:database_name, Shapes::ShapeRef.new(shape: NameString, required: true, location_name: "DatabaseName"))
+    DataQualityGlueTable.add_member(:table_name, Shapes::ShapeRef.new(shape: NameString, required: true, location_name: "TableName"))
+    DataQualityGlueTable.add_member(:catalog_id, Shapes::ShapeRef.new(shape: NameString, location_name: "CatalogId"))
+    DataQualityGlueTable.add_member(:connection_name, Shapes::ShapeRef.new(shape: NameString, location_name: "ConnectionName"))
+    DataQualityGlueTable.add_member(:additional_options, Shapes::ShapeRef.new(shape: GlueTableAdditionalOptions, location_name: "AdditionalOptions"))
+    DataQualityGlueTable.add_member(:pre_processing_query, Shapes::ShapeRef.new(shape: PreProcessingQueryString, location_name: "PreProcessingQuery"))
+    DataQualityGlueTable.struct_class = Types::DataQualityGlueTable
+
     DataQualityMetricValues.add_member(:actual_value, Shapes::ShapeRef.new(shape: NullableDouble, location_name: "ActualValue"))
     DataQualityMetricValues.add_member(:expected_value, Shapes::ShapeRef.new(shape: NullableDouble, location_name: "ExpectedValue"))
     DataQualityMetricValues.add_member(:lower_limit, Shapes::ShapeRef.new(shape: NullableDouble, location_name: "LowerLimit"))
@@ -3296,7 +3306,8 @@ module Aws::Glue
     DataQualityTargetTable.add_member(:catalog_id, Shapes::ShapeRef.new(shape: NameString, location_name: "CatalogId"))
     DataQualityTargetTable.struct_class = Types::DataQualityTargetTable
 
-    DataSource.add_member(:glue_table, Shapes::ShapeRef.new(shape: GlueTable, required: true, location_name: "GlueTable"))
+    DataSource.add_member(:glue_table, Shapes::ShapeRef.new(shape: GlueTable, location_name: "GlueTable"))
+    DataSource.add_member(:data_quality_glue_table, Shapes::ShapeRef.new(shape: DataQualityGlueTable, location_name: "DataQualityGlueTable"))
     DataSource.struct_class = Types::DataSource
 
     DataSourceMap.key = Shapes::ShapeRef.new(shape: NameString)

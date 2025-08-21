@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.11.0 (2025-08-21)
+------------------
+
+* Feature - The default application in a stream group can now be changed at any time using UpdateStreamGroup to update the DefaultApplicationIdentifier.
+
 1.10.0 (2025-08-08)
 ------------------
 

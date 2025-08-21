@@ -1020,6 +1020,13 @@ module Aws::Glue
     #   resp.results[0].data_source.glue_table.connection_name #=> String
     #   resp.results[0].data_source.glue_table.additional_options #=> Hash
     #   resp.results[0].data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.database_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.table_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.results[0].data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.results[0].ruleset_name #=> String
     #   resp.results[0].evaluation_context #=> String
     #   resp.results[0].started_on #=> Time
@@ -1621,9 +1628,15 @@ module Aws::Glue
     end
 
     # Annotate datapoints over time for a specific data quality statistic.
+    # The API requires both profileID and statisticID as part of the
+    # InclusionAnnotation input. The API only works for a single statisticId
+    # across multiple profiles.
     #
     # @option params [required, Array<Types::DatapointInclusionAnnotation>] :inclusion_annotations
-    #   A list of `DatapointInclusionAnnotation`'s.
+    #   A list of `DatapointInclusionAnnotation`'s. The InclusionAnnotations
+    #   must contain a profileId and statisticId. If there are multiple
+    #   InclusionAnnotations, the list must refer to a single statisticId
+    #   across multiple profileIds.
     #
     # @option params [String] :client_token
     #   Client Token.
@@ -7665,6 +7678,13 @@ module Aws::Glue
     #   resp.data_source.glue_table.connection_name #=> String
     #   resp.data_source.glue_table.additional_options #=> Hash
     #   resp.data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.database_name #=> String
+    #   resp.data_source.data_quality_glue_table.table_name #=> String
+    #   resp.data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.ruleset_name #=> String
     #   resp.evaluation_context #=> String
     #   resp.started_on #=> Time
@@ -7751,6 +7771,13 @@ module Aws::Glue
     #   resp.data_source.glue_table.connection_name #=> String
     #   resp.data_source.glue_table.additional_options #=> Hash
     #   resp.data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.database_name #=> String
+    #   resp.data_source.data_quality_glue_table.table_name #=> String
+    #   resp.data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.role #=> String
     #   resp.number_of_workers #=> Integer
     #   resp.timeout #=> Integer
@@ -7856,6 +7883,13 @@ module Aws::Glue
     #   resp.data_source.glue_table.connection_name #=> String
     #   resp.data_source.glue_table.additional_options #=> Hash
     #   resp.data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.database_name #=> String
+    #   resp.data_source.data_quality_glue_table.table_name #=> String
+    #   resp.data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.role #=> String
     #   resp.number_of_workers #=> Integer
     #   resp.timeout #=> Integer
@@ -7879,6 +7913,13 @@ module Aws::Glue
     #   resp.additional_data_sources["NameString"].glue_table.connection_name #=> String
     #   resp.additional_data_sources["NameString"].glue_table.additional_options #=> Hash
     #   resp.additional_data_sources["NameString"].glue_table.additional_options["NameString"] #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.database_name #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.table_name #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.catalog_id #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.connection_name #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.additional_options #=> Hash
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.additional_data_sources["NameString"].data_quality_glue_table.pre_processing_query #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataQualityRulesetEvaluationRun AWS API Documentation
     #
@@ -12550,7 +12591,7 @@ module Aws::Glue
     #   resp = client.list_data_quality_results({
     #     filter: {
     #       data_source: {
-    #         glue_table: { # required
+    #         glue_table: {
     #           database_name: "NameString", # required
     #           table_name: "NameString", # required
     #           catalog_id: "NameString",
@@ -12558,6 +12599,16 @@ module Aws::Glue
     #           additional_options: {
     #             "NameString" => "DescriptionString",
     #           },
+    #         },
+    #         data_quality_glue_table: {
+    #           database_name: "NameString", # required
+    #           table_name: "NameString", # required
+    #           catalog_id: "NameString",
+    #           connection_name: "NameString",
+    #           additional_options: {
+    #             "NameString" => "DescriptionString",
+    #           },
+    #           pre_processing_query: "PreProcessingQueryString",
     #         },
     #       },
     #       job_name: "NameString",
@@ -12579,6 +12630,13 @@ module Aws::Glue
     #   resp.results[0].data_source.glue_table.connection_name #=> String
     #   resp.results[0].data_source.glue_table.additional_options #=> Hash
     #   resp.results[0].data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.database_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.table_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.results[0].data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.results[0].data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.results[0].job_name #=> String
     #   resp.results[0].job_run_id #=> String
     #   resp.results[0].started_on #=> Time
@@ -12616,7 +12674,7 @@ module Aws::Glue
     #   resp = client.list_data_quality_rule_recommendation_runs({
     #     filter: {
     #       data_source: { # required
-    #         glue_table: { # required
+    #         glue_table: {
     #           database_name: "NameString", # required
     #           table_name: "NameString", # required
     #           catalog_id: "NameString",
@@ -12624,6 +12682,16 @@ module Aws::Glue
     #           additional_options: {
     #             "NameString" => "DescriptionString",
     #           },
+    #         },
+    #         data_quality_glue_table: {
+    #           database_name: "NameString", # required
+    #           table_name: "NameString", # required
+    #           catalog_id: "NameString",
+    #           connection_name: "NameString",
+    #           additional_options: {
+    #             "NameString" => "DescriptionString",
+    #           },
+    #           pre_processing_query: "PreProcessingQueryString",
     #         },
     #       },
     #       started_before: Time.now,
@@ -12645,6 +12713,13 @@ module Aws::Glue
     #   resp.runs[0].data_source.glue_table.connection_name #=> String
     #   resp.runs[0].data_source.glue_table.additional_options #=> Hash
     #   resp.runs[0].data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.database_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.table_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.runs[0].data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRuleRecommendationRuns AWS API Documentation
@@ -12680,7 +12755,7 @@ module Aws::Glue
     #   resp = client.list_data_quality_ruleset_evaluation_runs({
     #     filter: {
     #       data_source: { # required
-    #         glue_table: { # required
+    #         glue_table: {
     #           database_name: "NameString", # required
     #           table_name: "NameString", # required
     #           catalog_id: "NameString",
@@ -12688,6 +12763,16 @@ module Aws::Glue
     #           additional_options: {
     #             "NameString" => "DescriptionString",
     #           },
+    #         },
+    #         data_quality_glue_table: {
+    #           database_name: "NameString", # required
+    #           table_name: "NameString", # required
+    #           catalog_id: "NameString",
+    #           connection_name: "NameString",
+    #           additional_options: {
+    #             "NameString" => "DescriptionString",
+    #           },
+    #           pre_processing_query: "PreProcessingQueryString",
     #         },
     #       },
     #       started_before: Time.now,
@@ -12709,6 +12794,13 @@ module Aws::Glue
     #   resp.runs[0].data_source.glue_table.connection_name #=> String
     #   resp.runs[0].data_source.glue_table.additional_options #=> Hash
     #   resp.runs[0].data_source.glue_table.additional_options["NameString"] #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.database_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.table_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.catalog_id #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.connection_name #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.additional_options #=> Hash
+    #   resp.runs[0].data_source.data_quality_glue_table.additional_options["NameString"] #=> String
+    #   resp.runs[0].data_source.data_quality_glue_table.pre_processing_query #=> String
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ListDataQualityRulesetEvaluationRuns AWS API Documentation
@@ -14711,7 +14803,7 @@ module Aws::Glue
     #
     #   resp = client.start_data_quality_rule_recommendation_run({
     #     data_source: { # required
-    #       glue_table: { # required
+    #       glue_table: {
     #         database_name: "NameString", # required
     #         table_name: "NameString", # required
     #         catalog_id: "NameString",
@@ -14719,6 +14811,16 @@ module Aws::Glue
     #         additional_options: {
     #           "NameString" => "DescriptionString",
     #         },
+    #       },
+    #       data_quality_glue_table: {
+    #         database_name: "NameString", # required
+    #         table_name: "NameString", # required
+    #         catalog_id: "NameString",
+    #         connection_name: "NameString",
+    #         additional_options: {
+    #           "NameString" => "DescriptionString",
+    #         },
+    #         pre_processing_query: "PreProcessingQueryString",
     #       },
     #     },
     #     role: "RoleString", # required
@@ -14784,7 +14886,7 @@ module Aws::Glue
     #
     #   resp = client.start_data_quality_ruleset_evaluation_run({
     #     data_source: { # required
-    #       glue_table: { # required
+    #       glue_table: {
     #         database_name: "NameString", # required
     #         table_name: "NameString", # required
     #         catalog_id: "NameString",
@@ -14792,6 +14894,16 @@ module Aws::Glue
     #         additional_options: {
     #           "NameString" => "DescriptionString",
     #         },
+    #       },
+    #       data_quality_glue_table: {
+    #         database_name: "NameString", # required
+    #         table_name: "NameString", # required
+    #         catalog_id: "NameString",
+    #         connection_name: "NameString",
+    #         additional_options: {
+    #           "NameString" => "DescriptionString",
+    #         },
+    #         pre_processing_query: "PreProcessingQueryString",
     #       },
     #     },
     #     role: "RoleString", # required
@@ -14806,7 +14918,7 @@ module Aws::Glue
     #     ruleset_names: ["NameString"], # required
     #     additional_data_sources: {
     #       "NameString" => {
-    #         glue_table: { # required
+    #         glue_table: {
     #           database_name: "NameString", # required
     #           table_name: "NameString", # required
     #           catalog_id: "NameString",
@@ -14814,6 +14926,16 @@ module Aws::Glue
     #           additional_options: {
     #             "NameString" => "DescriptionString",
     #           },
+    #         },
+    #         data_quality_glue_table: {
+    #           database_name: "NameString", # required
+    #           table_name: "NameString", # required
+    #           catalog_id: "NameString",
+    #           connection_name: "NameString",
+    #           additional_options: {
+    #             "NameString" => "DescriptionString",
+    #           },
+    #           pre_processing_query: "PreProcessingQueryString",
     #         },
     #       },
     #     },
@@ -17796,7 +17918,7 @@ module Aws::Glue
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-glue'
-      context[:gem_version] = '1.232.0'
+      context[:gem_version] = '1.233.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

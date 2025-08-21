@@ -65,6 +65,7 @@ module Aws::ApiGatewayManagementApi
 
       api.metadata = {
         "apiVersion" => "2018-11-29",
+        "auth" => ["aws.auth#sigv4"],
         "endpointPrefix" => "execute-api",
         "jsonVersion" => "1.1",
         "protocol" => "rest-json",

@@ -1389,7 +1389,10 @@ module Aws::Glue
     end
 
     # @!attribute [rw] inclusion_annotations
-    #   A list of `DatapointInclusionAnnotation`'s.
+    #   A list of `DatapointInclusionAnnotation`'s. The
+    #   InclusionAnnotations must contain a profileId and statisticId. If
+    #   there are multiple InclusionAnnotations, the list must refer to a
+    #   single statisticId across multiple profileIds.
     #   @return [Array<Types::DatapointInclusionAnnotation>]
     #
     # @!attribute [rw] client_token
@@ -8053,6 +8056,55 @@ module Aws::Glue
       include Aws::Structure
     end
 
+    # The database and table in the Glue Data Catalog that is used for input
+    # or output data for Data Quality Operations.
+    #
+    # @!attribute [rw] database_name
+    #   A database name in the Glue Data Catalog.
+    #   @return [String]
+    #
+    # @!attribute [rw] table_name
+    #   A table name in the Glue Data Catalog.
+    #   @return [String]
+    #
+    # @!attribute [rw] catalog_id
+    #   A unique identifier for the Glue Data Catalog.
+    #   @return [String]
+    #
+    # @!attribute [rw] connection_name
+    #   The name of the connection to the Glue Data Catalog.
+    #   @return [String]
+    #
+    # @!attribute [rw] additional_options
+    #   Additional options for the table. Currently there are two keys
+    #   supported:
+    #
+    #   * `pushDownPredicate`: to filter on partitions without having to
+    #     list and read all the files in your dataset.
+    #
+    #   * `catalogPartitionPredicate`: to use server-side partition pruning
+    #     using partition indexes in the Glue Data Catalog.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] pre_processing_query
+    #   SQL Query of SparkSQL format that can be used to pre-process the
+    #   data for the table in Glue Data Catalog, before running the Data
+    #   Quality Operation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DataQualityGlueTable AWS API Documentation
+    #
+    class DataQualityGlueTable < Struct.new(
+      :database_name,
+      :table_name,
+      :catalog_id,
+      :connection_name,
+      :additional_options,
+      :pre_processing_query)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Describes the data quality metric value according to the analysis of
     # historical data.
     #
@@ -8541,10 +8593,15 @@ module Aws::Glue
     #   An Glue table.
     #   @return [Types::GlueTable]
     #
+    # @!attribute [rw] data_quality_glue_table
+    #   An Glue table for Data Quality Operations.
+    #   @return [Types::DataQualityGlueTable]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DataSource AWS API Documentation
     #
     class DataSource < Struct.new(
-      :glue_table)
+      :glue_table,
+      :data_quality_glue_table)
       SENSITIVE = []
       include Aws::Structure
     end

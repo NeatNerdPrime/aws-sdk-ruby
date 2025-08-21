@@ -6147,7 +6147,7 @@ module Aws::MediaConvert
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-mediaconvert'
-      context[:gem_version] = '1.167.0'
+      context[:gem_version] = '1.168.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

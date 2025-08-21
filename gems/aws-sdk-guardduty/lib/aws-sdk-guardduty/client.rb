@@ -1372,9 +1372,8 @@ module Aws::GuardDuty
     # @option params [required, String] :name
     #   A user-friendly name to identify the threat entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #
     # @option params [required, String] :format
     #   The format of the file that contains the threat entity set.
@@ -1531,9 +1530,8 @@ module Aws::GuardDuty
     # @option params [required, String] :name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #
     # @option params [required, String] :format
     #   The format of the file that contains the trusted entity set.
@@ -6022,9 +6020,8 @@ module Aws::GuardDuty
     # @option params [String] :name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #
     # @option params [String] :location
     #   The URI of the file that contains the trusted entity set.
@@ -6136,9 +6133,8 @@ module Aws::GuardDuty
     # @option params [String] :name
     #   A user-friendly name to identify the trusted entity set.
     #
-    #   **List naming constraints** - The name of your list can include
-    #   lowercase letters, uppercase letters, numbers, dash (-), and
-    #   underscore (\_).
+    #   The name of your list can include lowercase letters, uppercase
+    #   letters, numbers, dash (-), and underscore (\_).
     #
     # @option params [String] :location
     #   The URI of the file that contains the trusted entity set.
@@ -6193,7 +6189,7 @@ module Aws::GuardDuty
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-guardduty'
-      context[:gem_version] = '1.125.0'
+      context[:gem_version] = '1.126.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

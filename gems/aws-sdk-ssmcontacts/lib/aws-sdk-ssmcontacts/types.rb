@@ -105,8 +105,8 @@ module Aws::SSMContacts
     #   @return [String]
     #
     # @!attribute [rw] retry_interval_in_minutes
-    #   The number of minutes to wait to retry sending engagement in the
-    #   case the engagement initially fails.
+    #   The number of minutes to wait before retrying to send engagement if
+    #   the engagement initially failed.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-contacts-2021-05-03/ChannelTargetInfo AWS API Documentation
@@ -163,8 +163,13 @@ module Aws::SSMContacts
     #   @return [String]
     #
     # @!attribute [rw] type
-    #   Refers to the type of contact. A single contact is type `PERSONAL`
-    #   and an escalation plan is type `ESCALATION`.
+    #   The type of contact.
+    #
+    #   * `PERSONAL`: A single, individual contact.
+    #
+    #   * `ESCALATION`: An escalation plan.
+    #
+    #   * `ONCALL_SCHEDULE`: An on-call schedule.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-contacts-2021-05-03/Contact AWS API Documentation
@@ -368,8 +373,13 @@ module Aws::SSMContacts
     #   @return [String]
     #
     # @!attribute [rw] type
-    #   To create an escalation plan use `ESCALATION`. To create a contact
-    #   use `PERSONAL`.
+    #   The type of contact to create.
+    #
+    #   * `PERSONAL`: A single, individual contact.
+    #
+    #   * `ESCALATION`: An escalation plan.
+    #
+    #   * `ONCALL_SCHEDULE`: An on-call schedule.
     #   @return [String]
     #
     # @!attribute [rw] plan
@@ -475,6 +485,12 @@ module Aws::SSMContacts
     #   The Amazon Resource Names (ARNs) of the contacts to add to the
     #   rotation.
     #
+    #   <note markdown="1"> Only the `PERSONAL` contact type is supported. The contact types
+    #   `ESCALATION` and `ONCALL_SCHEDULE` are not supported for this
+    #   operation.
+    #
+    #    </note>
+    #
     #   The order that you list the contacts in is their shift order in the
     #   rotation schedule. To change the order of the contact's shifts, use
     #   the UpdateRotation operation.
@@ -491,8 +507,7 @@ module Aws::SSMContacts
     #   information, see the [Time Zone Database][1] on the IANA website.
     #
     #   <note markdown="1"> Designators for time zones that don’t support Daylight Savings Time
-    #   rules, such as Pacific Standard Time (PST) and Pacific Daylight Time
-    #   (PDT), are not supported.
+    #   rules, such as Pacific Standard Time (PST), are not supported.
     #
     #    </note>
     #
@@ -980,7 +995,7 @@ module Aws::SSMContacts
     #   @return [String]
     #
     # @!attribute [rw] type
-    #   The type of contact, either `PERSONAL` or `ESCALATION`.
+    #   The type of contact.
     #   @return [String]
     #
     # @!attribute [rw] plan
@@ -1203,8 +1218,7 @@ module Aws::SSMContacts
     #   @return [String]
     #
     # @!attribute [rw] type
-    #   The type of contact. A contact is type `PERSONAL` and an escalation
-    #   plan is type `ESCALATION`.
+    #   The type of contact.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-contacts-2021-05-03/ListContactsRequest AWS API Documentation
@@ -1675,7 +1689,8 @@ module Aws::SSMContacts
     end
 
     # @!attribute [rw] resource_arn
-    #   The Amazon Resource Name (ARN) of the contact or escalation plan.
+    #   The Amazon Resource Name (ARN) of the contact, escalation plan,
+    #   rotation, or on-call schedule.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-contacts-2021-05-03/ListTagsForResourceRequest AWS API Documentation
@@ -1884,13 +1899,13 @@ module Aws::SSMContacts
     # @!attribute [rw] number_of_on_calls
     #   The number of contacts, or shift team members designated to be on
     #   call concurrently during a shift. For example, in an on-call
-    #   schedule containing ten contacts, a value of `2` designates that two
-    #   of them are on call at any given time.
+    #   schedule that contains ten contacts, a value of `2` designates that
+    #   two of them are on call at any given time.
     #   @return [Integer]
     #
     # @!attribute [rw] shift_coverages
-    #   Information about the days of the week included in on-call rotation
-    #   coverage.
+    #   Information about the days of the week that the on-call rotation
+    #   coverage includes.
     #   @return [Hash<String,Array<Types::CoverageTime>>]
     #
     # @!attribute [rw] recurrence_multiplier
@@ -2298,11 +2313,11 @@ module Aws::SSMContacts
     # The contact or contact channel that's being engaged.
     #
     # @!attribute [rw] channel_target_info
-    #   Information about the contact channel Incident Manager is engaging.
+    #   Information about the contact channel that Incident Manager engages.
     #   @return [Types::ChannelTargetInfo]
     #
     # @!attribute [rw] contact_target_info
-    #   Information about the contact that Incident Manager is engaging.
+    #   Information about the contact that Incident Manager engages.
     #   @return [Types::ContactTargetInfo]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ssm-contacts-2021-05-03/Target AWS API Documentation
@@ -2447,6 +2462,12 @@ module Aws::SSMContacts
     #   The Amazon Resource Names (ARNs) of the contacts to include in the
     #   updated rotation.
     #
+    #   <note markdown="1"> Only the `PERSONAL` contact type is supported. The contact types
+    #   `ESCALATION` and `ONCALL_SCHEDULE` are not supported for this
+    #   operation.
+    #
+    #    </note>
+    #
     #   The order in which you list the contacts is their shift order in the
     #   rotation schedule.
     #   @return [Array<String>]
@@ -2462,8 +2483,7 @@ module Aws::SSMContacts
     #   information, see the [Time Zone Database][1] on the IANA website.
     #
     #   <note markdown="1"> Designators for time zones that don’t support Daylight Savings Time
-    #   Rules, such as Pacific Standard Time (PST) and Pacific Daylight Time
-    #   (PDT), aren't supported.
+    #   Rules, such as Pacific Standard Time (PST), aren't supported.
     #
     #    </note>
     #

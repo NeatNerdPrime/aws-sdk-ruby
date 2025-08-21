@@ -575,8 +575,13 @@ module Aws::SSMContacts
     #   The full name of the contact or escalation plan.
     #
     # @option params [required, String] :type
-    #   To create an escalation plan use `ESCALATION`. To create a contact use
-    #   `PERSONAL`.
+    #   The type of contact to create.
+    #
+    #   * `PERSONAL`: A single, individual contact.
+    #
+    #   * `ESCALATION`: An escalation plan.
+    #
+    #   * `ONCALL_SCHEDULE`: An on-call schedule.
     #
     # @option params [required, Types::Plan] :plan
     #   A list of stages. A contact has an engagement plan with stages that
@@ -727,6 +732,12 @@ module Aws::SSMContacts
     #   The Amazon Resource Names (ARNs) of the contacts to add to the
     #   rotation.
     #
+    #   <note markdown="1"> Only the `PERSONAL` contact type is supported. The contact types
+    #   `ESCALATION` and `ONCALL_SCHEDULE` are not supported for this
+    #   operation.
+    #
+    #    </note>
+    #
     #   The order that you list the contacts in is their shift order in the
     #   rotation schedule. To change the order of the contact's shifts, use
     #   the UpdateRotation operation.
@@ -741,8 +752,7 @@ module Aws::SSMContacts
     #   information, see the [Time Zone Database][1] on the IANA website.
     #
     #   <note markdown="1"> Designators for time zones that don’t support Daylight Savings Time
-    #   rules, such as Pacific Standard Time (PST) and Pacific Daylight Time
-    #   (PDT), are not supported.
+    #   rules, such as Pacific Standard Time (PST), are not supported.
     #
     #    </note>
     #
@@ -918,10 +928,11 @@ module Aws::SSMContacts
     end
 
     # To remove a contact from Incident Manager, you can delete the contact.
-    # Deleting a contact removes them from all escalation plans and related
-    # response plans. Deleting an escalation plan removes it from all
-    # related response plans. You will have to recreate the contact and its
-    # contact channels before you can use it again.
+    # However, deleting a contact does not remove it from escalation plans
+    # and related response plans. Deleting an escalation plan also does not
+    # remove it from all related response plans. To modify an escalation
+    # plan, we recommend using the UpdateContact action to specify a
+    # different existing contact.
     #
     # @option params [required, String] :contact_id
     #   The Amazon Resource Name (ARN) of the contact that you're deleting.
@@ -943,11 +954,12 @@ module Aws::SSMContacts
       req.send_request(options)
     end
 
-    # To no longer receive engagements on a contact channel, you can delete
-    # the channel from a contact. Deleting the contact channel removes it
-    # from the contact's engagement plan. If you delete the only contact
-    # channel for a contact, you won't be able to engage that contact
-    # during an incident.
+    # To stop receiving engagements on a contact channel, you can delete the
+    # channel from a contact. Deleting the contact channel does not remove
+    # it from the contact's engagement plan, but the stage that includes
+    # the channel will be ignored. If you delete the only contact channel
+    # for a contact, you'll no longer be able to engage that contact during
+    # an incident.
     #
     # @option params [required, String] :contact_channel_id
     #   The Amazon Resource Name (ARN) of the contact channel.
@@ -1395,8 +1407,7 @@ module Aws::SSMContacts
     #   prefix.
     #
     # @option params [String] :type
-    #   The type of contact. A contact is type `PERSONAL` and an escalation
-    #   plan is type `ESCALATION`.
+    #   The type of contact.
     #
     # @return [Types::ListContactsResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2000,10 +2011,12 @@ module Aws::SSMContacts
       req.send_request(options)
     end
 
-    # Lists the tags of an escalation plan or contact.
+    # Lists the tags of a contact, escalation plan, rotation, or on-call
+    # schedule.
     #
     # @option params [required, String] :resource_arn
-    #   The Amazon Resource Name (ARN) of the contact or escalation plan.
+    #   The Amazon Resource Name (ARN) of the contact, escalation plan,
+    #   rotation, or on-call schedule.
     #
     # @return [Types::ListTagsForResourceResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2334,6 +2347,12 @@ module Aws::SSMContacts
     #   The Amazon Resource Names (ARNs) of the contacts to include in the
     #   updated rotation.
     #
+    #   <note markdown="1"> Only the `PERSONAL` contact type is supported. The contact types
+    #   `ESCALATION` and `ONCALL_SCHEDULE` are not supported for this
+    #   operation.
+    #
+    #    </note>
+    #
     #   The order in which you list the contacts is their shift order in the
     #   rotation schedule.
     #
@@ -2347,8 +2366,7 @@ module Aws::SSMContacts
     #   information, see the [Time Zone Database][1] on the IANA website.
     #
     #   <note markdown="1"> Designators for time zones that don’t support Daylight Savings Time
-    #   Rules, such as Pacific Standard Time (PST) and Pacific Daylight Time
-    #   (PDT), aren't supported.
+    #   Rules, such as Pacific Standard Time (PST), aren't supported.
     #
     #    </note>
     #
@@ -2440,7 +2458,7 @@ module Aws::SSMContacts
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ssmcontacts'
-      context[:gem_version] = '1.50.0'
+      context[:gem_version] = '1.51.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

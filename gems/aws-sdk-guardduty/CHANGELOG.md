@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.126.0 (2025-08-21)
+------------------
+
+* Feature - Remove Pattern trait from email field
+
 1.125.0 (2025-08-14)
 ------------------
 

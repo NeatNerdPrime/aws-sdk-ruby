@@ -492,20 +492,52 @@ module Aws::ECS
     #   `RunTask` or `CreateService` actions using the capacity provider
     #   strategy will fail.
     #
-    #   An example scenario for using weights is defining a strategy that
-    #   contains two capacity providers and both have a weight of `1`, then
-    #   when the `base` is satisfied, the tasks will be split evenly across
-    #   the two capacity providers. Using that same logic, if you specify a
-    #   weight of `1` for *capacityProviderA* and a weight of `4` for
-    #   *capacityProviderB*, then for every one task that's run using
-    #   *capacityProviderA*, four tasks would use *capacityProviderB*.
+    #   Weight value characteristics:
+    #
+    #   * Weight is considered after the base value is satisfied
+    #
+    #   * Default value is `0` if not specified
+    #
+    #   * Valid range: 0 to 1,000
+    #
+    #   * At least one capacity provider must have a weight greater than
+    #     zero
+    #
+    #   * Capacity providers with weight of `0` cannot place tasks
+    #
+    #   Task distribution logic:
+    #
+    #   1.  Base satisfaction: The minimum number of tasks specified by the
+    #       base value are placed on that capacity provider
+    #
+    #   2.  Weight distribution: After base requirements are met, additional
+    #       tasks are distributed according to weight ratios
+    #
+    #   Examples:
+    #
+    #   Equal Distribution: Two capacity providers both with weight `1` will
+    #   split tasks evenly after base requirements are met.
+    #
+    #   Weighted Distribution: If capacityProviderA has weight `1` and
+    #   capacityProviderB has weight `4`, then for every 1 task on A, 4
+    #   tasks will run on B.
     #   @return [Integer]
     #
     # @!attribute [rw] base
     #   The *base* value designates how many tasks, at a minimum, to run on
-    #   the specified capacity provider. Only one capacity provider in a
-    #   capacity provider strategy can have a *base* defined. If no value is
-    #   specified, the default value of `0` is used.
+    #   the specified capacity provider for each service. Only one capacity
+    #   provider in a capacity provider strategy can have a *base* defined.
+    #   If no value is specified, the default value of `0` is used.
+    #
+    #   Base value characteristics:
+    #
+    #   * Only one capacity provider in a strategy can have a base defined
+    #
+    #   * Default value is `0` if not specified
+    #
+    #   * Valid range: 0 to 100,000
+    #
+    #   * Base requirements are satisfied first before weight distribution
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CapacityProviderStrategyItem AWS API Documentation
@@ -608,7 +640,7 @@ module Aws::ECS
     #
     # @!attribute [rw] active_services_count
     #   The number of services that are running on the cluster in an
-    #   `ACTIVE` state. You can view these services with [PListServices][1].
+    #   `ACTIVE` state. You can view these services with [ListServices][1].
     #
     #
     #
@@ -4775,8 +4807,7 @@ module Aws::ECS
     # @!attribute [rw] cluster
     #   The short name or full Amazon Resource Name (ARN) of the cluster
     #   that hosts the task or tasks to describe. If you do not specify a
-    #   cluster, the default cluster is assumed. If you do not specify a
-    #   value, the `default` cluster is used.
+    #   cluster, the default cluster is assumed.
     #   @return [String]
     #
     # @!attribute [rw] tasks
@@ -7327,7 +7358,7 @@ module Aws::ECS
     #
     #   : Required: No
     #
-    #     Default value: `1m`
+    #     Default value: `10m`
     #
     #     When `non-blocking` mode is used, the `max-buffer-size` log option
     #     controls the size of the buffer that's used for intermediate
@@ -7502,12 +7533,6 @@ module Aws::ECS
     #   When additional capacity is required, Amazon ECS will scale up the
     #   minimum scaling step size even if the actual demand is less than the
     #   minimum scaling step size.
-    #
-    #   If you use a capacity provider with an Auto Scaling group configured
-    #   with more than one Amazon EC2 instance type or Availability Zone,
-    #   Amazon ECS will scale up by the exact minimum scaling step size
-    #   value and will ignore both the maximum scaling step size as well as
-    #   the capacity demand.
     #   @return [Integer]
     #
     # @!attribute [rw] maximum_scaling_step_size
@@ -13847,6 +13872,8 @@ module Aws::ECS
     # @!attribute [rw] desired_count
     #   The number of instantiations of the task to place and keep running
     #   in your service.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Integer]
     #
     # @!attribute [rw] task_definition
@@ -13856,6 +13883,8 @@ module Aws::ECS
     #   task definition with `UpdateService`, Amazon ECS spawns a task with
     #   the new version of the task definition and then stops an old task
     #   after the new version is running.
+    #
+    #   This parameter triggers a new service deployment.
     #   @return [String]
     #
     # @!attribute [rw] capacity_provider_strategy
@@ -13892,6 +13921,8 @@ module Aws::ECS
     #   For information about Amazon Web Services CDK considerations, see
     #   [Amazon Web Services CDK considerations][1].
     #
+    #   This parameter doesn't trigger a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service-parameters.html
@@ -13901,6 +13932,8 @@ module Aws::ECS
     #   Optional deployment parameters that control how many tasks run
     #   during the deployment and the ordering of stopping and starting
     #   tasks.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Types::DeploymentConfiguration]
     #
     # @!attribute [rw] availability_zone_rebalancing
@@ -13911,6 +13944,8 @@ module Aws::ECS
     #   Availability Zones][1] in the <i> <i>Amazon Elastic Container
     #   Service Developer Guide</i> </i>.
     #
+    #   This parameter doesn't trigger a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html
@@ -13918,6 +13953,8 @@ module Aws::ECS
     #
     # @!attribute [rw] network_configuration
     #   An object representing the network configuration for the service.
+    #
+    #   This parameter triggers a new service deployment.
     #   @return [Types::NetworkConfiguration]
     #
     # @!attribute [rw] placement_constraints
@@ -13931,6 +13968,8 @@ module Aws::ECS
     #   You can specify a maximum of 10 constraints for each task. This
     #   limit includes constraints in the task definition and those
     #   specified at runtime.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Array<Types::PlacementConstraint>]
     #
     # @!attribute [rw] placement_strategy
@@ -13941,6 +13980,8 @@ module Aws::ECS
     #   remove an existing placement strategy, specify an empty object.
     #
     #   You can specify a maximum of five strategy rules for each service.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Array<Types::PlacementStrategy>]
     #
     # @!attribute [rw] platform_version
@@ -13950,6 +13991,8 @@ module Aws::ECS
     #   platform version is used. For more information, see [Fargate
     #   Platform Versions][1] in the *Amazon Elastic Container Service
     #   Developer Guide*.
+    #
+    #   This parameter triggers a new service deployment.
     #
     #
     #
@@ -13979,6 +14022,8 @@ module Aws::ECS
     #   ECS service scheduler ignores health check status. This grace period
     #   can prevent the service scheduler from marking tasks as unhealthy
     #   and stopping them before they have time to come up.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Integer]
     #
     # @!attribute [rw] deployment_controller
@@ -13992,6 +14037,8 @@ module Aws::ECS
     #   If you do not want to override the value that was set when the
     #   service was created, you can set this to `null` when performing this
     #   action.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [Boolean]
     #
     # @!attribute [rw] enable_ecs_managed_tags
@@ -14003,6 +14050,8 @@ module Aws::ECS
     #   Only tasks launched after the update will reflect the update. To
     #   update the tags on all tasks, set `forceNewDeployment` to `true`, so
     #   that Amazon ECS starts new tasks with the updated tags.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #
     #
     #
@@ -14045,6 +14094,8 @@ module Aws::ECS
     #
     #   You can remove existing `loadBalancers` by passing an empty list.
     #
+    #   This parameter triggers a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html
@@ -14059,6 +14110,8 @@ module Aws::ECS
     #   Only tasks launched after the update will reflect the update. To
     #   update the tags on all tasks, set `forceNewDeployment` to `true`, so
     #   that Amazon ECS starts new tasks with the updated tags.
+    #
+    #   This parameter doesn't trigger a new service deployment.
     #   @return [String]
     #
     # @!attribute [rw] service_registries
@@ -14080,6 +14133,8 @@ module Aws::ECS
     #   You can remove existing `serviceRegistries` by passing an empty
     #   list.
     #
+    #   This parameter triggers a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html#ECS-CreateService-request-role
@@ -14100,6 +14155,8 @@ module Aws::ECS
     #   Connect][1] in the *Amazon Elastic Container Service Developer
     #   Guide*.
     #
+    #   This parameter triggers a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html
@@ -14114,6 +14171,8 @@ module Aws::ECS
     #   configuration differs from the existing one, it triggers a new
     #   deployment.
     #
+    #   This parameter triggers a new service deployment.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html
@@ -14122,6 +14181,8 @@ module Aws::ECS
     # @!attribute [rw] vpc_lattice_configurations
     #   An object representing the VPC Lattice configuration for the service
     #   being updated.
+    #
+    #   This parameter triggers a new service deployment.
     #   @return [Array<Types::VpcLatticeConfiguration>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/UpdateServiceRequest AWS API Documentation

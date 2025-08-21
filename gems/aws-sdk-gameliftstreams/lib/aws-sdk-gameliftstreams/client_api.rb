@@ -522,6 +522,7 @@ module Aws::GameLiftStreams
     UpdateStreamGroupInput.add_member(:identifier, Shapes::ShapeRef.new(shape: Identifier, required: true, location: "uri", location_name: "Identifier"))
     UpdateStreamGroupInput.add_member(:location_configurations, Shapes::ShapeRef.new(shape: LocationConfigurations, location_name: "LocationConfigurations"))
     UpdateStreamGroupInput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "Description"))
+    UpdateStreamGroupInput.add_member(:default_application_identifier, Shapes::ShapeRef.new(shape: Identifier, location_name: "DefaultApplicationIdentifier"))
     UpdateStreamGroupInput.struct_class = Types::UpdateStreamGroupInput
 
     UpdateStreamGroupOutput.add_member(:arn, Shapes::ShapeRef.new(shape: Identifier, required: true, location_name: "Arn"))
