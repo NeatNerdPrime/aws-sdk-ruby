@@ -919,6 +919,7 @@ module Aws::ServiceDiscovery
     #     service: {
     #       arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-p5zdwlg5uvvzjita", 
     #       create_date: Time.parse(1587081768.334), 
+    #       created_by_account: "123456789012", 
     #       creator_request_id: "567c1193-6b00-4308-bd57-ad38a8822d25", 
     #       dns_config: {
     #         dns_records: [
@@ -931,8 +932,58 @@ module Aws::ServiceDiscovery
     #         routing_policy: "MULTIVALUE", 
     #       }, 
     #       id: "srv-p5zdwlg5uvvzjita", 
+    #       instance_count: 0, 
     #       name: "myservice", 
     #       namespace_id: "ns-ylexjili4cdxy3xm", 
+    #       resource_owner: "123456789012", 
+    #       type: "DNS_HTTP", 
+    #     }, 
+    #   }
+    #
+    # @example Example: Create service using namespace ARN
+    #
+    #   # Namespace sharee creates a service using a namespace ARN instead of namespace ID, useful when working with shared
+    #   # namespaces.
+    #
+    #   resp = client.create_service({
+    #     description: "Example service using namespace ARN", 
+    #     dns_config: {
+    #       dns_records: [
+    #         {
+    #           ttl: 300, 
+    #           type: "A", 
+    #         }, 
+    #       ], 
+    #       routing_policy: "MULTIVALUE", 
+    #     }, 
+    #     name: "example-service", 
+    #     namespace_id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     service: {
+    #       arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #       create_date: Time.parse(1705161600.0), 
+    #       created_by_account: "111122223333", 
+    #       creator_request_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #       description: "Example service using namespace ARN", 
+    #       dns_config: {
+    #         dns_records: [
+    #           {
+    #             ttl: 300, 
+    #             type: "A", 
+    #           }, 
+    #         ], 
+    #         namespace_id: "ns-abcd1234xmpl5678", 
+    #         routing_policy: "MULTIVALUE", 
+    #       }, 
+    #       id: "srv-abcd1234xmpl5678", 
+    #       instance_count: 0, 
+    #       name: "example-service", 
+    #       namespace_id: "ns-abcd1234xmpl5678", 
+    #       resource_owner: "123456789012", 
+    #       type: "DNS_HTTP", 
     #     }, 
     #   }
     #
@@ -1024,7 +1075,20 @@ module Aws::ServiceDiscovery
     #
     #   resp.to_h outputs the following:
     #   {
-    #     operation_id: "gv4g5meo7ndmeh4fqskygvk23d2fijwa-k98y6drk", 
+    #     operation_id: "abcd1234-xmpl-5678-9012-abcd1234xmplabcd", 
+    #   }
+    #
+    # @example Example: Delete namespace using namespace ARN
+    #
+    #   # Deletes a namespace using a namespace ARN instead of namespace ID, useful when working with shared namespaces.
+    #
+    #   resp = client.delete_namespace({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "abcd1234-xmpl-5678-9012-abcd1234xmplabcd", 
     #   }
     #
     # @example Request syntax with placeholder values
@@ -1076,6 +1140,18 @@ module Aws::ServiceDiscovery
     #   {
     #   }
     #
+    # @example Example: Delete service using service ARN
+    #
+    #   # Deletes a service using a service ARN instead of service ID, useful when working with shared namespaces.
+    #
+    #   resp = client.delete_service({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_service({
@@ -1120,6 +1196,22 @@ module Aws::ServiceDiscovery
     #       "port", 
     #     ], 
     #     service_id: "srv-e4anhexample0004", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #   }
+    #
+    # @example Example: Delete service attributes using service ARN
+    #
+    #   # Deletes service attributes using a service ARN instead of service ID, useful for cross-account scenarios or when working
+    #   # with shared namespaces.
+    #
+    #   resp = client.delete_service_attributes({
+    #     attributes: [
+    #       "Port", 
+    #     ], 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
     #   })
     #
     #   resp.to_h outputs the following:
@@ -1181,6 +1273,20 @@ module Aws::ServiceDiscovery
     #   resp.to_h outputs the following:
     #   {
     #     operation_id: "4yejorelbukcjzpnr6tlmrghsjwpngf4-k98rnaiq", 
+    #   }
+    #
+    # @example Example: Deregister instance using service ARN
+    #
+    #   # Deregisters an instance using a service ARN instead of service ID, useful when working with shared namespaces.
+    #
+    #   resp = client.deregister_instance({
+    #     instance_id: "i-abcd1234xmpl5678", 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
     #   }
     #
     # @example Request syntax with placeholder values
@@ -1301,6 +1407,43 @@ module Aws::ServiceDiscovery
     #     ], 
     #   }
     #
+    # @example Example: Discover instances using owner account
+    #
+    #   # Discovers instances in a shared namespace by specifying the OwnerAccount parameter, useful when working with shared
+    #   # namespaces.
+    #
+    #   resp = client.discover_instances({
+    #     namespace_name: "example-shared-namespace", 
+    #     owner_account: "123456789012", 
+    #     service_name: "shared-namespace-service", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     instances: [
+    #       {
+    #         attributes: {
+    #           "AWS_INSTANCE_IPV4" => "192.0.2.44", 
+    #           "AWS_INSTANCE_PORT" => "80", 
+    #         }, 
+    #         health_status: "HEALTHY", 
+    #         instance_id: "i-abcd1234xmpl5678", 
+    #         namespace_name: "example-shared-namespace", 
+    #         service_name: "shared-service", 
+    #       }, 
+    #       {
+    #         attributes: {
+    #           "AWS_INSTANCE_IPV4" => "192.0.2.45", 
+    #           "AWS_INSTANCE_PORT" => "80", 
+    #         }, 
+    #         health_status: "HEALTHY", 
+    #         instance_id: "i-efgh5678xmpl9012", 
+    #         namespace_name: "example-shared-namespace", 
+    #         service_name: "shared-service", 
+    #       }, 
+    #     ], 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.discover_instances({
@@ -1378,6 +1521,22 @@ module Aws::ServiceDiscovery
     #     instances_revision: 123456, 
     #   }
     #
+    # @example Example: Discover instances revision using owner account
+    #
+    #   # Discovers the instances revision in a shared namespace by specifying the OwnerAccount parameter, useful when working
+    #   # with shared namespaces.
+    #
+    #   resp = client.discover_instances_revision({
+    #     namespace_name: "example-shared-namespace", 
+    #     owner_account: "123456789012", 
+    #     service_name: "shared-service", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     instances_revision: 1001, 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.discover_instances_revision({
@@ -1440,8 +1599,36 @@ module Aws::ServiceDiscovery
     #         "region" => "us-west-2", 
     #         "stage" => "beta", 
     #       }, 
+    #       created_by_account: "123456789012", 
     #       id: "i-abcd1234", 
     #     }, 
+    #     resource_owner: "123456789012", 
+    #   }
+    #
+    # @example Example: Get instance details using service ARN for shared namespace
+    #
+    #   # This example gets information about an instance using a service ARN instead of service ID. This is useful for listing
+    #   # instances associated with shared namespaces.
+    #
+    #   resp = client.get_instance({
+    #     instance_id: "i-abcd1234", 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     instance: {
+    #       attributes: {
+    #         "AWS_INSTANCE_IPV4" => "192.0.2.44", 
+    #         "AWS_INSTANCE_PORT" => "80", 
+    #         "color" => "green", 
+    #         "region" => "us-west-2", 
+    #         "stage" => "beta", 
+    #       }, 
+    #       created_by_account: "111122223333", 
+    #       id: "i-abcd1234", 
+    #     }, 
+    #     resource_owner: "123456789012", 
     #   }
     #
     # @example Request syntax with placeholder values
@@ -1542,6 +1729,23 @@ module Aws::ServiceDiscovery
     #     }, 
     #   }
     #
+    # @example Example: Get instances health status using service ARN for shared namespace
+    #
+    #   # This example gets the current health status of instances using a service ARN instead of service ID. This is useful for
+    #   # checking health status of instances associated with shared namespaces.
+    #
+    #   resp = client.get_instances_health_status({
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     status: {
+    #       "i-abcd1234" => "HEALTHY", 
+    #       "i-abcd1235" => "UNHEALTHY", 
+    #     }, 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_instances_health_status({
@@ -1608,6 +1812,40 @@ module Aws::ServiceDiscovery
     #           http_name: "example-http.com", 
     #         }, 
     #       }, 
+    #       resource_owner: "123456789012", 
+    #       type: "HTTP", 
+    #     }, 
+    #   }
+    #
+    # @example Example: Get namespace using namespace ARN
+    #
+    #   # Gets namespace information using a namespace ARN instead of namespace ID, useful when working with shared namespaces.
+    #   # Shows a namespace owned by another account (123456789012) that is shared with the current account.
+    #
+    #   resp = client.get_namespace({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     namespace: {
+    #       arn: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-abcd1234xmpl5678", 
+    #       create_date: Time.parse(1705161600.0), 
+    #       creator_request_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #       description: "Example shared namespace", 
+    #       id: "ns-abcd1234xmpl5678", 
+    #       name: "example-shared-namespace", 
+    #       properties: {
+    #         dns_properties: {
+    #           soa: {
+    #           }, 
+    #         }, 
+    #         http_properties: {
+    #           http_name: "example-shared-namespace", 
+    #         }, 
+    #       }, 
+    #       resource_owner: "123456789012", 
+    #       service_count: 3, 
     #       type: "HTTP", 
     #     }, 
     #   }
@@ -1690,6 +1928,30 @@ module Aws::ServiceDiscovery
     #     }, 
     #   }
     #
+    # @example Example: Get operation using owner account
+    #
+    #   # Gets operation information by specifying the OwnerAccount parameter for operations associated with shared namespaces.
+    #
+    #   resp = client.get_operation({
+    #     operation_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #     owner_account: "123456789012", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation: {
+    #       create_date: Time.parse(1705161600.0), 
+    #       id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #       owner_account: "123456789012", 
+    #       status: "SUCCESS", 
+    #       targets: {
+    #         "SERVICE" => "srv-abcd1234xmpl5678", 
+    #       }, 
+    #       type: "CREATE_SERVICE", 
+    #       update_date: Time.parse(1705161605.0), 
+    #     }, 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_operation({
@@ -1750,6 +2012,7 @@ module Aws::ServiceDiscovery
     #     service: {
     #       arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
     #       create_date: Time.parse("20181118T211707Z"), 
+    #       created_by_account: "123456789012", 
     #       creator_request_id: "example-creator-request-id-0004", 
     #       description: "Example.com AWS Cloud Map HTTP Service", 
     #       health_check_config: {
@@ -1760,6 +2023,44 @@ module Aws::ServiceDiscovery
     #       id: "srv-e4anhexample0004", 
     #       name: "example-http-service", 
     #       namespace_id: "ns-e4anhexample0004", 
+    #       resource_owner: "123456789012", 
+    #       type: "HTTP", 
+    #     }, 
+    #   }
+    #
+    # @example Example: Get service using service ARN
+    #
+    #   # Gets service settings using a service ARN instead of service ID, useful when working with shared namespaces. Shows a
+    #   # service created by a sharee (111122223333) in a namespace owned by another account (123456789012).
+    #
+    #   resp = client.get_service({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     service: {
+    #       arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #       create_date: Time.parse(1705161600.0), 
+    #       created_by_account: "111122223333", 
+    #       creator_request_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #       description: "Example service", 
+    #       dns_config: {
+    #         dns_records: [
+    #           {
+    #             ttl: 300, 
+    #             type: "A", 
+    #           }, 
+    #         ], 
+    #         namespace_id: "ns-abcd1234xmpl5678", 
+    #         routing_policy: "MULTIVALUE", 
+    #       }, 
+    #       id: "srv-abcd1234xmpl5678", 
+    #       instance_count: 2, 
+    #       name: "example-service", 
+    #       namespace_id: "ns-abcd1234xmpl5678", 
+    #       resource_owner: "123456789012", 
+    #       type: "DNS_HTTP", 
     #     }, 
     #   }
     #
@@ -1833,7 +2134,28 @@ module Aws::ServiceDiscovery
     #       attributes: {
     #         "port" => "80", 
     #       }, 
+    #       resource_owner: "123456789012", 
     #       service_arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
+    #     }, 
+    #   }
+    #
+    # @example Example: Get service attributes using service ARN
+    #
+    #   # Gets service attributes using a service ARN instead of service ID, useful when working with shared namespaces. Shows
+    #   # attributes for a service created by a sharee in a namespace owned by another account.
+    #
+    #   resp = client.get_service_attributes({
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     service_attributes: {
+    #       attributes: {
+    #         "Port" => "80", 
+    #       }, 
+    #       resource_owner: "123456789012", 
+    #       service_arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
     #     }, 
     #   }
     #
@@ -1916,6 +2238,29 @@ module Aws::ServiceDiscovery
     #     ], 
     #   }
     #
+    # @example Example: List instances using service ARN for shared namespace
+    #
+    #   # This example lists instances using a service ARN instead of service ID. This is useful for listing instances associated
+    #   # with shared namespaces.
+    #
+    #   resp = client.list_instances({
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     instances: [
+    #       {
+    #         attributes: {
+    #           "AWS_INSTANCE_IPV4" => "192.0.2.44", 
+    #           "AWS_INSTANCE_PORT" => "80", 
+    #         }, 
+    #         id: "i-abcd1234", 
+    #       }, 
+    #     ], 
+    #     resource_owner: "123456789012", 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.list_instances({
@@ -1994,47 +2339,105 @@ module Aws::ServiceDiscovery
     #     namespaces: [
     #       {
     #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-a3ccy2e7e3a7rile", 
-    #         create_date: Time.parse(1585354387.357), 
+    #         create_date: Time.parse(1705161600.0), 
     #         id: "ns-a3ccy2e7e3a7rile", 
     #         name: "local", 
     #         properties: {
     #           dns_properties: {
     #             hosted_zone_id: "Z06752353VBUDTC32S84S", 
+    #             soa: {
+    #               ttl: 60, 
+    #             }, 
     #           }, 
     #           http_properties: {
     #             http_name: "local", 
     #           }, 
     #         }, 
+    #         resource_owner: "123456789012", 
+    #         service_count: 2, 
     #         type: "DNS_PRIVATE", 
     #       }, 
     #       {
     #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-pocfyjtrsmwtvcxx", 
-    #         create_date: Time.parse(1586468974.698), 
+    #         create_date: Time.parse(1705161600.0), 
     #         description: "My second namespace", 
     #         id: "ns-pocfyjtrsmwtvcxx", 
     #         name: "My-second-namespace", 
     #         properties: {
     #           dns_properties: {
+    #             soa: {
+    #               ttl: 60, 
+    #             }, 
     #           }, 
     #           http_properties: {
     #             http_name: "My-second-namespace", 
     #           }, 
     #         }, 
+    #         resource_owner: "123456789012", 
+    #         service_count: 1, 
     #         type: "HTTP", 
     #       }, 
     #       {
     #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-ylexjili4cdxy3xm", 
-    #         create_date: Time.parse(1587055896.798), 
+    #         create_date: Time.parse(1705161600.0), 
     #         id: "ns-ylexjili4cdxy3xm", 
     #         name: "example.com", 
     #         properties: {
     #           dns_properties: {
     #             hosted_zone_id: "Z09983722P0QME1B3KC8I", 
+    #             soa: {
+    #               ttl: 60, 
+    #             }, 
     #           }, 
     #           http_properties: {
     #             http_name: "example.com", 
     #           }, 
     #         }, 
+    #         resource_owner: "123456789012", 
+    #         service_count: 3, 
+    #         type: "DNS_PRIVATE", 
+    #       }, 
+    #     ], 
+    #   }
+    #
+    # @example Example: List namespaces filtered by resource owner
+    #
+    #   # This example shows how to list namespaces that are shared with you from other AWS accounts using the RESOURCE_OWNER
+    #   # filter.
+    #
+    #   resp = client.list_namespaces({
+    #     filters: [
+    #       {
+    #         name: "RESOURCE_OWNER", 
+    #         values: [
+    #           "OTHER_ACCOUNTS", 
+    #         ], 
+    #       }, 
+    #     ], 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     namespaces: [
+    #       {
+    #         arn: "arn:aws:servicediscovery:us-west-2:111122223333:namespace/ns-abcd1234xmpl5678", 
+    #         create_date: Time.parse(1705161600.0), 
+    #         description: "Example private DNS namespace", 
+    #         id: "ns-abcd1234xmpl5678", 
+    #         name: "example-namespace", 
+    #         properties: {
+    #           dns_properties: {
+    #             hosted_zone_id: "Z1D633PJN98FT9", 
+    #             soa: {
+    #               ttl: 60, 
+    #             }, 
+    #           }, 
+    #           http_properties: {
+    #             http_name: "example-namespace", 
+    #           }, 
+    #         }, 
+    #         resource_owner: "111122223333", 
+    #         service_count: 2, 
     #         type: "DNS_PRIVATE", 
     #       }, 
     #     ], 
@@ -2233,6 +2636,7 @@ module Aws::ServiceDiscovery
     #       {
     #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-p5zdwlg5uvvzjita", 
     #         create_date: Time.parse(1587081768.334), 
+    #         created_by_account: "123456789012", 
     #         dns_config: {
     #           dns_records: [
     #             {
@@ -2244,6 +2648,60 @@ module Aws::ServiceDiscovery
     #         }, 
     #         id: "srv-p5zdwlg5uvvzjita", 
     #         name: "myservice", 
+    #         resource_owner: "123456789012", 
+    #         type: "DNS", 
+    #       }, 
+    #     ], 
+    #   }
+    #
+    # @example Example: List services in shared namespaces using resource owner filter
+    #
+    #   # Lists services created in namespaces owned by other accounts using the RESOURCE_OWNER filter with OTHER_ACCOUNTS value,
+    #   # useful when working with shared namespaces. Account 111122223333 is making the request.
+    #
+    #   resp = client.list_services({
+    #     filters: [
+    #       {
+    #         condition: "EQ", 
+    #         name: "RESOURCE_OWNER", 
+    #         values: [
+    #           "OTHER_ACCOUNTS", 
+    #         ], 
+    #       }, 
+    #     ], 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     services: [
+    #       {
+    #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #         create_date: Time.parse(1705161600.0), 
+    #         created_by_account: "111122223333", 
+    #         dns_config: {
+    #         }, 
+    #         id: "srv-abcd1234xmpl5678", 
+    #         name: "shared-service-1", 
+    #         resource_owner: "123456789012", 
+    #         type: "HTTP", 
+    #       }, 
+    #       {
+    #         arn: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-efgh5678xmpl9012", 
+    #         create_date: Time.parse(1705161700.0), 
+    #         created_by_account: "123456789012", 
+    #         dns_config: {
+    #           dns_records: [
+    #             {
+    #               ttl: 300, 
+    #               type: "A", 
+    #             }, 
+    #           ], 
+    #           routing_policy: "MULTIVALUE", 
+    #         }, 
+    #         id: "srv-efgh5678xmpl9012", 
+    #         name: "shared-service-2", 
+    #         resource_owner: "123456789012", 
+    #         type: "DNS", 
     #       }, 
     #     ], 
     #   }
@@ -2586,6 +3044,25 @@ module Aws::ServiceDiscovery
     #     operation_id: "4yejorelbukcjzpnr6tlmrghsjwpngf4-k95yg2u7", 
     #   }
     #
+    # @example Example: Register instance using service ARN
+    #
+    #   # Registers an instance using a service ARN instead of service ID, useful when working with shared namespaces. Shows
+    #   # registering an instance to a service created by a sharee in a namespace owned by another account.
+    #
+    #   resp = client.register_instance({
+    #     attributes: {
+    #       "AWS_INSTANCE_IPV4" => "192.0.2.44", 
+    #       "AWS_INSTANCE_PORT" => "80", 
+    #     }, 
+    #     instance_id: "i-abcd1234xmpl5678", 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "abcd1234-xmpl-5678-9012-abcd1234xmpl", 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.register_instance({
@@ -2750,6 +3227,22 @@ module Aws::ServiceDiscovery
     #     operation_id: "ft52xe2koxhoeormaceymagglsdjyvEXAMPLE", 
     #   }
     #
+    # @example Example: Update HTTP namespace using namespace ARN for shared namespace
+    #
+    #   # This example updates an HTTP namespace using a namespace ARN instead of namespace ID.
+    #
+    #   resp = client.update_http_namespace({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-vh4nbmexample", 
+    #     namespace: {
+    #       description: "Updated description for shared HTTP namespace.", 
+    #     }, 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "ft52xe2koxhoeormaceymagglsdjyvexample", 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_http_namespace({
@@ -2820,6 +3313,21 @@ module Aws::ServiceDiscovery
     #     status: "HEALTHY", 
     #   })
     #
+    # @example Example: Update instance custom health status using service ARN
+    #
+    #   # Updates instance custom health status using a service ARN instead of service ID, useful when working with shared
+    #   # namespaces.
+    #
+    #   resp = client.update_instance_custom_health_status({
+    #     instance_id: "i-abcd1234xmpl5678", 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #     status: "HEALTHY", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_instance_custom_health_status({
@@ -2877,21 +3385,20 @@ module Aws::ServiceDiscovery
     #     operation_id: "ft52xe2koxhoeormaceymagglsdjyvEXAMPLE", 
     #   }
     #
-    # @example Example: To update a public DNS namespace
+    # @example Example: Update private DNS namespace using namespace ARN for shared namespace
     #
-    #   # The following example updates the description of a public DNS namespace.
+    #   # This example updates a private DNS namespace using a namespace ARN instead of namespace ID.
     #
     #   resp = client.update_private_dns_namespace({
-    #     id: "ns-bk3aEXAMPLE", 
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-bk3aexample", 
     #     namespace: {
-    #       description: "The updated namespace description.", 
+    #       description: "Updated description for shared private DNS namespace.", 
     #     }, 
-    #     updater_request_id: "", 
     #   })
     #
     #   resp.to_h outputs the following:
     #   {
-    #     operation_id: "ft52xe2koxhoeormaceymagglsdjEXAMPLE", 
+    #     operation_id: "ft52xe2koxhoeormaceymagglsdjyvexample", 
     #   }
     #
     # @example Request syntax with placeholder values
@@ -2944,6 +3451,40 @@ module Aws::ServiceDiscovery
     # @return [Types::UpdatePublicDnsNamespaceResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdatePublicDnsNamespaceResponse#operation_id #operation_id} => String
+    #
+    #
+    # @example Example: To update a public DNS namespace
+    #
+    #   # The following example updates the description of a public DNS namespace.
+    #
+    #   resp = client.update_public_dns_namespace({
+    #     id: "ns-bk3aEXAMPLE", 
+    #     namespace: {
+    #       description: "The updated namespace description.", 
+    #     }, 
+    #     updater_request_id: "", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "ft52xe2koxhoeormaceymagglsdjEXAMPLE", 
+    #   }
+    #
+    # @example Example: Update public DNS namespace using namespace ARN for shared namespace
+    #
+    #   # This example updates a public DNS namespace using a namespace ARN instead of namespace ID.
+    #
+    #   resp = client.update_public_dns_namespace({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:namespace/ns-bk3aexample", 
+    #     namespace: {
+    #       description: "Updated description for shared public DNS namespace.", 
+    #     }, 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "ft52xe2koxhoeormaceymagglsdjexample", 
+    #   }
     #
     # @example Request syntax with placeholder values
     #
@@ -3059,6 +3600,23 @@ module Aws::ServiceDiscovery
     #     operation_id: "m35hsdrkxwjffm3xef4bxyy6vc3ewakx-jdn3y5g5", 
     #   }
     #
+    # @example Example: Update service using service ARN for shared namespace
+    #
+    #   # This example updates a service using a service ARN instead of service ID. This is useful for updating services
+    #   # associated with shared namespaces.
+    #
+    #   resp = client.update_service({
+    #     id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-e4anhexample0004", 
+    #     service: {
+    #       description: "Updated service description for shared namespace", 
+    #     }, 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     operation_id: "m35hsdrkxwjffm3xef4bxyy6vc3ewakx-jdn3y5g5", 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_service({
@@ -3123,6 +3681,22 @@ module Aws::ServiceDiscovery
     #   {
     #   }
     #
+    # @example Example: Update service attributes using service ARN
+    #
+    #   # Updates service attributes using a service ARN instead of service ID, useful when working with shared namespaces.
+    #
+    #   resp = client.update_service_attributes({
+    #     attributes: {
+    #       "Port" => "8080", 
+    #       "Protocol" => "HTTP", 
+    #     }, 
+    #     service_id: "arn:aws:servicediscovery:us-west-2:123456789012:service/srv-abcd1234xmpl5678", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_service_attributes({
@@ -3159,7 +3733,7 @@ module Aws::ServiceDiscovery
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-servicediscovery'
-      context[:gem_version] = '1.89.0'
+      context[:gem_version] = '1.90.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

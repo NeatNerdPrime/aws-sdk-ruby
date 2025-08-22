@@ -1688,6 +1688,7 @@ module Aws::WAFV2
     UpdateWebACLRequest.add_member(:token_domains, Shapes::ShapeRef.new(shape: TokenDomains, location_name: "TokenDomains"))
     UpdateWebACLRequest.add_member(:association_config, Shapes::ShapeRef.new(shape: AssociationConfig, location_name: "AssociationConfig"))
     UpdateWebACLRequest.add_member(:on_source_d_do_s_protection_config, Shapes::ShapeRef.new(shape: OnSourceDDoSProtectionConfig, location_name: "OnSourceDDoSProtectionConfig"))
+    UpdateWebACLRequest.add_member(:application_config, Shapes::ShapeRef.new(shape: ApplicationConfig, location_name: "ApplicationConfig"))
     UpdateWebACLRequest.struct_class = Types::UpdateWebACLRequest
 
     UpdateWebACLResponse.add_member(:next_lock_token, Shapes::ShapeRef.new(shape: LockToken, location_name: "NextLockToken"))

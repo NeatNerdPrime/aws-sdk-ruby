@@ -134,6 +134,11 @@ module Aws
                            },
                            ?resources_to_replicate_tags: Array[("lambda-function")],
                            ?provisioned_resource_cleanup: ("AUTOMATIC" | "OFF"),
+                           ?browser_configs: Array[
+                             {
+                               browser_type: ("CHROME" | "FIREFOX")?
+                             },
+                           ],
                            ?tags: Hash[::String, ::String],
                            ?artifact_config: {
                              s3_encryption: {
@@ -196,7 +201,8 @@ module Aws
       def describe_canaries_last_run: (
                                         ?next_token: ::String,
                                         ?max_results: ::Integer,
-                                        ?names: Array[::String]
+                                        ?names: Array[::String],
+                                        ?browser_type: ("CHROME" | "FIREFOX")
                                       ) -> _DescribeCanariesLastRunResponseSuccess
                                     | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeCanariesLastRunResponseSuccess
 
@@ -358,7 +364,8 @@ module Aws
                                         ignore_coordinates: Array[::String]?
                                       },
                                     ]?,
-                                    base_canary_run_id: ::String
+                                    base_canary_run_id: ::String,
+                                    browser_type: ("CHROME" | "FIREFOX")?
                                   },
                                   ?artifact_s3_location: ::String,
                                   ?artifact_config: {
@@ -367,7 +374,24 @@ module Aws
                                       kms_key_arn: ::String?
                                     }?
                                   },
-                                  ?provisioned_resource_cleanup: ("AUTOMATIC" | "OFF")
+                                  ?provisioned_resource_cleanup: ("AUTOMATIC" | "OFF"),
+                                  ?browser_configs: Array[
+                                    {
+                                      browser_type: ("CHROME" | "FIREFOX")?
+                                    },
+                                  ],
+                                  ?visual_references: Array[
+                                    {
+                                      base_screenshots: Array[
+                                        {
+                                          screenshot_name: ::String,
+                                          ignore_coordinates: Array[::String]?
+                                        },
+                                      ]?,
+                                      base_canary_run_id: ::String,
+                                      browser_type: ("CHROME" | "FIREFOX")?
+                                    },
+                                  ]
                                 ) -> _StartCanaryDryRunResponseSuccess
                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartCanaryDryRunResponseSuccess
 
@@ -449,7 +473,8 @@ module Aws
                                  ignore_coordinates: Array[::String]?
                                },
                              ]?,
-                             base_canary_run_id: ::String
+                             base_canary_run_id: ::String,
+                             browser_type: ("CHROME" | "FIREFOX")?
                            },
                            ?artifact_s3_location: ::String,
                            ?artifact_config: {
@@ -459,7 +484,24 @@ module Aws
                              }?
                            },
                            ?provisioned_resource_cleanup: ("AUTOMATIC" | "OFF"),
-                           ?dry_run_id: ::String
+                           ?dry_run_id: ::String,
+                           ?visual_references: Array[
+                             {
+                               base_screenshots: Array[
+                                 {
+                                   screenshot_name: ::String,
+                                   ignore_coordinates: Array[::String]?
+                                 },
+                               ]?,
+                               base_canary_run_id: ::String,
+                               browser_type: ("CHROME" | "FIREFOX")?
+                             },
+                           ],
+                           ?browser_configs: Array[
+                             {
+                               browser_type: ("CHROME" | "FIREFOX")?
+                             },
+                           ]
                          ) -> _UpdateCanaryResponseSuccess
                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateCanaryResponseSuccess
     end

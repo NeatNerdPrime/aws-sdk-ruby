@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.160.0 (2025-08-22)
+------------------
+
+* Feature - AWS Elemental MediaLive now has a field called "SubtitleRows" for controlling subtitle row count for DVB-Sub and Burn-In captions outputs
+
 1.159.0 (2025-08-14)
 ------------------
 

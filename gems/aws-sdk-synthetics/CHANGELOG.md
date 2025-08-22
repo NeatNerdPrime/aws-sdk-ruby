@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.72.0 (2025-08-22)
+------------------
+
+* Feature - Added multi browser support for synthetics canaries, Increased ephemeral storage limit from 5GB to 10GB
+
 1.71.0 (2025-08-04)
 ------------------
 

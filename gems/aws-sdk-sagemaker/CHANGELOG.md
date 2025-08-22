@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.325.0 (2025-08-22)
+------------------
+
+* Feature - Launch SageMaker Notebook Instances support for AL2023 along with P6-B200 instance type and Rootless Docker support for SageMaker Studio.
+
 1.324.0 (2025-08-20)
 ------------------
 

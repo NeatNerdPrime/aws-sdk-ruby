@@ -519,6 +519,7 @@ module Aws::Route53RecoveryReadiness
 
       api.metadata = {
         "apiVersion" => "2019-12-02",
+        "auth" => ["aws.auth#sigv4"],
         "endpointPrefix" => "route53-recovery-readiness",
         "jsonVersion" => "1.1",
         "protocol" => "rest-json",

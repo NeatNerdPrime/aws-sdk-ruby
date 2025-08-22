@@ -2550,6 +2550,7 @@ module Aws::QConnect
       attr_accessor visibility_status: ("SAVED" | "PUBLISHED")
       attr_accessor template_configuration: Types::AIPromptTemplateConfiguration
       attr_accessor description: ::String
+      attr_accessor model_id: ::String
       SENSITIVE: []
     end
 

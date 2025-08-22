@@ -25,6 +25,9 @@ module Aws::Synthetics
     BaseScreenshotIgnoreCoordinates = Shapes::ListShape.new(name: 'BaseScreenshotIgnoreCoordinates')
     BaseScreenshots = Shapes::ListShape.new(name: 'BaseScreenshots')
     Blob = Shapes::BlobShape.new(name: 'Blob')
+    BrowserConfig = Shapes::StructureShape.new(name: 'BrowserConfig')
+    BrowserConfigs = Shapes::ListShape.new(name: 'BrowserConfigs')
+    BrowserType = Shapes::StringShape.new(name: 'BrowserType')
     Canaries = Shapes::ListShape.new(name: 'Canaries')
     CanariesLastRun = Shapes::ListShape.new(name: 'CanariesLastRun')
     Canary = Shapes::StructureShape.new(name: 'Canary')
@@ -74,6 +77,8 @@ module Aws::Synthetics
     DisassociateResourceResponse = Shapes::StructureShape.new(name: 'DisassociateResourceResponse')
     DryRunConfigOutput = Shapes::StructureShape.new(name: 'DryRunConfigOutput')
     EncryptionMode = Shapes::StringShape.new(name: 'EncryptionMode')
+    EngineConfig = Shapes::StructureShape.new(name: 'EngineConfig')
+    EngineConfigs = Shapes::ListShape.new(name: 'EngineConfigs')
     EnvironmentVariableName = Shapes::StringShape.new(name: 'EnvironmentVariableName')
     EnvironmentVariableValue = Shapes::StringShape.new(name: 'EnvironmentVariableValue')
     EnvironmentVariablesMap = Shapes::MapShape.new(name: 'EnvironmentVariablesMap')
@@ -158,6 +163,8 @@ module Aws::Synthetics
     ValidationException = Shapes::StructureShape.new(name: 'ValidationException')
     VisualReferenceInput = Shapes::StructureShape.new(name: 'VisualReferenceInput')
     VisualReferenceOutput = Shapes::StructureShape.new(name: 'VisualReferenceOutput')
+    VisualReferences = Shapes::ListShape.new(name: 'VisualReferences')
+    VisualReferencesOutput = Shapes::ListShape.new(name: 'VisualReferencesOutput')
     VpcConfigInput = Shapes::StructureShape.new(name: 'VpcConfigInput')
     VpcConfigOutput = Shapes::StructureShape.new(name: 'VpcConfigOutput')
     VpcId = Shapes::StringShape.new(name: 'VpcId')
@@ -189,6 +196,11 @@ module Aws::Synthetics
 
     BaseScreenshots.member = Shapes::ShapeRef.new(shape: BaseScreenshot)
 
+    BrowserConfig.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
+    BrowserConfig.struct_class = Types::BrowserConfig
+
+    BrowserConfigs.member = Shapes::ShapeRef.new(shape: BrowserConfig)
+
     Canaries.member = Shapes::ShapeRef.new(shape: Canary)
 
     CanariesLastRun.member = Shapes::ShapeRef.new(shape: CanaryLastRun)
@@ -209,6 +221,9 @@ module Aws::Synthetics
     Canary.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfigOutput, location_name: "VpcConfig"))
     Canary.add_member(:visual_reference, Shapes::ShapeRef.new(shape: VisualReferenceOutput, location_name: "VisualReference"))
     Canary.add_member(:provisioned_resource_cleanup, Shapes::ShapeRef.new(shape: ProvisionedResourceCleanupSetting, location_name: "ProvisionedResourceCleanup"))
+    Canary.add_member(:browser_configs, Shapes::ShapeRef.new(shape: BrowserConfigs, location_name: "BrowserConfigs"))
+    Canary.add_member(:engine_configs, Shapes::ShapeRef.new(shape: EngineConfigs, location_name: "EngineConfigs"))
+    Canary.add_member(:visual_references, Shapes::ShapeRef.new(shape: VisualReferencesOutput, location_name: "VisualReferences"))
     Canary.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "Tags"))
     Canary.add_member(:artifact_config, Shapes::ShapeRef.new(shape: ArtifactConfigOutput, location_name: "ArtifactConfig"))
     Canary.add_member(:dry_run_config, Shapes::ShapeRef.new(shape: DryRunConfigOutput, location_name: "DryRunConfig"))
@@ -242,6 +257,7 @@ module Aws::Synthetics
     CanaryRun.add_member(:timeline, Shapes::ShapeRef.new(shape: CanaryRunTimeline, location_name: "Timeline"))
     CanaryRun.add_member(:artifact_s3_location, Shapes::ShapeRef.new(shape: String, location_name: "ArtifactS3Location"))
     CanaryRun.add_member(:dry_run_config, Shapes::ShapeRef.new(shape: CanaryDryRunConfigOutput, location_name: "DryRunConfig"))
+    CanaryRun.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
     CanaryRun.struct_class = Types::CanaryRun
 
     CanaryRunConfigInput.add_member(:timeout_in_seconds, Shapes::ShapeRef.new(shape: MaxFifteenMinutesInSeconds, location_name: "TimeoutInSeconds"))
@@ -306,6 +322,7 @@ module Aws::Synthetics
     CreateCanaryRequest.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfigInput, location_name: "VpcConfig"))
     CreateCanaryRequest.add_member(:resources_to_replicate_tags, Shapes::ShapeRef.new(shape: ResourceList, location_name: "ResourcesToReplicateTags"))
     CreateCanaryRequest.add_member(:provisioned_resource_cleanup, Shapes::ShapeRef.new(shape: ProvisionedResourceCleanupSetting, location_name: "ProvisionedResourceCleanup"))
+    CreateCanaryRequest.add_member(:browser_configs, Shapes::ShapeRef.new(shape: BrowserConfigs, location_name: "BrowserConfigs"))
     CreateCanaryRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "Tags"))
     CreateCanaryRequest.add_member(:artifact_config, Shapes::ShapeRef.new(shape: ArtifactConfigInput, location_name: "ArtifactConfig"))
     CreateCanaryRequest.struct_class = Types::CreateCanaryRequest
@@ -342,6 +359,7 @@ module Aws::Synthetics
     DescribeCanariesLastRunRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: Token, location_name: "NextToken"))
     DescribeCanariesLastRunRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxSize100, location_name: "MaxResults"))
     DescribeCanariesLastRunRequest.add_member(:names, Shapes::ShapeRef.new(shape: DescribeCanariesLastRunNameFilter, location_name: "Names"))
+    DescribeCanariesLastRunRequest.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
     DescribeCanariesLastRunRequest.struct_class = Types::DescribeCanariesLastRunRequest
 
     DescribeCanariesLastRunResponse.add_member(:canaries_last_run, Shapes::ShapeRef.new(shape: CanariesLastRun, location_name: "CanariesLastRun"))
@@ -376,6 +394,12 @@ module Aws::Synthetics
     DryRunConfigOutput.add_member(:dry_run_id, Shapes::ShapeRef.new(shape: UUID, location_name: "DryRunId"))
     DryRunConfigOutput.add_member(:last_dry_run_execution_status, Shapes::ShapeRef.new(shape: String, location_name: "LastDryRunExecutionStatus"))
     DryRunConfigOutput.struct_class = Types::DryRunConfigOutput
+
+    EngineConfig.add_member(:engine_arn, Shapes::ShapeRef.new(shape: FunctionArn, location_name: "EngineArn"))
+    EngineConfig.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
+    EngineConfig.struct_class = Types::EngineConfig
+
+    EngineConfigs.member = Shapes::ShapeRef.new(shape: EngineConfig)
 
     EnvironmentVariablesMap.key = Shapes::ShapeRef.new(shape: EnvironmentVariableName)
     EnvironmentVariablesMap.value = Shapes::ShapeRef.new(shape: EnvironmentVariableValue)
@@ -503,6 +527,8 @@ module Aws::Synthetics
     StartCanaryDryRunRequest.add_member(:artifact_s3_location, Shapes::ShapeRef.new(shape: String, location_name: "ArtifactS3Location"))
     StartCanaryDryRunRequest.add_member(:artifact_config, Shapes::ShapeRef.new(shape: ArtifactConfigInput, location_name: "ArtifactConfig"))
     StartCanaryDryRunRequest.add_member(:provisioned_resource_cleanup, Shapes::ShapeRef.new(shape: ProvisionedResourceCleanupSetting, location_name: "ProvisionedResourceCleanup"))
+    StartCanaryDryRunRequest.add_member(:browser_configs, Shapes::ShapeRef.new(shape: BrowserConfigs, location_name: "BrowserConfigs"))
+    StartCanaryDryRunRequest.add_member(:visual_references, Shapes::ShapeRef.new(shape: VisualReferences, location_name: "VisualReferences"))
     StartCanaryDryRunRequest.struct_class = Types::StartCanaryDryRunRequest
 
     StartCanaryDryRunResponse.add_member(:dry_run_config, Shapes::ShapeRef.new(shape: DryRunConfigOutput, location_name: "DryRunConfig"))
@@ -556,6 +582,8 @@ module Aws::Synthetics
     UpdateCanaryRequest.add_member(:artifact_config, Shapes::ShapeRef.new(shape: ArtifactConfigInput, location_name: "ArtifactConfig"))
     UpdateCanaryRequest.add_member(:provisioned_resource_cleanup, Shapes::ShapeRef.new(shape: ProvisionedResourceCleanupSetting, location_name: "ProvisionedResourceCleanup"))
     UpdateCanaryRequest.add_member(:dry_run_id, Shapes::ShapeRef.new(shape: UUID, location_name: "DryRunId"))
+    UpdateCanaryRequest.add_member(:visual_references, Shapes::ShapeRef.new(shape: VisualReferences, location_name: "VisualReferences"))
+    UpdateCanaryRequest.add_member(:browser_configs, Shapes::ShapeRef.new(shape: BrowserConfigs, location_name: "BrowserConfigs"))
     UpdateCanaryRequest.struct_class = Types::UpdateCanaryRequest
 
     UpdateCanaryResponse.struct_class = Types::UpdateCanaryResponse
@@ -565,11 +593,17 @@ module Aws::Synthetics
 
     VisualReferenceInput.add_member(:base_screenshots, Shapes::ShapeRef.new(shape: BaseScreenshots, location_name: "BaseScreenshots"))
     VisualReferenceInput.add_member(:base_canary_run_id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "BaseCanaryRunId"))
+    VisualReferenceInput.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
     VisualReferenceInput.struct_class = Types::VisualReferenceInput
 
     VisualReferenceOutput.add_member(:base_screenshots, Shapes::ShapeRef.new(shape: BaseScreenshots, location_name: "BaseScreenshots"))
     VisualReferenceOutput.add_member(:base_canary_run_id, Shapes::ShapeRef.new(shape: String, location_name: "BaseCanaryRunId"))
+    VisualReferenceOutput.add_member(:browser_type, Shapes::ShapeRef.new(shape: BrowserType, location_name: "BrowserType"))
     VisualReferenceOutput.struct_class = Types::VisualReferenceOutput
+
+    VisualReferences.member = Shapes::ShapeRef.new(shape: VisualReferenceInput)
+
+    VisualReferencesOutput.member = Shapes::ShapeRef.new(shape: VisualReferenceOutput)
 
     VpcConfigInput.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: SubnetIds, location_name: "SubnetIds"))
     VpcConfigInput.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIds, location_name: "SecurityGroupIds"))

@@ -117,6 +117,7 @@ module Aws::MediaLive
     BurnInAlignment = Shapes::StringShape.new(name: 'BurnInAlignment')
     BurnInBackgroundColor = Shapes::StringShape.new(name: 'BurnInBackgroundColor')
     BurnInDestinationSettings = Shapes::StructureShape.new(name: 'BurnInDestinationSettings')
+    BurnInDestinationSubtitleRows = Shapes::StringShape.new(name: 'BurnInDestinationSubtitleRows')
     BurnInFontColor = Shapes::StringShape.new(name: 'BurnInFontColor')
     BurnInOutlineColor = Shapes::StringShape.new(name: 'BurnInOutlineColor')
     BurnInShadowColor = Shapes::StringShape.new(name: 'BurnInShadowColor')
@@ -318,6 +319,7 @@ module Aws::MediaLive
     DvbSubDestinationOutlineColor = Shapes::StringShape.new(name: 'DvbSubDestinationOutlineColor')
     DvbSubDestinationSettings = Shapes::StructureShape.new(name: 'DvbSubDestinationSettings')
     DvbSubDestinationShadowColor = Shapes::StringShape.new(name: 'DvbSubDestinationShadowColor')
+    DvbSubDestinationSubtitleRows = Shapes::StringShape.new(name: 'DvbSubDestinationSubtitleRows')
     DvbSubDestinationTeletextGridControl = Shapes::StringShape.new(name: 'DvbSubDestinationTeletextGridControl')
     DvbSubOcrLanguage = Shapes::StringShape.new(name: 'DvbSubOcrLanguage')
     DvbSubSourceSettings = Shapes::StructureShape.new(name: 'DvbSubSourceSettings')
@@ -1550,6 +1552,7 @@ module Aws::MediaLive
     BurnInDestinationSettings.add_member(:teletext_grid_control, Shapes::ShapeRef.new(shape: BurnInTeletextGridControl, location_name: "teletextGridControl"))
     BurnInDestinationSettings.add_member(:x_position, Shapes::ShapeRef.new(shape: __integerMin0, location_name: "xPosition"))
     BurnInDestinationSettings.add_member(:y_position, Shapes::ShapeRef.new(shape: __integerMin0, location_name: "yPosition"))
+    BurnInDestinationSettings.add_member(:subtitle_rows, Shapes::ShapeRef.new(shape: BurnInDestinationSubtitleRows, location_name: "subtitleRows"))
     BurnInDestinationSettings.struct_class = Types::BurnInDestinationSettings
 
     CancelInputDeviceTransferRequest.add_member(:input_device_id, Shapes::ShapeRef.new(shape: __string, required: true, location: "uri", location_name: "inputDeviceId"))
@@ -2770,6 +2773,7 @@ module Aws::MediaLive
     DvbSubDestinationSettings.add_member(:teletext_grid_control, Shapes::ShapeRef.new(shape: DvbSubDestinationTeletextGridControl, location_name: "teletextGridControl"))
     DvbSubDestinationSettings.add_member(:x_position, Shapes::ShapeRef.new(shape: __integerMin0, location_name: "xPosition"))
     DvbSubDestinationSettings.add_member(:y_position, Shapes::ShapeRef.new(shape: __integerMin0, location_name: "yPosition"))
+    DvbSubDestinationSettings.add_member(:subtitle_rows, Shapes::ShapeRef.new(shape: DvbSubDestinationSubtitleRows, location_name: "subtitleRows"))
     DvbSubDestinationSettings.struct_class = Types::DvbSubDestinationSettings
 
     DvbSubSourceSettings.add_member(:ocr_language, Shapes::ShapeRef.new(shape: DvbSubOcrLanguage, location_name: "ocrLanguage"))

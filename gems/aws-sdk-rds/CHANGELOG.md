@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.288.0 (2025-08-22)
+------------------
+
+* Feature - Updates Amazon RDS documentation for Db2 read-only replicas.
+
 1.287.0 (2025-08-05)
 ------------------
 

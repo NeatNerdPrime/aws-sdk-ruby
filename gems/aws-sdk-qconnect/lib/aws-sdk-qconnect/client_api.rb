@@ -2548,6 +2548,7 @@ module Aws::QConnect
     UpdateAIPromptRequest.add_member(:visibility_status, Shapes::ShapeRef.new(shape: VisibilityStatus, required: true, location_name: "visibilityStatus"))
     UpdateAIPromptRequest.add_member(:template_configuration, Shapes::ShapeRef.new(shape: AIPromptTemplateConfiguration, location_name: "templateConfiguration"))
     UpdateAIPromptRequest.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
+    UpdateAIPromptRequest.add_member(:model_id, Shapes::ShapeRef.new(shape: AIPromptModelIdentifier, location_name: "modelId"))
     UpdateAIPromptRequest.struct_class = Types::UpdateAIPromptRequest
 
     UpdateAIPromptResponse.add_member(:ai_prompt, Shapes::ShapeRef.new(shape: AIPromptData, location_name: "aiPrompt"))

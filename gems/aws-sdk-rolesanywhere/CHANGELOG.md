@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.40.0 (2025-08-22)
+------------------
+
+* Feature - Remove incorrect endpoint tests
+
 1.39.0 (2025-08-04)
 ------------------
 

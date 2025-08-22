@@ -6349,6 +6349,7 @@ module Aws::SageMaker
 
     DockerSettings.add_member(:enable_docker_access, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "EnableDockerAccess"))
     DockerSettings.add_member(:vpc_only_trusted_accounts, Shapes::ShapeRef.new(shape: VpcOnlyTrustedAccounts, location_name: "VpcOnlyTrustedAccounts"))
+    DockerSettings.add_member(:rootless_docker, Shapes::ShapeRef.new(shape: FeatureStatus, location_name: "RootlessDocker"))
     DockerSettings.struct_class = Types::DockerSettings
 
     DomainDetails.add_member(:domain_arn, Shapes::ShapeRef.new(shape: DomainArn, location_name: "DomainArn"))

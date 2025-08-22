@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.116.0 (2025-08-22)
+------------------
+
+* Feature - test and verified, safe to release
+
 1.115.0 (2025-08-04)
 ------------------
 

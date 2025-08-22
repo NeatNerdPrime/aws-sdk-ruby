@@ -121,8 +121,18 @@ module Aws::RDS
     #   A list of Availability Zones (AZs) where you specifically want to
     #   create DB instances in the DB cluster.
     #
-    #   For information on AZs, see [Availability Zones][1] in the *Amazon
-    #   Aurora User Guide*.
+    #   For the first three DB instances that you create, RDS distributes each
+    #   DB instance to a different AZ that you specify. For additional DB
+    #   instances that you create, RDS randomly distributes them to the AZs
+    #   that you specified. For example, if you create a DB cluster with one
+    #   writer instance and three reader instances, RDS might distribute the
+    #   writer instance to AZ 1, the first reader instance to AZ 2, the second
+    #   reader instance to AZ 3, and the third reader instance to either AZ 1,
+    #   AZ 2, or AZ 3.
+    #
+    #   For more information, see [Availability Zones][1] and [High
+    #   availability for Aurora DB instances][2] in the *Amazon Aurora User
+    #   Guide*.
     #
     #   Valid for Cluster Type: Aurora DB clusters only
     #
@@ -135,6 +145,7 @@ module Aws::RDS
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html#Concepts.RegionsAndAvailabilityZones.AvailabilityZones
+    #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraHighAvailability.html#Concepts.AuroraHighAvailability.Instances
     # @option options [Integer] :backup_retention_period
     #   The number of days for which automated backups are retained.
     #
@@ -1696,12 +1707,8 @@ module Aws::RDS
     #   set the `AvailabilityZone` parameter if the DB instance is a Multi-AZ
     #   deployment.
     #
-    #   This setting doesn't apply to the following DB instances:
-    #
-    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
-    #     the DB cluster.)
-    #
-    #   * RDS Custom
+    #   This setting doesn't apply to Amazon Aurora because the DB instance
+    #   Availability Zones (AZs) are managed by the DB cluster.
     # @option options [String] :engine_version
     #   The version number of the database engine to use.
     #
@@ -1788,7 +1795,7 @@ module Aws::RDS
     #   The license model information for this DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,

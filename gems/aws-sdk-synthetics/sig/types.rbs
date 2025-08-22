@@ -43,6 +43,11 @@ module Aws::Synthetics
       SENSITIVE: []
     end
 
+    class BrowserConfig
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
+      SENSITIVE: []
+    end
+
     class Canary
       attr_accessor id: ::String
       attr_accessor name: ::String
@@ -60,6 +65,9 @@ module Aws::Synthetics
       attr_accessor vpc_config: Types::VpcConfigOutput
       attr_accessor visual_reference: Types::VisualReferenceOutput
       attr_accessor provisioned_resource_cleanup: ("AUTOMATIC" | "OFF")
+      attr_accessor browser_configs: ::Array[Types::BrowserConfig]
+      attr_accessor engine_configs: ::Array[Types::EngineConfig]
+      attr_accessor visual_references: ::Array[Types::VisualReferenceOutput]
       attr_accessor tags: ::Hash[::String, ::String]
       attr_accessor artifact_config: Types::ArtifactConfigOutput
       attr_accessor dry_run_config: Types::DryRunConfigOutput
@@ -103,6 +111,7 @@ module Aws::Synthetics
       attr_accessor timeline: Types::CanaryRunTimeline
       attr_accessor artifact_s3_location: ::String
       attr_accessor dry_run_config: Types::CanaryDryRunConfigOutput
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
       SENSITIVE: []
     end
 
@@ -185,6 +194,7 @@ module Aws::Synthetics
       attr_accessor vpc_config: Types::VpcConfigInput
       attr_accessor resources_to_replicate_tags: ::Array[("lambda-function")]
       attr_accessor provisioned_resource_cleanup: ("AUTOMATIC" | "OFF")
+      attr_accessor browser_configs: ::Array[Types::BrowserConfig]
       attr_accessor tags: ::Hash[::String, ::String]
       attr_accessor artifact_config: Types::ArtifactConfigInput
       SENSITIVE: []
@@ -233,6 +243,7 @@ module Aws::Synthetics
       attr_accessor next_token: ::String
       attr_accessor max_results: ::Integer
       attr_accessor names: ::Array[::String]
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
       SENSITIVE: []
     end
 
@@ -279,6 +290,12 @@ module Aws::Synthetics
     class DryRunConfigOutput
       attr_accessor dry_run_id: ::String
       attr_accessor last_dry_run_execution_status: ::String
+      SENSITIVE: []
+    end
+
+    class EngineConfig
+      attr_accessor engine_arn: ::String
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
       SENSITIVE: []
     end
 
@@ -450,6 +467,8 @@ module Aws::Synthetics
       attr_accessor artifact_s3_location: ::String
       attr_accessor artifact_config: Types::ArtifactConfigInput
       attr_accessor provisioned_resource_cleanup: ("AUTOMATIC" | "OFF")
+      attr_accessor browser_configs: ::Array[Types::BrowserConfig]
+      attr_accessor visual_references: ::Array[Types::VisualReferenceInput]
       SENSITIVE: []
     end
 
@@ -512,6 +531,8 @@ module Aws::Synthetics
       attr_accessor artifact_config: Types::ArtifactConfigInput
       attr_accessor provisioned_resource_cleanup: ("AUTOMATIC" | "OFF")
       attr_accessor dry_run_id: ::String
+      attr_accessor visual_references: ::Array[Types::VisualReferenceInput]
+      attr_accessor browser_configs: ::Array[Types::BrowserConfig]
       SENSITIVE: []
     end
 
@@ -526,12 +547,14 @@ module Aws::Synthetics
     class VisualReferenceInput
       attr_accessor base_screenshots: ::Array[Types::BaseScreenshot]
       attr_accessor base_canary_run_id: ::String
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
       SENSITIVE: []
     end
 
     class VisualReferenceOutput
       attr_accessor base_screenshots: ::Array[Types::BaseScreenshot]
       attr_accessor base_canary_run_id: ::String
+      attr_accessor browser_type: ("CHROME" | "FIREFOX")
       SENSITIVE: []
     end
 

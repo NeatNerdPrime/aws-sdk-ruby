@@ -1191,6 +1191,15 @@ module Aws::QConnect
 
     # Creates an Amazon Q in Connect AI Prompt.
     #
+    # <note markdown="1"> For more information on supported models, see [Supported models for
+    # system and custom prompts][1].
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt
+    #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -6845,6 +6854,18 @@ module Aws::QConnect
     # @option params [String] :description
     #   The description of the Amazon Q in Connect AI Prompt.
     #
+    # @option params [String] :model_id
+    #   The identifier of the model used for this AI Prompt.
+    #
+    #   <note markdown="1"> For more information on supported models, see [Supported models for
+    #   system and custom prompts][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/create-ai-prompts.html#cli-create-aiprompt
+    #
     # @return [Types::UpdateAIPromptResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdateAIPromptResponse#ai_prompt #ai_prompt} => Types::AIPromptData
@@ -6862,6 +6883,7 @@ module Aws::QConnect
     #       },
     #     },
     #     description: "Description",
+    #     model_id: "AIPromptModelIdentifier",
     #   })
     #
     # @example Response structure
@@ -7806,7 +7828,7 @@ module Aws::QConnect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-qconnect'
-      context[:gem_version] = '1.38.0'
+      context[:gem_version] = '1.39.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

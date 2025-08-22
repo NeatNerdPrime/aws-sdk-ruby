@@ -2706,8 +2706,18 @@ module Aws::RDS
     #   A list of Availability Zones (AZs) where you specifically want to
     #   create DB instances in the DB cluster.
     #
-    #   For information on AZs, see [Availability Zones][1] in the *Amazon
-    #   Aurora User Guide*.
+    #   For the first three DB instances that you create, RDS distributes each
+    #   DB instance to a different AZ that you specify. For additional DB
+    #   instances that you create, RDS randomly distributes them to the AZs
+    #   that you specified. For example, if you create a DB cluster with one
+    #   writer instance and three reader instances, RDS might distribute the
+    #   writer instance to AZ 1, the first reader instance to AZ 2, the second
+    #   reader instance to AZ 3, and the third reader instance to either AZ 1,
+    #   AZ 2, or AZ 3.
+    #
+    #   For more information, see [Availability Zones][1] and [High
+    #   availability for Aurora DB instances][2] in the *Amazon Aurora User
+    #   Guide*.
     #
     #   Valid for Cluster Type: Aurora DB clusters only
     #
@@ -2720,6 +2730,7 @@ module Aws::RDS
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html#Concepts.RegionsAndAvailabilityZones.AvailabilityZones
+    #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.AuroraHighAvailability.html#Concepts.AuroraHighAvailability.Instances
     #
     # @option params [Integer] :backup_retention_period
     #   The number of days for which automated backups are retained.
@@ -4986,12 +4997,8 @@ module Aws::RDS
     #   set the `AvailabilityZone` parameter if the DB instance is a Multi-AZ
     #   deployment.
     #
-    #   This setting doesn't apply to the following DB instances:
-    #
-    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
-    #     the DB cluster.)
-    #
-    #   * RDS Custom
+    #   This setting doesn't apply to Amazon Aurora because the DB instance
+    #   Availability Zones (AZs) are managed by the DB cluster.
     #
     # @option params [String] :engine_version
     #   The version number of the database engine to use.
@@ -5081,7 +5088,7 @@ module Aws::RDS
     #   The license model information for this DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,
@@ -6124,15 +6131,12 @@ module Aws::RDS
 
     # Creates a new DB instance that acts as a read replica for an existing
     # source DB instance or Multi-AZ DB cluster. You can create a read
-    # replica for a DB instance running MariaDB, MySQL, Oracle, PostgreSQL,
-    # or SQL Server. You can create a read replica for a Multi-AZ DB cluster
-    # running MySQL or PostgreSQL. For more information, see [Working with
-    # read replicas][1] and [Migrating from a Multi-AZ DB cluster to a DB
-    # instance using a read replica][2] in the *Amazon RDS User Guide*.
-    #
-    # Amazon RDS for Db2 supports this operation for standby replicas. To
-    # create a standby replica for a DB instance running Db2, you must set
-    # `ReplicaMode` to `mounted`.
+    # replica for a DB instance running Db2, MariaDB, MySQL, Oracle,
+    # PostgreSQL, or SQL Server. You can create a read replica for a
+    # Multi-AZ DB cluster running MySQL or PostgreSQL. For more information,
+    # see [Working with read replicas][1] and [Migrating from a Multi-AZ DB
+    # cluster to a DB instance using a read replica][2] in the *Amazon RDS
+    # User Guide*.
     #
     # Amazon Aurora doesn't support this operation. To create a DB instance
     # for an Aurora DB cluster, use the `CreateDBInstance` operation.
@@ -6684,10 +6688,8 @@ module Aws::RDS
     # @option params [String] :replica_mode
     #   The open mode of the replica database.
     #
-    #   <note markdown="1"> This parameter is only supported for Db2 DB instances and Oracle DB
+    #   This parameter is only supported for Db2 DB instances and Oracle DB
     #   instances.
-    #
-    #    </note>
     #
     #   Db2
     #
@@ -6698,8 +6700,8 @@ module Aws::RDS
     #
     #     You can create a combination of standby and read-only DB replicas
     #     for the same primary DB instance. For more information, see [Working
-    #     with read replicas for Amazon RDS for Db2][1] in the *Amazon RDS
-    #     User Guide*.
+    #     with replicas for Amazon RDS for Db2][1] in the *Amazon RDS User
+    #     Guide*.
     #
     #     To create standby DB replicas for RDS for Db2, set this parameter to
     #     `mounted`.
@@ -7322,13 +7324,12 @@ module Aws::RDS
     #   lower than the connection timeout limit for the associated database.
     #
     # @option params [Boolean] :debug_logging
-    #   Specifies whether the proxy includes detailed information about SQL
-    #   statements in its logs. This information helps you to debug issues
-    #   involving SQL behavior or the performance and scalability of the proxy
-    #   connections. The debug information includes the text of SQL statements
-    #   that you submit through the proxy. Thus, only enable this setting when
-    #   needed for debugging, and only when you have security measures in
-    #   place to safeguard any sensitive information that appears in the logs.
+    #   Specifies whether the proxy logs detailed connection and query
+    #   information. When you enable `DebugLogging`, the proxy captures
+    #   connection details and connection pool behavior from your queries.
+    #   Debug logging increases CloudWatch costs and can impact proxy
+    #   performance. Enable this option only when you need to troubleshoot
+    #   connection or performance issues.
     #
     # @option params [Array<Types::Tag>] :tags
     #   An optional set of key-value pairs to associate arbitrary data of your
@@ -21372,10 +21373,8 @@ module Aws::RDS
     # @option params [String] :replica_mode
     #   The open mode of a replica database.
     #
-    #   <note markdown="1"> This parameter is only supported for Db2 DB instances and Oracle DB
+    #   This parameter is only supported for Db2 DB instances and Oracle DB
     #   instances.
-    #
-    #    </note>
     #
     #   Db2
     #
@@ -21386,8 +21385,8 @@ module Aws::RDS
     #
     #     You can create a combination of standby and read-only DB replicas
     #     for the same primary DB instance. For more information, see [Working
-    #     with read replicas for Amazon RDS for Db2][1] in the *Amazon RDS
-    #     User Guide*.
+    #     with replicas for Amazon RDS for Db2][1] in the *Amazon RDS User
+    #     Guide*.
     #
     #     To create standby DB replicas for RDS for Db2, set this parameter to
     #     `mounted`.
@@ -22074,13 +22073,12 @@ module Aws::RDS
     #   lower than the connection timeout limit for the associated database.
     #
     # @option params [Boolean] :debug_logging
-    #   Whether the proxy includes detailed information about SQL statements
-    #   in its logs. This information helps you to debug issues involving SQL
-    #   behavior or the performance and scalability of the proxy connections.
-    #   The debug information includes the text of SQL statements that you
-    #   submit through the proxy. Thus, only enable this setting when needed
-    #   for debugging, and only when you have security measures in place to
-    #   safeguard any sensitive information that appears in the logs.
+    #   Specifies whether the proxy logs detailed connection and query
+    #   information. When you enable `DebugLogging`, the proxy captures
+    #   connection details and connection pool behavior from your queries.
+    #   Debug logging increases CloudWatch costs and can impact proxy
+    #   performance. Enable this option only when you need to troubleshoot
+    #   connection or performance issues.
     #
     # @option params [String] :role_arn
     #   The Amazon Resource Name (ARN) of the IAM role that the proxy uses to
@@ -22462,8 +22460,9 @@ module Aws::RDS
     # Updates a manual DB snapshot with a new engine version. The snapshot
     # can be encrypted or unencrypted, but not shared or public.
     #
-    # Amazon RDS supports upgrading DB snapshots for MySQL, PostgreSQL, and
-    # Oracle. This operation doesn't apply to RDS Custom or RDS for Db2.
+    # Amazon RDS supports upgrading DB snapshots for MariaDB, MySQL,
+    # PostgreSQL, and Oracle. This operation doesn't apply to RDS Custom or
+    # RDS for Db2.
     #
     # @option params [required, String] :db_snapshot_identifier
     #   The identifier of the DB snapshot to modify.
@@ -22474,13 +22473,32 @@ module Aws::RDS
     #   The following are the database engines and engine versions that are
     #   available when you upgrade a DB snapshot.
     #
+    #   **MariaDB**
+    #
+    #   For the list of engine versions that are available for upgrading a DB
+    #   snapshot, see [ Upgrading a MariaDB DB snapshot engine version][1] in
+    #   the *Amazon RDS User Guide.*
+    #
     #   **MySQL**
     #
     #   For the list of engine versions that are available for upgrading a DB
-    #   snapshot, see [ Upgrading a MySQL DB snapshot engine version][1] in
+    #   snapshot, see [ Upgrading a MySQL DB snapshot engine version][2] in
     #   the *Amazon RDS User Guide.*
     #
     #   **Oracle**
+    #
+    #   * `21.0.0.0.ru-2025-04.rur-2025-04.r1` (supported for
+    #     21.0.0.0.ru-2022-01.rur-2022-01.r1,
+    #     21.0.0.0.ru-2022-04.rur-2022-04.r1,
+    #     21.0.0.0.ru-2022-07.rur-2022-07.r1,
+    #     21.0.0.0.ru-2022-10.rur-2022-10.r1,
+    #     21.0.0.0.ru-2023-01.rur-2023-01.r1 and
+    #     21.0.0.0.ru-2023-01.rur-2023-01.r2 DB snapshots)
+    #
+    #   * `19.0.0.0.ru-2025-04.rur-2025-04.r1` (supported for
+    #     19.0.0.0.ru-2019-07.rur-2019-07.r1,
+    #     19.0.0.0.ru-2019-10.rur-2019-10.r1 and
+    #     0.0.0.ru-2020-01.rur-2020-01.r1 DB snapshots)
     #
     #   * `19.0.0.0.ru-2022-01.rur-2022-01.r1` (supported for 12.2.0.1 DB
     #     snapshots)
@@ -22497,13 +22515,14 @@ module Aws::RDS
     #   **PostgreSQL**
     #
     #   For the list of engine versions that are available for upgrading a DB
-    #   snapshot, see [ Upgrading a PostgreSQL DB snapshot engine version][2]
+    #   snapshot, see [ Upgrading a PostgreSQL DB snapshot engine version][3]
     #   in the *Amazon RDS User Guide.*
     #
     #
     #
-    #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html
-    #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html
+    #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mariadb-upgrade-snapshot.html
+    #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/mysql-upgrade-snapshot.html
+    #   [3]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBSnapshot.PostgreSQL.html
     #
     # @option params [String] :option_group_name
     #   The option group to identify with the upgraded DB snapshot.
@@ -27716,7 +27735,7 @@ module Aws::RDS
     #   License model information for the restored DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,
@@ -28512,8 +28531,9 @@ module Aws::RDS
     # MySQL databases by using backup files. You can create a backup of your
     # on-premises database, store it on Amazon Simple Storage Service
     # (Amazon S3), and then restore the backup file onto a new Amazon RDS DB
-    # instance running MySQL. For more information, see [Importing Data into
-    # an Amazon RDS MySQL DB Instance][1] in the *Amazon RDS User Guide.*
+    # instance running MySQL. For more information, see [Restoring a backup
+    # into an Amazon RDS for MySQL DB instance][1] in the *Amazon RDS User
+    # Guide.*
     #
     # This operation doesn't apply to RDS Custom.
     #
@@ -29483,7 +29503,7 @@ module Aws::RDS
     #   The license model information for the restored DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,
@@ -32430,7 +32450,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.287.0'
+      context[:gem_version] = '1.288.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

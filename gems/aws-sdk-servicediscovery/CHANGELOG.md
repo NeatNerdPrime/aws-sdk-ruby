@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.90.0 (2025-08-22)
+------------------
+
+* Feature - Updating SDK examples after launch of shared AWS Cloud Map namespaces
+
 1.89.0 (2025-08-14)
 ------------------
 

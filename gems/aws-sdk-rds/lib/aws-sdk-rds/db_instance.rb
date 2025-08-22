@@ -228,9 +228,9 @@ module Aws::RDS
     end
 
     # The open mode of a Db2 or an Oracle read replica. The default is
-    # `open-read-only`. For more information, see [Working with read
-    # replicas for Amazon RDS for Db2][1] and [Working with read replicas
-    # for Amazon RDS for Oracle][2] in the *Amazon RDS User Guide*.
+    # `open-read-only`. For more information, see [Working with replicas for
+    # Amazon RDS for Db2][1] and [Working with read replicas for Amazon RDS
+    # for Oracle][2] in the *Amazon RDS User Guide*.
     #
     # <note markdown="1"> This attribute is only supported in RDS for Db2, RDS for Oracle, and
     # RDS Custom for Oracle.
@@ -1551,12 +1551,8 @@ module Aws::RDS
     #   set the `AvailabilityZone` parameter if the DB instance is a Multi-AZ
     #   deployment.
     #
-    #   This setting doesn't apply to the following DB instances:
-    #
-    #   * Amazon Aurora (DB instance Availability Zones (AZs) are managed by
-    #     the DB cluster.)
-    #
-    #   * RDS Custom
+    #   This setting doesn't apply to Amazon Aurora because the DB instance
+    #   Availability Zones (AZs) are managed by the DB cluster.
     # @option options [String] :engine_version
     #   The version number of the database engine to use.
     #
@@ -1643,7 +1639,7 @@ module Aws::RDS
     #   The license model information for this DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,
@@ -2805,10 +2801,8 @@ module Aws::RDS
     # @option options [String] :replica_mode
     #   The open mode of the replica database.
     #
-    #   <note markdown="1"> This parameter is only supported for Db2 DB instances and Oracle DB
+    #   This parameter is only supported for Db2 DB instances and Oracle DB
     #   instances.
-    #
-    #    </note>
     #
     #   Db2
     #
@@ -2819,8 +2813,8 @@ module Aws::RDS
     #
     #     You can create a combination of standby and read-only DB replicas
     #     for the same primary DB instance. For more information, see [Working
-    #     with read replicas for Amazon RDS for Db2][1] in the *Amazon RDS
-    #     User Guide*.
+    #     with replicas for Amazon RDS for Db2][1] in the *Amazon RDS User
+    #     Guide*.
     #
     #     To create standby DB replicas for RDS for Db2, set this parameter to
     #     `mounted`.
@@ -4036,10 +4030,8 @@ module Aws::RDS
     # @option options [String] :replica_mode
     #   The open mode of a replica database.
     #
-    #   <note markdown="1"> This parameter is only supported for Db2 DB instances and Oracle DB
+    #   This parameter is only supported for Db2 DB instances and Oracle DB
     #   instances.
-    #
-    #    </note>
     #
     #   Db2
     #
@@ -4050,8 +4042,8 @@ module Aws::RDS
     #
     #     You can create a combination of standby and read-only DB replicas
     #     for the same primary DB instance. For more information, see [Working
-    #     with read replicas for Amazon RDS for Db2][1] in the *Amazon RDS
-    #     User Guide*.
+    #     with replicas for Amazon RDS for Db2][1] in the *Amazon RDS User
+    #     Guide*.
     #
     #     To create standby DB replicas for RDS for Db2, set this parameter to
     #     `mounted`.
@@ -4547,7 +4539,7 @@ module Aws::RDS
     #   The license model information for the restored DB instance.
     #
     #   <note markdown="1"> License models for RDS for Db2 require additional configuration. The
-    #   Bring Your Own License (BYOL) model requires a custom parameter group
+    #   bring your own license (BYOL) model requires a custom parameter group
     #   and an Amazon Web Services License Manager self-managed license. The
     #   Db2 license through Amazon Web Services Marketplace model requires an
     #   Amazon Web Services Marketplace subscription. For more information,

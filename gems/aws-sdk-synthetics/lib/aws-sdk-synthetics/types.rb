@@ -130,6 +130,20 @@ module Aws::Synthetics
       include Aws::Structure
     end
 
+    # A structure that specifies the browser type to use for a canary run.
+    #
+    # @!attribute [rw] browser_type
+    #   The browser type associated with this browser configuration.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/BrowserConfig AWS API Documentation
+    #
+    class BrowserConfig < Struct.new(
+      :browser_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # This structure contains all information about one canary in your
     # account.
     #
@@ -253,6 +267,44 @@ module Aws::Synthetics
     #   [1]: https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DeleteCanary.html
     #   @return [String]
     #
+    # @!attribute [rw] browser_configs
+    #   A structure that specifies the browser type to use for a canary run.
+    #   CloudWatch Synthetics supports running canaries on both `CHROME` and
+    #   `FIREFOX` browsers.
+    #
+    #   <note markdown="1"> If not specified, `browserConfigs` defaults to Chrome.
+    #
+    #    </note>
+    #   @return [Array<Types::BrowserConfig>]
+    #
+    # @!attribute [rw] engine_configs
+    #   A list of engine configurations for the canary, one for each browser
+    #   type that the canary is configured to run on.
+    #
+    #   All runtime versions `syn-nodejs-puppeteer-11.0` and above, and
+    #   `syn-nodejs-playwright-3.0` and above, use `engineConfigs` only. You
+    #   can no longer use `engineArn` in these versions.
+    #
+    #   Runtime versions older than `syn-nodejs-puppeteer-11.0` and
+    #   `syn-nodejs-playwright-3.0` continue to support `engineArn` to
+    #   ensure backward compatibility.
+    #   @return [Array<Types::EngineConfig>]
+    #
+    # @!attribute [rw] visual_references
+    #   A list of visual reference configurations for the canary, one for
+    #   each browser type that the canary is configured to run on. Visual
+    #   references are used for visual monitoring comparisons.
+    #
+    #   `syn-nodejs-puppeteer-11.0` and above, and
+    #   `syn-nodejs-playwright-3.0` and above, only supports
+    #   `visualReferences`. `visualReference` field is not supported.
+    #
+    #   Versions older than `syn-nodejs-puppeteer-11.0` supports both
+    #   `visualReference` and `visualReferences` for backward compatibility.
+    #   It is recommended to use `visualReferences` for consistency and
+    #   future compatibility.
+    #   @return [Array<Types::VisualReferenceOutput>]
+    #
     # @!attribute [rw] tags
     #   The list of key-value pairs that are associated with the canary.
     #   @return [Hash<String,String>]
@@ -286,6 +338,9 @@ module Aws::Synthetics
       :vpc_config,
       :visual_reference,
       :provisioned_resource_cleanup,
+      :browser_configs,
+      :engine_configs,
+      :visual_references,
       :tags,
       :artifact_config,
       :dry_run_config)
@@ -474,6 +529,10 @@ module Aws::Synthetics
     #   Returns the dry run configurations for a canary.
     #   @return [Types::CanaryDryRunConfigOutput]
     #
+    # @!attribute [rw] browser_type
+    #   The browser type associated with this canary run.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/CanaryRun AWS API Documentation
     #
     class CanaryRun < Struct.new(
@@ -484,7 +543,8 @@ module Aws::Synthetics
       :status,
       :timeline,
       :artifact_s3_location,
-      :dry_run_config)
+      :dry_run_config,
+      :browser_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -979,6 +1039,19 @@ module Aws::Synthetics
     #   [1]: https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DeleteCanary.html
     #   @return [String]
     #
+    # @!attribute [rw] browser_configs
+    #   CloudWatch Synthetics now supports multibrowser canaries for
+    #   `syn-nodejs-puppeteer-11.0` and `syn-nodejs-playwright-3.0`
+    #   runtimes. This feature allows you to run your canaries on both
+    #   Firefox and Chrome browsers. To create a multibrowser canary, you
+    #   need to specify the BrowserConfigs with a list of browsers you want
+    #   to use.
+    #
+    #   <note markdown="1"> If not specified, `browserConfigs` defaults to Chrome.
+    #
+    #    </note>
+    #   @return [Array<Types::BrowserConfig>]
+    #
     # @!attribute [rw] tags
     #   A list of key-value pairs to associate with the canary. You can
     #   associate as many as 50 tags with a canary.
@@ -1014,6 +1087,7 @@ module Aws::Synthetics
       :vpc_config,
       :resources_to_replicate_tags,
       :provisioned_resource_cleanup,
+      :browser_configs,
       :tags,
       :artifact_config)
       SENSITIVE = []
@@ -1178,12 +1252,17 @@ module Aws::Synthetics
     #   [1]: https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries_Restricted.html
     #   @return [Array<String>]
     #
+    # @!attribute [rw] browser_type
+    #   The type of browser to use for the canary run.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/DescribeCanariesLastRunRequest AWS API Documentation
     #
     class DescribeCanariesLastRunRequest < Struct.new(
       :next_token,
       :max_results,
-      :names)
+      :names,
+      :browser_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1349,6 +1428,27 @@ module Aws::Synthetics
     class DryRunConfigOutput < Struct.new(
       :dry_run_id,
       :last_dry_run_execution_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A structure of engine configurations for the canary, one for each
+    # browser type that the canary is configured to run on.
+    #
+    # @!attribute [rw] engine_arn
+    #   Each engine configuration contains the ARN of the Lambda function
+    #   that is used as the canary's engine for a specific browser type.
+    #   @return [String]
+    #
+    # @!attribute [rw] browser_type
+    #   The browser type associated with this engine configuration.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/EngineConfig AWS API Documentation
+    #
+    class EngineConfig < Struct.new(
+      :engine_arn,
+      :browser_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2052,6 +2152,31 @@ module Aws::Synthetics
     #   [1]: https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_DeleteCanary.html
     #   @return [String]
     #
+    # @!attribute [rw] browser_configs
+    #   A structure that specifies the browser type to use for a canary run.
+    #   CloudWatch Synthetics supports running canaries on both `CHROME` and
+    #   `FIREFOX` browsers.
+    #
+    #   <note markdown="1"> If not specified, `browserConfigs` defaults to Chrome.
+    #
+    #    </note>
+    #   @return [Array<Types::BrowserConfig>]
+    #
+    # @!attribute [rw] visual_references
+    #   A list of visual reference configurations for the canary, one for
+    #   each browser type that the canary is configured to run on. Visual
+    #   references are used for visual monitoring comparisons.
+    #
+    #   `syn-nodejs-puppeteer-11.0` and above, and
+    #   `syn-nodejs-playwright-3.0` and above, only supports
+    #   `visualReferences`. `visualReference` field is not supported.
+    #
+    #   Versions older than `syn-nodejs-puppeteer-11.0` supports both
+    #   `visualReference` and `visualReferences` for backward compatibility.
+    #   It is recommended to use `visualReferences` for consistency and
+    #   future compatibility.
+    #   @return [Array<Types::VisualReferenceInput>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/StartCanaryDryRunRequest AWS API Documentation
     #
     class StartCanaryDryRunRequest < Struct.new(
@@ -2066,7 +2191,9 @@ module Aws::Synthetics
       :visual_reference,
       :artifact_s3_location,
       :artifact_config,
-      :provisioned_resource_cleanup)
+      :provisioned_resource_cleanup,
+      :browser_configs,
+      :visual_references)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2345,6 +2472,42 @@ module Aws::Synthetics
     #    </note>
     #   @return [String]
     #
+    # @!attribute [rw] visual_references
+    #   A list of visual reference configurations for the canary, one for
+    #   each browser type that the canary is configured to run on. Visual
+    #   references are used for visual monitoring comparisons.
+    #
+    #   `syn-nodejs-puppeteer-11.0` and above, and
+    #   `syn-nodejs-playwright-3.0` and above, only supports
+    #   `visualReferences`. `visualReference` field is not supported.
+    #
+    #   Versions older than `syn-nodejs-puppeteer-11.0` supports both
+    #   `visualReference` and `visualReferences` for backward compatibility.
+    #   It is recommended to use `visualReferences` for consistency and
+    #   future compatibility.
+    #
+    #   For multibrowser visual monitoring, you can update the baseline for
+    #   all configured browsers in a single update call by specifying a list
+    #   of VisualReference objects, one per browser. Each VisualReference
+    #   object maps to a specific browser configuration, allowing you to
+    #   manage visual baselines for multiple browsers simultaneously.
+    #
+    #   For single configuration canaries using Chrome browser (default
+    #   browser), use visualReferences for `syn-nodejs-puppeteer-11.0` and
+    #   above, and `syn-nodejs-playwright-3.0` and above canaries. The
+    #   browserType in the visualReference object is not mandatory.
+    #   @return [Array<Types::VisualReferenceInput>]
+    #
+    # @!attribute [rw] browser_configs
+    #   A structure that specifies the browser type to use for a canary run.
+    #   CloudWatch Synthetics supports running canaries on both `CHROME` and
+    #   `FIREFOX` browsers.
+    #
+    #   <note markdown="1"> If not specified, `browserConfigs` defaults to Chrome.
+    #
+    #    </note>
+    #   @return [Array<Types::BrowserConfig>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/UpdateCanaryRequest AWS API Documentation
     #
     class UpdateCanaryRequest < Struct.new(
@@ -2361,7 +2524,9 @@ module Aws::Synthetics
       :artifact_s3_location,
       :artifact_config,
       :provisioned_resource_cleanup,
-      :dry_run_id)
+      :dry_run_id,
+      :visual_references,
+      :browser_configs)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2418,11 +2583,16 @@ module Aws::Synthetics
     #   [1]: https://docs.aws.amazon.com/AmazonSynthetics/latest/APIReference/API_CanaryRun.html
     #   @return [String]
     #
+    # @!attribute [rw] browser_type
+    #   The browser type associated with this visual reference.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/VisualReferenceInput AWS API Documentation
     #
     class VisualReferenceInput < Struct.new(
       :base_screenshots,
-      :base_canary_run_id)
+      :base_canary_run_id,
+      :browser_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2445,11 +2615,16 @@ module Aws::Synthetics
     #   are used for visual monitoring comparisons by this canary.
     #   @return [String]
     #
+    # @!attribute [rw] browser_type
+    #   The browser type associated with this visual reference.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/synthetics-2017-10-11/VisualReferenceOutput AWS API Documentation
     #
     class VisualReferenceOutput < Struct.new(
       :base_screenshots,
-      :base_canary_run_id)
+      :base_canary_run_id,
+      :browser_type)
       SENSITIVE = []
       include Aws::Structure
     end

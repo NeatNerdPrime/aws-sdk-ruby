@@ -1926,7 +1926,8 @@ module Aws
                                   text: ::String
                                 }?
                               },
-                              ?description: ::String
+                              ?description: ::String,
+                              ?model_id: ::String
                             ) -> _UpdateAIPromptResponseSuccess
                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateAIPromptResponseSuccess
 

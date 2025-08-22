@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.39.0 (2025-08-22)
+------------------
+
+* Feature - Releasing model ID support for UpdateAIPrompt
+
 1.38.0 (2025-08-04)
 ------------------
 

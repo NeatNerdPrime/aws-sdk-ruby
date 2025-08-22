@@ -8354,9 +8354,12 @@ module Aws::WAFV2
     # inside the rule group. You specify one override for each rule whose
     # action you want to change.
     #
-    # <note markdown="1"> Take care to verify the rule names in your overrides. If you provide a
-    # rule name that doesn't match the name of any rule in the rule group,
-    # WAF doesn't return an error and doesn't apply the override setting.
+    # <note markdown="1"> Verify the rule names in your overrides carefully. With managed rule
+    # groups, WAF silently ignores any override that uses an invalid rule
+    # name. With customer-owned rule groups, invalid rule names in your
+    # overrides will cause web ACL updates to fail. An invalid rule name is
+    # any name that doesn't exactly match the case-sensitive name of an
+    # existing rule in the rule group.
     #
     #  </note>
     #
@@ -8369,10 +8372,12 @@ module Aws::WAFV2
     # @!attribute [rw] name
     #   The name of the rule to override.
     #
-    #   <note markdown="1"> Take care to verify the rule names in your overrides. If you provide
-    #   a rule name that doesn't match the name of any rule in the rule
-    #   group, WAF doesn't return an error and doesn't apply the override
-    #   setting.
+    #   <note markdown="1"> Verify the rule names in your overrides carefully. With managed rule
+    #   groups, WAF silently ignores any override that uses an invalid rule
+    #   name. With customer-owned rule groups, invalid rule names in your
+    #   overrides will cause web ACL updates to fail. An invalid rule name
+    #   is any name that doesn't exactly match the case-sensitive name of
+    #   an existing rule in the rule group.
     #
     #    </note>
     #   @return [String]
@@ -9925,6 +9930,21 @@ module Aws::WAFV2
     #   Application Load Balancers.
     #   @return [Types::OnSourceDDoSProtectionConfig]
     #
+    # @!attribute [rw] application_config
+    #   Configures the ability for the WAF console to store and retrieve
+    #   application attributes. Application attributes help WAF give
+    #   recommendations for protection packs.
+    #
+    #   When using `UpdateWebACL`, `ApplicationConfig` follows these rules:
+    #
+    #   * If you omit `ApplicationConfig` from the request, all existing
+    #     entries in the web ACL are retained.
+    #
+    #   * If you include `ApplicationConfig`, entries must match the
+    #     existing values exactly. Any attempt to modify existing entries
+    #     will result in an error.
+    #   @return [Types::ApplicationConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/wafv2-2019-07-29/UpdateWebACLRequest AWS API Documentation
     #
     class UpdateWebACLRequest < Struct.new(
@@ -9942,7 +9962,8 @@ module Aws::WAFV2
       :challenge_config,
       :token_domains,
       :association_config,
-      :on_source_d_do_s_protection_config)
+      :on_source_d_do_s_protection_config,
+      :application_config)
       SENSITIVE = []
       include Aws::Structure
     end

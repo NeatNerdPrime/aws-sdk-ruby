@@ -544,7 +544,8 @@ module Aws
                                       shadow_y_offset: ::Integer?,
                                       teletext_grid_control: ("FIXED" | "SCALED")?,
                                       x_position: ::Integer?,
-                                      y_position: ::Integer?
+                                      y_position: ::Integer?,
+                                      subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")?
                                     }?,
                                     dvb_sub_destination_settings: {
                                       alignment: ("CENTERED" | "LEFT" | "SMART")?,
@@ -567,7 +568,8 @@ module Aws
                                       shadow_y_offset: ::Integer?,
                                       teletext_grid_control: ("FIXED" | "SCALED")?,
                                       x_position: ::Integer?,
-                                      y_position: ::Integer?
+                                      y_position: ::Integer?,
+                                      subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")?
                                     }?,
                                     ebu_tt_d_destination_settings: {
                                       copyright_holder: ::String?,
@@ -2652,7 +2654,8 @@ module Aws
                                       shadow_y_offset: ::Integer?,
                                       teletext_grid_control: ("FIXED" | "SCALED")?,
                                       x_position: ::Integer?,
-                                      y_position: ::Integer?
+                                      y_position: ::Integer?,
+                                      subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")?
                                     }?,
                                     dvb_sub_destination_settings: {
                                       alignment: ("CENTERED" | "LEFT" | "SMART")?,
@@ -2675,7 +2678,8 @@ module Aws
                                       shadow_y_offset: ::Integer?,
                                       teletext_grid_control: ("FIXED" | "SCALED")?,
                                       x_position: ::Integer?,
-                                      y_position: ::Integer?
+                                      y_position: ::Integer?,
+                                      subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")?
                                     }?,
                                     ebu_tt_d_destination_settings: {
                                       copyright_holder: ::String?,

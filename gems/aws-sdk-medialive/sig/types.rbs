@@ -393,6 +393,7 @@ module Aws::MediaLive
       attr_accessor teletext_grid_control: ("FIXED" | "SCALED")
       attr_accessor x_position: ::Integer
       attr_accessor y_position: ::Integer
+      attr_accessor subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")
       SENSITIVE: []
     end
 
@@ -1153,6 +1154,7 @@ module Aws::MediaLive
       attr_accessor teletext_grid_control: ("FIXED" | "SCALED")
       attr_accessor x_position: ::Integer
       attr_accessor y_position: ::Integer
+      attr_accessor subtitle_rows: ("ROWS_16" | "ROWS_20" | "ROWS_24")
       SENSITIVE: []
     end
 

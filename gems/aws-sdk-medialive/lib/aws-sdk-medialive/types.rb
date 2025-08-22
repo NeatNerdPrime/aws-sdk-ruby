@@ -1444,6 +1444,17 @@ module Aws::MediaLive
     #   match.
     #   @return [Integer]
     #
+    # @!attribute [rw] subtitle_rows
+    #   Applies only when the input captions are Teletext and the output
+    #   captions are DVB-Sub or Burn-In. Choose the number of lines for the
+    #   captions bitmap. The captions bitmap is 700 wide × 576 high and will
+    #   be laid over the video. For example, a value of 16 divides the
+    #   bitmap into 16 lines, with each line 36 pixels high (16 × 36 = 576).
+    #   The default is 24 (24 pixels high). Enter the same number in every
+    #   encode in every output that converts the same Teletext source to
+    #   DVB-Sub or Burn-in.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/BurnInDestinationSettings AWS API Documentation
     #
     class BurnInDestinationSettings < Struct.new(
@@ -1463,7 +1474,8 @@ module Aws::MediaLive
       :shadow_y_offset,
       :teletext_grid_control,
       :x_position,
-      :y_position)
+      :y_position,
+      :subtitle_rows)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4158,6 +4170,17 @@ module Aws::MediaLive
     #   font settings must match.
     #   @return [Integer]
     #
+    # @!attribute [rw] subtitle_rows
+    #   Applies only when the input captions are Teletext and the output
+    #   captions are DVB-Sub or Burn-In. Choose the number of lines for the
+    #   captions bitmap. The captions bitmap is 700 wide × 576 high and will
+    #   be laid over the video. For example, a value of 16 divides the
+    #   bitmap into 16 lines, with each line 36 pixels high (16 × 36 = 576).
+    #   The default is 24 (24 pixels high). Enter the same number in every
+    #   encode in every output that converts the same Teletext source to
+    #   DVB-Sub or Burn-in.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/medialive-2017-10-14/DvbSubDestinationSettings AWS API Documentation
     #
     class DvbSubDestinationSettings < Struct.new(
@@ -4177,7 +4200,8 @@ module Aws::MediaLive
       :shadow_y_offset,
       :teletext_grid_control,
       :x_position,
-      :y_position)
+      :y_position,
+      :subtitle_rows)
       SENSITIVE = []
       include Aws::Structure
     end
