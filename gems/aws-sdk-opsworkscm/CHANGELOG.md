@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.89.0 (2025-08-25)
+------------------
+
+* Feature - Remove incorrect endpoint tests
+
 * Feature - OpsWorks CM has been removed from the SDK because it has been discontinued.
 
 1.88.0 (2025-08-04)
