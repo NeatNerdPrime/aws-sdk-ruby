@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.198.0 (2025-08-26)
+------------------
+
+* Feature - Code Generated Changes, see `./build_tools` or `aws-sdk-core`'s CHANGELOG.md for details.
+
 * Issue - Fix multipart `download_file` to support `Pathname`, `File` and `Tempfile` objects as download destinations.
 
 1.197.0 (2025-08-19)

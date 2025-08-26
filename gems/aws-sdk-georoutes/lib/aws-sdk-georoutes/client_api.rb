@@ -17,7 +17,6 @@ module Aws::GeoRoutes
     AccessDeniedException = Shapes::StructureShape.new(name: 'AccessDeniedException')
     ApiKey = Shapes::StringShape.new(name: 'ApiKey')
     BeforeWaypointsList = Shapes::ListShape.new(name: 'BeforeWaypointsList')
-    Boolean = Shapes::BooleanShape.new(name: 'Boolean')
     BoundingBox = Shapes::ListShape.new(name: 'BoundingBox')
     CalculateIsolinesRequest = Shapes::StructureShape.new(name: 'CalculateIsolinesRequest')
     CalculateIsolinesResponse = Shapes::StructureShape.new(name: 'CalculateIsolinesResponse')
@@ -419,6 +418,8 @@ module Aws::GeoRoutes
     RouteZoneCategory = Shapes::StringShape.new(name: 'RouteZoneCategory')
     RouteZoneList = Shapes::ListShape.new(name: 'RouteZoneList')
     RoutingObjective = Shapes::StringShape.new(name: 'RoutingObjective')
+    SensitiveBoolean = Shapes::BooleanShape.new(name: 'SensitiveBoolean')
+    SensitiveDouble = Shapes::FloatShape.new(name: 'SensitiveDouble')
     SensitiveString = Shapes::StringShape.new(name: 'SensitiveString')
     SideOfStreetMatchingStrategy = Shapes::StringShape.new(name: 'SideOfStreetMatchingStrategy')
     SnapToRoadsRequest = Shapes::StructureShape.new(name: 'SnapToRoadsRequest')
@@ -502,7 +503,7 @@ module Aws::GeoRoutes
     CalculateIsolinesRequest.add_member(:allow, Shapes::ShapeRef.new(shape: IsolineAllowOptions, location_name: "Allow"))
     CalculateIsolinesRequest.add_member(:arrival_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "ArrivalTime"))
     CalculateIsolinesRequest.add_member(:avoid, Shapes::ShapeRef.new(shape: IsolineAvoidanceOptions, location_name: "Avoid"))
-    CalculateIsolinesRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: Boolean, location_name: "DepartNow"))
+    CalculateIsolinesRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DepartNow"))
     CalculateIsolinesRequest.add_member(:departure_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "DepartureTime"))
     CalculateIsolinesRequest.add_member(:destination, Shapes::ShapeRef.new(shape: Position, location_name: "Destination"))
     CalculateIsolinesRequest.add_member(:destination_options, Shapes::ShapeRef.new(shape: IsolineDestinationOptions, location_name: "DestinationOptions"))
@@ -530,7 +531,7 @@ module Aws::GeoRoutes
 
     CalculateRouteMatrixRequest.add_member(:allow, Shapes::ShapeRef.new(shape: RouteMatrixAllowOptions, location_name: "Allow"))
     CalculateRouteMatrixRequest.add_member(:avoid, Shapes::ShapeRef.new(shape: RouteMatrixAvoidanceOptions, location_name: "Avoid"))
-    CalculateRouteMatrixRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: Boolean, location_name: "DepartNow"))
+    CalculateRouteMatrixRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DepartNow"))
     CalculateRouteMatrixRequest.add_member(:departure_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "DepartureTime"))
     CalculateRouteMatrixRequest.add_member(:destinations, Shapes::ShapeRef.new(shape: CalculateRouteMatrixRequestDestinationsList, required: true, location_name: "Destinations"))
     CalculateRouteMatrixRequest.add_member(:exclude, Shapes::ShapeRef.new(shape: RouteMatrixExclusionOptions, location_name: "Exclude"))
@@ -556,7 +557,7 @@ module Aws::GeoRoutes
     CalculateRoutesRequest.add_member(:allow, Shapes::ShapeRef.new(shape: RouteAllowOptions, location_name: "Allow"))
     CalculateRoutesRequest.add_member(:arrival_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "ArrivalTime"))
     CalculateRoutesRequest.add_member(:avoid, Shapes::ShapeRef.new(shape: RouteAvoidanceOptions, location_name: "Avoid"))
-    CalculateRoutesRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: Boolean, location_name: "DepartNow"))
+    CalculateRoutesRequest.add_member(:depart_now, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DepartNow"))
     CalculateRoutesRequest.add_member(:departure_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "DepartureTime"))
     CalculateRoutesRequest.add_member(:destination, Shapes::ShapeRef.new(shape: Position, required: true, location_name: "Destination"))
     CalculateRoutesRequest.add_member(:destination_options, Shapes::ShapeRef.new(shape: RouteDestinationOptions, location_name: "DestinationOptions"))
@@ -589,7 +590,7 @@ module Aws::GeoRoutes
     CalculateRoutesResponse.struct_class = Types::CalculateRoutesResponse
 
     Circle.add_member(:center, Shapes::ShapeRef.new(shape: Position, required: true, location_name: "Center"))
-    Circle.add_member(:radius, Shapes::ShapeRef.new(shape: Double, required: true, location_name: "Radius"))
+    Circle.add_member(:radius, Shapes::ShapeRef.new(shape: SensitiveDouble, required: true, location_name: "Radius"))
     Circle.struct_class = Types::Circle
 
     Corridor.add_member(:line_string, Shapes::ShapeRef.new(shape: LineString, required: true, location_name: "LineString"))
@@ -611,8 +612,8 @@ module Aws::GeoRoutes
     Isoline.add_member(:time_threshold, Shapes::ShapeRef.new(shape: DurationSeconds, location_name: "TimeThreshold"))
     Isoline.struct_class = Types::Isoline
 
-    IsolineAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hot"))
-    IsolineAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hov"))
+    IsolineAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hot"))
+    IsolineAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hov"))
     IsolineAllowOptions.struct_class = Types::IsolineAllowOptions
 
     IsolineAvoidanceArea.add_member(:except, Shapes::ShapeRef.new(shape: IsolineAvoidanceAreaGeometryList, location_name: "Except"))
@@ -635,16 +636,16 @@ module Aws::GeoRoutes
     IsolineAvoidanceAreaList.member = Shapes::ShapeRef.new(shape: IsolineAvoidanceArea)
 
     IsolineAvoidanceOptions.add_member(:areas, Shapes::ShapeRef.new(shape: IsolineAvoidanceAreaList, location_name: "Areas"))
-    IsolineAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: Boolean, location_name: "CarShuttleTrains"))
-    IsolineAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: Boolean, location_name: "ControlledAccessHighways"))
-    IsolineAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "DirtRoads"))
-    IsolineAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: Boolean, location_name: "Ferries"))
-    IsolineAvoidanceOptions.add_member(:seasonal_closure, Shapes::ShapeRef.new(shape: Boolean, location_name: "SeasonalClosure"))
-    IsolineAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollRoads"))
-    IsolineAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollTransponders"))
+    IsolineAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "CarShuttleTrains"))
+    IsolineAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "ControlledAccessHighways"))
+    IsolineAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DirtRoads"))
+    IsolineAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Ferries"))
+    IsolineAvoidanceOptions.add_member(:seasonal_closure, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "SeasonalClosure"))
+    IsolineAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollRoads"))
+    IsolineAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollTransponders"))
     IsolineAvoidanceOptions.add_member(:truck_road_types, Shapes::ShapeRef.new(shape: TruckRoadTypeList, location_name: "TruckRoadTypes"))
-    IsolineAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: Boolean, location_name: "Tunnels"))
-    IsolineAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "UTurns"))
+    IsolineAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Tunnels"))
+    IsolineAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "UTurns"))
     IsolineAvoidanceOptions.add_member(:zone_categories, Shapes::ShapeRef.new(shape: IsolineAvoidanceZoneCategoryList, location_name: "ZoneCategories"))
     IsolineAvoidanceOptions.struct_class = Types::IsolineAvoidanceOptions
 
@@ -760,7 +761,7 @@ module Aws::GeoRoutes
     LinearRings.member = Shapes::ShapeRef.new(shape: LinearRing)
 
     LocalizedString.add_member(:language, Shapes::ShapeRef.new(shape: LanguageTag, location_name: "Language"))
-    LocalizedString.add_member(:value, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Value"))
+    LocalizedString.add_member(:value, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Value"))
     LocalizedString.struct_class = Types::LocalizedString
 
     LocalizedStringList.member = Shapes::ShapeRef.new(shape: LocalizedString)
@@ -804,7 +805,7 @@ module Aws::GeoRoutes
     RoadSnapHazardousCargoTypeList.member = Shapes::ShapeRef.new(shape: RoadSnapHazardousCargoType)
 
     RoadSnapNotice.add_member(:code, Shapes::ShapeRef.new(shape: RoadSnapNoticeCode, required: true, location_name: "Code"))
-    RoadSnapNotice.add_member(:title, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Title"))
+    RoadSnapNotice.add_member(:title, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Title"))
     RoadSnapNotice.add_member(:trace_point_indexes, Shapes::ShapeRef.new(shape: RoadSnapTracePointIndexList, required: true, location_name: "TracePointIndexes"))
     RoadSnapNotice.struct_class = Types::RoadSnapNotice
 
@@ -849,8 +850,8 @@ module Aws::GeoRoutes
     Route.add_member(:summary, Shapes::ShapeRef.new(shape: RouteSummary, location_name: "Summary"))
     Route.struct_class = Types::Route
 
-    RouteAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hot"))
-    RouteAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hov"))
+    RouteAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hot"))
+    RouteAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hov"))
     RouteAllowOptions.struct_class = Types::RouteAllowOptions
 
     RouteAvoidanceArea.add_member(:except, Shapes::ShapeRef.new(shape: RouteAvoidanceAreaGeometryList, location_name: "Except"))
@@ -873,16 +874,16 @@ module Aws::GeoRoutes
     RouteAvoidanceAreaList.member = Shapes::ShapeRef.new(shape: RouteAvoidanceArea)
 
     RouteAvoidanceOptions.add_member(:areas, Shapes::ShapeRef.new(shape: RouteAvoidanceAreaList, location_name: "Areas"))
-    RouteAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: Boolean, location_name: "CarShuttleTrains"))
-    RouteAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: Boolean, location_name: "ControlledAccessHighways"))
-    RouteAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "DirtRoads"))
-    RouteAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: Boolean, location_name: "Ferries"))
-    RouteAvoidanceOptions.add_member(:seasonal_closure, Shapes::ShapeRef.new(shape: Boolean, location_name: "SeasonalClosure"))
-    RouteAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollRoads"))
-    RouteAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollTransponders"))
+    RouteAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "CarShuttleTrains"))
+    RouteAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "ControlledAccessHighways"))
+    RouteAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DirtRoads"))
+    RouteAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Ferries"))
+    RouteAvoidanceOptions.add_member(:seasonal_closure, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "SeasonalClosure"))
+    RouteAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollRoads"))
+    RouteAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollTransponders"))
     RouteAvoidanceOptions.add_member(:truck_road_types, Shapes::ShapeRef.new(shape: TruckRoadTypeList, location_name: "TruckRoadTypes"))
-    RouteAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: Boolean, location_name: "Tunnels"))
-    RouteAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "UTurns"))
+    RouteAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Tunnels"))
+    RouteAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "UTurns"))
     RouteAvoidanceOptions.add_member(:zone_categories, Shapes::ShapeRef.new(shape: RouteAvoidanceZoneCategoryList, location_name: "ZoneCategories"))
     RouteAvoidanceOptions.struct_class = Types::RouteAvoidanceOptions
 
@@ -907,7 +908,7 @@ module Aws::GeoRoutes
     RouteContinueStepDetails.struct_class = Types::RouteContinueStepDetails
 
     RouteDestinationOptions.add_member(:avoid_actions_for_distance, Shapes::ShapeRef.new(shape: RouteDestinationOptionsAvoidActionsForDistanceLong, location_name: "AvoidActionsForDistance"))
-    RouteDestinationOptions.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "AvoidUTurns"))
+    RouteDestinationOptions.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AvoidUTurns"))
     RouteDestinationOptions.add_member(:heading, Shapes::ShapeRef.new(shape: Heading, location_name: "Heading"))
     RouteDestinationOptions.add_member(:matching, Shapes::ShapeRef.new(shape: RouteMatchingOptions, location_name: "Matching"))
     RouteDestinationOptions.add_member(:side_of_street, Shapes::ShapeRef.new(shape: RouteSideOfStreetOptions, location_name: "SideOfStreet"))
@@ -923,8 +924,8 @@ module Aws::GeoRoutes
 
     RouteDriverScheduleIntervalList.member = Shapes::ShapeRef.new(shape: RouteDriverScheduleInterval)
 
-    RouteEmissionType.add_member(:co_2_emission_class, Shapes::ShapeRef.new(shape: String, location_name: "Co2EmissionClass"))
-    RouteEmissionType.add_member(:type, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Type"))
+    RouteEmissionType.add_member(:co_2_emission_class, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Co2EmissionClass"))
+    RouteEmissionType.add_member(:type, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Type"))
     RouteEmissionType.struct_class = Types::RouteEmissionType
 
     RouteEnterHighwayStepDetails.add_member(:intersection, Shapes::ShapeRef.new(shape: LocalizedStringList, required: true, location_name: "Intersection"))
@@ -944,7 +945,7 @@ module Aws::GeoRoutes
     RouteExitStepDetails.struct_class = Types::RouteExitStepDetails
 
     RouteFerryAfterTravelStep.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
-    RouteFerryAfterTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: String, location_name: "Instruction"))
+    RouteFerryAfterTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Instruction"))
     RouteFerryAfterTravelStep.add_member(:type, Shapes::ShapeRef.new(shape: RouteFerryAfterTravelStepType, required: true, location_name: "Type"))
     RouteFerryAfterTravelStep.struct_class = Types::RouteFerryAfterTravelStep
 
@@ -955,7 +956,7 @@ module Aws::GeoRoutes
     RouteFerryArrival.struct_class = Types::RouteFerryArrival
 
     RouteFerryBeforeTravelStep.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
-    RouteFerryBeforeTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: String, location_name: "Instruction"))
+    RouteFerryBeforeTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Instruction"))
     RouteFerryBeforeTravelStep.add_member(:type, Shapes::ShapeRef.new(shape: RouteFerryBeforeTravelStepType, required: true, location_name: "Type"))
     RouteFerryBeforeTravelStep.struct_class = Types::RouteFerryBeforeTravelStep
 
@@ -971,7 +972,7 @@ module Aws::GeoRoutes
     RouteFerryLegDetails.add_member(:departure, Shapes::ShapeRef.new(shape: RouteFerryDeparture, required: true, location_name: "Departure"))
     RouteFerryLegDetails.add_member(:notices, Shapes::ShapeRef.new(shape: RouteFerryNoticeList, required: true, location_name: "Notices"))
     RouteFerryLegDetails.add_member(:pass_through_waypoints, Shapes::ShapeRef.new(shape: RoutePassThroughWaypointList, required: true, location_name: "PassThroughWaypoints"))
-    RouteFerryLegDetails.add_member(:route_name, Shapes::ShapeRef.new(shape: String, location_name: "RouteName"))
+    RouteFerryLegDetails.add_member(:route_name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "RouteName"))
     RouteFerryLegDetails.add_member(:spans, Shapes::ShapeRef.new(shape: RouteFerrySpanList, required: true, location_name: "Spans"))
     RouteFerryLegDetails.add_member(:summary, Shapes::ShapeRef.new(shape: RouteFerrySummary, location_name: "Summary"))
     RouteFerryLegDetails.add_member(:travel_steps, Shapes::ShapeRef.new(shape: RouteFerryTravelStepList, required: true, location_name: "TravelSteps"))
@@ -987,7 +988,7 @@ module Aws::GeoRoutes
     RouteFerryOverviewSummary.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
     RouteFerryOverviewSummary.struct_class = Types::RouteFerryOverviewSummary
 
-    RouteFerryPlace.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
+    RouteFerryPlace.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Name"))
     RouteFerryPlace.add_member(:original_position, Shapes::ShapeRef.new(shape: Position23, location_name: "OriginalPosition"))
     RouteFerryPlace.add_member(:position, Shapes::ShapeRef.new(shape: Position23, required: true, location_name: "Position"))
     RouteFerryPlace.add_member(:waypoint_index, Shapes::ShapeRef.new(shape: RouteFerryPlaceWaypointIndexInteger, location_name: "WaypointIndex"))
@@ -1013,7 +1014,7 @@ module Aws::GeoRoutes
     RouteFerryTravelStep.add_member(:distance, Shapes::ShapeRef.new(shape: DistanceMeters, location_name: "Distance"))
     RouteFerryTravelStep.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
     RouteFerryTravelStep.add_member(:geometry_offset, Shapes::ShapeRef.new(shape: RouteFerryTravelStepGeometryOffsetInteger, location_name: "GeometryOffset"))
-    RouteFerryTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: String, location_name: "Instruction"))
+    RouteFerryTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Instruction"))
     RouteFerryTravelStep.add_member(:type, Shapes::ShapeRef.new(shape: RouteFerryTravelStepType, required: true, location_name: "Type"))
     RouteFerryTravelStep.struct_class = Types::RouteFerryTravelStep
 
@@ -1060,8 +1061,8 @@ module Aws::GeoRoutes
 
     RouteMatrix.member = Shapes::ShapeRef.new(shape: RouteMatrixRow)
 
-    RouteMatrixAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hot"))
-    RouteMatrixAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: Boolean, location_name: "Hov"))
+    RouteMatrixAllowOptions.add_member(:hot, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hot"))
+    RouteMatrixAllowOptions.add_member(:hov, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Hov"))
     RouteMatrixAllowOptions.struct_class = Types::RouteMatrixAllowOptions
 
     RouteMatrixAutoCircle.add_member(:margin, Shapes::ShapeRef.new(shape: RouteMatrixAutoCircleMarginLong, location_name: "Margin"))
@@ -1081,15 +1082,15 @@ module Aws::GeoRoutes
     RouteMatrixAvoidanceAreaGeometryPolylinePolygonList.member = Shapes::ShapeRef.new(shape: PolylineRing)
 
     RouteMatrixAvoidanceOptions.add_member(:areas, Shapes::ShapeRef.new(shape: RouteMatrixAvoidanceOptionsAreasList, location_name: "Areas"))
-    RouteMatrixAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: Boolean, location_name: "CarShuttleTrains"))
-    RouteMatrixAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: Boolean, location_name: "ControlledAccessHighways"))
-    RouteMatrixAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "DirtRoads"))
-    RouteMatrixAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: Boolean, location_name: "Ferries"))
-    RouteMatrixAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollRoads"))
-    RouteMatrixAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollTransponders"))
+    RouteMatrixAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "CarShuttleTrains"))
+    RouteMatrixAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "ControlledAccessHighways"))
+    RouteMatrixAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DirtRoads"))
+    RouteMatrixAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Ferries"))
+    RouteMatrixAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollRoads"))
+    RouteMatrixAvoidanceOptions.add_member(:toll_transponders, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollTransponders"))
     RouteMatrixAvoidanceOptions.add_member(:truck_road_types, Shapes::ShapeRef.new(shape: TruckRoadTypeList, location_name: "TruckRoadTypes"))
-    RouteMatrixAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: Boolean, location_name: "Tunnels"))
-    RouteMatrixAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "UTurns"))
+    RouteMatrixAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Tunnels"))
+    RouteMatrixAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "UTurns"))
     RouteMatrixAvoidanceOptions.add_member(:zone_categories, Shapes::ShapeRef.new(shape: RouteMatrixAvoidanceZoneCategoryList, location_name: "ZoneCategories"))
     RouteMatrixAvoidanceOptions.struct_class = Types::RouteMatrixAvoidanceOptions
 
@@ -1101,7 +1102,7 @@ module Aws::GeoRoutes
     RouteMatrixAvoidanceZoneCategoryList.member = Shapes::ShapeRef.new(shape: RouteMatrixAvoidanceZoneCategory)
 
     RouteMatrixBoundary.add_member(:geometry, Shapes::ShapeRef.new(shape: RouteMatrixBoundaryGeometry, location_name: "Geometry"))
-    RouteMatrixBoundary.add_member(:unbounded, Shapes::ShapeRef.new(shape: Boolean, location_name: "Unbounded"))
+    RouteMatrixBoundary.add_member(:unbounded, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Unbounded"))
     RouteMatrixBoundary.struct_class = Types::RouteMatrixBoundary
 
     RouteMatrixBoundaryGeometry.add_member(:auto_circle, Shapes::ShapeRef.new(shape: RouteMatrixAutoCircle, location_name: "AutoCircle"))
@@ -1203,13 +1204,13 @@ module Aws::GeoRoutes
 
     RouteNumber.add_member(:direction, Shapes::ShapeRef.new(shape: RouteDirection, location_name: "Direction"))
     RouteNumber.add_member(:language, Shapes::ShapeRef.new(shape: LanguageTag, location_name: "Language"))
-    RouteNumber.add_member(:value, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Value"))
+    RouteNumber.add_member(:value, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Value"))
     RouteNumber.struct_class = Types::RouteNumber
 
     RouteNumberList.member = Shapes::ShapeRef.new(shape: RouteNumber)
 
     RouteOriginOptions.add_member(:avoid_actions_for_distance, Shapes::ShapeRef.new(shape: RouteOriginOptionsAvoidActionsForDistanceLong, location_name: "AvoidActionsForDistance"))
-    RouteOriginOptions.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "AvoidUTurns"))
+    RouteOriginOptions.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AvoidUTurns"))
     RouteOriginOptions.add_member(:heading, Shapes::ShapeRef.new(shape: Heading, location_name: "Heading"))
     RouteOriginOptions.add_member(:matching, Shapes::ShapeRef.new(shape: RouteMatchingOptions, location_name: "Matching"))
     RouteOriginOptions.add_member(:side_of_street, Shapes::ShapeRef.new(shape: RouteSideOfStreetOptions, location_name: "SideOfStreet"))
@@ -1256,7 +1257,7 @@ module Aws::GeoRoutes
     RoutePedestrianOverviewSummary.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
     RoutePedestrianOverviewSummary.struct_class = Types::RoutePedestrianOverviewSummary
 
-    RoutePedestrianPlace.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
+    RoutePedestrianPlace.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Name"))
     RoutePedestrianPlace.add_member(:original_position, Shapes::ShapeRef.new(shape: Position23, location_name: "OriginalPosition"))
     RoutePedestrianPlace.add_member(:position, Shapes::ShapeRef.new(shape: Position23, required: true, location_name: "Position"))
     RoutePedestrianPlace.add_member(:side_of_street, Shapes::ShapeRef.new(shape: RouteSideOfStreet, location_name: "SideOfStreet"))
@@ -1295,7 +1296,7 @@ module Aws::GeoRoutes
     RoutePedestrianTravelStep.add_member(:duration, Shapes::ShapeRef.new(shape: DurationSeconds, required: true, location_name: "Duration"))
     RoutePedestrianTravelStep.add_member(:exit_number, Shapes::ShapeRef.new(shape: LocalizedStringList, location_name: "ExitNumber"))
     RoutePedestrianTravelStep.add_member(:geometry_offset, Shapes::ShapeRef.new(shape: RoutePedestrianTravelStepGeometryOffsetInteger, location_name: "GeometryOffset"))
-    RoutePedestrianTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: String, location_name: "Instruction"))
+    RoutePedestrianTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Instruction"))
     RoutePedestrianTravelStep.add_member(:keep_step_details, Shapes::ShapeRef.new(shape: RouteKeepStepDetails, location_name: "KeepStepDetails"))
     RoutePedestrianTravelStep.add_member(:next_road, Shapes::ShapeRef.new(shape: RouteRoad, location_name: "NextRoad"))
     RoutePedestrianTravelStep.add_member(:roundabout_enter_step_details, Shapes::ShapeRef.new(shape: RouteRoundaboutEnterStepDetails, location_name: "RoundaboutEnterStepDetails"))
@@ -1379,7 +1380,7 @@ module Aws::GeoRoutes
     RouteSpanScooterAccessAttributeList.member = Shapes::ShapeRef.new(shape: RouteSpanScooterAccessAttribute)
 
     RouteSpanSpeedLimitDetails.add_member(:max_speed, Shapes::ShapeRef.new(shape: SpeedKilometersPerHour, location_name: "MaxSpeed"))
-    RouteSpanSpeedLimitDetails.add_member(:unlimited, Shapes::ShapeRef.new(shape: Boolean, location_name: "Unlimited"))
+    RouteSpanSpeedLimitDetails.add_member(:unlimited, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Unlimited"))
     RouteSpanSpeedLimitDetails.struct_class = Types::RouteSpanSpeedLimitDetails
 
     RouteSpanTruckAccessAttributeList.member = Shapes::ShapeRef.new(shape: RouteSpanTruckAccessAttribute)
@@ -1397,15 +1398,15 @@ module Aws::GeoRoutes
 
     RouteTollList.member = Shapes::ShapeRef.new(shape: RouteToll)
 
-    RouteTollOptions.add_member(:all_transponders, Shapes::ShapeRef.new(shape: Boolean, location_name: "AllTransponders"))
-    RouteTollOptions.add_member(:all_vignettes, Shapes::ShapeRef.new(shape: Boolean, location_name: "AllVignettes"))
+    RouteTollOptions.add_member(:all_transponders, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AllTransponders"))
+    RouteTollOptions.add_member(:all_vignettes, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AllVignettes"))
     RouteTollOptions.add_member(:currency, Shapes::ShapeRef.new(shape: CurrencyCode, location_name: "Currency"))
     RouteTollOptions.add_member(:emission_type, Shapes::ShapeRef.new(shape: RouteEmissionType, location_name: "EmissionType"))
     RouteTollOptions.add_member(:vehicle_category, Shapes::ShapeRef.new(shape: RouteTollVehicleCategory, location_name: "VehicleCategory"))
     RouteTollOptions.struct_class = Types::RouteTollOptions
 
-    RouteTollPass.add_member(:includes_return_trip, Shapes::ShapeRef.new(shape: Boolean, location_name: "IncludesReturnTrip"))
-    RouteTollPass.add_member(:senior_pass, Shapes::ShapeRef.new(shape: Boolean, location_name: "SeniorPass"))
+    RouteTollPass.add_member(:includes_return_trip, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "IncludesReturnTrip"))
+    RouteTollPass.add_member(:senior_pass, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "SeniorPass"))
     RouteTollPass.add_member(:transfer_count, Shapes::ShapeRef.new(shape: RouteTollPassTransferCountInteger, location_name: "TransferCount"))
     RouteTollPass.add_member(:trip_count, Shapes::ShapeRef.new(shape: RouteTollPassTripCountInteger, location_name: "TripCount"))
     RouteTollPass.add_member(:validity_period, Shapes::ShapeRef.new(shape: RouteTollPassValidityPeriod, location_name: "ValidityPeriod"))
@@ -1424,16 +1425,16 @@ module Aws::GeoRoutes
     RouteTollPaymentSiteList.member = Shapes::ShapeRef.new(shape: RouteTollPaymentSite)
 
     RouteTollPrice.add_member(:currency, Shapes::ShapeRef.new(shape: CurrencyCode, required: true, location_name: "Currency"))
-    RouteTollPrice.add_member(:estimate, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Estimate"))
+    RouteTollPrice.add_member(:estimate, Shapes::ShapeRef.new(shape: SensitiveBoolean, required: true, location_name: "Estimate"))
     RouteTollPrice.add_member(:per_duration, Shapes::ShapeRef.new(shape: DurationSeconds, location_name: "PerDuration"))
-    RouteTollPrice.add_member(:range, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Range"))
+    RouteTollPrice.add_member(:range, Shapes::ShapeRef.new(shape: SensitiveBoolean, required: true, location_name: "Range"))
     RouteTollPrice.add_member(:range_value, Shapes::ShapeRef.new(shape: RouteTollPriceValueRange, location_name: "RangeValue"))
     RouteTollPrice.add_member(:value, Shapes::ShapeRef.new(shape: RouteTollPriceValueDouble, required: true, location_name: "Value"))
     RouteTollPrice.struct_class = Types::RouteTollPrice
 
     RouteTollPriceSummary.add_member(:currency, Shapes::ShapeRef.new(shape: CurrencyCode, required: true, location_name: "Currency"))
-    RouteTollPriceSummary.add_member(:estimate, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Estimate"))
-    RouteTollPriceSummary.add_member(:range, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Range"))
+    RouteTollPriceSummary.add_member(:estimate, Shapes::ShapeRef.new(shape: SensitiveBoolean, required: true, location_name: "Estimate"))
+    RouteTollPriceSummary.add_member(:range, Shapes::ShapeRef.new(shape: SensitiveBoolean, required: true, location_name: "Range"))
     RouteTollPriceSummary.add_member(:range_value, Shapes::ShapeRef.new(shape: RouteTollPriceValueRange, location_name: "RangeValue"))
     RouteTollPriceSummary.add_member(:value, Shapes::ShapeRef.new(shape: RouteTollPriceSummaryValueDouble, required: true, location_name: "Value"))
     RouteTollPriceSummary.struct_class = Types::RouteTollPriceSummary
@@ -1442,11 +1443,11 @@ module Aws::GeoRoutes
     RouteTollPriceValueRange.add_member(:max, Shapes::ShapeRef.new(shape: RouteTollPriceValueRangeMaxDouble, required: true, location_name: "Max"))
     RouteTollPriceValueRange.struct_class = Types::RouteTollPriceValueRange
 
-    RouteTollRate.add_member(:applicable_times, Shapes::ShapeRef.new(shape: String, location_name: "ApplicableTimes"))
+    RouteTollRate.add_member(:applicable_times, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "ApplicableTimes"))
     RouteTollRate.add_member(:converted_price, Shapes::ShapeRef.new(shape: RouteTollPrice, location_name: "ConvertedPrice"))
-    RouteTollRate.add_member(:id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Id"))
+    RouteTollRate.add_member(:id, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Id"))
     RouteTollRate.add_member(:local_price, Shapes::ShapeRef.new(shape: RouteTollPrice, required: true, location_name: "LocalPrice"))
-    RouteTollRate.add_member(:name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Name"))
+    RouteTollRate.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, required: true, location_name: "Name"))
     RouteTollRate.add_member(:pass, Shapes::ShapeRef.new(shape: RouteTollPass, location_name: "Pass"))
     RouteTollRate.add_member(:payment_methods, Shapes::ShapeRef.new(shape: RouteTollPaymentMethodList, required: true, location_name: "PaymentMethods"))
     RouteTollRate.add_member(:transponders, Shapes::ShapeRef.new(shape: RouteTransponderList, required: true, location_name: "Transponders"))
@@ -1457,7 +1458,7 @@ module Aws::GeoRoutes
     RouteTollSummary.add_member(:total, Shapes::ShapeRef.new(shape: RouteTollPriceSummary, location_name: "Total"))
     RouteTollSummary.struct_class = Types::RouteTollSummary
 
-    RouteTollSystem.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
+    RouteTollSystem.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Name"))
     RouteTollSystem.struct_class = Types::RouteTollSystem
 
     RouteTollSystemList.member = Shapes::ShapeRef.new(shape: RouteTollSystem)
@@ -1470,7 +1471,7 @@ module Aws::GeoRoutes
     RouteTrailerOptions.add_member(:trailer_count, Shapes::ShapeRef.new(shape: RouteTrailerOptionsTrailerCountInteger, location_name: "TrailerCount"))
     RouteTrailerOptions.struct_class = Types::RouteTrailerOptions
 
-    RouteTransponder.add_member(:system_name, Shapes::ShapeRef.new(shape: String, location_name: "SystemName"))
+    RouteTransponder.add_member(:system_name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "SystemName"))
     RouteTransponder.struct_class = Types::RouteTransponder
 
     RouteTransponderList.member = Shapes::ShapeRef.new(shape: RouteTransponder)
@@ -1522,7 +1523,7 @@ module Aws::GeoRoutes
     RouteVehicleDeparture.add_member(:time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "Time"))
     RouteVehicleDeparture.struct_class = Types::RouteVehicleDeparture
 
-    RouteVehicleIncident.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
+    RouteVehicleIncident.add_member(:description, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Description"))
     RouteVehicleIncident.add_member(:end_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "EndTime"))
     RouteVehicleIncident.add_member(:severity, Shapes::ShapeRef.new(shape: RouteVehicleIncidentSeverity, location_name: "Severity"))
     RouteVehicleIncident.add_member(:start_time, Shapes::ShapeRef.new(shape: TimestampWithTimezoneOffset, location_name: "StartTime"))
@@ -1553,7 +1554,7 @@ module Aws::GeoRoutes
     RouteVehicleNotice.add_member(:impact, Shapes::ShapeRef.new(shape: RouteNoticeImpact, location_name: "Impact"))
     RouteVehicleNotice.struct_class = Types::RouteVehicleNotice
 
-    RouteVehicleNoticeDetail.add_member(:title, Shapes::ShapeRef.new(shape: String, location_name: "Title"))
+    RouteVehicleNoticeDetail.add_member(:title, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Title"))
     RouteVehicleNoticeDetail.add_member(:violated_constraints, Shapes::ShapeRef.new(shape: RouteViolatedConstraints, location_name: "ViolatedConstraints"))
     RouteVehicleNoticeDetail.struct_class = Types::RouteVehicleNoticeDetail
 
@@ -1567,7 +1568,7 @@ module Aws::GeoRoutes
     RouteVehicleOverviewSummary.add_member(:typical_duration, Shapes::ShapeRef.new(shape: DurationSeconds, location_name: "TypicalDuration"))
     RouteVehicleOverviewSummary.struct_class = Types::RouteVehicleOverviewSummary
 
-    RouteVehiclePlace.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
+    RouteVehiclePlace.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Name"))
     RouteVehiclePlace.add_member(:original_position, Shapes::ShapeRef.new(shape: Position23, location_name: "OriginalPosition"))
     RouteVehiclePlace.add_member(:position, Shapes::ShapeRef.new(shape: Position23, required: true, location_name: "Position"))
     RouteVehiclePlace.add_member(:side_of_street, Shapes::ShapeRef.new(shape: RouteSideOfStreet, location_name: "SideOfStreet"))
@@ -1619,7 +1620,7 @@ module Aws::GeoRoutes
     RouteVehicleTravelStep.add_member(:exit_number, Shapes::ShapeRef.new(shape: LocalizedStringList, location_name: "ExitNumber"))
     RouteVehicleTravelStep.add_member(:exit_step_details, Shapes::ShapeRef.new(shape: RouteExitStepDetails, location_name: "ExitStepDetails"))
     RouteVehicleTravelStep.add_member(:geometry_offset, Shapes::ShapeRef.new(shape: RouteVehicleTravelStepGeometryOffsetInteger, location_name: "GeometryOffset"))
-    RouteVehicleTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: String, location_name: "Instruction"))
+    RouteVehicleTravelStep.add_member(:instruction, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Instruction"))
     RouteVehicleTravelStep.add_member(:keep_step_details, Shapes::ShapeRef.new(shape: RouteKeepStepDetails, location_name: "KeepStepDetails"))
     RouteVehicleTravelStep.add_member(:next_road, Shapes::ShapeRef.new(shape: RouteRoad, location_name: "NextRoad"))
     RouteVehicleTravelStep.add_member(:ramp_step_details, Shapes::ShapeRef.new(shape: RouteRampStepDetails, location_name: "RampStepDetails"))
@@ -1634,7 +1635,7 @@ module Aws::GeoRoutes
 
     RouteVehicleTravelStepList.member = Shapes::ShapeRef.new(shape: RouteVehicleTravelStep)
 
-    RouteViolatedConstraints.add_member(:all_hazards_restricted, Shapes::ShapeRef.new(shape: Boolean, location_name: "AllHazardsRestricted"))
+    RouteViolatedConstraints.add_member(:all_hazards_restricted, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AllHazardsRestricted"))
     RouteViolatedConstraints.add_member(:axle_count, Shapes::ShapeRef.new(shape: RouteNoticeDetailRange, location_name: "AxleCount"))
     RouteViolatedConstraints.add_member(:hazardous_cargos, Shapes::ShapeRef.new(shape: RouteHazardousCargoTypeList, required: true, location_name: "HazardousCargos"))
     RouteViolatedConstraints.add_member(:max_height, Shapes::ShapeRef.new(shape: DimensionCentimeters, location_name: "MaxHeight"))
@@ -1647,19 +1648,19 @@ module Aws::GeoRoutes
     RouteViolatedConstraints.add_member(:max_width, Shapes::ShapeRef.new(shape: DimensionCentimeters, location_name: "MaxWidth"))
     RouteViolatedConstraints.add_member(:occupancy, Shapes::ShapeRef.new(shape: RouteNoticeDetailRange, location_name: "Occupancy"))
     RouteViolatedConstraints.add_member(:restricted_times, Shapes::ShapeRef.new(shape: String, location_name: "RestrictedTimes"))
-    RouteViolatedConstraints.add_member(:time_dependent, Shapes::ShapeRef.new(shape: Boolean, location_name: "TimeDependent"))
+    RouteViolatedConstraints.add_member(:time_dependent, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TimeDependent"))
     RouteViolatedConstraints.add_member(:trailer_count, Shapes::ShapeRef.new(shape: RouteNoticeDetailRange, location_name: "TrailerCount"))
-    RouteViolatedConstraints.add_member(:travel_mode, Shapes::ShapeRef.new(shape: Boolean, location_name: "TravelMode"))
+    RouteViolatedConstraints.add_member(:travel_mode, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TravelMode"))
     RouteViolatedConstraints.add_member(:truck_road_type, Shapes::ShapeRef.new(shape: String, location_name: "TruckRoadType"))
     RouteViolatedConstraints.add_member(:truck_type, Shapes::ShapeRef.new(shape: RouteTruckType, location_name: "TruckType"))
     RouteViolatedConstraints.add_member(:tunnel_restriction_code, Shapes::ShapeRef.new(shape: TunnelRestrictionCode, location_name: "TunnelRestrictionCode"))
     RouteViolatedConstraints.struct_class = Types::RouteViolatedConstraints
 
     RouteWaypoint.add_member(:avoid_actions_for_distance, Shapes::ShapeRef.new(shape: RouteWaypointAvoidActionsForDistanceLong, location_name: "AvoidActionsForDistance"))
-    RouteWaypoint.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "AvoidUTurns"))
+    RouteWaypoint.add_member(:avoid_u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "AvoidUTurns"))
     RouteWaypoint.add_member(:heading, Shapes::ShapeRef.new(shape: Heading, location_name: "Heading"))
     RouteWaypoint.add_member(:matching, Shapes::ShapeRef.new(shape: RouteMatchingOptions, location_name: "Matching"))
-    RouteWaypoint.add_member(:pass_through, Shapes::ShapeRef.new(shape: Boolean, location_name: "PassThrough"))
+    RouteWaypoint.add_member(:pass_through, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "PassThrough"))
     RouteWaypoint.add_member(:position, Shapes::ShapeRef.new(shape: Position, required: true, location_name: "Position"))
     RouteWaypoint.add_member(:side_of_street, Shapes::ShapeRef.new(shape: RouteSideOfStreetOptions, location_name: "SideOfStreet"))
     RouteWaypoint.add_member(:stop_duration, Shapes::ShapeRef.new(shape: DurationSeconds, location_name: "StopDuration"))
@@ -1672,7 +1673,7 @@ module Aws::GeoRoutes
     RouteWeightConstraint.struct_class = Types::RouteWeightConstraint
 
     RouteZone.add_member(:category, Shapes::ShapeRef.new(shape: RouteZoneCategory, location_name: "Category"))
-    RouteZone.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
+    RouteZone.add_member(:name, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Name"))
     RouteZone.struct_class = Types::RouteZone
 
     RouteZoneList.member = Shapes::ShapeRef.new(shape: RouteZone)
@@ -1727,13 +1728,13 @@ module Aws::GeoRoutes
     WaypointOptimizationAvoidanceAreaGeometry.struct_class = Types::WaypointOptimizationAvoidanceAreaGeometry
 
     WaypointOptimizationAvoidanceOptions.add_member(:areas, Shapes::ShapeRef.new(shape: WaypointOptimizationAvoidanceOptionsAreasList, location_name: "Areas"))
-    WaypointOptimizationAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: Boolean, location_name: "CarShuttleTrains"))
-    WaypointOptimizationAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: Boolean, location_name: "ControlledAccessHighways"))
-    WaypointOptimizationAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "DirtRoads"))
-    WaypointOptimizationAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: Boolean, location_name: "Ferries"))
-    WaypointOptimizationAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: Boolean, location_name: "TollRoads"))
-    WaypointOptimizationAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: Boolean, location_name: "Tunnels"))
-    WaypointOptimizationAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: Boolean, location_name: "UTurns"))
+    WaypointOptimizationAvoidanceOptions.add_member(:car_shuttle_trains, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "CarShuttleTrains"))
+    WaypointOptimizationAvoidanceOptions.add_member(:controlled_access_highways, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "ControlledAccessHighways"))
+    WaypointOptimizationAvoidanceOptions.add_member(:dirt_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "DirtRoads"))
+    WaypointOptimizationAvoidanceOptions.add_member(:ferries, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Ferries"))
+    WaypointOptimizationAvoidanceOptions.add_member(:toll_roads, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "TollRoads"))
+    WaypointOptimizationAvoidanceOptions.add_member(:tunnels, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "Tunnels"))
+    WaypointOptimizationAvoidanceOptions.add_member(:u_turns, Shapes::ShapeRef.new(shape: SensitiveBoolean, location_name: "UTurns"))
     WaypointOptimizationAvoidanceOptions.struct_class = Types::WaypointOptimizationAvoidanceOptions
 
     WaypointOptimizationAvoidanceOptionsAreasList.member = Shapes::ShapeRef.new(shape: WaypointOptimizationAvoidanceArea)
@@ -1772,7 +1773,7 @@ module Aws::GeoRoutes
     WaypointOptimizationExclusionOptions.struct_class = Types::WaypointOptimizationExclusionOptions
 
     WaypointOptimizationFailedConstraint.add_member(:constraint, Shapes::ShapeRef.new(shape: WaypointOptimizationConstraint, location_name: "Constraint"))
-    WaypointOptimizationFailedConstraint.add_member(:reason, Shapes::ShapeRef.new(shape: String, location_name: "Reason"))
+    WaypointOptimizationFailedConstraint.add_member(:reason, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Reason"))
     WaypointOptimizationFailedConstraint.struct_class = Types::WaypointOptimizationFailedConstraint
 
     WaypointOptimizationFailedConstraintList.member = Shapes::ShapeRef.new(shape: WaypointOptimizationFailedConstraint)

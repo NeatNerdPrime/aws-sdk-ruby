@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.39.0 (2025-08-26)
+------------------
+
+* Feature - This release adds new API options to enable allowed windows and multiple alarms for practice runs.
+
 1.38.0 (2025-08-04)
 ------------------
 

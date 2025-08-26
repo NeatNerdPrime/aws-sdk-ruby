@@ -32,7 +32,7 @@ module Aws::GeoRoutes
       attr_accessor traffic: Types::IsolineTrafficOptions
       attr_accessor travel_mode: ("Car" | "Pedestrian" | "Scooter" | "Truck")
       attr_accessor travel_mode_options: Types::IsolineTravelModeOptions
-      SENSITIVE: [:destination, :key, :origin]
+      SENSITIVE: [:arrival_time, :depart_now, :departure_time, :destination, :key, :origin]
     end
 
     class CalculateIsolinesResponse
@@ -43,7 +43,7 @@ module Aws::GeoRoutes
       attr_accessor pricing_bucket: ::String
       attr_accessor snapped_destination: ::Array[::Float]
       attr_accessor snapped_origin: ::Array[::Float]
-      SENSITIVE: [:snapped_destination, :snapped_origin]
+      SENSITIVE: [:arrival_time, :departure_time, :snapped_destination, :snapped_origin]
     end
 
     class CalculateRouteMatrixRequest
@@ -60,7 +60,7 @@ module Aws::GeoRoutes
       attr_accessor traffic: Types::RouteMatrixTrafficOptions
       attr_accessor travel_mode: ("Car" | "Pedestrian" | "Scooter" | "Truck")
       attr_accessor travel_mode_options: Types::RouteMatrixTravelModeOptions
-      SENSITIVE: [:key]
+      SENSITIVE: [:allow, :depart_now, :departure_time, :key]
     end
 
     class CalculateRouteMatrixResponse
@@ -97,7 +97,7 @@ module Aws::GeoRoutes
       attr_accessor travel_mode_options: Types::RouteTravelModeOptions
       attr_accessor travel_step_type: ("Default" | "TurnByTurn")
       attr_accessor waypoints: ::Array[Types::RouteWaypoint]
-      SENSITIVE: [:destination, :key, :origin]
+      SENSITIVE: [:arrival_time, :depart_now, :departure_time, :destination, :key, :origin]
     end
 
     class CalculateRoutesResponse
@@ -111,7 +111,7 @@ module Aws::GeoRoutes
     class Circle
       attr_accessor center: ::Array[::Float]
       attr_accessor radius: ::Float
-      SENSITIVE: [:center]
+      SENSITIVE: [:center, :radius]
     end
 
     class Corridor
@@ -130,13 +130,13 @@ module Aws::GeoRoutes
       attr_accessor distance_threshold: ::Integer
       attr_accessor geometries: ::Array[Types::IsolineShapeGeometry]
       attr_accessor time_threshold: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:distance_threshold, :time_threshold]
     end
 
     class IsolineAllowOptions
       attr_accessor hot: bool
       attr_accessor hov: bool
-      SENSITIVE: []
+      SENSITIVE: [:hot, :hov]
     end
 
     class IsolineAvoidanceArea
@@ -167,7 +167,7 @@ module Aws::GeoRoutes
       attr_accessor tunnels: bool
       attr_accessor u_turns: bool
       attr_accessor zone_categories: ::Array[Types::IsolineAvoidanceZoneCategory]
-      SENSITIVE: []
+      SENSITIVE: [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :seasonal_closure, :toll_roads, :toll_transponders, :tunnels, :u_turns]
     end
 
     class IsolineAvoidanceZoneCategory
@@ -180,7 +180,7 @@ module Aws::GeoRoutes
       attr_accessor license_plate: Types::IsolineVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:engine_type, :license_plate, :max_speed, :occupancy]
     end
 
     class IsolineConnection
@@ -201,13 +201,13 @@ module Aws::GeoRoutes
       attr_accessor heading: ::Float
       attr_accessor matching: Types::IsolineMatchingOptions
       attr_accessor side_of_street: Types::IsolineSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :heading]
     end
 
     class IsolineGranularityOptions
       attr_accessor max_points: ::Integer
       attr_accessor max_resolution: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:max_resolution]
     end
 
     class IsolineMatchingOptions
@@ -215,7 +215,7 @@ module Aws::GeoRoutes
       attr_accessor on_road_threshold: ::Integer
       attr_accessor radius: ::Integer
       attr_accessor strategy: ("MatchAny" | "MatchMostSignificantRoad")
-      SENSITIVE: [:name_hint]
+      SENSITIVE: [:name_hint, :on_road_threshold, :radius]
     end
 
     class IsolineOriginOptions
@@ -223,7 +223,7 @@ module Aws::GeoRoutes
       attr_accessor heading: ::Float
       attr_accessor matching: Types::IsolineMatchingOptions
       attr_accessor side_of_street: Types::IsolineSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :heading]
     end
 
     class IsolineScooterOptions
@@ -231,7 +231,7 @@ module Aws::GeoRoutes
       attr_accessor license_plate: Types::IsolineVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:engine_type, :license_plate, :max_speed, :occupancy]
     end
 
     class IsolineShapeGeometry
@@ -255,13 +255,13 @@ module Aws::GeoRoutes
     class IsolineTrafficOptions
       attr_accessor flow_event_threshold_override: ::Integer
       attr_accessor usage: ("IgnoreTrafficData" | "UseTrafficData")
-      SENSITIVE: []
+      SENSITIVE: [:flow_event_threshold_override]
     end
 
     class IsolineTrailerOptions
       attr_accessor axle_count: ::Integer
       attr_accessor trailer_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:axle_count, :trailer_count]
     end
 
     class IsolineTravelModeOptions
@@ -291,7 +291,7 @@ module Aws::GeoRoutes
       attr_accessor weight_per_axle: ::Integer
       attr_accessor weight_per_axle_group: Types::WeightPerAxleGroup
       attr_accessor width: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:axle_count, :engine_type, :gross_weight, :height, :height_above_first_axle, :kpra_length, :length, :license_plate, :max_speed, :occupancy, :payload_capacity, :tire_count, :tunnel_restriction_code, :weight_per_axle, :width]
     end
 
     class IsolineVehicleLicensePlate
@@ -302,7 +302,7 @@ module Aws::GeoRoutes
     class LocalizedString
       attr_accessor language: ::String
       attr_accessor value: ::String
-      SENSITIVE: []
+      SENSITIVE: [:value]
     end
 
     class OptimizeWaypointsRequest
@@ -321,7 +321,7 @@ module Aws::GeoRoutes
       attr_accessor travel_mode: ("Car" | "Pedestrian" | "Scooter" | "Truck")
       attr_accessor travel_mode_options: Types::WaypointOptimizationTravelModeOptions
       attr_accessor waypoints: ::Array[Types::WaypointOptimizationWaypoint]
-      SENSITIVE: [:destination, :key, :origin]
+      SENSITIVE: [:departure_time, :destination, :key, :origin]
     end
 
     class OptimizeWaypointsResponse
@@ -332,7 +332,7 @@ module Aws::GeoRoutes
       attr_accessor optimized_waypoints: ::Array[Types::WaypointOptimizationOptimizedWaypoint]
       attr_accessor pricing_bucket: ::String
       attr_accessor time_breakdown: Types::WaypointOptimizationTimeBreakdown
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration]
     end
 
     class PolylineCorridor
@@ -345,7 +345,7 @@ module Aws::GeoRoutes
       attr_accessor code: ("TracePointsHeadingIgnored" | "TracePointsIgnored" | "TracePointsMovedByLargeDistance" | "TracePointsNotMatched" | "TracePointsOutOfSequence" | "TracePointsSpeedEstimated" | "TracePointsSpeedIgnored")
       attr_accessor title: ::String
       attr_accessor trace_point_indexes: ::Array[::Integer]
-      SENSITIVE: []
+      SENSITIVE: [:code, :title, :trace_point_indexes]
     end
 
     class RoadSnapSnappedGeometry
@@ -358,7 +358,7 @@ module Aws::GeoRoutes
       attr_accessor confidence: ::Float
       attr_accessor original_position: ::Array[::Float]
       attr_accessor snapped_position: ::Array[::Float]
-      SENSITIVE: [:original_position, :snapped_position]
+      SENSITIVE: [:confidence, :original_position, :snapped_position]
     end
 
     class RoadSnapTracePoint
@@ -366,12 +366,12 @@ module Aws::GeoRoutes
       attr_accessor position: ::Array[::Float]
       attr_accessor speed: ::Float
       attr_accessor timestamp: ::String
-      SENSITIVE: [:position]
+      SENSITIVE: [:heading, :position, :speed, :timestamp]
     end
 
     class RoadSnapTrailerOptions
       attr_accessor trailer_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:trailer_count]
     end
 
     class RoadSnapTravelModeOptions
@@ -387,7 +387,7 @@ module Aws::GeoRoutes
       attr_accessor trailer: Types::RoadSnapTrailerOptions
       attr_accessor tunnel_restriction_code: ::String
       attr_accessor width: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:gross_weight, :height, :length, :tunnel_restriction_code, :width]
     end
 
     class Route
@@ -400,7 +400,7 @@ module Aws::GeoRoutes
     class RouteAllowOptions
       attr_accessor hot: bool
       attr_accessor hov: bool
-      SENSITIVE: []
+      SENSITIVE: [:hot, :hov]
     end
 
     class RouteAvoidanceArea
@@ -431,12 +431,12 @@ module Aws::GeoRoutes
       attr_accessor tunnels: bool
       attr_accessor u_turns: bool
       attr_accessor zone_categories: ::Array[Types::RouteAvoidanceZoneCategory]
-      SENSITIVE: []
+      SENSITIVE: [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :seasonal_closure, :toll_roads, :toll_transponders, :tunnels, :u_turns]
     end
 
     class RouteAvoidanceZoneCategory
       attr_accessor category: ("CongestionPricing" | "Environmental" | "Vignette")
-      SENSITIVE: []
+      SENSITIVE: [:category]
     end
 
     class RouteCarOptions
@@ -444,7 +444,7 @@ module Aws::GeoRoutes
       attr_accessor license_plate: Types::RouteVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:engine_type, :max_speed, :occupancy]
     end
 
     class RouteContinueHighwayStepDetails
@@ -452,7 +452,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteContinueStepDetails
@@ -467,7 +467,7 @@ module Aws::GeoRoutes
       attr_accessor matching: Types::RouteMatchingOptions
       attr_accessor side_of_street: Types::RouteSideOfStreetOptions
       attr_accessor stop_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :avoid_u_turns, :heading, :stop_duration]
     end
 
     class RouteDriverOptions
@@ -478,13 +478,13 @@ module Aws::GeoRoutes
     class RouteDriverScheduleInterval
       attr_accessor drive_duration: ::Integer
       attr_accessor rest_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:drive_duration, :rest_duration]
     end
 
     class RouteEmissionType
       attr_accessor co_2_emission_class: ::String
       attr_accessor type: ::String
-      SENSITIVE: []
+      SENSITIVE: [:co_2_emission_class, :type]
     end
 
     class RouteEnterHighwayStepDetails
@@ -492,7 +492,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteExclusionOptions
@@ -506,33 +506,33 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:relative_exit, :steering_direction, :turn_intensity]
     end
 
     class RouteFerryAfterTravelStep
       attr_accessor duration: ::Integer
       attr_accessor instruction: ::String
       attr_accessor type: ("Deboard")
-      SENSITIVE: []
+      SENSITIVE: [:duration, :instruction, :type]
     end
 
     class RouteFerryArrival
       attr_accessor place: Types::RouteFerryPlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RouteFerryBeforeTravelStep
       attr_accessor duration: ::Integer
       attr_accessor instruction: ::String
       attr_accessor type: ("Board")
-      SENSITIVE: []
+      SENSITIVE: [:duration, :instruction, :type]
     end
 
     class RouteFerryDeparture
       attr_accessor place: Types::RouteFerryPlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RouteFerryLegDetails
@@ -546,11 +546,11 @@ module Aws::GeoRoutes
       attr_accessor spans: ::Array[Types::RouteFerrySpan]
       attr_accessor summary: Types::RouteFerrySummary
       attr_accessor travel_steps: ::Array[Types::RouteFerryTravelStep]
-      SENSITIVE: []
+      SENSITIVE: [:route_name]
     end
 
     class RouteFerryNotice
-      attr_accessor code: ("AccuratePolylineUnavailable" | "NoSchedule" | "Other" | "ViolatedAvoidFerry" | "ViolatedAvoidRailFerry" | "SeasonalClosure")
+      attr_accessor code: ("AccuratePolylineUnavailable" | "NoSchedule" | "Other" | "ViolatedAvoidFerry" | "ViolatedAvoidRailFerry" | "SeasonalClosure" | "PotentialViolatedVehicleRestrictionUsage")
       attr_accessor impact: ("High" | "Low")
       SENSITIVE: []
     end
@@ -558,7 +558,7 @@ module Aws::GeoRoutes
     class RouteFerryOverviewSummary
       attr_accessor distance: ::Integer
       attr_accessor duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration]
     end
 
     class RouteFerryPlace
@@ -566,7 +566,7 @@ module Aws::GeoRoutes
       attr_accessor original_position: ::Array[::Float]
       attr_accessor position: ::Array[::Float]
       attr_accessor waypoint_index: ::Integer
-      SENSITIVE: [:original_position, :position]
+      SENSITIVE: [:name, :original_position, :position, :waypoint_index]
     end
 
     class RouteFerrySpan
@@ -576,7 +576,7 @@ module Aws::GeoRoutes
       attr_accessor geometry_offset: ::Integer
       attr_accessor names: ::Array[Types::LocalizedString]
       attr_accessor region: ::String
-      SENSITIVE: []
+      SENSITIVE: [:country, :distance, :duration, :region]
     end
 
     class RouteFerrySummary
@@ -587,7 +587,7 @@ module Aws::GeoRoutes
 
     class RouteFerryTravelOnlySummary
       attr_accessor duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:duration]
     end
 
     class RouteFerryTravelStep
@@ -596,7 +596,7 @@ module Aws::GeoRoutes
       attr_accessor geometry_offset: ::Integer
       attr_accessor instruction: ::String
       attr_accessor type: ("Depart" | "Continue" | "Arrive")
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration, :instruction, :type]
     end
 
     class RouteKeepStepDetails
@@ -604,7 +604,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteLeg
@@ -615,7 +615,7 @@ module Aws::GeoRoutes
       attr_accessor travel_mode: ("Car" | "Ferry" | "Pedestrian" | "Scooter" | "Truck" | "CarShuttleTrain")
       attr_accessor type: ("Ferry" | "Pedestrian" | "Vehicle")
       attr_accessor vehicle_leg_details: Types::RouteVehicleLegDetails
-      SENSITIVE: []
+      SENSITIVE: [:travel_mode, :type]
     end
 
     class RouteLegGeometry
@@ -635,19 +635,19 @@ module Aws::GeoRoutes
       attr_accessor on_road_threshold: ::Integer
       attr_accessor radius: ::Integer
       attr_accessor strategy: ("MatchAny" | "MatchMostSignificantRoad")
-      SENSITIVE: [:name_hint]
+      SENSITIVE: [:name_hint, :on_road_threshold, :radius]
     end
 
     class RouteMatrixAllowOptions
       attr_accessor hot: bool
       attr_accessor hov: bool
-      SENSITIVE: []
+      SENSITIVE: [:hot, :hov]
     end
 
     class RouteMatrixAutoCircle
       attr_accessor margin: ::Integer
       attr_accessor max_radius: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:margin, :max_radius]
     end
 
     class RouteMatrixAvoidanceArea
@@ -674,18 +674,18 @@ module Aws::GeoRoutes
       attr_accessor tunnels: bool
       attr_accessor u_turns: bool
       attr_accessor zone_categories: ::Array[Types::RouteMatrixAvoidanceZoneCategory]
-      SENSITIVE: []
+      SENSITIVE: [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :toll_roads, :toll_transponders, :tunnels, :u_turns]
     end
 
     class RouteMatrixAvoidanceZoneCategory
       attr_accessor category: ("CongestionPricing" | "Environmental" | "Vignette")
-      SENSITIVE: []
+      SENSITIVE: [:category]
     end
 
     class RouteMatrixBoundary
       attr_accessor geometry: Types::RouteMatrixBoundaryGeometry
       attr_accessor unbounded: bool
-      SENSITIVE: []
+      SENSITIVE: [:unbounded]
     end
 
     class RouteMatrixBoundaryGeometry
@@ -700,7 +700,7 @@ module Aws::GeoRoutes
       attr_accessor license_plate: Types::RouteMatrixVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:license_plate, :max_speed, :occupancy]
     end
 
     class RouteMatrixDestination
@@ -714,14 +714,14 @@ module Aws::GeoRoutes
       attr_accessor heading: ::Float
       attr_accessor matching: Types::RouteMatrixMatchingOptions
       attr_accessor side_of_street: Types::RouteMatrixSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :heading]
     end
 
     class RouteMatrixEntry
       attr_accessor distance: ::Integer
       attr_accessor duration: ::Integer
       attr_accessor error: ("NoMatch" | "NoMatchDestination" | "NoMatchOrigin" | "NoRoute" | "OutOfBounds" | "OutOfBoundsDestination" | "OutOfBoundsOrigin" | "Other" | "Violation")
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration]
     end
 
     class RouteMatrixExclusionOptions
@@ -734,7 +734,7 @@ module Aws::GeoRoutes
       attr_accessor on_road_threshold: ::Integer
       attr_accessor radius: ::Integer
       attr_accessor strategy: ("MatchAny" | "MatchMostSignificantRoad")
-      SENSITIVE: [:name_hint]
+      SENSITIVE: [:name_hint, :on_road_threshold, :radius]
     end
 
     class RouteMatrixOrigin
@@ -748,14 +748,14 @@ module Aws::GeoRoutes
       attr_accessor heading: ::Float
       attr_accessor matching: Types::RouteMatrixMatchingOptions
       attr_accessor side_of_street: Types::RouteMatrixSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :heading]
     end
 
     class RouteMatrixScooterOptions
       attr_accessor license_plate: Types::RouteMatrixVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:license_plate, :max_speed, :occupancy]
     end
 
     class RouteMatrixSideOfStreetOptions
@@ -767,12 +767,12 @@ module Aws::GeoRoutes
     class RouteMatrixTrafficOptions
       attr_accessor flow_event_threshold_override: ::Integer
       attr_accessor usage: ("IgnoreTrafficData" | "UseTrafficData")
-      SENSITIVE: []
+      SENSITIVE: [:flow_event_threshold_override]
     end
 
     class RouteMatrixTrailerOptions
       attr_accessor trailer_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:trailer_count]
     end
 
     class RouteMatrixTravelModeOptions
@@ -799,7 +799,7 @@ module Aws::GeoRoutes
       attr_accessor weight_per_axle: ::Integer
       attr_accessor weight_per_axle_group: Types::WeightPerAxleGroup
       attr_accessor width: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:axle_count, :gross_weight, :height, :kpra_length, :length, :license_plate, :max_speed, :occupancy, :payload_capacity, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
     end
 
     class RouteMatrixVehicleLicensePlate
@@ -817,7 +817,7 @@ module Aws::GeoRoutes
       attr_accessor direction: ("East" | "North" | "South" | "West")
       attr_accessor language: ::String
       attr_accessor value: ::String
-      SENSITIVE: []
+      SENSITIVE: [:direction, :value]
     end
 
     class RouteOriginOptions
@@ -826,14 +826,14 @@ module Aws::GeoRoutes
       attr_accessor heading: ::Float
       attr_accessor matching: Types::RouteMatchingOptions
       attr_accessor side_of_street: Types::RouteSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:avoid_actions_for_distance, :avoid_u_turns, :heading]
     end
 
     class RoutePassThroughPlace
       attr_accessor original_position: ::Array[::Float]
       attr_accessor position: ::Array[::Float]
       attr_accessor waypoint_index: ::Integer
-      SENSITIVE: [:original_position, :position]
+      SENSITIVE: [:original_position, :position, :waypoint_index]
     end
 
     class RoutePassThroughWaypoint
@@ -845,13 +845,13 @@ module Aws::GeoRoutes
     class RoutePedestrianArrival
       attr_accessor place: Types::RoutePedestrianPlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RoutePedestrianDeparture
       attr_accessor place: Types::RoutePedestrianPlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RoutePedestrianLegDetails
@@ -873,13 +873,13 @@ module Aws::GeoRoutes
 
     class RoutePedestrianOptions
       attr_accessor speed: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:speed]
     end
 
     class RoutePedestrianOverviewSummary
       attr_accessor distance: ::Integer
       attr_accessor duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration]
     end
 
     class RoutePedestrianPlace
@@ -888,7 +888,7 @@ module Aws::GeoRoutes
       attr_accessor position: ::Array[::Float]
       attr_accessor side_of_street: ("Left" | "Right")
       attr_accessor waypoint_index: ::Integer
-      SENSITIVE: [:original_position, :position]
+      SENSITIVE: [:name, :original_position, :position, :side_of_street, :waypoint_index]
     end
 
     class RoutePedestrianSpan
@@ -907,7 +907,7 @@ module Aws::GeoRoutes
       attr_accessor route_numbers: ::Array[Types::RouteNumber]
       attr_accessor speed_limit: Types::RouteSpanSpeedLimitDetails
       attr_accessor typical_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:best_case_duration, :country, :distance, :duration, :functional_classification, :region, :typical_duration]
     end
 
     class RoutePedestrianSummary
@@ -918,7 +918,7 @@ module Aws::GeoRoutes
 
     class RoutePedestrianTravelOnlySummary
       attr_accessor duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:duration]
     end
 
     class RoutePedestrianTravelStep
@@ -937,7 +937,7 @@ module Aws::GeoRoutes
       attr_accessor signpost: Types::RouteSignpost
       attr_accessor turn_step_details: Types::RouteTurnStepDetails
       attr_accessor type: ("Arrive" | "Continue" | "Depart" | "Keep" | "RoundaboutEnter" | "RoundaboutExit" | "RoundaboutPass" | "Turn" | "Exit" | "Ramp" | "UTurn")
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration, :instruction, :type]
     end
 
     class RouteRampStepDetails
@@ -945,7 +945,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteResponseNotice
@@ -959,7 +959,7 @@ module Aws::GeoRoutes
       attr_accessor route_number: ::Array[Types::RouteNumber]
       attr_accessor towards: ::Array[Types::LocalizedString]
       attr_accessor type: ("Highway" | "Rural" | "Urban")
-      SENSITIVE: []
+      SENSITIVE: [:type]
     end
 
     class RouteRoundaboutEnterStepDetails
@@ -967,7 +967,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteRoundaboutExitStepDetails
@@ -975,7 +975,7 @@ module Aws::GeoRoutes
       attr_accessor relative_exit: ::Integer
       attr_accessor roundabout_angle: ::Float
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
-      SENSITIVE: []
+      SENSITIVE: [:relative_exit, :steering_direction]
     end
 
     class RouteRoundaboutPassStepDetails
@@ -983,7 +983,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteScooterOptions
@@ -991,7 +991,7 @@ module Aws::GeoRoutes
       attr_accessor license_plate: Types::RouteVehicleLicensePlate
       attr_accessor max_speed: ::Float
       attr_accessor occupancy: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:engine_type, :max_speed, :occupancy]
     end
 
     class RouteSideOfStreetOptions
@@ -1015,20 +1015,20 @@ module Aws::GeoRoutes
       attr_accessor best_case_speed: ::Float
       attr_accessor turn_duration: ::Integer
       attr_accessor typical_speed: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:best_case_speed, :turn_duration, :typical_speed]
     end
 
     class RouteSpanSpeedLimitDetails
       attr_accessor max_speed: ::Float
       attr_accessor unlimited: bool
-      SENSITIVE: []
+      SENSITIVE: [:max_speed, :unlimited]
     end
 
     class RouteSummary
       attr_accessor distance: ::Integer
       attr_accessor duration: ::Integer
       attr_accessor tolls: Types::RouteTollSummary
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration]
     end
 
     class RouteToll
@@ -1036,7 +1036,7 @@ module Aws::GeoRoutes
       attr_accessor payment_sites: ::Array[Types::RouteTollPaymentSite]
       attr_accessor rates: ::Array[Types::RouteTollRate]
       attr_accessor systems: ::Array[::Integer]
-      SENSITIVE: []
+      SENSITIVE: [:country]
     end
 
     class RouteTollOptions
@@ -1045,7 +1045,7 @@ module Aws::GeoRoutes
       attr_accessor currency: ::String
       attr_accessor emission_type: Types::RouteEmissionType
       attr_accessor vehicle_category: ("Minibus")
-      SENSITIVE: []
+      SENSITIVE: [:all_transponders, :all_vignettes, :vehicle_category]
     end
 
     class RouteTollPass
@@ -1054,13 +1054,13 @@ module Aws::GeoRoutes
       attr_accessor transfer_count: ::Integer
       attr_accessor trip_count: ::Integer
       attr_accessor validity_period: Types::RouteTollPassValidityPeriod
-      SENSITIVE: []
+      SENSITIVE: [:includes_return_trip, :senior_pass, :transfer_count, :trip_count]
     end
 
     class RouteTollPassValidityPeriod
       attr_accessor period: ("Annual" | "Days" | "ExtendedAnnual" | "Minutes" | "Months")
       attr_accessor period_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:period, :period_count]
     end
 
     class RouteTollPaymentSite
@@ -1076,7 +1076,7 @@ module Aws::GeoRoutes
       attr_accessor range: bool
       attr_accessor range_value: Types::RouteTollPriceValueRange
       attr_accessor value: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:estimate, :per_duration, :range, :value]
     end
 
     class RouteTollPriceSummary
@@ -1085,13 +1085,13 @@ module Aws::GeoRoutes
       attr_accessor range: bool
       attr_accessor range_value: Types::RouteTollPriceValueRange
       attr_accessor value: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:estimate, :range, :value]
     end
 
     class RouteTollPriceValueRange
       attr_accessor min: ::Float
       attr_accessor max: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:min, :max]
     end
 
     class RouteTollRate
@@ -1103,7 +1103,7 @@ module Aws::GeoRoutes
       attr_accessor pass: Types::RouteTollPass
       attr_accessor payment_methods: ::Array[("BankCard" | "Cash" | "CashExact" | "CreditCard" | "PassSubscription" | "TravelCard" | "Transponder" | "VideoToll")]
       attr_accessor transponders: ::Array[Types::RouteTransponder]
-      SENSITIVE: []
+      SENSITIVE: [:applicable_times, :id, :name]
     end
 
     class RouteTollSummary
@@ -1113,24 +1113,24 @@ module Aws::GeoRoutes
 
     class RouteTollSystem
       attr_accessor name: ::String
-      SENSITIVE: []
+      SENSITIVE: [:name]
     end
 
     class RouteTrafficOptions
       attr_accessor flow_event_threshold_override: ::Integer
       attr_accessor usage: ("IgnoreTrafficData" | "UseTrafficData")
-      SENSITIVE: []
+      SENSITIVE: [:flow_event_threshold_override]
     end
 
     class RouteTrailerOptions
       attr_accessor axle_count: ::Integer
       attr_accessor trailer_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:axle_count, :trailer_count]
     end
 
     class RouteTransponder
       attr_accessor system_name: ::String
-      SENSITIVE: []
+      SENSITIVE: [:system_name]
     end
 
     class RouteTravelModeOptions
@@ -1161,7 +1161,7 @@ module Aws::GeoRoutes
       attr_accessor weight_per_axle: ::Integer
       attr_accessor weight_per_axle_group: Types::WeightPerAxleGroup
       attr_accessor width: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:axle_count, :engine_type, :gross_weight, :height, :height_above_first_axle, :kpra_length, :length, :max_speed, :occupancy, :payload_capacity, :tire_count, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
     end
 
     class RouteTurnStepDetails
@@ -1169,7 +1169,7 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteUTurnStepDetails
@@ -1177,19 +1177,19 @@ module Aws::GeoRoutes
       attr_accessor steering_direction: ("Left" | "Right" | "Straight")
       attr_accessor turn_angle: ::Float
       attr_accessor turn_intensity: ("Sharp" | "Slight" | "Typical")
-      SENSITIVE: []
+      SENSITIVE: [:steering_direction, :turn_intensity]
     end
 
     class RouteVehicleArrival
       attr_accessor place: Types::RouteVehiclePlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RouteVehicleDeparture
       attr_accessor place: Types::RouteVehiclePlace
       attr_accessor time: ::String
-      SENSITIVE: []
+      SENSITIVE: [:time]
     end
 
     class RouteVehicleIncident
@@ -1198,7 +1198,7 @@ module Aws::GeoRoutes
       attr_accessor severity: ("Critical" | "High" | "Medium" | "Low")
       attr_accessor start_time: ::String
       attr_accessor type: ("Accident" | "Congestion" | "Construction" | "DisabledVehicle" | "LaneRestriction" | "MassTransit" | "Other" | "PlannedEvent" | "RoadClosure" | "RoadHazard" | "Weather")
-      SENSITIVE: []
+      SENSITIVE: [:description, :end_time, :severity, :start_time, :type]
     end
 
     class RouteVehicleLegDetails
@@ -1219,7 +1219,7 @@ module Aws::GeoRoutes
 
     class RouteVehicleLicensePlate
       attr_accessor last_character: ::String
-      SENSITIVE: []
+      SENSITIVE: [:last_character]
     end
 
     class RouteVehicleNotice
@@ -1232,7 +1232,7 @@ module Aws::GeoRoutes
     class RouteVehicleNoticeDetail
       attr_accessor title: ::String
       attr_accessor violated_constraints: Types::RouteViolatedConstraints
-      SENSITIVE: []
+      SENSITIVE: [:title]
     end
 
     class RouteVehicleOverviewSummary
@@ -1240,7 +1240,7 @@ module Aws::GeoRoutes
       attr_accessor distance: ::Integer
       attr_accessor duration: ::Integer
       attr_accessor typical_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:best_case_duration, :distance, :duration, :typical_duration]
     end
 
     class RouteVehiclePlace
@@ -1249,7 +1249,7 @@ module Aws::GeoRoutes
       attr_accessor position: ::Array[::Float]
       attr_accessor side_of_street: ("Left" | "Right")
       attr_accessor waypoint_index: ::Integer
-      SENSITIVE: [:original_position, :position]
+      SENSITIVE: [:name, :original_position, :position, :side_of_street, :waypoint_index]
     end
 
     class RouteVehicleSpan
@@ -1276,7 +1276,7 @@ module Aws::GeoRoutes
       attr_accessor truck_road_types: ::Array[::Integer]
       attr_accessor typical_duration: ::Integer
       attr_accessor zones: ::Array[::Integer]
-      SENSITIVE: []
+      SENSITIVE: [:best_case_duration, :country, :distance, :duration, :functional_classification, :gate, :railway_crossing, :region, :typical_duration]
     end
 
     class RouteVehicleSummary
@@ -1289,7 +1289,7 @@ module Aws::GeoRoutes
       attr_accessor best_case_duration: ::Integer
       attr_accessor duration: ::Integer
       attr_accessor typical_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:best_case_duration, :duration, :typical_duration]
     end
 
     class RouteVehicleTravelStep
@@ -1313,7 +1313,7 @@ module Aws::GeoRoutes
       attr_accessor turn_step_details: Types::RouteTurnStepDetails
       attr_accessor type: ("Arrive" | "Continue" | "ContinueHighway" | "Depart" | "EnterHighway" | "Exit" | "Keep" | "Ramp" | "RoundaboutEnter" | "RoundaboutExit" | "RoundaboutPass" | "Turn" | "UTurn")
       attr_accessor u_turn_step_details: Types::RouteUTurnStepDetails
-      SENSITIVE: []
+      SENSITIVE: [:distance, :duration, :instruction, :type]
     end
 
     class RouteViolatedConstraints
@@ -1336,7 +1336,7 @@ module Aws::GeoRoutes
       attr_accessor truck_road_type: ::String
       attr_accessor truck_type: ("LightTruck" | "StraightTruck" | "Tractor")
       attr_accessor tunnel_restriction_code: ::String
-      SENSITIVE: []
+      SENSITIVE: [:all_hazards_restricted, :max_height, :max_kpra_length, :max_length, :max_payload_capacity, :max_weight_per_axle, :max_width, :time_dependent, :travel_mode, :truck_type, :tunnel_restriction_code]
     end
 
     class RouteWaypoint
@@ -1348,19 +1348,19 @@ module Aws::GeoRoutes
       attr_accessor position: ::Array[::Float]
       attr_accessor side_of_street: Types::RouteSideOfStreetOptions
       attr_accessor stop_duration: ::Integer
-      SENSITIVE: [:position]
+      SENSITIVE: [:avoid_actions_for_distance, :avoid_u_turns, :heading, :pass_through, :position, :stop_duration]
     end
 
     class RouteWeightConstraint
       attr_accessor type: ("Current" | "Gross" | "Unknown")
       attr_accessor value: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:value]
     end
 
     class RouteZone
       attr_accessor category: ("CongestionPricing" | "Environmental" | "Vignette")
       attr_accessor name: ::String
-      SENSITIVE: []
+      SENSITIVE: [:category, :name]
     end
 
     class SnapToRoadsRequest
@@ -1370,7 +1370,7 @@ module Aws::GeoRoutes
       attr_accessor trace_points: ::Array[Types::RoadSnapTracePoint]
       attr_accessor travel_mode: ("Car" | "Pedestrian" | "Scooter" | "Truck")
       attr_accessor travel_mode_options: Types::RoadSnapTravelModeOptions
-      SENSITIVE: [:key]
+      SENSITIVE: [:key, :snap_radius]
     end
 
     class SnapToRoadsResponse
@@ -1409,7 +1409,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationAccessHoursEntry
       attr_accessor day_of_week: ("Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday")
       attr_accessor time_of_day: ::String
-      SENSITIVE: []
+      SENSITIVE: [:day_of_week, :time_of_day]
     end
 
     class WaypointOptimizationAvoidanceArea
@@ -1431,13 +1431,13 @@ module Aws::GeoRoutes
       attr_accessor toll_roads: bool
       attr_accessor tunnels: bool
       attr_accessor u_turns: bool
-      SENSITIVE: []
+      SENSITIVE: [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :toll_roads, :tunnels, :u_turns]
     end
 
     class WaypointOptimizationClusteringOptions
       attr_accessor algorithm: ("DrivingDistance" | "TopologySegment")
       attr_accessor driving_distance_options: Types::WaypointOptimizationDrivingDistanceOptions
-      SENSITIVE: []
+      SENSITIVE: [:algorithm]
     end
 
     class WaypointOptimizationConnection
@@ -1447,7 +1447,7 @@ module Aws::GeoRoutes
       attr_accessor to: ::String
       attr_accessor travel_duration: ::Integer
       attr_accessor wait_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:distance, :rest_duration, :travel_duration, :wait_duration]
     end
 
     class WaypointOptimizationDestinationOptions
@@ -1457,19 +1457,19 @@ module Aws::GeoRoutes
       attr_accessor id: ::String
       attr_accessor service_duration: ::Integer
       attr_accessor side_of_street: Types::WaypointOptimizationSideOfStreetOptions
-      SENSITIVE: []
+      SENSITIVE: [:appointment_time, :heading, :service_duration]
     end
 
     class WaypointOptimizationDriverOptions
       attr_accessor rest_cycles: Types::WaypointOptimizationRestCycles
       attr_accessor rest_profile: Types::WaypointOptimizationRestProfile
       attr_accessor treat_service_time_as: ("Rest" | "Work")
-      SENSITIVE: []
+      SENSITIVE: [:treat_service_time_as]
     end
 
     class WaypointOptimizationDrivingDistanceOptions
       attr_accessor driving_distance: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:driving_distance]
     end
 
     class WaypointOptimizationExclusionOptions
@@ -1480,7 +1480,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationFailedConstraint
       attr_accessor constraint: ("AccessHours" | "AppointmentTime" | "Before" | "Heading" | "ServiceDuration" | "SideOfStreet")
       attr_accessor reason: ::String
-      SENSITIVE: []
+      SENSITIVE: [:constraint, :reason]
     end
 
     class WaypointOptimizationImpedingWaypoint
@@ -1496,7 +1496,7 @@ module Aws::GeoRoutes
       attr_accessor departure_time: ::String
       attr_accessor id: ::String
       attr_accessor position: ::Array[::Float]
-      SENSITIVE: [:position]
+      SENSITIVE: [:arrival_time, :departure_time, :position]
     end
 
     class WaypointOptimizationOriginOptions
@@ -1506,13 +1506,13 @@ module Aws::GeoRoutes
 
     class WaypointOptimizationPedestrianOptions
       attr_accessor speed: ::Float
-      SENSITIVE: []
+      SENSITIVE: [:speed]
     end
 
     class WaypointOptimizationRestCycleDurations
       attr_accessor rest_duration: ::Integer
       attr_accessor work_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:rest_duration, :work_duration]
     end
 
     class WaypointOptimizationRestCycles
@@ -1523,7 +1523,7 @@ module Aws::GeoRoutes
 
     class WaypointOptimizationRestProfile
       attr_accessor profile: ::String
-      SENSITIVE: []
+      SENSITIVE: [:profile]
     end
 
     class WaypointOptimizationSideOfStreetOptions
@@ -1537,7 +1537,7 @@ module Aws::GeoRoutes
       attr_accessor service_duration: ::Integer
       attr_accessor travel_duration: ::Integer
       attr_accessor wait_duration: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:rest_duration, :service_duration, :travel_duration, :wait_duration]
     end
 
     class WaypointOptimizationTrafficOptions
@@ -1547,7 +1547,7 @@ module Aws::GeoRoutes
 
     class WaypointOptimizationTrailerOptions
       attr_accessor trailer_count: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:trailer_count]
     end
 
     class WaypointOptimizationTravelModeOptions
@@ -1566,7 +1566,7 @@ module Aws::GeoRoutes
       attr_accessor tunnel_restriction_code: ::String
       attr_accessor weight_per_axle: ::Integer
       attr_accessor width: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:gross_weight, :height, :length, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
     end
 
     class WaypointOptimizationWaypoint
@@ -1578,7 +1578,7 @@ module Aws::GeoRoutes
       attr_accessor position: ::Array[::Float]
       attr_accessor service_duration: ::Integer
       attr_accessor side_of_street: Types::WaypointOptimizationSideOfStreetOptions
-      SENSITIVE: [:position]
+      SENSITIVE: [:appointment_time, :heading, :position, :service_duration]
     end
 
     class WeightPerAxleGroup
@@ -1587,7 +1587,7 @@ module Aws::GeoRoutes
       attr_accessor triple: ::Integer
       attr_accessor quad: ::Integer
       attr_accessor quint: ::Integer
-      SENSITIVE: []
+      SENSITIVE: [:single, :tandem, :triple, :quad, :quint]
     end
   end
 end

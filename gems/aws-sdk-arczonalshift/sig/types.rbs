@@ -51,7 +51,7 @@ module Aws::ARCZonalShift
 
     class ConflictException
       attr_accessor message: ::String
-      attr_accessor reason: ("ZonalShiftAlreadyExists" | "ZonalShiftStatusNotActive" | "SimultaneousZonalShiftsConflict" | "PracticeConfigurationAlreadyExists" | "AutoShiftEnabled" | "PracticeConfigurationDoesNotExist" | "ZonalAutoshiftActive" | "PracticeOutcomeAlarmsRed" | "PracticeBlockingAlarmsRed" | "PracticeInBlockedDates" | "PracticeInBlockedWindows")
+      attr_accessor reason: ("ZonalShiftAlreadyExists" | "ZonalShiftStatusNotActive" | "SimultaneousZonalShiftsConflict" | "PracticeConfigurationAlreadyExists" | "AutoShiftEnabled" | "PracticeConfigurationDoesNotExist" | "ZonalAutoshiftActive" | "PracticeOutcomeAlarmsRed" | "PracticeBlockingAlarmsRed" | "PracticeInBlockedDates" | "PracticeInBlockedWindows" | "PracticeOutsideAllowedWindows")
       attr_accessor zonal_shift_id: ::String
       SENSITIVE: []
     end
@@ -67,6 +67,7 @@ module Aws::ARCZonalShift
       attr_accessor blocked_windows: ::Array[::String]
       attr_accessor blocked_dates: ::Array[::String]
       attr_accessor blocking_alarms: ::Array[Types::ControlCondition]
+      attr_accessor allowed_windows: ::Array[::String]
       attr_accessor outcome_alarms: ::Array[Types::ControlCondition]
       SENSITIVE: []
     end
@@ -175,6 +176,7 @@ module Aws::ARCZonalShift
       attr_accessor blocking_alarms: ::Array[Types::ControlCondition]
       attr_accessor outcome_alarms: ::Array[Types::ControlCondition]
       attr_accessor blocked_windows: ::Array[::String]
+      attr_accessor allowed_windows: ::Array[::String]
       attr_accessor blocked_dates: ::Array[::String]
       SENSITIVE: []
     end
@@ -230,6 +232,7 @@ module Aws::ARCZonalShift
       attr_accessor blocked_windows: ::Array[::String]
       attr_accessor blocked_dates: ::Array[::String]
       attr_accessor blocking_alarms: ::Array[Types::ControlCondition]
+      attr_accessor allowed_windows: ::Array[::String]
       attr_accessor outcome_alarms: ::Array[Types::ControlCondition]
       SENSITIVE: []
     end
@@ -263,7 +266,7 @@ module Aws::ARCZonalShift
 
     class ValidationException
       attr_accessor message: ::String
-      attr_accessor reason: ("InvalidExpiresIn" | "InvalidStatus" | "MissingValue" | "InvalidToken" | "InvalidResourceIdentifier" | "InvalidAz" | "UnsupportedAz" | "InvalidAlarmCondition" | "InvalidConditionType" | "InvalidPracticeBlocker" | "FISExperimentUpdateNotAllowed" | "AutoshiftUpdateNotAllowed" | "UnsupportedPracticeCancelShiftType")
+      attr_accessor reason: ("InvalidExpiresIn" | "InvalidStatus" | "MissingValue" | "InvalidToken" | "InvalidResourceIdentifier" | "InvalidAz" | "UnsupportedAz" | "InvalidAlarmCondition" | "InvalidConditionType" | "InvalidPracticeBlocker" | "FISExperimentUpdateNotAllowed" | "AutoshiftUpdateNotAllowed" | "UnsupportedPracticeCancelShiftType" | "InvalidPracticeAllowedWindow" | "InvalidPracticeWindows")
       SENSITIVE: []
     end
 

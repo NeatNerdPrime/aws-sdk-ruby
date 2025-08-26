@@ -316,9 +316,12 @@ module Aws::ARCZonalShift
     #   blocked windows with spaces.
     #
     #   For example, say you run business report summaries three days a
-    #   week. For this scenario, you might set the following recurring days
-    #   and times as blocked windows, for example: `MON-20:30-21:30
-    #   WED-20:30-21:30 FRI-20:30-21:30`.
+    #   week. For this scenario, you could set the following recurring days
+    #   and times as blocked windows, for example: `Mon:00:00-Mon:10:00
+    #   Wed-20:30-Wed:21:30 Fri-20:30-Fri:21:30`.
+    #
+    #   The `blockedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
     #   @return [Array<String>]
     #
     # @!attribute [rw] blocked_dates
@@ -335,23 +338,40 @@ module Aws::ARCZonalShift
     #   @return [Array<String>]
     #
     # @!attribute [rw] blocking_alarms
-    #   An Amazon CloudWatch alarm that you can specify for zonal autoshift
-    #   practice runs. This alarm blocks ARC from starting practice run
-    #   zonal shifts, and ends a practice run that's in progress, when the
-    #   alarm is in an `ALARM` state.
+    #   *Blocking alarms* for practice runs are optional alarms that you can
+    #   specify that block practice runs when one or more of the alarms is
+    #   in an `ALARM` state.
     #   @return [Array<Types::ControlCondition>]
     #
-    # @!attribute [rw] outcome_alarms
-    #   The *outcome alarm* for practice runs is a required Amazon
-    #   CloudWatch alarm that you specify that ends a practice run when the
-    #   alarm is in an `ALARM` state.
+    # @!attribute [rw] allowed_windows
+    #   Optionally, you can allow ARC to start practice runs for specific
+    #   windows of days and times.
     #
-    #   Configure the alarm to monitor the health of your application when
-    #   traffic is shifted away from an Availability Zone during each
-    #   practice run. You should configure the alarm to go into an `ALARM`
-    #   state if your application is impacted by the zonal shift, and you
-    #   want to stop the zonal shift, to let traffic for the resource return
-    #   to the Availability Zone.
+    #   The format for allowed windows is: DAY:HH:SS-DAY:HH:SS. Keep in
+    #   mind, when you specify dates, that dates and times for practice runs
+    #   are in UTC. Also, be aware of potential time adjustments that might
+    #   be required for daylight saving time differences. Separate multiple
+    #   allowed windows with spaces.
+    #
+    #   For example, say you want to allow practice runs only on Wednesdays
+    #   and Fridays from noon to 5 p.m. For this scenario, you could set the
+    #   following recurring days and times as allowed windows, for example:
+    #   `Wed-12:00-Wed:17:00 Fri-12:00-Fri:17:00`.
+    #
+    #   The `allowedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] outcome_alarms
+    #   *Outcome alarms* for practice runs are alarms that you specify that
+    #   end a practice run when one or more of the alarms is in an `ALARM`
+    #   state.
+    #
+    #   Configure one or more of these alarms to monitor the health of your
+    #   application when traffic is shifted away from an Availability Zone
+    #   during each practice run. You should configure these alarms to go
+    #   into an `ALARM` state if you want to stop a zonal shift, to let
+    #   traffic for the resource return to the original Availability Zone.
     #   @return [Array<Types::ControlCondition>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/arc-zonal-shift-2022-10-30/CreatePracticeRunConfigurationRequest AWS API Documentation
@@ -361,6 +381,7 @@ module Aws::ARCZonalShift
       :blocked_windows,
       :blocked_dates,
       :blocking_alarms,
+      :allowed_windows,
       :outcome_alarms)
       SENSITIVE = []
       include Aws::Structure
@@ -801,14 +822,15 @@ module Aws::ARCZonalShift
     # autoshift is enabled.
     #
     # @!attribute [rw] blocking_alarms
-    #   The *blocking alarm* for practice runs is an optional alarm that you
-    #   can specify that blocks practice runs when the alarm is in an
-    #   `ALARM` state.
+    #   *Blocking alarms* for practice runs are optional alarms that you can
+    #   specify that block practice runs when one or more of the alarms is
+    #   in an `ALARM` state.
     #   @return [Array<Types::ControlCondition>]
     #
     # @!attribute [rw] outcome_alarms
-    #   The *outcome alarm* for practice runs is an alarm that you specify
-    #   that ends a practice run when the alarm is in an `ALARM` state.
+    #   *Outcome alarms* for practice runs are alarms that you specify that
+    #   end a practice run when one or more of the alarms is in an `ALARM`
+    #   state.
     #   @return [Array<Types::ControlCondition>]
     #
     # @!attribute [rw] blocked_windows
@@ -818,6 +840,22 @@ module Aws::ARCZonalShift
     #   Specify the blocked windows in UTC, using the format
     #   `DAY:HH:MM-DAY:HH:MM`, separated by spaces. For example,
     #   `MON:18:30-MON:19:30 TUE:18:30-TUE:19:30`.
+    #
+    #   The `blockedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] allowed_windows
+    #   An array of one or more windows of days and times that you can allow
+    #   ARC to start practice runs for a resource.
+    #
+    #   For example, say you want to allow practice runs only on Wednesdays
+    #   and Fridays from noon to 5 p.m. For this scenario, you could set the
+    #   following recurring days and times as allowed windows, for example:
+    #   `Wed-12:00-Wed:17:00 Fri-12:00-Fri:17:00`.
+    #
+    #   The `allowedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
     #   @return [Array<String>]
     #
     # @!attribute [rw] blocked_dates
@@ -834,6 +872,7 @@ module Aws::ARCZonalShift
       :blocking_alarms,
       :outcome_alarms,
       :blocked_windows,
+      :allowed_windows,
       :blocked_dates)
       SENSITIVE = []
       include Aws::Structure
@@ -1092,13 +1131,32 @@ module Aws::ARCZonalShift
     #   @return [Array<String>]
     #
     # @!attribute [rw] blocking_alarms
-    #   Add, change, or remove the Amazon CloudWatch alarm that you
-    #   optionally specify as the blocking alarm for practice runs.
+    #   Add, change, or remove the Amazon CloudWatch alarms that you
+    #   optionally specify as the blocking alarms for practice runs.
     #   @return [Array<Types::ControlCondition>]
     #
+    # @!attribute [rw] allowed_windows
+    #   Add, change, or remove windows of days and times for when you can,
+    #   optionally, allow ARC to start a practice run for a resource.
+    #
+    #   The format for allowed windows is: DAY:HH:SS-DAY:HH:SS. Keep in
+    #   mind, when you specify dates, that dates and times for practice runs
+    #   are in UTC. Also, be aware of potential time adjustments that might
+    #   be required for daylight saving time differences. Separate multiple
+    #   allowed windows with spaces.
+    #
+    #   For example, say you want to allow practice runs only on Wednesdays
+    #   and Fridays from noon to 5 p.m. For this scenario, you could set the
+    #   following recurring days and times as allowed windows, for example:
+    #   `Wed-12:00-Wed:17:00 Fri-12:00-Fri:17:00`.
+    #
+    #   The `allowedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
+    #   @return [Array<String>]
+    #
     # @!attribute [rw] outcome_alarms
-    #   Specify a new the Amazon CloudWatch alarm as the outcome alarm for
-    #   practice runs.
+    #   Specify one or more Amazon CloudWatch alarms as the outcome alarms
+    #   for practice runs.
     #   @return [Array<Types::ControlCondition>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/arc-zonal-shift-2022-10-30/UpdatePracticeRunConfigurationRequest AWS API Documentation
@@ -1108,6 +1166,7 @@ module Aws::ARCZonalShift
       :blocked_windows,
       :blocked_dates,
       :blocking_alarms,
+      :allowed_windows,
       :outcome_alarms)
       SENSITIVE = []
       include Aws::Structure

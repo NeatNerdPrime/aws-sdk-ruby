@@ -15,6 +15,8 @@ module Aws::ARCZonalShift
     include Seahorse::Model
 
     AccessDeniedException = Shapes::StructureShape.new(name: 'AccessDeniedException')
+    AllowedWindow = Shapes::StringShape.new(name: 'AllowedWindow')
+    AllowedWindows = Shapes::ListShape.new(name: 'AllowedWindows')
     AppliedStatus = Shapes::StringShape.new(name: 'AppliedStatus')
     AppliedWeights = Shapes::MapShape.new(name: 'AppliedWeights')
     AutoshiftAppliedStatus = Shapes::StringShape.new(name: 'AutoshiftAppliedStatus')
@@ -30,6 +32,7 @@ module Aws::ARCZonalShift
     BlockedDates = Shapes::ListShape.new(name: 'BlockedDates')
     BlockedWindow = Shapes::StringShape.new(name: 'BlockedWindow')
     BlockedWindows = Shapes::ListShape.new(name: 'BlockedWindows')
+    BlockingAlarms = Shapes::ListShape.new(name: 'BlockingAlarms')
     CancelPracticeRunRequest = Shapes::StructureShape.new(name: 'CancelPracticeRunRequest')
     CancelPracticeRunResponse = Shapes::StructureShape.new(name: 'CancelPracticeRunResponse')
     CancelZonalShiftRequest = Shapes::StructureShape.new(name: 'CancelZonalShiftRequest')
@@ -37,7 +40,6 @@ module Aws::ARCZonalShift
     ConflictExceptionReason = Shapes::StringShape.new(name: 'ConflictExceptionReason')
     ControlCondition = Shapes::StructureShape.new(name: 'ControlCondition')
     ControlConditionType = Shapes::StringShape.new(name: 'ControlConditionType')
-    ControlConditions = Shapes::ListShape.new(name: 'ControlConditions')
     CreatePracticeRunConfigurationRequest = Shapes::StructureShape.new(name: 'CreatePracticeRunConfigurationRequest')
     CreatePracticeRunConfigurationResponse = Shapes::StructureShape.new(name: 'CreatePracticeRunConfigurationResponse')
     DeletePracticeRunConfigurationRequest = Shapes::StructureShape.new(name: 'DeletePracticeRunConfigurationRequest')
@@ -59,6 +61,7 @@ module Aws::ARCZonalShift
     ManagedResourceSummary = Shapes::StructureShape.new(name: 'ManagedResourceSummary')
     MaxResults = Shapes::IntegerShape.new(name: 'MaxResults')
     MetricIdentifier = Shapes::StringShape.new(name: 'MetricIdentifier')
+    OutcomeAlarms = Shapes::ListShape.new(name: 'OutcomeAlarms')
     PracticeRunConfiguration = Shapes::StructureShape.new(name: 'PracticeRunConfiguration')
     PracticeRunOutcome = Shapes::StringShape.new(name: 'PracticeRunOutcome')
     ResourceArn = Shapes::StringShape.new(name: 'ResourceArn')
@@ -95,6 +98,8 @@ module Aws::ARCZonalShift
     AccessDeniedException.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
     AccessDeniedException.struct_class = Types::AccessDeniedException
 
+    AllowedWindows.member = Shapes::ShapeRef.new(shape: AllowedWindow)
+
     AppliedWeights.key = Shapes::ShapeRef.new(shape: AvailabilityZone)
     AppliedWeights.value = Shapes::ShapeRef.new(shape: Weight)
 
@@ -118,6 +123,8 @@ module Aws::ARCZonalShift
     BlockedDates.member = Shapes::ShapeRef.new(shape: BlockedDate)
 
     BlockedWindows.member = Shapes::ShapeRef.new(shape: BlockedWindow)
+
+    BlockingAlarms.member = Shapes::ShapeRef.new(shape: ControlCondition)
 
     CancelPracticeRunRequest.add_member(:zonal_shift_id, Shapes::ShapeRef.new(shape: ZonalShiftId, required: true, location: "uri", location_name: "zonalShiftId"))
     CancelPracticeRunRequest.struct_class = Types::CancelPracticeRunRequest
@@ -143,13 +150,12 @@ module Aws::ARCZonalShift
     ControlCondition.add_member(:alarm_identifier, Shapes::ShapeRef.new(shape: MetricIdentifier, required: true, location_name: "alarmIdentifier"))
     ControlCondition.struct_class = Types::ControlCondition
 
-    ControlConditions.member = Shapes::ShapeRef.new(shape: ControlCondition)
-
     CreatePracticeRunConfigurationRequest.add_member(:resource_identifier, Shapes::ShapeRef.new(shape: ResourceIdentifier, required: true, location_name: "resourceIdentifier"))
     CreatePracticeRunConfigurationRequest.add_member(:blocked_windows, Shapes::ShapeRef.new(shape: BlockedWindows, location_name: "blockedWindows"))
     CreatePracticeRunConfigurationRequest.add_member(:blocked_dates, Shapes::ShapeRef.new(shape: BlockedDates, location_name: "blockedDates"))
-    CreatePracticeRunConfigurationRequest.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: ControlConditions, location_name: "blockingAlarms"))
-    CreatePracticeRunConfigurationRequest.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: ControlConditions, required: true, location_name: "outcomeAlarms"))
+    CreatePracticeRunConfigurationRequest.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: BlockingAlarms, location_name: "blockingAlarms"))
+    CreatePracticeRunConfigurationRequest.add_member(:allowed_windows, Shapes::ShapeRef.new(shape: AllowedWindows, location_name: "allowedWindows"))
+    CreatePracticeRunConfigurationRequest.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: OutcomeAlarms, required: true, location_name: "outcomeAlarms"))
     CreatePracticeRunConfigurationRequest.struct_class = Types::CreatePracticeRunConfigurationRequest
 
     CreatePracticeRunConfigurationResponse.add_member(:arn, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location_name: "arn"))
@@ -225,9 +231,12 @@ module Aws::ARCZonalShift
     ManagedResourceSummary.add_member(:practice_run_status, Shapes::ShapeRef.new(shape: ZonalAutoshiftStatus, location_name: "practiceRunStatus"))
     ManagedResourceSummary.struct_class = Types::ManagedResourceSummary
 
-    PracticeRunConfiguration.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: ControlConditions, location_name: "blockingAlarms"))
-    PracticeRunConfiguration.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: ControlConditions, required: true, location_name: "outcomeAlarms"))
+    OutcomeAlarms.member = Shapes::ShapeRef.new(shape: ControlCondition)
+
+    PracticeRunConfiguration.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: BlockingAlarms, location_name: "blockingAlarms"))
+    PracticeRunConfiguration.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: OutcomeAlarms, required: true, location_name: "outcomeAlarms"))
     PracticeRunConfiguration.add_member(:blocked_windows, Shapes::ShapeRef.new(shape: BlockedWindows, location_name: "blockedWindows"))
+    PracticeRunConfiguration.add_member(:allowed_windows, Shapes::ShapeRef.new(shape: AllowedWindows, location_name: "allowedWindows"))
     PracticeRunConfiguration.add_member(:blocked_dates, Shapes::ShapeRef.new(shape: BlockedDates, location_name: "blockedDates"))
     PracticeRunConfiguration.struct_class = Types::PracticeRunConfiguration
 
@@ -266,8 +275,9 @@ module Aws::ARCZonalShift
     UpdatePracticeRunConfigurationRequest.add_member(:resource_identifier, Shapes::ShapeRef.new(shape: ResourceIdentifier, required: true, location: "uri", location_name: "resourceIdentifier"))
     UpdatePracticeRunConfigurationRequest.add_member(:blocked_windows, Shapes::ShapeRef.new(shape: BlockedWindows, location_name: "blockedWindows"))
     UpdatePracticeRunConfigurationRequest.add_member(:blocked_dates, Shapes::ShapeRef.new(shape: BlockedDates, location_name: "blockedDates"))
-    UpdatePracticeRunConfigurationRequest.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: ControlConditions, location_name: "blockingAlarms"))
-    UpdatePracticeRunConfigurationRequest.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: ControlConditions, location_name: "outcomeAlarms"))
+    UpdatePracticeRunConfigurationRequest.add_member(:blocking_alarms, Shapes::ShapeRef.new(shape: BlockingAlarms, location_name: "blockingAlarms"))
+    UpdatePracticeRunConfigurationRequest.add_member(:allowed_windows, Shapes::ShapeRef.new(shape: AllowedWindows, location_name: "allowedWindows"))
+    UpdatePracticeRunConfigurationRequest.add_member(:outcome_alarms, Shapes::ShapeRef.new(shape: OutcomeAlarms, location_name: "outcomeAlarms"))
     UpdatePracticeRunConfigurationRequest.struct_class = Types::UpdatePracticeRunConfigurationRequest
 
     UpdatePracticeRunConfigurationResponse.add_member(:arn, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location_name: "arn"))

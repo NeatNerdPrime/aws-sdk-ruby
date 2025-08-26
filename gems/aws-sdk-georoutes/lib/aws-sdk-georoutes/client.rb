@@ -1368,8 +1368,8 @@ module Aws::GeoRoutes
     #       all_vignettes: false,
     #       currency: "CurrencyCode",
     #       emission_type: {
-    #         co_2_emission_class: "String",
-    #         type: "String", # required
+    #         co_2_emission_class: "SensitiveString",
+    #         type: "SensitiveString", # required
     #       },
     #       vehicle_category: "Minibus", # accepts Minibus
     #     },
@@ -1486,7 +1486,7 @@ module Aws::GeoRoutes
     #   resp.routes[0].legs[0].ferry_leg_details.departure.place.waypoint_index #=> Integer
     #   resp.routes[0].legs[0].ferry_leg_details.departure.time #=> String
     #   resp.routes[0].legs[0].ferry_leg_details.notices #=> Array
-    #   resp.routes[0].legs[0].ferry_leg_details.notices[0].code #=> String, one of "AccuratePolylineUnavailable", "NoSchedule", "Other", "ViolatedAvoidFerry", "ViolatedAvoidRailFerry", "SeasonalClosure"
+    #   resp.routes[0].legs[0].ferry_leg_details.notices[0].code #=> String, one of "AccuratePolylineUnavailable", "NoSchedule", "Other", "ViolatedAvoidFerry", "ViolatedAvoidRailFerry", "SeasonalClosure", "PotentialViolatedVehicleRestrictionUsage"
     #   resp.routes[0].legs[0].ferry_leg_details.notices[0].impact #=> String, one of "High", "Low"
     #   resp.routes[0].legs[0].ferry_leg_details.pass_through_waypoints #=> Array
     #   resp.routes[0].legs[0].ferry_leg_details.pass_through_waypoints[0].geometry_offset #=> Integer
@@ -2279,7 +2279,7 @@ module Aws::GeoRoutes
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-georoutes'
-      context[:gem_version] = '1.11.0'
+      context[:gem_version] = '1.12.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

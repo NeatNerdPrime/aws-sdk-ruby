@@ -2165,6 +2165,21 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class CreateImageUsageReportRequest
+      attr_accessor image_id: ::String
+      attr_accessor dry_run: bool
+      attr_accessor resource_types: ::Array[Types::ImageUsageResourceTypeRequest]
+      attr_accessor account_ids: ::Array[::String]
+      attr_accessor client_token: ::String
+      attr_accessor tag_specifications: ::Array[Types::TagSpecification]
+      SENSITIVE: []
+    end
+
+    class CreateImageUsageReportResult
+      attr_accessor report_id: ::String
+      SENSITIVE: []
+    end
+
     class CreateInstanceConnectEndpointRequest
       attr_accessor dry_run: bool
       attr_accessor subnet_id: ::String
@@ -3626,6 +3641,17 @@ module Aws::EC2
     end
 
     class DeleteFpgaImageResult
+      attr_accessor return: bool
+      SENSITIVE: []
+    end
+
+    class DeleteImageUsageReportRequest
+      attr_accessor report_id: ::String
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class DeleteImageUsageReportResult
       attr_accessor return: bool
       SENSITIVE: []
     end
@@ -5201,6 +5227,54 @@ module Aws::EC2
       attr_accessor attribute: ("description" | "kernel" | "ramdisk" | "launchPermission" | "productCodes" | "blockDeviceMapping" | "sriovNetSupport" | "bootMode" | "tpmSupport" | "uefiData" | "lastLaunchedTime" | "imdsSupport" | "deregistrationProtection")
       attr_accessor image_id: ::String
       attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class DescribeImageReferencesRequest
+      attr_accessor image_ids: ::Array[::String]
+      attr_accessor include_all_resource_types: bool
+      attr_accessor resource_types: ::Array[Types::ResourceTypeRequest]
+      attr_accessor next_token: ::String
+      attr_accessor dry_run: bool
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class DescribeImageReferencesResult
+      attr_accessor next_token: ::String
+      attr_accessor image_references: ::Array[Types::ImageReference]
+      SENSITIVE: []
+    end
+
+    class DescribeImageUsageReportEntriesRequest
+      attr_accessor image_ids: ::Array[::String]
+      attr_accessor report_ids: ::Array[::String]
+      attr_accessor next_token: ::String
+      attr_accessor filters: ::Array[Types::Filter]
+      attr_accessor dry_run: bool
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class DescribeImageUsageReportEntriesResult
+      attr_accessor next_token: ::String
+      attr_accessor image_usage_report_entries: ::Array[Types::ImageUsageReportEntry]
+      SENSITIVE: []
+    end
+
+    class DescribeImageUsageReportsRequest
+      attr_accessor image_ids: ::Array[::String]
+      attr_accessor report_ids: ::Array[::String]
+      attr_accessor next_token: ::String
+      attr_accessor filters: ::Array[Types::Filter]
+      attr_accessor dry_run: bool
+      attr_accessor max_results: ::Integer
+      SENSITIVE: []
+    end
+
+    class DescribeImageUsageReportsResult
+      attr_accessor next_token: ::String
+      attr_accessor image_usage_reports: ::Array[Types::ImageUsageReport]
       SENSITIVE: []
     end
 
@@ -9616,6 +9690,60 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class ImageReference
+      attr_accessor image_id: ::String
+      attr_accessor resource_type: ("ec2:Instance" | "ec2:LaunchTemplate" | "ssm:Parameter" | "imagebuilder:ImageRecipe" | "imagebuilder:ContainerRecipe")
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class ImageUsageReport
+      attr_accessor image_id: ::String
+      attr_accessor report_id: ::String
+      attr_accessor resource_types: ::Array[Types::ImageUsageResourceType]
+      attr_accessor account_ids: ::Array[::String]
+      attr_accessor state: ::String
+      attr_accessor state_reason: ::String
+      attr_accessor creation_time: ::Time
+      attr_accessor expiration_time: ::Time
+      attr_accessor tags: ::Array[Types::Tag]
+      SENSITIVE: []
+    end
+
+    class ImageUsageReportEntry
+      attr_accessor resource_type: ::String
+      attr_accessor report_id: ::String
+      attr_accessor usage_count: ::Integer
+      attr_accessor account_id: ::String
+      attr_accessor image_id: ::String
+      attr_accessor report_creation_time: ::Time
+      SENSITIVE: []
+    end
+
+    class ImageUsageResourceType
+      attr_accessor resource_type: ::String
+      attr_accessor resource_type_options: ::Array[Types::ImageUsageResourceTypeOption]
+      SENSITIVE: []
+    end
+
+    class ImageUsageResourceTypeOption
+      attr_accessor option_name: ::String
+      attr_accessor option_values: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class ImageUsageResourceTypeOptionRequest
+      attr_accessor option_name: ::String
+      attr_accessor option_values: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class ImageUsageResourceTypeRequest
+      attr_accessor resource_type: ::String
+      attr_accessor resource_type_options: ::Array[Types::ImageUsageResourceTypeOptionRequest]
+      SENSITIVE: []
+    end
+
     class ImportClientVpnClientCertificateRevocationListRequest
       attr_accessor client_vpn_endpoint_id: ::String
       attr_accessor certificate_revocation_list: ::String
@@ -11207,13 +11335,13 @@ module Aws::EC2
     end
 
     class LaunchTemplateTagSpecification
-      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
+      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "image-usage-report" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
     end
 
     class LaunchTemplateTagSpecificationRequest
-      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
+      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "image-usage-report" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
     end
@@ -14335,6 +14463,18 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class ResourceTypeOption
+      attr_accessor option_name: ("state-name" | "version-depth")
+      attr_accessor option_values: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class ResourceTypeRequest
+      attr_accessor resource_type: ("ec2:Instance" | "ec2:LaunchTemplate" | "ssm:Parameter" | "imagebuilder:ImageRecipe" | "imagebuilder:ContainerRecipe")
+      attr_accessor resource_type_options: ::Array[Types::ResourceTypeOption]
+      SENSITIVE: []
+    end
+
     class ResponseError
       attr_accessor code: ("launchTemplateIdDoesNotExist" | "launchTemplateIdMalformed" | "launchTemplateNameDoesNotExist" | "launchTemplateNameMalformed" | "launchTemplateVersionDoesNotExist" | "unexpectedError")
       attr_accessor message: ::String
@@ -15309,7 +15449,7 @@ module Aws::EC2
     end
 
     class SpotFleetTagSpecification
-      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
+      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "image-usage-report" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
     end
@@ -15647,13 +15787,13 @@ module Aws::EC2
     class TagDescription
       attr_accessor key: ::String
       attr_accessor resource_id: ::String
-      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
+      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "image-usage-report" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
       attr_accessor value: ::String
       SENSITIVE: []
     end
 
     class TagSpecification
-      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
+      attr_accessor resource_type: ("capacity-reservation" | "client-vpn-endpoint" | "customer-gateway" | "carrier-gateway" | "coip-pool" | "declarative-policies-report" | "dedicated-host" | "dhcp-options" | "egress-only-internet-gateway" | "elastic-ip" | "elastic-gpu" | "export-image-task" | "export-instance-task" | "fleet" | "fpga-image" | "host-reservation" | "image" | "image-usage-report" | "import-image-task" | "import-snapshot-task" | "instance" | "instance-event-window" | "internet-gateway" | "ipam" | "ipam-pool" | "ipam-scope" | "ipv4pool-ec2" | "ipv6pool-ec2" | "key-pair" | "launch-template" | "local-gateway" | "local-gateway-route-table" | "local-gateway-virtual-interface" | "local-gateway-virtual-interface-group" | "local-gateway-route-table-vpc-association" | "local-gateway-route-table-virtual-interface-group-association" | "natgateway" | "network-acl" | "network-interface" | "network-insights-analysis" | "network-insights-path" | "network-insights-access-scope" | "network-insights-access-scope-analysis" | "outpost-lag" | "placement-group" | "prefix-list" | "replace-root-volume-task" | "reserved-instances" | "route-table" | "security-group" | "security-group-rule" | "service-link-virtual-interface" | "snapshot" | "spot-fleet-request" | "spot-instances-request" | "subnet" | "subnet-cidr-reservation" | "traffic-mirror-filter" | "traffic-mirror-session" | "traffic-mirror-target" | "transit-gateway" | "transit-gateway-attachment" | "transit-gateway-connect-peer" | "transit-gateway-multicast-domain" | "transit-gateway-policy-table" | "transit-gateway-route-table" | "transit-gateway-route-table-announcement" | "volume" | "vpc" | "vpc-endpoint" | "vpc-endpoint-connection" | "vpc-endpoint-service" | "vpc-endpoint-service-permission" | "vpc-peering-connection" | "vpn-connection" | "vpn-gateway" | "vpc-flow-log" | "capacity-reservation-fleet" | "traffic-mirror-filter-rule" | "vpc-endpoint-connection-device-type" | "verified-access-instance" | "verified-access-group" | "verified-access-endpoint" | "verified-access-policy" | "verified-access-trust-provider" | "vpn-connection-device-type" | "vpc-block-public-access-exclusion" | "route-server" | "route-server-endpoint" | "route-server-peer" | "ipam-resource-discovery" | "ipam-resource-discovery-association" | "instance-connect-endpoint" | "verified-access-endpoint-target" | "ipam-external-resource-verification-token" | "capacity-block" | "mac-modification-task")
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
     end

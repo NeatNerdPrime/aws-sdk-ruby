@@ -531,8 +531,6 @@ module Aws
             'Omics' => 'omics',
             'OpenSearchServerless' => 'aoss',
             'OpenSearchService' => 'es',
-            'OpsWorks' => 'opsworks',
-            'OpsWorksCM' => 'opsworks-cm',
             'Organizations' => 'organizations',
             'Outposts' => 'outposts',
             'PCS' => 'pcs',

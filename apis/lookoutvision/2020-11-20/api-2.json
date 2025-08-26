@@ -688,8 +688,7 @@
     },
     "DeleteDatasetResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "DeleteModelRequest":{
       "type":"structure",
@@ -1570,8 +1569,7 @@
     },
     "TagResourceResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "TagValue":{
       "type":"string",
@@ -1647,8 +1645,7 @@
     },
     "UntagResourceResponse":{
       "type":"structure",
-      "members":{
-      }
+      "members":{}
     },
     "UpdateDatasetEntriesRequest":{
       "type":"structure",

@@ -78,6 +78,7 @@ module Aws::EC2
   # | export_task_completed                        | {Client#describe_export_tasks}                    | 15       | 40            |
   # | image_available                              | {Client#describe_images}                          | 15       | 40            |
   # | image_exists                                 | {Client#describe_images}                          | 15       | 40            |
+  # | image_usage_report_available                 | {Client#describe_image_usage_reports}             | 15       | 40            |
   # | instance_exists                              | {Client#describe_instances}                       | 5        | 40            |
   # | instance_running                             | {Client#describe_instances}                       | 15       | 40            |
   # | instance_status_ok                           | {Client#describe_instance_status}                 | 15       | 40            |
@@ -476,6 +477,50 @@ module Aws::EC2
 
       # @option (see Client#describe_images)
       # @return (see Client#describe_images)
+      def wait(params = {})
+        @waiter.wait(client: @client, params: params)
+      end
+
+      # @api private
+      attr_reader :waiter
+
+    end
+
+    class ImageUsageReportAvailable
+
+      # @param [Hash] options
+      # @option options [required, Client] :client
+      # @option options [Integer] :max_attempts (40)
+      # @option options [Integer] :delay (15)
+      # @option options [Proc] :before_attempt
+      # @option options [Proc] :before_wait
+      def initialize(options)
+        @client = options.fetch(:client)
+        @waiter = Aws::Waiters::Waiter.new({
+          max_attempts: 40,
+          delay: 15,
+          poller: Aws::Waiters::Poller.new(
+            operation_name: :describe_image_usage_reports,
+            acceptors: [
+              {
+                "state" => "success",
+                "matcher" => "pathAll",
+                "argument" => "image_usage_reports[].state",
+                "expected" => "available"
+              },
+              {
+                "state" => "failure",
+                "matcher" => "pathAny",
+                "argument" => "image_usage_reports[].state",
+                "expected" => "failed"
+              }
+            ]
+          )
+        }.merge(options))
+      end
+
+      # @option (see Client#describe_image_usage_reports)
+      # @return (see Client#describe_image_usage_reports)
       def wait(params = {})
         @waiter.wait(client: @client, params: params)
       end

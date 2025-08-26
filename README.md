@@ -425,8 +425,6 @@ RubyGems.org page under "LINKS" section.
 | AWS Multi-party Approval                               | Aws::MPA                                 | aws-sdk-mpa                                 | 2022-07-26  |
 | AWS Network Firewall                                   | Aws::NetworkFirewall                     | aws-sdk-networkfirewall                     | 2020-11-12  |
 | AWS Network Manager                                    | Aws::NetworkManager                      | aws-sdk-networkmanager                      | 2019-07-05  |
-| AWS OpsWorks                                           | Aws::OpsWorks                            | aws-sdk-opsworks                            | 2013-02-18  |
-| AWS OpsWorks CM                                        | Aws::OpsWorksCM                          | aws-sdk-opsworkscm                          | 2016-11-01  |
 | AWS Organizations                                      | Aws::Organizations                       | aws-sdk-organizations                       | 2016-11-28  |
 | AWS Outposts                                           | Aws::Outposts                            | aws-sdk-outposts                            | 2019-12-03  |
 | AWS Panorama                                           | Aws::Panorama                            | aws-sdk-panorama                            | 2019-07-24  |

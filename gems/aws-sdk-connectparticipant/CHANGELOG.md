@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.70.0 (2025-08-26)
+------------------
+
+* Feature - Amazon Connect Participant Service: Remove unused fields from WebRTCConnection
+
 1.69.0 (2025-08-25)
 ------------------
 

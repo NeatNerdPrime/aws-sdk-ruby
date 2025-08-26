@@ -303,8 +303,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency('aws-sdk-omics', '~> 1')
   spec.add_dependency('aws-sdk-opensearchserverless', '~> 1')
   spec.add_dependency('aws-sdk-opensearchservice', '~> 1')
-  spec.add_dependency('aws-sdk-opsworks', '~> 1')
-  spec.add_dependency('aws-sdk-opsworkscm', '~> 1')
   spec.add_dependency('aws-sdk-organizations', '~> 1')
   spec.add_dependency('aws-sdk-outposts', '~> 1')
   spec.add_dependency('aws-sdk-pcs', '~> 1')

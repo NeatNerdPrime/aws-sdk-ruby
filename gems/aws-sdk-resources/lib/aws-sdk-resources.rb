@@ -293,8 +293,6 @@ module Aws
   autoload :Omics, 'aws-sdk-omics'
   autoload :OpenSearchServerless, 'aws-sdk-opensearchserverless'
   autoload :OpenSearchService, 'aws-sdk-opensearchservice'
-  autoload :OpsWorks, 'aws-sdk-opsworks'
-  autoload :OpsWorksCM, 'aws-sdk-opsworkscm'
   autoload :Organizations, 'aws-sdk-organizations'
   autoload :Outposts, 'aws-sdk-outposts'
   autoload :PCS, 'aws-sdk-pcs'

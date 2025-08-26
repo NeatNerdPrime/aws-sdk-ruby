@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.12.0 (2025-08-26)
+------------------
+
+* Feature - Added RouteFerryNotice PotentialViolatedVehicleRestrictionUsage value for CalculateRoutes. This value indicates when the Route is potentially forbidden for the given vehicle profile.
+
 1.11.0 (2025-08-04)
 ------------------
 

@@ -498,6 +498,8 @@ module Aws::EC2
     CreateFpgaImageResult = Shapes::StructureShape.new(name: 'CreateFpgaImageResult')
     CreateImageRequest = Shapes::StructureShape.new(name: 'CreateImageRequest')
     CreateImageResult = Shapes::StructureShape.new(name: 'CreateImageResult')
+    CreateImageUsageReportRequest = Shapes::StructureShape.new(name: 'CreateImageUsageReportRequest')
+    CreateImageUsageReportResult = Shapes::StructureShape.new(name: 'CreateImageUsageReportResult')
     CreateInstanceConnectEndpointRequest = Shapes::StructureShape.new(name: 'CreateInstanceConnectEndpointRequest')
     CreateInstanceConnectEndpointResult = Shapes::StructureShape.new(name: 'CreateInstanceConnectEndpointResult')
     CreateInstanceEventWindowRequest = Shapes::StructureShape.new(name: 'CreateInstanceEventWindowRequest')
@@ -714,6 +716,8 @@ module Aws::EC2
     DeleteFlowLogsResult = Shapes::StructureShape.new(name: 'DeleteFlowLogsResult')
     DeleteFpgaImageRequest = Shapes::StructureShape.new(name: 'DeleteFpgaImageRequest')
     DeleteFpgaImageResult = Shapes::StructureShape.new(name: 'DeleteFpgaImageResult')
+    DeleteImageUsageReportRequest = Shapes::StructureShape.new(name: 'DeleteImageUsageReportRequest')
+    DeleteImageUsageReportResult = Shapes::StructureShape.new(name: 'DeleteImageUsageReportResult')
     DeleteInstanceConnectEndpointRequest = Shapes::StructureShape.new(name: 'DeleteInstanceConnectEndpointRequest')
     DeleteInstanceConnectEndpointResult = Shapes::StructureShape.new(name: 'DeleteInstanceConnectEndpointResult')
     DeleteInstanceEventWindowRequest = Shapes::StructureShape.new(name: 'DeleteInstanceEventWindowRequest')
@@ -994,6 +998,17 @@ module Aws::EC2
     DescribeIdentityIdFormatRequest = Shapes::StructureShape.new(name: 'DescribeIdentityIdFormatRequest')
     DescribeIdentityIdFormatResult = Shapes::StructureShape.new(name: 'DescribeIdentityIdFormatResult')
     DescribeImageAttributeRequest = Shapes::StructureShape.new(name: 'DescribeImageAttributeRequest')
+    DescribeImageReferencesImageIdStringList = Shapes::ListShape.new(name: 'DescribeImageReferencesImageIdStringList')
+    DescribeImageReferencesMaxResults = Shapes::IntegerShape.new(name: 'DescribeImageReferencesMaxResults')
+    DescribeImageReferencesRequest = Shapes::StructureShape.new(name: 'DescribeImageReferencesRequest')
+    DescribeImageReferencesResult = Shapes::StructureShape.new(name: 'DescribeImageReferencesResult')
+    DescribeImageUsageReportEntriesMaxResults = Shapes::IntegerShape.new(name: 'DescribeImageUsageReportEntriesMaxResults')
+    DescribeImageUsageReportEntriesRequest = Shapes::StructureShape.new(name: 'DescribeImageUsageReportEntriesRequest')
+    DescribeImageUsageReportEntriesResult = Shapes::StructureShape.new(name: 'DescribeImageUsageReportEntriesResult')
+    DescribeImageUsageReportsImageIdStringList = Shapes::ListShape.new(name: 'DescribeImageUsageReportsImageIdStringList')
+    DescribeImageUsageReportsMaxResults = Shapes::IntegerShape.new(name: 'DescribeImageUsageReportsMaxResults')
+    DescribeImageUsageReportsRequest = Shapes::StructureShape.new(name: 'DescribeImageUsageReportsRequest')
+    DescribeImageUsageReportsResult = Shapes::StructureShape.new(name: 'DescribeImageUsageReportsResult')
     DescribeImagesRequest = Shapes::StructureShape.new(name: 'DescribeImagesRequest')
     DescribeImagesResult = Shapes::StructureShape.new(name: 'DescribeImagesResult')
     DescribeImportImageTasksRequest = Shapes::StructureShape.new(name: 'DescribeImportImageTasksRequest')
@@ -1815,8 +1830,32 @@ module Aws::EC2
     ImageProviderRequestList = Shapes::ListShape.new(name: 'ImageProviderRequestList')
     ImageRecycleBinInfo = Shapes::StructureShape.new(name: 'ImageRecycleBinInfo')
     ImageRecycleBinInfoList = Shapes::ListShape.new(name: 'ImageRecycleBinInfoList')
+    ImageReference = Shapes::StructureShape.new(name: 'ImageReference')
+    ImageReferenceList = Shapes::ListShape.new(name: 'ImageReferenceList')
+    ImageReferenceOptionName = Shapes::StringShape.new(name: 'ImageReferenceOptionName')
+    ImageReferenceResourceType = Shapes::StringShape.new(name: 'ImageReferenceResourceType')
     ImageState = Shapes::StringShape.new(name: 'ImageState')
     ImageTypeValues = Shapes::StringShape.new(name: 'ImageTypeValues')
+    ImageUsageReport = Shapes::StructureShape.new(name: 'ImageUsageReport')
+    ImageUsageReportEntry = Shapes::StructureShape.new(name: 'ImageUsageReportEntry')
+    ImageUsageReportEntryList = Shapes::ListShape.new(name: 'ImageUsageReportEntryList')
+    ImageUsageReportId = Shapes::StringShape.new(name: 'ImageUsageReportId')
+    ImageUsageReportIdStringList = Shapes::ListShape.new(name: 'ImageUsageReportIdStringList')
+    ImageUsageReportList = Shapes::ListShape.new(name: 'ImageUsageReportList')
+    ImageUsageReportState = Shapes::StringShape.new(name: 'ImageUsageReportState')
+    ImageUsageReportStateReason = Shapes::StringShape.new(name: 'ImageUsageReportStateReason')
+    ImageUsageReportUserIdStringList = Shapes::ListShape.new(name: 'ImageUsageReportUserIdStringList')
+    ImageUsageResourceType = Shapes::StructureShape.new(name: 'ImageUsageResourceType')
+    ImageUsageResourceTypeList = Shapes::ListShape.new(name: 'ImageUsageResourceTypeList')
+    ImageUsageResourceTypeName = Shapes::StringShape.new(name: 'ImageUsageResourceTypeName')
+    ImageUsageResourceTypeOption = Shapes::StructureShape.new(name: 'ImageUsageResourceTypeOption')
+    ImageUsageResourceTypeOptionList = Shapes::ListShape.new(name: 'ImageUsageResourceTypeOptionList')
+    ImageUsageResourceTypeOptionRequest = Shapes::StructureShape.new(name: 'ImageUsageResourceTypeOptionRequest')
+    ImageUsageResourceTypeOptionRequestList = Shapes::ListShape.new(name: 'ImageUsageResourceTypeOptionRequestList')
+    ImageUsageResourceTypeOptionValue = Shapes::StringShape.new(name: 'ImageUsageResourceTypeOptionValue')
+    ImageUsageResourceTypeOptionValuesList = Shapes::ListShape.new(name: 'ImageUsageResourceTypeOptionValuesList')
+    ImageUsageResourceTypeRequest = Shapes::StructureShape.new(name: 'ImageUsageResourceTypeRequest')
+    ImageUsageResourceTypeRequestList = Shapes::ListShape.new(name: 'ImageUsageResourceTypeRequestList')
     ImdsSupportValues = Shapes::StringShape.new(name: 'ImdsSupportValues')
     ImportClientVpnClientCertificateRevocationListRequest = Shapes::StructureShape.new(name: 'ImportClientVpnClientCertificateRevocationListRequest')
     ImportClientVpnClientCertificateRevocationListResult = Shapes::StructureShape.new(name: 'ImportClientVpnClientCertificateRevocationListResult')
@@ -2890,6 +2929,12 @@ module Aws::EC2
     ResourceStatement = Shapes::StructureShape.new(name: 'ResourceStatement')
     ResourceStatementRequest = Shapes::StructureShape.new(name: 'ResourceStatementRequest')
     ResourceType = Shapes::StringShape.new(name: 'ResourceType')
+    ResourceTypeOption = Shapes::StructureShape.new(name: 'ResourceTypeOption')
+    ResourceTypeOptionList = Shapes::ListShape.new(name: 'ResourceTypeOptionList')
+    ResourceTypeOptionValue = Shapes::StringShape.new(name: 'ResourceTypeOptionValue')
+    ResourceTypeOptionValuesList = Shapes::ListShape.new(name: 'ResourceTypeOptionValuesList')
+    ResourceTypeRequest = Shapes::StructureShape.new(name: 'ResourceTypeRequest')
+    ResourceTypeRequestList = Shapes::ListShape.new(name: 'ResourceTypeRequestList')
     ResponseError = Shapes::StructureShape.new(name: 'ResponseError')
     ResponseHostIdList = Shapes::ListShape.new(name: 'ResponseHostIdList')
     ResponseHostIdSet = Shapes::ListShape.new(name: 'ResponseHostIdSet')
@@ -3395,6 +3440,7 @@ module Aws::EC2
     UserIdGroupPair = Shapes::StructureShape.new(name: 'UserIdGroupPair')
     UserIdGroupPairList = Shapes::ListShape.new(name: 'UserIdGroupPairList')
     UserIdGroupPairSet = Shapes::ListShape.new(name: 'UserIdGroupPairSet')
+    UserIdList = Shapes::ListShape.new(name: 'UserIdList')
     UserIdStringList = Shapes::ListShape.new(name: 'UserIdStringList')
     UserTrustProviderType = Shapes::StringShape.new(name: 'UserTrustProviderType')
     VCpuCount = Shapes::IntegerShape.new(name: 'VCpuCount')
@@ -5375,6 +5421,17 @@ module Aws::EC2
     CreateImageResult.add_member(:image_id, Shapes::ShapeRef.new(shape: String, location_name: "imageId"))
     CreateImageResult.struct_class = Types::CreateImageResult
 
+    CreateImageUsageReportRequest.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, required: true, location_name: "ImageId"))
+    CreateImageUsageReportRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    CreateImageUsageReportRequest.add_member(:resource_types, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeRequestList, required: true, location_name: "ResourceType"))
+    CreateImageUsageReportRequest.add_member(:account_ids, Shapes::ShapeRef.new(shape: ImageUsageReportUserIdStringList, location_name: "AccountId"))
+    CreateImageUsageReportRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CreateImageUsageReportRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CreateImageUsageReportRequest.struct_class = Types::CreateImageUsageReportRequest
+
+    CreateImageUsageReportResult.add_member(:report_id, Shapes::ShapeRef.new(shape: ImageUsageReportId, location_name: "reportId"))
+    CreateImageUsageReportResult.struct_class = Types::CreateImageUsageReportResult
+
     CreateInstanceConnectEndpointRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     CreateInstanceConnectEndpointRequest.add_member(:subnet_id, Shapes::ShapeRef.new(shape: SubnetId, required: true, location_name: "SubnetId"))
     CreateInstanceConnectEndpointRequest.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIdStringListRequest, location_name: "SecurityGroupId"))
@@ -6492,6 +6549,13 @@ module Aws::EC2
     DeleteFpgaImageResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
     DeleteFpgaImageResult.struct_class = Types::DeleteFpgaImageResult
 
+    DeleteImageUsageReportRequest.add_member(:report_id, Shapes::ShapeRef.new(shape: ImageUsageReportId, required: true, location_name: "ReportId"))
+    DeleteImageUsageReportRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DeleteImageUsageReportRequest.struct_class = Types::DeleteImageUsageReportRequest
+
+    DeleteImageUsageReportResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
+    DeleteImageUsageReportResult.struct_class = Types::DeleteImageUsageReportResult
+
     DeleteInstanceConnectEndpointRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DeleteInstanceConnectEndpointRequest.add_member(:instance_connect_endpoint_id, Shapes::ShapeRef.new(shape: InstanceConnectEndpointId, required: true, location_name: "InstanceConnectEndpointId"))
     DeleteInstanceConnectEndpointRequest.struct_class = Types::DeleteInstanceConnectEndpointRequest
@@ -7597,6 +7661,46 @@ module Aws::EC2
     DescribeImageAttributeRequest.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, required: true, location_name: "ImageId"))
     DescribeImageAttributeRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "dryRun"))
     DescribeImageAttributeRequest.struct_class = Types::DescribeImageAttributeRequest
+
+    DescribeImageReferencesImageIdStringList.member = Shapes::ShapeRef.new(shape: ImageId)
+
+    DescribeImageReferencesRequest.add_member(:image_ids, Shapes::ShapeRef.new(shape: DescribeImageReferencesImageIdStringList, required: true, location_name: "ImageId"))
+    DescribeImageReferencesRequest.add_member(:include_all_resource_types, Shapes::ShapeRef.new(shape: Boolean, location_name: "IncludeAllResourceTypes"))
+    DescribeImageReferencesRequest.add_member(:resource_types, Shapes::ShapeRef.new(shape: ResourceTypeRequestList, location_name: "ResourceType"))
+    DescribeImageReferencesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
+    DescribeImageReferencesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeImageReferencesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: DescribeImageReferencesMaxResults, location_name: "MaxResults"))
+    DescribeImageReferencesRequest.struct_class = Types::DescribeImageReferencesRequest
+
+    DescribeImageReferencesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "nextToken"))
+    DescribeImageReferencesResult.add_member(:image_references, Shapes::ShapeRef.new(shape: ImageReferenceList, location_name: "imageReferenceSet"))
+    DescribeImageReferencesResult.struct_class = Types::DescribeImageReferencesResult
+
+    DescribeImageUsageReportEntriesRequest.add_member(:image_ids, Shapes::ShapeRef.new(shape: DescribeImageUsageReportsImageIdStringList, location_name: "ImageId"))
+    DescribeImageUsageReportEntriesRequest.add_member(:report_ids, Shapes::ShapeRef.new(shape: ImageUsageReportIdStringList, location_name: "ReportId"))
+    DescribeImageUsageReportEntriesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
+    DescribeImageUsageReportEntriesRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeImageUsageReportEntriesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeImageUsageReportEntriesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: DescribeImageUsageReportEntriesMaxResults, location_name: "MaxResults"))
+    DescribeImageUsageReportEntriesRequest.struct_class = Types::DescribeImageUsageReportEntriesRequest
+
+    DescribeImageUsageReportEntriesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "nextToken"))
+    DescribeImageUsageReportEntriesResult.add_member(:image_usage_report_entries, Shapes::ShapeRef.new(shape: ImageUsageReportEntryList, location_name: "imageUsageReportEntrySet"))
+    DescribeImageUsageReportEntriesResult.struct_class = Types::DescribeImageUsageReportEntriesResult
+
+    DescribeImageUsageReportsImageIdStringList.member = Shapes::ShapeRef.new(shape: ImageId)
+
+    DescribeImageUsageReportsRequest.add_member(:image_ids, Shapes::ShapeRef.new(shape: DescribeImageUsageReportsImageIdStringList, location_name: "ImageId"))
+    DescribeImageUsageReportsRequest.add_member(:report_ids, Shapes::ShapeRef.new(shape: ImageUsageReportIdStringList, location_name: "ReportId"))
+    DescribeImageUsageReportsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
+    DescribeImageUsageReportsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeImageUsageReportsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeImageUsageReportsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: DescribeImageUsageReportsMaxResults, location_name: "MaxResults"))
+    DescribeImageUsageReportsRequest.struct_class = Types::DescribeImageUsageReportsRequest
+
+    DescribeImageUsageReportsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "nextToken"))
+    DescribeImageUsageReportsResult.add_member(:image_usage_reports, Shapes::ShapeRef.new(shape: ImageUsageReportList, location_name: "imageUsageReportSet"))
+    DescribeImageUsageReportsResult.struct_class = Types::DescribeImageUsageReportsResult
 
     DescribeImagesRequest.add_member(:executable_users, Shapes::ShapeRef.new(shape: ExecutableByStringList, location_name: "ExecutableBy"))
     DescribeImagesRequest.add_member(:image_ids, Shapes::ShapeRef.new(shape: ImageIdStringList, location_name: "ImageId"))
@@ -10983,6 +11087,66 @@ module Aws::EC2
     ImageRecycleBinInfo.struct_class = Types::ImageRecycleBinInfo
 
     ImageRecycleBinInfoList.member = Shapes::ShapeRef.new(shape: ImageRecycleBinInfo, location_name: "item")
+
+    ImageReference.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "imageId"))
+    ImageReference.add_member(:resource_type, Shapes::ShapeRef.new(shape: ImageReferenceResourceType, location_name: "resourceType"))
+    ImageReference.add_member(:arn, Shapes::ShapeRef.new(shape: String, location_name: "arn"))
+    ImageReference.struct_class = Types::ImageReference
+
+    ImageReferenceList.member = Shapes::ShapeRef.new(shape: ImageReference, location_name: "item")
+
+    ImageUsageReport.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "imageId"))
+    ImageUsageReport.add_member(:report_id, Shapes::ShapeRef.new(shape: ImageUsageReportId, location_name: "reportId"))
+    ImageUsageReport.add_member(:resource_types, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeList, location_name: "resourceTypeSet"))
+    ImageUsageReport.add_member(:account_ids, Shapes::ShapeRef.new(shape: UserIdList, location_name: "accountIdSet"))
+    ImageUsageReport.add_member(:state, Shapes::ShapeRef.new(shape: ImageUsageReportState, location_name: "state"))
+    ImageUsageReport.add_member(:state_reason, Shapes::ShapeRef.new(shape: ImageUsageReportStateReason, location_name: "stateReason"))
+    ImageUsageReport.add_member(:creation_time, Shapes::ShapeRef.new(shape: MillisecondDateTime, location_name: "creationTime"))
+    ImageUsageReport.add_member(:expiration_time, Shapes::ShapeRef.new(shape: MillisecondDateTime, location_name: "expirationTime"))
+    ImageUsageReport.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    ImageUsageReport.struct_class = Types::ImageUsageReport
+
+    ImageUsageReportEntry.add_member(:resource_type, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeName, location_name: "resourceType"))
+    ImageUsageReportEntry.add_member(:report_id, Shapes::ShapeRef.new(shape: ImageUsageReportId, location_name: "reportId"))
+    ImageUsageReportEntry.add_member(:usage_count, Shapes::ShapeRef.new(shape: Long, location_name: "usageCount"))
+    ImageUsageReportEntry.add_member(:account_id, Shapes::ShapeRef.new(shape: String, location_name: "accountId"))
+    ImageUsageReportEntry.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "imageId"))
+    ImageUsageReportEntry.add_member(:report_creation_time, Shapes::ShapeRef.new(shape: MillisecondDateTime, location_name: "reportCreationTime"))
+    ImageUsageReportEntry.struct_class = Types::ImageUsageReportEntry
+
+    ImageUsageReportEntryList.member = Shapes::ShapeRef.new(shape: ImageUsageReportEntry, location_name: "item")
+
+    ImageUsageReportIdStringList.member = Shapes::ShapeRef.new(shape: ImageUsageReportId)
+
+    ImageUsageReportList.member = Shapes::ShapeRef.new(shape: ImageUsageReport, location_name: "item")
+
+    ImageUsageReportUserIdStringList.member = Shapes::ShapeRef.new(shape: String, location_name: "UserId")
+
+    ImageUsageResourceType.add_member(:resource_type, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeName, location_name: "resourceType"))
+    ImageUsageResourceType.add_member(:resource_type_options, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionList, location_name: "resourceTypeOptionSet"))
+    ImageUsageResourceType.struct_class = Types::ImageUsageResourceType
+
+    ImageUsageResourceTypeList.member = Shapes::ShapeRef.new(shape: ImageUsageResourceType, location_name: "item")
+
+    ImageUsageResourceTypeOption.add_member(:option_name, Shapes::ShapeRef.new(shape: String, location_name: "optionName"))
+    ImageUsageResourceTypeOption.add_member(:option_values, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionValuesList, location_name: "optionValueSet"))
+    ImageUsageResourceTypeOption.struct_class = Types::ImageUsageResourceTypeOption
+
+    ImageUsageResourceTypeOptionList.member = Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOption, location_name: "item")
+
+    ImageUsageResourceTypeOptionRequest.add_member(:option_name, Shapes::ShapeRef.new(shape: String, location_name: "OptionName"))
+    ImageUsageResourceTypeOptionRequest.add_member(:option_values, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionValuesList, location_name: "OptionValue"))
+    ImageUsageResourceTypeOptionRequest.struct_class = Types::ImageUsageResourceTypeOptionRequest
+
+    ImageUsageResourceTypeOptionRequestList.member = Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionRequest)
+
+    ImageUsageResourceTypeOptionValuesList.member = Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionValue, location_name: "item")
+
+    ImageUsageResourceTypeRequest.add_member(:resource_type, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeName, location_name: "ResourceType"))
+    ImageUsageResourceTypeRequest.add_member(:resource_type_options, Shapes::ShapeRef.new(shape: ImageUsageResourceTypeOptionRequestList, location_name: "ResourceTypeOption"))
+    ImageUsageResourceTypeRequest.struct_class = Types::ImageUsageResourceTypeRequest
+
+    ImageUsageResourceTypeRequestList.member = Shapes::ShapeRef.new(shape: ImageUsageResourceTypeRequest)
 
     ImportClientVpnClientCertificateRevocationListRequest.add_member(:client_vpn_endpoint_id, Shapes::ShapeRef.new(shape: ClientVpnEndpointId, required: true, location_name: "ClientVpnEndpointId"))
     ImportClientVpnClientCertificateRevocationListRequest.add_member(:certificate_revocation_list, Shapes::ShapeRef.new(shape: String, required: true, location_name: "CertificateRevocationList"))
@@ -15097,6 +15261,20 @@ module Aws::EC2
     ResourceStatementRequest.add_member(:resource_types, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "ResourceType"))
     ResourceStatementRequest.struct_class = Types::ResourceStatementRequest
 
+    ResourceTypeOption.add_member(:option_name, Shapes::ShapeRef.new(shape: ImageReferenceOptionName, location_name: "OptionName"))
+    ResourceTypeOption.add_member(:option_values, Shapes::ShapeRef.new(shape: ResourceTypeOptionValuesList, location_name: "OptionValue"))
+    ResourceTypeOption.struct_class = Types::ResourceTypeOption
+
+    ResourceTypeOptionList.member = Shapes::ShapeRef.new(shape: ResourceTypeOption)
+
+    ResourceTypeOptionValuesList.member = Shapes::ShapeRef.new(shape: ResourceTypeOptionValue)
+
+    ResourceTypeRequest.add_member(:resource_type, Shapes::ShapeRef.new(shape: ImageReferenceResourceType, location_name: "ResourceType"))
+    ResourceTypeRequest.add_member(:resource_type_options, Shapes::ShapeRef.new(shape: ResourceTypeOptionList, location_name: "ResourceTypeOption"))
+    ResourceTypeRequest.struct_class = Types::ResourceTypeRequest
+
+    ResourceTypeRequestList.member = Shapes::ShapeRef.new(shape: ResourceTypeRequest)
+
     ResponseError.add_member(:code, Shapes::ShapeRef.new(shape: LaunchTemplateErrorCode, location_name: "code"))
     ResponseError.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
     ResponseError.struct_class = Types::ResponseError
@@ -16995,6 +17173,8 @@ module Aws::EC2
 
     UserIdGroupPairSet.member = Shapes::ShapeRef.new(shape: UserIdGroupPair, location_name: "item")
 
+    UserIdList.member = Shapes::ShapeRef.new(shape: String, location_name: "item")
+
     UserIdStringList.member = Shapes::ShapeRef.new(shape: String, location_name: "UserId")
 
     VCpuCountRange.add_member(:min, Shapes::ShapeRef.new(shape: Integer, location_name: "min"))
@@ -18329,6 +18509,14 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: CreateImageResult)
       end)
 
+      api.add_operation(:create_image_usage_report, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateImageUsageReport"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateImageUsageReportRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateImageUsageReportResult)
+      end)
+
       api.add_operation(:create_instance_connect_endpoint, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateInstanceConnectEndpoint"
         o.http_method = "POST"
@@ -19007,6 +19195,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DeleteFpgaImageRequest)
         o.output = Shapes::ShapeRef.new(shape: DeleteFpgaImageResult)
+      end)
+
+      api.add_operation(:delete_image_usage_report, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteImageUsageReport"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteImageUsageReportRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteImageUsageReportResult)
       end)
 
       api.add_operation(:delete_instance_connect_endpoint, Seahorse::Model::Operation.new.tap do |o|
@@ -20207,6 +20403,48 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DescribeImageAttributeRequest)
         o.output = Shapes::ShapeRef.new(shape: ImageAttribute)
+      end)
+
+      api.add_operation(:describe_image_references, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeImageReferences"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeImageReferencesRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeImageReferencesResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:describe_image_usage_report_entries, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeImageUsageReportEntries"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeImageUsageReportEntriesRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeImageUsageReportEntriesResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:describe_image_usage_reports, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeImageUsageReports"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeImageUsageReportsRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeImageUsageReportsResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
       end)
 
       api.add_operation(:describe_images, Seahorse::Model::Operation.new.tap do |o|

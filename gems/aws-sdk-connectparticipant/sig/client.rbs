@@ -103,7 +103,7 @@ module Aws
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateParticipantConnectionResponse]
         def websocket: () -> Types::Websocket
         def connection_credentials: () -> Types::ConnectionCredentials
-        def web_rtc_connection: () -> Types::ConnectionData
+        def web_rtc_connection: () -> Types::WebRTCConnection
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ConnectParticipant/Client.html#create_participant_connection-instance_method
       def create_participant_connection: (

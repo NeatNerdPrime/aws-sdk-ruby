@@ -693,7 +693,7 @@ module Aws::ConnectParticipant
     #
     #   * {Types::CreateParticipantConnectionResponse#websocket #websocket} => Types::Websocket
     #   * {Types::CreateParticipantConnectionResponse#connection_credentials #connection_credentials} => Types::ConnectionCredentials
-    #   * {Types::CreateParticipantConnectionResponse#web_rtc_connection #web_rtc_connection} => Types::ConnectionData
+    #   * {Types::CreateParticipantConnectionResponse#web_rtc_connection #web_rtc_connection} => Types::WebRTCConnection
     #
     # @example Request syntax with placeholder values
     #
@@ -711,11 +711,9 @@ module Aws::ConnectParticipant
     #   resp.connection_credentials.expiry #=> String
     #   resp.web_rtc_connection.attendee.attendee_id #=> String
     #   resp.web_rtc_connection.attendee.join_token #=> String
-    #   resp.web_rtc_connection.meeting.media_region #=> String
     #   resp.web_rtc_connection.meeting.media_placement.audio_host_url #=> String
     #   resp.web_rtc_connection.meeting.media_placement.audio_fallback_url #=> String
     #   resp.web_rtc_connection.meeting.media_placement.signaling_url #=> String
-    #   resp.web_rtc_connection.meeting.media_placement.turn_control_url #=> String
     #   resp.web_rtc_connection.meeting.media_placement.event_ingestion_url #=> String
     #   resp.web_rtc_connection.meeting.meeting_features.audio.echo_reduction #=> String, one of "AVAILABLE", "UNAVAILABLE"
     #   resp.web_rtc_connection.meeting.meeting_id #=> String
@@ -1366,7 +1364,7 @@ module Aws::ConnectParticipant
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connectparticipant'
-      context[:gem_version] = '1.69.0'
+      context[:gem_version] = '1.70.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

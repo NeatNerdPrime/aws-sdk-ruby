@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.240.0 (2025-08-26)
+------------------
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-opsworkscm` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-opsworks` gem.
+
 3.239.0 (2025-08-18)
 ------------------
 

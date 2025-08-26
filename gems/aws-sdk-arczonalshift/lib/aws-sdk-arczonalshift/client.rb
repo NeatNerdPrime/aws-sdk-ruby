@@ -618,9 +618,12 @@ module Aws::ARCZonalShift
     #   blocked windows with spaces.
     #
     #   For example, say you run business report summaries three days a week.
-    #   For this scenario, you might set the following recurring days and
-    #   times as blocked windows, for example: `MON-20:30-21:30
-    #   WED-20:30-21:30 FRI-20:30-21:30`.
+    #   For this scenario, you could set the following recurring days and
+    #   times as blocked windows, for example: `Mon:00:00-Mon:10:00
+    #   Wed-20:30-Wed:21:30 Fri-20:30-Fri:21:30`.
+    #
+    #   The `blockedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
     #
     # @option params [Array<String>] :blocked_dates
     #   Optionally, you can block ARC from starting practice runs for a
@@ -635,22 +638,38 @@ module Aws::ARCZonalShift
     #   at that time, you could set a blocked date for `2024-05-01`.
     #
     # @option params [Array<Types::ControlCondition>] :blocking_alarms
-    #   An Amazon CloudWatch alarm that you can specify for zonal autoshift
-    #   practice runs. This alarm blocks ARC from starting practice run zonal
-    #   shifts, and ends a practice run that's in progress, when the alarm is
-    #   in an `ALARM` state.
-    #
-    # @option params [required, Array<Types::ControlCondition>] :outcome_alarms
-    #   The *outcome alarm* for practice runs is a required Amazon CloudWatch
-    #   alarm that you specify that ends a practice run when the alarm is in
+    #   *Blocking alarms* for practice runs are optional alarms that you can
+    #   specify that block practice runs when one or more of the alarms is in
     #   an `ALARM` state.
     #
-    #   Configure the alarm to monitor the health of your application when
-    #   traffic is shifted away from an Availability Zone during each practice
-    #   run. You should configure the alarm to go into an `ALARM` state if
-    #   your application is impacted by the zonal shift, and you want to stop
-    #   the zonal shift, to let traffic for the resource return to the
-    #   Availability Zone.
+    # @option params [Array<String>] :allowed_windows
+    #   Optionally, you can allow ARC to start practice runs for specific
+    #   windows of days and times.
+    #
+    #   The format for allowed windows is: DAY:HH:SS-DAY:HH:SS. Keep in mind,
+    #   when you specify dates, that dates and times for practice runs are in
+    #   UTC. Also, be aware of potential time adjustments that might be
+    #   required for daylight saving time differences. Separate multiple
+    #   allowed windows with spaces.
+    #
+    #   For example, say you want to allow practice runs only on Wednesdays
+    #   and Fridays from noon to 5 p.m. For this scenario, you could set the
+    #   following recurring days and times as allowed windows, for example:
+    #   `Wed-12:00-Wed:17:00 Fri-12:00-Fri:17:00`.
+    #
+    #   The `allowedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
+    #
+    # @option params [required, Array<Types::ControlCondition>] :outcome_alarms
+    #   *Outcome alarms* for practice runs are alarms that you specify that
+    #   end a practice run when one or more of the alarms is in an `ALARM`
+    #   state.
+    #
+    #   Configure one or more of these alarms to monitor the health of your
+    #   application when traffic is shifted away from an Availability Zone
+    #   during each practice run. You should configure these alarms to go into
+    #   an `ALARM` state if you want to stop a zonal shift, to let traffic for
+    #   the resource return to the original Availability Zone.
     #
     # @return [Types::CreatePracticeRunConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -671,6 +690,7 @@ module Aws::ARCZonalShift
     #         alarm_identifier: "MetricIdentifier", # required
     #       },
     #     ],
+    #     allowed_windows: ["AllowedWindow"],
     #     outcome_alarms: [ # required
     #       {
     #         type: "CLOUDWATCH", # required, accepts CLOUDWATCH
@@ -692,6 +712,8 @@ module Aws::ARCZonalShift
     #   resp.practice_run_configuration.outcome_alarms[0].alarm_identifier #=> String
     #   resp.practice_run_configuration.blocked_windows #=> Array
     #   resp.practice_run_configuration.blocked_windows[0] #=> String
+    #   resp.practice_run_configuration.allowed_windows #=> Array
+    #   resp.practice_run_configuration.allowed_windows[0] #=> String
     #   resp.practice_run_configuration.blocked_dates #=> Array
     #   resp.practice_run_configuration.blocked_dates[0] #=> String
     #
@@ -838,6 +860,8 @@ module Aws::ARCZonalShift
     #   resp.practice_run_configuration.outcome_alarms[0].alarm_identifier #=> String
     #   resp.practice_run_configuration.blocked_windows #=> Array
     #   resp.practice_run_configuration.blocked_windows[0] #=> String
+    #   resp.practice_run_configuration.allowed_windows #=> Array
+    #   resp.practice_run_configuration.allowed_windows[0] #=> String
     #   resp.practice_run_configuration.blocked_dates #=> Array
     #   resp.practice_run_configuration.blocked_dates[0] #=> String
     #   resp.zonal_autoshift_status #=> String, one of "ENABLED", "DISABLED"
@@ -1335,11 +1359,29 @@ module Aws::ARCZonalShift
     #   at that time, you could set a blocked date for `2024-05-01`.
     #
     # @option params [Array<Types::ControlCondition>] :blocking_alarms
-    #   Add, change, or remove the Amazon CloudWatch alarm that you optionally
-    #   specify as the blocking alarm for practice runs.
+    #   Add, change, or remove the Amazon CloudWatch alarms that you
+    #   optionally specify as the blocking alarms for practice runs.
+    #
+    # @option params [Array<String>] :allowed_windows
+    #   Add, change, or remove windows of days and times for when you can,
+    #   optionally, allow ARC to start a practice run for a resource.
+    #
+    #   The format for allowed windows is: DAY:HH:SS-DAY:HH:SS. Keep in mind,
+    #   when you specify dates, that dates and times for practice runs are in
+    #   UTC. Also, be aware of potential time adjustments that might be
+    #   required for daylight saving time differences. Separate multiple
+    #   allowed windows with spaces.
+    #
+    #   For example, say you want to allow practice runs only on Wednesdays
+    #   and Fridays from noon to 5 p.m. For this scenario, you could set the
+    #   following recurring days and times as allowed windows, for example:
+    #   `Wed-12:00-Wed:17:00 Fri-12:00-Fri:17:00`.
+    #
+    #   The `allowedWindows` have to start and end on the same day. Windows
+    #   that span multiple days aren't supported.
     #
     # @option params [Array<Types::ControlCondition>] :outcome_alarms
-    #   Specify a new the Amazon CloudWatch alarm as the outcome alarm for
+    #   Specify one or more Amazon CloudWatch alarms as the outcome alarms for
     #   practice runs.
     #
     # @return [Types::UpdatePracticeRunConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
@@ -1361,6 +1403,7 @@ module Aws::ARCZonalShift
     #         alarm_identifier: "MetricIdentifier", # required
     #       },
     #     ],
+    #     allowed_windows: ["AllowedWindow"],
     #     outcome_alarms: [
     #       {
     #         type: "CLOUDWATCH", # required, accepts CLOUDWATCH
@@ -1382,6 +1425,8 @@ module Aws::ARCZonalShift
     #   resp.practice_run_configuration.outcome_alarms[0].alarm_identifier #=> String
     #   resp.practice_run_configuration.blocked_windows #=> Array
     #   resp.practice_run_configuration.blocked_windows[0] #=> String
+    #   resp.practice_run_configuration.allowed_windows #=> Array
+    #   resp.practice_run_configuration.allowed_windows[0] #=> String
     #   resp.practice_run_configuration.blocked_dates #=> Array
     #   resp.practice_run_configuration.blocked_dates[0] #=> String
     #
@@ -1396,18 +1441,18 @@ module Aws::ARCZonalShift
 
     # The zonal autoshift configuration for a resource includes the practice
     # run configuration and the status for running autoshifts, zonal
-    # autoshift status. When a resource has a practice run configuation, ARC
-    # starts weekly zonal shifts for the resource, to shift traffic away
+    # autoshift status. When a resource has a practice run configuration,
+    # ARC starts weekly zonal shifts for the resource, to shift traffic away
     # from an Availability Zone. Weekly practice runs help you to make sure
     # that your application can continue to operate normally with the loss
     # of one Availability Zone.
     #
-    # You can update the zonal autoshift autoshift status to enable or
-    # disable zonal autoshift. When zonal autoshift is `ENABLED`, you
-    # authorize Amazon Web Services to shift away resource traffic for an
-    # application from an Availability Zone during events, on your behalf,
-    # to help reduce time to recovery. Traffic is also shifted away for the
-    # required weekly practice runs.
+    # You can update the zonal autoshift status to enable or disable zonal
+    # autoshift. When zonal autoshift is `ENABLED`, you authorize Amazon Web
+    # Services to shift away resource traffic for an application from an
+    # Availability Zone during events, on your behalf, to help reduce time
+    # to recovery. Traffic is also shifted away for the required weekly
+    # practice runs.
     #
     # @option params [required, String] :resource_identifier
     #   The identifier for the resource that you want to update the zonal
@@ -1536,7 +1581,7 @@ module Aws::ARCZonalShift
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-arczonalshift'
-      context[:gem_version] = '1.38.0'
+      context[:gem_version] = '1.39.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

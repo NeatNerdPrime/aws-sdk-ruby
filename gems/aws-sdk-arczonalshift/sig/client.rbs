@@ -128,6 +128,7 @@ module Aws
                                                    alarm_identifier: ::String
                                                  },
                                                ],
+                                               ?allowed_windows: Array[::String],
                                                outcome_alarms: Array[
                                                  {
                                                    type: ("CLOUDWATCH"),
@@ -278,6 +279,7 @@ module Aws
                                                    alarm_identifier: ::String
                                                  },
                                                ],
+                                               ?allowed_windows: Array[::String],
                                                ?outcome_alarms: Array[
                                                  {
                                                    type: ("CLOUDWATCH"),

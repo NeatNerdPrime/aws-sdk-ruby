@@ -1448,6 +1448,7 @@ module Aws::Greengrass
 
       api.metadata = {
         "apiVersion" => "2017-06-07",
+        "auth" => ["aws.auth#sigv4"],
         "endpointPrefix" => "greengrass",
         "jsonVersion" => "1.1",
         "protocol" => "rest-json",

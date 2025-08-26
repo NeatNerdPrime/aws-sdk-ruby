@@ -9800,6 +9800,71 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] image_id
+    #   The ID of the image to report on.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] resource_types
+    #   The resource types to include in the report.
+    #   @return [Array<Types::ImageUsageResourceTypeRequest>]
+    #
+    # @!attribute [rw] account_ids
+    #   The Amazon Web Services account IDs to include in the report. To
+    #   include all accounts, omit this parameter.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure
+    #   idempotency of the request.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the report on creation. The `ResourceType` must
+    #   be set to `image-usage-report`; any other value will cause the
+    #   report creation to fail.
+    #
+    #   To tag a report after it has been created, see [CreateTags][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateImageUsageReportRequest AWS API Documentation
+    #
+    class CreateImageUsageReportRequest < Struct.new(
+      :image_id,
+      :dry_run,
+      :resource_types,
+      :account_ids,
+      :client_token,
+      :tag_specifications)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] report_id
+    #   The ID of the report.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateImageUsageReportResult AWS API Documentation
+    #
+    class CreateImageUsageReportResult < Struct.new(
+      :report_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -16366,6 +16431,39 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] report_id
+    #   The ID of the report to delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteImageUsageReportRequest AWS API Documentation
+    #
+    class DeleteImageUsageReportRequest < Struct.new(
+      :report_id,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] return
+    #   Returns `true` if the request succeeds; otherwise, it returns an
+    #   error.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteImageUsageReportResult AWS API Documentation
+    #
+    class DeleteImageUsageReportResult < Struct.new(
+      :return)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -22495,6 +22593,244 @@ module Aws::EC2
       :attribute,
       :image_id,
       :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] image_ids
+    #   The IDs of the images to check for resource references.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] include_all_resource_types
+    #   Specifies whether to check all supported Amazon Web Services
+    #   resource types for image references. When specified, default values
+    #   are applied for `ResourceTypeOptions`. For the default values, see
+    #   [How AMI reference checks work][1] in the *Amazon EC2 User Guide*.
+    #   If you also specify `ResourceTypes` with `ResourceTypeOptions`, your
+    #   specified values override the default values.
+    #
+    #   Supported resource types: `ec2:Instance` \| `ec2:LaunchTemplate` \|
+    #   `ssm:Parameter` \| `imagebuilder:ImageRecipe` \|
+    #   `imagebuilder:ContainerRecipe`
+    #
+    #   Either `IncludeAllResourceTypes` or `ResourceTypes` must be
+    #   specified.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-ami-references-works.html
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] resource_types
+    #   The Amazon Web Services resource types to check for image
+    #   references.
+    #
+    #   Either `IncludeAllResourceTypes` or `ResourceTypes` must be
+    #   specified.
+    #   @return [Array<Types::ResourceTypeRequest>]
+    #
+    # @!attribute [rw] next_token
+    #   The token returned from a previous paginated request. Pagination
+    #   continues from the end of the items returned by the previous
+    #   request.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageReferencesRequest AWS API Documentation
+    #
+    class DescribeImageReferencesRequest < Struct.new(
+      :image_ids,
+      :include_all_resource_types,
+      :resource_types,
+      :next_token,
+      :dry_run,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to include in another request to get the next page of
+    #   items. This value is `null` when there are no more items to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_references
+    #   The resources that are referencing the specified images.
+    #   @return [Array<Types::ImageReference>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageReferencesResult AWS API Documentation
+    #
+    class DescribeImageReferencesResult < Struct.new(
+      :next_token,
+      :image_references)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] image_ids
+    #   The IDs of the images for filtering the report entries. If
+    #   specified, only report entries containing these images are returned.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] report_ids
+    #   The IDs of the usage reports.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] next_token
+    #   The token returned from a previous paginated request. Pagination
+    #   continues from the end of the items returned by the previous
+    #   request.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   The filters.
+    #
+    #   * `account-id` - A 12-digit Amazon Web Services account ID.
+    #
+    #   * `creation-time` - The time when the report was created, in the ISO
+    #     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+    #     example, `2025-11-29T11:04:43.305Z`. You can use a wildcard (`*`),
+    #     for example, `2025-11-29T*`, which matches an entire day.
+    #
+    #   * `resource-type` - The resource type (`ec2:Instance` \|
+    #     `ec2:LaunchTemplate`).
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageUsageReportEntriesRequest AWS API Documentation
+    #
+    class DescribeImageUsageReportEntriesRequest < Struct.new(
+      :image_ids,
+      :report_ids,
+      :next_token,
+      :filters,
+      :dry_run,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to include in another request to get the next page of
+    #   items. This value is `null` when there are no more items to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_usage_report_entries
+    #   The content of the usage reports.
+    #   @return [Array<Types::ImageUsageReportEntry>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageUsageReportEntriesResult AWS API Documentation
+    #
+    class DescribeImageUsageReportEntriesResult < Struct.new(
+      :next_token,
+      :image_usage_report_entries)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] image_ids
+    #   The IDs of the images for filtering the reports. If specified, only
+    #   reports containing these images are returned.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] report_ids
+    #   The IDs of the image usage reports.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] next_token
+    #   The token returned from a previous paginated request. Pagination
+    #   continues from the end of the items returned by the previous
+    #   request.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   The filters.
+    #
+    #   * `creation-time` - The time when the report was created, in the ISO
+    #     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+    #     example, `2025-11-29T11:04:43.305Z`. You can use a wildcard (`*`),
+    #     for example, `2025-11-29T*`, which matches an entire day.
+    #
+    #   * `state` - The state of the report (`available` \| `pending` \|
+    #     `error`).
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageUsageReportsRequest AWS API Documentation
+    #
+    class DescribeImageUsageReportsRequest < Struct.new(
+      :image_ids,
+      :report_ids,
+      :next_token,
+      :filters,
+      :dry_run,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to include in another request to get the next page of
+    #   items. This value is `null` when there are no more items to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_usage_reports
+    #   The image usage reports.
+    #   @return [Array<Types::ImageUsageReport>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeImageUsageReportsResult AWS API Documentation
+    #
+    class DescribeImageUsageReportsResult < Struct.new(
+      :next_token,
+      :image_usage_reports)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -31604,6 +31940,9 @@ module Aws::EC2
     #
     #   * `resource-configuration-group-arn` - The Amazon Resource Name
     #     (ARN) of the resource configuration of type GROUP.
+    #
+    #   * `service-network-resource-association-id` - The ID of the
+    #     association.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] max_results
@@ -37859,12 +38198,17 @@ module Aws::EC2
     # Describes an EC2 Fleet.
     #
     # @!attribute [rw] activity_status
-    #   The progress of the EC2 Fleet. If there is an error, the status is
-    #   `error`. After all requests are placed, the status is
-    #   `pending_fulfillment`. If the size of the EC2 Fleet is equal to or
-    #   greater than its target capacity, the status is `fulfilled`. If the
-    #   size of the EC2 Fleet is decreased, the status is
-    #   `pending_termination` while instances are terminating.
+    #   The progress of the EC2 Fleet.
+    #
+    #   For fleets of type `instant`, the status is `fulfilled` after all
+    #   requests are placed, regardless of whether target capacity is met
+    #   (this is the only possible status for `instant` fleets).
+    #
+    #   For fleets of type `request` or `maintain`, the status is
+    #   `pending_fulfillment` after all requests are placed, `fulfilled`
+    #   when the fleet size meets or exceeds target capacity,
+    #   `pending_termination` while instances are terminating when fleet
+    #   size is decreased, and `error` if there's an error.
     #   @return [String]
     #
     # @!attribute [rw] create_time
@@ -43530,6 +43874,226 @@ module Aws::EC2
       :description,
       :recycle_bin_enter_time,
       :recycle_bin_exit_time)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A resource that is referencing an image.
+    #
+    # @!attribute [rw] image_id
+    #   The ID of the referenced image.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The type of resource referencing the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] arn
+    #   The Amazon Resource Name (ARN) of the resource referencing the
+    #   image.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageReference AWS API Documentation
+    #
+    class ImageReference < Struct.new(
+      :image_id,
+      :resource_type,
+      :arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The configuration and status of an image usage report.
+    #
+    # @!attribute [rw] image_id
+    #   The ID of the image that was specified when the report was created.
+    #   @return [String]
+    #
+    # @!attribute [rw] report_id
+    #   The ID of the report.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_types
+    #   The resource types that were specified when the report was created.
+    #   @return [Array<Types::ImageUsageResourceType>]
+    #
+    # @!attribute [rw] account_ids
+    #   The IDs of the Amazon Web Services accounts that were specified when
+    #   the report was created.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] state
+    #   The current state of the report. Possible values:
+    #
+    #   * `available` - The report is available to view.
+    #
+    #   * `pending` - The report is being created and not available to view.
+    #
+    #   * `error` - The report could not be created.
+    #   @return [String]
+    #
+    # @!attribute [rw] state_reason
+    #   Provides additional details when the report is in an `error` state.
+    #   @return [String]
+    #
+    # @!attribute [rw] creation_time
+    #   The date and time when the report was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] expiration_time
+    #   The date and time when Amazon EC2 will delete the report (30 days
+    #   after the report was created).
+    #   @return [Time]
+    #
+    # @!attribute [rw] tags
+    #   Any tags assigned to the report.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageReport AWS API Documentation
+    #
+    class ImageUsageReport < Struct.new(
+      :image_id,
+      :report_id,
+      :resource_types,
+      :account_ids,
+      :state,
+      :state_reason,
+      :creation_time,
+      :expiration_time,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A single entry in an image usage report, detailing how an image is
+    # being used by a specific Amazon Web Services account and resource
+    # type.
+    #
+    # @!attribute [rw] resource_type
+    #   The type of resource (`ec2:Instance` or `ec2:LaunchTemplate`).
+    #   @return [String]
+    #
+    # @!attribute [rw] report_id
+    #   The ID of the report.
+    #   @return [String]
+    #
+    # @!attribute [rw] usage_count
+    #   The number of times resources of this type reference this image in
+    #   the account.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] account_id
+    #   The ID of the account that uses the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_id
+    #   The ID of the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] report_creation_time
+    #   The date and time the report creation was initiated.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageReportEntry AWS API Documentation
+    #
+    class ImageUsageReportEntry < Struct.new(
+      :resource_type,
+      :report_id,
+      :usage_count,
+      :account_id,
+      :image_id,
+      :report_creation_time)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A resource type to include in the report. Associated options can also
+    # be specified if the resource type is a launch template.
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type.
+    #
+    #   Valid values: `ec2:Instance` \| `ec2:LaunchTemplate`
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type_options
+    #   The options that affect the scope of the report. Valid only when
+    #   `ResourceType` is `ec2:LaunchTemplate`.
+    #   @return [Array<Types::ImageUsageResourceTypeOption>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageResourceType AWS API Documentation
+    #
+    class ImageUsageResourceType < Struct.new(
+      :resource_type,
+      :resource_type_options)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The options that affect the scope of the report.
+    #
+    # @!attribute [rw] option_name
+    #   The name of the option.
+    #   @return [String]
+    #
+    # @!attribute [rw] option_values
+    #   The number of launch template versions to check.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageResourceTypeOption AWS API Documentation
+    #
+    class ImageUsageResourceTypeOption < Struct.new(
+      :option_name,
+      :option_values)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The options that affect the scope of the report.
+    #
+    # @!attribute [rw] option_name
+    #   The name of the option.
+    #
+    #   Valid value: `version-depth` - The number of launch template
+    #   versions to check.
+    #   @return [String]
+    #
+    # @!attribute [rw] option_values
+    #   A value for the specified option.
+    #
+    #   Valid values: Integers between `1` and `10000`
+    #
+    #   Default: `20`
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageResourceTypeOptionRequest AWS API Documentation
+    #
+    class ImageUsageResourceTypeOptionRequest < Struct.new(
+      :option_name,
+      :option_values)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A resource type to include in the report. Associated options can also
+    # be specified if the resource type is a launch template.
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type.
+    #
+    #   Valid values: `ec2:Instance` \| `ec2:LaunchTemplate`
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type_options
+    #   The options that affect the scope of the report. Valid only when
+    #   `ResourceType` is `ec2:LaunchTemplate`.
+    #   @return [Array<Types::ImageUsageResourceTypeOptionRequest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageUsageResourceTypeRequest AWS API Documentation
+    #
+    class ImageUsageResourceTypeRequest < Struct.new(
+      :resource_type,
+      :resource_type_options)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -66089,6 +66653,68 @@ module Aws::EC2
     class ResourceStatementRequest < Struct.new(
       :resources,
       :resource_types)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The options that affect the scope of the response.
+    #
+    # @!attribute [rw] option_name
+    #   The name of the option.
+    #
+    #   * For `ec2:Instance`:
+    #
+    #     Specify `state-name` - The current state of the EC2 instance.
+    #
+    #   * For `ec2:LaunchTemplate`:
+    #
+    #     Specify `version-depth` - The number of launch template versions
+    #     to check, starting from the most recent version.
+    #   @return [String]
+    #
+    # @!attribute [rw] option_values
+    #   A value for the specified option.
+    #
+    #   * For `state-name`:
+    #
+    #     * Valid values: `pending` \| `running` \| `shutting-down` \|
+    #       `terminated` \| `stopping` \| `stopped`
+    #
+    #     * Default: All states
+    #   * For `version-depth`:
+    #
+    #     * Valid values: Integers between `1` and `10000`
+    #
+    #     * Default: `10`
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResourceTypeOption AWS API Documentation
+    #
+    class ResourceTypeOption < Struct.new(
+      :option_name,
+      :option_values)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A resource type to check for image references. Associated options can
+    # also be specified if the resource type is an EC2 instance or launch
+    # template.
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type_options
+    #   The options that affect the scope of the response. Valid only when
+    #   `ResourceType` is `ec2:Instance` or `ec2:LaunchTemplate`.
+    #   @return [Array<Types::ResourceTypeOption>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ResourceTypeRequest AWS API Documentation
+    #
+    class ResourceTypeRequest < Struct.new(
+      :resource_type,
+      :resource_type_options)
       SENSITIVE = []
       include Aws::Structure
     end

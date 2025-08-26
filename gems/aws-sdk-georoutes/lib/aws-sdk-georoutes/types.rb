@@ -168,7 +168,7 @@ module Aws::GeoRoutes
       :traffic,
       :travel_mode,
       :travel_mode_options)
-      SENSITIVE = [:destination, :key, :origin]
+      SENSITIVE = [:arrival_time, :depart_now, :departure_time, :destination, :key, :origin]
       include Aws::Structure
     end
 
@@ -231,7 +231,7 @@ module Aws::GeoRoutes
       :pricing_bucket,
       :snapped_destination,
       :snapped_origin)
-      SENSITIVE = [:snapped_destination, :snapped_origin]
+      SENSITIVE = [:arrival_time, :departure_time, :snapped_destination, :snapped_origin]
       include Aws::Structure
     end
 
@@ -351,7 +351,7 @@ module Aws::GeoRoutes
       :traffic,
       :travel_mode,
       :travel_mode_options)
-      SENSITIVE = [:key]
+      SENSITIVE = [:allow, :depart_now, :departure_time, :key]
       include Aws::Structure
     end
 
@@ -601,7 +601,7 @@ module Aws::GeoRoutes
       :travel_mode_options,
       :travel_step_type,
       :waypoints)
-      SENSITIVE = [:destination, :key, :origin]
+      SENSITIVE = [:arrival_time, :depart_now, :departure_time, :destination, :key, :leg_additional_features, :origin]
       include Aws::Structure
     end
 
@@ -656,7 +656,7 @@ module Aws::GeoRoutes
     class Circle < Struct.new(
       :center,
       :radius)
-      SENSITIVE = [:center]
+      SENSITIVE = [:center, :radius]
       include Aws::Structure
     end
 
@@ -725,7 +725,7 @@ module Aws::GeoRoutes
       :distance_threshold,
       :geometries,
       :time_threshold)
-      SENSITIVE = []
+      SENSITIVE = [:distance_threshold, :time_threshold]
       include Aws::Structure
     end
 
@@ -749,7 +749,7 @@ module Aws::GeoRoutes
     class IsolineAllowOptions < Struct.new(
       :hot,
       :hov)
-      SENSITIVE = []
+      SENSITIVE = [:hot, :hov]
       include Aws::Structure
     end
 
@@ -901,7 +901,7 @@ module Aws::GeoRoutes
       :tunnels,
       :u_turns,
       :zone_categories)
-      SENSITIVE = []
+      SENSITIVE = [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :seasonal_closure, :toll_roads, :toll_transponders, :truck_road_types, :tunnels, :u_turns]
       include Aws::Structure
     end
 
@@ -948,7 +948,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:engine_type, :license_plate, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -1037,7 +1037,7 @@ module Aws::GeoRoutes
       :heading,
       :matching,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :heading]
       include Aws::Structure
     end
 
@@ -1058,7 +1058,7 @@ module Aws::GeoRoutes
     class IsolineGranularityOptions < Struct.new(
       :max_points,
       :max_resolution)
-      SENSITIVE = []
+      SENSITIVE = [:max_resolution]
       include Aws::Structure
     end
 
@@ -1098,7 +1098,7 @@ module Aws::GeoRoutes
       :on_road_threshold,
       :radius,
       :strategy)
-      SENSITIVE = [:name_hint]
+      SENSITIVE = [:name_hint, :on_road_threshold, :radius]
       include Aws::Structure
     end
 
@@ -1131,7 +1131,7 @@ module Aws::GeoRoutes
       :heading,
       :matching,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :heading]
       include Aws::Structure
     end
 
@@ -1164,7 +1164,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:engine_type, :license_plate, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -1236,7 +1236,7 @@ module Aws::GeoRoutes
     class IsolineThresholds < Struct.new(
       :distance,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :time]
       include Aws::Structure
     end
 
@@ -1265,7 +1265,7 @@ module Aws::GeoRoutes
     class IsolineTrafficOptions < Struct.new(
       :flow_event_threshold_override,
       :usage)
-      SENSITIVE = []
+      SENSITIVE = [:flow_event_threshold_override]
       include Aws::Structure
     end
 
@@ -1286,7 +1286,7 @@ module Aws::GeoRoutes
     class IsolineTrailerOptions < Struct.new(
       :axle_count,
       :trailer_count)
-      SENSITIVE = []
+      SENSITIVE = [:axle_count, :trailer_count]
       include Aws::Structure
     end
 
@@ -1471,7 +1471,7 @@ module Aws::GeoRoutes
       :weight_per_axle,
       :weight_per_axle_group,
       :width)
-      SENSITIVE = []
+      SENSITIVE = [:axle_count, :engine_type, :gross_weight, :hazardous_cargos, :height, :height_above_first_axle, :kpra_length, :length, :license_plate, :max_speed, :occupancy, :payload_capacity, :tire_count, :tunnel_restriction_code, :weight_per_axle, :width]
       include Aws::Structure
     end
 
@@ -1506,7 +1506,7 @@ module Aws::GeoRoutes
     class LocalizedString < Struct.new(
       :language,
       :value)
-      SENSITIVE = []
+      SENSITIVE = [:value]
       include Aws::Structure
     end
 
@@ -1607,7 +1607,7 @@ module Aws::GeoRoutes
       :travel_mode,
       :travel_mode_options,
       :waypoints)
-      SENSITIVE = [:destination, :key, :origin]
+      SENSITIVE = [:departure_time, :destination, :key, :origin]
       include Aws::Structure
     end
 
@@ -1653,7 +1653,7 @@ module Aws::GeoRoutes
       :optimized_waypoints,
       :pricing_bucket,
       :time_breakdown)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration]
       include Aws::Structure
     end
 
@@ -1708,7 +1708,7 @@ module Aws::GeoRoutes
       :code,
       :title,
       :trace_point_indexes)
-      SENSITIVE = []
+      SENSITIVE = [:code, :title, :trace_point_indexes]
       include Aws::Structure
     end
 
@@ -1763,7 +1763,7 @@ module Aws::GeoRoutes
       :confidence,
       :original_position,
       :snapped_position)
-      SENSITIVE = [:original_position, :snapped_position]
+      SENSITIVE = [:confidence, :original_position, :snapped_position]
       include Aws::Structure
     end
 
@@ -1794,7 +1794,7 @@ module Aws::GeoRoutes
       :position,
       :speed,
       :timestamp)
-      SENSITIVE = [:position]
+      SENSITIVE = [:heading, :position, :speed, :timestamp]
       include Aws::Structure
     end
 
@@ -1810,7 +1810,7 @@ module Aws::GeoRoutes
     #
     class RoadSnapTrailerOptions < Struct.new(
       :trailer_count)
-      SENSITIVE = []
+      SENSITIVE = [:trailer_count]
       include Aws::Structure
     end
 
@@ -1900,7 +1900,7 @@ module Aws::GeoRoutes
       :trailer,
       :tunnel_restriction_code,
       :width)
-      SENSITIVE = []
+      SENSITIVE = [:gross_weight, :hazardous_cargos, :height, :length, :tunnel_restriction_code, :width]
       include Aws::Structure
     end
 
@@ -1954,7 +1954,7 @@ module Aws::GeoRoutes
     class RouteAllowOptions < Struct.new(
       :hot,
       :hov)
-      SENSITIVE = []
+      SENSITIVE = [:hot, :hov]
       include Aws::Structure
     end
 
@@ -2102,7 +2102,7 @@ module Aws::GeoRoutes
       :tunnels,
       :u_turns,
       :zone_categories)
-      SENSITIVE = []
+      SENSITIVE = [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :seasonal_closure, :toll_roads, :toll_transponders, :truck_road_types, :tunnels, :u_turns]
       include Aws::Structure
     end
 
@@ -2116,7 +2116,7 @@ module Aws::GeoRoutes
     #
     class RouteAvoidanceZoneCategory < Struct.new(
       :category)
-      SENSITIVE = []
+      SENSITIVE = [:category]
       include Aws::Structure
     end
 
@@ -2149,7 +2149,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:engine_type, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -2178,7 +2178,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -2237,7 +2237,7 @@ module Aws::GeoRoutes
       :matching,
       :side_of_street,
       :stop_duration)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :avoid_u_turns, :heading, :stop_duration]
       include Aws::Structure
     end
 
@@ -2276,7 +2276,7 @@ module Aws::GeoRoutes
     class RouteDriverScheduleInterval < Struct.new(
       :drive_duration,
       :rest_duration)
-      SENSITIVE = []
+      SENSITIVE = [:drive_duration, :rest_duration]
       include Aws::Structure
     end
 
@@ -2300,7 +2300,7 @@ module Aws::GeoRoutes
     class RouteEmissionType < Struct.new(
       :co_2_emission_class,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:co_2_emission_class, :type]
       include Aws::Structure
     end
 
@@ -2329,7 +2329,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -2346,7 +2346,7 @@ module Aws::GeoRoutes
     #
     class RouteExclusionOptions < Struct.new(
       :countries)
-      SENSITIVE = []
+      SENSITIVE = [:countries]
       include Aws::Structure
     end
 
@@ -2380,7 +2380,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:relative_exit, :steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -2411,7 +2411,7 @@ module Aws::GeoRoutes
       :duration,
       :instruction,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:duration, :instruction, :type]
       include Aws::Structure
     end
 
@@ -2430,7 +2430,7 @@ module Aws::GeoRoutes
     class RouteFerryArrival < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -2461,7 +2461,7 @@ module Aws::GeoRoutes
       :duration,
       :instruction,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:duration, :instruction, :type]
       include Aws::Structure
     end
 
@@ -2480,7 +2480,7 @@ module Aws::GeoRoutes
     class RouteFerryDeparture < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -2545,7 +2545,7 @@ module Aws::GeoRoutes
       :spans,
       :summary,
       :travel_steps)
-      SENSITIVE = []
+      SENSITIVE = [:route_name]
       include Aws::Structure
     end
 
@@ -2588,7 +2588,7 @@ module Aws::GeoRoutes
     class RouteFerryOverviewSummary < Struct.new(
       :distance,
       :duration)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration]
       include Aws::Structure
     end
 
@@ -2617,7 +2617,7 @@ module Aws::GeoRoutes
       :original_position,
       :position,
       :waypoint_index)
-      SENSITIVE = [:original_position, :position]
+      SENSITIVE = [:name, :original_position, :position, :waypoint_index]
       include Aws::Structure
     end
 
@@ -2663,7 +2663,7 @@ module Aws::GeoRoutes
       :geometry_offset,
       :names,
       :region)
-      SENSITIVE = []
+      SENSITIVE = [:country, :distance, :duration, :region]
       include Aws::Structure
     end
 
@@ -2705,7 +2705,7 @@ module Aws::GeoRoutes
     #
     class RouteFerryTravelOnlySummary < Struct.new(
       :duration)
-      SENSITIVE = []
+      SENSITIVE = [:duration]
       include Aws::Structure
     end
 
@@ -2746,7 +2746,7 @@ module Aws::GeoRoutes
       :geometry_offset,
       :instruction,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration, :instruction, :type]
       include Aws::Structure
     end
 
@@ -2775,7 +2775,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -2828,7 +2828,7 @@ module Aws::GeoRoutes
       :travel_mode,
       :type,
       :vehicle_leg_details)
-      SENSITIVE = []
+      SENSITIVE = [:travel_mode, :type]
       include Aws::Structure
     end
 
@@ -2916,7 +2916,7 @@ module Aws::GeoRoutes
       :on_road_threshold,
       :radius,
       :strategy)
-      SENSITIVE = [:name_hint]
+      SENSITIVE = [:name_hint, :on_road_threshold, :radius]
       include Aws::Structure
     end
 
@@ -2940,7 +2940,7 @@ module Aws::GeoRoutes
     class RouteMatrixAllowOptions < Struct.new(
       :hot,
       :hov)
-      SENSITIVE = []
+      SENSITIVE = [:hot, :hov]
       include Aws::Structure
     end
 
@@ -2959,7 +2959,7 @@ module Aws::GeoRoutes
     class RouteMatrixAutoCircle < Struct.new(
       :margin,
       :max_radius)
-      SENSITIVE = []
+      SENSITIVE = [:margin, :max_radius]
       include Aws::Structure
     end
 
@@ -3084,7 +3084,7 @@ module Aws::GeoRoutes
       :tunnels,
       :u_turns,
       :zone_categories)
-      SENSITIVE = []
+      SENSITIVE = [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :toll_roads, :toll_transponders, :truck_road_types, :tunnels, :u_turns]
       include Aws::Structure
     end
 
@@ -3098,7 +3098,7 @@ module Aws::GeoRoutes
     #
     class RouteMatrixAvoidanceZoneCategory < Struct.new(
       :category)
-      SENSITIVE = []
+      SENSITIVE = [:category]
       include Aws::Structure
     end
 
@@ -3119,7 +3119,7 @@ module Aws::GeoRoutes
     class RouteMatrixBoundary < Struct.new(
       :geometry,
       :unbounded)
-      SENSITIVE = []
+      SENSITIVE = [:unbounded]
       include Aws::Structure
     end
 
@@ -3181,7 +3181,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:license_plate, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -3233,7 +3233,7 @@ module Aws::GeoRoutes
       :heading,
       :matching,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :heading]
       include Aws::Structure
     end
 
@@ -3262,7 +3262,7 @@ module Aws::GeoRoutes
       :distance,
       :duration,
       :error)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration]
       include Aws::Structure
     end
 
@@ -3279,7 +3279,7 @@ module Aws::GeoRoutes
     #
     class RouteMatrixExclusionOptions < Struct.new(
       :countries)
-      SENSITIVE = []
+      SENSITIVE = [:countries]
       include Aws::Structure
     end
 
@@ -3319,7 +3319,7 @@ module Aws::GeoRoutes
       :on_road_threshold,
       :radius,
       :strategy)
-      SENSITIVE = [:name_hint]
+      SENSITIVE = [:name_hint, :on_road_threshold, :radius]
       include Aws::Structure
     end
 
@@ -3371,7 +3371,7 @@ module Aws::GeoRoutes
       :heading,
       :matching,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :heading]
       include Aws::Structure
     end
 
@@ -3399,7 +3399,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:license_plate, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -3449,7 +3449,7 @@ module Aws::GeoRoutes
     class RouteMatrixTrafficOptions < Struct.new(
       :flow_event_threshold_override,
       :usage)
-      SENSITIVE = []
+      SENSITIVE = [:flow_event_threshold_override]
       include Aws::Structure
     end
 
@@ -3465,7 +3465,7 @@ module Aws::GeoRoutes
     #
     class RouteMatrixTrailerOptions < Struct.new(
       :trailer_count)
-      SENSITIVE = []
+      SENSITIVE = [:trailer_count]
       include Aws::Structure
     end
 
@@ -3631,7 +3631,7 @@ module Aws::GeoRoutes
       :weight_per_axle,
       :weight_per_axle_group,
       :width)
-      SENSITIVE = []
+      SENSITIVE = [:axle_count, :gross_weight, :hazardous_cargos, :height, :kpra_length, :length, :license_plate, :max_speed, :occupancy, :payload_capacity, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
       include Aws::Structure
     end
 
@@ -3689,7 +3689,7 @@ module Aws::GeoRoutes
       :direction,
       :language,
       :value)
-      SENSITIVE = []
+      SENSITIVE = [:direction, :value]
       include Aws::Structure
     end
 
@@ -3727,7 +3727,7 @@ module Aws::GeoRoutes
       :heading,
       :matching,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:avoid_actions_for_distance, :avoid_u_turns, :heading]
       include Aws::Structure
     end
 
@@ -3752,7 +3752,7 @@ module Aws::GeoRoutes
       :original_position,
       :position,
       :waypoint_index)
-      SENSITIVE = [:original_position, :position]
+      SENSITIVE = [:original_position, :position, :waypoint_index]
       include Aws::Structure
     end
 
@@ -3799,7 +3799,7 @@ module Aws::GeoRoutes
     class RoutePedestrianArrival < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -3826,7 +3826,7 @@ module Aws::GeoRoutes
     class RoutePedestrianDeparture < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -3909,7 +3909,7 @@ module Aws::GeoRoutes
     #
     class RoutePedestrianOptions < Struct.new(
       :speed)
-      SENSITIVE = []
+      SENSITIVE = [:speed]
       include Aws::Structure
     end
 
@@ -3928,7 +3928,7 @@ module Aws::GeoRoutes
     class RoutePedestrianOverviewSummary < Struct.new(
       :distance,
       :duration)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration]
       include Aws::Structure
     end
 
@@ -3963,7 +3963,7 @@ module Aws::GeoRoutes
       :position,
       :side_of_street,
       :waypoint_index)
-      SENSITIVE = [:original_position, :position]
+      SENSITIVE = [:name, :original_position, :position, :side_of_street, :waypoint_index]
       include Aws::Structure
     end
 
@@ -4063,7 +4063,7 @@ module Aws::GeoRoutes
       :route_numbers,
       :speed_limit,
       :typical_duration)
-      SENSITIVE = []
+      SENSITIVE = [:best_case_duration, :country, :distance, :duration, :functional_classification, :pedestrian_access, :region, :road_attributes, :typical_duration]
       include Aws::Structure
     end
 
@@ -4101,7 +4101,7 @@ module Aws::GeoRoutes
     #
     class RoutePedestrianTravelOnlySummary < Struct.new(
       :duration)
-      SENSITIVE = []
+      SENSITIVE = [:duration]
       include Aws::Structure
     end
 
@@ -4195,7 +4195,7 @@ module Aws::GeoRoutes
       :signpost,
       :turn_step_details,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration, :instruction, :type]
       include Aws::Structure
     end
 
@@ -4224,7 +4224,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -4276,7 +4276,7 @@ module Aws::GeoRoutes
       :route_number,
       :towards,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:type]
       include Aws::Structure
     end
 
@@ -4305,7 +4305,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -4334,7 +4334,7 @@ module Aws::GeoRoutes
       :relative_exit,
       :roundabout_angle,
       :steering_direction)
-      SENSITIVE = []
+      SENSITIVE = [:relative_exit, :steering_direction]
       include Aws::Structure
     end
 
@@ -4363,7 +4363,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -4396,7 +4396,7 @@ module Aws::GeoRoutes
       :license_plate,
       :max_speed,
       :occupancy)
-      SENSITIVE = []
+      SENSITIVE = [:engine_type, :max_speed, :occupancy]
       include Aws::Structure
     end
 
@@ -4487,7 +4487,7 @@ module Aws::GeoRoutes
       :best_case_speed,
       :turn_duration,
       :typical_speed)
-      SENSITIVE = []
+      SENSITIVE = [:best_case_speed, :turn_duration, :typical_speed]
       include Aws::Structure
     end
 
@@ -4510,7 +4510,7 @@ module Aws::GeoRoutes
     class RouteSpanSpeedLimitDetails < Struct.new(
       :max_speed,
       :unlimited)
-      SENSITIVE = []
+      SENSITIVE = [:max_speed, :unlimited]
       include Aws::Structure
     end
 
@@ -4538,7 +4538,7 @@ module Aws::GeoRoutes
       :distance,
       :duration,
       :tolls)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration]
       include Aws::Structure
     end
 
@@ -4569,7 +4569,7 @@ module Aws::GeoRoutes
       :payment_sites,
       :rates,
       :systems)
-      SENSITIVE = []
+      SENSITIVE = [:country]
       include Aws::Structure
     end
 
@@ -4611,7 +4611,7 @@ module Aws::GeoRoutes
       :currency,
       :emission_type,
       :vehicle_category)
-      SENSITIVE = []
+      SENSITIVE = [:all_transponders, :all_vignettes, :vehicle_category]
       include Aws::Structure
     end
 
@@ -4645,7 +4645,7 @@ module Aws::GeoRoutes
       :transfer_count,
       :trip_count,
       :validity_period)
-      SENSITIVE = []
+      SENSITIVE = [:includes_return_trip, :senior_pass, :transfer_count, :trip_count]
       include Aws::Structure
     end
 
@@ -4664,7 +4664,7 @@ module Aws::GeoRoutes
     class RouteTollPassValidityPeriod < Struct.new(
       :period,
       :period_count)
-      SENSITIVE = []
+      SENSITIVE = [:period, :period_count]
       include Aws::Structure
     end
 
@@ -4726,7 +4726,7 @@ module Aws::GeoRoutes
       :range,
       :range_value,
       :value)
-      SENSITIVE = []
+      SENSITIVE = [:estimate, :per_duration, :range, :value]
       include Aws::Structure
     end
 
@@ -4762,7 +4762,7 @@ module Aws::GeoRoutes
       :range,
       :range_value,
       :value)
-      SENSITIVE = []
+      SENSITIVE = [:estimate, :range, :value]
       include Aws::Structure
     end
 
@@ -4781,7 +4781,7 @@ module Aws::GeoRoutes
     class RouteTollPriceValueRange < Struct.new(
       :min,
       :max)
-      SENSITIVE = []
+      SENSITIVE = [:min, :max]
       include Aws::Structure
     end
 
@@ -4830,7 +4830,7 @@ module Aws::GeoRoutes
       :pass,
       :payment_methods,
       :transponders)
-      SENSITIVE = []
+      SENSITIVE = [:applicable_times, :id, :name, :payment_methods]
       include Aws::Structure
     end
 
@@ -4859,7 +4859,7 @@ module Aws::GeoRoutes
     #
     class RouteTollSystem < Struct.new(
       :name)
-      SENSITIVE = []
+      SENSITIVE = [:name]
       include Aws::Structure
     end
 
@@ -4886,7 +4886,7 @@ module Aws::GeoRoutes
     class RouteTrafficOptions < Struct.new(
       :flow_event_threshold_override,
       :usage)
-      SENSITIVE = []
+      SENSITIVE = [:flow_event_threshold_override]
       include Aws::Structure
     end
 
@@ -4907,7 +4907,7 @@ module Aws::GeoRoutes
     class RouteTrailerOptions < Struct.new(
       :axle_count,
       :trailer_count)
-      SENSITIVE = []
+      SENSITIVE = [:axle_count, :trailer_count]
       include Aws::Structure
     end
 
@@ -4921,7 +4921,7 @@ module Aws::GeoRoutes
     #
     class RouteTransponder < Struct.new(
       :system_name)
-      SENSITIVE = []
+      SENSITIVE = [:system_name]
       include Aws::Structure
     end
 
@@ -5111,7 +5111,7 @@ module Aws::GeoRoutes
       :weight_per_axle,
       :weight_per_axle_group,
       :width)
-      SENSITIVE = []
+      SENSITIVE = [:axle_count, :engine_type, :gross_weight, :hazardous_cargos, :height, :height_above_first_axle, :kpra_length, :length, :max_speed, :occupancy, :payload_capacity, :tire_count, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
       include Aws::Structure
     end
 
@@ -5140,7 +5140,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -5169,7 +5169,7 @@ module Aws::GeoRoutes
       :steering_direction,
       :turn_angle,
       :turn_intensity)
-      SENSITIVE = []
+      SENSITIVE = [:steering_direction, :turn_intensity]
       include Aws::Structure
     end
 
@@ -5188,7 +5188,7 @@ module Aws::GeoRoutes
     class RouteVehicleArrival < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -5207,7 +5207,7 @@ module Aws::GeoRoutes
     class RouteVehicleDeparture < Struct.new(
       :place,
       :time)
-      SENSITIVE = []
+      SENSITIVE = [:time]
       include Aws::Structure
     end
 
@@ -5245,7 +5245,7 @@ module Aws::GeoRoutes
       :severity,
       :start_time,
       :type)
-      SENSITIVE = []
+      SENSITIVE = [:description, :end_time, :severity, :start_time, :type]
       include Aws::Structure
     end
 
@@ -5322,7 +5322,7 @@ module Aws::GeoRoutes
       :travel_steps,
       :truck_road_types,
       :zones)
-      SENSITIVE = []
+      SENSITIVE = [:truck_road_types]
       include Aws::Structure
     end
 
@@ -5338,7 +5338,7 @@ module Aws::GeoRoutes
     #
     class RouteVehicleLicensePlate < Struct.new(
       :last_character)
-      SENSITIVE = []
+      SENSITIVE = [:last_character]
       include Aws::Structure
     end
 
@@ -5384,7 +5384,7 @@ module Aws::GeoRoutes
     class RouteVehicleNoticeDetail < Struct.new(
       :title,
       :violated_constraints)
-      SENSITIVE = []
+      SENSITIVE = [:title]
       include Aws::Structure
     end
 
@@ -5420,7 +5420,7 @@ module Aws::GeoRoutes
       :distance,
       :duration,
       :typical_duration)
-      SENSITIVE = []
+      SENSITIVE = [:best_case_duration, :distance, :duration, :typical_duration]
       include Aws::Structure
     end
 
@@ -5455,7 +5455,7 @@ module Aws::GeoRoutes
       :position,
       :side_of_street,
       :waypoint_index)
-      SENSITIVE = [:original_position, :position]
+      SENSITIVE = [:name, :original_position, :position, :side_of_street, :waypoint_index]
       include Aws::Structure
     end
 
@@ -5603,7 +5603,7 @@ module Aws::GeoRoutes
       :truck_road_types,
       :typical_duration,
       :zones)
-      SENSITIVE = []
+      SENSITIVE = [:best_case_duration, :car_access, :country, :distance, :duration, :functional_classification, :gate, :railway_crossing, :region, :road_attributes, :scooter_access, :truck_access, :typical_duration]
       include Aws::Structure
     end
 
@@ -5655,7 +5655,7 @@ module Aws::GeoRoutes
       :best_case_duration,
       :duration,
       :typical_duration)
-      SENSITIVE = []
+      SENSITIVE = [:best_case_duration, :duration, :typical_duration]
       include Aws::Structure
     end
 
@@ -5772,7 +5772,7 @@ module Aws::GeoRoutes
       :turn_step_details,
       :type,
       :u_turn_step_details)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :duration, :instruction, :type]
       include Aws::Structure
     end
 
@@ -5922,7 +5922,7 @@ module Aws::GeoRoutes
       :truck_road_type,
       :truck_type,
       :tunnel_restriction_code)
-      SENSITIVE = []
+      SENSITIVE = [:all_hazards_restricted, :hazardous_cargos, :max_height, :max_kpra_length, :max_length, :max_payload_capacity, :max_weight_per_axle, :max_width, :time_dependent, :travel_mode, :truck_type, :tunnel_restriction_code]
       include Aws::Structure
     end
 
@@ -5979,7 +5979,7 @@ module Aws::GeoRoutes
       :position,
       :side_of_street,
       :stop_duration)
-      SENSITIVE = [:position]
+      SENSITIVE = [:avoid_actions_for_distance, :avoid_u_turns, :heading, :pass_through, :position, :stop_duration]
       include Aws::Structure
     end
 
@@ -6002,7 +6002,7 @@ module Aws::GeoRoutes
     class RouteWeightConstraint < Struct.new(
       :type,
       :value)
-      SENSITIVE = []
+      SENSITIVE = [:value]
       include Aws::Structure
     end
 
@@ -6021,7 +6021,7 @@ module Aws::GeoRoutes
     class RouteZone < Struct.new(
       :category,
       :name)
-      SENSITIVE = []
+      SENSITIVE = [:category, :name]
       include Aws::Structure
     end
 
@@ -6069,7 +6069,7 @@ module Aws::GeoRoutes
       :trace_points,
       :travel_mode,
       :travel_mode_options)
-      SENSITIVE = [:key]
+      SENSITIVE = [:key, :snap_radius]
       include Aws::Structure
     end
 
@@ -6199,7 +6199,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationAccessHoursEntry < Struct.new(
       :day_of_week,
       :time_of_day)
-      SENSITIVE = []
+      SENSITIVE = [:day_of_week, :time_of_day]
       include Aws::Structure
     end
 
@@ -6284,7 +6284,7 @@ module Aws::GeoRoutes
       :toll_roads,
       :tunnels,
       :u_turns)
-      SENSITIVE = []
+      SENSITIVE = [:car_shuttle_trains, :controlled_access_highways, :dirt_roads, :ferries, :toll_roads, :tunnels, :u_turns]
       include Aws::Structure
     end
 
@@ -6308,7 +6308,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationClusteringOptions < Struct.new(
       :algorithm,
       :driving_distance_options)
-      SENSITIVE = []
+      SENSITIVE = [:algorithm]
       include Aws::Structure
     end
 
@@ -6352,7 +6352,7 @@ module Aws::GeoRoutes
       :to,
       :travel_duration,
       :wait_duration)
-      SENSITIVE = []
+      SENSITIVE = [:distance, :rest_duration, :travel_duration, :wait_duration]
       include Aws::Structure
     end
 
@@ -6395,7 +6395,7 @@ module Aws::GeoRoutes
       :id,
       :service_duration,
       :side_of_street)
-      SENSITIVE = []
+      SENSITIVE = [:appointment_time, :heading, :service_duration]
       include Aws::Structure
     end
 
@@ -6425,7 +6425,7 @@ module Aws::GeoRoutes
       :rest_cycles,
       :rest_profile,
       :treat_service_time_as)
-      SENSITIVE = []
+      SENSITIVE = [:treat_service_time_as]
       include Aws::Structure
     end
 
@@ -6440,7 +6440,7 @@ module Aws::GeoRoutes
     #
     class WaypointOptimizationDrivingDistanceOptions < Struct.new(
       :driving_distance)
-      SENSITIVE = []
+      SENSITIVE = [:driving_distance]
       include Aws::Structure
     end
 
@@ -6457,7 +6457,7 @@ module Aws::GeoRoutes
     #
     class WaypointOptimizationExclusionOptions < Struct.new(
       :countries)
-      SENSITIVE = []
+      SENSITIVE = [:countries]
       include Aws::Structure
     end
 
@@ -6476,7 +6476,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationFailedConstraint < Struct.new(
       :constraint,
       :reason)
-      SENSITIVE = []
+      SENSITIVE = [:constraint, :reason]
       include Aws::Structure
     end
 
@@ -6554,7 +6554,7 @@ module Aws::GeoRoutes
       :departure_time,
       :id,
       :position)
-      SENSITIVE = [:position]
+      SENSITIVE = [:arrival_time, :departure_time, :position]
       include Aws::Structure
     end
 
@@ -6584,7 +6584,7 @@ module Aws::GeoRoutes
     #
     class WaypointOptimizationPedestrianOptions < Struct.new(
       :speed)
-      SENSITIVE = []
+      SENSITIVE = [:speed]
       include Aws::Structure
     end
 
@@ -6612,7 +6612,7 @@ module Aws::GeoRoutes
     class WaypointOptimizationRestCycleDurations < Struct.new(
       :rest_duration,
       :work_duration)
-      SENSITIVE = []
+      SENSITIVE = [:rest_duration, :work_duration]
       include Aws::Structure
     end
 
@@ -6647,7 +6647,7 @@ module Aws::GeoRoutes
     #
     class WaypointOptimizationRestProfile < Struct.new(
       :profile)
-      SENSITIVE = []
+      SENSITIVE = [:profile]
       include Aws::Structure
     end
 
@@ -6708,7 +6708,7 @@ module Aws::GeoRoutes
       :service_duration,
       :travel_duration,
       :wait_duration)
-      SENSITIVE = []
+      SENSITIVE = [:rest_duration, :service_duration, :travel_duration, :wait_duration]
       include Aws::Structure
     end
 
@@ -6741,7 +6741,7 @@ module Aws::GeoRoutes
     #
     class WaypointOptimizationTrailerOptions < Struct.new(
       :trailer_count)
-      SENSITIVE = []
+      SENSITIVE = [:trailer_count]
       include Aws::Structure
     end
 
@@ -6852,7 +6852,7 @@ module Aws::GeoRoutes
       :tunnel_restriction_code,
       :weight_per_axle,
       :width)
-      SENSITIVE = []
+      SENSITIVE = [:gross_weight, :hazardous_cargos, :height, :length, :truck_type, :tunnel_restriction_code, :weight_per_axle, :width]
       include Aws::Structure
     end
 
@@ -6906,7 +6906,7 @@ module Aws::GeoRoutes
       :position,
       :service_duration,
       :side_of_street)
-      SENSITIVE = [:position]
+      SENSITIVE = [:appointment_time, :heading, :position, :service_duration]
       include Aws::Structure
     end
 
@@ -6954,7 +6954,7 @@ module Aws::GeoRoutes
       :triple,
       :quad,
       :quint)
-      SENSITIVE = []
+      SENSITIVE = [:single, :tandem, :triple, :quad, :quint]
       include Aws::Structure
     end
 

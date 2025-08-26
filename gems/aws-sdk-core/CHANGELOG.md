@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.231.0 (2025-08-26)
+------------------
+
+* Feature - Remove incorrect endpoint tests
+
 * Feature - Add support for ENV as credential source for `AssumeRoleCredentials`.
 
 3.230.0 (2025-08-21)

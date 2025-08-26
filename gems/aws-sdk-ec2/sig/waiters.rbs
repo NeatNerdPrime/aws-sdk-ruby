@@ -154,6 +154,26 @@ module Aws
                 | (?Hash[Symbol, untyped]) -> Client::_DescribeImagesResponseSuccess
       end
 
+      class ImageUsageReportAvailable
+        def initialize: (?client: Client, ?max_attempts: Integer, ?delay: Integer, ?before_attempt: Proc, ?before_wait: Proc) -> void
+                      | (?Hash[Symbol, untyped]) -> void
+
+        def wait: (
+                    ?image_ids: Array[::String],
+                    ?report_ids: Array[::String],
+                    ?next_token: ::String,
+                    ?filters: Array[
+                      {
+                        name: ::String?,
+                        values: Array[::String]?
+                      },
+                    ],
+                    ?dry_run: bool,
+                    ?max_results: ::Integer
+                  ) -> Client::_DescribeImageUsageReportsResponseSuccess
+                | (?Hash[Symbol, untyped]) -> Client::_DescribeImageUsageReportsResponseSuccess
+      end
+
       class InstanceExists
         def initialize: (?client: Client, ?max_attempts: Integer, ?delay: Integer, ?before_attempt: Proc, ?before_wait: Proc) -> void
                       | (?Hash[Symbol, untyped]) -> void
