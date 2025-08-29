@@ -13367,8 +13367,8 @@ module Aws::EC2
     #   resp.route_table.routes[0].local_gateway_id #=> String
     #   resp.route_table.routes[0].carrier_gateway_id #=> String
     #   resp.route_table.routes[0].network_interface_id #=> String
-    #   resp.route_table.routes[0].origin #=> String, one of "CreateRouteTable", "CreateRoute", "EnableVgwRoutePropagation"
-    #   resp.route_table.routes[0].state #=> String, one of "active", "blackhole"
+    #   resp.route_table.routes[0].origin #=> String, one of "CreateRouteTable", "CreateRoute", "EnableVgwRoutePropagation", "Advertisement"
+    #   resp.route_table.routes[0].state #=> String, one of "active", "blackhole", "filtered"
     #   resp.route_table.routes[0].vpc_peering_connection_id #=> String
     #   resp.route_table.routes[0].core_network_arn #=> String
     #   resp.route_table.routes[0].odb_network_arn #=> String
@@ -36184,8 +36184,8 @@ module Aws::EC2
     #   resp.route_tables[0].routes[0].local_gateway_id #=> String
     #   resp.route_tables[0].routes[0].carrier_gateway_id #=> String
     #   resp.route_tables[0].routes[0].network_interface_id #=> String
-    #   resp.route_tables[0].routes[0].origin #=> String, one of "CreateRouteTable", "CreateRoute", "EnableVgwRoutePropagation"
-    #   resp.route_tables[0].routes[0].state #=> String, one of "active", "blackhole"
+    #   resp.route_tables[0].routes[0].origin #=> String, one of "CreateRouteTable", "CreateRoute", "EnableVgwRoutePropagation", "Advertisement"
+    #   resp.route_tables[0].routes[0].state #=> String, one of "active", "blackhole", "filtered"
     #   resp.route_tables[0].routes[0].vpc_peering_connection_id #=> String
     #   resp.route_tables[0].routes[0].core_network_arn #=> String
     #   resp.route_tables[0].routes[0].odb_network_arn #=> String
@@ -41958,9 +41958,6 @@ module Aws::EC2
     #
     #   * `resource-configuration-group-arn` - The Amazon Resource Name (ARN)
     #     of the resource configuration of type GROUP.
-    #
-    #   * `service-network-resource-association-id` - The ID of the
-    #     association.
     #
     # @option params [Integer] :max_results
     #   The maximum page size.
@@ -67153,7 +67150,7 @@ module Aws::EC2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ec2'
-      context[:gem_version] = '1.553.0'
+      context[:gem_version] = '1.554.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

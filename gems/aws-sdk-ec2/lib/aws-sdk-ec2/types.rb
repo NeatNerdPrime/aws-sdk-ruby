@@ -31984,9 +31984,6 @@ module Aws::EC2
     #
     #   * `resource-configuration-group-arn` - The Amazon Resource Name
     #     (ARN) of the resource configuration of type GROUP.
-    #
-    #   * `service-network-resource-association-id` - The ID of the
-    #     association.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] max_results
@@ -57453,8 +57450,11 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] default_route_table_propagation
-    #   Enable or disable automatic propagation of routes to the default
-    #   propagation route table.
+    #   Indicates whether resource attachments automatically propagate
+    #   routes to the default propagation route table. Enabled by default.
+    #   If `defaultRouteTablePropagation` is set to `enable`, Amazon Web
+    #   Services Transit Gateway will create the default transit gateway
+    #   route table.
     #   @return [String]
     #
     # @!attribute [rw] propagation_default_route_table_id
@@ -75077,10 +75077,10 @@ module Aws::EC2
     #
     # @!attribute [rw] default_route_table_association
     #   Indicates whether resource attachments are automatically associated
-    #   with the default association route table. Enabled by default. If
-    #   `defaultRouteTableAssociation` is set to `enable`, Amazon Web
-    #   Services Transit Gateway will create the default transit gateway
-    #   route table.
+    #   with the default association route table. Enabled by default. Either
+    #   `defaultRouteTableAssociation` or `defaultRouteTablePropagation`
+    #   must be set to `enable` for Amazon Web Services Transit Gateway to
+    #   create the default transit gateway route table.
     #   @return [String]
     #
     # @!attribute [rw] association_default_route_table_id
@@ -75091,8 +75091,8 @@ module Aws::EC2
     #   Indicates whether resource attachments automatically propagate
     #   routes to the default propagation route table. Enabled by default.
     #   If `defaultRouteTablePropagation` is set to `enable`, Amazon Web
-    #   Services Transit Gateway will create the default transit gateway
-    #   route table.
+    #   Services Transit Gateway creates the default transit gateway route
+    #   table.
     #   @return [String]
     #
     # @!attribute [rw] propagation_default_route_table_id

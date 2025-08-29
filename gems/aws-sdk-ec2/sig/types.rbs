@@ -14679,8 +14679,8 @@ module Aws::EC2
       attr_accessor local_gateway_id: ::String
       attr_accessor carrier_gateway_id: ::String
       attr_accessor network_interface_id: ::String
-      attr_accessor origin: ("CreateRouteTable" | "CreateRoute" | "EnableVgwRoutePropagation")
-      attr_accessor state: ("active" | "blackhole")
+      attr_accessor origin: ("CreateRouteTable" | "CreateRoute" | "EnableVgwRoutePropagation" | "Advertisement")
+      attr_accessor state: ("active" | "blackhole" | "filtered")
       attr_accessor vpc_peering_connection_id: ::String
       attr_accessor core_network_arn: ::String
       attr_accessor odb_network_arn: ::String
