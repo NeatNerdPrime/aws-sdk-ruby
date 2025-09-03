@@ -3188,6 +3188,24 @@ module Aws::RDS
     #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html
     #   @return [String]
     #
+    # @!attribute [rw] master_user_authentication_type
+    #   Specifies the authentication type for the master user. With IAM
+    #   master user authentication, you can configure the master DB user
+    #   with IAM database authentication when you create a DB cluster.
+    #
+    #   You can specify one of the following values:
+    #
+    #   * `password` - Use standard database authentication with a password.
+    #
+    #   * `iam-db-auth` - Use IAM database authentication for the master
+    #     user.
+    #
+    #   Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+    #
+    #   This option is only valid for RDS for PostgreSQL and Aurora
+    #   PostgreSQL engines.
+    #   @return [String]
+    #
     # @!attribute [rw] source_region
     #   The source region of the snapshot. This is only needed when the
     #   shapshot is encrypted and in a different region.
@@ -3252,6 +3270,7 @@ module Aws::RDS
       :enable_local_write_forwarding,
       :ca_certificate_identifier,
       :engine_lifecycle_support,
+      :master_user_authentication_type,
       :source_region)
       SENSITIVE = []
       include Aws::Structure
@@ -4843,6 +4862,22 @@ module Aws::RDS
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/extended-support.html
     #   @return [String]
     #
+    # @!attribute [rw] master_user_authentication_type
+    #   Specifies the authentication type for the master user. With IAM
+    #   master user authentication, you can configure the master DB user
+    #   with IAM database authentication when you create a DB instance.
+    #
+    #   You can specify one of the following values:
+    #
+    #   * `password` - Use standard database authentication with a password.
+    #
+    #   * `iam-db-auth` - Use IAM database authentication for the master
+    #     user.
+    #
+    #   This option is only valid for RDS for PostgreSQL and Aurora
+    #   PostgreSQL engines.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBInstanceMessage AWS API Documentation
     #
     class CreateDBInstanceMessage < Struct.new(
@@ -4909,7 +4944,8 @@ module Aws::RDS
       :db_system_id,
       :dedicated_log_volume,
       :multi_tenant,
-      :engine_lifecycle_support)
+      :engine_lifecycle_support,
+      :master_user_authentication_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -18171,8 +18207,9 @@ module Aws::RDS
     #   the `PerformanceInsightsEnabled` parameter to `true` and the
     #   `PerformanceInsightsRetentionPeriod` parameter to 465.
     #
-    #   If you change the value from `advanced` to `standard`, you must set
-    #   the `PerformanceInsightsEnabled` parameter to `false`.
+    #   If you change the value from `advanced` to `standard`, you can set
+    #   the `PerformanceInsightsEnabled` parameter to `true` to collect
+    #   detailed database counter and per-query metrics.
     #
     #   Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
     #   @return [String]
@@ -18425,6 +18462,24 @@ module Aws::RDS
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.SSL.html
     #   @return [String]
     #
+    # @!attribute [rw] master_user_authentication_type
+    #   Specifies the authentication type for the master user. With IAM
+    #   master user authentication, you can change the master DB user to use
+    #   IAM database authentication.
+    #
+    #   You can specify one of the following values:
+    #
+    #   * `password` - Use standard database authentication with a password.
+    #
+    #   * `iam-db-auth` - Use IAM database authentication for the master
+    #     user.
+    #
+    #   Valid for Cluster Type: Aurora DB clusters and Multi-AZ DB clusters
+    #
+    #   This option is only valid for RDS for PostgreSQL and Aurora
+    #   PostgreSQL engines.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBClusterMessage AWS API Documentation
     #
     class ModifyDBClusterMessage < Struct.new(
@@ -18473,7 +18528,8 @@ module Aws::RDS
       :enable_local_write_forwarding,
       :aws_backup_recovery_point_arn,
       :enable_limitless_database,
-      :ca_certificate_identifier)
+      :ca_certificate_identifier,
+      :master_user_authentication_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -19853,6 +19909,22 @@ module Aws::RDS
     #   specify `ApplyImmediately`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] master_user_authentication_type
+    #   Specifies the authentication type for the master user. With IAM
+    #   master user authentication, you can change the master DB user to use
+    #   IAM database authentication.
+    #
+    #   You can specify one of the following values:
+    #
+    #   * `password` - Use standard database authentication with a password.
+    #
+    #   * `iam-db-auth` - Use IAM database authentication for the master
+    #     user.
+    #
+    #   This option is only valid for RDS for PostgreSQL and Aurora
+    #   PostgreSQL engines.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBInstanceMessage AWS API Documentation
     #
     class ModifyDBInstanceMessage < Struct.new(
@@ -19916,7 +19988,8 @@ module Aws::RDS
       :master_user_secret_kms_key_id,
       :engine,
       :dedicated_log_volume,
-      :multi_tenant)
+      :multi_tenant,
+      :master_user_authentication_type)
       SENSITIVE = []
       include Aws::Structure
     end

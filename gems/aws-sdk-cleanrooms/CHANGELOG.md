@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.53.0 (2025-09-03)
+------------------
+
+* Feature - Added support for adding new data provider members to an existing collaboration.
+
 1.52.0 (2025-08-26)
 ------------------
 
