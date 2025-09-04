@@ -3140,6 +3140,8 @@ module Aws::CleanRooms
     #   resp.protected_job.result.output.member_list[0].account_id #=> String
     #   resp.protected_job.error.message #=> String
     #   resp.protected_job.error.code #=> String
+    #   resp.protected_job.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
+    #   resp.protected_job.compute_configuration.worker.number #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/GetProtectedJob AWS API Documentation
     #
@@ -4671,6 +4673,9 @@ module Aws::CleanRooms
     # @option params [Types::ProtectedJobResultConfigurationInput] :result_configuration
     #   The details needed to write the job results.
     #
+    # @option params [Types::ProtectedJobComputeConfiguration] :compute_configuration
+    #   The compute configuration for the protected job.
+    #
     # @return [Types::StartProtectedJobOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::StartProtectedJobOutput#protected_job #protected_job} => Types::ProtectedJob
@@ -4688,6 +4693,12 @@ module Aws::CleanRooms
     #         member: {
     #           account_id: "AccountId", # required
     #         },
+    #       },
+    #     },
+    #     compute_configuration: {
+    #       worker: {
+    #         type: "CR.1X", # required, accepts CR.1X, CR.4X
+    #         number: 1, # required
     #       },
     #     },
     #   })
@@ -4710,6 +4721,8 @@ module Aws::CleanRooms
     #   resp.protected_job.result.output.member_list[0].account_id #=> String
     #   resp.protected_job.error.message #=> String
     #   resp.protected_job.error.code #=> String
+    #   resp.protected_job.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
+    #   resp.protected_job.compute_configuration.worker.number #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/StartProtectedJob AWS API Documentation
     #
@@ -5766,6 +5779,8 @@ module Aws::CleanRooms
     #   resp.protected_job.result.output.member_list[0].account_id #=> String
     #   resp.protected_job.error.message #=> String
     #   resp.protected_job.error.code #=> String
+    #   resp.protected_job.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
+    #   resp.protected_job.compute_configuration.worker.number #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/UpdateProtectedJob AWS API Documentation
     #
@@ -5868,7 +5883,7 @@ module Aws::CleanRooms
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cleanrooms'
-      context[:gem_version] = '1.53.0'
+      context[:gem_version] = '1.54.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

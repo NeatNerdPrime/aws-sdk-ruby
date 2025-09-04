@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.556.0 (2025-09-04)
+------------------
+
+* Feature - Add m8i, m8i-flex and i8ge instance types.
+
 1.555.0 (2025-09-02)
 ------------------
 

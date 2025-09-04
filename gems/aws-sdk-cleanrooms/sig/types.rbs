@@ -2084,7 +2084,19 @@ module Aws::CleanRooms
       attr_accessor statistics: Types::ProtectedJobStatistics
       attr_accessor result: Types::ProtectedJobResult
       attr_accessor error: Types::ProtectedJobError
+      attr_accessor compute_configuration: Types::ProtectedJobComputeConfiguration
       SENSITIVE: []
+    end
+
+    class ProtectedJobComputeConfiguration
+      attr_accessor worker: Types::ProtectedJobWorkerComputeConfiguration
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Worker < ProtectedJobComputeConfiguration
+      end
+      class Unknown < ProtectedJobComputeConfiguration
+      end
     end
 
     class ProtectedJobConfigurationDetails
@@ -2219,6 +2231,12 @@ module Aws::CleanRooms
       attr_accessor create_time: ::Time
       attr_accessor status: ("SUBMITTED" | "STARTED" | "CANCELLED" | "CANCELLING" | "FAILED" | "SUCCESS")
       attr_accessor receiver_configurations: ::Array[Types::ProtectedJobReceiverConfiguration]
+      SENSITIVE: []
+    end
+
+    class ProtectedJobWorkerComputeConfiguration
+      attr_accessor type: ("CR.1X" | "CR.4X")
+      attr_accessor number: ::Integer
       SENSITIVE: []
     end
 
@@ -2503,6 +2521,7 @@ module Aws::CleanRooms
       attr_accessor membership_identifier: ::String
       attr_accessor job_parameters: Types::ProtectedJobParameters
       attr_accessor result_configuration: Types::ProtectedJobResultConfigurationInput
+      attr_accessor compute_configuration: Types::ProtectedJobComputeConfiguration
       SENSITIVE: []
     end
 

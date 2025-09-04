@@ -1174,6 +1174,12 @@ module Aws
                                        account_id: ::String
                                      }?
                                    }
+                                 },
+                                 ?compute_configuration: {
+                                   worker: {
+                                     type: ("CR.1X" | "CR.4X"),
+                                     number: ::Integer
+                                   }?
                                  }
                                ) -> _StartProtectedJobResponseSuccess
                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartProtectedJobResponseSuccess

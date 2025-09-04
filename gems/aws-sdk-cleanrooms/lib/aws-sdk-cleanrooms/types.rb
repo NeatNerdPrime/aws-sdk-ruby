@@ -7443,6 +7443,10 @@ module Aws::CleanRooms
     #   The error from the protected job.
     #   @return [Types::ProtectedJobError]
     #
+    # @!attribute [rw] compute_configuration
+    #   The compute configuration for the protected job.
+    #   @return [Types::ProtectedJobComputeConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/ProtectedJob AWS API Documentation
     #
     class ProtectedJob < Struct.new(
@@ -7455,9 +7459,33 @@ module Aws::CleanRooms
       :result_configuration,
       :statistics,
       :result,
-      :error)
+      :error,
+      :compute_configuration)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # The configuration of the compute resources for a PySpark job.
+    #
+    # @note ProtectedJobComputeConfiguration is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note ProtectedJobComputeConfiguration is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of ProtectedJobComputeConfiguration corresponding to the set member.
+    #
+    # @!attribute [rw] worker
+    #   The worker configuration for the compute environment.
+    #   @return [Types::ProtectedJobWorkerComputeConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/ProtectedJobComputeConfiguration AWS API Documentation
+    #
+    class ProtectedJobComputeConfiguration < Struct.new(
+      :worker,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Worker < ProtectedJobComputeConfiguration; end
+      class Unknown < ProtectedJobComputeConfiguration; end
     end
 
     # The protected job configuration details.
@@ -7817,6 +7845,25 @@ module Aws::CleanRooms
       :create_time,
       :status,
       :receiver_configurations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The configuration of the compute resources for a PySpark job.
+    #
+    # @!attribute [rw] type
+    #   The worker compute configuration type.
+    #   @return [String]
+    #
+    # @!attribute [rw] number
+    #   The number of workers for a PySpark job.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/ProtectedJobWorkerComputeConfiguration AWS API Documentation
+    #
+    class ProtectedJobWorkerComputeConfiguration < Struct.new(
+      :type,
+      :number)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8786,13 +8833,18 @@ module Aws::CleanRooms
     #   The details needed to write the job results.
     #   @return [Types::ProtectedJobResultConfigurationInput]
     #
+    # @!attribute [rw] compute_configuration
+    #   The compute configuration for the protected job.
+    #   @return [Types::ProtectedJobComputeConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/StartProtectedJobInput AWS API Documentation
     #
     class StartProtectedJobInput < Struct.new(
       :type,
       :membership_identifier,
       :job_parameters,
-      :result_configuration)
+      :result_configuration,
+      :compute_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9561,6 +9613,11 @@ module Aws::CleanRooms
     #
     # @!attribute [rw] number
     #   The number of workers.
+    #
+    #   SQL queries support a minimum value of 2 and a maximum value of 400.
+    #
+    #   PySpark jobs support a minimum value of 4 and a maximum value of
+    #   128.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/WorkerComputeConfiguration AWS API Documentation

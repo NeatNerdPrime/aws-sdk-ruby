@@ -721,7 +721,9 @@ module Aws
                                  key: ::String?,
                                  value: ::String?
                                },
-                             ]
+                             ],
+                             ?endpoint_network_type: ("IPV4" | "IPV6" | "DUAL"),
+                             ?target_connection_network_type: ("IPV4" | "IPV6")
                            ) -> _CreateDBProxyResponseSuccess
                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateDBProxyResponseSuccess
 
@@ -741,7 +743,8 @@ module Aws
                                           key: ::String?,
                                           value: ::String?
                                         },
-                                      ]
+                                      ],
+                                      ?endpoint_network_type: ("IPV4" | "IPV6" | "DUAL")
                                     ) -> _CreateDBProxyEndpointResponseSuccess
                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateDBProxyEndpointResponseSuccess
 

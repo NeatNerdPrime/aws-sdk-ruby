@@ -5978,6 +5978,29 @@ module Aws::RDS
     #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html
     #   @return [Array<Types::Tag>]
     #
+    # @!attribute [rw] endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type
+    #   determines the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC and all subnets must have
+    #     an IPv6 CIDR block.
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC tenancy cannot be
+    #     `dedicated`.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxyEndpointRequest AWS API Documentation
     #
     class CreateDBProxyEndpointRequest < Struct.new(
@@ -5986,7 +6009,8 @@ module Aws::RDS
       :vpc_subnet_ids,
       :vpc_security_group_ids,
       :target_role,
-      :tags)
+      :tags,
+      :endpoint_network_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6067,6 +6091,51 @@ module Aws::RDS
     #   your choosing with the proxy.
     #   @return [Array<Types::Tag>]
     #
+    # @!attribute [rw] endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type
+    #   determines the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC and all subnets must have
+    #     an IPv6 CIDR block.
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC tenancy cannot be
+    #     `dedicated`.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_connection_network_type
+    #   The network type that the proxy uses to connect to the target
+    #   database. The network type determines the IP version that the proxy
+    #   uses for connections to the database.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy connects to the database using IPv4 only.
+    #
+    #   * `IPV6` - The proxy connects to the database using IPv6 only.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6`, the database must support dual-stack mode.
+    #     RDS doesn't support IPv6-only databases.
+    #
+    #   * All targets registered with the proxy must be compatible with the
+    #     specified network type.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxyRequest AWS API Documentation
     #
     class CreateDBProxyRequest < Struct.new(
@@ -6079,7 +6148,9 @@ module Aws::RDS
       :require_tls,
       :idle_client_timeout,
       :debug_logging,
-      :tags)
+      :tags,
+      :endpoint_network_type,
+      :target_connection_network_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10384,6 +10455,31 @@ module Aws::RDS
     #   The date and time when the proxy was last updated.
     #   @return [Time]
     #
+    # @!attribute [rw] endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type
+    #   determines the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_connection_network_type
+    #   The network type that the proxy uses to connect to the target
+    #   database. The network type determines the IP version that the proxy
+    #   uses for connections to the database.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy connects to the database using IPv4 only.
+    #
+    #   * `IPV6` - The proxy connects to the database using IPv6 only.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBProxy AWS API Documentation
     #
     class DBProxy < Struct.new(
@@ -10401,7 +10497,9 @@ module Aws::RDS
       :idle_client_timeout,
       :debug_logging,
       :created_date,
-      :updated_date)
+      :updated_date,
+      :endpoint_network_type,
+      :target_connection_network_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10480,6 +10578,19 @@ module Aws::RDS
     #   DB proxy can be either read/write or read-only.
     #   @return [Boolean]
     #
+    # @!attribute [rw] endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type
+    #   determines the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DBProxyEndpoint AWS API Documentation
     #
     class DBProxyEndpoint < Struct.new(
@@ -10493,7 +10604,8 @@ module Aws::RDS
       :endpoint,
       :created_date,
       :target_role,
-      :is_default)
+      :is_default,
+      :endpoint_network_type)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -437,6 +437,7 @@ module Aws::CleanRooms
     PrivacyImpact = Shapes::UnionShape.new(name: 'PrivacyImpact')
     ProtectedJob = Shapes::StructureShape.new(name: 'ProtectedJob')
     ProtectedJobAnalysisType = Shapes::StringShape.new(name: 'ProtectedJobAnalysisType')
+    ProtectedJobComputeConfiguration = Shapes::UnionShape.new(name: 'ProtectedJobComputeConfiguration')
     ProtectedJobConfigurationDetails = Shapes::UnionShape.new(name: 'ProtectedJobConfigurationDetails')
     ProtectedJobDirectAnalysisConfigurationDetails = Shapes::StructureShape.new(name: 'ProtectedJobDirectAnalysisConfigurationDetails')
     ProtectedJobError = Shapes::StructureShape.new(name: 'ProtectedJobError')
@@ -465,6 +466,9 @@ module Aws::CleanRooms
     ProtectedJobSummary = Shapes::StructureShape.new(name: 'ProtectedJobSummary')
     ProtectedJobSummaryList = Shapes::ListShape.new(name: 'ProtectedJobSummaryList')
     ProtectedJobType = Shapes::StringShape.new(name: 'ProtectedJobType')
+    ProtectedJobWorkerComputeConfiguration = Shapes::StructureShape.new(name: 'ProtectedJobWorkerComputeConfiguration')
+    ProtectedJobWorkerComputeConfigurationNumberInteger = Shapes::IntegerShape.new(name: 'ProtectedJobWorkerComputeConfigurationNumberInteger')
+    ProtectedJobWorkerComputeType = Shapes::StringShape.new(name: 'ProtectedJobWorkerComputeType')
     ProtectedQuery = Shapes::StructureShape.new(name: 'ProtectedQuery')
     ProtectedQueryDistributeOutput = Shapes::StructureShape.new(name: 'ProtectedQueryDistributeOutput')
     ProtectedQueryDistributeOutputConfiguration = Shapes::StructureShape.new(name: 'ProtectedQueryDistributeOutputConfiguration')
@@ -2197,7 +2201,14 @@ module Aws::CleanRooms
     ProtectedJob.add_member(:statistics, Shapes::ShapeRef.new(shape: ProtectedJobStatistics, location_name: "statistics"))
     ProtectedJob.add_member(:result, Shapes::ShapeRef.new(shape: ProtectedJobResult, location_name: "result"))
     ProtectedJob.add_member(:error, Shapes::ShapeRef.new(shape: ProtectedJobError, location_name: "error"))
+    ProtectedJob.add_member(:compute_configuration, Shapes::ShapeRef.new(shape: ProtectedJobComputeConfiguration, location_name: "computeConfiguration"))
     ProtectedJob.struct_class = Types::ProtectedJob
+
+    ProtectedJobComputeConfiguration.add_member(:worker, Shapes::ShapeRef.new(shape: ProtectedJobWorkerComputeConfiguration, location_name: "worker"))
+    ProtectedJobComputeConfiguration.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    ProtectedJobComputeConfiguration.add_member_subclass(:worker, Types::ProtectedJobComputeConfiguration::Worker)
+    ProtectedJobComputeConfiguration.add_member_subclass(:unknown, Types::ProtectedJobComputeConfiguration::Unknown)
+    ProtectedJobComputeConfiguration.struct_class = Types::ProtectedJobComputeConfiguration
 
     ProtectedJobConfigurationDetails.add_member(:direct_analysis_configuration_details, Shapes::ShapeRef.new(shape: ProtectedJobDirectAnalysisConfigurationDetails, location_name: "directAnalysisConfigurationDetails"))
     ProtectedJobConfigurationDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
@@ -2289,6 +2300,10 @@ module Aws::CleanRooms
     ProtectedJobSummary.struct_class = Types::ProtectedJobSummary
 
     ProtectedJobSummaryList.member = Shapes::ShapeRef.new(shape: ProtectedJobSummary)
+
+    ProtectedJobWorkerComputeConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: ProtectedJobWorkerComputeType, required: true, location_name: "type"))
+    ProtectedJobWorkerComputeConfiguration.add_member(:number, Shapes::ShapeRef.new(shape: ProtectedJobWorkerComputeConfigurationNumberInteger, required: true, location_name: "number"))
+    ProtectedJobWorkerComputeConfiguration.struct_class = Types::ProtectedJobWorkerComputeConfiguration
 
     ProtectedQuery.add_member(:id, Shapes::ShapeRef.new(shape: UUID, required: true, location_name: "id"))
     ProtectedQuery.add_member(:membership_id, Shapes::ShapeRef.new(shape: UUID, required: true, location_name: "membershipId"))
@@ -2517,6 +2532,7 @@ module Aws::CleanRooms
     StartProtectedJobInput.add_member(:membership_identifier, Shapes::ShapeRef.new(shape: MembershipIdentifier, required: true, location: "uri", location_name: "membershipIdentifier"))
     StartProtectedJobInput.add_member(:job_parameters, Shapes::ShapeRef.new(shape: ProtectedJobParameters, required: true, location_name: "jobParameters"))
     StartProtectedJobInput.add_member(:result_configuration, Shapes::ShapeRef.new(shape: ProtectedJobResultConfigurationInput, location_name: "resultConfiguration"))
+    StartProtectedJobInput.add_member(:compute_configuration, Shapes::ShapeRef.new(shape: ProtectedJobComputeConfiguration, location_name: "computeConfiguration"))
     StartProtectedJobInput.struct_class = Types::StartProtectedJobInput
 
     StartProtectedJobOutput.add_member(:protected_job, Shapes::ShapeRef.new(shape: ProtectedJob, required: true, location_name: "protectedJob"))

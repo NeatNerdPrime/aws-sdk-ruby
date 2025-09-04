@@ -7367,6 +7367,49 @@ module Aws::RDS
     #   An optional set of key-value pairs to associate arbitrary data of your
     #   choosing with the proxy.
     #
+    # @option params [String] :endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type determines
+    #   the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC and all subnets must have
+    #     an IPv6 CIDR block.
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC tenancy cannot be
+    #     `dedicated`.
+    #
+    # @option params [String] :target_connection_network_type
+    #   The network type that the proxy uses to connect to the target
+    #   database. The network type determines the IP version that the proxy
+    #   uses for connections to the database.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy connects to the database using IPv4 only.
+    #
+    #   * `IPV6` - The proxy connects to the database using IPv6 only.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6`, the database must support dual-stack mode.
+    #     RDS doesn't support IPv6-only databases.
+    #
+    #   * All targets registered with the proxy must be compatible with the
+    #     specified network type.
+    #
     # @return [Types::CreateDBProxyResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateDBProxyResponse#db_proxy #db_proxy} => Types::DBProxy
@@ -7398,6 +7441,8 @@ module Aws::RDS
     #         value: "String",
     #       },
     #     ],
+    #     endpoint_network_type: "IPV4", # accepts IPV4, IPV6, DUAL
+    #     target_connection_network_type: "IPV4", # accepts IPV4, IPV6
     #   })
     #
     # @example Response structure
@@ -7425,6 +7470,8 @@ module Aws::RDS
     #   resp.db_proxy.debug_logging #=> Boolean
     #   resp.db_proxy.created_date #=> Time
     #   resp.db_proxy.updated_date #=> Time
+    #   resp.db_proxy.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
+    #   resp.db_proxy.target_connection_network_type #=> String, one of "IPV4", "IPV6"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxy AWS API Documentation
     #
@@ -7476,6 +7523,28 @@ module Aws::RDS
     #   [1]: https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html
     #   [2]: https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.html
     #
+    # @option params [String] :endpoint_network_type
+    #   The network type of the DB proxy endpoint. The network type determines
+    #   the IP version that the proxy endpoint supports.
+    #
+    #   Valid values:
+    #
+    #   * `IPV4` - The proxy endpoint supports IPv4 only.
+    #
+    #   * `IPV6` - The proxy endpoint supports IPv6 only.
+    #
+    #   * `DUAL` - The proxy endpoint supports both IPv4 and IPv6.
+    #
+    #   Default: `IPV4`
+    #
+    #   Constraints:
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC and all subnets must have
+    #     an IPv6 CIDR block.
+    #
+    #   * If you specify `IPV6` or `DUAL`, the VPC tenancy cannot be
+    #     `dedicated`.
+    #
     # @return [Types::CreateDBProxyEndpointResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateDBProxyEndpointResponse#db_proxy_endpoint #db_proxy_endpoint} => Types::DBProxyEndpoint
@@ -7494,6 +7563,7 @@ module Aws::RDS
     #         value: "String",
     #       },
     #     ],
+    #     endpoint_network_type: "IPV4", # accepts IPV4, IPV6, DUAL
     #   })
     #
     # @example Response structure
@@ -7511,6 +7581,7 @@ module Aws::RDS
     #   resp.db_proxy_endpoint.created_date #=> Time
     #   resp.db_proxy_endpoint.target_role #=> String, one of "READ_WRITE", "READ_ONLY"
     #   resp.db_proxy_endpoint.is_default #=> Boolean
+    #   resp.db_proxy_endpoint.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/CreateDBProxyEndpoint AWS API Documentation
     #
@@ -10317,6 +10388,8 @@ module Aws::RDS
     #   resp.db_proxy.debug_logging #=> Boolean
     #   resp.db_proxy.created_date #=> Time
     #   resp.db_proxy.updated_date #=> Time
+    #   resp.db_proxy.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
+    #   resp.db_proxy.target_connection_network_type #=> String, one of "IPV4", "IPV6"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxy AWS API Documentation
     #
@@ -10361,6 +10434,7 @@ module Aws::RDS
     #   resp.db_proxy_endpoint.created_date #=> Time
     #   resp.db_proxy_endpoint.target_role #=> String, one of "READ_WRITE", "READ_ONLY"
     #   resp.db_proxy_endpoint.is_default #=> Boolean
+    #   resp.db_proxy_endpoint.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DeleteDBProxyEndpoint AWS API Documentation
     #
@@ -14260,6 +14334,8 @@ module Aws::RDS
     #   resp.db_proxies[0].debug_logging #=> Boolean
     #   resp.db_proxies[0].created_date #=> Time
     #   resp.db_proxies[0].updated_date #=> Time
+    #   resp.db_proxies[0].endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
+    #   resp.db_proxies[0].target_connection_network_type #=> String, one of "IPV4", "IPV6"
     #   resp.marker #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxies AWS API Documentation
@@ -14339,6 +14415,7 @@ module Aws::RDS
     #   resp.db_proxy_endpoints[0].created_date #=> Time
     #   resp.db_proxy_endpoints[0].target_role #=> String, one of "READ_WRITE", "READ_ONLY"
     #   resp.db_proxy_endpoints[0].is_default #=> Boolean
+    #   resp.db_proxy_endpoints[0].endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
     #   resp.marker #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/DescribeDBProxyEndpoints AWS API Documentation
@@ -22204,6 +22281,8 @@ module Aws::RDS
     #   resp.db_proxy.debug_logging #=> Boolean
     #   resp.db_proxy.created_date #=> Time
     #   resp.db_proxy.updated_date #=> Time
+    #   resp.db_proxy.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
+    #   resp.db_proxy.target_connection_network_type #=> String, one of "IPV4", "IPV6"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxy AWS API Documentation
     #
@@ -22259,6 +22338,7 @@ module Aws::RDS
     #   resp.db_proxy_endpoint.created_date #=> Time
     #   resp.db_proxy_endpoint.target_role #=> String, one of "READ_WRITE", "READ_ONLY"
     #   resp.db_proxy_endpoint.is_default #=> Boolean
+    #   resp.db_proxy_endpoint.endpoint_network_type #=> String, one of "IPV4", "IPV6", "DUAL"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rds-2014-10-31/ModifyDBProxyEndpoint AWS API Documentation
     #
@@ -32516,7 +32596,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.291.0'
+      context[:gem_version] = '1.292.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

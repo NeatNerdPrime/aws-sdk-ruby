@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.292.0 (2025-09-04)
+------------------
+
+* Feature - Added new EndpointNetworkType and TargetConnectionNetworkType fields in Proxy APIs to support IPv6
+
 1.291.0 (2025-09-03)
 ------------------
 
