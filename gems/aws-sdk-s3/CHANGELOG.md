@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.199.0 (2025-09-08)
+------------------
+
+* Feature - This release includes backward compatibility work on the "Expires" parameter.
+
 1.198.0 (2025-08-26)
 ------------------
 
