@@ -245,8 +245,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryString": "Hello there",
@@ -405,8 +404,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryParamsMapOfStringList": {
@@ -437,8 +435,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryString": " %:/?#[]@!$&'()*+,;=😹",
@@ -467,8 +464,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryFloat": "NaN",
@@ -501,8 +497,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryFloat": "Infinity",
@@ -535,8 +530,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryFloat": "-Infinity",
@@ -569,8 +563,7 @@
                     "input": {
                         "shape": "AllQueryStringTypesInput"
                     },
-                    "documentation": "<p>This example uses all query string types.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses all query string types.</p>"
                 },
                 "params": {
                     "queryInteger": 0,
@@ -644,8 +637,7 @@
                     "input": {
                         "shape": "ConstantAndVariableQueryStringInput"
                     },
-                    "documentation": "<p>This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).</p>"
                 },
                 "params": {
                     "baz": "bam"
@@ -669,8 +661,7 @@
                     "input": {
                         "shape": "ConstantAndVariableQueryStringInput"
                     },
-                    "documentation": "<p>This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses fixed query string params and variable query string params. The fixed query string parameters and variable parameters must both be serialized (implementations may need to merge them together).</p>"
                 },
                 "params": {
                     "baz": "bam",
@@ -734,8 +725,7 @@
                     "input": {
                         "shape": "ConstantQueryStringInput"
                     },
-                    "documentation": "<p>This example uses a constant query string parameters and a label. This simply tests that labels and query string parameters are compatible. The fixed query string parameter named &quot;hello&quot; should in no way conflict with the label, <code>{hello}</code>.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example uses a constant query string parameters and a label. This simply tests that labels and query string parameters are compatible. The fixed query string parameter named &quot;hello&quot; should in no way conflict with the label, <code>{hello}</code>.</p>"
                 },
                 "params": {
                     "hello": "hi"
@@ -1324,8 +1314,7 @@
                         "method": "GET",
                         "requestUri": "/HostWithPathOperation",
                         "responseCode": 200
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {},
                 "serialized": {
@@ -1461,8 +1450,7 @@
                     "input": {
                         "shape": "HttpEmptyPrefixHeadersInput"
                     },
-                    "documentation": "<p>Clients that perform this test extract all headers from the response.</p>",
-                    "readonly": true
+                    "documentation": "<p>Clients that perform this test extract all headers from the response.</p>"
                 },
                 "params": {
                     "prefixHeaders": {
@@ -1889,8 +1877,7 @@
                     "input": {
                         "shape": "HttpPrefixHeadersInput"
                     },
-                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>",
-                    "readonly": true
+                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>"
                 },
                 "params": {
                     "foo": "Foo",
@@ -1923,8 +1910,7 @@
                     "input": {
                         "shape": "HttpPrefixHeadersInput"
                     },
-                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>",
-                    "readonly": true
+                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>"
                 },
                 "params": {
                     "foo": "Foo",
@@ -1952,8 +1938,7 @@
                     "input": {
                         "shape": "HttpPrefixHeadersInput"
                     },
-                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>",
-                    "readonly": true
+                    "documentation": "<p>This examples adds headers to the input of a request and response by prefix.</p>"
                 },
                 "params": {
                     "fooMap": {
@@ -2031,8 +2016,7 @@
                     },
                     "input": {
                         "shape": "HttpRequestWithFloatLabelsInput"
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {
                     "float": "NaN",
@@ -2056,8 +2040,7 @@
                     },
                     "input": {
                         "shape": "HttpRequestWithFloatLabelsInput"
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {
                     "float": "Infinity",
@@ -2081,8 +2064,7 @@
                     },
                     "input": {
                         "shape": "HttpRequestWithFloatLabelsInput"
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {
                     "float": "-Infinity",
@@ -2151,8 +2133,7 @@
                     },
                     "input": {
                         "shape": "HttpRequestWithGreedyLabelInPathInput"
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {
                     "foo": "hello/escape",
@@ -2283,8 +2264,7 @@
                     "input": {
                         "shape": "HttpRequestWithLabelsInput"
                     },
-                    "documentation": "<p>The example tests how requests are serialized when there's no input payload but there are HTTP labels.</p>",
-                    "readonly": true
+                    "documentation": "<p>The example tests how requests are serialized when there's no input payload but there are HTTP labels.</p>"
                 },
                 "params": {
                     "string": "string",
@@ -2315,8 +2295,7 @@
                     "input": {
                         "shape": "HttpRequestWithLabelsInput"
                     },
-                    "documentation": "<p>The example tests how requests are serialized when there's no input payload but there are HTTP labels.</p>",
-                    "readonly": true
+                    "documentation": "<p>The example tests how requests are serialized when there's no input payload but there are HTTP labels.</p>"
                 },
                 "params": {
                     "string": " %:/?#[]@!$&'()*+,;=😹",
@@ -2446,8 +2425,7 @@
                     "input": {
                         "shape": "HttpRequestWithLabelsAndTimestampFormatInput"
                     },
-                    "documentation": "<p>The example tests how requests serialize different timestamp formats in the URI path.</p>",
-                    "readonly": true
+                    "documentation": "<p>The example tests how requests serialize different timestamp formats in the URI path.</p>"
                 },
                 "params": {
                     "memberEpochSeconds": 1576540098,
@@ -2515,8 +2493,7 @@
                     },
                     "input": {
                         "shape": "HttpRequestWithRegexLiteralInput"
-                    },
-                    "readonly": true
+                    }
                 },
                 "params": {
                     "str": "abc"
@@ -4640,8 +4617,7 @@
                     "input": {
                         "shape": "MediaTypeHeaderInput"
                     },
-                    "documentation": "<p>This example ensures that mediaType strings are base64 encoded in headers.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example ensures that mediaType strings are base64 encoded in headers.</p>"
                 },
                 "params": {
                     "json": "true"
@@ -4802,8 +4778,7 @@
                     "input": {
                         "shape": "NullAndEmptyHeadersIO"
                     },
-                    "documentation": "<p>Null headers are not sent over the wire, empty headers are serialized to &quot;&quot;</p>",
-                    "readonly": true
+                    "documentation": "<p>Null headers are not sent over the wire, empty headers are serialized to &quot;&quot;</p>"
                 },
                 "params": {
                     "a": null,
@@ -4877,8 +4852,7 @@
                     "input": {
                         "shape": "OmitsNullSerializesEmptyStringInput"
                     },
-                    "documentation": "<p>Omits null, but serializes empty string value.</p>",
-                    "readonly": true
+                    "documentation": "<p>Omits null, but serializes empty string value.</p>"
                 },
                 "params": {
                     "nullValue": null
@@ -4902,8 +4876,7 @@
                     "input": {
                         "shape": "OmitsNullSerializesEmptyStringInput"
                     },
-                    "documentation": "<p>Omits null, but serializes empty string value.</p>",
-                    "readonly": true
+                    "documentation": "<p>Omits null, but serializes empty string value.</p>"
                 },
                 "params": {
                     "emptyString": ""
@@ -6034,8 +6007,7 @@
                         "requestUri": "/no_input_no_payload",
                         "responseCode": 200
                     },
-                    "documentation": "<p>This example GET operation has no input and serializes a request without a HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example GET operation has no input and serializes a request without a HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>"
                 },
                 "params": {},
                 "serialized": {
@@ -6097,8 +6069,7 @@
                     "input": {
                         "shape": "TestNoPayloadInputOutput"
                     },
-                    "documentation": "<p>This example GET operation serializes a request without a modeled HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example GET operation serializes a request without a modeled HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>"
                 },
                 "params": {},
                 "serialized": {
@@ -6124,8 +6095,7 @@
                     "input": {
                         "shape": "TestNoPayloadInputOutput"
                     },
-                    "documentation": "<p>This example GET operation serializes a request without a modeled HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>",
-                    "readonly": true
+                    "documentation": "<p>This example GET operation serializes a request without a modeled HTTP body.</p> <p>These tests are to ensure we do not attach a body or related headers (Content-Length, Content-Type) to operations that semantically cannot produce an HTTP body.</p>"
                 },
                 "params": {
                     "testId": "t-12345"
