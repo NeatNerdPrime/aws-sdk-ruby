@@ -54,7 +54,7 @@ module Aws::SMS
   autoload :EndpointProvider, 'aws-sdk-sms/endpoint_provider'
   autoload :Endpoints, 'aws-sdk-sms/endpoints'
 
-  GEM_VERSION = '1.76.0'
+  GEM_VERSION = '1.77.0'
 
 end
 
