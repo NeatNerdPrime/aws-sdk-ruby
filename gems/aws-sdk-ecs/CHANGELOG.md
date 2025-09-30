@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.206.0 (2025-09-30)
+------------------
+
+* Feature - This release adds support for Managed Instances on Amazon ECS.
+
 1.205.0 (2025-09-11)
 ------------------
 
