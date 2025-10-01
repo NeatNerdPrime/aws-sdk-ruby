@@ -1222,6 +1222,19 @@ module Aws::ECS
     #   Availability Zones][1] in the <i> <i>Amazon Elastic Container Service
     #   Developer Guide</i> </i>.
     #
+    #   The default behavior of `AvailabilityZoneRebalancing` differs between
+    #   create and update requests:
+    #
+    #   * For create service requests, when no value is specified for
+    #     `AvailabilityZoneRebalancing`, Amazon ECS defaults the value to
+    #     `ENABLED`.
+    #
+    #   * For update service requests, when no value is specified for
+    #     `AvailabilityZoneRebalancing`, Amazon ECS defaults to the existing
+    #     service’s `AvailabilityZoneRebalancing` value. If the service never
+    #     had an `AvailabilityZoneRebalancing` value set, Amazon ECS treats
+    #     this as `DISABLED`.
+    #
     #
     #
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html
@@ -1231,13 +1244,13 @@ module Aws::ECS
     #   your service. For more information, see [Service load balancing][1] in
     #   the *Amazon Elastic Container Service Developer Guide*.
     #
-    #   If the service uses the rolling update (`ECS`) deployment controller
-    #   and using either an Application Load Balancer or Network Load
-    #   Balancer, you must specify one or more target group ARNs to attach to
-    #   the service. The service-linked role is required for services that use
-    #   multiple target groups. For more information, see [Using
-    #   service-linked roles for Amazon ECS][2] in the *Amazon Elastic
-    #   Container Service Developer Guide*.
+    #   If the service uses the `ECS` deployment controller and using either
+    #   an Application Load Balancer or Network Load Balancer, you must
+    #   specify one or more target group ARNs to attach to the service. The
+    #   service-linked role is required for services that use multiple target
+    #   groups. For more information, see [Using service-linked roles for
+    #   Amazon ECS][2] in the *Amazon Elastic Container Service Developer
+    #   Guide*.
     #
     #   If the service uses the `CODE_DEPLOY` deployment controller, the
     #   service is required to use either an Application Load Balancer or
@@ -1419,17 +1432,13 @@ module Aws::ECS
     # @option params [Integer] :health_check_grace_period_seconds
     #   The period of time, in seconds, that the Amazon ECS service scheduler
     #   ignores unhealthy Elastic Load Balancing, VPC Lattice, and container
-    #   health checks after a task has first started. If you don't specify a
-    #   health check grace period value, the default value of `0` is used. If
-    #   you don't use any of the health checks, then
+    #   health checks after a task has first started. If you do not specify a
+    #   health check grace period value, the default value of 0 is used. If
+    #   you do not use any of the health checks, then
     #   `healthCheckGracePeriodSeconds` is unused.
     #
-    #   If your service's tasks take a while to start and respond to health
-    #   checks, you can specify a health check grace period of up to
-    #   2,147,483,647 seconds (about 69 years). During that time, the Amazon
-    #   ECS service scheduler ignores health check status. This grace period
-    #   can prevent the service scheduler from marking tasks as unhealthy and
-    #   stopping them before they have time to come up.
+    #   If your service has more running tasks than desired, unhealthy tasks
+    #   in the grace period might be stopped to reach the desired count.
     #
     # @option params [String] :scheduling_strategy
     #   The scheduling strategy to use for the service. For more information,
@@ -9332,7 +9341,7 @@ module Aws::ECS
     # @option params [Array<Types::TaskVolumeConfiguration>] :volume_configurations
     #   The details of the volume that was `configuredAtLaunch`. You can
     #   configure the size, volumeType, IOPS, throughput, snapshot and
-    #   encryption in in [TaskManagedEBSVolumeConfiguration][1]. The `name` of
+    #   encryption in [TaskManagedEBSVolumeConfiguration][1]. The `name` of
     #   the volume must match the `name` from the task definition.
     #
     #
@@ -12089,6 +12098,19 @@ module Aws::ECS
     #   Availability Zones][1] in the <i> <i>Amazon Elastic Container Service
     #   Developer Guide</i> </i>.
     #
+    #   The default behavior of `AvailabilityZoneRebalancing` differs between
+    #   create and update requests:
+    #
+    #   * For create service requests, when no value is specified for
+    #     `AvailabilityZoneRebalancing`, Amazon ECS defaults the value to
+    #     `ENABLED`.
+    #
+    #   * For update service requests, when no value is specified for
+    #     `AvailabilityZoneRebalancing`, Amazon ECS defaults to the existing
+    #     service’s `AvailabilityZoneRebalancing` value. If the service never
+    #     had an `AvailabilityZoneRebalancing` value set, Amazon ECS treats
+    #     this as `DISABLED`.
+    #
     #   This parameter doesn't trigger a new service deployment.
     #
     #
@@ -12159,6 +12181,9 @@ module Aws::ECS
     #   ECS service scheduler ignores health check status. This grace period
     #   can prevent the service scheduler from marking tasks as unhealthy and
     #   stopping them before they have time to come up.
+    #
+    #   If your service has more running tasks than desired, unhealthy tasks
+    #   in the grace period might be stopped to reach the desired count.
     #
     #   This parameter doesn't trigger a new service deployment.
     #
@@ -13202,7 +13227,7 @@ module Aws::ECS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecs'
-      context[:gem_version] = '1.206.0'
+      context[:gem_version] = '1.207.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.207.0 (2025-10-01)
+------------------
+
+* Feature - This is a documentation only Amazon ECS release that adds additional information for health checks.
+
 1.206.0 (2025-09-30)
 ------------------
 
