@@ -666,6 +666,124 @@ module Aws
                                         ) -> _PutCaseEventConfigurationResponseSuccess
                                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutCaseEventConfigurationResponseSuccess
 
+      interface _SearchAllRelatedItemsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::SearchAllRelatedItemsResponse]
+        def next_token: () -> ::String
+        def related_items: () -> ::Array[Types::SearchAllRelatedItemsResponseItem]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ConnectCases/Client.html#search_all_related_items-instance_method
+      def search_all_related_items: (
+                                      domain_id: ::String,
+                                      ?max_results: ::Integer,
+                                      ?next_token: ::String,
+                                      ?filters: Array[
+                                        {
+                                          contact: {
+                                            channel: Array[::String]?,
+                                            contact_arn: ::String?
+                                          }?,
+                                          comment: {
+                                          }?,
+                                          file: {
+                                            file_arn: ::String?
+                                          }?,
+                                          sla: {
+                                            name: ::String?,
+                                            status: ("Active" | "Overdue" | "Met" | "NotMet")?
+                                          }?,
+                                          connect_case: {
+                                            case_id: ::String?
+                                          }?,
+                                          custom: {
+                                            fields: {
+                                              field: {
+                                                equal_to: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?,
+                                                contains: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?,
+                                                greater_than: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?,
+                                                greater_than_or_equal_to: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?,
+                                                less_than: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?,
+                                                less_than_or_equal_to: {
+                                                  id: ::String,
+                                                  value: {
+                                                    string_value: ::String?,
+                                                    double_value: ::Float?,
+                                                    boolean_value: bool?,
+                                                    empty_value: {
+                                                    }?,
+                                                    user_arn_value: ::String?
+                                                  }
+                                                }?
+                                              }?,
+                                              not: untyped?,
+                                              and_all: Array[
+                                                untyped,
+                                              ]?,
+                                              or_all: Array[
+                                                untyped,
+                                              ]?
+                                            }?
+                                          }?
+                                        },
+                                      ],
+                                      ?sorts: Array[
+                                        {
+                                          sort_property: ("AssociationTime" | "CaseId"),
+                                          sort_order: ("Asc" | "Desc")
+                                        },
+                                      ]
+                                    ) -> _SearchAllRelatedItemsResponseSuccess
+                                  | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchAllRelatedItemsResponseSuccess
+
       interface _SearchCasesResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::SearchCasesResponse]
         def next_token: () -> ::String

@@ -578,10 +578,10 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # Represents the content of a Case related item
+    # Represents the content of a `ConnectCase` type related item.
     #
     # @!attribute [rw] case_id
-    #   The unique identifier of the related case
+    #   A unique identifier of the case.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/ConnectCaseContent AWS API Documentation
@@ -592,10 +592,10 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # A filter for related items of type Case
+    # A filter for related items of type `ConnectCase`.
     #
     # @!attribute [rw] case_id
-    #   The unique identifier of the case to filter by
+    #   A unique identifier of the case.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/ConnectCaseFilter AWS API Documentation
@@ -606,10 +606,10 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # Represents the input content of a Case related item
+    # Represents the content of a `ConnectCase` related item.
     #
     # @!attribute [rw] case_id
-    #   The unique identifier of the case to be related
+    #   A unique identifier of the case.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/ConnectCaseInputContent AWS API Documentation
@@ -1017,10 +1017,10 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # Represents the content of a Custom related item
+    # Represents the content of a `Custom` type related item.
     #
     # @!attribute [rw] fields
-    #   List of field values for the custom related item
+    #   List of field values for the `Custom` related item.
     #   @return [Array<Types::FieldValue>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/CustomContent AWS API Documentation
@@ -1031,7 +1031,8 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # A filter for fields in related items of type Custom
+    # A filter for fields in `Custom` type related items. Only one value can
+    # be provided.
     #
     # @note CustomFieldsFilter is a union - when making an API calls you must set exactly one of the members.
     #
@@ -1040,15 +1041,15 @@ module Aws::ConnectCases
     #   @return [Types::FieldFilter]
     #
     # @!attribute [rw] not
-    #   Excludes items matching the filter
+    #   Excludes items matching the filter.
     #   @return [Types::CustomFieldsFilter]
     #
     # @!attribute [rw] and_all
-    #   Matches items that satisfy all of the specified filter conditions
+    #   Provides "and all" filtering.
     #   @return [Array<Types::CustomFieldsFilter>]
     #
     # @!attribute [rw] or_all
-    #   Matches items that satisfy any of the specified filter conditions
+    #   Provides "or all" filtering.
     #   @return [Array<Types::CustomFieldsFilter>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/CustomFieldsFilter AWS API Documentation
@@ -1070,10 +1071,10 @@ module Aws::ConnectCases
       class Unknown < CustomFieldsFilter; end
     end
 
-    # A filter for related items of type Custom
+    # A filter for related items of type `Custom`.
     #
     # @!attribute [rw] fields
-    #   Filter conditions for custom fields
+    #   Filter conditions for custom fields.
     #   @return [Types::CustomFieldsFilter]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/CustomFilter AWS API Documentation
@@ -1084,10 +1085,10 @@ module Aws::ConnectCases
       include Aws::Structure
     end
 
-    # Represents the input content of a Custom related item
+    # Represents the content of a `Custom` related item.
     #
     # @!attribute [rw] fields
-    #   List of field values for the custom related item
+    #   List of field values for the `Custom` related item.
     #   @return [Array<Types::FieldValue>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/CustomInputContent AWS API Documentation
@@ -2659,11 +2660,11 @@ module Aws::ConnectCases
     #   @return [Types::SlaContent]
     #
     # @!attribute [rw] connect_case
-    #   Content for a related Connect case
+    #   Represents the Amazon Connect case to be created as a related item.
     #   @return [Types::ConnectCaseContent]
     #
     # @!attribute [rw] custom
-    #   Content for a custom related item
+    #   Represents the content of a `Custom` type related item.
     #   @return [Types::CustomContent]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/RelatedItemContent AWS API Documentation
@@ -2727,11 +2728,11 @@ module Aws::ConnectCases
     #   @return [Types::SlaInputContent]
     #
     # @!attribute [rw] connect_case
-    #   Input content for a related Connect case
+    #   Represents the Amazon Connect case to be created as a related item.
     #   @return [Types::ConnectCaseInputContent]
     #
     # @!attribute [rw] custom
-    #   Input content for a custom related item
+    #   Represents the content of a `Custom` type related item.
     #   @return [Types::CustomInputContent]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/RelatedItemInputContent AWS API Documentation
@@ -2779,11 +2780,11 @@ module Aws::ConnectCases
     #   @return [Types::SlaFilter]
     #
     # @!attribute [rw] connect_case
-    #   Filter for related items of type Connect case
+    #   Represents the Amazon Connect case to be created as a related item.
     #   @return [Types::ConnectCaseFilter]
     #
     # @!attribute [rw] custom
-    #   Filter for related items of type Custom
+    #   Represents the content of a `Custom` type related item.
     #   @return [Types::CustomFilter]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/RelatedItemTypeFilter AWS API Documentation
@@ -2872,6 +2873,135 @@ module Aws::ConnectCases
       :message,
       :resource_id,
       :resource_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] domain_id
+    #   The unique identifier of the Cases domain.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return per page.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   The list of types of related items and their parameters to use for
+    #   filtering. The filters work as an OR condition: caller gets back
+    #   related items that match any of the specified filter types.
+    #   @return [Array<Types::RelatedItemTypeFilter>]
+    #
+    # @!attribute [rw] sorts
+    #   A structured set of sort terms to specify the order in which related
+    #   items should be returned. Supports sorting by association time or
+    #   case ID. The sorts work in the order specified: first sort term
+    #   takes precedence over subsequent terms.
+    #   @return [Array<Types::SearchAllRelatedItemsSort>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/SearchAllRelatedItemsRequest AWS API Documentation
+    #
+    class SearchAllRelatedItemsRequest < Struct.new(
+      :domain_id,
+      :max_results,
+      :next_token,
+      :filters,
+      :sorts)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token for the next set of results. This is null if there are no
+    #   more results to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] related_items
+    #   A list of items related to a case.
+    #   @return [Array<Types::SearchAllRelatedItemsResponseItem>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/SearchAllRelatedItemsResponse AWS API Documentation
+    #
+    class SearchAllRelatedItemsResponse < Struct.new(
+      :next_token,
+      :related_items)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A list of items that represent RelatedItems. This data type is similar
+    # to [SearchRelatedItemsResponseItem][1] except
+    # Search**All**RelatedItemsResponseItem has a caseId field.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_SearchRelatedItemsResponseItem.html
+    #
+    # @!attribute [rw] related_item_id
+    #   Unique identifier of a related item.
+    #   @return [String]
+    #
+    # @!attribute [rw] case_id
+    #   A unique identifier of the case.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   Type of a related item.
+    #   @return [String]
+    #
+    # @!attribute [rw] association_time
+    #   Time at which a related item was associated with a case.
+    #   @return [Time]
+    #
+    # @!attribute [rw] content
+    #   Represents the content of a particular type of related item.
+    #   @return [Types::RelatedItemContent]
+    #
+    # @!attribute [rw] performed_by
+    #   Represents the entity that performed the action.
+    #   @return [Types::UserUnion]
+    #
+    # @!attribute [rw] tags
+    #   A map of of key-value pairs that represent tags on a resource. Tags
+    #   are used to organize, track, or control access for this resource.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/SearchAllRelatedItemsResponseItem AWS API Documentation
+    #
+    class SearchAllRelatedItemsResponseItem < Struct.new(
+      :related_item_id,
+      :case_id,
+      :type,
+      :association_time,
+      :content,
+      :performed_by,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The order in which all returned related items should be sorted.
+    #
+    # @!attribute [rw] sort_property
+    #   Whether related items should be sorted in ascending or descending
+    #   order.
+    #   @return [String]
+    #
+    # @!attribute [rw] sort_order
+    #   Whether related items should be sorted by association time or case
+    #   ID.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/SearchAllRelatedItemsSort AWS API Documentation
+    #
+    class SearchAllRelatedItemsSort < Struct.new(
+      :sort_property,
+      :sort_order)
       SENSITIVE = []
       include Aws::Structure
     end

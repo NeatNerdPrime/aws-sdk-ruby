@@ -967,6 +967,38 @@ module Aws::ConnectCases
       SENSITIVE: []
     end
 
+    class SearchAllRelatedItemsRequest
+      attr_accessor domain_id: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      attr_accessor filters: ::Array[Types::RelatedItemTypeFilter]
+      attr_accessor sorts: ::Array[Types::SearchAllRelatedItemsSort]
+      SENSITIVE: []
+    end
+
+    class SearchAllRelatedItemsResponse
+      attr_accessor next_token: ::String
+      attr_accessor related_items: ::Array[Types::SearchAllRelatedItemsResponseItem]
+      SENSITIVE: []
+    end
+
+    class SearchAllRelatedItemsResponseItem
+      attr_accessor related_item_id: ::String
+      attr_accessor case_id: ::String
+      attr_accessor type: ("Contact" | "Comment" | "File" | "Sla" | "ConnectCase" | "Custom")
+      attr_accessor association_time: ::Time
+      attr_accessor content: Types::RelatedItemContent
+      attr_accessor performed_by: Types::UserUnion
+      attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class SearchAllRelatedItemsSort
+      attr_accessor sort_property: ("AssociationTime" | "CaseId")
+      attr_accessor sort_order: ("Asc" | "Desc")
+      SENSITIVE: []
+    end
+
     class SearchCasesRequest
       attr_accessor domain_id: ::String
       attr_accessor max_results: ::Integer

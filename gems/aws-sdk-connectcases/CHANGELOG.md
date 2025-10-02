@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.52.0 (2025-10-02)
+------------------
+
+* Feature - New Search All Related Items API enables searching related items across cases
+
 1.51.0 (2025-09-30)
 ------------------
 

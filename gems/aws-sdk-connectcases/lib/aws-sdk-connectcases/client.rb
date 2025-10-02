@@ -2237,6 +2237,237 @@ module Aws::ConnectCases
       req.send_request(options)
     end
 
+    # Searches for related items across all cases within a domain. This is a
+    # global search operation that returns related items from multiple
+    # cases, unlike the case-specific [SearchRelatedItems][1] API.
+    #
+    # **Use cases**
+    #
+    # Following are common uses cases for this API:
+    #
+    # * Find cases with similar issues across the domain. For example,
+    #   search for all cases containing comments about "product defect" to
+    #   identify patterns and existing solutions.
+    #
+    # * Locate all cases associated with specific contacts or orders. For
+    #   example, find all cases linked to a contactArn to understand the
+    #   complete customer journey.
+    #
+    # * Monitor SLA compliance across cases. For example, search for all
+    #   cases with "Active" SLA status to prioritize remediation efforts.
+    #
+    # **Important things to know**
+    #
+    # * This API returns case IDs, not complete case objects. To retrieve
+    #   full case details, you must make additional calls to the
+    #   [GetCase][2] API for each returned case ID.
+    #
+    # * This API searches across related items content, not case fields. Use
+    #   the [SearchCases][3] API to search within case field values.
+    #
+    # **Endpoints**: See [Amazon Connect endpoints and quotas][4].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_SearchRelatedItems.html
+    # [2]: https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_GetCase.html
+    # [3]: https://docs.aws.amazon.com/connect/latest/APIReference/API_connect-cases_SearchCases.html
+    # [4]: https://docs.aws.amazon.com/general/latest/gr/connect_region.html
+    #
+    # @option params [required, String] :domain_id
+    #   The unique identifier of the Cases domain.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of results to return per page.
+    #
+    # @option params [String] :next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #
+    # @option params [Array<Types::RelatedItemTypeFilter>] :filters
+    #   The list of types of related items and their parameters to use for
+    #   filtering. The filters work as an OR condition: caller gets back
+    #   related items that match any of the specified filter types.
+    #
+    # @option params [Array<Types::SearchAllRelatedItemsSort>] :sorts
+    #   A structured set of sort terms to specify the order in which related
+    #   items should be returned. Supports sorting by association time or case
+    #   ID. The sorts work in the order specified: first sort term takes
+    #   precedence over subsequent terms.
+    #
+    # @return [Types::SearchAllRelatedItemsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::SearchAllRelatedItemsResponse#next_token #next_token} => String
+    #   * {Types::SearchAllRelatedItemsResponse#related_items #related_items} => Array&lt;Types::SearchAllRelatedItemsResponseItem&gt;
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.search_all_related_items({
+    #     domain_id: "DomainId", # required
+    #     max_results: 1,
+    #     next_token: "NextToken",
+    #     filters: [
+    #       {
+    #         contact: {
+    #           channel: ["Channel"],
+    #           contact_arn: "ContactArn",
+    #         },
+    #         comment: {
+    #         },
+    #         file: {
+    #           file_arn: "FileArn",
+    #         },
+    #         sla: {
+    #           name: "SlaName",
+    #           status: "Active", # accepts Active, Overdue, Met, NotMet
+    #         },
+    #         connect_case: {
+    #           case_id: "CaseId",
+    #         },
+    #         custom: {
+    #           fields: {
+    #             field: {
+    #               equal_to: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #               contains: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #               greater_than: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #               greater_than_or_equal_to: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #               less_than: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #               less_than_or_equal_to: {
+    #                 id: "FieldId", # required
+    #                 value: { # required
+    #                   string_value: "FieldValueUnionStringValueString",
+    #                   double_value: 1.0,
+    #                   boolean_value: false,
+    #                   empty_value: {
+    #                   },
+    #                   user_arn_value: "String",
+    #                 },
+    #               },
+    #             },
+    #             not: {
+    #               # recursive CustomFieldsFilter
+    #             },
+    #             and_all: [
+    #               {
+    #                 # recursive CustomFieldsFilter
+    #               },
+    #             ],
+    #             or_all: [
+    #               {
+    #                 # recursive CustomFieldsFilter
+    #               },
+    #             ],
+    #           },
+    #         },
+    #       },
+    #     ],
+    #     sorts: [
+    #       {
+    #         sort_property: "AssociationTime", # required, accepts AssociationTime, CaseId
+    #         sort_order: "Asc", # required, accepts Asc, Desc
+    #       },
+    #     ],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.next_token #=> String
+    #   resp.related_items #=> Array
+    #   resp.related_items[0].related_item_id #=> String
+    #   resp.related_items[0].case_id #=> String
+    #   resp.related_items[0].type #=> String, one of "Contact", "Comment", "File", "Sla", "ConnectCase", "Custom"
+    #   resp.related_items[0].association_time #=> Time
+    #   resp.related_items[0].content.contact.contact_arn #=> String
+    #   resp.related_items[0].content.contact.channel #=> String
+    #   resp.related_items[0].content.contact.connected_to_system_time #=> Time
+    #   resp.related_items[0].content.comment.body #=> String
+    #   resp.related_items[0].content.comment.content_type #=> String, one of "Text/Plain"
+    #   resp.related_items[0].content.file.file_arn #=> String
+    #   resp.related_items[0].content.sla.sla_configuration.name #=> String
+    #   resp.related_items[0].content.sla.sla_configuration.type #=> String, one of "CaseField"
+    #   resp.related_items[0].content.sla.sla_configuration.status #=> String, one of "Active", "Overdue", "Met", "NotMet"
+    #   resp.related_items[0].content.sla.sla_configuration.field_id #=> String
+    #   resp.related_items[0].content.sla.sla_configuration.target_field_values #=> Array
+    #   resp.related_items[0].content.sla.sla_configuration.target_field_values[0].string_value #=> String
+    #   resp.related_items[0].content.sla.sla_configuration.target_field_values[0].double_value #=> Float
+    #   resp.related_items[0].content.sla.sla_configuration.target_field_values[0].boolean_value #=> Boolean
+    #   resp.related_items[0].content.sla.sla_configuration.target_field_values[0].user_arn_value #=> String
+    #   resp.related_items[0].content.sla.sla_configuration.target_time #=> Time
+    #   resp.related_items[0].content.sla.sla_configuration.completion_time #=> Time
+    #   resp.related_items[0].content.connect_case.case_id #=> String
+    #   resp.related_items[0].content.custom.fields #=> Array
+    #   resp.related_items[0].content.custom.fields[0].id #=> String
+    #   resp.related_items[0].content.custom.fields[0].value.string_value #=> String
+    #   resp.related_items[0].content.custom.fields[0].value.double_value #=> Float
+    #   resp.related_items[0].content.custom.fields[0].value.boolean_value #=> Boolean
+    #   resp.related_items[0].content.custom.fields[0].value.user_arn_value #=> String
+    #   resp.related_items[0].performed_by.user_arn #=> String
+    #   resp.related_items[0].performed_by.custom_entity #=> String
+    #   resp.related_items[0].tags #=> Hash
+    #   resp.related_items[0].tags["String"] #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connectcases-2022-10-03/SearchAllRelatedItems AWS API Documentation
+    #
+    # @overload search_all_related_items(params = {})
+    # @param [Hash] params ({})
+    def search_all_related_items(params = {}, options = {})
+      req = build_request(:search_all_related_items, params)
+      req.send_request(options)
+    end
+
     # Searches for cases within their associated Cases domain. Search
     # results are returned as a paginated list of abridged case documents.
     #
@@ -3014,7 +3245,7 @@ module Aws::ConnectCases
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connectcases'
-      context[:gem_version] = '1.51.0'
+      context[:gem_version] = '1.52.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -226,6 +226,15 @@ module Aws::ConnectCases
     RequiredFieldList = Shapes::ListShape.new(name: 'RequiredFieldList')
     ResourceNotFoundException = Shapes::StructureShape.new(name: 'ResourceNotFoundException')
     RuleType = Shapes::StringShape.new(name: 'RuleType')
+    SearchAllRelatedItemsRequest = Shapes::StructureShape.new(name: 'SearchAllRelatedItemsRequest')
+    SearchAllRelatedItemsRequestFiltersList = Shapes::ListShape.new(name: 'SearchAllRelatedItemsRequestFiltersList')
+    SearchAllRelatedItemsRequestMaxResultsInteger = Shapes::IntegerShape.new(name: 'SearchAllRelatedItemsRequestMaxResultsInteger')
+    SearchAllRelatedItemsRequestSortsList = Shapes::ListShape.new(name: 'SearchAllRelatedItemsRequestSortsList')
+    SearchAllRelatedItemsResponse = Shapes::StructureShape.new(name: 'SearchAllRelatedItemsResponse')
+    SearchAllRelatedItemsResponseItem = Shapes::StructureShape.new(name: 'SearchAllRelatedItemsResponseItem')
+    SearchAllRelatedItemsResponseRelatedItemsList = Shapes::ListShape.new(name: 'SearchAllRelatedItemsResponseRelatedItemsList')
+    SearchAllRelatedItemsSort = Shapes::StructureShape.new(name: 'SearchAllRelatedItemsSort')
+    SearchAllRelatedItemsSortProperty = Shapes::StringShape.new(name: 'SearchAllRelatedItemsSortProperty')
     SearchCasesRequest = Shapes::StructureShape.new(name: 'SearchCasesRequest')
     SearchCasesRequestFieldsList = Shapes::ListShape.new(name: 'SearchCasesRequestFieldsList')
     SearchCasesRequestMaxResultsInteger = Shapes::IntegerShape.new(name: 'SearchCasesRequestMaxResultsInteger')
@@ -995,6 +1004,36 @@ module Aws::ConnectCases
     ResourceNotFoundException.add_member(:resource_type, Shapes::ShapeRef.new(shape: String, required: true, location_name: "resourceType"))
     ResourceNotFoundException.struct_class = Types::ResourceNotFoundException
 
+    SearchAllRelatedItemsRequest.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainId"))
+    SearchAllRelatedItemsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: SearchAllRelatedItemsRequestMaxResultsInteger, location_name: "maxResults"))
+    SearchAllRelatedItemsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    SearchAllRelatedItemsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: SearchAllRelatedItemsRequestFiltersList, location_name: "filters"))
+    SearchAllRelatedItemsRequest.add_member(:sorts, Shapes::ShapeRef.new(shape: SearchAllRelatedItemsRequestSortsList, location_name: "sorts"))
+    SearchAllRelatedItemsRequest.struct_class = Types::SearchAllRelatedItemsRequest
+
+    SearchAllRelatedItemsRequestFiltersList.member = Shapes::ShapeRef.new(shape: RelatedItemTypeFilter)
+
+    SearchAllRelatedItemsRequestSortsList.member = Shapes::ShapeRef.new(shape: SearchAllRelatedItemsSort)
+
+    SearchAllRelatedItemsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    SearchAllRelatedItemsResponse.add_member(:related_items, Shapes::ShapeRef.new(shape: SearchAllRelatedItemsResponseRelatedItemsList, required: true, location_name: "relatedItems"))
+    SearchAllRelatedItemsResponse.struct_class = Types::SearchAllRelatedItemsResponse
+
+    SearchAllRelatedItemsResponseItem.add_member(:related_item_id, Shapes::ShapeRef.new(shape: RelatedItemId, required: true, location_name: "relatedItemId"))
+    SearchAllRelatedItemsResponseItem.add_member(:case_id, Shapes::ShapeRef.new(shape: CaseId, required: true, location_name: "caseId"))
+    SearchAllRelatedItemsResponseItem.add_member(:type, Shapes::ShapeRef.new(shape: RelatedItemType, required: true, location_name: "type"))
+    SearchAllRelatedItemsResponseItem.add_member(:association_time, Shapes::ShapeRef.new(shape: AssociationTime, required: true, location_name: "associationTime"))
+    SearchAllRelatedItemsResponseItem.add_member(:content, Shapes::ShapeRef.new(shape: RelatedItemContent, required: true, location_name: "content"))
+    SearchAllRelatedItemsResponseItem.add_member(:performed_by, Shapes::ShapeRef.new(shape: UserUnion, location_name: "performedBy"))
+    SearchAllRelatedItemsResponseItem.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "tags"))
+    SearchAllRelatedItemsResponseItem.struct_class = Types::SearchAllRelatedItemsResponseItem
+
+    SearchAllRelatedItemsResponseRelatedItemsList.member = Shapes::ShapeRef.new(shape: SearchAllRelatedItemsResponseItem)
+
+    SearchAllRelatedItemsSort.add_member(:sort_property, Shapes::ShapeRef.new(shape: SearchAllRelatedItemsSortProperty, required: true, location_name: "sortProperty"))
+    SearchAllRelatedItemsSort.add_member(:sort_order, Shapes::ShapeRef.new(shape: Order, required: true, location_name: "sortOrder"))
+    SearchAllRelatedItemsSort.struct_class = Types::SearchAllRelatedItemsSort
+
     SearchCasesRequest.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainId"))
     SearchCasesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: SearchCasesRequestMaxResultsInteger, location_name: "maxResults"))
     SearchCasesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
@@ -1685,6 +1724,25 @@ module Aws::ConnectCases
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+      end)
+
+      api.add_operation(:search_all_related_items, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "SearchAllRelatedItems"
+        o.http_method = "POST"
+        o.http_request_uri = "/domains/{domainId}/related-items-search"
+        o.input = Shapes::ShapeRef.new(shape: SearchAllRelatedItemsRequest)
+        o.output = Shapes::ShapeRef.new(shape: SearchAllRelatedItemsResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
       end)
 
       api.add_operation(:search_cases, Seahorse::Model::Operation.new.tap do |o|
