@@ -7848,6 +7848,133 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] source_volume_id
+    #   The ID of the source EBS volume to copy.
+    #   @return [String]
+    #
+    # @!attribute [rw] iops
+    #   The number of I/O operations per second (IOPS) to provision for the
+    #   volume copy. Required for `io1` and `io2` volumes. Optional for
+    #   `gp3` volumes. Omit for all other volume types. Full provisioned
+    #   IOPS performance can be achieved only once the volume copy is fully
+    #   initialized.
+    #
+    #   Valid ranges:
+    #
+    #   * gp3: `3,000 `(*default*)` - 80,000` IOPS
+    #
+    #   * io1: `100 - 64,000` IOPS
+    #
+    #   * io2: `100 - 256,000` IOPS
+    #
+    #   <note markdown="1"> [ Instances built on the Nitro System][1] can support up to 256,000
+    #   IOPS. Other instances can support up to 32,000 IOPS.
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html
+    #   @return [Integer]
+    #
+    # @!attribute [rw] size
+    #   The size of the volume copy, in GiBs. The size must be equal to or
+    #   greater than the size of the source volume. If not specified, the
+    #   size defaults to the size of the source volume.
+    #
+    #   Maximum supported sizes:
+    #
+    #   * gp2: `16,384` GiB
+    #
+    #   * gp3: `65,536` GiB
+    #
+    #   * io1: `16,384` GiB
+    #
+    #   * io2: `65,536` GiB
+    #
+    #   * st1 and sc1: `16,384` GiB
+    #
+    #   * standard: `1024` GiB
+    #   @return [Integer]
+    #
+    # @!attribute [rw] volume_type
+    #   The volume type for the volume copy. If not specified, the volume
+    #   type defaults to `gp2`.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the volume copy during creation.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @!attribute [rw] multi_attach_enabled
+    #   Indicates whether to enable Amazon EBS Multi-Attach for the volume
+    #   copy. If you enable Multi-Attach, you can attach the volume to up to
+    #   16 Nitro instances in the same Availability Zone simultaneously.
+    #   Supported with `io1` and `io2` volumes only. For more information,
+    #   see [ Amazon EBS Multi-Attach][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] throughput
+    #   The throughput to provision for the volume copy, in MiB/s. Supported
+    #   for `gp3` volumes only. Omit for all other volume types. Full
+    #   provisioned throughput performance can be achieved only once the
+    #   volume copy is fully initialized.
+    #
+    #   Valid Range: `125 - 2000` MiB/s
+    #   @return [Integer]
+    #
+    # @!attribute [rw] client_token
+    #   Unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. For more information, see [ Ensure
+    #   Idempotency][1].
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyVolumesRequest AWS API Documentation
+    #
+    class CopyVolumesRequest < Struct.new(
+      :source_volume_id,
+      :iops,
+      :size,
+      :volume_type,
+      :dry_run,
+      :tag_specifications,
+      :multi_attach_enabled,
+      :throughput,
+      :client_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] volumes
+    #   Information about the volume copy.
+    #   @return [Array<Types::Volume>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CopyVolumesResult AWS API Documentation
+    #
+    class CopyVolumesResult < Struct.new(
+      :volumes)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The CPU options for the instance.
     #
     # @!attribute [rw] core_count
@@ -14887,27 +15014,22 @@ module Aws::EC2
     #   @return [Boolean]
     #
     # @!attribute [rw] iops
-    #   The number of I/O operations per second (IOPS). For `gp3`, `io1`,
-    #   and `io2` volumes, this represents the number of IOPS that are
-    #   provisioned for the volume. For `gp2` volumes, this represents the
-    #   baseline performance of the volume and the rate at which the volume
-    #   accumulates I/O credits for bursting.
+    #   The number of I/O operations per second (IOPS) to provision for the
+    #   volume. Required for `io1` and `io2` volumes. Optional for `gp3`
+    #   volumes. Omit for all other volume types.
     #
-    #   The following are the supported values for each volume type:
+    #   Valid ranges:
     #
-    #   * `gp3`: 3,000 - 80,000 IOPS
+    #   * gp3: `3,000 `(*default*)` - 80,000` IOPS
     #
-    #   * `io1`: 100 - 64,000 IOPS
+    #   * io1: `100 - 64,000` IOPS
     #
-    #   * `io2`: 100 - 256,000 IOPS
+    #   * io2: `100 - 256,000` IOPS
     #
-    #   For `io2` volumes, you can achieve up to 256,000 IOPS on [instances
-    #   built on the Nitro System][1]. On other instances, you can achieve
-    #   performance up to 32,000 IOPS.
+    #   <note markdown="1"> [ Instances built on the Nitro System][1] can support up to 256,000
+    #   IOPS. Other instances can support up to 32,000 IOPS.
     #
-    #   This parameter is required for `io1` and `io2` volumes. The default
-    #   for `gp3` volumes is 3,000 IOPS. This parameter is not supported for
-    #   `gp2`, `st1`, `sc1`, or `standard` volumes.
+    #    </note>
     #
     #
     #
@@ -14951,22 +15073,22 @@ module Aws::EC2
     # @!attribute [rw] size
     #   The size of the volume, in GiBs. You must specify either a snapshot
     #   ID or a volume size. If you specify a snapshot, the default is the
-    #   snapshot size. You can specify a volume size that is equal to or
+    #   snapshot size, and you can specify a volume size that is equal to or
     #   larger than the snapshot size.
     #
-    #   The following are the supported volumes sizes for each volume type:
+    #   Valid sizes:
     #
-    #   * `gp2`: 1 - 16,384 GiB
+    #   * gp2: `1 - 16,384` GiB
     #
-    #   * `gp3`: 1 - 65,536 GiB
+    #   * gp3: `1 - 65,536` GiB
     #
-    #   * `io1`: 4 - 16,384 GiB
+    #   * io1: `4 - 16,384` GiB
     #
-    #   * `io2`: 4 - 65,536 GiB
+    #   * io2: `4 - 65,536` GiB
     #
-    #   * `st1` and `sc1`: 125 - 16,384 GiB
+    #   * st1 and sc1: `125 - 16,384` GiB
     #
-    #   * `standard`: 1 - 1024 GiB
+    #   * standard: `1 - 1024` GiB
     #   @return [Integer]
     #
     # @!attribute [rw] snapshot_id
@@ -15019,12 +15141,10 @@ module Aws::EC2
     #   @return [Boolean]
     #
     # @!attribute [rw] throughput
-    #   The throughput to provision for a volume, with a maximum of 2,000
-    #   MiB/s.
+    #   The throughput to provision for the volume, in MiB/s. Supported for
+    #   `gp3` volumes only. Omit for all other volume types.
     #
-    #   This parameter is valid only for `gp3` volumes.
-    #
-    #   Valid Range: Minimum value of 125. Maximum value of 2,000.
+    #   Valid Range: `125 - 2000` MiB/s
     #   @return [Integer]
     #
     # @!attribute [rw] client_token
@@ -45376,6 +45496,9 @@ module Aws::EC2
     #
     #   * `provisioned-rate` - Volume initialized using an Amazon EBS
     #     Provisioned Rate for Volume Initialization.
+    #
+    #   * `volume-copy` - Volume copy initialized at the rate for volume
+    #     copies.
     #   @return [String]
     #
     # @!attribute [rw] progress
@@ -58637,9 +58760,10 @@ module Aws::EC2
     #
     #   * `io2`: 100 - 256,000 IOPS
     #
-    #   For `io2` volumes, you can achieve up to 256,000 IOPS on [instances
-    #   built on the Nitro System][1]. On other instances, you can achieve
-    #   performance up to 32,000 IOPS.
+    #   <note markdown="1"> [ Instances built on the Nitro System][1] can support up to 256,000
+    #   IOPS. Other instances can support up to 32,000 IOPS.
+    #
+    #    </note>
     #
     #   Default: The existing value is retained if you keep the same volume
     #   type. If you change the volume type to `io1`, `io2`, or `gp3`, the
@@ -77924,6 +78048,11 @@ module Aws::EC2
     #   The Amazon Resource Name (ARN) of the Outpost.
     #   @return [String]
     #
+    # @!attribute [rw] source_volume_id
+    #   The ID of the source volume from which the volume copy was created.
+    #   Only for volume copies.
+    #   @return [String]
+    #
     # @!attribute [rw] iops
     #   The number of I/O operations per second (IOPS). For `gp3`, `io1`,
     #   and `io2` volumes, this represents the number of IOPS that are
@@ -78022,6 +78151,7 @@ module Aws::EC2
     class Volume < Struct.new(
       :availability_zone_id,
       :outpost_arn,
+      :source_volume_id,
       :iops,
       :tags,
       :volume_type,

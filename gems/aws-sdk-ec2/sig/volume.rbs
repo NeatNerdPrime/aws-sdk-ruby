@@ -24,6 +24,9 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Volume.html#outpost_arn-instance_method
       def outpost_arn: () -> ::String
 
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Volume.html#source_volume_id-instance_method
+      def source_volume_id: () -> ::String
+
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Volume.html#iops-instance_method
       def iops: () -> ::Integer
 

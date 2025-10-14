@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.562.0 (2025-10-14)
+------------------
+
+* Feature - This release adds support for creating instant, point-in-time copies of EBS volumes within the same Availability Zone
+
 1.561.0 (2025-10-13)
 ------------------
 

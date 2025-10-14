@@ -449,6 +449,8 @@ module Aws::EC2
     CopySnapshotRequestPSU = Shapes::StringShape.new(name: 'CopySnapshotRequestPSU')
     CopySnapshotResult = Shapes::StructureShape.new(name: 'CopySnapshotResult')
     CopyTagsFromSource = Shapes::StringShape.new(name: 'CopyTagsFromSource')
+    CopyVolumesRequest = Shapes::StructureShape.new(name: 'CopyVolumesRequest')
+    CopyVolumesResult = Shapes::StructureShape.new(name: 'CopyVolumesResult')
     CoreCount = Shapes::IntegerShape.new(name: 'CoreCount')
     CoreCountList = Shapes::ListShape.new(name: 'CoreCountList')
     CoreNetworkArn = Shapes::StringShape.new(name: 'CoreNetworkArn')
@@ -5152,6 +5154,20 @@ module Aws::EC2
     CopySnapshotResult.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     CopySnapshotResult.add_member(:snapshot_id, Shapes::ShapeRef.new(shape: String, location_name: "snapshotId"))
     CopySnapshotResult.struct_class = Types::CopySnapshotResult
+
+    CopyVolumesRequest.add_member(:source_volume_id, Shapes::ShapeRef.new(shape: VolumeId, required: true, location_name: "SourceVolumeId"))
+    CopyVolumesRequest.add_member(:iops, Shapes::ShapeRef.new(shape: Integer, location_name: "Iops"))
+    CopyVolumesRequest.add_member(:size, Shapes::ShapeRef.new(shape: Integer, location_name: "Size"))
+    CopyVolumesRequest.add_member(:volume_type, Shapes::ShapeRef.new(shape: VolumeType, location_name: "VolumeType"))
+    CopyVolumesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    CopyVolumesRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CopyVolumesRequest.add_member(:multi_attach_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "MultiAttachEnabled"))
+    CopyVolumesRequest.add_member(:throughput, Shapes::ShapeRef.new(shape: Integer, location_name: "Throughput"))
+    CopyVolumesRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CopyVolumesRequest.struct_class = Types::CopyVolumesRequest
+
+    CopyVolumesResult.add_member(:volumes, Shapes::ShapeRef.new(shape: VolumeList, location_name: "volumeSet"))
+    CopyVolumesResult.struct_class = Types::CopyVolumesResult
 
     CoreCountList.member = Shapes::ShapeRef.new(shape: CoreCount, location_name: "item")
 
@@ -17490,6 +17506,7 @@ module Aws::EC2
 
     Volume.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     Volume.add_member(:outpost_arn, Shapes::ShapeRef.new(shape: String, location_name: "outpostArn"))
+    Volume.add_member(:source_volume_id, Shapes::ShapeRef.new(shape: String, location_name: "sourceVolumeId"))
     Volume.add_member(:iops, Shapes::ShapeRef.new(shape: Integer, location_name: "iops"))
     Volume.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     Volume.add_member(:volume_type, Shapes::ShapeRef.new(shape: VolumeType, location_name: "volumeType"))
@@ -18412,6 +18429,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: CopySnapshotRequest)
         o.output = Shapes::ShapeRef.new(shape: CopySnapshotResult)
+      end)
+
+      api.add_operation(:copy_volumes, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CopyVolumes"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CopyVolumesRequest)
+        o.output = Shapes::ShapeRef.new(shape: CopyVolumesResult)
       end)
 
       api.add_operation(:create_capacity_reservation, Seahorse::Model::Operation.new.tap do |o|

@@ -47,6 +47,13 @@ module Aws::EC2
       data[:outpost_arn]
     end
 
+    # The ID of the source volume from which the volume copy was created.
+    # Only for volume copies.
+    # @return [String]
+    def source_volume_id
+      data[:source_volume_id]
+    end
+
     # The number of I/O operations per second (IOPS). For `gp3`, `io1`, and
     # `io2` volumes, this represents the number of IOPS that are provisioned
     # for the volume. For `gp2` volumes, this represents the baseline

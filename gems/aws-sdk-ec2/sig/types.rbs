@@ -1805,6 +1805,24 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class CopyVolumesRequest
+      attr_accessor source_volume_id: ::String
+      attr_accessor iops: ::Integer
+      attr_accessor size: ::Integer
+      attr_accessor volume_type: ("standard" | "io1" | "io2" | "gp2" | "sc1" | "st1" | "gp3")
+      attr_accessor dry_run: bool
+      attr_accessor tag_specifications: ::Array[Types::TagSpecification]
+      attr_accessor multi_attach_enabled: bool
+      attr_accessor throughput: ::Integer
+      attr_accessor client_token: ::String
+      SENSITIVE: []
+    end
+
+    class CopyVolumesResult
+      attr_accessor volumes: ::Array[Types::Volume]
+      SENSITIVE: []
+    end
+
     class CpuOptions
       attr_accessor core_count: ::Integer
       attr_accessor threads_per_core: ::Integer
@@ -9999,7 +10017,7 @@ module Aws::EC2
     end
 
     class InitializationStatusDetails
-      attr_accessor initialization_type: ("default" | "provisioned-rate")
+      attr_accessor initialization_type: ("default" | "provisioned-rate" | "volume-copy")
       attr_accessor progress: ::Integer
       attr_accessor estimated_time_to_complete_in_seconds: ::Integer
       SENSITIVE: []
@@ -16857,6 +16875,7 @@ module Aws::EC2
     class Volume
       attr_accessor availability_zone_id: ::String
       attr_accessor outpost_arn: ::String
+      attr_accessor source_volume_id: ::String
       attr_accessor iops: ::Integer
       attr_accessor tags: ::Array[Types::Tag]
       attr_accessor volume_type: ("standard" | "io1" | "io2" | "gp2" | "sc1" | "st1" | "gp3")
