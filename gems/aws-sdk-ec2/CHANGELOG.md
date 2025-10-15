@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.563.0 (2025-10-15)
+------------------
+
+* Feature - Introducing EC2 Capacity Manager for monitoring and analyzing capacity usage across On-Demand Instances, Spot Instances, and Capacity Reservations.
+
 1.562.0 (2025-10-14)
 ------------------
 

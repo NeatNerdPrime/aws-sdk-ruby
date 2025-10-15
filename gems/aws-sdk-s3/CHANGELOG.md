@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+1.200.0 (2025-10-15)
+------------------
+
 * Feature - Add lightweight thread pool executor for multipart `download_file`, `upload_file` and `upload_stream`.
 
 * Feature - Add custom executor support for `Aws::S3::TransferManager`.
