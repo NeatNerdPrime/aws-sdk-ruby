@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.564.0 (2025-10-17)
+------------------
+
+* Feature - Documentation updates for Amazon EC2.
+
 1.563.0 (2025-10-15)
 ------------------
 
