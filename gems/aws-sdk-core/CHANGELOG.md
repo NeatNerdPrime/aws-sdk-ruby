@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+3.234.0 (2025-10-21)
+------------------
+
 * Issue - Fix `request_checksum_calculation` `when_required` mode to only calculate checksums when explicitly provided by user.
 
 * Feature - Add `CREDENTIALS_CODE` metric for `static_profile_` prefixed methods in default credential chain.
