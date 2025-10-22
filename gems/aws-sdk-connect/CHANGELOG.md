@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.221.0 (2025-10-22)
+------------------
+
+* Feature - This release added support for email address alias configuration and outbound campaign preview mode.
+
 1.220.0 (2025-10-21)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.15.0 (2025-10-22)
+------------------
+
+* Feature - Updated Amazon Connect Outbound Campaigns V2 SDK to support Preview Outbound Mode
+
 1.14.0 (2025-10-21)
 ------------------
 

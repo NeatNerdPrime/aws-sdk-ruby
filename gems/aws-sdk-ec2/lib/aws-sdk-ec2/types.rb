@@ -27560,6 +27560,9 @@ module Aws::EC2
     #   * `availability-zone` - The Availability Zone of the network
     #     interface.
     #
+    #   * `availability-zone-id` - The ID of the Availability Zone of the
+    #     network interface.
+    #
     #   * `description` - The description of the network interface.
     #
     #   * `group-id` - The ID of a security group associated with the
@@ -29098,11 +29101,21 @@ module Aws::EC2
     #
     #   * `group-owner-id`: The group owner ID.
     #
-    #   * `state`: The state of the association.
-    #
     #   * `vpc-id`: The ID of the associated VPC.
     #
     #   * `vpc-owner-id`: The account ID of the VPC owner.
+    #
+    #   * `state`: The state of the association.
+    #
+    #   * `tag:<key>`: The key/value combination of a tag assigned to the
+    #     resource. Use the tag key in the filter name and the tag value as
+    #     the filter value. For example, to find all resources that have a
+    #     tag with the key `Owner` and the value `TeamA`, specify
+    #     `tag:Owner` for the filter name and `TeamA` for the filter value.
+    #
+    #   * `tag-key`: The key of a tag assigned to the resource. Use this
+    #     filter to find all resources assigned a tag with a specific key,
+    #     regardless of the tag value.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] next_token
@@ -61752,6 +61765,10 @@ module Aws::EC2
     #   The subnets associated with this network interface.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/NetworkInterface AWS API Documentation
     #
     class NetworkInterface < Struct.new(
@@ -61785,7 +61802,8 @@ module Aws::EC2
       :ipv_6_native,
       :ipv_6_address,
       :operator,
-      :associated_subnets)
+      :associated_subnets,
+      :availability_zone_id)
       SENSITIVE = []
       include Aws::Structure
     end

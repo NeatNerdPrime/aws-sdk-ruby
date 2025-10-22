@@ -705,6 +705,7 @@ RubyGems.org page under "LINKS" section.
 | Private CA Connector for SCEP                          | Aws::PcaConnectorScep                    | aws-sdk-pcaconnectorscep                    | 2018-05-10  |
 | QApps                                                  | Aws::QApps                               | aws-sdk-qapps                               | 2023-11-27  |
 | QBusiness                                              | Aws::QBusiness                           | aws-sdk-qbusiness                           | 2023-11-27  |
+| RTBFabric                                              | Aws::RTBFabric                           | aws-sdk-rtbfabric                           | 2023-05-15  |
 | Redshift Data API Service                              | Aws::RedshiftDataAPIService              | aws-sdk-redshiftdataapiservice              | 2019-12-20  |
 | Redshift Serverless                                    | Aws::RedshiftServerless                  | aws-sdk-redshiftserverless                  | 2021-04-21  |
 | Route 53 Profiles                                      | Aws::Route53Profiles                     | aws-sdk-route53profiles                     | 2018-05-10  |

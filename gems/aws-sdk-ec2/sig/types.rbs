@@ -13334,6 +13334,7 @@ module Aws::EC2
       attr_accessor ipv_6_address: ::String
       attr_accessor operator: Types::OperatorResponse
       attr_accessor associated_subnets: ::Array[::String]
+      attr_accessor availability_zone_id: ::String
       SENSITIVE: []
     end
 

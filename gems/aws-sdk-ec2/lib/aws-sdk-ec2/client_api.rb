@@ -14326,6 +14326,7 @@ module Aws::EC2
     NetworkInterface.add_member(:ipv_6_address, Shapes::ShapeRef.new(shape: String, location_name: "ipv6Address"))
     NetworkInterface.add_member(:operator, Shapes::ShapeRef.new(shape: OperatorResponse, location_name: "operator"))
     NetworkInterface.add_member(:associated_subnets, Shapes::ShapeRef.new(shape: AssociatedSubnetList, location_name: "associatedSubnetSet"))
+    NetworkInterface.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     NetworkInterface.struct_class = Types::NetworkInterface
 
     NetworkInterfaceAssociation.add_member(:allocation_id, Shapes::ShapeRef.new(shape: String, location_name: "allocationId"))

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1175.0 (2025-10-22)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::RTBFabric`.
+
 1.1174.0 (2025-10-17)
 ------------------
 

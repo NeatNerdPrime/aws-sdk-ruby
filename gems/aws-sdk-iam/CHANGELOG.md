@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.131.0 (2025-10-22)
+------------------
+
+* Feature - Updated OIDC and SAML apis to reject multiple simultaneous requests to change a unique object.
+
 1.130.0 (2025-10-21)
 ------------------
 

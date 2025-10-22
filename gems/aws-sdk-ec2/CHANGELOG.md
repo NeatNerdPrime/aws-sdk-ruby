@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.566.0 (2025-10-22)
+------------------
+
+* Feature - This release adds AvailabilityZoneId support for CreateNetworkInterface and DescribeNetworkInterfaces APIs.
+
 1.565.0 (2025-10-21)
 ------------------
 
