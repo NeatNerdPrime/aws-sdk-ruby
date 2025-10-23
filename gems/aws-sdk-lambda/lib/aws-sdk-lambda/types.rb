@@ -216,8 +216,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #
@@ -228,8 +228,7 @@ module Aws::Lambda
     #   Restricts the `lambda:InvokeFunction` action to calls coming from a
     #   function URL. When set to `true`, this prevents the principal from
     #   invoking the function by any means other than the function URL. For
-    #   more information, see [Security and auth model for Lambda function
-    #   URLs][1].
+    #   more information, see [Control access to Lambda function URLs][1].
     #
     #
     #
@@ -1217,8 +1216,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #
@@ -1272,8 +1271,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #
@@ -3142,8 +3141,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #
@@ -7190,8 +7189,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #
@@ -7245,8 +7244,8 @@ module Aws::Lambda
     #   The type of authentication that your function URL uses. Set to
     #   `AWS_IAM` if you want to restrict access to authenticated users
     #   only. Set to `NONE` if you want to bypass IAM authentication to
-    #   create a public endpoint. For more information, see [Security and
-    #   auth model for Lambda function URLs][1].
+    #   create a public endpoint. For more information, see [Control access
+    #   to Lambda function URLs][1].
     #
     #
     #

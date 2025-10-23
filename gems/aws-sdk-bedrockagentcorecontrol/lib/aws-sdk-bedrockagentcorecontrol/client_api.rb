@@ -1894,7 +1894,7 @@ module Aws::BedrockAgentCoreControl
         "endpointPrefix" => "bedrock-agentcore-control",
         "protocol" => "rest-json",
         "protocols" => ["rest-json"],
-        "serviceFullName" => "Amazon Bedrock Agent Core Control Plane Fronting Layer",
+        "serviceFullName" => "Amazon Bedrock AgentCore Control",
         "serviceId" => "Bedrock AgentCore Control",
         "signatureVersion" => "v4",
         "signingName" => "bedrock-agentcore",

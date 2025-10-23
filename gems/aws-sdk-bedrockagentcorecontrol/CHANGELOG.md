@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.12.0 (2025-10-23)
+------------------
+
+* Feature - Fixing the service documentation name
+
 1.11.0 (2025-10-21)
 ------------------
 

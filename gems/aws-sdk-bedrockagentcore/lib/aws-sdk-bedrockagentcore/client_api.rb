@@ -913,7 +913,7 @@ module Aws::BedrockAgentCore
         "endpointPrefix" => "bedrock-agentcore",
         "protocol" => "rest-json",
         "protocols" => ["rest-json"],
-        "serviceFullName" => "Amazon Bedrock AgentCore Data Plane Fronting Layer",
+        "serviceFullName" => "Amazon Bedrock AgentCore",
         "serviceId" => "Bedrock AgentCore",
         "signatureVersion" => "v4",
         "signingName" => "bedrock-agentcore",

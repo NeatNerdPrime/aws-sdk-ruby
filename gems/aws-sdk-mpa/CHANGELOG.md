@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.7.0 (2025-10-23)
+------------------
+
+* Feature - Update endpoint ruleset parameters casing
+
 1.6.0 (2025-10-21)
 ------------------
 

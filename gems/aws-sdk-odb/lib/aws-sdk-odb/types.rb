@@ -263,7 +263,6 @@ module Aws::Odb
     #
     # @!attribute [rw] license_model
     #   The Oracle license model that applies to the Autonomous VM cluster.
-    #   Valid values are `LICENSE_INCLUDED` or `BRING_YOUR_OWN_LICENSE`.
     #   @return [String]
     #
     # @!attribute [rw] maintenance_window
@@ -2356,9 +2355,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the ODB peering connection.
-    #
-    #   Valid Values: `provisioning | active | terminating | terminated |
-    #   failed`
     #   @return [String]
     #
     # @!attribute [rw] status_reason
@@ -4184,8 +4180,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the managed Amazon S3 backup access.
-    #
-    #   Valid Values: `enabled | disabled`
     #   @return [String]
     #
     # @!attribute [rw] ipv4_addresses
@@ -4534,9 +4528,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the ODB peering connection.
-    #
-    #   Valid Values: `provisioning | active | terminating | terminated |
-    #   failed`
     #   @return [String]
     #
     # @!attribute [rw] status_reason
@@ -4611,9 +4602,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the ODB peering connection.
-    #
-    #   Valid Values: `provisioning | active | terminating | terminated |
-    #   failed`
     #   @return [String]
     #
     # @!attribute [rw] status_reason
@@ -4741,8 +4729,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the Amazon S3 access.
-    #
-    #   Valid Values: `enabled | disabled`
     #   @return [String]
     #
     # @!attribute [rw] ipv4_addresses
@@ -4776,8 +4762,6 @@ module Aws::Odb
     #
     # @!attribute [rw] vpc_endpoint_type
     #   The type of the VPC endpoint.
-    #
-    #   Valid Values: `Interface | Gateway`
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/odb-2024-08-20/ServiceNetworkEndpoint AWS API Documentation
@@ -5217,8 +5201,6 @@ module Aws::Odb
     #
     # @!attribute [rw] status
     #   The status of the Zero-ETL access.
-    #
-    #   Valid Values: `enabled | disabled`
     #   @return [String]
     #
     # @!attribute [rw] cidr

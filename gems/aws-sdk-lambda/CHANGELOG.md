@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.163.0 (2025-10-23)
+------------------
+
+* Feature - Add NodeJs 24 (nodejs24.x) support to AWS Lambda.
+
 1.162.0 (2025-10-21)
 ------------------
 
