@@ -568,6 +568,9 @@ module Aws
                                                }?
                                              },
                                              holdback_percentage: ::Float
+                                           }?,
+                                           rate_limiter: {
+                                             tps: ::Float?
                                            }?
                                          }?
                                        },

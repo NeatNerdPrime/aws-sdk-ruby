@@ -1577,11 +1577,16 @@ module Aws::RTBFabric
     #   Describes the parameters of an open RTB attribute module.
     #   @return [Types::OpenRtbAttributeModuleParameters]
     #
+    # @!attribute [rw] rate_limiter
+    #   Describes the parameters of a rate limit.
+    #   @return [Types::RateLimiterModuleParameters]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rtbfabric-2023-05-15/ModuleParameters AWS API Documentation
     #
     class ModuleParameters < Struct.new(
       :no_bid,
       :open_rtb_attribute,
+      :rate_limiter,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
@@ -1589,6 +1594,7 @@ module Aws::RTBFabric
 
       class NoBid < ModuleParameters; end
       class OpenRtbAttribute < ModuleParameters; end
+      class RateLimiter < ModuleParameters; end
       class Unknown < ModuleParameters; end
     end
 
@@ -1655,6 +1661,20 @@ module Aws::RTBFabric
       :filter_configuration,
       :action,
       :holdback_percentage)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes the parameters of a rate limit.
+    #
+    # @!attribute [rw] tps
+    #   The transactions per second rate limit.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/rtbfabric-2023-05-15/RateLimiterModuleParameters AWS API Documentation
+    #
+    class RateLimiterModuleParameters < Struct.new(
+      :tps)
       SENSITIVE = []
       include Aws::Structure
     end

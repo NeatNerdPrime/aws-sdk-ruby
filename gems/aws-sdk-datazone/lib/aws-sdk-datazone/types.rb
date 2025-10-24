@@ -1820,6 +1820,10 @@ module Aws::DataZone
     #   The IAM properties of a connection.
     #   @return [Types::IamPropertiesInput]
     #
+    # @!attribute [rw] mlflow_properties
+    #   The MLflow properties of a connection.
+    #   @return [Types::MlflowPropertiesInput]
+    #
     # @!attribute [rw] redshift_properties
     #   The Amazon Redshift properties of a connection.
     #   @return [Types::RedshiftPropertiesInput]
@@ -1844,6 +1848,7 @@ module Aws::DataZone
       :glue_properties,
       :hyper_pod_properties,
       :iam_properties,
+      :mlflow_properties,
       :redshift_properties,
       :s3_properties,
       :spark_emr_properties,
@@ -1858,6 +1863,7 @@ module Aws::DataZone
       class GlueProperties < ConnectionPropertiesInput; end
       class HyperPodProperties < ConnectionPropertiesInput; end
       class IamProperties < ConnectionPropertiesInput; end
+      class MlflowProperties < ConnectionPropertiesInput; end
       class RedshiftProperties < ConnectionPropertiesInput; end
       class S3Properties < ConnectionPropertiesInput; end
       class SparkEmrProperties < ConnectionPropertiesInput; end
@@ -1889,6 +1895,10 @@ module Aws::DataZone
     #   The IAM properties of a connection.
     #   @return [Types::IamPropertiesOutput]
     #
+    # @!attribute [rw] mlflow_properties
+    #   The MLflow properties of a connection.
+    #   @return [Types::MlflowPropertiesOutput]
+    #
     # @!attribute [rw] redshift_properties
     #   The Amazon Redshift properties of a connection.
     #   @return [Types::RedshiftPropertiesOutput]
@@ -1913,6 +1923,7 @@ module Aws::DataZone
       :glue_properties,
       :hyper_pod_properties,
       :iam_properties,
+      :mlflow_properties,
       :redshift_properties,
       :s3_properties,
       :spark_emr_properties,
@@ -1927,6 +1938,7 @@ module Aws::DataZone
       class GlueProperties < ConnectionPropertiesOutput; end
       class HyperPodProperties < ConnectionPropertiesOutput; end
       class IamProperties < ConnectionPropertiesOutput; end
+      class MlflowProperties < ConnectionPropertiesOutput; end
       class RedshiftProperties < ConnectionPropertiesOutput; end
       class S3Properties < ConnectionPropertiesOutput; end
       class SparkEmrProperties < ConnectionPropertiesOutput; end
@@ -1955,6 +1967,10 @@ module Aws::DataZone
     #   The IAM properties of a connection properties patch.
     #   @return [Types::IamPropertiesPatch]
     #
+    # @!attribute [rw] mlflow_properties
+    #   The MLflow properties of a connection.
+    #   @return [Types::MlflowPropertiesPatch]
+    #
     # @!attribute [rw] redshift_properties
     #   The Amazon Redshift properties of a connection properties patch.
     #   @return [Types::RedshiftPropertiesPatch]
@@ -1974,6 +1990,7 @@ module Aws::DataZone
       :athena_properties,
       :glue_properties,
       :iam_properties,
+      :mlflow_properties,
       :redshift_properties,
       :s3_properties,
       :spark_emr_properties,
@@ -1986,6 +2003,7 @@ module Aws::DataZone
       class AthenaProperties < ConnectionPropertiesPatch; end
       class GlueProperties < ConnectionPropertiesPatch; end
       class IamProperties < ConnectionPropertiesPatch; end
+      class MlflowProperties < ConnectionPropertiesPatch; end
       class RedshiftProperties < ConnectionPropertiesPatch; end
       class S3Properties < ConnectionPropertiesPatch; end
       class SparkEmrProperties < ConnectionPropertiesPatch; end
@@ -15020,6 +15038,69 @@ module Aws::DataZone
       :identifier,
       :revision,
       :type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The MLflow properties of a connection.
+    #
+    # @!attribute [rw] tracking_server_arn
+    #   The tracking server ARN as part of the MLflow properties of a
+    #   connection.
+    #   @return [String]
+    #
+    # @!attribute [rw] tracking_server_name
+    #   The name of the tracking server as part of the MLflow properties of
+    #   a connection.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesInput AWS API Documentation
+    #
+    class MlflowPropertiesInput < Struct.new(
+      :tracking_server_arn,
+      :tracking_server_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The MLflow properties of a connection.
+    #
+    # @!attribute [rw] tracking_server_arn
+    #   The tracking server ARN as part of the MLflow properties of a
+    #   connection.
+    #   @return [String]
+    #
+    # @!attribute [rw] tracking_server_name
+    #   The name of the tracking server as part of the MLflow properties of
+    #   a connection.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesOutput AWS API Documentation
+    #
+    class MlflowPropertiesOutput < Struct.new(
+      :tracking_server_arn,
+      :tracking_server_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The MLflow properties of a connection.
+    #
+    # @!attribute [rw] tracking_server_arn
+    #   The tracking server ARN as part of the MLflow properties of a
+    #   connection.
+    #   @return [String]
+    #
+    # @!attribute [rw] tracking_server_name
+    #   The name of the tracking server as part of the MLflow properties of
+    #   a connection.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesPatch AWS API Documentation
+    #
+    class MlflowPropertiesPatch < Struct.new(
+      :tracking_server_arn,
+      :tracking_server_name)
       SENSITIVE = []
       include Aws::Structure
     end

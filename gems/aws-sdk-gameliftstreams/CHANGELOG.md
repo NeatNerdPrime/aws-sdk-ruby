@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.15.0 (2025-10-24)
+------------------
+
+* Feature - Add status reasons for TERMINATED stream sessions
+
 1.14.0 (2025-10-21)
 ------------------
 

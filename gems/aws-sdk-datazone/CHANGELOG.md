@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.56.0 (2025-10-24)
+------------------
+
+* Feature - This release adds support for MLflow connections Creation in DataZone
+
 1.55.0 (2025-10-21)
 ------------------
 

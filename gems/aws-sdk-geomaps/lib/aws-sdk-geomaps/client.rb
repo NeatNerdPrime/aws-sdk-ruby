@@ -1109,8 +1109,8 @@ module Aws::GeoMaps
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_static_map({
-    #     bounding_box: "PositionListString",
-    #     bounded_positions: "PositionListString",
+    #     bounding_box: "GetStaticMapRequestBoundingBoxString",
+    #     bounded_positions: "GetStaticMapRequestBoundedPositionsString",
     #     center: "PositionString",
     #     color_scheme: "Light", # accepts Light, Dark
     #     compact_overlay: "CompactOverlay",
@@ -1294,6 +1294,10 @@ module Aws::GeoMaps
     #
     # [1]: https://docs.aws.amazon.com/location/latest/developerguide/tiles.html
     #
+    # @option params [Array<String>] :additional_features
+    #   A list of optional additional parameters such as map styles that can
+    #   be requested for each result.
+    #
     # @option params [required, String] :tileset
     #   Specifies the desired tile set.
     #
@@ -1323,6 +1327,7 @@ module Aws::GeoMaps
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_tile({
+    #     additional_features: ["ContourLines"], # accepts ContourLines, Hillshade, Logistics, Transit
     #     tileset: "Tileset", # required
     #     z: "GetTileRequestZString", # required
     #     x: "GetTileRequestXString", # required
@@ -1365,7 +1370,7 @@ module Aws::GeoMaps
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-geomaps'
-      context[:gem_version] = '1.15.0'
+      context[:gem_version] = '1.16.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

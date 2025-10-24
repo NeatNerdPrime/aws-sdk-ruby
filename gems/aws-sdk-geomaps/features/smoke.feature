@@ -8,30 +8,6 @@
 Feature: Smoke tests for GeoMaps
 
   @geomaps @smoke
-  Scenario: GetTileSuccess
-    Given I create a 'Aws::GeoMaps' client with config:
-      """
-{"region":"us-west-2","use_fips_endpoint":false,"use_dualstack_endpoint":false}
-      """
-    When I call the operation 'get_tile' with params:
-      """
-{"tileset":"vector.basemap","x":"5190","y":"11218","z":"15"}
-      """
-    Then I expect an error was not raised
-
-  @geomaps @smoke
-  Scenario: GetStyleDescriptorSuccess
-    Given I create a 'Aws::GeoMaps' client with config:
-      """
-{"region":"us-west-2","use_fips_endpoint":false,"use_dualstack_endpoint":false}
-      """
-    When I call the operation 'get_style_descriptor' with params:
-      """
-{"style":"Standard"}
-      """
-    Then I expect an error was not raised
-
-  @geomaps @smoke
   Scenario: GetSpritesSuccess
     Given I create a 'Aws::GeoMaps' client with config:
       """
@@ -56,6 +32,18 @@ Feature: Smoke tests for GeoMaps
     Then I expect an error was not raised
 
   @geomaps @smoke
+  Scenario: GetStyleDescriptorSuccess
+    Given I create a 'Aws::GeoMaps' client with config:
+      """
+{"region":"us-west-2","use_fips_endpoint":false,"use_dualstack_endpoint":false}
+      """
+    When I call the operation 'get_style_descriptor' with params:
+      """
+{"style":"Standard"}
+      """
+    Then I expect an error was not raised
+
+  @geomaps @smoke
   Scenario: GetGlyphsSuccess
     Given I create a 'Aws::GeoMaps' client with config:
       """
@@ -64,5 +52,17 @@ Feature: Smoke tests for GeoMaps
     When I call the operation 'get_glyphs' with params:
       """
 {"font_stack":"Amazon Ember Regular","font_unicode_range":"0-255.pbf"}
+      """
+    Then I expect an error was not raised
+
+  @geomaps @smoke
+  Scenario: GetTileSuccess
+    Given I create a 'Aws::GeoMaps' client with config:
+      """
+{"region":"us-west-2","use_fips_endpoint":false,"use_dualstack_endpoint":false}
+      """
+    When I call the operation 'get_tile' with params:
+      """
+{"tileset":"vector.basemap","x":"5190","y":"11218","z":"15"}
       """
     Then I expect an error was not raised

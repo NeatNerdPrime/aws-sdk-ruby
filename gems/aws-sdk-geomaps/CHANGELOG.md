@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.16.0 (2025-10-24)
+------------------
+
+* Feature - Added support for optional AdditionalFeatures parameter in the V2 GetTile API.
+
 1.15.0 (2025-10-21)
 ------------------
 

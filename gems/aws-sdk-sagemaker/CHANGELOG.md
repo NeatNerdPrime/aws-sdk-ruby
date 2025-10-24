@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.332.0 (2025-10-24)
+------------------
+
+* Feature - Added inference components model data caching feature
+
 1.331.0 (2025-10-23)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.79.0 (2025-10-24)
+------------------
+
+* Feature - Added support for mobile app restrictions in Amazon Location API keys.
+
 1.78.0 (2025-10-21)
 ------------------
 

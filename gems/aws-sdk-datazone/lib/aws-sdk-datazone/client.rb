@@ -1857,6 +1857,10 @@ module Aws::DataZone
     #       iam_properties: {
     #         glue_lineage_sync_enabled: false,
     #       },
+    #       mlflow_properties: {
+    #         tracking_server_arn: "String",
+    #         tracking_server_name: "String",
+    #       },
     #       redshift_properties: {
     #         credentials: {
     #           secret_arn: "RedshiftCredentialsSecretArnString",
@@ -1944,7 +1948,7 @@ module Aws::DataZone
     #   resp.physical_endpoints[0].glue_connection.connection_properties #=> Hash
     #   resp.physical_endpoints[0].glue_connection.connection_properties["String"] #=> String
     #   resp.physical_endpoints[0].glue_connection.connection_schema_version #=> Integer
-    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #   resp.physical_endpoints[0].glue_connection.creation_time #=> Time
     #   resp.physical_endpoints[0].glue_connection.description #=> String
     #   resp.physical_endpoints[0].glue_connection.last_connection_validation_time #=> Time
@@ -1982,6 +1986,8 @@ module Aws::DataZone
     #   resp.props.hyper_pod_properties.orchestrator #=> String, one of "EKS", "SLURM"
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
+    #   resp.props.mlflow_properties.tracking_server_arn #=> String
+    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -2025,7 +2031,7 @@ module Aws::DataZone
     #   resp.props.spark_glue_properties.python_virtual_env #=> String
     #   resp.props.spark_glue_properties.worker_type #=> String
     #   resp.scope #=> String, one of "DOMAIN", "PROJECT"
-    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/CreateConnection AWS API Documentation
     #
@@ -5726,7 +5732,7 @@ module Aws::DataZone
     #   resp.physical_endpoints[0].glue_connection.connection_properties #=> Hash
     #   resp.physical_endpoints[0].glue_connection.connection_properties["String"] #=> String
     #   resp.physical_endpoints[0].glue_connection.connection_schema_version #=> Integer
-    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #   resp.physical_endpoints[0].glue_connection.creation_time #=> Time
     #   resp.physical_endpoints[0].glue_connection.description #=> String
     #   resp.physical_endpoints[0].glue_connection.last_connection_validation_time #=> Time
@@ -5764,6 +5770,8 @@ module Aws::DataZone
     #   resp.props.hyper_pod_properties.orchestrator #=> String, one of "EKS", "SLURM"
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
+    #   resp.props.mlflow_properties.tracking_server_arn #=> String
+    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -5807,7 +5815,7 @@ module Aws::DataZone
     #   resp.props.spark_glue_properties.python_virtual_env #=> String
     #   resp.props.spark_glue_properties.worker_type #=> String
     #   resp.scope #=> String, one of "DOMAIN", "PROJECT"
-    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/GetConnection AWS API Documentation
     #
@@ -8150,7 +8158,7 @@ module Aws::DataZone
     #     scope: "DOMAIN", # accepts DOMAIN, PROJECT
     #     sort_by: "NAME", # accepts NAME
     #     sort_order: "ASCENDING", # accepts ASCENDING, DESCENDING
-    #     type: "ATHENA", # accepts ATHENA, BIGQUERY, DATABRICKS, DOCUMENTDB, DYNAMODB, HYPERPOD, IAM, MYSQL, OPENSEARCH, ORACLE, POSTGRESQL, REDSHIFT, S3, SAPHANA, SNOWFLAKE, SPARK, SQLSERVER, TERADATA, VERTICA, WORKFLOWS_MWAA, AMAZON_Q
+    #     type: "ATHENA", # accepts ATHENA, BIGQUERY, DATABRICKS, DOCUMENTDB, DYNAMODB, HYPERPOD, IAM, MYSQL, OPENSEARCH, ORACLE, POSTGRESQL, REDSHIFT, S3, SAPHANA, SNOWFLAKE, SPARK, SQLSERVER, TERADATA, VERTICA, WORKFLOWS_MWAA, AMAZON_Q, MLFLOW
     #   })
     #
     # @example Response structure
@@ -8188,7 +8196,7 @@ module Aws::DataZone
     #   resp.items[0].physical_endpoints[0].glue_connection.connection_properties #=> Hash
     #   resp.items[0].physical_endpoints[0].glue_connection.connection_properties["String"] #=> String
     #   resp.items[0].physical_endpoints[0].glue_connection.connection_schema_version #=> Integer
-    #   resp.items[0].physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.items[0].physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #   resp.items[0].physical_endpoints[0].glue_connection.creation_time #=> Time
     #   resp.items[0].physical_endpoints[0].glue_connection.description #=> String
     #   resp.items[0].physical_endpoints[0].glue_connection.last_connection_validation_time #=> Time
@@ -8226,6 +8234,8 @@ module Aws::DataZone
     #   resp.items[0].props.hyper_pod_properties.orchestrator #=> String, one of "EKS", "SLURM"
     #   resp.items[0].props.iam_properties.environment_id #=> String
     #   resp.items[0].props.iam_properties.glue_lineage_sync_enabled #=> Boolean
+    #   resp.items[0].props.mlflow_properties.tracking_server_arn #=> String
+    #   resp.items[0].props.mlflow_properties.tracking_server_name #=> String
     #   resp.items[0].props.redshift_properties.credentials.secret_arn #=> String
     #   resp.items[0].props.redshift_properties.credentials.username_password.password #=> String
     #   resp.items[0].props.redshift_properties.credentials.username_password.username #=> String
@@ -8269,7 +8279,7 @@ module Aws::DataZone
     #   resp.items[0].props.spark_glue_properties.python_virtual_env #=> String
     #   resp.items[0].props.spark_glue_properties.worker_type #=> String
     #   resp.items[0].scope #=> String, one of "DOMAIN", "PROJECT"
-    #   resp.items[0].type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.items[0].type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/ListConnections AWS API Documentation
@@ -12349,6 +12359,10 @@ module Aws::DataZone
     #       iam_properties: {
     #         glue_lineage_sync_enabled: false,
     #       },
+    #       mlflow_properties: {
+    #         tracking_server_arn: "String",
+    #         tracking_server_name: "String",
+    #       },
     #       redshift_properties: {
     #         credentials: {
     #           secret_arn: "RedshiftCredentialsSecretArnString",
@@ -12423,7 +12437,7 @@ module Aws::DataZone
     #   resp.physical_endpoints[0].glue_connection.connection_properties #=> Hash
     #   resp.physical_endpoints[0].glue_connection.connection_properties["String"] #=> String
     #   resp.physical_endpoints[0].glue_connection.connection_schema_version #=> Integer
-    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.physical_endpoints[0].glue_connection.connection_type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #   resp.physical_endpoints[0].glue_connection.creation_time #=> Time
     #   resp.physical_endpoints[0].glue_connection.description #=> String
     #   resp.physical_endpoints[0].glue_connection.last_connection_validation_time #=> Time
@@ -12461,6 +12475,8 @@ module Aws::DataZone
     #   resp.props.hyper_pod_properties.orchestrator #=> String, one of "EKS", "SLURM"
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
+    #   resp.props.mlflow_properties.tracking_server_arn #=> String
+    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -12504,7 +12520,7 @@ module Aws::DataZone
     #   resp.props.spark_glue_properties.python_virtual_env #=> String
     #   resp.props.spark_glue_properties.worker_type #=> String
     #   resp.scope #=> String, one of "DOMAIN", "PROJECT"
-    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q"
+    #   resp.type #=> String, one of "ATHENA", "BIGQUERY", "DATABRICKS", "DOCUMENTDB", "DYNAMODB", "HYPERPOD", "IAM", "MYSQL", "OPENSEARCH", "ORACLE", "POSTGRESQL", "REDSHIFT", "S3", "SAPHANA", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "VERTICA", "WORKFLOWS_MWAA", "AMAZON_Q", "MLFLOW"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/UpdateConnection AWS API Documentation
     #
@@ -14194,7 +14210,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.55.0'
+      context[:gem_version] = '1.56.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

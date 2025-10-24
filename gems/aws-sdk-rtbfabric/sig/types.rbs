@@ -459,12 +459,15 @@ module Aws::RTBFabric
     class ModuleParameters
       attr_accessor no_bid: Types::NoBidModuleParameters
       attr_accessor open_rtb_attribute: Types::OpenRtbAttributeModuleParameters
+      attr_accessor rate_limiter: Types::RateLimiterModuleParameters
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class NoBid < ModuleParameters
       end
       class OpenRtbAttribute < ModuleParameters
+      end
+      class RateLimiter < ModuleParameters
       end
       class Unknown < ModuleParameters
       end
@@ -487,6 +490,11 @@ module Aws::RTBFabric
       attr_accessor filter_configuration: ::Array[Types::Filter]
       attr_accessor action: Types::Action
       attr_accessor holdback_percentage: ::Float
+      SENSITIVE: []
+    end
+
+    class RateLimiterModuleParameters
+      attr_accessor tps: ::Float
       SENSITIVE: []
     end
 

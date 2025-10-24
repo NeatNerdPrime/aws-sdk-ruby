@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.235.0 (2025-10-24)
+------------------
+
+* Feature - Updated Aws::SSOOIDC::Client with the latest API changes.
+
+* Feature - Update endpoint ruleset parameters casing
+
 3.234.0 (2025-10-21)
 ------------------
 

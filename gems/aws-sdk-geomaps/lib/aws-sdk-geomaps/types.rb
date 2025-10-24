@@ -854,6 +854,11 @@ module Aws::GeoMaps
       include Aws::Structure
     end
 
+    # @!attribute [rw] additional_features
+    #   A list of optional additional parameters such as map styles that can
+    #   be requested for each result.
+    #   @return [Array<String>]
+    #
     # @!attribute [rw] tileset
     #   Specifies the desired tile set.
     #
@@ -880,6 +885,7 @@ module Aws::GeoMaps
     # @see http://docs.aws.amazon.com/goto/WebAPI/geo-maps-2020-11-19/GetTileRequest AWS API Documentation
     #
     class GetTileRequest < Struct.new(
+      :additional_features,
       :tileset,
       :z,
       :x,

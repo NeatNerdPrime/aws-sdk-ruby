@@ -97,6 +97,7 @@ module Aws::GeoMaps
     end
 
     class GetTileRequest
+      attr_accessor additional_features: ::Array[("ContourLines" | "Hillshade" | "Logistics" | "Transit")]
       attr_accessor tileset: ::String
       attr_accessor z: ::String
       attr_accessor x: ::String

@@ -1641,7 +1641,7 @@ module Aws::GameLiftStreams
     #   resp.stream_group_id #=> String
     #   resp.user_id #=> String
     #   resp.status #=> String, one of "ACTIVATING", "ACTIVE", "CONNECTED", "PENDING_CLIENT_RECONNECTION", "RECONNECTING", "TERMINATING", "TERMINATED", "ERROR"
-    #   resp.status_reason #=> String, one of "internalError", "invalidSignalRequest", "placementTimeout", "applicationLogS3DestinationError"
+    #   resp.status_reason #=> String, one of "internalError", "invalidSignalRequest", "placementTimeout", "applicationLogS3DestinationError", "applicationExit", "connectionTimeout", "reconnectionTimeout", "maxSessionLengthTimeout", "idleTimeout", "apiTerminated"
     #   resp.protocol #=> String, one of "WebRTC"
     #   resp.location #=> String
     #   resp.signal_request #=> String
@@ -2314,7 +2314,7 @@ module Aws::GameLiftStreams
     #   resp.stream_group_id #=> String
     #   resp.user_id #=> String
     #   resp.status #=> String, one of "ACTIVATING", "ACTIVE", "CONNECTED", "PENDING_CLIENT_RECONNECTION", "RECONNECTING", "TERMINATING", "TERMINATED", "ERROR"
-    #   resp.status_reason #=> String, one of "internalError", "invalidSignalRequest", "placementTimeout", "applicationLogS3DestinationError"
+    #   resp.status_reason #=> String, one of "internalError", "invalidSignalRequest", "placementTimeout", "applicationLogS3DestinationError", "applicationExit", "connectionTimeout", "reconnectionTimeout", "maxSessionLengthTimeout", "idleTimeout", "apiTerminated"
     #   resp.protocol #=> String, one of "WebRTC"
     #   resp.location #=> String
     #   resp.signal_request #=> String
@@ -2733,7 +2733,7 @@ module Aws::GameLiftStreams
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-gameliftstreams'
-      context[:gem_version] = '1.14.0'
+      context[:gem_version] = '1.15.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

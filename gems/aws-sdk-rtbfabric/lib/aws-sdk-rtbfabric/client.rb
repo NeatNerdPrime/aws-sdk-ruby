@@ -587,6 +587,7 @@ module Aws::RTBFabric
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.pending_flow_modules #=> Array
     #   resp.pending_flow_modules[0].version #=> String
     #   resp.pending_flow_modules[0].name #=> String
@@ -605,6 +606,7 @@ module Aws::RTBFabric
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.attributes.responder_error_masking #=> Array
     #   resp.attributes.responder_error_masking[0].http_code #=> String
     #   resp.attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -825,6 +827,7 @@ module Aws::RTBFabric
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.pending_flow_modules #=> Array
     #   resp.pending_flow_modules[0].version #=> String
     #   resp.pending_flow_modules[0].name #=> String
@@ -843,6 +846,7 @@ module Aws::RTBFabric
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.attributes.responder_error_masking #=> Array
     #   resp.attributes.responder_error_masking[0].http_code #=> String
     #   resp.attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -1445,6 +1449,7 @@ module Aws::RTBFabric
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.pending_flow_modules #=> Array
     #   resp.pending_flow_modules[0].version #=> String
     #   resp.pending_flow_modules[0].name #=> String
@@ -1463,6 +1468,7 @@ module Aws::RTBFabric
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.attributes.responder_error_masking #=> Array
     #   resp.attributes.responder_error_masking[0].http_code #=> String
     #   resp.attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -1568,6 +1574,7 @@ module Aws::RTBFabric
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.pending_flow_modules #=> Array
     #   resp.pending_flow_modules[0].version #=> String
     #   resp.pending_flow_modules[0].name #=> String
@@ -1586,6 +1593,7 @@ module Aws::RTBFabric
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.attributes.responder_error_masking #=> Array
     #   resp.attributes.responder_error_masking[0].http_code #=> String
     #   resp.attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -1970,6 +1978,7 @@ module Aws::RTBFabric
     #   resp.links[0].flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.links[0].flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.links[0].flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.links[0].flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.links[0].pending_flow_modules #=> Array
     #   resp.links[0].pending_flow_modules[0].version #=> String
     #   resp.links[0].pending_flow_modules[0].name #=> String
@@ -1988,6 +1997,7 @@ module Aws::RTBFabric
     #   resp.links[0].pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.links[0].pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.links[0].pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.links[0].pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.links[0].attributes.responder_error_masking #=> Array
     #   resp.links[0].attributes.responder_error_masking[0].http_code #=> String
     #   resp.links[0].attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -2296,6 +2306,7 @@ module Aws::RTBFabric
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.pending_flow_modules #=> Array
     #   resp.pending_flow_modules[0].version #=> String
     #   resp.pending_flow_modules[0].name #=> String
@@ -2314,6 +2325,7 @@ module Aws::RTBFabric
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.name #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.action.header_tag.value #=> String
     #   resp.pending_flow_modules[0].module_parameters.open_rtb_attribute.holdback_percentage #=> Float
+    #   resp.pending_flow_modules[0].module_parameters.rate_limiter.tps #=> Float
     #   resp.attributes.responder_error_masking #=> Array
     #   resp.attributes.responder_error_masking[0].http_code #=> String
     #   resp.attributes.responder_error_masking[0].action #=> String, one of "NO_BID", "PASSTHROUGH"
@@ -2589,6 +2601,9 @@ module Aws::RTBFabric
     #             },
     #             holdback_percentage: 1.0, # required
     #           },
+    #           rate_limiter: {
+    #             tps: 1.0,
+    #           },
     #         },
     #       },
     #     ],
@@ -2780,7 +2795,7 @@ module Aws::RTBFabric
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rtbfabric'
-      context[:gem_version] = '1.0.0'
+      context[:gem_version] = '1.1.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

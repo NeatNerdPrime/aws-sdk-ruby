@@ -62,6 +62,7 @@ module Aws::RTBFabric
     FilterCriterion = Shapes::StructureShape.new(name: 'FilterCriterion')
     FilterCriterionValuesList = Shapes::ListShape.new(name: 'FilterCriterionValuesList')
     FilterType = Shapes::StringShape.new(name: 'FilterType')
+    Float = Shapes::FloatShape.new(name: 'Float')
     FlowModuleName = Shapes::StringShape.new(name: 'FlowModuleName')
     FlowModuleNameList = Shapes::ListShape.new(name: 'FlowModuleNameList')
     GatewayId = Shapes::StringShape.new(name: 'GatewayId')
@@ -123,6 +124,7 @@ module Aws::RTBFabric
     OpenRtbAttributeModuleParameters = Shapes::StructureShape.new(name: 'OpenRtbAttributeModuleParameters')
     OpenRtbAttributeModuleParametersHoldbackPercentageFloat = Shapes::FloatShape.new(name: 'OpenRtbAttributeModuleParametersHoldbackPercentageFloat')
     Protocol = Shapes::StringShape.new(name: 'Protocol')
+    RateLimiterModuleParameters = Shapes::StructureShape.new(name: 'RateLimiterModuleParameters')
     RejectLinkRequest = Shapes::StructureShape.new(name: 'RejectLinkRequest')
     RejectLinkResponse = Shapes::StructureShape.new(name: 'RejectLinkResponse')
     RequesterGatewayStatus = Shapes::StringShape.new(name: 'RequesterGatewayStatus')
@@ -532,9 +534,11 @@ module Aws::RTBFabric
 
     ModuleParameters.add_member(:no_bid, Shapes::ShapeRef.new(shape: NoBidModuleParameters, location_name: "noBid"))
     ModuleParameters.add_member(:open_rtb_attribute, Shapes::ShapeRef.new(shape: OpenRtbAttributeModuleParameters, location_name: "openRtbAttribute"))
+    ModuleParameters.add_member(:rate_limiter, Shapes::ShapeRef.new(shape: RateLimiterModuleParameters, location_name: "rateLimiter"))
     ModuleParameters.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     ModuleParameters.add_member_subclass(:no_bid, Types::ModuleParameters::NoBid)
     ModuleParameters.add_member_subclass(:open_rtb_attribute, Types::ModuleParameters::OpenRtbAttribute)
+    ModuleParameters.add_member_subclass(:rate_limiter, Types::ModuleParameters::RateLimiter)
     ModuleParameters.add_member_subclass(:unknown, Types::ModuleParameters::Unknown)
     ModuleParameters.struct_class = Types::ModuleParameters
 
@@ -551,6 +555,9 @@ module Aws::RTBFabric
     OpenRtbAttributeModuleParameters.add_member(:action, Shapes::ShapeRef.new(shape: Action, required: true, location_name: "action"))
     OpenRtbAttributeModuleParameters.add_member(:holdback_percentage, Shapes::ShapeRef.new(shape: OpenRtbAttributeModuleParametersHoldbackPercentageFloat, required: true, location_name: "holdbackPercentage"))
     OpenRtbAttributeModuleParameters.struct_class = Types::OpenRtbAttributeModuleParameters
+
+    RateLimiterModuleParameters.add_member(:tps, Shapes::ShapeRef.new(shape: Float, location_name: "tps"))
+    RateLimiterModuleParameters.struct_class = Types::RateLimiterModuleParameters
 
     RejectLinkRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: GatewayId, required: true, location: "uri", location_name: "gatewayId"))
     RejectLinkRequest.add_member(:link_id, Shapes::ShapeRef.new(shape: LinkId, required: true, location: "uri", location_name: "linkId"))

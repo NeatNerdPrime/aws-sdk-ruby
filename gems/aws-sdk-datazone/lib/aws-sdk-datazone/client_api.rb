@@ -728,6 +728,9 @@ module Aws::DataZone
     MetadataGenerationRuns = Shapes::ListShape.new(name: 'MetadataGenerationRuns')
     MetadataGenerationTargetType = Shapes::StringShape.new(name: 'MetadataGenerationTargetType')
     MetadataMap = Shapes::MapShape.new(name: 'MetadataMap')
+    MlflowPropertiesInput = Shapes::StructureShape.new(name: 'MlflowPropertiesInput')
+    MlflowPropertiesOutput = Shapes::StructureShape.new(name: 'MlflowPropertiesOutput')
+    MlflowPropertiesPatch = Shapes::StructureShape.new(name: 'MlflowPropertiesPatch')
     Model = Shapes::UnionShape.new(name: 'Model')
     Name = Shapes::StringShape.new(name: 'Name')
     NameIdentifier = Shapes::StructureShape.new(name: 'NameIdentifier')
@@ -1549,6 +1552,7 @@ module Aws::DataZone
     ConnectionPropertiesInput.add_member(:glue_properties, Shapes::ShapeRef.new(shape: GluePropertiesInput, location_name: "glueProperties"))
     ConnectionPropertiesInput.add_member(:hyper_pod_properties, Shapes::ShapeRef.new(shape: HyperPodPropertiesInput, location_name: "hyperPodProperties"))
     ConnectionPropertiesInput.add_member(:iam_properties, Shapes::ShapeRef.new(shape: IamPropertiesInput, location_name: "iamProperties"))
+    ConnectionPropertiesInput.add_member(:mlflow_properties, Shapes::ShapeRef.new(shape: MlflowPropertiesInput, location_name: "mlflowProperties"))
     ConnectionPropertiesInput.add_member(:redshift_properties, Shapes::ShapeRef.new(shape: RedshiftPropertiesInput, location_name: "redshiftProperties"))
     ConnectionPropertiesInput.add_member(:s3_properties, Shapes::ShapeRef.new(shape: S3PropertiesInput, location_name: "s3Properties"))
     ConnectionPropertiesInput.add_member(:spark_emr_properties, Shapes::ShapeRef.new(shape: SparkEmrPropertiesInput, location_name: "sparkEmrProperties"))
@@ -1559,6 +1563,7 @@ module Aws::DataZone
     ConnectionPropertiesInput.add_member_subclass(:glue_properties, Types::ConnectionPropertiesInput::GlueProperties)
     ConnectionPropertiesInput.add_member_subclass(:hyper_pod_properties, Types::ConnectionPropertiesInput::HyperPodProperties)
     ConnectionPropertiesInput.add_member_subclass(:iam_properties, Types::ConnectionPropertiesInput::IamProperties)
+    ConnectionPropertiesInput.add_member_subclass(:mlflow_properties, Types::ConnectionPropertiesInput::MlflowProperties)
     ConnectionPropertiesInput.add_member_subclass(:redshift_properties, Types::ConnectionPropertiesInput::RedshiftProperties)
     ConnectionPropertiesInput.add_member_subclass(:s3_properties, Types::ConnectionPropertiesInput::S3Properties)
     ConnectionPropertiesInput.add_member_subclass(:spark_emr_properties, Types::ConnectionPropertiesInput::SparkEmrProperties)
@@ -1571,6 +1576,7 @@ module Aws::DataZone
     ConnectionPropertiesOutput.add_member(:glue_properties, Shapes::ShapeRef.new(shape: GluePropertiesOutput, location_name: "glueProperties"))
     ConnectionPropertiesOutput.add_member(:hyper_pod_properties, Shapes::ShapeRef.new(shape: HyperPodPropertiesOutput, location_name: "hyperPodProperties"))
     ConnectionPropertiesOutput.add_member(:iam_properties, Shapes::ShapeRef.new(shape: IamPropertiesOutput, location_name: "iamProperties"))
+    ConnectionPropertiesOutput.add_member(:mlflow_properties, Shapes::ShapeRef.new(shape: MlflowPropertiesOutput, location_name: "mlflowProperties"))
     ConnectionPropertiesOutput.add_member(:redshift_properties, Shapes::ShapeRef.new(shape: RedshiftPropertiesOutput, location_name: "redshiftProperties"))
     ConnectionPropertiesOutput.add_member(:s3_properties, Shapes::ShapeRef.new(shape: S3PropertiesOutput, location_name: "s3Properties"))
     ConnectionPropertiesOutput.add_member(:spark_emr_properties, Shapes::ShapeRef.new(shape: SparkEmrPropertiesOutput, location_name: "sparkEmrProperties"))
@@ -1581,6 +1587,7 @@ module Aws::DataZone
     ConnectionPropertiesOutput.add_member_subclass(:glue_properties, Types::ConnectionPropertiesOutput::GlueProperties)
     ConnectionPropertiesOutput.add_member_subclass(:hyper_pod_properties, Types::ConnectionPropertiesOutput::HyperPodProperties)
     ConnectionPropertiesOutput.add_member_subclass(:iam_properties, Types::ConnectionPropertiesOutput::IamProperties)
+    ConnectionPropertiesOutput.add_member_subclass(:mlflow_properties, Types::ConnectionPropertiesOutput::MlflowProperties)
     ConnectionPropertiesOutput.add_member_subclass(:redshift_properties, Types::ConnectionPropertiesOutput::RedshiftProperties)
     ConnectionPropertiesOutput.add_member_subclass(:s3_properties, Types::ConnectionPropertiesOutput::S3Properties)
     ConnectionPropertiesOutput.add_member_subclass(:spark_emr_properties, Types::ConnectionPropertiesOutput::SparkEmrProperties)
@@ -1592,6 +1599,7 @@ module Aws::DataZone
     ConnectionPropertiesPatch.add_member(:athena_properties, Shapes::ShapeRef.new(shape: AthenaPropertiesPatch, location_name: "athenaProperties"))
     ConnectionPropertiesPatch.add_member(:glue_properties, Shapes::ShapeRef.new(shape: GluePropertiesPatch, location_name: "glueProperties"))
     ConnectionPropertiesPatch.add_member(:iam_properties, Shapes::ShapeRef.new(shape: IamPropertiesPatch, location_name: "iamProperties"))
+    ConnectionPropertiesPatch.add_member(:mlflow_properties, Shapes::ShapeRef.new(shape: MlflowPropertiesPatch, location_name: "mlflowProperties"))
     ConnectionPropertiesPatch.add_member(:redshift_properties, Shapes::ShapeRef.new(shape: RedshiftPropertiesPatch, location_name: "redshiftProperties"))
     ConnectionPropertiesPatch.add_member(:s3_properties, Shapes::ShapeRef.new(shape: S3PropertiesPatch, location_name: "s3Properties"))
     ConnectionPropertiesPatch.add_member(:spark_emr_properties, Shapes::ShapeRef.new(shape: SparkEmrPropertiesPatch, location_name: "sparkEmrProperties"))
@@ -1600,6 +1608,7 @@ module Aws::DataZone
     ConnectionPropertiesPatch.add_member_subclass(:athena_properties, Types::ConnectionPropertiesPatch::AthenaProperties)
     ConnectionPropertiesPatch.add_member_subclass(:glue_properties, Types::ConnectionPropertiesPatch::GlueProperties)
     ConnectionPropertiesPatch.add_member_subclass(:iam_properties, Types::ConnectionPropertiesPatch::IamProperties)
+    ConnectionPropertiesPatch.add_member_subclass(:mlflow_properties, Types::ConnectionPropertiesPatch::MlflowProperties)
     ConnectionPropertiesPatch.add_member_subclass(:redshift_properties, Types::ConnectionPropertiesPatch::RedshiftProperties)
     ConnectionPropertiesPatch.add_member_subclass(:s3_properties, Types::ConnectionPropertiesPatch::S3Properties)
     ConnectionPropertiesPatch.add_member_subclass(:spark_emr_properties, Types::ConnectionPropertiesPatch::SparkEmrProperties)
@@ -4372,6 +4381,18 @@ module Aws::DataZone
 
     MetadataMap.key = Shapes::ShapeRef.new(shape: String)
     MetadataMap.value = Shapes::ShapeRef.new(shape: String)
+
+    MlflowPropertiesInput.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
+    MlflowPropertiesInput.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
+    MlflowPropertiesInput.struct_class = Types::MlflowPropertiesInput
+
+    MlflowPropertiesOutput.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
+    MlflowPropertiesOutput.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
+    MlflowPropertiesOutput.struct_class = Types::MlflowPropertiesOutput
+
+    MlflowPropertiesPatch.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
+    MlflowPropertiesPatch.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
+    MlflowPropertiesPatch.struct_class = Types::MlflowPropertiesPatch
 
     Model.add_member(:smithy, Shapes::ShapeRef.new(shape: Smithy, location_name: "smithy"))
     Model.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
