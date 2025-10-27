@@ -97,7 +97,8 @@ module Aws
                            ?stream_mode_details: {
                              stream_mode: ("PROVISIONED" | "ON_DEMAND")
                            },
-                           ?tags: Hash[::String, ::String]
+                           ?tags: Hash[::String, ::String],
+                           ?max_record_size_in_ki_b: ::Integer
                          ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
@@ -444,6 +445,13 @@ module Aws
                             resource_arn: ::String
                           ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Kinesis/Client.html#update_max_record_size-instance_method
+      def update_max_record_size: (
+                                    ?stream_arn: ::String,
+                                    max_record_size_in_ki_b: ::Integer
+                                  ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
       interface _UpdateShardCountResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::UpdateShardCountOutput]

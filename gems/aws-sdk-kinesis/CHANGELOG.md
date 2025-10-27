@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.89.0 (2025-10-27)
+------------------
+
+* Feature - Adds support for record sizes up to 10MiB and introduces new UpdateMaxRecordSize API to modify stream record size limits. Adds record size parameters to existing CreateStream and DescribeStreamSummary APIs for request and response payloads respectively.
+
 1.88.0 (2025-10-21)
 ------------------
 

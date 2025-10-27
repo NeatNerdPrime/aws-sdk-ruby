@@ -49,6 +49,7 @@ module Aws::Kinesis
       attr_accessor shard_count: ::Integer
       attr_accessor stream_mode_details: Types::StreamModeDetails
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor max_record_size_in_ki_b: ::Integer
       SENSITIVE: []
     end
 
@@ -522,6 +523,7 @@ module Aws::Kinesis
       attr_accessor key_id: ::String
       attr_accessor open_shard_count: ::Integer
       attr_accessor consumer_count: ::Integer
+      attr_accessor max_record_size_in_ki_b: ::Integer
       SENSITIVE: []
     end
 
@@ -575,6 +577,12 @@ module Aws::Kinesis
     class UntagResourceInput
       attr_accessor tag_keys: ::Array[::String]
       attr_accessor resource_arn: ::String
+      SENSITIVE: []
+    end
+
+    class UpdateMaxRecordSizeInput
+      attr_accessor stream_arn: ::String
+      attr_accessor max_record_size_in_ki_b: ::Integer
       SENSITIVE: []
     end
 

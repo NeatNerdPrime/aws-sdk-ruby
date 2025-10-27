@@ -182,7 +182,7 @@ module Aws::CostExplorer
 
     context "For region eusc-de-east-1 with FIPS disabled and DualStack disabled" do
       let(:expected) do
-        {"endpoint" => {"properties" => {"authSchemes" => [{"name" => "sigv4", "signingRegion" => "eusc-de-east-1"}]}, "url" => "https://ce.eusc-de-east-1.amazonaws.eu"}}
+        {"endpoint" => {"properties" => {"authSchemes" => [{"name" => "sigv4", "signingRegion" => "eusc-de-east-1"}]}, "url" => "https://ce.eusc-de-east-1.api.amazonwebservices.eu"}}
       end
 
       it 'produces the expected output from the EndpointProvider' do

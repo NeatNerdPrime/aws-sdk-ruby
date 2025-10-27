@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.132.0 (2025-10-27)
+------------------
+
+* Feature - Fixed missing SummaryMap keys in GetAccountSummary response that were being filtered out during deserialization in AWS Java SDK v2
+
 1.131.0 (2025-10-22)
 ------------------
 

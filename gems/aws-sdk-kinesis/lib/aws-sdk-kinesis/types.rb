@@ -184,13 +184,19 @@ module Aws::Kinesis
     #   consists of a required key and an optional value.
     #   @return [Hash<String,String>]
     #
+    # @!attribute [rw] max_record_size_in_ki_b
+    #   The maximum record size of a single record in kibibyte (KiB) that
+    #   you can write to, and read from a stream.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/CreateStreamInput AWS API Documentation
     #
     class CreateStreamInput < Struct.new(
       :stream_name,
       :shard_count,
       :stream_mode_details,
-      :tags)
+      :tags,
+      :max_record_size_in_ki_b)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2329,6 +2335,11 @@ module Aws::Kinesis
     #   The number of enhanced fan-out consumers registered with the stream.
     #   @return [Integer]
     #
+    # @!attribute [rw] max_record_size_in_ki_b
+    #   The maximum record size of a single record in kibibyte (KiB) that
+    #   you can write to, and read from a stream.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/StreamDescriptionSummary AWS API Documentation
     #
     class StreamDescriptionSummary < Struct.new(
@@ -2342,7 +2353,8 @@ module Aws::Kinesis
       :encryption_type,
       :key_id,
       :open_shard_count,
-      :consumer_count)
+      :consumer_count,
+      :max_record_size_in_ki_b)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2543,6 +2555,27 @@ module Aws::Kinesis
     class UntagResourceInput < Struct.new(
       :tag_keys,
       :resource_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] stream_arn
+    #   The Amazon Resource Name (ARN) of the stream for the `MaxRecordSize`
+    #   update.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_record_size_in_ki_b
+    #   The maximum record size of a single record in KiB that you can write
+    #   to, and read from a stream. Specify a value between 1024 and 10240
+    #   KiB (1 to 10 MiB). If you specify a value that is out of this range,
+    #   `UpdateMaxRecordSize` sends back an `ValidationException` message.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/UpdateMaxRecordSizeInput AWS API Documentation
+    #
+    class UpdateMaxRecordSizeInput < Struct.new(
+      :stream_arn,
+      :max_record_size_in_ki_b)
       SENSITIVE = []
       include Aws::Structure
     end

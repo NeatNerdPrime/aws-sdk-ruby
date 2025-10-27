@@ -85,6 +85,7 @@ module Aws::Kinesis
     ListTagsForStreamInput = Shapes::StructureShape.new(name: 'ListTagsForStreamInput')
     ListTagsForStreamInputLimit = Shapes::IntegerShape.new(name: 'ListTagsForStreamInputLimit')
     ListTagsForStreamOutput = Shapes::StructureShape.new(name: 'ListTagsForStreamOutput')
+    MaxRecordSizeInKiB = Shapes::IntegerShape.new(name: 'MaxRecordSizeInKiB')
     MergeShardsInput = Shapes::StructureShape.new(name: 'MergeShardsInput')
     MetricsName = Shapes::StringShape.new(name: 'MetricsName')
     MetricsNameList = Shapes::ListShape.new(name: 'MetricsNameList')
@@ -153,6 +154,7 @@ module Aws::Kinesis
     TagValue = Shapes::StringShape.new(name: 'TagValue')
     Timestamp = Shapes::TimestampShape.new(name: 'Timestamp')
     UntagResourceInput = Shapes::StructureShape.new(name: 'UntagResourceInput')
+    UpdateMaxRecordSizeInput = Shapes::StructureShape.new(name: 'UpdateMaxRecordSizeInput')
     UpdateShardCountInput = Shapes::StructureShape.new(name: 'UpdateShardCountInput')
     UpdateShardCountOutput = Shapes::StructureShape.new(name: 'UpdateShardCountOutput')
     UpdateStreamModeInput = Shapes::StructureShape.new(name: 'UpdateStreamModeInput')
@@ -192,6 +194,7 @@ module Aws::Kinesis
     CreateStreamInput.add_member(:shard_count, Shapes::ShapeRef.new(shape: PositiveIntegerObject, location_name: "ShardCount"))
     CreateStreamInput.add_member(:stream_mode_details, Shapes::ShapeRef.new(shape: StreamModeDetails, location_name: "StreamModeDetails"))
     CreateStreamInput.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "Tags"))
+    CreateStreamInput.add_member(:max_record_size_in_ki_b, Shapes::ShapeRef.new(shape: MaxRecordSizeInKiB, location_name: "MaxRecordSizeInKiB"))
     CreateStreamInput.struct_class = Types::CreateStreamInput
 
     DecreaseStreamRetentionPeriodInput.add_member(:stream_name, Shapes::ShapeRef.new(shape: StreamName, location_name: "StreamName"))
@@ -533,6 +536,7 @@ module Aws::Kinesis
     StreamDescriptionSummary.add_member(:key_id, Shapes::ShapeRef.new(shape: KeyId, location_name: "KeyId"))
     StreamDescriptionSummary.add_member(:open_shard_count, Shapes::ShapeRef.new(shape: ShardCountObject, required: true, location_name: "OpenShardCount"))
     StreamDescriptionSummary.add_member(:consumer_count, Shapes::ShapeRef.new(shape: ConsumerCountObject, location_name: "ConsumerCount"))
+    StreamDescriptionSummary.add_member(:max_record_size_in_ki_b, Shapes::ShapeRef.new(shape: MaxRecordSizeInKiB, location_name: "MaxRecordSizeInKiB"))
     StreamDescriptionSummary.struct_class = Types::StreamDescriptionSummary
 
     StreamModeDetails.add_member(:stream_mode, Shapes::ShapeRef.new(shape: StreamMode, required: true, location_name: "StreamMode"))
@@ -593,6 +597,10 @@ module Aws::Kinesis
     UntagResourceInput.add_member(:tag_keys, Shapes::ShapeRef.new(shape: TagKeyList, required: true, location_name: "TagKeys"))
     UntagResourceInput.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ResourceARN, required: true, location_name: "ResourceARN", metadata: {"contextParam" => {"name" => "ResourceARN"}}))
     UntagResourceInput.struct_class = Types::UntagResourceInput
+
+    UpdateMaxRecordSizeInput.add_member(:stream_arn, Shapes::ShapeRef.new(shape: StreamARN, location_name: "StreamARN", metadata: {"contextParam" => {"name" => "StreamARN"}}))
+    UpdateMaxRecordSizeInput.add_member(:max_record_size_in_ki_b, Shapes::ShapeRef.new(shape: MaxRecordSizeInKiB, required: true, location_name: "MaxRecordSizeInKiB"))
+    UpdateMaxRecordSizeInput.struct_class = Types::UpdateMaxRecordSizeInput
 
     UpdateShardCountInput.add_member(:stream_name, Shapes::ShapeRef.new(shape: StreamName, location_name: "StreamName"))
     UpdateShardCountInput.add_member(:target_shard_count, Shapes::ShapeRef.new(shape: PositiveIntegerObject, required: true, location_name: "TargetShardCount"))
@@ -1095,6 +1103,20 @@ module Aws::Kinesis
         o.errors << Shapes::ShapeRef.new(shape: InvalidArgumentException)
         o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+      end)
+
+      api.add_operation(:update_max_record_size, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateMaxRecordSize"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: UpdateMaxRecordSizeInput)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUseException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidArgumentException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
       end)
 
       api.add_operation(:update_shard_count, Seahorse::Model::Operation.new.tap do |o|

@@ -627,6 +627,10 @@ module Aws::Kinesis
     #   A set of up to 50 key-value pairs to use to create the tags. A tag
     #   consists of a required key and an optional value.
     #
+    # @option params [Integer] :max_record_size_in_ki_b
+    #   The maximum record size of a single record in kibibyte (KiB) that you
+    #   can write to, and read from a stream.
+    #
     # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
     #
     # @example Request syntax with placeholder values
@@ -640,6 +644,7 @@ module Aws::Kinesis
     #     tags: {
     #       "TagKey" => "TagValue",
     #     },
+    #     max_record_size_in_ki_b: 1,
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/CreateStream AWS API Documentation
@@ -1082,6 +1087,7 @@ module Aws::Kinesis
     #   resp.stream_description_summary.key_id #=> String
     #   resp.stream_description_summary.open_shard_count #=> Integer
     #   resp.stream_description_summary.consumer_count #=> Integer
+    #   resp.stream_description_summary.max_record_size_in_ki_b #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/DescribeStreamSummary AWS API Documentation
     #
@@ -2088,7 +2094,7 @@ module Aws::Kinesis
     # `PutRecord` to send data into the stream for real-time ingestion and
     # subsequent processing, one record at a time. Each shard can support
     # writes up to 1,000 records per second, up to a maximum data write
-    # total of 1 MiB per second.
+    # total of 10 MiB per second.
     #
     # <note markdown="1"> When invoking this API, you must use either the `StreamARN` or the
     # `StreamName` parameter, or both. It is recommended that you use the
@@ -2222,10 +2228,10 @@ module Aws::Kinesis
     #  </note>
     #
     # Each `PutRecords` request can support up to 500 records. Each record
-    # in the request can be as large as 1 MiB, up to a limit of 5 MiB for
+    # in the request can be as large as 10 MiB, up to a limit of 10 MiB for
     # the entire request, including partition keys. Each shard can support
     # writes up to 1,000 records per second, up to a maximum data write
-    # total of 1 MiB per second.
+    # total of 1 MB per second.
     #
     # You must specify the name of the stream that captures, stores, and
     # transports the data; and an array of request `Records`, with each
@@ -2844,6 +2850,38 @@ module Aws::Kinesis
       req.send_request(options)
     end
 
+    # This allows you to update the `MaxRecordSize` of a single record that
+    # you can write to, and read from a stream. You can ingest and digest
+    # single records up to 10240 KiB.
+    #
+    # @option params [String] :stream_arn
+    #   The Amazon Resource Name (ARN) of the stream for the `MaxRecordSize`
+    #   update.
+    #
+    # @option params [required, Integer] :max_record_size_in_ki_b
+    #   The maximum record size of a single record in KiB that you can write
+    #   to, and read from a stream. Specify a value between 1024 and 10240 KiB
+    #   (1 to 10 MiB). If you specify a value that is out of this range,
+    #   `UpdateMaxRecordSize` sends back an `ValidationException` message.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_max_record_size({
+    #     stream_arn: "StreamARN",
+    #     max_record_size_in_ki_b: 1, # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kinesis-2013-12-02/UpdateMaxRecordSize AWS API Documentation
+    #
+    # @overload update_max_record_size(params = {})
+    # @param [Hash] params ({})
+    def update_max_record_size(params = {}, options = {})
+      req = build_request(:update_max_record_size, params)
+      req.send_request(options)
+    end
+
     # Updates the shard count of the specified stream to the specified
     # number of shards. This API is only supported for the data streams with
     # the provisioned capacity mode.
@@ -3011,7 +3049,7 @@ module Aws::Kinesis
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-kinesis'
-      context[:gem_version] = '1.88.0'
+      context[:gem_version] = '1.89.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

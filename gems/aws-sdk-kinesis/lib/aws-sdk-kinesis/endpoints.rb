@@ -314,6 +314,16 @@ module Aws::Kinesis
       end
     end
 
+    class UpdateMaxRecordSize
+      def self.build(context)
+        Aws::Kinesis::EndpointParameters.create(
+          context.config,
+          stream_arn: context.params[:stream_arn],
+          operation_type: "control",
+        )
+      end
+    end
+
     class UpdateShardCount
       def self.build(context)
         Aws::Kinesis::EndpointParameters.create(
@@ -397,6 +407,8 @@ module Aws::Kinesis
         TagResource.build(context)
       when :untag_resource
         UntagResource.build(context)
+      when :update_max_record_size
+        UpdateMaxRecordSize.build(context)
       when :update_shard_count
         UpdateShardCount.build(context)
       when :update_stream_mode
