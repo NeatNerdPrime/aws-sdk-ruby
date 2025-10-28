@@ -5167,6 +5167,12 @@ module Aws
                            ) -> _DeletePipelineResponseSuccess
                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeletePipelineResponseSuccess
 
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#delete_processing_job-instance_method
+      def delete_processing_job: (
+                                   processing_job_name: ::String
+                                 ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#delete_project-instance_method
       def delete_project: (
                             project_name: ::String
@@ -5195,6 +5201,12 @@ module Aws
                          tag_keys: Array[::String]
                        ) -> _DeleteTagsResponseSuccess
                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteTagsResponseSuccess
+
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#delete_training_job-instance_method
+      def delete_training_job: (
+                                 training_job_name: ::String
+                               ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                             | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
       interface _DeleteTrialResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DeleteTrialResponse]
@@ -6588,7 +6600,7 @@ module Aws
         def labeling_job_arn: () -> ::String
         def auto_ml_job_arn: () -> ::String
         def model_artifacts: () -> Types::ModelArtifacts
-        def training_job_status: () -> ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+        def training_job_status: () -> ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
         def secondary_status: () -> ("Starting" | "LaunchingMLInstances" | "PreparingTrainingStack" | "Downloading" | "DownloadingTrainingImage" | "Training" | "Uploading" | "Stopping" | "Stopped" | "MaxRuntimeExceeded" | "Completed" | "Failed" | "Interrupted" | "MaxWaitTimeExceeded" | "Updating" | "Restarting" | "Pending")
         def failure_reason: () -> ::String
         def hyper_parameters: () -> ::Hash[::String, ::String]
@@ -8286,7 +8298,7 @@ module Aws
                                 ?last_modified_time_after: ::Time,
                                 ?last_modified_time_before: ::Time,
                                 ?name_contains: ::String,
-                                ?status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped"),
+                                ?status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting"),
                                 ?sort_by: ("Name" | "CreationTime" | "Status"),
                                 ?sort_order: ("Ascending" | "Descending"),
                                 ?warm_pool_status_equals: ("Available" | "Terminated" | "Reused" | "InUse"),
@@ -8304,7 +8316,7 @@ module Aws
                                                                hyper_parameter_tuning_job_name: ::String,
                                                                ?next_token: ::String,
                                                                ?max_results: ::Integer,
-                                                               ?status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped"),
+                                                               ?status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting"),
                                                                ?sort_by: ("Name" | "CreationTime" | "Status" | "FinalObjectiveMetricValue"),
                                                                ?sort_order: ("Ascending" | "Descending")
                                                              ) -> _ListTrainingJobsForHyperParameterTuningJobResponseSuccess

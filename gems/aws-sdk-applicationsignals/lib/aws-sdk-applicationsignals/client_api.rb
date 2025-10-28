@@ -51,6 +51,7 @@ module Aws::ApplicationSignals
     BurnRateLookBackWindowMinutes = Shapes::IntegerShape.new(name: 'BurnRateLookBackWindowMinutes')
     CalendarInterval = Shapes::StructureShape.new(name: 'CalendarInterval')
     CalendarIntervalDuration = Shapes::IntegerShape.new(name: 'CalendarIntervalDuration')
+    CanaryEntity = Shapes::StructureShape.new(name: 'CanaryEntity')
     ChangeEvent = Shapes::StructureShape.new(name: 'ChangeEvent')
     ChangeEventType = Shapes::StringShape.new(name: 'ChangeEventType')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
@@ -264,10 +265,12 @@ module Aws::ApplicationSignals
     AuditTargetEntity.add_member(:service, Shapes::ShapeRef.new(shape: ServiceEntity, location_name: "Service"))
     AuditTargetEntity.add_member(:slo, Shapes::ShapeRef.new(shape: ServiceLevelObjectiveEntity, location_name: "Slo"))
     AuditTargetEntity.add_member(:service_operation, Shapes::ShapeRef.new(shape: ServiceOperationEntity, location_name: "ServiceOperation"))
+    AuditTargetEntity.add_member(:canary, Shapes::ShapeRef.new(shape: CanaryEntity, location_name: "Canary"))
     AuditTargetEntity.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     AuditTargetEntity.add_member_subclass(:service, Types::AuditTargetEntity::Service)
     AuditTargetEntity.add_member_subclass(:slo, Types::AuditTargetEntity::Slo)
     AuditTargetEntity.add_member_subclass(:service_operation, Types::AuditTargetEntity::ServiceOperation)
+    AuditTargetEntity.add_member_subclass(:canary, Types::AuditTargetEntity::Canary)
     AuditTargetEntity.add_member_subclass(:unknown, Types::AuditTargetEntity::Unknown)
     AuditTargetEntity.struct_class = Types::AuditTargetEntity
 
@@ -316,6 +319,9 @@ module Aws::ApplicationSignals
     CalendarInterval.add_member(:duration_unit, Shapes::ShapeRef.new(shape: DurationUnit, required: true, location_name: "DurationUnit"))
     CalendarInterval.add_member(:duration, Shapes::ShapeRef.new(shape: CalendarIntervalDuration, required: true, location_name: "Duration"))
     CalendarInterval.struct_class = Types::CalendarInterval
+
+    CanaryEntity.add_member(:canary_name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "CanaryName"))
+    CanaryEntity.struct_class = Types::CanaryEntity
 
     ChangeEvent.add_member(:timestamp, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "Timestamp"))
     ChangeEvent.add_member(:account_id, Shapes::ShapeRef.new(shape: AwsAccountId, required: true, location_name: "AccountId"))

@@ -13916,6 +13916,18 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # @!attribute [rw] processing_job_name
+    #   The name of the processing job to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteProcessingJobRequest AWS API Documentation
+    #
+    class DeleteProcessingJobRequest < Struct.new(
+      :processing_job_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] project_name
     #   The name of the project to delete.
     #   @return [String]
@@ -13979,6 +13991,18 @@ module Aws::SageMaker
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteTagsOutput AWS API Documentation
     #
     class DeleteTagsOutput < Aws::EmptyStructure; end
+
+    # @!attribute [rw] training_job_name
+    #   The name of the training job to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteTrainingJobRequest AWS API Documentation
+    #
+    class DeleteTrainingJobRequest < Struct.new(
+      :training_job_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # @!attribute [rw] trial_component_name
     #   The name of the component to delete.

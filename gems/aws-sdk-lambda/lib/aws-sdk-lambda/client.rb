@@ -681,10 +681,10 @@ module Aws::Lambda
     #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html
     #
     # @option params [Boolean] :invoked_via_function_url
-    #   Restricts the `lambda:InvokeFunction` action to calls coming from a
-    #   function URL. When set to `true`, this prevents the principal from
-    #   invoking the function by any means other than the function URL. For
-    #   more information, see [Control access to Lambda function URLs][1].
+    #   Restricts the `lambda:InvokeFunction` action to function URL calls.
+    #   When set to `true`, this prevents the principal from invoking the
+    #   function by any means other than the function URL. For more
+    #   information, see [Control access to Lambda function URLs][1].
     #
     #
     #
@@ -2287,6 +2287,11 @@ module Aws::Lambda
     # the `Qualifier` parameter. Otherwise, all versions and aliases are
     # deleted. This doesn't require the user to have explicit permissions
     # for DeleteAlias.
+    #
+    # <note markdown="1"> A deleted Lambda function cannot be recovered. Ensure that you specify
+    # the correct function name and version before deleting.
+    #
+    #  </note>
     #
     # To delete Lambda event source mappings that invoke a function, use
     # DeleteEventSourceMapping. For Amazon Web Services services and
@@ -4009,6 +4014,9 @@ module Aws::Lambda
     # `InvocationType` to `Event`. Lambda passes the `ClientContext` object
     # to your function for synchronous invocations only.
     #
+    # For synchronous invocations, the maximum payload size is 6 MB. For
+    # asynchronous invocations, the maximum payload size is 1 MB.
+    #
     # For [synchronous invocation][1], details about the function response,
     # including errors, are included in the response body and headers. For
     # either invocation type, you can find more information in the
@@ -4102,6 +4110,8 @@ module Aws::Lambda
     #
     # @option params [String, StringIO, File] :payload
     #   The JSON that you want to provide to your Lambda function as input.
+    #   The maximum payload size is 6 MB for synchronous invocations and 1 MB
+    #   for asynchronous invocations.
     #
     #   You can enter the JSON directly. For example, `--payload '{ "key":
     #   "value" }'`. You can also specify a file path. For example, `--payload
@@ -4181,9 +4191,17 @@ module Aws::Lambda
       req.send_request(options)
     end
 
-    # For asynchronous function invocation, use Invoke.
+    # <note markdown="1"> For asynchronous function invocation, use Invoke.
+    #
+    #  </note>
     #
     #  Invokes a function asynchronously.
+    #
+    #  <note markdown="1"> The payload limit is 256KB. For larger payloads,
+    # for up to 1MB, use
+    # Invoke.
+    #
+    #  </note>
     #
     #  <note markdown="1"> If you do use the InvokeAsync action, note that
     # it doesn't support
@@ -8361,7 +8379,7 @@ module Aws::Lambda
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lambda'
-      context[:gem_version] = '1.163.0'
+      context[:gem_version] = '1.164.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

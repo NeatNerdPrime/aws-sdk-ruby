@@ -1460,6 +1460,18 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class CapacityReservationTopology
+      attr_accessor capacity_reservation_id: ::String
+      attr_accessor capacity_block_id: ::String
+      attr_accessor state: ::String
+      attr_accessor instance_type: ::String
+      attr_accessor group_name: ::String
+      attr_accessor network_nodes: ::Array[::String]
+      attr_accessor availability_zone_id: ::String
+      attr_accessor availability_zone: ::String
+      SENSITIVE: []
+    end
+
     class CarrierGateway
       attr_accessor carrier_gateway_id: ::String
       attr_accessor vpc_id: ::String
@@ -4853,6 +4865,21 @@ module Aws::EC2
     class DescribeCapacityReservationFleetsResult
       attr_accessor capacity_reservation_fleets: ::Array[Types::CapacityReservationFleet]
       attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeCapacityReservationTopologyRequest
+      attr_accessor dry_run: bool
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor capacity_reservation_ids: ::Array[::String]
+      attr_accessor filters: ::Array[Types::Filter]
+      SENSITIVE: []
+    end
+
+    class DescribeCapacityReservationTopologyResult
+      attr_accessor next_token: ::String
+      attr_accessor capacity_reservations: ::Array[Types::CapacityReservationTopology]
       SENSITIVE: []
     end
 

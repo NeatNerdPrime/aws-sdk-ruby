@@ -12241,6 +12241,33 @@ module Aws::SageMaker
       req.send_request(options)
     end
 
+    # Deletes a processing job. After Amazon SageMaker deletes a processing
+    # job, all of the metadata for the processing job is lost. You can
+    # delete only processing jobs that are in a terminal state (`Stopped`,
+    # `Failed`, or `Completed`). You cannot delete a job that is in the
+    # `InProgress` or `Stopping` state. After deleting the job, you can
+    # reuse its name to create another processing job.
+    #
+    # @option params [required, String] :processing_job_name
+    #   The name of the processing job to delete.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_processing_job({
+    #     processing_job_name: "ProcessingJobName", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteProcessingJob AWS API Documentation
+    #
+    # @overload delete_processing_job(params = {})
+    # @param [Hash] params ({})
+    def delete_processing_job(params = {}, options = {})
+      req = build_request(:delete_processing_job, params)
+      req.send_request(options)
+    end
+
     # Delete the specified project.
     #
     # @option params [required, String] :project_name
@@ -12354,6 +12381,38 @@ module Aws::SageMaker
     # @param [Hash] params ({})
     def delete_tags(params = {}, options = {})
       req = build_request(:delete_tags, params)
+      req.send_request(options)
+    end
+
+    # Deletes a training job. After SageMaker deletes a training job, all of
+    # the metadata for the training job is lost. You can delete only
+    # training jobs that are in a terminal state (`Stopped`, `Failed`, or
+    # `Completed`) and don't retain an `Available` [managed warm pool][1].
+    # You cannot delete a job that is in the `InProgress` or `Stopping`
+    # state. After deleting the job, you can reuse its name to create
+    # another training job.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/sagemaker/latest/dg/train-warm-pools.html
+    #
+    # @option params [required, String] :training_job_name
+    #   The name of the training job to delete.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_training_job({
+    #     training_job_name: "TrainingJobName", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteTrainingJob AWS API Documentation
+    #
+    # @overload delete_training_job(params = {})
+    # @param [Hash] params ({})
+    def delete_training_job(params = {}, options = {})
+      req = build_request(:delete_training_job, params)
       req.send_request(options)
     end
 
@@ -15568,7 +15627,7 @@ module Aws::SageMaker
     #   resp.best_training_job.creation_time #=> Time
     #   resp.best_training_job.training_start_time #=> Time
     #   resp.best_training_job.training_end_time #=> Time
-    #   resp.best_training_job.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped"
+    #   resp.best_training_job.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped", "Deleting"
     #   resp.best_training_job.tuned_hyper_parameters #=> Hash
     #   resp.best_training_job.tuned_hyper_parameters["HyperParameterKey"] #=> String
     #   resp.best_training_job.failure_reason #=> String
@@ -15583,7 +15642,7 @@ module Aws::SageMaker
     #   resp.overall_best_training_job.creation_time #=> Time
     #   resp.overall_best_training_job.training_start_time #=> Time
     #   resp.overall_best_training_job.training_end_time #=> Time
-    #   resp.overall_best_training_job.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped"
+    #   resp.overall_best_training_job.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped", "Deleting"
     #   resp.overall_best_training_job.tuned_hyper_parameters #=> Hash
     #   resp.overall_best_training_job.tuned_hyper_parameters["HyperParameterKey"] #=> String
     #   resp.overall_best_training_job.failure_reason #=> String
@@ -18091,7 +18150,7 @@ module Aws::SageMaker
     #   resp.labeling_job_arn #=> String
     #   resp.auto_ml_job_arn #=> String
     #   resp.model_artifacts.s3_model_artifacts #=> String
-    #   resp.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped"
+    #   resp.training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped", "Deleting"
     #   resp.secondary_status #=> String, one of "Starting", "LaunchingMLInstances", "PreparingTrainingStack", "Downloading", "DownloadingTrainingImage", "Training", "Uploading", "Stopping", "Stopped", "MaxRuntimeExceeded", "Completed", "Failed", "Interrupted", "MaxWaitTimeExceeded", "Updating", "Restarting", "Pending"
     #   resp.failure_reason #=> String
     #   resp.hyper_parameters #=> Hash
@@ -25167,7 +25226,7 @@ module Aws::SageMaker
     #     last_modified_time_after: Time.now,
     #     last_modified_time_before: Time.now,
     #     name_contains: "NameContains",
-    #     status_equals: "InProgress", # accepts InProgress, Completed, Failed, Stopping, Stopped
+    #     status_equals: "InProgress", # accepts InProgress, Completed, Failed, Stopping, Stopped, Deleting
     #     sort_by: "Name", # accepts Name, CreationTime, Status
     #     sort_order: "Ascending", # accepts Ascending, Descending
     #     warm_pool_status_equals: "Available", # accepts Available, Terminated, Reused, InUse
@@ -25182,7 +25241,7 @@ module Aws::SageMaker
     #   resp.training_job_summaries[0].creation_time #=> Time
     #   resp.training_job_summaries[0].training_end_time #=> Time
     #   resp.training_job_summaries[0].last_modified_time #=> Time
-    #   resp.training_job_summaries[0].training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped"
+    #   resp.training_job_summaries[0].training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped", "Deleting"
     #   resp.training_job_summaries[0].secondary_status #=> String, one of "Starting", "LaunchingMLInstances", "PreparingTrainingStack", "Downloading", "DownloadingTrainingImage", "Training", "Uploading", "Stopping", "Stopped", "MaxRuntimeExceeded", "Completed", "Failed", "Interrupted", "MaxWaitTimeExceeded", "Updating", "Restarting", "Pending"
     #   resp.training_job_summaries[0].warm_pool_status.status #=> String, one of "Available", "Terminated", "Reused", "InUse"
     #   resp.training_job_summaries[0].warm_pool_status.resource_retained_billable_time_in_seconds #=> Integer
@@ -25244,7 +25303,7 @@ module Aws::SageMaker
     #     hyper_parameter_tuning_job_name: "HyperParameterTuningJobName", # required
     #     next_token: "NextToken",
     #     max_results: 1,
-    #     status_equals: "InProgress", # accepts InProgress, Completed, Failed, Stopping, Stopped
+    #     status_equals: "InProgress", # accepts InProgress, Completed, Failed, Stopping, Stopped, Deleting
     #     sort_by: "Name", # accepts Name, CreationTime, Status, FinalObjectiveMetricValue
     #     sort_order: "Ascending", # accepts Ascending, Descending
     #   })
@@ -25259,7 +25318,7 @@ module Aws::SageMaker
     #   resp.training_job_summaries[0].creation_time #=> Time
     #   resp.training_job_summaries[0].training_start_time #=> Time
     #   resp.training_job_summaries[0].training_end_time #=> Time
-    #   resp.training_job_summaries[0].training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped"
+    #   resp.training_job_summaries[0].training_job_status #=> String, one of "InProgress", "Completed", "Failed", "Stopping", "Stopped", "Deleting"
     #   resp.training_job_summaries[0].tuned_hyper_parameters #=> Hash
     #   resp.training_job_summaries[0].tuned_hyper_parameters["HyperParameterKey"] #=> String
     #   resp.training_job_summaries[0].failure_reason #=> String
@@ -31204,7 +31263,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.332.0'
+      context[:gem_version] = '1.333.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

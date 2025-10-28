@@ -686,11 +686,13 @@ module Aws::SageMaker
     DeletePartnerAppResponse = Shapes::StructureShape.new(name: 'DeletePartnerAppResponse')
     DeletePipelineRequest = Shapes::StructureShape.new(name: 'DeletePipelineRequest')
     DeletePipelineResponse = Shapes::StructureShape.new(name: 'DeletePipelineResponse')
+    DeleteProcessingJobRequest = Shapes::StructureShape.new(name: 'DeleteProcessingJobRequest')
     DeleteProjectInput = Shapes::StructureShape.new(name: 'DeleteProjectInput')
     DeleteSpaceRequest = Shapes::StructureShape.new(name: 'DeleteSpaceRequest')
     DeleteStudioLifecycleConfigRequest = Shapes::StructureShape.new(name: 'DeleteStudioLifecycleConfigRequest')
     DeleteTagsInput = Shapes::StructureShape.new(name: 'DeleteTagsInput')
     DeleteTagsOutput = Shapes::StructureShape.new(name: 'DeleteTagsOutput')
+    DeleteTrainingJobRequest = Shapes::StructureShape.new(name: 'DeleteTrainingJobRequest')
     DeleteTrialComponentRequest = Shapes::StructureShape.new(name: 'DeleteTrialComponentRequest')
     DeleteTrialComponentResponse = Shapes::StructureShape.new(name: 'DeleteTrialComponentResponse')
     DeleteTrialRequest = Shapes::StructureShape.new(name: 'DeleteTrialRequest')
@@ -4952,6 +4954,9 @@ module Aws::SageMaker
     DeletePipelineResponse.add_member(:pipeline_arn, Shapes::ShapeRef.new(shape: PipelineArn, location_name: "PipelineArn"))
     DeletePipelineResponse.struct_class = Types::DeletePipelineResponse
 
+    DeleteProcessingJobRequest.add_member(:processing_job_name, Shapes::ShapeRef.new(shape: ProcessingJobName, required: true, location_name: "ProcessingJobName"))
+    DeleteProcessingJobRequest.struct_class = Types::DeleteProcessingJobRequest
+
     DeleteProjectInput.add_member(:project_name, Shapes::ShapeRef.new(shape: ProjectEntityName, required: true, location_name: "ProjectName"))
     DeleteProjectInput.struct_class = Types::DeleteProjectInput
 
@@ -4967,6 +4972,9 @@ module Aws::SageMaker
     DeleteTagsInput.struct_class = Types::DeleteTagsInput
 
     DeleteTagsOutput.struct_class = Types::DeleteTagsOutput
+
+    DeleteTrainingJobRequest.add_member(:training_job_name, Shapes::ShapeRef.new(shape: TrainingJobName, required: true, location_name: "TrainingJobName"))
+    DeleteTrainingJobRequest.struct_class = Types::DeleteTrainingJobRequest
 
     DeleteTrialComponentRequest.add_member(:trial_component_name, Shapes::ShapeRef.new(shape: ExperimentEntityName, required: true, location_name: "TrialComponentName"))
     DeleteTrialComponentRequest.struct_class = Types::DeleteTrialComponentRequest
@@ -13020,6 +13028,16 @@ module Aws::SageMaker
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)
 
+      api.add_operation(:delete_processing_job, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteProcessingJob"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteProcessingJobRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUse)
+      end)
+
       api.add_operation(:delete_project, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteProject"
         o.http_method = "POST"
@@ -13055,6 +13073,16 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DeleteTagsInput)
         o.output = Shapes::ShapeRef.new(shape: DeleteTagsOutput)
+      end)
+
+      api.add_operation(:delete_training_job, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteTrainingJob"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteTrainingJobRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceInUse)
       end)
 
       api.add_operation(:delete_trial, Seahorse::Model::Operation.new.tap do |o|

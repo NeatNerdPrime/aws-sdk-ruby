@@ -362,6 +362,8 @@ module Aws::EC2
     CapacityReservationTarget = Shapes::StructureShape.new(name: 'CapacityReservationTarget')
     CapacityReservationTargetResponse = Shapes::StructureShape.new(name: 'CapacityReservationTargetResponse')
     CapacityReservationTenancy = Shapes::StringShape.new(name: 'CapacityReservationTenancy')
+    CapacityReservationTopology = Shapes::StructureShape.new(name: 'CapacityReservationTopology')
+    CapacityReservationTopologySet = Shapes::ListShape.new(name: 'CapacityReservationTopologySet')
     CapacityReservationType = Shapes::StringShape.new(name: 'CapacityReservationType')
     CapacityTenancy = Shapes::StringShape.new(name: 'CapacityTenancy')
     CarrierGateway = Shapes::StructureShape.new(name: 'CarrierGateway')
@@ -936,6 +938,9 @@ module Aws::EC2
     DescribeCapacityReservationFleetsMaxResults = Shapes::IntegerShape.new(name: 'DescribeCapacityReservationFleetsMaxResults')
     DescribeCapacityReservationFleetsRequest = Shapes::StructureShape.new(name: 'DescribeCapacityReservationFleetsRequest')
     DescribeCapacityReservationFleetsResult = Shapes::StructureShape.new(name: 'DescribeCapacityReservationFleetsResult')
+    DescribeCapacityReservationTopologyMaxResults = Shapes::IntegerShape.new(name: 'DescribeCapacityReservationTopologyMaxResults')
+    DescribeCapacityReservationTopologyRequest = Shapes::StructureShape.new(name: 'DescribeCapacityReservationTopologyRequest')
+    DescribeCapacityReservationTopologyResult = Shapes::StructureShape.new(name: 'DescribeCapacityReservationTopologyResult')
     DescribeCapacityReservationsMaxResults = Shapes::IntegerShape.new(name: 'DescribeCapacityReservationsMaxResults')
     DescribeCapacityReservationsRequest = Shapes::StructureShape.new(name: 'DescribeCapacityReservationsRequest')
     DescribeCapacityReservationsResult = Shapes::StructureShape.new(name: 'DescribeCapacityReservationsResult')
@@ -2655,6 +2660,7 @@ module Aws::EC2
     NetworkInterfacePrivateIpAddressList = Shapes::ListShape.new(name: 'NetworkInterfacePrivateIpAddressList')
     NetworkInterfaceStatus = Shapes::StringShape.new(name: 'NetworkInterfaceStatus')
     NetworkInterfaceType = Shapes::StringShape.new(name: 'NetworkInterfaceType')
+    NetworkNodeSet = Shapes::ListShape.new(name: 'NetworkNodeSet')
     NetworkNodesList = Shapes::ListShape.new(name: 'NetworkNodesList')
     NetworkPerformance = Shapes::StringShape.new(name: 'NetworkPerformance')
     NeuronDeviceCoreCount = Shapes::IntegerShape.new(name: 'NeuronDeviceCoreCount')
@@ -4918,6 +4924,18 @@ module Aws::EC2
     CapacityReservationTargetResponse.add_member(:capacity_reservation_id, Shapes::ShapeRef.new(shape: String, location_name: "capacityReservationId"))
     CapacityReservationTargetResponse.add_member(:capacity_reservation_resource_group_arn, Shapes::ShapeRef.new(shape: String, location_name: "capacityReservationResourceGroupArn"))
     CapacityReservationTargetResponse.struct_class = Types::CapacityReservationTargetResponse
+
+    CapacityReservationTopology.add_member(:capacity_reservation_id, Shapes::ShapeRef.new(shape: String, location_name: "capacityReservationId"))
+    CapacityReservationTopology.add_member(:capacity_block_id, Shapes::ShapeRef.new(shape: String, location_name: "capacityBlockId"))
+    CapacityReservationTopology.add_member(:state, Shapes::ShapeRef.new(shape: String, location_name: "state"))
+    CapacityReservationTopology.add_member(:instance_type, Shapes::ShapeRef.new(shape: String, location_name: "instanceType"))
+    CapacityReservationTopology.add_member(:group_name, Shapes::ShapeRef.new(shape: String, location_name: "groupName"))
+    CapacityReservationTopology.add_member(:network_nodes, Shapes::ShapeRef.new(shape: NetworkNodeSet, location_name: "networkNodeSet"))
+    CapacityReservationTopology.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
+    CapacityReservationTopology.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    CapacityReservationTopology.struct_class = Types::CapacityReservationTopology
+
+    CapacityReservationTopologySet.member = Shapes::ShapeRef.new(shape: CapacityReservationTopology, location_name: "item")
 
     CarrierGateway.add_member(:carrier_gateway_id, Shapes::ShapeRef.new(shape: CarrierGatewayId, location_name: "carrierGatewayId"))
     CarrierGateway.add_member(:vpc_id, Shapes::ShapeRef.new(shape: VpcId, location_name: "vpcId"))
@@ -7456,6 +7474,17 @@ module Aws::EC2
     DescribeCapacityReservationFleetsResult.add_member(:capacity_reservation_fleets, Shapes::ShapeRef.new(shape: CapacityReservationFleetSet, location_name: "capacityReservationFleetSet"))
     DescribeCapacityReservationFleetsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "nextToken"))
     DescribeCapacityReservationFleetsResult.struct_class = Types::DescribeCapacityReservationFleetsResult
+
+    DescribeCapacityReservationTopologyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeCapacityReservationTopologyRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
+    DescribeCapacityReservationTopologyRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: DescribeCapacityReservationTopologyMaxResults, location_name: "MaxResults"))
+    DescribeCapacityReservationTopologyRequest.add_member(:capacity_reservation_ids, Shapes::ShapeRef.new(shape: CapacityReservationIdSet, location_name: "CapacityReservationId"))
+    DescribeCapacityReservationTopologyRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeCapacityReservationTopologyRequest.struct_class = Types::DescribeCapacityReservationTopologyRequest
+
+    DescribeCapacityReservationTopologyResult.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "nextToken"))
+    DescribeCapacityReservationTopologyResult.add_member(:capacity_reservations, Shapes::ShapeRef.new(shape: CapacityReservationTopologySet, location_name: "capacityReservationSet"))
+    DescribeCapacityReservationTopologyResult.struct_class = Types::DescribeCapacityReservationTopologyResult
 
     DescribeCapacityReservationsRequest.add_member(:capacity_reservation_ids, Shapes::ShapeRef.new(shape: CapacityReservationIdSet, location_name: "CapacityReservationId"))
     DescribeCapacityReservationsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: String, location_name: "NextToken"))
@@ -14401,6 +14430,8 @@ module Aws::EC2
 
     NetworkInterfacePrivateIpAddressList.member = Shapes::ShapeRef.new(shape: NetworkInterfacePrivateIpAddress, location_name: "item")
 
+    NetworkNodeSet.member = Shapes::ShapeRef.new(shape: String, location_name: "item")
+
     NetworkNodesList.member = Shapes::ShapeRef.new(shape: String, location_name: "item")
 
     NeuronDeviceCoreInfo.add_member(:count, Shapes::ShapeRef.new(shape: NeuronDeviceCoreCount, location_name: "count"))
@@ -20339,6 +20370,14 @@ module Aws::EC2
             "next_token" => "next_token"
           }
         )
+      end)
+
+      api.add_operation(:describe_capacity_reservation_topology, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeCapacityReservationTopology"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeCapacityReservationTopologyRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeCapacityReservationTopologyResult)
       end)
 
       api.add_operation(:describe_capacity_reservations, Seahorse::Model::Operation.new.tap do |o|

@@ -6213,6 +6213,73 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # Information about the Capacity Reservation topology.
+    #
+    # @!attribute [rw] capacity_reservation_id
+    #   The ID of the Capacity Reservation.
+    #   @return [String]
+    #
+    # @!attribute [rw] capacity_block_id
+    #   The ID of the Capacity Block. This parameter is only supported for
+    #   UltraServer instances and identifies instances within the
+    #   UltraServer domain.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the Capacity Reservation. For the list of
+    #   possible states, see [DescribeCapacityReservations][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeCapacityReservations.html
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_type
+    #   The instance type.
+    #   @return [String]
+    #
+    # @!attribute [rw] group_name
+    #   The name of the placement group that the Capacity Reservation is in.
+    #   @return [String]
+    #
+    # @!attribute [rw] network_nodes
+    #   The network nodes. The nodes are hashed based on your account.
+    #   Capacity Reservations from different accounts running under the same
+    #   server will return a different hashed list of strings.
+    #
+    #   The value is `null` or empty if:
+    #
+    #   * The instance type is not supported.
+    #
+    #   * The Capacity Reservation is in a state other than `active` or
+    #     `pending`.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone or Local Zone that the Capacity
+    #   Reservation is in.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone
+    #   The name of the Availability Zone or Local Zone that the Capacity
+    #   Reservation is in.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityReservationTopology AWS API Documentation
+    #
+    class CapacityReservationTopology < Struct.new(
+      :capacity_reservation_id,
+      :capacity_block_id,
+      :state,
+      :instance_type,
+      :group_name,
+      :network_nodes,
+      :availability_zone_id,
+      :availability_zone)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Describes a carrier gateway.
     #
     # @!attribute [rw] carrier_gateway_id
@@ -20849,6 +20916,86 @@ module Aws::EC2
     class DescribeCapacityReservationFleetsResult < Struct.new(
       :capacity_reservation_fleets,
       :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the operation,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] next_token
+    #   The token returned from a previous paginated request. Pagination
+    #   continues from the end of the items returned by the previous
+    #   request.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #   You can't specify this parameter and the Capacity Reservation IDs
+    #   parameter in the same request.
+    #
+    #   Default: `10`
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] capacity_reservation_ids
+    #   The Capacity Reservation IDs.
+    #
+    #   Default: Describes all your Capacity Reservations.
+    #
+    #   Constraints: Maximum 100 explicitly specified Capacity Reservation
+    #   IDs.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] filters
+    #   The filters.
+    #
+    #   * `availability-zone` - The name of the Availability Zone (for
+    #     example, `us-west-2a`) or Local Zone (for example,
+    #     `us-west-2-lax-1b`) that the Capacity Reservation is in.
+    #
+    #   * `instance-type` - The instance type (for example, `p4d.24xlarge`)
+    #     or instance family (for example, `p4d*`). You can use the `*`
+    #     wildcard to match zero or more characters, or the `?` wildcard to
+    #     match zero or one character.
+    #   @return [Array<Types::Filter>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityReservationTopologyRequest AWS API Documentation
+    #
+    class DescribeCapacityReservationTopologyRequest < Struct.new(
+      :dry_run,
+      :next_token,
+      :max_results,
+      :capacity_reservation_ids,
+      :filters)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to include in another request to get the next page of
+    #   items. This value is `null` when there are no more items to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] capacity_reservations
+    #   Information about the topology of each Capacity Reservation.
+    #   @return [Array<Types::CapacityReservationTopology>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeCapacityReservationTopologyResult AWS API Documentation
+    #
+    class DescribeCapacityReservationTopologyResult < Struct.new(
+      :next_token,
+      :capacity_reservations)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -49506,6 +49653,12 @@ module Aws::EC2
     #   The network nodes. The nodes are hashed based on your account.
     #   Instances from different accounts running under the same server will
     #   return a different hashed list of strings.
+    #
+    #   The value is `null` or empty if:
+    #
+    #   * The instance type is not supported.
+    #
+    #   * The instance is in a state other than `running`.
     #   @return [Array<String>]
     #
     # @!attribute [rw] availability_zone
@@ -49520,8 +49673,8 @@ module Aws::EC2
     #
     # @!attribute [rw] capacity_block_id
     #   The ID of the Capacity Block. This parameter is only supported for
-    #   Ultraserver instances and identifies instances within the
-    #   Ultraserver domain.
+    #   UltraServer instances and identifies instances within the
+    #   UltraServer domain.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceTopology AWS API Documentation

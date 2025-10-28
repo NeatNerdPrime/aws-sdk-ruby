@@ -2833,6 +2833,11 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class DeleteProcessingJobRequest
+      attr_accessor processing_job_name: ::String
+      SENSITIVE: []
+    end
+
     class DeleteProjectInput
       attr_accessor project_name: ::String
       SENSITIVE: []
@@ -2856,6 +2861,11 @@ module Aws::SageMaker
     end
 
     class DeleteTagsOutput < Aws::EmptyStructure
+    end
+
+    class DeleteTrainingJobRequest
+      attr_accessor training_job_name: ::String
+      SENSITIVE: []
     end
 
     class DeleteTrialComponentRequest
@@ -4299,7 +4309,7 @@ module Aws::SageMaker
       attr_accessor labeling_job_arn: ::String
       attr_accessor auto_ml_job_arn: ::String
       attr_accessor model_artifacts: Types::ModelArtifacts
-      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor secondary_status: ("Starting" | "LaunchingMLInstances" | "PreparingTrainingStack" | "Downloading" | "DownloadingTrainingImage" | "Training" | "Uploading" | "Stopping" | "Stopped" | "MaxRuntimeExceeded" | "Completed" | "Failed" | "Interrupted" | "MaxWaitTimeExceeded" | "Updating" | "Restarting" | "Pending")
       attr_accessor failure_reason: ::String
       attr_accessor hyper_parameters: ::Hash[::String, ::String]
@@ -5400,7 +5410,7 @@ module Aws::SageMaker
       attr_accessor creation_time: ::Time
       attr_accessor training_start_time: ::Time
       attr_accessor training_end_time: ::Time
-      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor tuned_hyper_parameters: ::Hash[::String, ::String]
       attr_accessor failure_reason: ::String
       attr_accessor final_hyper_parameter_tuning_job_objective_metric: Types::FinalHyperParameterTuningJobObjectiveMetric
@@ -7357,7 +7367,7 @@ module Aws::SageMaker
       attr_accessor hyper_parameter_tuning_job_name: ::String
       attr_accessor next_token: ::String
       attr_accessor max_results: ::Integer
-      attr_accessor status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor sort_by: ("Name" | "CreationTime" | "Status" | "FinalObjectiveMetricValue")
       attr_accessor sort_order: ("Ascending" | "Descending")
       SENSITIVE: []
@@ -7377,7 +7387,7 @@ module Aws::SageMaker
       attr_accessor last_modified_time_after: ::Time
       attr_accessor last_modified_time_before: ::Time
       attr_accessor name_contains: ::String
-      attr_accessor status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor status_equals: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor sort_by: ("Name" | "CreationTime" | "Status")
       attr_accessor sort_order: ("Ascending" | "Descending")
       attr_accessor warm_pool_status_equals: ("Available" | "Terminated" | "Reused" | "InUse")
@@ -10103,7 +10113,7 @@ module Aws::SageMaker
       attr_accessor labeling_job_arn: ::String
       attr_accessor auto_ml_job_arn: ::String
       attr_accessor model_artifacts: Types::ModelArtifacts
-      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor secondary_status: ("Starting" | "LaunchingMLInstances" | "PreparingTrainingStack" | "Downloading" | "DownloadingTrainingImage" | "Training" | "Uploading" | "Stopping" | "Stopped" | "MaxRuntimeExceeded" | "Completed" | "Failed" | "Interrupted" | "MaxWaitTimeExceeded" | "Updating" | "Restarting" | "Pending")
       attr_accessor failure_reason: ::String
       attr_accessor hyper_parameters: ::Hash[::String, ::String]
@@ -10168,7 +10178,7 @@ module Aws::SageMaker
       attr_accessor creation_time: ::Time
       attr_accessor training_end_time: ::Time
       attr_accessor last_modified_time: ::Time
-      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped")
+      attr_accessor training_job_status: ("InProgress" | "Completed" | "Failed" | "Stopping" | "Stopped" | "Deleting")
       attr_accessor secondary_status: ("Starting" | "LaunchingMLInstances" | "PreparingTrainingStack" | "Downloading" | "DownloadingTrainingImage" | "Training" | "Uploading" | "Stopping" | "Stopped" | "MaxRuntimeExceeded" | "Completed" | "Failed" | "Interrupted" | "MaxWaitTimeExceeded" | "Updating" | "Restarting" | "Pending")
       attr_accessor warm_pool_status: Types::WarmPoolStatus
       attr_accessor training_plan_arn: ::String

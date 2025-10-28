@@ -416,6 +416,7 @@ module Aws::Organizations
     DelegatedAdministrator.add_member(:email, Shapes::ShapeRef.new(shape: Email, location_name: "Email"))
     DelegatedAdministrator.add_member(:name, Shapes::ShapeRef.new(shape: AccountName, location_name: "Name"))
     DelegatedAdministrator.add_member(:status, Shapes::ShapeRef.new(shape: AccountStatus, location_name: "Status"))
+    DelegatedAdministrator.add_member(:state, Shapes::ShapeRef.new(shape: AccountState, location_name: "State"))
     DelegatedAdministrator.add_member(:joined_method, Shapes::ShapeRef.new(shape: AccountJoinedMethod, location_name: "JoinedMethod"))
     DelegatedAdministrator.add_member(:joined_timestamp, Shapes::ShapeRef.new(shape: Timestamp, location_name: "JoinedTimestamp"))
     DelegatedAdministrator.add_member(:delegation_enabled_date, Shapes::ShapeRef.new(shape: Timestamp, location_name: "DelegationEnabledDate"))

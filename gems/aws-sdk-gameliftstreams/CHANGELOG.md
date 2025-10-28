@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.16.0 (2025-10-28)
+------------------
+
+* Feature - Add stream group expiration date and expired status
+
 1.15.0 (2025-10-24)
 ------------------
 

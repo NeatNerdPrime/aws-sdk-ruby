@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.74.0 (2025-10-28)
+------------------
+
+* Feature - Enable use of AzEl ephemerides
+
 1.73.0 (2025-10-21)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.333.0 (2025-10-28)
+------------------
+
+* Feature - Amazon SageMaker now supports deleting training and processing jobs in a terminal status.
+
 1.332.0 (2025-10-24)
 ------------------
 

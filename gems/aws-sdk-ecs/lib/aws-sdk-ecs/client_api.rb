@@ -50,6 +50,7 @@ module Aws::ECS
     BoxedInteger = Shapes::IntegerShape.new(name: 'BoxedInteger')
     BurstablePerformance = Shapes::StringShape.new(name: 'BurstablePerformance')
     CPUArchitecture = Shapes::StringShape.new(name: 'CPUArchitecture')
+    CanaryConfiguration = Shapes::StructureShape.new(name: 'CanaryConfiguration')
     CapacityProvider = Shapes::StructureShape.new(name: 'CapacityProvider')
     CapacityProviderField = Shapes::StringShape.new(name: 'CapacityProviderField')
     CapacityProviderFieldList = Shapes::ListShape.new(name: 'CapacityProviderFieldList')
@@ -235,6 +236,7 @@ module Aws::ECS
     KeyValuePair = Shapes::StructureShape.new(name: 'KeyValuePair')
     LaunchType = Shapes::StringShape.new(name: 'LaunchType')
     LimitExceededException = Shapes::StructureShape.new(name: 'LimitExceededException')
+    LinearConfiguration = Shapes::StructureShape.new(name: 'LinearConfiguration')
     LinuxParameters = Shapes::StructureShape.new(name: 'LinuxParameters')
     ListAccountSettingsRequest = Shapes::StructureShape.new(name: 'ListAccountSettingsRequest')
     ListAccountSettingsResponse = Shapes::StructureShape.new(name: 'ListAccountSettingsResponse')
@@ -575,6 +577,10 @@ module Aws::ECS
     BaselineEbsBandwidthMbpsRequest.struct_class = Types::BaselineEbsBandwidthMbpsRequest
 
     BlockedException.struct_class = Types::BlockedException
+
+    CanaryConfiguration.add_member(:canary_percent, Shapes::ShapeRef.new(shape: Double, location_name: "canaryPercent", metadata: {"box" => true}))
+    CanaryConfiguration.add_member(:canary_bake_time_in_minutes, Shapes::ShapeRef.new(shape: Integer, location_name: "canaryBakeTimeInMinutes", metadata: {"box" => true}))
+    CanaryConfiguration.struct_class = Types::CanaryConfiguration
 
     CapacityProvider.add_member(:capacity_provider_arn, Shapes::ShapeRef.new(shape: String, location_name: "capacityProviderArn"))
     CapacityProvider.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "name"))
@@ -963,6 +969,8 @@ module Aws::ECS
     DeploymentConfiguration.add_member(:strategy, Shapes::ShapeRef.new(shape: DeploymentStrategy, location_name: "strategy"))
     DeploymentConfiguration.add_member(:bake_time_in_minutes, Shapes::ShapeRef.new(shape: BoxedInteger, location_name: "bakeTimeInMinutes"))
     DeploymentConfiguration.add_member(:lifecycle_hooks, Shapes::ShapeRef.new(shape: DeploymentLifecycleHookList, location_name: "lifecycleHooks"))
+    DeploymentConfiguration.add_member(:linear_configuration, Shapes::ShapeRef.new(shape: LinearConfiguration, location_name: "linearConfiguration"))
+    DeploymentConfiguration.add_member(:canary_configuration, Shapes::ShapeRef.new(shape: CanaryConfiguration, location_name: "canaryConfiguration"))
     DeploymentConfiguration.struct_class = Types::DeploymentConfiguration
 
     DeploymentController.add_member(:type, Shapes::ShapeRef.new(shape: DeploymentControllerType, required: true, location_name: "type"))
@@ -1286,6 +1294,10 @@ module Aws::ECS
     KeyValuePair.struct_class = Types::KeyValuePair
 
     LimitExceededException.struct_class = Types::LimitExceededException
+
+    LinearConfiguration.add_member(:step_percent, Shapes::ShapeRef.new(shape: Double, location_name: "stepPercent", metadata: {"box" => true}))
+    LinearConfiguration.add_member(:step_bake_time_in_minutes, Shapes::ShapeRef.new(shape: Integer, location_name: "stepBakeTimeInMinutes", metadata: {"box" => true}))
+    LinearConfiguration.struct_class = Types::LinearConfiguration
 
     LinuxParameters.add_member(:capabilities, Shapes::ShapeRef.new(shape: KernelCapabilities, location_name: "capabilities"))
     LinuxParameters.add_member(:devices, Shapes::ShapeRef.new(shape: DevicesList, location_name: "devices"))
@@ -1905,6 +1917,8 @@ module Aws::ECS
     ServiceRevisionSummary.add_member(:requested_task_count, Shapes::ShapeRef.new(shape: Integer, location_name: "requestedTaskCount"))
     ServiceRevisionSummary.add_member(:running_task_count, Shapes::ShapeRef.new(shape: Integer, location_name: "runningTaskCount"))
     ServiceRevisionSummary.add_member(:pending_task_count, Shapes::ShapeRef.new(shape: Integer, location_name: "pendingTaskCount"))
+    ServiceRevisionSummary.add_member(:requested_test_traffic_weight, Shapes::ShapeRef.new(shape: Double, location_name: "requestedTestTrafficWeight", metadata: {"box" => true}))
+    ServiceRevisionSummary.add_member(:requested_production_traffic_weight, Shapes::ShapeRef.new(shape: Double, location_name: "requestedProductionTrafficWeight", metadata: {"box" => true}))
     ServiceRevisionSummary.struct_class = Types::ServiceRevisionSummary
 
     ServiceRevisions.member = Shapes::ShapeRef.new(shape: ServiceRevision)

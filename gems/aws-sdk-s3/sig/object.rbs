@@ -180,6 +180,8 @@ module Aws
                        ?grant_read: ::String,
                        ?grant_read_acp: ::String,
                        ?grant_write_acp: ::String,
+                       ?if_match: ::String,
+                       ?if_none_match: ::String,
                        ?metadata: Hash[::String, ::String],
                        ?metadata_directive: ("COPY" | "REPLACE"),
                        ?tagging_directive: ("COPY" | "REPLACE"),

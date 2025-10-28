@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.202.0 (2025-10-28)
+------------------
+
+* Feature - Amazon Simple Storage Service / Features: Add conditional writes in CopyObject on destination key to prevent unintended object modifications.
+
 1.201.0 (2025-10-21)
 ------------------
 

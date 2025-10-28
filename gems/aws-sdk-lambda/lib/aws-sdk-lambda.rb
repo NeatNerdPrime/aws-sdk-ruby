@@ -56,7 +56,7 @@ module Aws::Lambda
   autoload :Endpoints, 'aws-sdk-lambda/endpoints'
   autoload :EventStreams, 'aws-sdk-lambda/event_streams'
 
-  GEM_VERSION = '1.163.0'
+  GEM_VERSION = '1.164.0'
 
 end
 

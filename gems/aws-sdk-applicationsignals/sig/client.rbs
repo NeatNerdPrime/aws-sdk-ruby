@@ -370,6 +370,9 @@ module Aws
                                          }?,
                                          operation: ::String?,
                                          metric_type: ::String?
+                                       }?,
+                                       canary: {
+                                         canary_name: ::String
                                        }?
                                      }
                                    },

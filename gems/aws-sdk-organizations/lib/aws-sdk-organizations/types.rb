@@ -643,7 +643,7 @@ module Aws::Organizations
     #   for this account.
     #
     # * WAIT\_PERIOD\_ACTIVE: After you create an Amazon Web Services
-    #   account, you must wait until at least seven days after the account
+    #   account, you must wait until at least four days after the account
     #   was created. Invited accounts aren't subject to this waiting
     #   period.
     #
@@ -1373,6 +1373,20 @@ module Aws::Organizations
     #   organization.
     #   @return [String]
     #
+    # @!attribute [rw] state
+    #   Each state represents a specific phase in the account lifecycle. Use
+    #   this information to manage account access, automate workflows, or
+    #   trigger actions based on account state changes.
+    #
+    #   For more information about account states and their implications,
+    #   see [Monitor the state of your Amazon Web Services accounts ][1] in
+    #   the *Organizations User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_account_state.html
+    #   @return [String]
+    #
     # @!attribute [rw] joined_method
     #   The method by which the delegated administrator's account joined
     #   the organization.
@@ -1395,6 +1409,7 @@ module Aws::Organizations
       :email,
       :name,
       :status,
+      :state,
       :joined_method,
       :joined_timestamp,
       :delegation_enabled_date)

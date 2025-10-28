@@ -1308,6 +1308,12 @@ module Aws::Lambda
       SENSITIVE: []
     end
 
+    class SerializedRequestEntityTooLargeException
+      attr_accessor type: ::String
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
     class ServiceException
       attr_accessor type: ::String
       attr_accessor message: ::String

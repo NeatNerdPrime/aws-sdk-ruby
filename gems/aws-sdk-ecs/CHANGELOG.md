@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.209.0 (2025-10-28)
+------------------
+
+* Feature - Amazon ECS supports native linear and canary service deployments, allowing you to shift traffic in increments for more control.
+
 1.208.0 (2025-10-21)
 ------------------
 

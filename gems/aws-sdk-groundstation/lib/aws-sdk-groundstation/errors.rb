@@ -29,6 +29,7 @@ module Aws::GroundStation
   # ## Error Classes
   # * {DependencyException}
   # * {InvalidParameterException}
+  # * {ResourceInUseException}
   # * {ResourceLimitExceededException}
   # * {ResourceNotFoundException}
   #
@@ -75,6 +76,21 @@ module Aws::GroundStation
       # @return [String]
       def parameter_name
         @data[:parameter_name]
+      end
+    end
+
+    class ResourceInUseException < ServiceError
+
+      # @param [Seahorse::Client::RequestContext] context
+      # @param [String] message
+      # @param [Aws::GroundStation::Types::ResourceInUseException] data
+      def initialize(context, message, data = Aws::EmptyStructure.new)
+        super(context, message, data)
+      end
+
+      # @return [String]
+      def message
+        @message || @data[:message]
       end
     end
 

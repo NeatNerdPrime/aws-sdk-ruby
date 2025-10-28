@@ -39,6 +39,7 @@ module Aws::ApplicationSignals
       attr_accessor service: Types::ServiceEntity
       attr_accessor slo: Types::ServiceLevelObjectiveEntity
       attr_accessor service_operation: Types::ServiceOperationEntity
+      attr_accessor canary: Types::CanaryEntity
       attr_accessor unknown: untyped
       SENSITIVE: []
 
@@ -47,6 +48,8 @@ module Aws::ApplicationSignals
       class Slo < AuditTargetEntity
       end
       class ServiceOperation < AuditTargetEntity
+      end
+      class Canary < AuditTargetEntity
       end
       class Unknown < AuditTargetEntity
       end
@@ -101,6 +104,11 @@ module Aws::ApplicationSignals
       attr_accessor start_time: ::Time
       attr_accessor duration_unit: ("MINUTE" | "HOUR" | "DAY" | "MONTH")
       attr_accessor duration: ::Integer
+      SENSITIVE: []
+    end
+
+    class CanaryEntity
+      attr_accessor canary_name: ::String
       SENSITIVE: []
     end
 

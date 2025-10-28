@@ -1151,6 +1151,45 @@ module Aws::ECS
     #
     #     * Load balancer requirement: When your service uses Application
     #       Load Balancer, Network Load Balancer, or Service Connect
+    #   * `LINEAR`: A *linear* deployment strategy (`LINEAR`) gradually
+    #     shifts traffic from the current production environment to a new
+    #     environment in equal percentage increments over a specified time
+    #     period. With Amazon ECS linear deployments, you can control the
+    #     pace of traffic shifting and validate new service revisions with
+    #     increasing amounts of production traffic.
+    #
+    #     Linear deployments are best suited for the following scenarios:
+    #
+    #     * Gradual validation: When you want to gradually validate your new
+    #       service version with increasing traffic
+    #
+    #     * Performance monitoring: When you need time to monitor metrics
+    #       and performance during the deployment
+    #
+    #     * Risk minimization: When you want to minimize risk by exposing
+    #       the new version to production traffic incrementally
+    #
+    #     * Load balancer requirement: When your service uses Application
+    #       Load Balancer, Network Load Balancer, or Service Connect
+    #   * `CANARY`: A *canary* deployment strategy (`CANARY`) shifts a small
+    #     percentage of traffic to the new service revision first, then
+    #     shifts the remaining traffic all at once after a specified time
+    #     period. This allows you to test the new version with a subset of
+    #     users before full deployment.
+    #
+    #     Canary deployments are best suited for the following scenarios:
+    #
+    #     * Feature testing: When you want to test new features with a small
+    #       subset of users before full rollout
+    #
+    #     * Production validation: When you need to validate performance and
+    #       functionality with real production traffic
+    #
+    #     * Blast radius control: When you want to minimize blast radius if
+    #       issues are discovered in the new version
+    #
+    #     * Load balancer requirement: When your service uses Application
+    #       Load Balancer, Network Load Balancer, or Service Connect
     # * External
     #
     #   Use a third-party deployment controller.
@@ -1328,6 +1367,12 @@ module Aws::ECS
     #   see [Amazon ECS launch types][1] in the *Amazon Elastic Container
     #   Service Developer Guide*.
     #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the `launchType`
+    #   request parameter.
+    #
+    #    </note>
+    #
     #   The `FARGATE` launch type runs your tasks on Fargate On-Demand
     #   infrastructure.
     #
@@ -1354,6 +1399,12 @@ module Aws::ECS
     #
     # @option params [Array<Types::CapacityProviderStrategyItem>] :capacity_provider_strategy
     #   The capacity provider strategy to use for the service.
+    #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the `launchType`
+    #   request parameter.
+    #
+    #    </note>
     #
     #   If a `capacityProviderStrategy` is specified, the `launchType`
     #   parameter must be omitted. If no `capacityProviderStrategy` or
@@ -1742,7 +1793,7 @@ module Aws::ECS
     #         rollback: false, # required
     #         enable: false, # required
     #       },
-    #       strategy: "ROLLING", # accepts ROLLING, BLUE_GREEN
+    #       strategy: "ROLLING", # accepts ROLLING, BLUE_GREEN, LINEAR, CANARY
     #       bake_time_in_minutes: 1,
     #       lifecycle_hooks: [
     #         {
@@ -1753,6 +1804,14 @@ module Aws::ECS
     #           },
     #         },
     #       ],
+    #       linear_configuration: {
+    #         step_percent: 1.0,
+    #         step_bake_time_in_minutes: 1,
+    #       },
+    #       canary_configuration: {
+    #         canary_percent: 1.0,
+    #         canary_bake_time_in_minutes: 1,
+    #       },
     #     },
     #     placement_constraints: [
     #       {
@@ -1912,13 +1971,17 @@ module Aws::ECS
     #   resp.service.deployment_configuration.alarms.alarm_names[0] #=> String
     #   resp.service.deployment_configuration.alarms.rollback #=> Boolean
     #   resp.service.deployment_configuration.alarms.enable #=> Boolean
-    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN"
+    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN", "LINEAR", "CANARY"
     #   resp.service.deployment_configuration.bake_time_in_minutes #=> Integer
     #   resp.service.deployment_configuration.lifecycle_hooks #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].hook_target_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].role_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages[0] #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT"
+    #   resp.service.deployment_configuration.linear_configuration.step_percent #=> Float
+    #   resp.service.deployment_configuration.linear_configuration.step_bake_time_in_minutes #=> Integer
+    #   resp.service.deployment_configuration.canary_configuration.canary_percent #=> Float
+    #   resp.service.deployment_configuration.canary_configuration.canary_bake_time_in_minutes #=> Integer
     #   resp.service.task_sets #=> Array
     #   resp.service.task_sets[0].id #=> String
     #   resp.service.task_sets[0].task_set_arn #=> String
@@ -2931,13 +2994,17 @@ module Aws::ECS
     #   resp.service.deployment_configuration.alarms.alarm_names[0] #=> String
     #   resp.service.deployment_configuration.alarms.rollback #=> Boolean
     #   resp.service.deployment_configuration.alarms.enable #=> Boolean
-    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN"
+    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN", "LINEAR", "CANARY"
     #   resp.service.deployment_configuration.bake_time_in_minutes #=> Integer
     #   resp.service.deployment_configuration.lifecycle_hooks #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].hook_target_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].role_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages[0] #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT"
+    #   resp.service.deployment_configuration.linear_configuration.step_percent #=> Float
+    #   resp.service.deployment_configuration.linear_configuration.step_bake_time_in_minutes #=> Integer
+    #   resp.service.deployment_configuration.canary_configuration.canary_percent #=> Float
+    #   resp.service.deployment_configuration.canary_configuration.canary_bake_time_in_minutes #=> Integer
     #   resp.service.task_sets #=> Array
     #   resp.service.task_sets[0].id #=> String
     #   resp.service.task_sets[0].task_set_arn #=> String
@@ -4560,10 +4627,14 @@ module Aws::ECS
     #   resp.service_deployments[0].source_service_revisions[0].requested_task_count #=> Integer
     #   resp.service_deployments[0].source_service_revisions[0].running_task_count #=> Integer
     #   resp.service_deployments[0].source_service_revisions[0].pending_task_count #=> Integer
+    #   resp.service_deployments[0].source_service_revisions[0].requested_test_traffic_weight #=> Float
+    #   resp.service_deployments[0].source_service_revisions[0].requested_production_traffic_weight #=> Float
     #   resp.service_deployments[0].target_service_revision.arn #=> String
     #   resp.service_deployments[0].target_service_revision.requested_task_count #=> Integer
     #   resp.service_deployments[0].target_service_revision.running_task_count #=> Integer
     #   resp.service_deployments[0].target_service_revision.pending_task_count #=> Integer
+    #   resp.service_deployments[0].target_service_revision.requested_test_traffic_weight #=> Float
+    #   resp.service_deployments[0].target_service_revision.requested_production_traffic_weight #=> Float
     #   resp.service_deployments[0].status #=> String, one of "PENDING", "SUCCESSFUL", "STOPPED", "STOP_REQUESTED", "IN_PROGRESS", "ROLLBACK_REQUESTED", "ROLLBACK_IN_PROGRESS", "ROLLBACK_SUCCESSFUL", "ROLLBACK_FAILED"
     #   resp.service_deployments[0].status_reason #=> String
     #   resp.service_deployments[0].lifecycle_stage #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT", "BAKE_TIME", "CLEAN_UP"
@@ -4575,13 +4646,17 @@ module Aws::ECS
     #   resp.service_deployments[0].deployment_configuration.alarms.alarm_names[0] #=> String
     #   resp.service_deployments[0].deployment_configuration.alarms.rollback #=> Boolean
     #   resp.service_deployments[0].deployment_configuration.alarms.enable #=> Boolean
-    #   resp.service_deployments[0].deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN"
+    #   resp.service_deployments[0].deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN", "LINEAR", "CANARY"
     #   resp.service_deployments[0].deployment_configuration.bake_time_in_minutes #=> Integer
     #   resp.service_deployments[0].deployment_configuration.lifecycle_hooks #=> Array
     #   resp.service_deployments[0].deployment_configuration.lifecycle_hooks[0].hook_target_arn #=> String
     #   resp.service_deployments[0].deployment_configuration.lifecycle_hooks[0].role_arn #=> String
     #   resp.service_deployments[0].deployment_configuration.lifecycle_hooks[0].lifecycle_stages #=> Array
     #   resp.service_deployments[0].deployment_configuration.lifecycle_hooks[0].lifecycle_stages[0] #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT"
+    #   resp.service_deployments[0].deployment_configuration.linear_configuration.step_percent #=> Float
+    #   resp.service_deployments[0].deployment_configuration.linear_configuration.step_bake_time_in_minutes #=> Integer
+    #   resp.service_deployments[0].deployment_configuration.canary_configuration.canary_percent #=> Float
+    #   resp.service_deployments[0].deployment_configuration.canary_configuration.canary_bake_time_in_minutes #=> Integer
     #   resp.service_deployments[0].rollback.reason #=> String
     #   resp.service_deployments[0].rollback.started_at #=> Time
     #   resp.service_deployments[0].rollback.service_revision_arn #=> String
@@ -4911,13 +4986,17 @@ module Aws::ECS
     #   resp.services[0].deployment_configuration.alarms.alarm_names[0] #=> String
     #   resp.services[0].deployment_configuration.alarms.rollback #=> Boolean
     #   resp.services[0].deployment_configuration.alarms.enable #=> Boolean
-    #   resp.services[0].deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN"
+    #   resp.services[0].deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN", "LINEAR", "CANARY"
     #   resp.services[0].deployment_configuration.bake_time_in_minutes #=> Integer
     #   resp.services[0].deployment_configuration.lifecycle_hooks #=> Array
     #   resp.services[0].deployment_configuration.lifecycle_hooks[0].hook_target_arn #=> String
     #   resp.services[0].deployment_configuration.lifecycle_hooks[0].role_arn #=> String
     #   resp.services[0].deployment_configuration.lifecycle_hooks[0].lifecycle_stages #=> Array
     #   resp.services[0].deployment_configuration.lifecycle_hooks[0].lifecycle_stages[0] #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT"
+    #   resp.services[0].deployment_configuration.linear_configuration.step_percent #=> Float
+    #   resp.services[0].deployment_configuration.linear_configuration.step_bake_time_in_minutes #=> Integer
+    #   resp.services[0].deployment_configuration.canary_configuration.canary_percent #=> Float
+    #   resp.services[0].deployment_configuration.canary_configuration.canary_bake_time_in_minutes #=> Integer
     #   resp.services[0].task_sets #=> Array
     #   resp.services[0].task_sets[0].id #=> String
     #   resp.services[0].task_sets[0].task_set_arn #=> String
@@ -6328,8 +6407,8 @@ module Aws::ECS
     #   the `DRAINING` status, the results include only container instances
     #   that have been set to `DRAINING` using
     #   [UpdateContainerInstancesState][1]. If you don't specify this
-    #   parameter, the default is to include container instances set to all
-    #   states other than `INACTIVE`.
+    #   parameter, the The default is to include container instances set to
+    #   all states other than `INACTIVE`.
     #
     #
     #
@@ -8439,8 +8518,8 @@ module Aws::ECS
     #   If `task` is specified, all containers within the specified task share
     #   the same process namespace.
     #
-    #   If no value is specified, the default is a private namespace for each
-    #   container.
+    #   If no value is specified, the The default is a private namespace for
+    #   each container.
     #
     #   If the `host` PID mode is used, there's a heightened risk of
     #   undesired process namespace exposure.
@@ -9111,6 +9190,12 @@ module Aws::ECS
     # @option params [Array<Types::CapacityProviderStrategyItem>] :capacity_provider_strategy
     #   The capacity provider strategy to use for the task.
     #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the `launchType`
+    #   request parameter.
+    #
+    #    </note>
+    #
     #   If a `capacityProviderStrategy` is specified, the `launchType`
     #   parameter must be omitted. If no `capacityProviderStrategy` or
     #   `launchType` is specified, the `defaultCapacityProviderStrategy` for
@@ -9160,6 +9245,12 @@ module Aws::ECS
     #   The infrastructure to run your standalone task on. For more
     #   information, see [Amazon ECS launch types][1] in the *Amazon Elastic
     #   Container Service Developer Guide*.
+    #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the `launchType`
+    #   request parameter.
+    #
+    #    </note>
     #
     #   The `FARGATE` launch type runs your tasks on Fargate On-Demand
     #   infrastructure.
@@ -12048,6 +12139,11 @@ module Aws::ECS
     #   The details of a capacity provider strategy. You can set a capacity
     #   provider when you create a cluster, run a task, or update a service.
     #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter.
+    #
+    #    </note>
+    #
     #   When you use Fargate, the capacity providers are `FARGATE` or
     #   `FARGATE_SPOT`.
     #
@@ -12390,7 +12486,7 @@ module Aws::ECS
     #         rollback: false, # required
     #         enable: false, # required
     #       },
-    #       strategy: "ROLLING", # accepts ROLLING, BLUE_GREEN
+    #       strategy: "ROLLING", # accepts ROLLING, BLUE_GREEN, LINEAR, CANARY
     #       bake_time_in_minutes: 1,
     #       lifecycle_hooks: [
     #         {
@@ -12401,6 +12497,14 @@ module Aws::ECS
     #           },
     #         },
     #       ],
+    #       linear_configuration: {
+    #         step_percent: 1.0,
+    #         step_bake_time_in_minutes: 1,
+    #       },
+    #       canary_configuration: {
+    #         canary_percent: 1.0,
+    #         canary_bake_time_in_minutes: 1,
+    #       },
     #     },
     #     availability_zone_rebalancing: "ENABLED", # accepts ENABLED, DISABLED
     #     network_configuration: {
@@ -12578,13 +12682,17 @@ module Aws::ECS
     #   resp.service.deployment_configuration.alarms.alarm_names[0] #=> String
     #   resp.service.deployment_configuration.alarms.rollback #=> Boolean
     #   resp.service.deployment_configuration.alarms.enable #=> Boolean
-    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN"
+    #   resp.service.deployment_configuration.strategy #=> String, one of "ROLLING", "BLUE_GREEN", "LINEAR", "CANARY"
     #   resp.service.deployment_configuration.bake_time_in_minutes #=> Integer
     #   resp.service.deployment_configuration.lifecycle_hooks #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].hook_target_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].role_arn #=> String
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages #=> Array
     #   resp.service.deployment_configuration.lifecycle_hooks[0].lifecycle_stages[0] #=> String, one of "RECONCILE_SERVICE", "PRE_SCALE_UP", "POST_SCALE_UP", "TEST_TRAFFIC_SHIFT", "POST_TEST_TRAFFIC_SHIFT", "PRODUCTION_TRAFFIC_SHIFT", "POST_PRODUCTION_TRAFFIC_SHIFT"
+    #   resp.service.deployment_configuration.linear_configuration.step_percent #=> Float
+    #   resp.service.deployment_configuration.linear_configuration.step_bake_time_in_minutes #=> Integer
+    #   resp.service.deployment_configuration.canary_configuration.canary_percent #=> Float
+    #   resp.service.deployment_configuration.canary_configuration.canary_bake_time_in_minutes #=> Integer
     #   resp.service.task_sets #=> Array
     #   resp.service.task_sets[0].id #=> String
     #   resp.service.task_sets[0].task_set_arn #=> String
@@ -13227,7 +13335,7 @@ module Aws::ECS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecs'
-      context[:gem_version] = '1.208.0'
+      context[:gem_version] = '1.209.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

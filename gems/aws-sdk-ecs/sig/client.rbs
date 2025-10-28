@@ -282,7 +282,7 @@ module Aws
                                 rollback: bool,
                                 enable: bool
                               }?,
-                              strategy: ("ROLLING" | "BLUE_GREEN")?,
+                              strategy: ("ROLLING" | "BLUE_GREEN" | "LINEAR" | "CANARY")?,
                               bake_time_in_minutes: ::Integer?,
                               lifecycle_hooks: Array[
                                 {
@@ -292,7 +292,15 @@ module Aws
                                   hook_details: {
                                   }?
                                 },
-                              ]?
+                              ]?,
+                              linear_configuration: {
+                                step_percent: ::Float?,
+                                step_bake_time_in_minutes: ::Integer?
+                              }?,
+                              canary_configuration: {
+                                canary_percent: ::Float?,
+                                canary_bake_time_in_minutes: ::Integer?
+                              }?
                             },
                             ?placement_constraints: Array[
                               {
@@ -1824,7 +1832,7 @@ module Aws
                                 rollback: bool,
                                 enable: bool
                               }?,
-                              strategy: ("ROLLING" | "BLUE_GREEN")?,
+                              strategy: ("ROLLING" | "BLUE_GREEN" | "LINEAR" | "CANARY")?,
                               bake_time_in_minutes: ::Integer?,
                               lifecycle_hooks: Array[
                                 {
@@ -1834,7 +1842,15 @@ module Aws
                                   hook_details: {
                                   }?
                                 },
-                              ]?
+                              ]?,
+                              linear_configuration: {
+                                step_percent: ::Float?,
+                                step_bake_time_in_minutes: ::Integer?
+                              }?,
+                              canary_configuration: {
+                                canary_percent: ::Float?,
+                                canary_bake_time_in_minutes: ::Integer?
+                              }?
                             },
                             ?availability_zone_rebalancing: ("ENABLED" | "DISABLED"),
                             ?network_configuration: {

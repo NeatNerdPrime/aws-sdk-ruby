@@ -362,8 +362,8 @@ module Aws::ECS
     #
     #   Consider the following when you set this value:
     #
-    #   * When you use `create-service` or `update-service`, the default is
-    #     `DISABLED`.
+    #   * When you use `create-service` or `update-service`, the The default
+    #     is `DISABLED`.
     #
     #   * When the service `deploymentController` is `ECS`, the value must
     #     be `DISABLED`.
@@ -403,7 +403,7 @@ module Aws::ECS
     end
 
     # Your Amazon Web Services account was blocked. For more information,
-    # contact [ Amazon Web Services Support][1].
+    # contact [ Amazon Web ServicesSupport][1].
     #
     #
     #
@@ -412,6 +412,36 @@ module Aws::ECS
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/BlockedException AWS API Documentation
     #
     class BlockedException < Aws::EmptyStructure; end
+
+    # Configuration for canary deployment strategy that shifts a fixed
+    # percentage of traffic to the new service revision, waits for a
+    # specified bake time, then shifts the remaining traffic.
+    #
+    # This is only valid when you run `CreateService` or `UpdateService`
+    # with `deploymentController` set to `ECS` and a
+    # `deploymentConfiguration` with a strategy set to `CANARY`.
+    #
+    # @!attribute [rw] canary_percent
+    #   The percentage of production traffic to shift to the new service
+    #   revision during the canary phase. Valid values are 0.1 to 100.0. The
+    #   default value is 5.0.
+    #   @return [Float]
+    #
+    # @!attribute [rw] canary_bake_time_in_minutes
+    #   The amount of time in minutes to wait during the canary phase before
+    #   shifting the remaining production traffic to the new service
+    #   revision. Valid values are 0 to 1440 minutes (24 hours). The default
+    #   value is 10.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CanaryConfiguration AWS API Documentation
+    #
+    class CanaryConfiguration < Struct.new(
+      :canary_percent,
+      :canary_bake_time_in_minutes)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # The details for a capacity provider.
     #
@@ -428,6 +458,8 @@ module Aws::ECS
     #   The cluster that this capacity provider is associated with. Managed
     #   instances capacity providers are cluster-scoped, meaning they can
     #   only be used within their associated cluster.
+    #
+    #   This is required for Managed instances.
     #   @return [String]
     #
     # @!attribute [rw] status
@@ -586,9 +618,9 @@ module Aws::ECS
     #
     #   * Weight is considered after the base value is satisfied
     #
-    #   * Default value is `0` if not specified
+    #   * The default value is `0` if not specified
     #
-    #   * Valid range: 0 to 1,000
+    #   * The valid range is 0 to 1,000
     #
     #   * At least one capacity provider must have a weight greater than
     #     zero
@@ -623,9 +655,9 @@ module Aws::ECS
     #
     #   * Only one capacity provider in a strategy can have a base defined
     #
-    #   * Default value is `0` if not specified
+    #   * The default value is `0` if not specified
     #
-    #   * Valid range: 0 to 100,000
+    #   * The valid range is 0 to 100,000
     #
     #   * Base requirements are satisfied first before weight distribution
     #   @return [Integer]
@@ -3005,6 +3037,12 @@ module Aws::ECS
     #   information, see [Amazon ECS launch types][1] in the *Amazon Elastic
     #   Container Service Developer Guide*.
     #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the
+    #   `launchType` request parameter.
+    #
+    #    </note>
+    #
     #   The `FARGATE` launch type runs your tasks on Fargate On-Demand
     #   infrastructure.
     #
@@ -3032,6 +3070,12 @@ module Aws::ECS
     #
     # @!attribute [rw] capacity_provider_strategy
     #   The capacity provider strategy to use for the service.
+    #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the
+    #   `launchType` request parameter.
+    #
+    #    </note>
     #
     #   If a `capacityProviderStrategy` is specified, the `launchType`
     #   parameter must be omitted. If no `capacityProviderStrategy` or
@@ -4261,6 +4305,20 @@ module Aws::ECS
     #   specific stages of the deployment lifecycle.
     #   @return [Array<Types::DeploymentLifecycleHook>]
     #
+    # @!attribute [rw] linear_configuration
+    #   Configuration for linear deployment strategy. Only valid when the
+    #   deployment strategy is `LINEAR`. This configuration enables
+    #   progressive traffic shifting in equal percentage increments with
+    #   configurable bake times between each step.
+    #   @return [Types::LinearConfiguration]
+    #
+    # @!attribute [rw] canary_configuration
+    #   Configuration for canary deployment strategy. Only valid when the
+    #   deployment strategy is `CANARY`. This configuration enables shifting
+    #   a fixed percentage of traffic for testing, followed by shifting the
+    #   remaining traffic after a bake period.
+    #   @return [Types::CanaryConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/DeploymentConfiguration AWS API Documentation
     #
     class DeploymentConfiguration < Struct.new(
@@ -4270,7 +4328,9 @@ module Aws::ECS
       :alarms,
       :strategy,
       :bake_time_in_minutes,
-      :lifecycle_hooks)
+      :lifecycle_hooks,
+      :linear_configuration,
+      :canary_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6582,6 +6642,35 @@ module Aws::ECS
     #
     class LimitExceededException < Aws::EmptyStructure; end
 
+    # Configuration for linear deployment strategy that shifts production
+    # traffic in equal percentage increments with configurable wait times
+    # between each step until 100% of traffic is shifted to the new service
+    # revision. This is only valid when you run `CreateService` or
+    # `UpdateService` with `deploymentController` set to `ECS` and a
+    # `deploymentConfiguration` with a strategy set to `LINEAR`.
+    #
+    # @!attribute [rw] step_percent
+    #   The percentage of production traffic to shift in each step during a
+    #   linear deployment. Valid values are 3.0 to 100.0. The default value
+    #   is 10.0.
+    #   @return [Float]
+    #
+    # @!attribute [rw] step_bake_time_in_minutes
+    #   The amount of time in minutes to wait between each traffic shifting
+    #   step during a linear deployment. Valid values are 0 to 1440 minutes
+    #   (24 hours). The default value is 6. This bake time is not applied
+    #   after reaching 100% traffic.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/LinearConfiguration AWS API Documentation
+    #
+    class LinearConfiguration < Struct.new(
+      :step_percent,
+      :step_bake_time_in_minutes)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The Linux-specific options that are applied to the container, such as
     # Linux [KernelCapabilities][1].
     #
@@ -6964,8 +7053,8 @@ module Aws::ECS
     #   specify the `DRAINING` status, the results include only container
     #   instances that have been set to `DRAINING` using
     #   [UpdateContainerInstancesState][1]. If you don't specify this
-    #   parameter, the default is to include container instances set to all
-    #   states other than `INACTIVE`.
+    #   parameter, the The default is to include container instances set to
+    #   all states other than `INACTIVE`.
     #
     #
     #
@@ -9738,7 +9827,7 @@ module Aws::ECS
     #   If `task` is specified, all containers within the specified task
     #   share the same process namespace.
     #
-    #   If no value is specified, the default is a private namespace for
+    #   If no value is specified, the The default is a private namespace for
     #   each container.
     #
     #   If the `host` PID mode is used, there's a heightened risk of
@@ -10058,6 +10147,12 @@ module Aws::ECS
     # @!attribute [rw] capacity_provider_strategy
     #   The capacity provider strategy to use for the task.
     #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the
+    #   `launchType` request parameter.
+    #
+    #    </note>
+    #
     #   If a `capacityProviderStrategy` is specified, the `launchType`
     #   parameter must be omitted. If no `capacityProviderStrategy` or
     #   `launchType` is specified, the `defaultCapacityProviderStrategy` for
@@ -10113,6 +10208,12 @@ module Aws::ECS
     #   The infrastructure to run your standalone task on. For more
     #   information, see [Amazon ECS launch types][1] in the *Amazon Elastic
     #   Container Service Developer Guide*.
+    #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter and omit the
+    #   `launchType` request parameter.
+    #
+    #    </note>
     #
     #   The `FARGATE` launch type runs your tasks on Fargate On-Demand
     #   infrastructure.
@@ -12072,13 +12173,29 @@ module Aws::ECS
     #   The number of pending tasks for the service revision.
     #   @return [Integer]
     #
+    # @!attribute [rw] requested_test_traffic_weight
+    #   The percentage of test traffic that is directed to this service
+    #   revision. This value represents a snapshot of the traffic
+    #   distribution and may not reflect real-time changes during active
+    #   deployments. Valid values are 0.0 to 100.0.
+    #   @return [Float]
+    #
+    # @!attribute [rw] requested_production_traffic_weight
+    #   The percentage of production traffic that is directed to this
+    #   service revision. This value represents a snapshot of the traffic
+    #   distribution and may not reflect real-time changes during active
+    #   deployments. Valid values are 0.0 to 100.0.
+    #   @return [Float]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ServiceRevisionSummary AWS API Documentation
     #
     class ServiceRevisionSummary < Struct.new(
       :arn,
       :requested_task_count,
       :running_task_count,
-      :pending_task_count)
+      :pending_task_count,
+      :requested_test_traffic_weight,
+      :requested_production_traffic_weight)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -13330,9 +13447,9 @@ module Aws::ECS
     #
     # @!attribute [rw] requires_compatibilities
     #   The task launch types the task definition was validated against. The
-    #   valid values are `EC2`, `FARGATE`, and `EXTERNAL`. For more
-    #   information, see [Amazon ECS launch types][1] in the *Amazon Elastic
-    #   Container Service Developer Guide*.
+    #   valid values are `MANAGED_INSTANCES`, `EC2`, `FARGATE`, and
+    #   `EXTERNAL`. For more information, see [Amazon ECS launch types][1]
+    #   in the *Amazon Elastic Container Service Developer Guide*.
     #
     #
     #
@@ -13421,7 +13538,7 @@ module Aws::ECS
     #   If `task` is specified, all containers within the specified task
     #   share the same process namespace.
     #
-    #   If no value is specified, the default is a private namespace for
+    #   If no value is specified, the The default is a private namespace for
     #   each container.
     #
     #   If the `host` PID mode is used, there's a heightened risk of
@@ -14696,6 +14813,11 @@ module Aws::ECS
     # @!attribute [rw] capacity_provider_strategy
     #   The details of a capacity provider strategy. You can set a capacity
     #   provider when you create a cluster, run a task, or update a service.
+    #
+    #   <note markdown="1"> If you want to use Amazon ECS Managed Instances, you must use the
+    #   `capacityProviderStrategy` request parameter.
+    #
+    #    </note>
     #
     #   When you use Fargate, the capacity providers are `FARGATE` or
     #   `FARGATE_SPOT`.

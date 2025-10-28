@@ -3458,7 +3458,7 @@ module Aws::Organizations
     #   support tags.
     #
     # * A newly created account has a waiting period before it can be
-    #   removed from its organization. You must wait until at least seven
+    #   removed from its organization. You must wait until at least four
     #   days after the account was created. Invited accounts aren't subject
     #   to this waiting period.
     #
@@ -4210,6 +4210,7 @@ module Aws::Organizations
     #   resp.delegated_administrators[0].email #=> String
     #   resp.delegated_administrators[0].name #=> String
     #   resp.delegated_administrators[0].status #=> String, one of "ACTIVE", "SUSPENDED", "PENDING_CLOSURE"
+    #   resp.delegated_administrators[0].state #=> String, one of "PENDING_ACTIVATION", "ACTIVE", "SUSPENDED", "PENDING_CLOSURE", "CLOSED"
     #   resp.delegated_administrators[0].joined_method #=> String, one of "INVITED", "CREATED"
     #   resp.delegated_administrators[0].joined_timestamp #=> Time
     #   resp.delegated_administrators[0].delegation_enabled_date #=> Time
@@ -6151,7 +6152,7 @@ module Aws::Organizations
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-organizations'
-      context[:gem_version] = '1.126.0'
+      context[:gem_version] = '1.127.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

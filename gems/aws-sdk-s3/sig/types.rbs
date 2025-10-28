@@ -269,6 +269,8 @@ module Aws::S3
       attr_accessor grant_read: ::String
       attr_accessor grant_read_acp: ::String
       attr_accessor grant_write_acp: ::String
+      attr_accessor if_match: ::String
+      attr_accessor if_none_match: ::String
       attr_accessor key: ::String
       attr_accessor metadata: ::Hash[::String, ::String]
       attr_accessor metadata_directive: ("COPY" | "REPLACE")

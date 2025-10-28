@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.147.0 (2025-10-28)
+------------------
+
+* Feature - Added IPv6 address support for WorkSpaces using Dual-Stack subnets
+
 1.146.0 (2025-10-22)
 ------------------
 

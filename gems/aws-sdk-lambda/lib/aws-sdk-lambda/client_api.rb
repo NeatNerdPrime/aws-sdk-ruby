@@ -336,6 +336,7 @@ module Aws::Lambda
     SelfManagedEventSource = Shapes::StructureShape.new(name: 'SelfManagedEventSource')
     SelfManagedKafkaEventSourceConfig = Shapes::StructureShape.new(name: 'SelfManagedKafkaEventSourceConfig')
     SensitiveString = Shapes::StringShape.new(name: 'SensitiveString')
+    SerializedRequestEntityTooLargeException = Shapes::StructureShape.new(name: 'SerializedRequestEntityTooLargeException')
     ServiceException = Shapes::StructureShape.new(name: 'ServiceException')
     SigningProfileVersionArns = Shapes::ListShape.new(name: 'SigningProfileVersionArns')
     SnapStart = Shapes::StructureShape.new(name: 'SnapStart')
@@ -1421,6 +1422,10 @@ module Aws::Lambda
     SelfManagedKafkaEventSourceConfig.add_member(:schema_registry_config, Shapes::ShapeRef.new(shape: KafkaSchemaRegistryConfig, location_name: "SchemaRegistryConfig"))
     SelfManagedKafkaEventSourceConfig.struct_class = Types::SelfManagedKafkaEventSourceConfig
 
+    SerializedRequestEntityTooLargeException.add_member(:type, Shapes::ShapeRef.new(shape: String, location_name: "Type"))
+    SerializedRequestEntityTooLargeException.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
+    SerializedRequestEntityTooLargeException.struct_class = Types::SerializedRequestEntityTooLargeException
+
     ServiceException.add_member(:type, Shapes::ShapeRef.new(shape: String, location_name: "Type"))
     ServiceException.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "Message"))
     ServiceException.struct_class = Types::ServiceException
@@ -2063,6 +2068,7 @@ module Aws::Lambda
         o.errors << Shapes::ShapeRef.new(shape: RequestTooLargeException)
         o.errors << Shapes::ShapeRef.new(shape: KMSDisabledException)
         o.errors << Shapes::ShapeRef.new(shape: UnsupportedMediaTypeException)
+        o.errors << Shapes::ShapeRef.new(shape: SerializedRequestEntityTooLargeException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidRuntimeException)
         o.errors << Shapes::ShapeRef.new(shape: EC2UnexpectedException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidSubnetIDException)
@@ -2115,6 +2121,7 @@ module Aws::Lambda
         o.errors << Shapes::ShapeRef.new(shape: RequestTooLargeException)
         o.errors << Shapes::ShapeRef.new(shape: KMSDisabledException)
         o.errors << Shapes::ShapeRef.new(shape: UnsupportedMediaTypeException)
+        o.errors << Shapes::ShapeRef.new(shape: SerializedRequestEntityTooLargeException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidRuntimeException)
         o.errors << Shapes::ShapeRef.new(shape: EC2UnexpectedException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidSubnetIDException)

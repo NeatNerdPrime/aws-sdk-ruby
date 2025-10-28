@@ -225,10 +225,10 @@ module Aws::Lambda
     #   @return [String]
     #
     # @!attribute [rw] invoked_via_function_url
-    #   Restricts the `lambda:InvokeFunction` action to calls coming from a
-    #   function URL. When set to `true`, this prevents the principal from
-    #   invoking the function by any means other than the function URL. For
-    #   more information, see [Control access to Lambda function URLs][1].
+    #   Restricts the `lambda:InvokeFunction` action to function URL calls.
+    #   When set to `true`, this prevents the principal from invoking the
+    #   function by any means other than the function URL. For more
+    #   information, see [Control access to Lambda function URLs][1].
     #
     #
     #
@@ -3762,6 +3762,8 @@ module Aws::Lambda
     #
     # @!attribute [rw] payload
     #   The JSON that you want to provide to your Lambda function as input.
+    #   The maximum payload size is 6 MB for synchronous invocations and 1
+    #   MB for asynchronous invocations.
     #
     #   You can enter the JSON directly. For example, `--payload '{ "key":
     #   "value" }'`. You can also specify a file path. For example,
@@ -5058,18 +5060,27 @@ module Aws::Lambda
     #   bucket, Lambda function, or Amazon EventBridge event bus as the
     #   destination.
     #
-    #   To retain records of failed invocations from [Kinesis][2],
-    #   [DynamoDB][3], [self-managed Kafka][4] or [Amazon MSK][5], you can
+    #   <note markdown="1"> Amazon SNS destinations have a message size limit of 256 KB. If the
+    #   combined size of the function request and response payload exceeds
+    #   the limit, Lambda will drop the payload when sending `OnFailure`
+    #   event to the destination. For details on this behavior, refer to
+    #   [Retaining records of asynchronous invocations][2].
+    #
+    #    </note>
+    #
+    #   To retain records of failed invocations from [Kinesis][3],
+    #   [DynamoDB][4], [self-managed Kafka][5] or [Amazon MSK][6], you can
     #   configure an Amazon SNS topic, Amazon SQS queue, or Amazon S3 bucket
     #   as the destination.
     #
     #
     #
     #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-destinations
-    #   [2]: https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html
-    #   [3]: https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html
-    #   [4]: https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination
-    #   [5]: https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination
+    #   [2]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html
+    #   [3]: https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html
+    #   [4]: https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html
+    #   [5]: https://docs.aws.amazon.com/lambda/latest/dg/with-kafka.html#services-smaa-onfailure-destination
+    #   [6]: https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#services-msk-onfailure-destination
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/OnFailure AWS API Documentation
@@ -5097,6 +5108,18 @@ module Aws::Lambda
     #
     # @!attribute [rw] destination
     #   The Amazon Resource Name (ARN) of the destination resource.
+    #
+    #   <note markdown="1"> Amazon SNS destinations have a message size limit of 256 KB. If the
+    #   combined size of the function request and response payload exceeds
+    #   the limit, Lambda will drop the payload when sending `OnFailure`
+    #   event to the destination. For details on this behavior, refer to
+    #   [Retaining records of asynchronous invocations][1].
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-async-retain-records.html
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/OnSuccess AWS API Documentation
@@ -6129,6 +6152,27 @@ module Aws::Lambda
     class SelfManagedKafkaEventSourceConfig < Struct.new(
       :consumer_group_id,
       :schema_registry_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The processed request payload exceeded the `Invoke` request body size
+    # limit for asynchronous invocations. While the event payload may be
+    # under 1 MB, the size after internal serialization exceeds the maximum
+    # allowed size for asynchronous invocations.
+    #
+    # @!attribute [rw] type
+    #   The error type.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/SerializedRequestEntityTooLargeException AWS API Documentation
+    #
+    class SerializedRequestEntityTooLargeException < Struct.new(
+      :type,
+      :message)
       SENSITIVE = []
       include Aws::Structure
     end

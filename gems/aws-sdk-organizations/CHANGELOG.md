@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.127.0 (2025-10-28)
+------------------
+
+* Feature - Added Account State field to the ListDelegatedAdministrators API response.
+
 1.126.0 (2025-10-21)
 ------------------
 

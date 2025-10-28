@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.567.0 (2025-10-28)
+------------------
+
+* Feature - This released the DescribeCapacityReservationTopology API.
+
 1.566.0 (2025-10-22)
 ------------------
 
