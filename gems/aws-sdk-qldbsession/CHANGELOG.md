@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - QLDB Session has been removed from the SDK because it has been discontinued.
+
 1.61.0 (2025-10-21)
 ------------------
 

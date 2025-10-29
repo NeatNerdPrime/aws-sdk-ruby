@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - QLDB has been removed from the SDK because it has been discontinued.
+
 1.66.0 (2025-10-21)
 ------------------
 
