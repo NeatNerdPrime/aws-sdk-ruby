@@ -285,6 +285,7 @@ module Aws::BedrockRuntime
     String = Shapes::StringShape.new(name: 'String')
     SystemContentBlock = Shapes::UnionShape.new(name: 'SystemContentBlock')
     SystemContentBlocks = Shapes::ListShape.new(name: 'SystemContentBlocks')
+    SystemTool = Shapes::StructureShape.new(name: 'SystemTool')
     Tag = Shapes::StructureShape.new(name: 'Tag')
     TagKey = Shapes::StringShape.new(name: 'TagKey')
     TagList = Shapes::ListShape.new(name: 'TagList')
@@ -306,6 +307,9 @@ module Aws::BedrockRuntime
     ToolInputSchema = Shapes::UnionShape.new(name: 'ToolInputSchema')
     ToolName = Shapes::StringShape.new(name: 'ToolName')
     ToolResultBlock = Shapes::StructureShape.new(name: 'ToolResultBlock')
+    ToolResultBlockDelta = Shapes::UnionShape.new(name: 'ToolResultBlockDelta')
+    ToolResultBlockStart = Shapes::StructureShape.new(name: 'ToolResultBlockStart')
+    ToolResultBlocksDelta = Shapes::ListShape.new(name: 'ToolResultBlocksDelta')
     ToolResultContentBlock = Shapes::UnionShape.new(name: 'ToolResultContentBlock')
     ToolResultContentBlocks = Shapes::ListShape.new(name: 'ToolResultContentBlocks')
     ToolResultStatus = Shapes::StringShape.new(name: 'ToolResultStatus')
@@ -314,12 +318,14 @@ module Aws::BedrockRuntime
     ToolUseBlockDelta = Shapes::StructureShape.new(name: 'ToolUseBlockDelta')
     ToolUseBlockStart = Shapes::StructureShape.new(name: 'ToolUseBlockStart')
     ToolUseId = Shapes::StringShape.new(name: 'ToolUseId')
+    ToolUseType = Shapes::StringShape.new(name: 'ToolUseType')
     Trace = Shapes::StringShape.new(name: 'Trace')
     ValidationException = Shapes::StructureShape.new(name: 'ValidationException')
     VideoBlock = Shapes::StructureShape.new(name: 'VideoBlock')
     VideoFormat = Shapes::StringShape.new(name: 'VideoFormat')
     VideoSource = Shapes::UnionShape.new(name: 'VideoSource')
     VideoSourceBytesBlob = Shapes::BlobShape.new(name: 'VideoSourceBytesBlob')
+    WebLocation = Shapes::StructureShape.new(name: 'WebLocation')
 
     AccessDeniedException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     AccessDeniedException.struct_class = Types::AccessDeniedException
@@ -389,10 +395,12 @@ module Aws::BedrockRuntime
 
     CitationGeneratedContentList.member = Shapes::ShapeRef.new(shape: CitationGeneratedContent)
 
+    CitationLocation.add_member(:web, Shapes::ShapeRef.new(shape: WebLocation, location_name: "web"))
     CitationLocation.add_member(:document_char, Shapes::ShapeRef.new(shape: DocumentCharLocation, location_name: "documentChar"))
     CitationLocation.add_member(:document_page, Shapes::ShapeRef.new(shape: DocumentPageLocation, location_name: "documentPage"))
     CitationLocation.add_member(:document_chunk, Shapes::ShapeRef.new(shape: DocumentChunkLocation, location_name: "documentChunk"))
     CitationLocation.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    CitationLocation.add_member_subclass(:web, Types::CitationLocation::Web)
     CitationLocation.add_member_subclass(:document_char, Types::CitationLocation::DocumentChar)
     CitationLocation.add_member_subclass(:document_page, Types::CitationLocation::DocumentPage)
     CitationLocation.add_member_subclass(:document_chunk, Types::CitationLocation::DocumentChunk)
@@ -455,11 +463,13 @@ module Aws::BedrockRuntime
 
     ContentBlockDelta.add_member(:text, Shapes::ShapeRef.new(shape: String, location_name: "text"))
     ContentBlockDelta.add_member(:tool_use, Shapes::ShapeRef.new(shape: ToolUseBlockDelta, location_name: "toolUse"))
+    ContentBlockDelta.add_member(:tool_result, Shapes::ShapeRef.new(shape: ToolResultBlocksDelta, location_name: "toolResult"))
     ContentBlockDelta.add_member(:reasoning_content, Shapes::ShapeRef.new(shape: ReasoningContentBlockDelta, location_name: "reasoningContent"))
     ContentBlockDelta.add_member(:citation, Shapes::ShapeRef.new(shape: CitationsDelta, location_name: "citation"))
     ContentBlockDelta.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     ContentBlockDelta.add_member_subclass(:text, Types::ContentBlockDelta::Text)
     ContentBlockDelta.add_member_subclass(:tool_use, Types::ContentBlockDelta::ToolUse)
+    ContentBlockDelta.add_member_subclass(:tool_result, Types::ContentBlockDelta::ToolResult)
     ContentBlockDelta.add_member_subclass(:reasoning_content, Types::ContentBlockDelta::ReasoningContent)
     ContentBlockDelta.add_member_subclass(:citation, Types::ContentBlockDelta::Citation)
     ContentBlockDelta.add_member_subclass(:unknown, Types::ContentBlockDelta::Unknown)
@@ -470,8 +480,10 @@ module Aws::BedrockRuntime
     ContentBlockDeltaEvent.struct_class = Types::ContentBlockDeltaEvent
 
     ContentBlockStart.add_member(:tool_use, Shapes::ShapeRef.new(shape: ToolUseBlockStart, location_name: "toolUse"))
+    ContentBlockStart.add_member(:tool_result, Shapes::ShapeRef.new(shape: ToolResultBlockStart, location_name: "toolResult"))
     ContentBlockStart.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     ContentBlockStart.add_member_subclass(:tool_use, Types::ContentBlockStart::ToolUse)
+    ContentBlockStart.add_member_subclass(:tool_result, Types::ContentBlockStart::ToolResult)
     ContentBlockStart.add_member_subclass(:unknown, Types::ContentBlockStart::Unknown)
     ContentBlockStart.struct_class = Types::ContentBlockStart
 
@@ -1149,6 +1161,9 @@ module Aws::BedrockRuntime
 
     SystemContentBlocks.member = Shapes::ShapeRef.new(shape: SystemContentBlock)
 
+    SystemTool.add_member(:name, Shapes::ShapeRef.new(shape: ToolName, required: true, location_name: "name"))
+    SystemTool.struct_class = Types::SystemTool
+
     Tag.add_member(:key, Shapes::ShapeRef.new(shape: TagKey, required: true, location_name: "key"))
     Tag.add_member(:value, Shapes::ShapeRef.new(shape: TagValue, required: true, location_name: "value"))
     Tag.struct_class = Types::Tag
@@ -1166,9 +1181,11 @@ module Aws::BedrockRuntime
     TokenUsage.struct_class = Types::TokenUsage
 
     Tool.add_member(:tool_spec, Shapes::ShapeRef.new(shape: ToolSpecification, location_name: "toolSpec"))
+    Tool.add_member(:system_tool, Shapes::ShapeRef.new(shape: SystemTool, location_name: "systemTool"))
     Tool.add_member(:cache_point, Shapes::ShapeRef.new(shape: CachePointBlock, location_name: "cachePoint"))
     Tool.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     Tool.add_member_subclass(:tool_spec, Types::Tool::ToolSpec)
+    Tool.add_member_subclass(:system_tool, Types::Tool::SystemTool)
     Tool.add_member_subclass(:cache_point, Types::Tool::CachePoint)
     Tool.add_member_subclass(:unknown, Types::Tool::Unknown)
     Tool.struct_class = Types::Tool
@@ -1198,7 +1215,21 @@ module Aws::BedrockRuntime
     ToolResultBlock.add_member(:tool_use_id, Shapes::ShapeRef.new(shape: ToolUseId, required: true, location_name: "toolUseId"))
     ToolResultBlock.add_member(:content, Shapes::ShapeRef.new(shape: ToolResultContentBlocks, required: true, location_name: "content"))
     ToolResultBlock.add_member(:status, Shapes::ShapeRef.new(shape: ToolResultStatus, location_name: "status"))
+    ToolResultBlock.add_member(:type, Shapes::ShapeRef.new(shape: String, location_name: "type"))
     ToolResultBlock.struct_class = Types::ToolResultBlock
+
+    ToolResultBlockDelta.add_member(:text, Shapes::ShapeRef.new(shape: String, location_name: "text"))
+    ToolResultBlockDelta.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    ToolResultBlockDelta.add_member_subclass(:text, Types::ToolResultBlockDelta::Text)
+    ToolResultBlockDelta.add_member_subclass(:unknown, Types::ToolResultBlockDelta::Unknown)
+    ToolResultBlockDelta.struct_class = Types::ToolResultBlockDelta
+
+    ToolResultBlockStart.add_member(:tool_use_id, Shapes::ShapeRef.new(shape: ToolUseId, required: true, location_name: "toolUseId"))
+    ToolResultBlockStart.add_member(:type, Shapes::ShapeRef.new(shape: String, location_name: "type"))
+    ToolResultBlockStart.add_member(:status, Shapes::ShapeRef.new(shape: ToolResultStatus, location_name: "status"))
+    ToolResultBlockStart.struct_class = Types::ToolResultBlockStart
+
+    ToolResultBlocksDelta.member = Shapes::ShapeRef.new(shape: ToolResultBlockDelta)
 
     ToolResultContentBlock.add_member(:json, Shapes::ShapeRef.new(shape: Document, location_name: "json"))
     ToolResultContentBlock.add_member(:text, Shapes::ShapeRef.new(shape: String, location_name: "text"))
@@ -1224,6 +1255,7 @@ module Aws::BedrockRuntime
     ToolUseBlock.add_member(:tool_use_id, Shapes::ShapeRef.new(shape: ToolUseId, required: true, location_name: "toolUseId"))
     ToolUseBlock.add_member(:name, Shapes::ShapeRef.new(shape: ToolName, required: true, location_name: "name"))
     ToolUseBlock.add_member(:input, Shapes::ShapeRef.new(shape: Document, required: true, location_name: "input"))
+    ToolUseBlock.add_member(:type, Shapes::ShapeRef.new(shape: ToolUseType, location_name: "type"))
     ToolUseBlock.struct_class = Types::ToolUseBlock
 
     ToolUseBlockDelta.add_member(:input, Shapes::ShapeRef.new(shape: String, required: true, location_name: "input"))
@@ -1231,6 +1263,7 @@ module Aws::BedrockRuntime
 
     ToolUseBlockStart.add_member(:tool_use_id, Shapes::ShapeRef.new(shape: ToolUseId, required: true, location_name: "toolUseId"))
     ToolUseBlockStart.add_member(:name, Shapes::ShapeRef.new(shape: ToolName, required: true, location_name: "name"))
+    ToolUseBlockStart.add_member(:type, Shapes::ShapeRef.new(shape: ToolUseType, location_name: "type"))
     ToolUseBlockStart.struct_class = Types::ToolUseBlockStart
 
     ValidationException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
@@ -1247,6 +1280,10 @@ module Aws::BedrockRuntime
     VideoSource.add_member_subclass(:s3_location, Types::VideoSource::S3Location)
     VideoSource.add_member_subclass(:unknown, Types::VideoSource::Unknown)
     VideoSource.struct_class = Types::VideoSource
+
+    WebLocation.add_member(:url, Shapes::ShapeRef.new(shape: String, location_name: "url"))
+    WebLocation.add_member(:domain, Shapes::ShapeRef.new(shape: String, location_name: "domain"))
+    WebLocation.struct_class = Types::WebLocation
 
 
     # @api private

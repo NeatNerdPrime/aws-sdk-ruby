@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.63.0 (2025-10-29)
+------------------
+
+* Feature - Add support for system tool and web citation response.
+
 1.62.0 (2025-10-28)
 ------------------
 

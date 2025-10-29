@@ -980,6 +980,7 @@ module Aws::BedrockRuntime
     #               name: "ToolName", # required
     #               input: { # required
     #               },
+    #               type: "server_tool_use", # accepts server_tool_use
     #             },
     #             tool_result: {
     #               tool_use_id: "ToolUseId", # required
@@ -1032,6 +1033,7 @@ module Aws::BedrockRuntime
     #                 },
     #               ],
     #               status: "success", # accepts success, error
+    #               type: "String",
     #             },
     #             guard_content: {
     #               text: {
@@ -1070,6 +1072,10 @@ module Aws::BedrockRuntime
     #                     },
     #                   ],
     #                   location: {
+    #                     web: {
+    #                       url: "String",
+    #                       domain: "String",
+    #                     },
     #                     document_char: {
     #                       document_index: 1,
     #                       start: 1,
@@ -1129,6 +1135,9 @@ module Aws::BedrockRuntime
     #               json: {
     #               },
     #             },
+    #           },
+    #           system_tool: {
+    #             name: "ToolName", # required
     #           },
     #           cache_point: {
     #             type: "default", # required, accepts default
@@ -1191,6 +1200,7 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].video.source.s3_location.bucket_owner #=> String
     #   resp.output.message.content[0].tool_use.tool_use_id #=> String
     #   resp.output.message.content[0].tool_use.name #=> String
+    #   resp.output.message.content[0].tool_use.type #=> String, one of "server_tool_use"
     #   resp.output.message.content[0].tool_result.tool_use_id #=> String
     #   resp.output.message.content[0].tool_result.content #=> Array
     #   resp.output.message.content[0].tool_result.content[0].text #=> String
@@ -1213,6 +1223,7 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].tool_result.content[0].video.source.s3_location.uri #=> String
     #   resp.output.message.content[0].tool_result.content[0].video.source.s3_location.bucket_owner #=> String
     #   resp.output.message.content[0].tool_result.status #=> String, one of "success", "error"
+    #   resp.output.message.content[0].tool_result.type #=> String
     #   resp.output.message.content[0].guard_content.text.text #=> String
     #   resp.output.message.content[0].guard_content.text.qualifiers #=> Array
     #   resp.output.message.content[0].guard_content.text.qualifiers[0] #=> String, one of "grounding_source", "query", "guard_content"
@@ -1228,6 +1239,8 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].citations_content.citations[0].title #=> String
     #   resp.output.message.content[0].citations_content.citations[0].source_content #=> Array
     #   resp.output.message.content[0].citations_content.citations[0].source_content[0].text #=> String
+    #   resp.output.message.content[0].citations_content.citations[0].location.web.url #=> String
+    #   resp.output.message.content[0].citations_content.citations[0].location.web.domain #=> String
     #   resp.output.message.content[0].citations_content.citations[0].location.document_char.document_index #=> Integer
     #   resp.output.message.content[0].citations_content.citations[0].location.document_char.start #=> Integer
     #   resp.output.message.content[0].citations_content.citations[0].location.document_char.end #=> Integer
@@ -2002,6 +2015,7 @@ module Aws::BedrockRuntime
     #               name: "ToolName", # required
     #               input: { # required
     #               },
+    #               type: "server_tool_use", # accepts server_tool_use
     #             },
     #             tool_result: {
     #               tool_use_id: "ToolUseId", # required
@@ -2054,6 +2068,7 @@ module Aws::BedrockRuntime
     #                 },
     #               ],
     #               status: "success", # accepts success, error
+    #               type: "String",
     #             },
     #             guard_content: {
     #               text: {
@@ -2092,6 +2107,10 @@ module Aws::BedrockRuntime
     #                     },
     #                   ],
     #                   location: {
+    #                     web: {
+    #                       url: "String",
+    #                       domain: "String",
+    #                     },
     #                     document_char: {
     #                       document_index: 1,
     #                       start: 1,
@@ -2152,6 +2171,9 @@ module Aws::BedrockRuntime
     #               },
     #             },
     #           },
+    #           system_tool: {
+    #             name: "ToolName", # required
+    #           },
     #           cache_point: {
     #             type: "default", # required, accepts default
     #           },
@@ -2201,17 +2223,25 @@ module Aws::BedrockRuntime
     #   # For :content_block_start event available at #on_content_block_start_event callback and response eventstream enumerator:
     #   event.start.tool_use.tool_use_id #=> String
     #   event.start.tool_use.name #=> String
+    #   event.start.tool_use.type #=> String, one of "server_tool_use"
+    #   event.start.tool_result.tool_use_id #=> String
+    #   event.start.tool_result.type #=> String
+    #   event.start.tool_result.status #=> String, one of "success", "error"
     #   event.content_block_index #=> Integer
     #
     #   # For :content_block_delta event available at #on_content_block_delta_event callback and response eventstream enumerator:
     #   event.delta.text #=> String
     #   event.delta.tool_use.input #=> String
+    #   event.delta.tool_result #=> Array
+    #   event.delta.tool_result[0].text #=> String
     #   event.delta.reasoning_content.text #=> String
     #   event.delta.reasoning_content.redacted_content #=> String
     #   event.delta.reasoning_content.signature #=> String
     #   event.delta.citation.title #=> String
     #   event.delta.citation.source_content #=> Array
     #   event.delta.citation.source_content[0].text #=> String
+    #   event.delta.citation.location.web.url #=> String
+    #   event.delta.citation.location.web.domain #=> String
     #   event.delta.citation.location.document_char.document_index #=> Integer
     #   event.delta.citation.location.document_char.start #=> Integer
     #   event.delta.citation.location.document_char.end #=> Integer
@@ -2726,6 +2756,7 @@ module Aws::BedrockRuntime
     #                   name: "ToolName", # required
     #                   input: { # required
     #                   },
+    #                   type: "server_tool_use", # accepts server_tool_use
     #                 },
     #                 tool_result: {
     #                   tool_use_id: "ToolUseId", # required
@@ -2778,6 +2809,7 @@ module Aws::BedrockRuntime
     #                     },
     #                   ],
     #                   status: "success", # accepts success, error
+    #                   type: "String",
     #                 },
     #                 guard_content: {
     #                   text: {
@@ -2816,6 +2848,10 @@ module Aws::BedrockRuntime
     #                         },
     #                       ],
     #                       location: {
+    #                         web: {
+    #                           url: "String",
+    #                           domain: "String",
+    #                         },
     #                         document_char: {
     #                           document_index: 1,
     #                           start: 1,
@@ -3574,7 +3610,7 @@ module Aws::BedrockRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockruntime'
-      context[:gem_version] = '1.62.0'
+      context[:gem_version] = '1.63.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

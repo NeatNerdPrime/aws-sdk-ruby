@@ -177,7 +177,8 @@ module Aws
                                 tool_use_id: ::String,
                                 name: ::String,
                                 input: {
-                                }
+                                },
+                                type: ("server_tool_use")?
                               }?,
                               tool_result: {
                                 tool_use_id: ::String,
@@ -229,7 +230,8 @@ module Aws
                                     }?
                                   },
                                 ],
-                                status: ("success" | "error")?
+                                status: ("success" | "error")?,
+                                type: ::String?
                               }?,
                               guard_content: {
                                 text: {
@@ -268,6 +270,10 @@ module Aws
                                       },
                                     ]?,
                                     location: {
+                                      web: {
+                                        url: ::String?,
+                                        domain: ::String?
+                                      }?,
                                       document_char: {
                                         document_index: ::Integer?,
                                         start: ::Integer?,
@@ -327,6 +333,9 @@ module Aws
                                 json: {
                                 }?
                               }
+                            }?,
+                            system_tool: {
+                              name: ::String
                             }?,
                             cache_point: {
                               type: ("default")
@@ -419,7 +428,8 @@ module Aws
                                        tool_use_id: ::String,
                                        name: ::String,
                                        input: {
-                                       }
+                                       },
+                                       type: ("server_tool_use")?
                                      }?,
                                      tool_result: {
                                        tool_use_id: ::String,
@@ -471,7 +481,8 @@ module Aws
                                            }?
                                          },
                                        ],
-                                       status: ("success" | "error")?
+                                       status: ("success" | "error")?,
+                                       type: ::String?
                                      }?,
                                      guard_content: {
                                        text: {
@@ -510,6 +521,10 @@ module Aws
                                              },
                                            ]?,
                                            location: {
+                                             web: {
+                                               url: ::String?,
+                                               domain: ::String?
+                                             }?,
                                              document_char: {
                                                document_index: ::Integer?,
                                                start: ::Integer?,
@@ -569,6 +584,9 @@ module Aws
                                        json: {
                                        }?
                                      }
+                                   }?,
+                                   system_tool: {
+                                     name: ::String
                                    }?,
                                    cache_point: {
                                      type: ("default")
@@ -667,7 +685,8 @@ module Aws
                                         tool_use_id: ::String,
                                         name: ::String,
                                         input: {
-                                        }
+                                        },
+                                        type: ("server_tool_use")?
                                       }?,
                                       tool_result: {
                                         tool_use_id: ::String,
@@ -719,7 +738,8 @@ module Aws
                                             }?
                                           },
                                         ],
-                                        status: ("success" | "error")?
+                                        status: ("success" | "error")?,
+                                        type: ::String?
                                       }?,
                                       guard_content: {
                                         text: {
@@ -758,6 +778,10 @@ module Aws
                                               },
                                             ]?,
                                             location: {
+                                              web: {
+                                                url: ::String?,
+                                                domain: ::String?
+                                              }?,
                                               document_char: {
                                                 document_index: ::Integer?,
                                                 start: ::Integer?,

@@ -105,12 +105,15 @@ module Aws::BedrockRuntime
     end
 
     class CitationLocation
+      attr_accessor web: Types::WebLocation
       attr_accessor document_char: Types::DocumentCharLocation
       attr_accessor document_page: Types::DocumentPageLocation
       attr_accessor document_chunk: Types::DocumentChunkLocation
       attr_accessor unknown: untyped
       SENSITIVE: []
 
+      class Web < CitationLocation
+      end
       class DocumentChar < CitationLocation
       end
       class DocumentPage < CitationLocation
@@ -201,6 +204,7 @@ module Aws::BedrockRuntime
     class ContentBlockDelta
       attr_accessor text: ::String
       attr_accessor tool_use: Types::ToolUseBlockDelta
+      attr_accessor tool_result: ::Array[Types::ToolResultBlockDelta]
       attr_accessor reasoning_content: Types::ReasoningContentBlockDelta
       attr_accessor citation: Types::CitationsDelta
       attr_accessor unknown: untyped
@@ -209,6 +213,8 @@ module Aws::BedrockRuntime
       class Text < ContentBlockDelta
       end
       class ToolUse < ContentBlockDelta
+      end
+      class ToolResult < ContentBlockDelta
       end
       class ReasoningContent < ContentBlockDelta
       end
@@ -227,10 +233,13 @@ module Aws::BedrockRuntime
 
     class ContentBlockStart
       attr_accessor tool_use: Types::ToolUseBlockStart
+      attr_accessor tool_result: Types::ToolResultBlockStart
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class ToolUse < ContentBlockStart
+      end
+      class ToolResult < ContentBlockStart
       end
       class Unknown < ContentBlockStart
       end
@@ -1074,6 +1083,11 @@ module Aws::BedrockRuntime
       end
     end
 
+    class SystemTool
+      attr_accessor name: ::String
+      SENSITIVE: []
+    end
+
     class Tag
       attr_accessor key: ::String
       attr_accessor value: ::String
@@ -1097,11 +1111,14 @@ module Aws::BedrockRuntime
 
     class Tool
       attr_accessor tool_spec: Types::ToolSpecification
+      attr_accessor system_tool: Types::SystemTool
       attr_accessor cache_point: Types::CachePointBlock
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class ToolSpec < Tool
+      end
+      class SystemTool < Tool
       end
       class CachePoint < Tool
       end
@@ -1147,6 +1164,25 @@ module Aws::BedrockRuntime
       attr_accessor tool_use_id: ::String
       attr_accessor content: ::Array[Types::ToolResultContentBlock]
       attr_accessor status: ("success" | "error")
+      attr_accessor type: ::String
+      SENSITIVE: []
+    end
+
+    class ToolResultBlockDelta
+      attr_accessor text: ::String
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Text < ToolResultBlockDelta
+      end
+      class Unknown < ToolResultBlockDelta
+      end
+    end
+
+    class ToolResultBlockStart
+      attr_accessor tool_use_id: ::String
+      attr_accessor type: ::String
+      attr_accessor status: ("success" | "error")
       SENSITIVE: []
     end
 
@@ -1184,6 +1220,7 @@ module Aws::BedrockRuntime
       attr_accessor tool_use_id: ::String
       attr_accessor name: ::String
       attr_accessor input: untyped
+      attr_accessor type: ("server_tool_use")
       SENSITIVE: []
     end
 
@@ -1195,6 +1232,7 @@ module Aws::BedrockRuntime
     class ToolUseBlockStart
       attr_accessor tool_use_id: ::String
       attr_accessor name: ::String
+      attr_accessor type: ("server_tool_use")
       SENSITIVE: []
     end
 
@@ -1222,6 +1260,12 @@ module Aws::BedrockRuntime
       end
       class Unknown < VideoSource
       end
+    end
+
+    class WebLocation
+      attr_accessor url: ::String
+      attr_accessor domain: ::String
+      SENSITIVE: []
     end
 
     class ConverseStreamOutput < Enumerator[untyped, untyped]
