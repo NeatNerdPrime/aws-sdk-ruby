@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.92.0 (2025-10-30)
+------------------
+
+* Feature - Code Generated Changes, see `./build_tools` or `aws-sdk-core`'s CHANGELOG.md for details.
+
 * Feature - RoboMaker has been removed from the SDK because it has been discontinued.
 
 1.91.0 (2025-10-24)

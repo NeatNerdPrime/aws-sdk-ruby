@@ -5815,11 +5815,17 @@ module Aws::Glue
     #   access levels for the Glue configuration.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] user_background_sessions_enabled
+    #   Specifies whether users can run background sessions when using
+    #   Identity Center authentication with Glue services.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateGlueIdentityCenterConfigurationRequest AWS API Documentation
     #
     class CreateGlueIdentityCenterConfigurationRequest < Struct.new(
       :instance_arn,
-      :scopes)
+      :scopes,
+      :user_background_sessions_enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -13087,12 +13093,18 @@ module Aws::Glue
     #   access levels for the Glue configuration.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] user_background_sessions_enabled
+    #   Indicates whether users can run background sessions when using
+    #   Identity Center authentication with Glue services.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetGlueIdentityCenterConfigurationResponse AWS API Documentation
     #
     class GetGlueIdentityCenterConfigurationResponse < Struct.new(
       :application_arn,
       :instance_arn,
-      :scopes)
+      :scopes,
+      :user_background_sessions_enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -28599,10 +28611,16 @@ module Aws::Glue
     #   and access levels for the Glue configuration.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] user_background_sessions_enabled
+    #   Specifies whether users can run background sessions when using
+    #   Identity Center authentication with Glue services.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateGlueIdentityCenterConfigurationRequest AWS API Documentation
     #
     class UpdateGlueIdentityCenterConfigurationRequest < Struct.new(
-      :scopes)
+      :scopes,
+      :user_background_sessions_enabled)
       SENSITIVE = []
       include Aws::Structure
     end

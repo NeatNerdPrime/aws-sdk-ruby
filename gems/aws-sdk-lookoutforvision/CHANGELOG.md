@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.57.0 (2025-10-30)
+------------------
+
+* Feature - Code Generated Changes, see `./build_tools` or `aws-sdk-core`'s CHANGELOG.md for details.
+
 * Feature - Lookout for Vision has been removed from the SDK because it has been discontinued.
 
 1.56.0 (2025-10-24)

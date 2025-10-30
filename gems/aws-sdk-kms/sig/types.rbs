@@ -85,6 +85,7 @@ module Aws::KMS
       attr_accessor xks_proxy_uri_endpoint: ::String
       attr_accessor xks_proxy_uri_path: ::String
       attr_accessor xks_proxy_vpc_endpoint_service_name: ::String
+      attr_accessor xks_proxy_vpc_endpoint_service_owner: ::String
       attr_accessor xks_proxy_authentication_credential: Types::XksProxyAuthenticationCredentialType
       attr_accessor xks_proxy_connectivity: ("PUBLIC_ENDPOINT" | "VPC_ENDPOINT_SERVICE")
       SENSITIVE: [:key_store_password]
@@ -926,6 +927,7 @@ module Aws::KMS
       attr_accessor xks_proxy_uri_endpoint: ::String
       attr_accessor xks_proxy_uri_path: ::String
       attr_accessor xks_proxy_vpc_endpoint_service_name: ::String
+      attr_accessor xks_proxy_vpc_endpoint_service_owner: ::String
       attr_accessor xks_proxy_authentication_credential: Types::XksProxyAuthenticationCredentialType
       attr_accessor xks_proxy_connectivity: ("PUBLIC_ENDPOINT" | "VPC_ENDPOINT_SERVICE")
       SENSITIVE: [:key_store_password]
@@ -1013,6 +1015,7 @@ module Aws::KMS
       attr_accessor uri_endpoint: ::String
       attr_accessor uri_path: ::String
       attr_accessor vpc_endpoint_service_name: ::String
+      attr_accessor vpc_endpoint_service_owner: ::String
       SENSITIVE: [:access_key_id]
     end
 

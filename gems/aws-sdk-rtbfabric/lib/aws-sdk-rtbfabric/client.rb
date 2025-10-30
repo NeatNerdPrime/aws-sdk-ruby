@@ -476,11 +476,11 @@ module Aws::RTBFabric
 
     # @!group API Operations
 
-    # Accepts a link request between RTB applications.
+    # Accepts a link request between gateways.
     #
-    # When a requester RTB application requests to link with a responder RTB
-    # application, the responder can use this operation to accept the link
-    # request and establish the connection.
+    # When a requester gateway requests to link with a responder gateway,
+    # the responder can use this operation to accept the link request and
+    # establish the connection.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -705,10 +705,10 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Creates a new link between RTB applications.
+    # Creates a new link between gateways.
     #
-    # Establishes a connection that allows RTB applications to communicate
-    # and exchange bid requests and responses.
+    # Establishes a connection that allows gateways to communicate and
+    # exchange bid requests and responses.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -1019,6 +1019,8 @@ module Aws::RTBFabric
 
     # Creates a responder gateway.
     #
+    # A domain name or managed endpoint is required.
+    #
     # @option params [required, String] :vpc_id
     #   The unique identifier of the Virtual Private Cloud (VPC).
     #
@@ -1184,10 +1186,10 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Deletes a link between RTB applications.
+    # Deletes a link between gateways.
     #
-    # Permanently removes the connection between RTB applications. This
-    # action cannot be undone.
+    # Permanently removes the connection between gateways. This action
+    # cannot be undone.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -1495,10 +1497,10 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Retrieves information about a link between RTB applications.
+    # Retrieves information about a link between gateways.
     #
     # Returns detailed information about the link configuration, status, and
-    # associated RTB applications.
+    # associated gateways.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -1889,10 +1891,10 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Lists links associated with an RTB application.
+    # Lists links associated with gateways.
     #
-    # Returns a list of all links for the specified RTB application,
-    # including their status and configuration details.
+    # Returns a list of all links for the specified gateways, including
+    # their status and configuration details.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -2228,11 +2230,10 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Rejects a link request between RTB applications.
+    # Rejects a link request between gateways.
     #
-    # When a requester RTB application requests to link with a responder RTB
-    # application, the responder can use this operation to decline the link
-    # request.
+    # When a requester gateway requests to link with a responder gateway,
+    # the responder can use this operation to decline the link request.
     #
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
@@ -2434,7 +2435,7 @@ module Aws::RTBFabric
       req.send_request(options)
     end
 
-    # Updates the configuration of a link between RTB applications.
+    # Updates the configuration of a link between gateways.
     #
     # Allows you to modify settings and parameters for an existing link.
     #
@@ -2795,7 +2796,7 @@ module Aws::RTBFabric
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rtbfabric'
-      context[:gem_version] = '1.1.0'
+      context[:gem_version] = '1.2.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -2795,6 +2795,7 @@ module Aws::Glue
 
     CreateGlueIdentityCenterConfigurationRequest.add_member(:instance_arn, Shapes::ShapeRef.new(shape: IdentityCenterInstanceArn, required: true, location_name: "InstanceArn"))
     CreateGlueIdentityCenterConfigurationRequest.add_member(:scopes, Shapes::ShapeRef.new(shape: IdentityCenterScopesList, location_name: "Scopes"))
+    CreateGlueIdentityCenterConfigurationRequest.add_member(:user_background_sessions_enabled, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "UserBackgroundSessionsEnabled"))
     CreateGlueIdentityCenterConfigurationRequest.struct_class = Types::CreateGlueIdentityCenterConfigurationRequest
 
     CreateGlueIdentityCenterConfigurationResponse.add_member(:application_arn, Shapes::ShapeRef.new(shape: ApplicationArn, location_name: "ApplicationArn"))
@@ -4265,6 +4266,7 @@ module Aws::Glue
     GetGlueIdentityCenterConfigurationResponse.add_member(:application_arn, Shapes::ShapeRef.new(shape: ApplicationArn, location_name: "ApplicationArn"))
     GetGlueIdentityCenterConfigurationResponse.add_member(:instance_arn, Shapes::ShapeRef.new(shape: IdentityCenterInstanceArn, location_name: "InstanceArn"))
     GetGlueIdentityCenterConfigurationResponse.add_member(:scopes, Shapes::ShapeRef.new(shape: OrchestrationStringList, location_name: "Scopes"))
+    GetGlueIdentityCenterConfigurationResponse.add_member(:user_background_sessions_enabled, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "UserBackgroundSessionsEnabled"))
     GetGlueIdentityCenterConfigurationResponse.struct_class = Types::GetGlueIdentityCenterConfigurationResponse
 
     GetIntegrationResourcePropertyRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: String128, required: true, location_name: "ResourceArn"))
@@ -7338,6 +7340,7 @@ module Aws::Glue
     UpdateDevEndpointResponse.struct_class = Types::UpdateDevEndpointResponse
 
     UpdateGlueIdentityCenterConfigurationRequest.add_member(:scopes, Shapes::ShapeRef.new(shape: IdentityCenterScopesList, location_name: "Scopes"))
+    UpdateGlueIdentityCenterConfigurationRequest.add_member(:user_background_sessions_enabled, Shapes::ShapeRef.new(shape: NullableBoolean, location_name: "UserBackgroundSessionsEnabled"))
     UpdateGlueIdentityCenterConfigurationRequest.struct_class = Types::UpdateGlueIdentityCenterConfigurationRequest
 
     UpdateGlueIdentityCenterConfigurationResponse.struct_class = Types::UpdateGlueIdentityCenterConfigurationResponse

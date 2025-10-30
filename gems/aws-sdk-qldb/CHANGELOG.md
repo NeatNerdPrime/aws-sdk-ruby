@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.67.0 (2025-10-30)
+------------------
+
+* Feature - Code Generated Changes, see `./build_tools` or `aws-sdk-core`'s CHANGELOG.md for details.
+
 * Feature - QLDB has been removed from the SDK because it has been discontinued.
 
 1.66.0 (2025-10-21)

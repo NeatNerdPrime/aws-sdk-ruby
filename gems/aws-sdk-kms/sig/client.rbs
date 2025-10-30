@@ -119,6 +119,7 @@ module Aws
                                      ?xks_proxy_uri_endpoint: ::String,
                                      ?xks_proxy_uri_path: ::String,
                                      ?xks_proxy_vpc_endpoint_service_name: ::String,
+                                     ?xks_proxy_vpc_endpoint_service_owner: ::String,
                                      ?xks_proxy_authentication_credential: {
                                        access_key_id: ::String,
                                        raw_secret_access_key: ::String
@@ -764,6 +765,7 @@ module Aws
                                      ?xks_proxy_uri_endpoint: ::String,
                                      ?xks_proxy_uri_path: ::String,
                                      ?xks_proxy_vpc_endpoint_service_name: ::String,
+                                     ?xks_proxy_vpc_endpoint_service_owner: ::String,
                                      ?xks_proxy_authentication_credential: {
                                        access_key_id: ::String,
                                        raw_secret_access_key: ::String

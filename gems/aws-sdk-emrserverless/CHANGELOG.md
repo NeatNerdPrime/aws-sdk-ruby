@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.56.0 (2025-10-30)
+------------------
+
+* Feature - This release adds the capability to enable User Background Sessions for customers running Trusted Identity Propagation enabled Interactive Sessions on EMR Serverless Applications.
+
 1.55.0 (2025-10-21)
 ------------------
 

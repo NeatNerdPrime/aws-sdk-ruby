@@ -151,6 +151,8 @@ module Aws::DocDB
     FailoverDBClusterResult = Shapes::StructureShape.new(name: 'FailoverDBClusterResult')
     FailoverGlobalClusterMessage = Shapes::StructureShape.new(name: 'FailoverGlobalClusterMessage')
     FailoverGlobalClusterResult = Shapes::StructureShape.new(name: 'FailoverGlobalClusterResult')
+    FailoverState = Shapes::StructureShape.new(name: 'FailoverState')
+    FailoverStatus = Shapes::StringShape.new(name: 'FailoverStatus')
     Filter = Shapes::StructureShape.new(name: 'Filter')
     FilterList = Shapes::ListShape.new(name: 'FilterList')
     FilterValueList = Shapes::ListShape.new(name: 'FilterValueList')
@@ -160,6 +162,7 @@ module Aws::DocDB
     GlobalClusterList = Shapes::ListShape.new(name: 'GlobalClusterList')
     GlobalClusterMember = Shapes::StructureShape.new(name: 'GlobalClusterMember')
     GlobalClusterMemberList = Shapes::ListShape.new(name: 'GlobalClusterMemberList')
+    GlobalClusterMemberSynchronizationStatus = Shapes::StringShape.new(name: 'GlobalClusterMemberSynchronizationStatus')
     GlobalClusterNotFoundFault = Shapes::StructureShape.new(name: 'GlobalClusterNotFoundFault', error: {"code" => "GlobalClusterNotFoundFault", "httpStatusCode" => 404, "senderFault" => true})
     GlobalClusterQuotaExceededFault = Shapes::StructureShape.new(name: 'GlobalClusterQuotaExceededFault', error: {"code" => "GlobalClusterQuotaExceededFault", "httpStatusCode" => 400, "senderFault" => true})
     GlobalClustersMessage = Shapes::StructureShape.new(name: 'GlobalClustersMessage')
@@ -905,6 +908,12 @@ module Aws::DocDB
     FailoverGlobalClusterResult.add_member(:global_cluster, Shapes::ShapeRef.new(shape: GlobalCluster, location_name: "GlobalCluster"))
     FailoverGlobalClusterResult.struct_class = Types::FailoverGlobalClusterResult
 
+    FailoverState.add_member(:status, Shapes::ShapeRef.new(shape: FailoverStatus, location_name: "Status"))
+    FailoverState.add_member(:from_db_cluster_arn, Shapes::ShapeRef.new(shape: String, location_name: "FromDbClusterArn"))
+    FailoverState.add_member(:to_db_cluster_arn, Shapes::ShapeRef.new(shape: String, location_name: "ToDbClusterArn"))
+    FailoverState.add_member(:is_data_loss_allowed, Shapes::ShapeRef.new(shape: Boolean, location_name: "IsDataLossAllowed"))
+    FailoverState.struct_class = Types::FailoverState
+
     Filter.add_member(:name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Name"))
     Filter.add_member(:values, Shapes::ShapeRef.new(shape: FilterValueList, required: true, location_name: "Values"))
     Filter.struct_class = Types::Filter
@@ -923,6 +932,8 @@ module Aws::DocDB
     GlobalCluster.add_member(:storage_encrypted, Shapes::ShapeRef.new(shape: BooleanOptional, location_name: "StorageEncrypted"))
     GlobalCluster.add_member(:deletion_protection, Shapes::ShapeRef.new(shape: BooleanOptional, location_name: "DeletionProtection"))
     GlobalCluster.add_member(:global_cluster_members, Shapes::ShapeRef.new(shape: GlobalClusterMemberList, location_name: "GlobalClusterMembers"))
+    GlobalCluster.add_member(:failover_state, Shapes::ShapeRef.new(shape: FailoverState, location_name: "FailoverState"))
+    GlobalCluster.add_member(:tag_list, Shapes::ShapeRef.new(shape: TagList, location_name: "TagList"))
     GlobalCluster.struct_class = Types::GlobalCluster
 
     GlobalClusterAlreadyExistsFault.struct_class = Types::GlobalClusterAlreadyExistsFault
@@ -932,6 +943,7 @@ module Aws::DocDB
     GlobalClusterMember.add_member(:db_cluster_arn, Shapes::ShapeRef.new(shape: String, location_name: "DBClusterArn"))
     GlobalClusterMember.add_member(:readers, Shapes::ShapeRef.new(shape: ReadersArnList, location_name: "Readers"))
     GlobalClusterMember.add_member(:is_writer, Shapes::ShapeRef.new(shape: Boolean, location_name: "IsWriter"))
+    GlobalClusterMember.add_member(:synchronization_status, Shapes::ShapeRef.new(shape: GlobalClusterMemberSynchronizationStatus, location_name: "SynchronizationStatus"))
     GlobalClusterMember.struct_class = Types::GlobalClusterMember
 
     GlobalClusterMemberList.member = Shapes::ShapeRef.new(shape: GlobalClusterMember, location_name: "GlobalClusterMember")

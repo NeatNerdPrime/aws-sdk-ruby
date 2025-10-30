@@ -3931,6 +3931,56 @@ module Aws::DocDB
       include Aws::Structure
     end
 
+    # Contains the state of scheduled or in-process operations on an Amazon
+    # DocumentDB global cluster. This data type is empty unless a switchover
+    # or failover operation is scheduled or is in progress on the global
+    # cluster.
+    #
+    # @!attribute [rw] status
+    #   The current status of the global cluster. Possible values are as
+    #   follows:
+    #
+    #   * **pending** – The service received a request to switch over or
+    #     fail over the global cluster. The global cluster's primary
+    #     cluster and the specified secondary cluster are being verified
+    #     before the operation starts.
+    #
+    #   * **failing-over** – The chosen secondary cluster is being promoted
+    #     to become the new primary cluster to fail over the global cluster.
+    #
+    #   * **cancelling** – The request to switch over or fail over the
+    #     global cluster was cancelled and the primary cluster and the
+    #     selected secondary cluster are returning to their previous states.
+    #   @return [String]
+    #
+    # @!attribute [rw] from_db_cluster_arn
+    #   The Amazon Resource Name (ARN) of the Amazon DocumentDB cluster that
+    #   is currently being demoted, and which is associated with this state.
+    #   @return [String]
+    #
+    # @!attribute [rw] to_db_cluster_arn
+    #   The Amazon Resource Name (ARN) of the Amazon DocumentDB cluster that
+    #   is currently being promoted, and which is associated with this
+    #   state.
+    #   @return [String]
+    #
+    # @!attribute [rw] is_data_loss_allowed
+    #   Indicates whether the operation is a global switchover or a global
+    #   failover. If data loss is allowed, then the operation is a global
+    #   failover. Otherwise, it's a switchover.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/FailoverState AWS API Documentation
+    #
+    class FailoverState < Struct.new(
+      :status,
+      :from_db_cluster_arn,
+      :to_db_cluster_arn,
+      :is_data_loss_allowed)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A named set of filter values, used to return a more specific list of
     # results. You can use a filter to match a set of resources by specific
     # criteria, such as IDs.
@@ -4001,6 +4051,18 @@ module Aws::DocDB
     #   cluster. Currently limited to one item.
     #   @return [Array<Types::GlobalClusterMember>]
     #
+    # @!attribute [rw] failover_state
+    #   A data object containing all properties for the current state of an
+    #   in-process or pending switchover or failover process for this global
+    #   cluster. This object is empty unless the `SwitchoverGlobalCluster`
+    #   or `FailoverGlobalCluster` operation was called on this global
+    #   cluster.
+    #   @return [Types::FailoverState]
+    #
+    # @!attribute [rw] tag_list
+    #   A list of global cluster tags.
+    #   @return [Array<Types::Tag>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/GlobalCluster AWS API Documentation
     #
     class GlobalCluster < Struct.new(
@@ -4013,7 +4075,9 @@ module Aws::DocDB
       :database_name,
       :storage_encrypted,
       :deletion_protection,
-      :global_cluster_members)
+      :global_cluster_members,
+      :failover_state,
+      :tag_list)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4043,12 +4107,18 @@ module Aws::DocDB
     #   DocumentDB global cluster with which it is associated.
     #   @return [Boolean]
     #
+    # @!attribute [rw] synchronization_status
+    #   The status of synchronization of each Amazon DocumentDB cluster in
+    #   the global cluster.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/GlobalClusterMember AWS API Documentation
     #
     class GlobalClusterMember < Struct.new(
       :db_cluster_arn,
       :readers,
-      :is_writer)
+      :is_writer,
+      :synchronization_status)
       SENSITIVE = []
       include Aws::Structure
     end

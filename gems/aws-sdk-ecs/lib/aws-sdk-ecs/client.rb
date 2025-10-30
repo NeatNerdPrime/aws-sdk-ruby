@@ -1893,6 +1893,10 @@ module Aws::ECS
     #           },
     #         ],
     #       },
+    #       access_log_configuration: {
+    #         format: "TEXT", # required, accepts TEXT, JSON
+    #         include_query_parameters: "DISABLED", # accepts DISABLED, ENABLED
+    #       },
     #     },
     #     volume_configurations: [
     #       {
@@ -2076,6 +2080,8 @@ module Aws::ECS
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options #=> Array
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].name #=> String
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].value_from #=> String
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.format #=> String, one of "TEXT", "JSON"
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.include_query_parameters #=> String, one of "DISABLED", "ENABLED"
     #   resp.service.deployments[0].service_connect_resources #=> Array
     #   resp.service.deployments[0].service_connect_resources[0].discovery_name #=> String
     #   resp.service.deployments[0].service_connect_resources[0].discovery_arn #=> String
@@ -3099,6 +3105,8 @@ module Aws::ECS
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options #=> Array
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].name #=> String
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].value_from #=> String
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.format #=> String, one of "TEXT", "JSON"
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.include_query_parameters #=> String, one of "DISABLED", "ENABLED"
     #   resp.service.deployments[0].service_connect_resources #=> Array
     #   resp.service.deployments[0].service_connect_resources[0].discovery_name #=> String
     #   resp.service.deployments[0].service_connect_resources[0].discovery_arn #=> String
@@ -4819,6 +4827,8 @@ module Aws::ECS
     #   resp.service_revisions[0].service_connect_configuration.log_configuration.secret_options #=> Array
     #   resp.service_revisions[0].service_connect_configuration.log_configuration.secret_options[0].name #=> String
     #   resp.service_revisions[0].service_connect_configuration.log_configuration.secret_options[0].value_from #=> String
+    #   resp.service_revisions[0].service_connect_configuration.access_log_configuration.format #=> String, one of "TEXT", "JSON"
+    #   resp.service_revisions[0].service_connect_configuration.access_log_configuration.include_query_parameters #=> String, one of "DISABLED", "ENABLED"
     #   resp.service_revisions[0].volume_configurations #=> Array
     #   resp.service_revisions[0].volume_configurations[0].name #=> String
     #   resp.service_revisions[0].volume_configurations[0].managed_ebs_volume.encrypted #=> Boolean
@@ -5091,6 +5101,8 @@ module Aws::ECS
     #   resp.services[0].deployments[0].service_connect_configuration.log_configuration.secret_options #=> Array
     #   resp.services[0].deployments[0].service_connect_configuration.log_configuration.secret_options[0].name #=> String
     #   resp.services[0].deployments[0].service_connect_configuration.log_configuration.secret_options[0].value_from #=> String
+    #   resp.services[0].deployments[0].service_connect_configuration.access_log_configuration.format #=> String, one of "TEXT", "JSON"
+    #   resp.services[0].deployments[0].service_connect_configuration.access_log_configuration.include_query_parameters #=> String, one of "DISABLED", "ENABLED"
     #   resp.services[0].deployments[0].service_connect_resources #=> Array
     #   resp.services[0].deployments[0].service_connect_resources[0].discovery_name #=> String
     #   resp.services[0].deployments[0].service_connect_resources[0].discovery_arn #=> String
@@ -8611,8 +8623,7 @@ module Aws::ECS
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html
     #
     # @option params [Types::RuntimePlatform] :runtime_platform
-    #   The operating system that your tasks definitions run on. A platform
-    #   family is specified only for tasks using the Fargate launch type.
+    #   The operating system that your tasks definitions run on.
     #
     # @option params [Boolean] :enable_fault_injection
     #   Enables fault injection when you register your task definition and
@@ -12604,6 +12615,10 @@ module Aws::ECS
     #           },
     #         ],
     #       },
+    #       access_log_configuration: {
+    #         format: "TEXT", # required, accepts TEXT, JSON
+    #         include_query_parameters: "DISABLED", # accepts DISABLED, ENABLED
+    #       },
     #     },
     #     volume_configurations: [
     #       {
@@ -12787,6 +12802,8 @@ module Aws::ECS
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options #=> Array
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].name #=> String
     #   resp.service.deployments[0].service_connect_configuration.log_configuration.secret_options[0].value_from #=> String
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.format #=> String, one of "TEXT", "JSON"
+    #   resp.service.deployments[0].service_connect_configuration.access_log_configuration.include_query_parameters #=> String, one of "DISABLED", "ENABLED"
     #   resp.service.deployments[0].service_connect_resources #=> Array
     #   resp.service.deployments[0].service_connect_resources[0].discovery_name #=> String
     #   resp.service.deployments[0].service_connect_resources[0].discovery_arn #=> String
@@ -13335,7 +13352,7 @@ module Aws::ECS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecs'
-      context[:gem_version] = '1.209.0'
+      context[:gem_version] = '1.210.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

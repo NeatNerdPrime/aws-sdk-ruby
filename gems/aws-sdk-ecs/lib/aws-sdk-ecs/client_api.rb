@@ -360,9 +360,12 @@ module Aws::ECS
     SensitiveString = Shapes::StringShape.new(name: 'SensitiveString')
     ServerException = Shapes::StructureShape.new(name: 'ServerException')
     Service = Shapes::StructureShape.new(name: 'Service')
+    ServiceConnectAccessLogConfiguration = Shapes::StructureShape.new(name: 'ServiceConnectAccessLogConfiguration')
+    ServiceConnectAccessLoggingFormat = Shapes::StringShape.new(name: 'ServiceConnectAccessLoggingFormat')
     ServiceConnectClientAlias = Shapes::StructureShape.new(name: 'ServiceConnectClientAlias')
     ServiceConnectClientAliasList = Shapes::ListShape.new(name: 'ServiceConnectClientAliasList')
     ServiceConnectConfiguration = Shapes::StructureShape.new(name: 'ServiceConnectConfiguration')
+    ServiceConnectIncludeQueryParameters = Shapes::StringShape.new(name: 'ServiceConnectIncludeQueryParameters')
     ServiceConnectService = Shapes::StructureShape.new(name: 'ServiceConnectService')
     ServiceConnectServiceList = Shapes::ListShape.new(name: 'ServiceConnectServiceList')
     ServiceConnectServiceResource = Shapes::StructureShape.new(name: 'ServiceConnectServiceResource')
@@ -1757,6 +1760,10 @@ module Aws::ECS
     Service.add_member(:availability_zone_rebalancing, Shapes::ShapeRef.new(shape: AvailabilityZoneRebalancing, location_name: "availabilityZoneRebalancing"))
     Service.struct_class = Types::Service
 
+    ServiceConnectAccessLogConfiguration.add_member(:format, Shapes::ShapeRef.new(shape: ServiceConnectAccessLoggingFormat, required: true, location_name: "format"))
+    ServiceConnectAccessLogConfiguration.add_member(:include_query_parameters, Shapes::ShapeRef.new(shape: ServiceConnectIncludeQueryParameters, location_name: "includeQueryParameters"))
+    ServiceConnectAccessLogConfiguration.struct_class = Types::ServiceConnectAccessLogConfiguration
+
     ServiceConnectClientAlias.add_member(:port, Shapes::ShapeRef.new(shape: PortNumber, required: true, location_name: "port"))
     ServiceConnectClientAlias.add_member(:dns_name, Shapes::ShapeRef.new(shape: String, location_name: "dnsName"))
     ServiceConnectClientAlias.add_member(:test_traffic_rules, Shapes::ShapeRef.new(shape: ServiceConnectTestTrafficRules, location_name: "testTrafficRules"))
@@ -1768,6 +1775,7 @@ module Aws::ECS
     ServiceConnectConfiguration.add_member(:namespace, Shapes::ShapeRef.new(shape: String, location_name: "namespace"))
     ServiceConnectConfiguration.add_member(:services, Shapes::ShapeRef.new(shape: ServiceConnectServiceList, location_name: "services"))
     ServiceConnectConfiguration.add_member(:log_configuration, Shapes::ShapeRef.new(shape: LogConfiguration, location_name: "logConfiguration"))
+    ServiceConnectConfiguration.add_member(:access_log_configuration, Shapes::ShapeRef.new(shape: ServiceConnectAccessLogConfiguration, location_name: "accessLogConfiguration"))
     ServiceConnectConfiguration.struct_class = Types::ServiceConnectConfiguration
 
     ServiceConnectService.add_member(:port_name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "portName"))

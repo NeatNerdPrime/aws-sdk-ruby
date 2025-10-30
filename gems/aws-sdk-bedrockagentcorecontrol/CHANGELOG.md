@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.13.0 (2025-10-30)
+------------------
+
+* Feature - Web-Bot-Auth support for AgentCore Browser tool to help reduce captcha challenges.
+
 1.12.0 (2025-10-23)
 ------------------
 

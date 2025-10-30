@@ -1,6 +1,15 @@
 Unreleased Changes
 ------------------
 
+3.236.0 (2025-10-30)
+------------------
+
+* Feature - Updated Aws::STS::Client with the latest API changes.
+
+* Feature - Updated Aws::SSO::Client with the latest API changes.
+
+* Feature - Update endpoint ruleset parameters casing
+
 3.235.0 (2025-10-24)
 ------------------
 

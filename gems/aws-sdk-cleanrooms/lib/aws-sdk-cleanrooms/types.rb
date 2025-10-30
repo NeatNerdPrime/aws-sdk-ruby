@@ -2406,8 +2406,8 @@ module Aws::CleanRooms
     #   @return [String]
     #
     # @!attribute [rw] allowed_columns
-    #   The columns within the underlying Glue table that can be utilized
-    #   within collaborations.
+    #   The columns within the underlying Glue table that can be used within
+    #   collaborations.
     #   @return [Array<String>]
     #
     # @!attribute [rw] selected_analysis_methods
@@ -9906,13 +9906,51 @@ module Aws::CleanRooms
     #   128.
     #   @return [Integer]
     #
+    # @!attribute [rw] properties
+    #   The configuration properties for the worker compute environment.
+    #   These properties allow you to customize the compute settings for
+    #   your Clean Rooms workloads.
+    #   @return [Types::WorkerComputeConfigurationProperties]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/WorkerComputeConfiguration AWS API Documentation
     #
     class WorkerComputeConfiguration < Struct.new(
       :type,
-      :number)
+      :number,
+      :properties)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # The configuration properties that define the compute environment
+    # settings for workers in Clean Rooms. These properties enable
+    # customization of the underlying compute environment to optimize
+    # performance for your specific workloads.
+    #
+    # @note WorkerComputeConfigurationProperties is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note WorkerComputeConfigurationProperties is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of WorkerComputeConfigurationProperties corresponding to the set member.
+    #
+    # @!attribute [rw] spark
+    #   The Spark configuration properties for SQL workloads. This map
+    #   contains key-value pairs that configure Apache Spark settings to
+    #   optimize performance for your data processing jobs. You can specify
+    #   up to 50 Spark properties, with each key being 1-200 characters and
+    #   each value being 0-500 characters. These properties allow you to
+    #   adjust compute capacity for large datasets and complex workloads.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/WorkerComputeConfigurationProperties AWS API Documentation
+    #
+    class WorkerComputeConfigurationProperties < Struct.new(
+      :spark,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Spark < WorkerComputeConfigurationProperties; end
+      class Unknown < WorkerComputeConfigurationProperties; end
     end
 
   end

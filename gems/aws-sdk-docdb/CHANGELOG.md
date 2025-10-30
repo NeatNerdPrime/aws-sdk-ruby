@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.97.0 (2025-10-30)
+------------------
+
+* Feature - Adding FailoverState and TagList to GlobalCluster and SynchronizationStatus to GlobalClusterMember.
+
 1.96.0 (2025-10-24)
 ------------------
 

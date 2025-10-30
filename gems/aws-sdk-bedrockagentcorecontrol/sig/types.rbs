@@ -108,6 +108,16 @@ module Aws::BedrockAgentCoreControl
       SENSITIVE: []
     end
 
+    class BrowserSigningConfigInput
+      attr_accessor enabled: bool
+      SENSITIVE: []
+    end
+
+    class BrowserSigningConfigOutput
+      attr_accessor enabled: bool
+      SENSITIVE: []
+    end
+
     class BrowserSummary
       attr_accessor browser_id: ::String
       attr_accessor browser_arn: ::String
@@ -229,6 +239,7 @@ module Aws::BedrockAgentCoreControl
       attr_accessor execution_role_arn: ::String
       attr_accessor network_configuration: Types::BrowserNetworkConfiguration
       attr_accessor recording: Types::RecordingConfig
+      attr_accessor browser_signing: Types::BrowserSigningConfigInput
       attr_accessor client_token: ::String
       attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: [:description]
@@ -751,6 +762,7 @@ module Aws::BedrockAgentCoreControl
       attr_accessor execution_role_arn: ::String
       attr_accessor network_configuration: Types::BrowserNetworkConfiguration
       attr_accessor recording: Types::RecordingConfig
+      attr_accessor browser_signing: Types::BrowserSigningConfigOutput
       attr_accessor status: ("CREATING" | "CREATE_FAILED" | "READY" | "DELETING" | "DELETE_FAILED" | "DELETED")
       attr_accessor failure_reason: ::String
       attr_accessor created_at: ::Time

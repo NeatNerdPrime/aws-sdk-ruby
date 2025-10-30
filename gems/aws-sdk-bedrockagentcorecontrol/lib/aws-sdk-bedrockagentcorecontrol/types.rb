@@ -339,6 +339,41 @@ module Aws::BedrockAgentCoreControl
       include Aws::Structure
     end
 
+    # Configuration for enabling browser signing capabilities that allow
+    # agents to cryptographically identify themselves to websites using HTTP
+    # message signatures.
+    #
+    # @!attribute [rw] enabled
+    #   Specifies whether browser signing is enabled. When enabled, the
+    #   browser will cryptographically sign HTTP requests to identify itself
+    #   as an AI agent to bot control vendors.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/BrowserSigningConfigInput AWS API Documentation
+    #
+    class BrowserSigningConfigInput < Struct.new(
+      :enabled)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The current browser signing configuration that shows whether
+    # cryptographic agent identification is enabled for web bot
+    # authentication.
+    #
+    # @!attribute [rw] enabled
+    #   Indicates whether browser signing is currently enabled for
+    #   cryptographic agent identification using HTTP message signatures.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/BrowserSigningConfigOutput AWS API Documentation
+    #
+    class BrowserSigningConfigOutput < Struct.new(
+      :enabled)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Contains summary information about a browser. A browser enables Amazon
     # Bedrock Agent to interact with web content.
     #
@@ -787,6 +822,12 @@ module Aws::BedrockAgentCoreControl
     #   location.
     #   @return [Types::RecordingConfig]
     #
+    # @!attribute [rw] browser_signing
+    #   The browser signing configuration that enables cryptographic agent
+    #   identification using HTTP message signatures for web bot
+    #   authentication.
+    #   @return [Types::BrowserSigningConfigInput]
+    #
     # @!attribute [rw] client_token
     #   A unique, case-sensitive identifier to ensure that the operation
     #   completes no more than one time. If this token matches a previous
@@ -811,6 +852,7 @@ module Aws::BedrockAgentCoreControl
       :execution_role_arn,
       :network_configuration,
       :recording,
+      :browser_signing,
       :client_token,
       :tags)
       SENSITIVE = [:description]
@@ -2542,6 +2584,11 @@ module Aws::BedrockAgentCoreControl
     #   how browser sessions are recorded.
     #   @return [Types::RecordingConfig]
     #
+    # @!attribute [rw] browser_signing
+    #   The browser signing configuration that shows whether cryptographic
+    #   agent identification is enabled for web bot authentication.
+    #   @return [Types::BrowserSigningConfigOutput]
+    #
     # @!attribute [rw] status
     #   The current status of the browser.
     #   @return [String]
@@ -2568,6 +2615,7 @@ module Aws::BedrockAgentCoreControl
       :execution_role_arn,
       :network_configuration,
       :recording,
+      :browser_signing,
       :status,
       :failure_reason,
       :created_at,

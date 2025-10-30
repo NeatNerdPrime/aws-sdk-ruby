@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.240.0 (2025-10-30)
+------------------
+
+* Feature - This release adds the capability to enable User Background Sessions for customers running Trusted Identity Propagation enabled Interactive Sessions on AWS Glue.
+
 1.239.0 (2025-10-21)
 ------------------
 

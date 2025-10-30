@@ -865,7 +865,8 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Glue/Client.html#create_glue_identity_center_configuration-instance_method
       def create_glue_identity_center_configuration: (
                                                        instance_arn: ::String,
-                                                       ?scopes: Array[::String]
+                                                       ?scopes: Array[::String],
+                                                       ?user_background_sessions_enabled: bool
                                                      ) -> _CreateGlueIdentityCenterConfigurationResponseSuccess
                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateGlueIdentityCenterConfigurationResponseSuccess
 
@@ -3944,6 +3945,7 @@ module Aws
         def application_arn: () -> ::String
         def instance_arn: () -> ::String
         def scopes: () -> ::Array[::String]
+        def user_background_sessions_enabled: () -> bool
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Glue/Client.html#get_glue_identity_center_configuration-instance_method
       def get_glue_identity_center_configuration: (
@@ -6346,7 +6348,8 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Glue/Client.html#update_glue_identity_center_configuration-instance_method
       def update_glue_identity_center_configuration: (
-                                                       ?scopes: Array[::String]
+                                                       ?scopes: Array[::String],
+                                                       ?user_background_sessions_enabled: bool
                                                      ) -> _UpdateGlueIdentityCenterConfigurationResponseSuccess
                                                    | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateGlueIdentityCenterConfigurationResponseSuccess
 

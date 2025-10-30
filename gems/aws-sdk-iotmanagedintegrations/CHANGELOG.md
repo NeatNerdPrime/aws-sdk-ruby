@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.12.0 (2025-10-30)
+------------------
+
+* Feature - Add a new GetManagedThingCertificate API to expose Iot ManagedIntegrations (MI) device certificate, and add  "-"  support for name, properties, actions and events in the CapabilityReportCapability object.
+
 1.11.0 (2025-10-24)
 ------------------
 

@@ -403,7 +403,7 @@ module Aws::ECS
     end
 
     # Your Amazon Web Services account was blocked. For more information,
-    # contact [ Amazon Web ServicesSupport][1].
+    # contact [ Amazon Web Services Support][1].
     #
     #
     #
@@ -1305,7 +1305,7 @@ module Aws::ECS
     #
     # @!attribute [rw] cpu
     #   The number of `cpu` units reserved for the container. This parameter
-    #   maps to `CpuShares` in the docker container create commandand the
+    #   maps to `CpuShares` in the docker container create command and the
     #   `--cpu-shares` option to docker run.
     #
     #   This field is optional for tasks using the Fargate launch type, and
@@ -9926,8 +9926,7 @@ module Aws::ECS
     #   @return [Types::EphemeralStorage]
     #
     # @!attribute [rw] runtime_platform
-    #   The operating system that your tasks definitions run on. A platform
-    #   family is specified only for tasks using the Fargate launch type.
+    #   The operating system that your tasks definitions run on.
     #   @return [Types::RuntimePlatform]
     #
     # @!attribute [rw] enable_fault_injection
@@ -10483,7 +10482,8 @@ module Aws::ECS
     #
     #   You can run your Linux tasks on an ARM-based platform by setting the
     #   value to `ARM64`. This option is available for tasks that run on
-    #   Linux Amazon EC2 instance or Linux containers on Fargate.
+    #   Linux Amazon EC2 instance, Amazon ECS Managed Instances, or Linux
+    #   containers on Fargate.
     #   @return [String]
     #
     # @!attribute [rw] operating_system_family
@@ -10909,6 +10909,42 @@ module Aws::ECS
       include Aws::Structure
     end
 
+    # Configuration for Service Connect access logging. Access logs provide
+    # detailed information about requests made to your service, including
+    # request patterns, response codes, and timing data for debugging and
+    # monitoring purposes.
+    #
+    # <note markdown="1"> To enable access logs, you must also specify a `logConfiguration` in
+    # the `serviceConnectConfiguration`.
+    #
+    #  </note>
+    #
+    # @!attribute [rw] format
+    #   The format for Service Connect access log output. Choose TEXT for
+    #   human-readable logs or JSON for structured data that integrates well
+    #   with log analysis tools.
+    #   @return [String]
+    #
+    # @!attribute [rw] include_query_parameters
+    #   Specifies whether to include query parameters in Service Connect
+    #   access logs.
+    #
+    #   When enabled, query parameters from HTTP requests are included in
+    #   the access logs. Consider security and privacy implications when
+    #   enabling this feature, as query parameters may contain sensitive
+    #   information such as request IDs and tokens. By default, this
+    #   parameter is `DISABLED`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ServiceConnectAccessLogConfiguration AWS API Documentation
+    #
+    class ServiceConnectAccessLogConfiguration < Struct.new(
+      :format,
+      :include_query_parameters)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Each alias ("endpoint") is a fully-qualified name and port number
     # that other tasks ("clients") can use to connect to this service.
     #
@@ -11078,13 +11114,28 @@ module Aws::ECS
     #   [1]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html
     #   @return [Types::LogConfiguration]
     #
+    # @!attribute [rw] access_log_configuration
+    #   The configuration for Service Connect access logging. Access logs
+    #   capture detailed information about requests made to your service,
+    #   including request patterns, response codes, and timing data. They
+    #   can be useful for debugging connectivity issues, monitoring service
+    #   performance, and auditing service-to-service communication for
+    #   security and compliance purposes.
+    #
+    #   <note markdown="1"> To enable access logs, you must also specify a `logConfiguration` in
+    #   the `serviceConnectConfiguration`.
+    #
+    #    </note>
+    #   @return [Types::ServiceConnectAccessLogConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ServiceConnectConfiguration AWS API Documentation
     #
     class ServiceConnectConfiguration < Struct.new(
       :enabled,
       :namespace,
       :services,
-      :log_configuration)
+      :log_configuration,
+      :access_log_configuration)
       SENSITIVE = []
       include Aws::Structure
     end

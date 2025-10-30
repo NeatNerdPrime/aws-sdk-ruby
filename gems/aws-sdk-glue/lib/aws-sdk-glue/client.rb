@@ -2902,6 +2902,10 @@ module Aws::Glue
     #   A list of Identity Center scopes that define the permissions and
     #   access levels for the Glue configuration.
     #
+    # @option params [Boolean] :user_background_sessions_enabled
+    #   Specifies whether users can run background sessions when using
+    #   Identity Center authentication with Glue services.
+    #
     # @return [Types::CreateGlueIdentityCenterConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateGlueIdentityCenterConfigurationResponse#application_arn #application_arn} => String
@@ -2911,6 +2915,7 @@ module Aws::Glue
     #   resp = client.create_glue_identity_center_configuration({
     #     instance_arn: "IdentityCenterInstanceArn", # required
     #     scopes: ["IdentityCenterScope"],
+    #     user_background_sessions_enabled: false,
     #   })
     #
     # @example Response structure
@@ -8329,6 +8334,7 @@ module Aws::Glue
     #   * {Types::GetGlueIdentityCenterConfigurationResponse#application_arn #application_arn} => String
     #   * {Types::GetGlueIdentityCenterConfigurationResponse#instance_arn #instance_arn} => String
     #   * {Types::GetGlueIdentityCenterConfigurationResponse#scopes #scopes} => Array&lt;String&gt;
+    #   * {Types::GetGlueIdentityCenterConfigurationResponse#user_background_sessions_enabled #user_background_sessions_enabled} => Boolean
     #
     # @example Response structure
     #
@@ -8336,6 +8342,7 @@ module Aws::Glue
     #   resp.instance_arn #=> String
     #   resp.scopes #=> Array
     #   resp.scopes[0] #=> String
+    #   resp.user_background_sessions_enabled #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetGlueIdentityCenterConfiguration AWS API Documentation
     #
@@ -16768,12 +16775,17 @@ module Aws::Glue
     #   A list of Identity Center scopes that define the updated permissions
     #   and access levels for the Glue configuration.
     #
+    # @option params [Boolean] :user_background_sessions_enabled
+    #   Specifies whether users can run background sessions when using
+    #   Identity Center authentication with Glue services.
+    #
     # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_glue_identity_center_configuration({
     #     scopes: ["IdentityCenterScope"],
+    #     user_background_sessions_enabled: false,
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateGlueIdentityCenterConfiguration AWS API Documentation
@@ -17948,7 +17960,7 @@ module Aws::Glue
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-glue'
-      context[:gem_version] = '1.239.0'
+      context[:gem_version] = '1.240.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

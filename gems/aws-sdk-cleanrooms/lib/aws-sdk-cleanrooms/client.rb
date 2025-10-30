@@ -1398,7 +1398,7 @@ module Aws::CleanRooms
     #           differential_privacy: {
     #             columns: [ # required
     #               {
-    #                 name: "String", # required
+    #                 name: "ColumnName", # required
     #               },
     #             ],
     #           },
@@ -3255,6 +3255,8 @@ module Aws::CleanRooms
     #   resp.protected_query.differential_privacy.sensitivity_parameters[0].max_column_value #=> Float
     #   resp.protected_query.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
     #   resp.protected_query.compute_configuration.worker.number #=> Integer
+    #   resp.protected_query.compute_configuration.worker.properties.spark #=> Hash
+    #   resp.protected_query.compute_configuration.worker.properties.spark["SparkPropertyKey"] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/GetProtectedQuery AWS API Documentation
     #
@@ -4896,6 +4898,11 @@ module Aws::CleanRooms
     #       worker: {
     #         type: "CR.1X", # accepts CR.1X, CR.4X
     #         number: 1,
+    #         properties: {
+    #           spark: {
+    #             "SparkPropertyKey" => "SparkPropertyValue",
+    #           },
+    #         },
     #       },
     #     },
     #   })
@@ -4940,6 +4947,8 @@ module Aws::CleanRooms
     #   resp.protected_query.differential_privacy.sensitivity_parameters[0].max_column_value #=> Float
     #   resp.protected_query.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
     #   resp.protected_query.compute_configuration.worker.number #=> Integer
+    #   resp.protected_query.compute_configuration.worker.properties.spark #=> Hash
+    #   resp.protected_query.compute_configuration.worker.properties.spark["SparkPropertyKey"] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/StartProtectedQuery AWS API Documentation
     #
@@ -5373,7 +5382,7 @@ module Aws::CleanRooms
     #           differential_privacy: {
     #             columns: [ # required
     #               {
-    #                 name: "String", # required
+    #                 name: "ColumnName", # required
     #               },
     #             ],
     #           },
@@ -5972,6 +5981,8 @@ module Aws::CleanRooms
     #   resp.protected_query.differential_privacy.sensitivity_parameters[0].max_column_value #=> Float
     #   resp.protected_query.compute_configuration.worker.type #=> String, one of "CR.1X", "CR.4X"
     #   resp.protected_query.compute_configuration.worker.number #=> Integer
+    #   resp.protected_query.compute_configuration.worker.properties.spark #=> Hash
+    #   resp.protected_query.compute_configuration.worker.properties.spark["SparkPropertyKey"] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cleanrooms-2022-02-17/UpdateProtectedQuery AWS API Documentation
     #
@@ -6000,7 +6011,7 @@ module Aws::CleanRooms
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cleanrooms'
-      context[:gem_version] = '1.58.0'
+      context[:gem_version] = '1.59.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -728,6 +728,11 @@ module Aws::BedrockAgentCoreControl
     #   The recording configuration for the browser. When enabled, browser
     #   sessions are recorded and stored in the specified Amazon S3 location.
     #
+    # @option params [Types::BrowserSigningConfigInput] :browser_signing
+    #   The browser signing configuration that enables cryptographic agent
+    #   identification using HTTP message signatures for web bot
+    #   authentication.
+    #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier to ensure that the operation
     #   completes no more than one time. If this token matches a previous
@@ -768,6 +773,9 @@ module Aws::BedrockAgentCoreControl
     #         bucket: "S3LocationBucketString", # required
     #         prefix: "S3LocationPrefixString", # required
     #       },
+    #     },
+    #     browser_signing: {
+    #       enabled: false, # required
     #     },
     #     client_token: "ClientToken",
     #     tags: {
@@ -2141,6 +2149,7 @@ module Aws::BedrockAgentCoreControl
     #   * {Types::GetBrowserResponse#execution_role_arn #execution_role_arn} => String
     #   * {Types::GetBrowserResponse#network_configuration #network_configuration} => Types::BrowserNetworkConfiguration
     #   * {Types::GetBrowserResponse#recording #recording} => Types::RecordingConfig
+    #   * {Types::GetBrowserResponse#browser_signing #browser_signing} => Types::BrowserSigningConfigOutput
     #   * {Types::GetBrowserResponse#status #status} => String
     #   * {Types::GetBrowserResponse#failure_reason #failure_reason} => String
     #   * {Types::GetBrowserResponse#created_at #created_at} => Time
@@ -2167,6 +2176,7 @@ module Aws::BedrockAgentCoreControl
     #   resp.recording.enabled #=> Boolean
     #   resp.recording.s3_location.bucket #=> String
     #   resp.recording.s3_location.prefix #=> String
+    #   resp.browser_signing.enabled #=> Boolean
     #   resp.status #=> String, one of "CREATING", "CREATE_FAILED", "READY", "DELETING", "DELETE_FAILED", "DELETED"
     #   resp.failure_reason #=> String
     #   resp.created_at #=> Time
@@ -4373,7 +4383,7 @@ module Aws::BedrockAgentCoreControl
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockagentcorecontrol'
-      context[:gem_version] = '1.12.0'
+      context[:gem_version] = '1.13.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

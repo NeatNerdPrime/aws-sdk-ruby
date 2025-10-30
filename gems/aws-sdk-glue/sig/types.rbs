@@ -1355,6 +1355,7 @@ module Aws::Glue
     class CreateGlueIdentityCenterConfigurationRequest
       attr_accessor instance_arn: ::String
       attr_accessor scopes: ::Array[::String]
+      attr_accessor user_background_sessions_enabled: bool
       SENSITIVE: []
     end
 
@@ -3224,6 +3225,7 @@ module Aws::Glue
       attr_accessor application_arn: ::String
       attr_accessor instance_arn: ::String
       attr_accessor scopes: ::Array[::String]
+      attr_accessor user_background_sessions_enabled: bool
       SENSITIVE: []
     end
 
@@ -6988,6 +6990,7 @@ module Aws::Glue
 
     class UpdateGlueIdentityCenterConfigurationRequest
       attr_accessor scopes: ::Array[::String]
+      attr_accessor user_background_sessions_enabled: bool
       SENSITIVE: []
     end
 

@@ -55,6 +55,8 @@ module Aws::BedrockAgentCoreControl
     BrowserId = Shapes::StringShape.new(name: 'BrowserId')
     BrowserNetworkConfiguration = Shapes::StructureShape.new(name: 'BrowserNetworkConfiguration')
     BrowserNetworkMode = Shapes::StringShape.new(name: 'BrowserNetworkMode')
+    BrowserSigningConfigInput = Shapes::StructureShape.new(name: 'BrowserSigningConfigInput')
+    BrowserSigningConfigOutput = Shapes::StructureShape.new(name: 'BrowserSigningConfigOutput')
     BrowserStatus = Shapes::StringShape.new(name: 'BrowserStatus')
     BrowserSummaries = Shapes::ListShape.new(name: 'BrowserSummaries')
     BrowserSummary = Shapes::StructureShape.new(name: 'BrowserSummary')
@@ -505,6 +507,12 @@ module Aws::BedrockAgentCoreControl
     BrowserNetworkConfiguration.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "vpcConfig"))
     BrowserNetworkConfiguration.struct_class = Types::BrowserNetworkConfiguration
 
+    BrowserSigningConfigInput.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "enabled"))
+    BrowserSigningConfigInput.struct_class = Types::BrowserSigningConfigInput
+
+    BrowserSigningConfigOutput.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "enabled"))
+    BrowserSigningConfigOutput.struct_class = Types::BrowserSigningConfigOutput
+
     BrowserSummaries.member = Shapes::ShapeRef.new(shape: BrowserSummary)
 
     BrowserSummary.add_member(:browser_id, Shapes::ShapeRef.new(shape: BrowserId, required: true, location_name: "browserId"))
@@ -600,6 +608,7 @@ module Aws::BedrockAgentCoreControl
     CreateBrowserRequest.add_member(:execution_role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "executionRoleArn"))
     CreateBrowserRequest.add_member(:network_configuration, Shapes::ShapeRef.new(shape: BrowserNetworkConfiguration, required: true, location_name: "networkConfiguration"))
     CreateBrowserRequest.add_member(:recording, Shapes::ShapeRef.new(shape: RecordingConfig, location_name: "recording"))
+    CreateBrowserRequest.add_member(:browser_signing, Shapes::ShapeRef.new(shape: BrowserSigningConfigInput, location_name: "browserSigning"))
     CreateBrowserRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
     CreateBrowserRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
     CreateBrowserRequest.struct_class = Types::CreateBrowserRequest
@@ -984,6 +993,7 @@ module Aws::BedrockAgentCoreControl
     GetBrowserResponse.add_member(:execution_role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "executionRoleArn"))
     GetBrowserResponse.add_member(:network_configuration, Shapes::ShapeRef.new(shape: BrowserNetworkConfiguration, required: true, location_name: "networkConfiguration"))
     GetBrowserResponse.add_member(:recording, Shapes::ShapeRef.new(shape: RecordingConfig, location_name: "recording"))
+    GetBrowserResponse.add_member(:browser_signing, Shapes::ShapeRef.new(shape: BrowserSigningConfigOutput, location_name: "browserSigning"))
     GetBrowserResponse.add_member(:status, Shapes::ShapeRef.new(shape: BrowserStatus, required: true, location_name: "status"))
     GetBrowserResponse.add_member(:failure_reason, Shapes::ShapeRef.new(shape: String, location_name: "failureReason"))
     GetBrowserResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: DateTimestamp, required: true, location_name: "createdAt"))

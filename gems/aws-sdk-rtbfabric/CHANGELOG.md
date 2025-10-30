@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.2.0 (2025-10-30)
+------------------
+
+* Feature - RTB Fabric documentation update.
+
 1.1.0 (2025-10-24)
 ------------------
 

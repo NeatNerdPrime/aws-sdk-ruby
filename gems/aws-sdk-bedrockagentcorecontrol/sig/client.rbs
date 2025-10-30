@@ -188,6 +188,9 @@ module Aws
                                 prefix: ::String
                               }?
                             },
+                            ?browser_signing: {
+                              enabled: bool
+                            },
                             ?client_token: ::String,
                             ?tags: Hash[::String, ::String]
                           ) -> _CreateBrowserResponseSuccess
@@ -713,6 +716,7 @@ module Aws
         def execution_role_arn: () -> ::String
         def network_configuration: () -> Types::BrowserNetworkConfiguration
         def recording: () -> Types::RecordingConfig
+        def browser_signing: () -> Types::BrowserSigningConfigOutput
         def status: () -> ("CREATING" | "CREATE_FAILED" | "READY" | "DELETING" | "DELETE_FAILED" | "DELETED")
         def failure_reason: () -> ::String
         def created_at: () -> ::Time

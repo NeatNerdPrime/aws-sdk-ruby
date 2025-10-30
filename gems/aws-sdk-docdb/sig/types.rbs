@@ -813,6 +813,14 @@ module Aws::DocDB
       SENSITIVE: []
     end
 
+    class FailoverState
+      attr_accessor status: ("pending" | "failing-over" | "cancelling")
+      attr_accessor from_db_cluster_arn: ::String
+      attr_accessor to_db_cluster_arn: ::String
+      attr_accessor is_data_loss_allowed: bool
+      SENSITIVE: []
+    end
+
     class Filter
       attr_accessor name: ::String
       attr_accessor values: ::Array[::String]
@@ -830,6 +838,8 @@ module Aws::DocDB
       attr_accessor storage_encrypted: bool
       attr_accessor deletion_protection: bool
       attr_accessor global_cluster_members: ::Array[Types::GlobalClusterMember]
+      attr_accessor failover_state: Types::FailoverState
+      attr_accessor tag_list: ::Array[Types::Tag]
       SENSITIVE: []
     end
 
@@ -840,6 +850,7 @@ module Aws::DocDB
       attr_accessor db_cluster_arn: ::String
       attr_accessor readers: ::Array[::String]
       attr_accessor is_writer: bool
+      attr_accessor synchronization_status: ("connected" | "pending-resync")
       SENSITIVE: []
     end
 

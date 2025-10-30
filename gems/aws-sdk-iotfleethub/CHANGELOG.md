@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.51.0 (2025-10-30)
+------------------
+
+* Feature - Code Generated Changes, see `./build_tools` or `aws-sdk-core`'s CHANGELOG.md for details.
+
 * Feature - IoT FleetHub has been removed from the SDK because it has been discontinued.
 
 1.50.0 (2025-10-21)

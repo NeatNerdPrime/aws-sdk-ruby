@@ -1515,6 +1515,12 @@ module Aws::ECS
       SENSITIVE: []
     end
 
+    class ServiceConnectAccessLogConfiguration
+      attr_accessor format: ("TEXT" | "JSON")
+      attr_accessor include_query_parameters: ("DISABLED" | "ENABLED")
+      SENSITIVE: []
+    end
+
     class ServiceConnectClientAlias
       attr_accessor port: ::Integer
       attr_accessor dns_name: ::String
@@ -1527,6 +1533,7 @@ module Aws::ECS
       attr_accessor namespace: ::String
       attr_accessor services: ::Array[Types::ServiceConnectService]
       attr_accessor log_configuration: Types::LogConfiguration
+      attr_accessor access_log_configuration: Types::ServiceConnectAccessLogConfiguration
       SENSITIVE: []
     end
 

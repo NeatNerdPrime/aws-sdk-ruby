@@ -1083,6 +1083,13 @@ module Aws::KMS
     #
     #   [1]: https://docs.aws.amazon.com/kms/latest/developerguide/create-xks-keystore.html#xks-requirements
     #
+    # @option params [String] :xks_proxy_vpc_endpoint_service_owner
+    #   Specifies the Amazon Web Services account ID that owns the Amazon VPC
+    #   service endpoint for the interface that is used to communicate with
+    #   your external key store proxy (XKS proxy). This parameter is optional.
+    #   If not provided, the Amazon Web Services account ID calling the action
+    #   will be used.
+    #
     # @option params [Types::XksProxyAuthenticationCredentialType] :xks_proxy_authentication_credential
     #   Specifies an authentication credential for the external key store
     #   proxy (XKS proxy). This parameter is required for all custom key
@@ -1209,6 +1216,7 @@ module Aws::KMS
     #     xks_proxy_uri_endpoint: "XksProxyUriEndpointType",
     #     xks_proxy_uri_path: "XksProxyUriPathType",
     #     xks_proxy_vpc_endpoint_service_name: "XksProxyVpcEndpointServiceNameType",
+    #     xks_proxy_vpc_endpoint_service_owner: "AccountIdType",
     #     xks_proxy_authentication_credential: {
     #       access_key_id: "XksProxyAuthenticationAccessKeyIdType", # required
     #       raw_secret_access_key: "XksProxyAuthenticationRawSecretAccessKeyType", # required
@@ -3593,6 +3601,7 @@ module Aws::KMS
     #   resp.custom_key_stores[0].xks_proxy_configuration.uri_endpoint #=> String
     #   resp.custom_key_stores[0].xks_proxy_configuration.uri_path #=> String
     #   resp.custom_key_stores[0].xks_proxy_configuration.vpc_endpoint_service_name #=> String
+    #   resp.custom_key_stores[0].xks_proxy_configuration.vpc_endpoint_service_owner #=> String
     #   resp.next_marker #=> String
     #   resp.truncated #=> Boolean
     #
@@ -10290,6 +10299,15 @@ module Aws::KMS
     #
     #   To change this value, the external key store must be disconnected.
     #
+    # @option params [String] :xks_proxy_vpc_endpoint_service_owner
+    #   Changes the Amazon Web Services account ID that KMS uses to identify
+    #   the Amazon VPC endpoint service for your external key store proxy (XKS
+    #   proxy). This parameter is optional. If not specified, the current
+    #   Amazon Web Services account ID for the VPC endpoint service will not
+    #   be updated.
+    #
+    #   To change this value, the external key store must be disconnected.
+    #
     # @option params [Types::XksProxyAuthenticationCredentialType] :xks_proxy_authentication_credential
     #   Changes the credentials that KMS uses to sign requests to the external
     #   key store proxy (XKS proxy). This parameter is valid only for custom
@@ -10431,6 +10449,7 @@ module Aws::KMS
     #     xks_proxy_uri_endpoint: "XksProxyUriEndpointType",
     #     xks_proxy_uri_path: "XksProxyUriPathType",
     #     xks_proxy_vpc_endpoint_service_name: "XksProxyVpcEndpointServiceNameType",
+    #     xks_proxy_vpc_endpoint_service_owner: "AccountIdType",
     #     xks_proxy_authentication_credential: {
     #       access_key_id: "XksProxyAuthenticationAccessKeyIdType", # required
     #       raw_secret_access_key: "XksProxyAuthenticationRawSecretAccessKeyType", # required
@@ -11080,7 +11099,7 @@ module Aws::KMS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-kms'
-      context[:gem_version] = '1.115.0'
+      context[:gem_version] = '1.116.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

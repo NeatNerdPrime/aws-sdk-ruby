@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.59.0 (2025-10-30)
+------------------
+
+* Feature - Added support for advanced Spark configurations to optimize SQL performance
+
 1.58.0 (2025-10-21)
 ------------------
 

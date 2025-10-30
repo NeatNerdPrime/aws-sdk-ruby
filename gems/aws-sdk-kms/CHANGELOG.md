@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.116.0 (2025-10-30)
+------------------
+
+* Feature - Add cross account VPC endpoint service connectivity support to CustomKeyStore.
+
 1.115.0 (2025-10-21)
 ------------------
 

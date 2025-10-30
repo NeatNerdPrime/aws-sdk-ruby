@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.210.0 (2025-10-30)
+------------------
+
+* Feature - Amazon ECS Service Connect now supports Envoy access logs, providing deeper observability into request-level traffic patterns and service interactions.
+
 1.209.0 (2025-10-28)
 ------------------
 

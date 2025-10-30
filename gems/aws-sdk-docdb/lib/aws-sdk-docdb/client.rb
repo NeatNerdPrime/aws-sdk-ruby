@@ -1842,6 +1842,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/CreateGlobalCluster AWS API Documentation
     #
@@ -2272,6 +2280,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DeleteGlobalCluster AWS API Documentation
     #
@@ -3537,6 +3553,14 @@ module Aws::DocDB
     #   resp.global_clusters[0].global_cluster_members[0].readers #=> Array
     #   resp.global_clusters[0].global_cluster_members[0].readers[0] #=> String
     #   resp.global_clusters[0].global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_clusters[0].global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_clusters[0].failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_clusters[0].failover_state.from_db_cluster_arn #=> String
+    #   resp.global_clusters[0].failover_state.to_db_cluster_arn #=> String
+    #   resp.global_clusters[0].failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_clusters[0].tag_list #=> Array
+    #   resp.global_clusters[0].tag_list[0].key #=> String
+    #   resp.global_clusters[0].tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/DescribeGlobalClusters AWS API Documentation
     #
@@ -3903,6 +3927,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/FailoverGlobalCluster AWS API Documentation
     #
@@ -4852,6 +4884,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/ModifyGlobalCluster AWS API Documentation
     #
@@ -5020,6 +5060,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/RemoveFromGlobalCluster AWS API Documentation
     #
@@ -5894,6 +5942,14 @@ module Aws::DocDB
     #   resp.global_cluster.global_cluster_members[0].readers #=> Array
     #   resp.global_cluster.global_cluster_members[0].readers[0] #=> String
     #   resp.global_cluster.global_cluster_members[0].is_writer #=> Boolean
+    #   resp.global_cluster.global_cluster_members[0].synchronization_status #=> String, one of "connected", "pending-resync"
+    #   resp.global_cluster.failover_state.status #=> String, one of "pending", "failing-over", "cancelling"
+    #   resp.global_cluster.failover_state.from_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.to_db_cluster_arn #=> String
+    #   resp.global_cluster.failover_state.is_data_loss_allowed #=> Boolean
+    #   resp.global_cluster.tag_list #=> Array
+    #   resp.global_cluster.tag_list[0].key #=> String
+    #   resp.global_cluster.tag_list[0].value #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/docdb-2014-10-31/SwitchoverGlobalCluster AWS API Documentation
     #
@@ -5922,7 +5978,7 @@ module Aws::DocDB
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-docdb'
-      context[:gem_version] = '1.96.0'
+      context[:gem_version] = '1.97.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.63.0 (2025-10-30)
+------------------
+
+* Feature - Add Anomaly Detection APIs for Amazon Managed Prometheus
+
 1.62.0 (2025-10-21)
 ------------------
 

@@ -558,6 +558,9 @@ module Aws::CleanRooms
     SnowflakeTableSchema = Shapes::UnionShape.new(name: 'SnowflakeTableSchema')
     SnowflakeTableSchemaList = Shapes::ListShape.new(name: 'SnowflakeTableSchemaList')
     SnowflakeTableSchemaV1 = Shapes::StructureShape.new(name: 'SnowflakeTableSchemaV1')
+    SparkProperties = Shapes::MapShape.new(name: 'SparkProperties')
+    SparkPropertyKey = Shapes::StringShape.new(name: 'SparkPropertyKey')
+    SparkPropertyValue = Shapes::StringShape.new(name: 'SparkPropertyValue')
     StartProtectedJobInput = Shapes::StructureShape.new(name: 'StartProtectedJobInput')
     StartProtectedJobOutput = Shapes::StructureShape.new(name: 'StartProtectedJobOutput')
     StartProtectedQueryInput = Shapes::StructureShape.new(name: 'StartProtectedQueryInput')
@@ -614,6 +617,7 @@ module Aws::CleanRooms
     ValidationExceptionReason = Shapes::StringShape.new(name: 'ValidationExceptionReason')
     WorkerComputeConfiguration = Shapes::StructureShape.new(name: 'WorkerComputeConfiguration')
     WorkerComputeConfigurationNumberInteger = Shapes::IntegerShape.new(name: 'WorkerComputeConfigurationNumberInteger')
+    WorkerComputeConfigurationProperties = Shapes::UnionShape.new(name: 'WorkerComputeConfigurationProperties')
     WorkerComputeType = Shapes::StringShape.new(name: 'WorkerComputeType')
 
     AccessBudget.add_member(:resource_arn, Shapes::ShapeRef.new(shape: BudgetedResourceArn, required: true, location_name: "resourceArn"))
@@ -1526,7 +1530,7 @@ module Aws::CleanRooms
 
     DeletePrivacyBudgetTemplateOutput.struct_class = Types::DeletePrivacyBudgetTemplateOutput
 
-    DifferentialPrivacyColumn.add_member(:name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "name"))
+    DifferentialPrivacyColumn.add_member(:name, Shapes::ShapeRef.new(shape: ColumnName, required: true, location_name: "name"))
     DifferentialPrivacyColumn.struct_class = Types::DifferentialPrivacyColumn
 
     DifferentialPrivacyColumnList.member = Shapes::ShapeRef.new(shape: DifferentialPrivacyColumn)
@@ -2598,6 +2602,9 @@ module Aws::CleanRooms
     SnowflakeTableSchemaV1.add_member(:column_type, Shapes::ShapeRef.new(shape: ColumnTypeString, required: true, location_name: "columnType"))
     SnowflakeTableSchemaV1.struct_class = Types::SnowflakeTableSchemaV1
 
+    SparkProperties.key = Shapes::ShapeRef.new(shape: SparkPropertyKey)
+    SparkProperties.value = Shapes::ShapeRef.new(shape: SparkPropertyValue)
+
     StartProtectedJobInput.add_member(:type, Shapes::ShapeRef.new(shape: ProtectedJobType, required: true, location_name: "type"))
     StartProtectedJobInput.add_member(:membership_identifier, Shapes::ShapeRef.new(shape: MembershipIdentifier, required: true, location: "uri", location_name: "membershipIdentifier"))
     StartProtectedJobInput.add_member(:job_parameters, Shapes::ShapeRef.new(shape: ProtectedJobParameters, required: true, location_name: "jobParameters"))
@@ -2781,7 +2788,14 @@ module Aws::CleanRooms
 
     WorkerComputeConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: WorkerComputeType, location_name: "type"))
     WorkerComputeConfiguration.add_member(:number, Shapes::ShapeRef.new(shape: WorkerComputeConfigurationNumberInteger, location_name: "number"))
+    WorkerComputeConfiguration.add_member(:properties, Shapes::ShapeRef.new(shape: WorkerComputeConfigurationProperties, location_name: "properties"))
     WorkerComputeConfiguration.struct_class = Types::WorkerComputeConfiguration
+
+    WorkerComputeConfigurationProperties.add_member(:spark, Shapes::ShapeRef.new(shape: SparkProperties, location_name: "spark"))
+    WorkerComputeConfigurationProperties.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    WorkerComputeConfigurationProperties.add_member_subclass(:spark, Types::WorkerComputeConfigurationProperties::Spark)
+    WorkerComputeConfigurationProperties.add_member_subclass(:unknown, Types::WorkerComputeConfigurationProperties::Unknown)
+    WorkerComputeConfigurationProperties.struct_class = Types::WorkerComputeConfigurationProperties
 
 
     # @api private
