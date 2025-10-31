@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.165.0 (2025-10-31)
+------------------
+
+* Feature - Add Python3.14 (python3.14) and Java 25 (java25) support to AWS Lambda
+
 1.164.0 (2025-10-28)
 ------------------
 

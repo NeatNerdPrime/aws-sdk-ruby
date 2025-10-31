@@ -52213,6 +52213,11 @@ module Aws::SageMaker
     #   IPv6 addressing.
     #   @return [String]
     #
+    # @!attribute [rw] platform_identifier
+    #   The platform identifier of the notebook instance runtime
+    #   environment.
+    #   @return [String]
+    #
     # @!attribute [rw] role_arn
     #   The Amazon Resource Name (ARN) of the IAM role that SageMaker AI can
     #   assume to access the notebook instance. For more information, see
@@ -52340,6 +52345,7 @@ module Aws::SageMaker
       :notebook_instance_name,
       :instance_type,
       :ip_address_type,
+      :platform_identifier,
       :role_arn,
       :lifecycle_config_name,
       :disassociate_lifecycle_config,

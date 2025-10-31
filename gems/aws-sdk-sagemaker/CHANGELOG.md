@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.334.0 (2025-10-31)
+------------------
+
+* Feature - Allow update of platform identifier via UpdateNotebookInstance operation.
+
 1.333.0 (2025-10-28)
 ------------------
 

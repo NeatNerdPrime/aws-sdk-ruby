@@ -61,6 +61,7 @@ module Aws::MediaConvert
     AudioNormalizationLoudnessLogging = Shapes::StringShape.new(name: 'AudioNormalizationLoudnessLogging')
     AudioNormalizationPeakCalculation = Shapes::StringShape.new(name: 'AudioNormalizationPeakCalculation')
     AudioNormalizationSettings = Shapes::StructureShape.new(name: 'AudioNormalizationSettings')
+    AudioPitchCorrectionSettings = Shapes::StructureShape.new(name: 'AudioPitchCorrectionSettings')
     AudioProperties = Shapes::StructureShape.new(name: 'AudioProperties')
     AudioSelector = Shapes::StructureShape.new(name: 'AudioSelector')
     AudioSelectorGroup = Shapes::StructureShape.new(name: 'AudioSelectorGroup')
@@ -568,6 +569,7 @@ module Aws::MediaConvert
     OutputSettings = Shapes::StructureShape.new(name: 'OutputSettings')
     PadVideo = Shapes::StringShape.new(name: 'PadVideo')
     PartnerWatermarking = Shapes::StructureShape.new(name: 'PartnerWatermarking')
+    PassthroughSettings = Shapes::StructureShape.new(name: 'PassthroughSettings')
     Policy = Shapes::StructureShape.new(name: 'Policy')
     Preset = Shapes::StructureShape.new(name: 'Preset')
     PresetListBy = Shapes::StringShape.new(name: 'PresetListBy')
@@ -622,6 +624,7 @@ module Aws::MediaConvert
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     ShareStatus = Shapes::StringShape.new(name: 'ShareStatus')
     SimulateReservedQueue = Shapes::StringShape.new(name: 'SimulateReservedQueue')
+    SlowPalPitchCorrection = Shapes::StringShape.new(name: 'SlowPalPitchCorrection')
     SpekeKeyProvider = Shapes::StructureShape.new(name: 'SpekeKeyProvider')
     SpekeKeyProviderCmaf = Shapes::StructureShape.new(name: 'SpekeKeyProviderCmaf')
     SrtDestinationSettings = Shapes::StructureShape.new(name: 'SrtDestinationSettings')
@@ -694,6 +697,7 @@ module Aws::MediaConvert
     VideoPreprocessor = Shapes::StructureShape.new(name: 'VideoPreprocessor')
     VideoProperties = Shapes::StructureShape.new(name: 'VideoProperties')
     VideoSelector = Shapes::StructureShape.new(name: 'VideoSelector')
+    VideoSelectorMode = Shapes::StringShape.new(name: 'VideoSelectorMode')
     VideoSelectorType = Shapes::StringShape.new(name: 'VideoSelectorType')
     VideoTimecodeInsertion = Shapes::StringShape.new(name: 'VideoTimecodeInsertion')
     VorbisSettings = Shapes::StructureShape.new(name: 'VorbisSettings')
@@ -1056,6 +1060,7 @@ module Aws::MediaConvert
 
     AudioDescription.add_member(:audio_channel_tagging_settings, Shapes::ShapeRef.new(shape: AudioChannelTaggingSettings, location_name: "audioChannelTaggingSettings"))
     AudioDescription.add_member(:audio_normalization_settings, Shapes::ShapeRef.new(shape: AudioNormalizationSettings, location_name: "audioNormalizationSettings"))
+    AudioDescription.add_member(:audio_pitch_correction_settings, Shapes::ShapeRef.new(shape: AudioPitchCorrectionSettings, location_name: "audioPitchCorrectionSettings"))
     AudioDescription.add_member(:audio_source_name, Shapes::ShapeRef.new(shape: __stringMax2048, location_name: "audioSourceName"))
     AudioDescription.add_member(:audio_type, Shapes::ShapeRef.new(shape: __integerMin0Max255, location_name: "audioType"))
     AudioDescription.add_member(:audio_type_control, Shapes::ShapeRef.new(shape: AudioTypeControl, location_name: "audioTypeControl"))
@@ -1076,6 +1081,9 @@ module Aws::MediaConvert
     AudioNormalizationSettings.add_member(:true_peak_limiter_threshold, Shapes::ShapeRef.new(shape: __doubleMinNegative8Max0, location_name: "truePeakLimiterThreshold"))
     AudioNormalizationSettings.struct_class = Types::AudioNormalizationSettings
 
+    AudioPitchCorrectionSettings.add_member(:slow_pal_pitch_correction, Shapes::ShapeRef.new(shape: SlowPalPitchCorrection, location_name: "slowPalPitchCorrection"))
+    AudioPitchCorrectionSettings.struct_class = Types::AudioPitchCorrectionSettings
+
     AudioProperties.add_member(:bit_depth, Shapes::ShapeRef.new(shape: __integer, location_name: "bitDepth"))
     AudioProperties.add_member(:bit_rate, Shapes::ShapeRef.new(shape: __long, location_name: "bitRate"))
     AudioProperties.add_member(:channels, Shapes::ShapeRef.new(shape: __integer, location_name: "channels"))
@@ -1095,6 +1103,7 @@ module Aws::MediaConvert
     AudioSelector.add_member(:program_selection, Shapes::ShapeRef.new(shape: __integerMin0Max8, location_name: "programSelection"))
     AudioSelector.add_member(:remix_settings, Shapes::ShapeRef.new(shape: RemixSettings, location_name: "remixSettings"))
     AudioSelector.add_member(:selector_type, Shapes::ShapeRef.new(shape: AudioSelectorType, location_name: "selectorType"))
+    AudioSelector.add_member(:streams, Shapes::ShapeRef.new(shape: __listOf__integerMin1Max2147483647, location_name: "streams"))
     AudioSelector.add_member(:tracks, Shapes::ShapeRef.new(shape: __listOf__integerMin1Max2147483647, location_name: "tracks"))
     AudioSelector.struct_class = Types::AudioSelector
 
@@ -2519,6 +2528,9 @@ module Aws::MediaConvert
     PartnerWatermarking.add_member(:nexguard_file_marker_settings, Shapes::ShapeRef.new(shape: NexGuardFileMarkerSettings, location_name: "nexguardFileMarkerSettings"))
     PartnerWatermarking.struct_class = Types::PartnerWatermarking
 
+    PassthroughSettings.add_member(:video_selector_mode, Shapes::ShapeRef.new(shape: VideoSelectorMode, location_name: "videoSelectorMode"))
+    PassthroughSettings.struct_class = Types::PassthroughSettings
+
     Policy.add_member(:http_inputs, Shapes::ShapeRef.new(shape: InputPolicy, location_name: "httpInputs"))
     Policy.add_member(:https_inputs, Shapes::ShapeRef.new(shape: InputPolicy, location_name: "httpsInputs"))
     Policy.add_member(:s3_inputs, Shapes::ShapeRef.new(shape: InputPolicy, location_name: "s3Inputs"))
@@ -2745,6 +2757,7 @@ module Aws::MediaConvert
     TrackMapping.add_member(:video_track_indexes, Shapes::ShapeRef.new(shape: __listOf__integer, location_name: "videoTrackIndexes"))
     TrackMapping.struct_class = Types::TrackMapping
 
+    TrackSourceSettings.add_member(:stream_number, Shapes::ShapeRef.new(shape: __integerMin1Max2147483647, location_name: "streamNumber"))
     TrackSourceSettings.add_member(:track_number, Shapes::ShapeRef.new(shape: __integerMin1Max2147483647, location_name: "trackNumber"))
     TrackSourceSettings.struct_class = Types::TrackSourceSettings
 
@@ -2820,6 +2833,7 @@ module Aws::MediaConvert
     VideoCodecSettings.add_member(:h264_settings, Shapes::ShapeRef.new(shape: H264Settings, location_name: "h264Settings"))
     VideoCodecSettings.add_member(:h265_settings, Shapes::ShapeRef.new(shape: H265Settings, location_name: "h265Settings"))
     VideoCodecSettings.add_member(:mpeg_2_settings, Shapes::ShapeRef.new(shape: Mpeg2Settings, location_name: "mpeg2Settings"))
+    VideoCodecSettings.add_member(:passthrough_settings, Shapes::ShapeRef.new(shape: PassthroughSettings, location_name: "passthroughSettings"))
     VideoCodecSettings.add_member(:prores_settings, Shapes::ShapeRef.new(shape: ProresSettings, location_name: "proresSettings"))
     VideoCodecSettings.add_member(:uncompressed_settings, Shapes::ShapeRef.new(shape: UncompressedSettings, location_name: "uncompressedSettings"))
     VideoCodecSettings.add_member(:vc_3_settings, Shapes::ShapeRef.new(shape: Vc3Settings, location_name: "vc3Settings"))
@@ -2878,6 +2892,7 @@ module Aws::MediaConvert
     VideoOverlayInputClipping.struct_class = Types::VideoOverlayInputClipping
 
     VideoOverlayPosition.add_member(:height, Shapes::ShapeRef.new(shape: __integerMinNegative1Max2147483647, location_name: "height"))
+    VideoOverlayPosition.add_member(:opacity, Shapes::ShapeRef.new(shape: __integerMin0Max100, location_name: "opacity"))
     VideoOverlayPosition.add_member(:unit, Shapes::ShapeRef.new(shape: VideoOverlayUnit, location_name: "unit"))
     VideoOverlayPosition.add_member(:width, Shapes::ShapeRef.new(shape: __integerMinNegative1Max2147483647, location_name: "width"))
     VideoOverlayPosition.add_member(:x_position, Shapes::ShapeRef.new(shape: __integerMinNegative2147483648Max2147483647, location_name: "xPosition"))

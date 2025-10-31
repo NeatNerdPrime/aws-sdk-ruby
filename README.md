@@ -393,7 +393,6 @@ RubyGems.org page under "LINKS" section.
 | AWS IoT Data Plane                                    | Aws::IoTDataPlane                        | aws-sdk-iotdataplane                        | 2015-05-28  |
 | AWS IoT Events                                        | Aws::IoTEvents                           | aws-sdk-iotevents                           | 2018-07-27  |
 | AWS IoT Events Data                                   | Aws::IoTEventsData                       | aws-sdk-ioteventsdata                       | 2018-10-23  |
-| AWS IoT Fleet Hub                                     | Aws::IoTFleetHub                         | aws-sdk-iotfleethub                         | 2020-11-03  |
 | AWS IoT FleetWise                                     | Aws::IoTFleetWise                        | aws-sdk-iotfleetwise                        | 2021-06-17  |
 | AWS IoT Greengrass V2                                 | Aws::GreengrassV2                        | aws-sdk-greengrassv2                        | 2020-11-30  |
 | AWS IoT Jobs Data Plane                               | Aws::IoTJobsDataPlane                    | aws-sdk-iotjobsdataplane                    | 2017-09-29  |
@@ -409,7 +408,6 @@ RubyGems.org page under "LINKS" section.
 | AWS License Manager                                   | Aws::LicenseManager                      | aws-sdk-licensemanager                      | 2018-08-01  |
 | AWS License Manager Linux Subscriptions               | Aws::LicenseManagerLinuxSubscriptions    | aws-sdk-licensemanagerlinuxsubscriptions    | 2018-05-10  |
 | AWS License Manager User Subscriptions                | Aws::LicenseManagerUserSubscriptions     | aws-sdk-licensemanagerusersubscriptions     | 2018-05-10  |
-| AWS Mainframe Modernization Application Testing       | Aws::AppTest                             | aws-sdk-apptest                             | 2022-12-06  |
 | AWS Marketplace Agreement Service                     | Aws::MarketplaceAgreement                | aws-sdk-marketplaceagreement                | 2020-03-01  |
 | AWS Marketplace Catalog Service                       | Aws::MarketplaceCatalog                  | aws-sdk-marketplacecatalog                  | 2018-09-17  |
 | AWS Marketplace Commerce Analytics                    | Aws::MarketplaceCommerceAnalytics        | aws-sdk-marketplacecommerceanalytics        | 2015-07-01  |
@@ -438,7 +436,6 @@ RubyGems.org page under "LINKS" section.
 | AWS Resource Explorer                                 | Aws::ResourceExplorer2                   | aws-sdk-resourceexplorer2                   | 2022-07-28  |
 | AWS Resource Groups                                   | Aws::ResourceGroups                      | aws-sdk-resourcegroups                      | 2017-11-27  |
 | AWS Resource Groups Tagging API                       | Aws::ResourceGroupsTaggingAPI            | aws-sdk-resourcegroupstaggingapi            | 2017-01-26  |
-| AWS RoboMaker                                         | Aws::RoboMaker                           | aws-sdk-robomaker                           | 2018-06-29  |
 | AWS Route53 Recovery Control Config                   | Aws::Route53RecoveryControlConfig        | aws-sdk-route53recoverycontrolconfig        | 2020-11-02  |
 | AWS Route53 Recovery Readiness                        | Aws::Route53RecoveryReadiness            | aws-sdk-route53recoveryreadiness            | 2019-12-02  |
 | AWS S3 Control                                        | Aws::S3Control                           | aws-sdk-s3control                           | 2018-08-20  |
@@ -593,8 +590,6 @@ RubyGems.org page under "LINKS" section.
 | Amazon Location Service Places V2                     | Aws::GeoPlaces                           | aws-sdk-geoplaces                           | 2020-11-19  |
 | Amazon Location Service Routes V2                     | Aws::GeoRoutes                           | aws-sdk-georoutes                           | 2020-11-19  |
 | Amazon Lookout for Equipment                          | Aws::LookoutEquipment                    | aws-sdk-lookoutequipment                    | 2020-12-15  |
-| Amazon Lookout for Metrics                            | Aws::LookoutMetrics                      | aws-sdk-lookoutmetrics                      | 2017-07-25  |
-| Amazon Lookout for Vision                             | Aws::LookoutforVision                    | aws-sdk-lookoutforvision                    | 2020-11-20  |
 | Amazon Machine Learning                               | Aws::MachineLearning                     | aws-sdk-machinelearning                     | 2014-12-12  |
 | Amazon Macie 2                                        | Aws::Macie2                              | aws-sdk-macie2                              | 2020-01-01  |
 | Amazon Managed Blockchain                             | Aws::ManagedBlockchain                   | aws-sdk-managedblockchain                   | 2018-09-24  |
@@ -618,8 +613,6 @@ RubyGems.org page under "LINKS" section.
 | Amazon Polly                                          | Aws::Polly                               | aws-sdk-polly                               | 2016-06-10  |
 | Amazon Prometheus Service                             | Aws::PrometheusService                   | aws-sdk-prometheusservice                   | 2020-08-01  |
 | Amazon Q Connect                                      | Aws::QConnect                            | aws-sdk-qconnect                            | 2020-10-19  |
-| Amazon QLDB                                           | Aws::QLDB                                | aws-sdk-qldb                                | 2019-01-02  |
-| Amazon QLDB Session                                   | Aws::QLDBSession                         | aws-sdk-qldbsession                         | 2019-07-11  |
 | Amazon QuickSight                                     | Aws::QuickSight                          | aws-sdk-quicksight                          | 2018-04-01  |
 | Amazon Recycle Bin                                    | Aws::RecycleBin                          | aws-sdk-recyclebin                          | 2021-06-15  |
 | Amazon Redshift                                       | Aws::Redshift                            | aws-sdk-redshift                            | 2012-12-01  |

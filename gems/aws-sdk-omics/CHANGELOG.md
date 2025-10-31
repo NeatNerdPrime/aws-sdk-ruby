@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.58.0 (2025-10-31)
+------------------
+
+* Feature - Added WDL_LENIENT engine type that enables implicit typecasting of variable values to its compatible declared types
+
 1.57.0 (2025-10-23)
 ------------------
 

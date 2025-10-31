@@ -185,7 +185,8 @@ module Aws
                                     channels_in: ::Integer?,
                                     channels_out: ::Integer?
                                   }?,
-                                  selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM")?,
+                                  selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM" | "STREAM")?,
+                                  streams: Array[::Integer]?,
                                   tracks: Array[::Integer]?
                                 }]?,
                               caption_selectors: Hash[::String, {
@@ -224,6 +225,7 @@ module Aws
                                       page_number: ::String?
                                     }?,
                                     track_source_settings: {
+                                      stream_number: ::Integer?,
                                       track_number: ::Integer?
                                     }?,
                                     webvtt_hls_source_settings: {
@@ -321,6 +323,7 @@ module Aws
                                   end_timecode: ::String?,
                                   initial_position: {
                                     height: ::Integer?,
+                                    opacity: ::Integer?,
                                     unit: ("PIXELS" | "PERCENTAGE")?,
                                     width: ::Integer?,
                                     x_position: ::Integer?,
@@ -343,6 +346,7 @@ module Aws
                                     {
                                       end_position: {
                                         height: ::Integer?,
+                                        opacity: ::Integer?,
                                         unit: ("PIXELS" | "PERCENTAGE")?,
                                         width: ::Integer?,
                                         x_position: ::Integer?,
@@ -480,7 +484,7 @@ module Aws
                                   client_cache: ("DISABLED" | "ENABLED")?,
                                   codec_specification: ("RFC_6381" | "RFC_4281")?,
                                   dash_i_frame_trick_play_name_modifier: ::String?,
-                                  dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                  dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                   destination: ::String?,
                                   destination_settings: {
                                     s3_settings: {
@@ -555,7 +559,7 @@ module Aws
                                   audio_channel_config_scheme_id_uri: ("MPEG_CHANNEL_CONFIGURATION" | "DOLBY_CHANNEL_CONFIGURATION")?,
                                   base_url: ::String?,
                                   dash_i_frame_trick_play_name_modifier: ::String?,
-                                  dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                  dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                   destination: ::String?,
                                   destination_settings: {
                                     s3_settings: {
@@ -765,6 +769,9 @@ module Aws
                                         peak_calculation: ("TRUE_PEAK" | "NONE")?,
                                         target_lkfs: ::Float?,
                                         true_peak_limiter_threshold: ::Float?
+                                      }?,
+                                      audio_pitch_correction_settings: {
+                                        slow_pal_pitch_correction: ("DISABLED" | "ENABLED")?
                                       }?,
                                       audio_source_name: ::String?,
                                       audio_type: ::Integer?,
@@ -1351,6 +1358,9 @@ module Aws
                                         telecine: ("NONE" | "SOFT" | "HARD")?,
                                         temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                       }?,
+                                      passthrough_settings: {
+                                        video_selector_mode: ("AUTO" | "REMUX_ALL")?
+                                      }?,
                                       prores_settings: {
                                         chroma_sampling: ("PRESERVE_444_SAMPLING" | "SUBSAMPLE_TO_422")?,
                                         codec_profile: ("APPLE_PRORES_422" | "APPLE_PRORES_422_HQ" | "APPLE_PRORES_422_LT" | "APPLE_PRORES_422_PROXY" | "APPLE_PRORES_4444" | "APPLE_PRORES_4444_XQ")?,
@@ -1700,7 +1710,8 @@ module Aws
                                              channels_in: ::Integer?,
                                              channels_out: ::Integer?
                                            }?,
-                                           selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM")?,
+                                           selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM" | "STREAM")?,
+                                           streams: Array[::Integer]?,
                                            tracks: Array[::Integer]?
                                          }]?,
                                        caption_selectors: Hash[::String, {
@@ -1739,6 +1750,7 @@ module Aws
                                                page_number: ::String?
                                              }?,
                                              track_source_settings: {
+                                               stream_number: ::Integer?,
                                                track_number: ::Integer?
                                              }?,
                                              webvtt_hls_source_settings: {
@@ -1813,6 +1825,7 @@ module Aws
                                            end_timecode: ::String?,
                                            initial_position: {
                                              height: ::Integer?,
+                                             opacity: ::Integer?,
                                              unit: ("PIXELS" | "PERCENTAGE")?,
                                              width: ::Integer?,
                                              x_position: ::Integer?,
@@ -1835,6 +1848,7 @@ module Aws
                                              {
                                                end_position: {
                                                  height: ::Integer?,
+                                                 opacity: ::Integer?,
                                                  unit: ("PIXELS" | "PERCENTAGE")?,
                                                  width: ::Integer?,
                                                  x_position: ::Integer?,
@@ -1972,7 +1986,7 @@ module Aws
                                            client_cache: ("DISABLED" | "ENABLED")?,
                                            codec_specification: ("RFC_6381" | "RFC_4281")?,
                                            dash_i_frame_trick_play_name_modifier: ::String?,
-                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                            destination: ::String?,
                                            destination_settings: {
                                              s3_settings: {
@@ -2047,7 +2061,7 @@ module Aws
                                            audio_channel_config_scheme_id_uri: ("MPEG_CHANNEL_CONFIGURATION" | "DOLBY_CHANNEL_CONFIGURATION")?,
                                            base_url: ::String?,
                                            dash_i_frame_trick_play_name_modifier: ::String?,
-                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                            destination: ::String?,
                                            destination_settings: {
                                              s3_settings: {
@@ -2257,6 +2271,9 @@ module Aws
                                                  peak_calculation: ("TRUE_PEAK" | "NONE")?,
                                                  target_lkfs: ::Float?,
                                                  true_peak_limiter_threshold: ::Float?
+                                               }?,
+                                               audio_pitch_correction_settings: {
+                                                 slow_pal_pitch_correction: ("DISABLED" | "ENABLED")?
                                                }?,
                                                audio_source_name: ::String?,
                                                audio_type: ::Integer?,
@@ -2843,6 +2860,9 @@ module Aws
                                                  telecine: ("NONE" | "SOFT" | "HARD")?,
                                                  temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                                }?,
+                                               passthrough_settings: {
+                                                 video_selector_mode: ("AUTO" | "REMUX_ALL")?
+                                               }?,
                                                prores_settings: {
                                                  chroma_sampling: ("PRESERVE_444_SAMPLING" | "SUBSAMPLE_TO_422")?,
                                                  codec_profile: ("APPLE_PRORES_422" | "APPLE_PRORES_422_HQ" | "APPLE_PRORES_422_LT" | "APPLE_PRORES_422_PROXY" | "APPLE_PRORES_4444" | "APPLE_PRORES_4444_XQ")?,
@@ -3127,6 +3147,9 @@ module Aws
                                    peak_calculation: ("TRUE_PEAK" | "NONE")?,
                                    target_lkfs: ::Float?,
                                    true_peak_limiter_threshold: ::Float?
+                                 }?,
+                                 audio_pitch_correction_settings: {
+                                   slow_pal_pitch_correction: ("DISABLED" | "ENABLED")?
                                  }?,
                                  audio_source_name: ::String?,
                                  audio_type: ::Integer?,
@@ -3697,6 +3720,9 @@ module Aws
                                    syntax: ("DEFAULT" | "D_10")?,
                                    telecine: ("NONE" | "SOFT" | "HARD")?,
                                    temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
+                                 }?,
+                                 passthrough_settings: {
+                                   video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                  }?,
                                  prores_settings: {
                                    chroma_sampling: ("PRESERVE_444_SAMPLING" | "SUBSAMPLE_TO_422")?,
@@ -4339,7 +4365,8 @@ module Aws
                                              channels_in: ::Integer?,
                                              channels_out: ::Integer?
                                            }?,
-                                           selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM")?,
+                                           selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM" | "STREAM")?,
+                                           streams: Array[::Integer]?,
                                            tracks: Array[::Integer]?
                                          }]?,
                                        caption_selectors: Hash[::String, {
@@ -4378,6 +4405,7 @@ module Aws
                                                page_number: ::String?
                                              }?,
                                              track_source_settings: {
+                                               stream_number: ::Integer?,
                                                track_number: ::Integer?
                                              }?,
                                              webvtt_hls_source_settings: {
@@ -4452,6 +4480,7 @@ module Aws
                                            end_timecode: ::String?,
                                            initial_position: {
                                              height: ::Integer?,
+                                             opacity: ::Integer?,
                                              unit: ("PIXELS" | "PERCENTAGE")?,
                                              width: ::Integer?,
                                              x_position: ::Integer?,
@@ -4474,6 +4503,7 @@ module Aws
                                              {
                                                end_position: {
                                                  height: ::Integer?,
+                                                 opacity: ::Integer?,
                                                  unit: ("PIXELS" | "PERCENTAGE")?,
                                                  width: ::Integer?,
                                                  x_position: ::Integer?,
@@ -4611,7 +4641,7 @@ module Aws
                                            client_cache: ("DISABLED" | "ENABLED")?,
                                            codec_specification: ("RFC_6381" | "RFC_4281")?,
                                            dash_i_frame_trick_play_name_modifier: ::String?,
-                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                            destination: ::String?,
                                            destination_settings: {
                                              s3_settings: {
@@ -4686,7 +4716,7 @@ module Aws
                                            audio_channel_config_scheme_id_uri: ("MPEG_CHANNEL_CONFIGURATION" | "DOLBY_CHANNEL_CONFIGURATION")?,
                                            base_url: ::String?,
                                            dash_i_frame_trick_play_name_modifier: ::String?,
-                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")?,
+                                           dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")?,
                                            destination: ::String?,
                                            destination_settings: {
                                              s3_settings: {
@@ -4896,6 +4926,9 @@ module Aws
                                                  peak_calculation: ("TRUE_PEAK" | "NONE")?,
                                                  target_lkfs: ::Float?,
                                                  true_peak_limiter_threshold: ::Float?
+                                               }?,
+                                               audio_pitch_correction_settings: {
+                                                 slow_pal_pitch_correction: ("DISABLED" | "ENABLED")?
                                                }?,
                                                audio_source_name: ::String?,
                                                audio_type: ::Integer?,
@@ -5482,6 +5515,9 @@ module Aws
                                                  telecine: ("NONE" | "SOFT" | "HARD")?,
                                                  temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                                }?,
+                                               passthrough_settings: {
+                                                 video_selector_mode: ("AUTO" | "REMUX_ALL")?
+                                               }?,
                                                prores_settings: {
                                                  chroma_sampling: ("PRESERVE_444_SAMPLING" | "SUBSAMPLE_TO_422")?,
                                                  codec_profile: ("APPLE_PRORES_422" | "APPLE_PRORES_422_HQ" | "APPLE_PRORES_422_LT" | "APPLE_PRORES_422_PROXY" | "APPLE_PRORES_4444" | "APPLE_PRORES_4444_XQ")?,
@@ -5765,6 +5801,9 @@ module Aws
                                    peak_calculation: ("TRUE_PEAK" | "NONE")?,
                                    target_lkfs: ::Float?,
                                    true_peak_limiter_threshold: ::Float?
+                                 }?,
+                                 audio_pitch_correction_settings: {
+                                   slow_pal_pitch_correction: ("DISABLED" | "ENABLED")?
                                  }?,
                                  audio_source_name: ::String?,
                                  audio_type: ::Integer?,
@@ -6335,6 +6374,9 @@ module Aws
                                    syntax: ("DEFAULT" | "D_10")?,
                                    telecine: ("NONE" | "SOFT" | "HARD")?,
                                    temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
+                                 }?,
+                                 passthrough_settings: {
+                                   video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                  }?,
                                  prores_settings: {
                                    chroma_sampling: ("PRESERVE_444_SAMPLING" | "SUBSAMPLE_TO_422")?,

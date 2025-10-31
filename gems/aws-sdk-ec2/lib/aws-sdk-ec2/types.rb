@@ -5452,7 +5452,7 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] availability_zone_id
-    #   The Availability Zone ID of the Capacity Reservation.
+    #   The ID of the Availability Zone in which the capacity is reserved.
     #   @return [String]
     #
     # @!attribute [rw] instance_type
@@ -5552,15 +5552,14 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] start_date
-    #   The date and time at which the Capacity Reservation was started.
+    #   The date and time the Capacity Reservation was started.
     #   @return [Time]
     #
     # @!attribute [rw] end_date
-    #   The date and time at which the Capacity Reservation expires. When a
-    #   Capacity Reservation expires, the reserved capacity is released and
-    #   you can no longer launch instances into it. The Capacity
-    #   Reservation's state changes to `expired` when it reaches its end
-    #   date and time.
+    #   The date and time the Capacity Reservation expires. When a Capacity
+    #   Reservation expires, the reserved capacity is released and you can
+    #   no longer launch instances into it. The Capacity Reservation's
+    #   state changes to `expired` when it reaches its end date and time.
     #   @return [Time]
     #
     # @!attribute [rw] end_date_type
@@ -5592,7 +5591,7 @@ module Aws::EC2
     #   @return [String]
     #
     # @!attribute [rw] create_date
-    #   The date and time at which the Capacity Reservation was created.
+    #   The date and time the Capacity Reservation was created.
     #   @return [Time]
     #
     # @!attribute [rw] tags
@@ -10855,6 +10854,178 @@ module Aws::EC2
     #
     class CreateIpamPoolResult < Struct.new(
       :ipam_pool)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_id
+    #   The ID of the IPAM that will serve as the source of the IP address
+    #   database for CIDR selection. The IPAM must be in the Advanced tier
+    #   to use this feature.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A description for the IPAM prefix list resolver to help you identify
+    #   its purpose and configuration.
+    #   @return [String]
+    #
+    # @!attribute [rw] address_family
+    #   The address family for the IPAM prefix list resolver. Valid values
+    #   are `ipv4` and `ipv6`. You must create separate resolvers for IPv4
+    #   and IPv6 CIDRs as they cannot be mixed in the same resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] rules
+    #   The CIDR selection rules for the resolver.
+    #
+    #   CIDR selection rules define the business logic for selecting CIDRs
+    #   from IPAM. If a CIDR matches any of the rules, it will be included.
+    #   If a rule has multiple conditions, the CIDR has to match every
+    #   condition of that rule. You can create a prefix list resolver
+    #   without any CIDR selection rules, but it will generate empty
+    #   versions (containing no CIDRs) until you add rules.
+    #   @return [Array<Types::IpamPrefixListResolverRuleRequest>]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the IPAM prefix list resolver during creation.
+    #   Tags help you organize and manage your Amazon Web Services
+    #   resources.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. For more information, see [Ensuring
+    #   idempotency][1].
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPrefixListResolverRequest AWS API Documentation
+    #
+    class CreateIpamPrefixListResolverRequest < Struct.new(
+      :dry_run,
+      :ipam_id,
+      :description,
+      :address_family,
+      :rules,
+      :tag_specifications,
+      :client_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver
+    #   Information about the IPAM prefix list resolver that was created.
+    #   @return [Types::IpamPrefixListResolver]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPrefixListResolverResult AWS API Documentation
+    #
+    class CreateIpamPrefixListResolverResult < Struct.new(
+      :ipam_prefix_list_resolver)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver that will manage the
+    #   synchronization of CIDRs to the target prefix list.
+    #   @return [String]
+    #
+    # @!attribute [rw] prefix_list_id
+    #   The ID of the managed prefix list that will be synchronized with
+    #   CIDRs selected by the IPAM prefix list resolver. This prefix list
+    #   becomes an IPAM managed prefix list.
+    #
+    #   An IPAM-managed prefix list is a customer-managed prefix list that
+    #   has been associated with an IPAM prefix list resolver target. When a
+    #   prefix list becomes IPAM managed, its CIDRs are automatically
+    #   synchronized based on the IPAM prefix list resolver's CIDR
+    #   selection rules, and direct CIDR modifications are restricted.
+    #   @return [String]
+    #
+    # @!attribute [rw] prefix_list_region
+    #   The Amazon Web Services Region where the prefix list is located.
+    #   This is required when referencing a prefix list in a different
+    #   Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] desired_version
+    #   The specific version of the prefix list to target. If not specified,
+    #   the resolver will target the latest version.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] track_latest_version
+    #   Indicates whether the resolver target should automatically track the
+    #   latest version of the prefix list. When enabled, the target will
+    #   always synchronize with the most current version of the prefix list.
+    #
+    #   Choose this for automatic updates when you want your prefix lists to
+    #   stay current with infrastructure changes without manual
+    #   intervention.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the IPAM prefix list resolver target during
+    #   creation. Tags help you organize and manage your Amazon Web Services
+    #   resources.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. For more information, see [Ensuring
+    #   idempotency][1].
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPrefixListResolverTargetRequest AWS API Documentation
+    #
+    class CreateIpamPrefixListResolverTargetRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id,
+      :prefix_list_id,
+      :prefix_list_region,
+      :desired_version,
+      :track_latest_version,
+      :tag_specifications,
+      :client_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver_target
+    #   Information about the IPAM prefix list resolver target that was
+    #   created.
+    #   @return [Types::IpamPrefixListResolverTarget]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPrefixListResolverTargetResult AWS API Documentation
+    #
+    class CreateIpamPrefixListResolverTargetResult < Struct.new(
+      :ipam_prefix_list_resolver_target)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -17207,6 +17378,71 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPrefixListResolverRequest AWS API Documentation
+    #
+    class DeleteIpamPrefixListResolverRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver
+    #   Information about the IPAM prefix list resolver that was deleted.
+    #   @return [Types::IpamPrefixListResolver]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPrefixListResolverResult AWS API Documentation
+    #
+    class DeleteIpamPrefixListResolverResult < Struct.new(
+      :ipam_prefix_list_resolver)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_id
+    #   The ID of the IPAM prefix list resolver target to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPrefixListResolverTargetRequest AWS API Documentation
+    #
+    class DeleteIpamPrefixListResolverTargetRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_target_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver_target
+    #   Information about the IPAM prefix list resolver target that was
+    #   deleted.
+    #   @return [Types::IpamPrefixListResolverTarget]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPrefixListResolverTargetResult AWS API Documentation
+    #
+    class DeleteIpamPrefixListResolverTargetResult < Struct.new(
+      :ipam_prefix_list_resolver_target)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] ipam_id
     #   The ID of the IPAM to delete.
     #   @return [String]
@@ -23523,6 +23759,16 @@ module Aws::EC2
     #
     #   * `state` - The state of the report (`available` \| `pending` \|
     #     `error`).
+    #
+    #   * `tag:<key>` - The key/value combination of a tag assigned to the
+    #     resource. Use the tag key in the filter name and the tag value as
+    #     the filter value. For example, to find all resources that have a
+    #     tag with the key `Owner` and the value `TeamA`, specify
+    #     `tag:Owner` for the filter name and `TeamA` for the filter value.
+    #
+    #   * `tag-key` - The key of a tag assigned to the resource. Use this
+    #     filter to find all resources assigned a tag with a specific key,
+    #     regardless of the tag value.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] dry_run
@@ -25664,6 +25910,132 @@ module Aws::EC2
     class DescribeIpamPoolsResult < Struct.new(
       :next_token,
       :ipam_pools)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters to limit the results.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_ids
+    #   The IDs of the IPAM prefix list resolver Targets to describe. If not
+    #   specified, all targets in your account are described.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver to filter targets by. Only
+    #   targets associated with this resolver will be returned.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPrefixListResolverTargetsRequest AWS API Documentation
+    #
+    class DescribeIpamPrefixListResolverTargetsRequest < Struct.new(
+      :dry_run,
+      :filters,
+      :max_results,
+      :next_token,
+      :ipam_prefix_list_resolver_target_ids,
+      :ipam_prefix_list_resolver_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_targets
+    #   Information about the IPAM prefix list resolver Targets.
+    #   @return [Array<Types::IpamPrefixListResolverTarget>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPrefixListResolverTargetsResult AWS API Documentation
+    #
+    class DescribeIpamPrefixListResolverTargetsResult < Struct.new(
+      :next_token,
+      :ipam_prefix_list_resolver_targets)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters to limit the results.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_ids
+    #   The IDs of the IPAM prefix list resolvers to describe. If not
+    #   specified, all resolvers in your account are described.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPrefixListResolversRequest AWS API Documentation
+    #
+    class DescribeIpamPrefixListResolversRequest < Struct.new(
+      :dry_run,
+      :filters,
+      :max_results,
+      :next_token,
+      :ipam_prefix_list_resolver_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolvers
+    #   Information about the IPAM prefix list resolvers.
+    #   @return [Array<Types::IpamPrefixListResolver>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPrefixListResolversResult AWS API Documentation
+    #
+    class DescribeIpamPrefixListResolversResult < Struct.new(
+      :next_token,
+      :ipam_prefix_list_resolvers)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -29248,21 +29620,11 @@ module Aws::EC2
     #
     #   * `group-owner-id`: The group owner ID.
     #
+    #   * `state`: The state of the association.
+    #
     #   * `vpc-id`: The ID of the associated VPC.
     #
     #   * `vpc-owner-id`: The account ID of the VPC owner.
-    #
-    #   * `state`: The state of the association.
-    #
-    #   * `tag:<key>`: The key/value combination of a tag assigned to the
-    #     resource. Use the tag key in the filter name and the tag value as
-    #     the filter value. For example, to find all resources that have a
-    #     tag with the key `Owner` and the value `TeamA`, specify
-    #     `tag:Owner` for the filter name and `TeamA` for the filter value.
-    #
-    #   * `tag-key`: The key of a tag assigned to the resource. Use this
-    #     filter to find all resources assigned a tag with a specific key,
-    #     regardless of the tag value.
     #   @return [Array<Types::Filter>]
     #
     # @!attribute [rw] next_token
@@ -42046,6 +42408,193 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver whose rules you want to
+    #   retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters to limit the results.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverRulesRequest AWS API Documentation
+    #
+    class GetIpamPrefixListResolverRulesRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id,
+      :filters,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] rules
+    #   The CIDR selection rules for the IPAM prefix list resolver.
+    #   @return [Array<Types::IpamPrefixListResolverRule>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverRulesResult AWS API Documentation
+    #
+    class GetIpamPrefixListResolverRulesResult < Struct.new(
+      :rules,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver whose version entries you
+    #   want to retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_version
+    #   The version number of the resolver for which to retrieve CIDR
+    #   entries. If not specified, the latest version is used.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverVersionEntriesRequest AWS API Documentation
+    #
+    class GetIpamPrefixListResolverVersionEntriesRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id,
+      :ipam_prefix_list_resolver_version,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] entries
+    #   The CIDR entries for the specified resolver version.
+    #   @return [Array<Types::IpamPrefixListResolverVersionEntry>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverVersionEntriesResult AWS API Documentation
+    #
+    class GetIpamPrefixListResolverVersionEntriesResult < Struct.new(
+      :entries,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver whose versions you want to
+    #   retrieve.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_versions
+    #   Specific version numbers to retrieve. If not specified, all versions
+    #   are returned.
+    #   @return [Array<Integer>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of items to return for this request. To get the
+    #   next page of items, make another request with the token returned in
+    #   the output. For more information, see [Pagination][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination
+    #   @return [Integer]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters to limit the results.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverVersionsRequest AWS API Documentation
+    #
+    class GetIpamPrefixListResolverVersionsRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id,
+      :ipam_prefix_list_resolver_versions,
+      :max_results,
+      :filters,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver_versions
+    #   Information about the IPAM prefix list resolver versions.
+    #   @return [Array<Types::IpamPrefixListResolverVersion>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPrefixListResolverVersionsResult AWS API Documentation
+    #
+    class GetIpamPrefixListResolverVersionsResult < Struct.new(
+      :ipam_prefix_list_resolver_versions,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] filters
     #   One or more filters for the request. For more information about
     #   filtering, see [Filtering CLI output][1].
@@ -51170,6 +51719,603 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # Describes an IPAM prefix list resolver.
+    #
+    # An IPAM prefix list resolver is a component that manages the
+    # synchronization between IPAM's CIDR selection rules and
+    # customer-managed prefix lists. It automates connectivity
+    # configurations by selecting CIDRs from IPAM's database based on your
+    # business logic and synchronizing them with prefix lists used in
+    # resources such as VPC route tables and security groups.
+    #
+    # @!attribute [rw] owner_id
+    #   The ID of the Amazon Web Services account that owns the IPAM prefix
+    #   list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_arn
+    #   The Amazon Resource Name (ARN) of the IPAM prefix list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_arn
+    #   The Amazon Resource Name (ARN) of the IPAM associated with this
+    #   resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_region
+    #   The Amazon Web Services Region where the associated IPAM is located.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the IPAM prefix list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] address_family
+    #   The address family (IPv4 or IPv6) for the IPAM prefix list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the IPAM prefix list resolver. Valid values
+    #   include `create-in-progress`, `create-complete`, `create-failed`,
+    #   `modify-in-progress`, `modify-complete`, `modify-failed`,
+    #   `delete-in-progress`, `delete-complete`, and `delete-failed`.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   The tags assigned to the IPAM prefix list resolver.
+    #   @return [Array<Types::Tag>]
+    #
+    # @!attribute [rw] last_version_creation_status
+    #   The status for the last time a version was created.
+    #
+    #   Each version is a snapshot of what CIDRs matched your rules at that
+    #   moment in time. The version number increments every time the CIDR
+    #   list changes due to infrastructure changes.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_version_creation_status_message
+    #   The status message for the last time a version was created.
+    #
+    #   Each version is a snapshot of what CIDRs matched your rules at that
+    #   moment in time. The version number increments every time the CIDR
+    #   list changes due to infrastructure changes.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolver AWS API Documentation
+    #
+    class IpamPrefixListResolver < Struct.new(
+      :owner_id,
+      :ipam_prefix_list_resolver_id,
+      :ipam_prefix_list_resolver_arn,
+      :ipam_arn,
+      :ipam_region,
+      :description,
+      :address_family,
+      :state,
+      :tags,
+      :last_version_creation_status,
+      :last_version_creation_status_message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a CIDR selection rule.
+    #
+    # CIDR selection rules define the business logic for selecting CIDRs
+    # from IPAM. If a CIDR matches any of the rules, it will be included. If
+    # a rule has multiple conditions, the CIDR has to match every condition
+    # of that rule. You can create a prefix list resolver without any CIDR
+    # selection rules, but it will generate empty versions (containing no
+    # CIDRs) until you add rules.
+    #
+    # @!attribute [rw] rule_type
+    #   The type of CIDR selection rule. Valid values include `include` for
+    #   selecting CIDRs that match the conditions, and `exclude` for
+    #   excluding CIDRs that match the conditions.
+    #   @return [String]
+    #
+    # @!attribute [rw] static_cidr
+    #   A fixed list of CIDRs that do not change (like a manual list
+    #   replicated across Regions).
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_scope_id
+    #   The ID of the IPAM scope from which to select CIDRs. This determines
+    #   whether to select from public or private IP address space.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   For rules of type `ipam-resource-cidr`, this is the resource type.
+    #   @return [String]
+    #
+    # @!attribute [rw] conditions
+    #   The conditions that determine which CIDRs are selected by this rule.
+    #   Conditions specify criteria such as resource type, tags, account
+    #   IDs, and Regions.
+    #   @return [Array<Types::IpamPrefixListResolverRuleCondition>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverRule AWS API Documentation
+    #
+    class IpamPrefixListResolverRule < Struct.new(
+      :rule_type,
+      :static_cidr,
+      :ipam_scope_id,
+      :resource_type,
+      :conditions)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a condition within a CIDR selection rule. Conditions define
+    # the criteria for selecting CIDRs from IPAM's database based on
+    # resource attributes.
+    #
+    # CIDR selection rules define the business logic for selecting CIDRs
+    # from IPAM. If a CIDR matches any of the rules, it will be included. If
+    # a rule has multiple conditions, the CIDR has to match every condition
+    # of that rule. You can create a prefix list resolver without any CIDR
+    # selection rules, but it will generate empty versions (containing no
+    # CIDRs) until you add rules.
+    #
+    # There are three rule types:
+    #
+    # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
+    #   manual list replicated across Regions).
+    #
+    # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
+    #   from your IPAM production pool).
+    #
+    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
+    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #
+    # Condition availability by resource type:
+    #
+    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
+    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
+    #   conditions.
+    #
+    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * IPAM Pool ID
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * Conditions for the **Scope resource CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * Resource ID: The unique ID of a resource (like
+    #         vpc-1234567890abcdef0)
+    #
+    #       * Resource type (like VPC or Subnet)
+    #
+    #       * Resource owner (like 111122223333)
+    #
+    #       * Resource region (like us-east-1)
+    #
+    #       * Resource tag (like key: name, value: dev-vpc-1)
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * When setting conditions for a rule, one or more conditions is
+    #     required.
+    #
+    # @!attribute [rw] operation
+    #   The operation to perform when evaluating this condition. Valid
+    #   values include `equals`, `not-equals`, `contains`, and
+    #   `not-contains`.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_pool_id
+    #   The ID of the IPAM pool to match against. This condition selects
+    #   CIDRs that belong to the specified IPAM pool.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_id
+    #   The ID of the Amazon Web Services resource to match against. This
+    #   condition selects CIDRs associated with the specified resource.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_owner
+    #   The Amazon Web Services account ID that owns the resources to match
+    #   against. This condition selects CIDRs from resources owned by the
+    #   specified account.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_region
+    #   The Amazon Web Services Region where the resources are located. This
+    #   condition selects CIDRs from resources in the specified Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_tag
+    #   A tag key-value pair to match against. This condition selects CIDRs
+    #   from resources that have the specified tag.
+    #   @return [Types::IpamResourceTag]
+    #
+    # @!attribute [rw] cidr
+    #   A CIDR block to match against. This condition selects CIDRs that
+    #   fall within or match the specified CIDR range.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverRuleCondition AWS API Documentation
+    #
+    class IpamPrefixListResolverRuleCondition < Struct.new(
+      :operation,
+      :ipam_pool_id,
+      :resource_id,
+      :resource_owner,
+      :resource_region,
+      :resource_tag,
+      :cidr)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a condition used when creating or modifying resolver rules.
+    #
+    # CIDR selection rules define the business logic for selecting CIDRs
+    # from IPAM. If a CIDR matches any of the rules, it will be included. If
+    # a rule has multiple conditions, the CIDR has to match every condition
+    # of that rule. You can create a prefix list resolver without any CIDR
+    # selection rules, but it will generate empty versions (containing no
+    # CIDRs) until you add rules.
+    #
+    # There are three rule types:
+    #
+    # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
+    #   manual list replicated across Regions).
+    #
+    # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
+    #   from your IPAM production pool).
+    #
+    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
+    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #
+    # Condition availability by resource type:
+    #
+    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
+    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
+    #   conditions.
+    #
+    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * IPAM Pool ID
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * Conditions for the **Scope resource CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * Resource ID: The unique ID of a resource (like
+    #         vpc-1234567890abcdef0)
+    #
+    #       * Resource type (like VPC or Subnet)
+    #
+    #       * Resource owner (like 111122223333)
+    #
+    #       * Resource region (like us-east-1)
+    #
+    #       * Resource tag (like key: name, value: dev-vpc-1)
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * When setting conditions for a rule, one or more conditions is
+    #     required.
+    #
+    # @!attribute [rw] operation
+    #   The operation to perform when evaluating this condition.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_pool_id
+    #   The ID of the IPAM pool to match against. This condition selects
+    #   CIDRs that belong to the specified IPAM pool.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_id
+    #   The ID of the Amazon Web Services resource to match against. This
+    #   condition selects CIDRs associated with the specified resource.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_owner
+    #   The Amazon Web Services account ID that owns the resources to match
+    #   against. This condition selects CIDRs from resources owned by the
+    #   specified account.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_region
+    #   The Amazon Web Services Region where the resources are located. This
+    #   condition selects CIDRs from resources in the specified Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_tag
+    #   A tag key-value pair to match against. This condition selects CIDRs
+    #   from resources that have the specified tag.
+    #   @return [Types::RequestIpamResourceTag]
+    #
+    # @!attribute [rw] cidr
+    #   A CIDR block to match against. This condition selects CIDRs that
+    #   fall within or match the specified CIDR range.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverRuleConditionRequest AWS API Documentation
+    #
+    class IpamPrefixListResolverRuleConditionRequest < Struct.new(
+      :operation,
+      :ipam_pool_id,
+      :resource_id,
+      :resource_owner,
+      :resource_region,
+      :resource_tag,
+      :cidr)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a CIDR selection rule to include in a request. This is used
+    # when creating or modifying resolver rules.
+    #
+    # CIDR selection rules define the business logic for selecting CIDRs
+    # from IPAM. If a CIDR matches any of the rules, it will be included. If
+    # a rule has multiple conditions, the CIDR has to match every condition
+    # of that rule. You can create a prefix list resolver without any CIDR
+    # selection rules, but it will generate empty versions (containing no
+    # CIDRs) until you add rules.
+    #
+    # There are three rule types:
+    #
+    # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
+    #   manual list replicated across Regions).
+    #
+    # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
+    #   from your IPAM production pool).
+    #
+    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
+    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #
+    # Condition availability by resource type:
+    #
+    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
+    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
+    #   conditions.
+    #
+    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * IPAM Pool ID
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * Conditions for the **Scope resource CIDR** resource type:
+    #
+    #     * Property:
+    #
+    #       * Resource ID: The unique ID of a resource (like
+    #         vpc-1234567890abcdef0)
+    #
+    #       * Resource type (like VPC or Subnet)
+    #
+    #       * Resource owner (like 111122223333)
+    #
+    #       * Resource region (like us-east-1)
+    #
+    #       * Resource tag (like key: name, value: dev-vpc-1)
+    #
+    #       * CIDR (like 10.24.34.0/23)
+    #     * Operation: Equals/Not equals
+    #
+    #     * Value: The value on which to match the condition
+    #   * When setting conditions for a rule, one or more conditions is
+    #     required.
+    #
+    # @!attribute [rw] rule_type
+    #   The type of CIDR selection rule. Valid values include `include` for
+    #   selecting CIDRs that match the conditions, and `exclude` for
+    #   excluding CIDRs that match the conditions.
+    #   @return [String]
+    #
+    # @!attribute [rw] static_cidr
+    #   A fixed list of CIDRs that do not change (like a manual list
+    #   replicated across Regions).
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_scope_id
+    #   The ID of the IPAM scope from which to select CIDRs. This determines
+    #   whether to select from public or private IP address space.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   For rules of type `ipam-resource-cidr`, this is the resource type.
+    #   @return [String]
+    #
+    # @!attribute [rw] conditions
+    #   The conditions that determine which CIDRs are selected by this rule.
+    #   Conditions specify criteria such as resource type, tags, account
+    #   IDs, and Regions.
+    #   @return [Array<Types::IpamPrefixListResolverRuleConditionRequest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverRuleRequest AWS API Documentation
+    #
+    class IpamPrefixListResolverRuleRequest < Struct.new(
+      :rule_type,
+      :static_cidr,
+      :ipam_scope_id,
+      :resource_type,
+      :conditions)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes an IPAM prefix list resolver target.
+    #
+    # An IPAM prefix list resolver target is an association between a
+    # specific customer-managed prefix list and an IPAM prefix list
+    # resolver. The target enables the resolver to synchronize CIDRs
+    # selected by its rules into the specified prefix list, which can then
+    # be referenced in Amazon Web Services resources.
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_id
+    #   The ID of the IPAM prefix list resolver target.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_arn
+    #   The Amazon Resource Name (ARN) of the IPAM prefix list resolver
+    #   target.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver associated with this target.
+    #   @return [String]
+    #
+    # @!attribute [rw] owner_id
+    #   The ID of the Amazon Web Services account that owns the IPAM prefix
+    #   list resolver target.
+    #   @return [String]
+    #
+    # @!attribute [rw] prefix_list_id
+    #   The ID of the managed prefix list associated with this target.
+    #   @return [String]
+    #
+    # @!attribute [rw] prefix_list_region
+    #   The Amazon Web Services Region where the prefix list associated with
+    #   this target is located.
+    #   @return [String]
+    #
+    # @!attribute [rw] desired_version
+    #   The desired version of the prefix list that this target should
+    #   synchronize with.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] last_synced_version
+    #   The version of the prefix list that was last successfully
+    #   synchronized by this target.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] track_latest_version
+    #   Indicates whether this target automatically tracks the latest
+    #   version of the prefix list.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] state_message
+    #   A message describing the current state of the IPAM prefix list
+    #   resolver target, including any error information.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the IPAM prefix list resolver target. Valid
+    #   values include `create-in-progress`, `create-complete`,
+    #   `create-failed`, `modify-in-progress`, `modify-complete`,
+    #   `modify-failed`, `delete-in-progress`, `delete-complete`, and
+    #   `delete-failed`.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   The tags assigned to the IPAM prefix list resolver target.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverTarget AWS API Documentation
+    #
+    class IpamPrefixListResolverTarget < Struct.new(
+      :ipam_prefix_list_resolver_target_id,
+      :ipam_prefix_list_resolver_target_arn,
+      :ipam_prefix_list_resolver_id,
+      :owner_id,
+      :prefix_list_id,
+      :prefix_list_region,
+      :desired_version,
+      :last_synced_version,
+      :track_latest_version,
+      :state_message,
+      :state,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a version of an IPAM prefix list resolver.
+    #
+    # Each version is a snapshot of what CIDRs matched your rules at that
+    # moment in time. The version number increments every time the CIDR list
+    # changes due to infrastructure changes.
+    #
+    # **Version example:**
+    #
+    # **Initial State (Version 1)**
+    #
+    # Production environment:
+    #
+    # * vpc-prod-web (10.1.0.0/16) - tagged env=prod
+    #
+    # * vpc-prod-db (10.2.0.0/16) - tagged env=prod
+    #
+    # Resolver rule: Include all VPCs tagged env=prod
+    #
+    # **Version 1 CIDRs:** 10.1.0.0/16, 10.2.0.0/16
+    #
+    # **Infrastructure Change (Version 2)**
+    #
+    # New VPC added:
+    #
+    # * vpc-prod-api (10.3.0.0/16) - tagged env=prod
+    #
+    # ^
+    #
+    # IPAM automatically detects the change and creates a new version.
+    #
+    # **Version 2 CIDRs:** 10.1.0.0/16, 10.2.0.0/16, 10.3.0.0/16
+    #
+    # @!attribute [rw] version
+    #   The version number of the IPAM prefix list resolver.
+    #
+    #   Each version is a snapshot of what CIDRs matched your rules at that
+    #   moment in time. The version number increments every time the CIDR
+    #   list changes due to infrastructure changes.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverVersion AWS API Documentation
+    #
+    class IpamPrefixListResolverVersion < Struct.new(
+      :version)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Describes a CIDR entry in a specific version of an IPAM prefix list
+    # resolver. This represents a CIDR that was selected and synchronized at
+    # a particular point in time.
+    #
+    # @!attribute [rw] cidr
+    #   The CIDR block that was selected and synchronized in this resolver
+    #   version.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPrefixListResolverVersionEntry AWS API Documentation
+    #
+    class IpamPrefixListResolverVersionEntry < Struct.new(
+      :cidr)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The security group that the resource with the public IP address is in.
     #
     # @!attribute [rw] group_name
@@ -51516,9 +52662,9 @@ module Aws::EC2
     #
     #   * `isolate-in-progress` - Amazon Web Services account that created
     #     the resource discovery association has been removed and the
-    #     resource discovery associatation is being isolated.
+    #     resource discovery association is being isolated.
     #
-    #   * `isolate-complete` - Resource discovery isolation is complete..
+    #   * `isolate-complete` - Resource discovery isolation is complete.
     #
     #   * `restore-in-progress` - Resource discovery is being restored.
     #   @return [String]
@@ -55156,6 +56302,25 @@ module Aws::EC2
     #   The ID of the owner of the prefix list.
     #   @return [String]
     #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_id
+    #   The ID of the IPAM prefix list resolver target associated with this
+    #   managed prefix list. When set, this prefix list becomes an IPAM
+    #   managed prefix list.
+    #
+    #   An IPAM-managed prefix list is a customer-managed prefix list that
+    #   has been associated with an IPAM prefix list resolver target. When a
+    #   prefix list becomes IPAM managed, its CIDRs are automatically
+    #   synchronized based on the IPAM prefix list resolver's CIDR
+    #   selection rules, and direct CIDR modifications are restricted.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_sync_enabled
+    #   Indicates whether synchronization with an IPAM prefix list resolver
+    #   is enabled for this managed prefix list. When enabled, the prefix
+    #   list CIDRs are automatically updated based on the resolver's CIDR
+    #   selection rules.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ManagedPrefixList AWS API Documentation
     #
     class ManagedPrefixList < Struct.new(
@@ -55168,7 +56333,9 @@ module Aws::EC2
       :max_entries,
       :version,
       :tags,
-      :owner_id)
+      :owner_id,
+      :ipam_prefix_list_resolver_target_id,
+      :ipam_prefix_list_resolver_sync_enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -57316,6 +58483,112 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] ipam_prefix_list_resolver_id
+    #   The ID of the IPAM prefix list resolver to modify.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   A new description for the IPAM prefix list resolver.
+    #   @return [String]
+    #
+    # @!attribute [rw] rules
+    #   The updated CIDR selection rules for the resolver. These rules
+    #   replace the existing rules entirely.
+    #   @return [Array<Types::IpamPrefixListResolverRuleRequest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPrefixListResolverRequest AWS API Documentation
+    #
+    class ModifyIpamPrefixListResolverRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_id,
+      :description,
+      :rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver
+    #   Information about the modified IPAM prefix list resolver.
+    #   @return [Types::IpamPrefixListResolver]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPrefixListResolverResult AWS API Documentation
+    #
+    class ModifyIpamPrefixListResolverResult < Struct.new(
+      :ipam_prefix_list_resolver)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_prefix_list_resolver_target_id
+    #   The ID of the IPAM prefix list resolver target to modify.
+    #   @return [String]
+    #
+    # @!attribute [rw] desired_version
+    #   The desired version of the prefix list to target. This allows you to
+    #   pin the target to a specific version.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] track_latest_version
+    #   Indicates whether the resolver target should automatically track the
+    #   latest version of the prefix list. When enabled, the target will
+    #   always synchronize with the most current version.
+    #
+    #   Choose this for automatic updates when you want your prefix lists to
+    #   stay current with infrastructure changes without manual
+    #   intervention.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. For more information, see [Ensuring
+    #   idempotency][1].
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPrefixListResolverTargetRequest AWS API Documentation
+    #
+    class ModifyIpamPrefixListResolverTargetRequest < Struct.new(
+      :dry_run,
+      :ipam_prefix_list_resolver_target_id,
+      :desired_version,
+      :track_latest_version,
+      :client_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_prefix_list_resolver_target
+    #   Information about the modified IPAM prefix list resolver target.
+    #   @return [Types::IpamPrefixListResolverTarget]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPrefixListResolverTargetResult AWS API Documentation
+    #
+    class ModifyIpamPrefixListResolverTargetResult < Struct.new(
+      :ipam_prefix_list_resolver_target)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] ipam_id
     #   The ID of the IPAM you want to modify.
     #   @return [String]
@@ -57756,6 +59029,13 @@ module Aws::EC2
     #   support the new maximum size.
     #   @return [Integer]
     #
+    # @!attribute [rw] ipam_prefix_list_resolver_sync_enabled
+    #   Indicates whether synchronization with an IPAM prefix list resolver
+    #   should be enabled for this managed prefix list. When enabled, the
+    #   prefix list CIDRs are automatically updated based on the associated
+    #   resolver's CIDR selection rules.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyManagedPrefixListRequest AWS API Documentation
     #
     class ModifyManagedPrefixListRequest < Struct.new(
@@ -57765,7 +59045,8 @@ module Aws::EC2
       :prefix_list_name,
       :add_entries,
       :remove_entries,
-      :max_entries)
+      :max_entries,
+      :ipam_prefix_list_resolver_sync_enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -79880,6 +81161,15 @@ module Aws::EC2
     # @!attribute [rw] vpc_peering
     #   @return [Types::VpcEncryptionControlExclusion]
     #
+    # @!attribute [rw] lambda
+    #   @return [Types::VpcEncryptionControlExclusion]
+    #
+    # @!attribute [rw] vpc_lattice
+    #   @return [Types::VpcEncryptionControlExclusion]
+    #
+    # @!attribute [rw] elastic_file_system
+    #   @return [Types::VpcEncryptionControlExclusion]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpcEncryptionControlExclusions AWS API Documentation
     #
     class VpcEncryptionControlExclusions < Struct.new(
@@ -79887,7 +81177,10 @@ module Aws::EC2
       :egress_only_internet_gateway,
       :nat_gateway,
       :virtual_private_gateway,
-      :vpc_peering)
+      :vpc_peering,
+      :lambda,
+      :vpc_lattice,
+      :elastic_file_system)
       SENSITIVE = []
       include Aws::Structure
     end

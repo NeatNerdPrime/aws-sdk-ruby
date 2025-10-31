@@ -546,6 +546,10 @@ module Aws::MediaConvert
     #   you need to comply with a loudness standard.
     #   @return [Types::AudioNormalizationSettings]
     #
+    # @!attribute [rw] audio_pitch_correction_settings
+    #   Settings for audio pitch correction during framerate conversion.
+    #   @return [Types::AudioPitchCorrectionSettings]
+    #
     # @!attribute [rw] audio_source_name
     #   Specifies which audio data to use from each input. In the simplest
     #   case, specify an "Audio Selector":#inputs-audio\_selector by name
@@ -635,6 +639,7 @@ module Aws::MediaConvert
     class AudioDescription < Struct.new(
       :audio_channel_tagging_settings,
       :audio_normalization_settings,
+      :audio_pitch_correction_settings,
       :audio_source_name,
       :audio_type,
       :audio_type_control,
@@ -711,6 +716,26 @@ module Aws::MediaConvert
       :peak_calculation,
       :target_lkfs,
       :true_peak_limiter_threshold)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Settings for audio pitch correction during framerate conversion.
+    #
+    # @!attribute [rw] slow_pal_pitch_correction
+    #   Use Slow PAL pitch correction to compensate for audio pitch changes
+    #   during slow PAL frame rate conversion. This setting only applies
+    #   when Slow PAL is enabled in your output video codec settings. To
+    #   automatically apply audio pitch correction: Choose Enabled.
+    #   MediaConvert automatically applies a pitch correction to your output
+    #   to match the original content's audio pitch. To not apply audio
+    #   pitch correction: Keep the default value, Disabled.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioPitchCorrectionSettings AWS API Documentation
+    #
+    class AudioPitchCorrectionSettings < Struct.new(
+      :slow_pal_pitch_correction)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -854,7 +879,9 @@ module Aws::MediaConvert
     #   Identifier (PID) values for MPEG Transport Stream inputs. Use this
     #   when you know the exact PID values of your audio streams. Track:
     #   Default. Select audio by track number. This is the most common
-    #   option and works with most input container formats. Language code:
+    #   option and works with most input container formats. If more types of
+    #   audio data get recognized in the future, these numberings may shift,
+    #   but the numberings used for Stream mode will not. Language code:
     #   Select audio by language using an ISO 639-2 or ISO 639-3
     #   three-letter code in all capital letters. Use this when your source
     #   has embedded language metadata and you want to select tracks based
@@ -863,15 +890,37 @@ module Aws::MediaConvert
     #   multiple audio renditions and you want to select specific rendition
     #   groups. All PCM: Select all uncompressed PCM audio tracks from your
     #   input automatically. This is useful when you want to include all PCM
-    #   audio tracks without specifying individual track numbers.
+    #   audio tracks without specifying individual track numbers. Stream:
+    #   Select audio by stream number. Stream numbers include all tracks in
+    #   the source file, regardless of type, and correspond to either the
+    #   order of tracks in the file, or if applicable, the stream number
+    #   metadata of the track. Although all tracks count toward these stream
+    #   numbers, in this audio selector context, only the stream number of a
+    #   track containing audio data may be used. If your source file
+    #   contains a track which is not recognized by the service, then the
+    #   corresponding stream number will still be reserved for future use.
+    #   If more types of audio data get recognized in the future, these
+    #   numberings will not shift.
     #   @return [String]
+    #
+    # @!attribute [rw] streams
+    #   Identify a track from the input audio to include in this selector by
+    #   entering the stream index number. These numberings count all tracks
+    #   in the input file, but only a track containing audio data may be
+    #   used here. To include several tracks in a single audio selector,
+    #   specify multiple tracks as follows. Using the console, enter a
+    #   comma-separated list. For example, type "1,2,3" to include tracks
+    #   1 through 3.
+    #   @return [Array<Integer>]
     #
     # @!attribute [rw] tracks
     #   Identify a track from the input audio to include in this selector by
-    #   entering the track index number. To include several tracks in a
-    #   single audio selector, specify multiple tracks as follows. Using the
-    #   console, enter a comma-separated list. For example, type "1,2,3"
-    #   to include tracks 1 through 3.
+    #   entering the track index number. These numberings include only
+    #   tracks recognized as audio. If the service recognizes more types of
+    #   audio tracks in the future, these numberings may shift. To include
+    #   several tracks in a single audio selector, specify multiple tracks
+    #   as follows. Using the console, enter a comma-separated list. For
+    #   example, type "1,2,3" to include tracks 1 through 3.
     #   @return [Array<Integer>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/AudioSelector AWS API Documentation
@@ -888,6 +937,7 @@ module Aws::MediaConvert
       :program_selection,
       :remix_settings,
       :selector_type,
+      :streams,
       :tracks)
       SENSITIVE = []
       include Aws::Structure
@@ -2376,13 +2426,16 @@ module Aws::MediaConvert
     #
     # @!attribute [rw] dash_manifest_style
     #   Specify how MediaConvert writes SegmentTimeline in your output DASH
-    #   manifest. To write a SegmentTimeline in each video Representation:
-    #   Keep the default value, Basic. To write a common SegmentTimeline in
-    #   the video AdaptationSet: Choose Compact. Note that MediaConvert will
-    #   still write a SegmentTimeline in any Representation that does not
-    #   share a common timeline. To write a video AdaptationSet for each
-    #   different output framerate, and a common SegmentTimeline in each
-    #   AdaptationSet: Choose Distinct.
+    #   manifest. To write a SegmentTimeline for outputs that you also
+    #   specify a Name modifier for: Keep the default value, Basic. Note
+    #   that if you do not specify a name modifier for an output,
+    #   MediaConvert will not write a SegmentTimeline for it. To write a
+    #   common SegmentTimeline in the video AdaptationSet: Choose Compact.
+    #   Note that MediaConvert will still write a SegmentTimeline in any
+    #   Representation that does not share a common timeline. To write a
+    #   video AdaptationSet for each different output framerate, and a
+    #   common SegmentTimeline in each AdaptationSet: Choose Distinct. To
+    #   write a SegmentTimeline in each AdaptationSet: Choose Full.
     #   @return [String]
     #
     # @!attribute [rw] destination
@@ -3730,13 +3783,16 @@ module Aws::MediaConvert
     #
     # @!attribute [rw] dash_manifest_style
     #   Specify how MediaConvert writes SegmentTimeline in your output DASH
-    #   manifest. To write a SegmentTimeline in each video Representation:
-    #   Keep the default value, Basic. To write a common SegmentTimeline in
-    #   the video AdaptationSet: Choose Compact. Note that MediaConvert will
-    #   still write a SegmentTimeline in any Representation that does not
-    #   share a common timeline. To write a video AdaptationSet for each
-    #   different output framerate, and a common SegmentTimeline in each
-    #   AdaptationSet: Choose Distinct.
+    #   manifest. To write a SegmentTimeline for outputs that you also
+    #   specify a Name modifier for: Keep the default value, Basic. Note
+    #   that if you do not specify a name modifier for an output,
+    #   MediaConvert will not write a SegmentTimeline for it. To write a
+    #   common SegmentTimeline in the video AdaptationSet: Choose Compact.
+    #   Note that MediaConvert will still write a SegmentTimeline in any
+    #   Representation that does not share a common timeline. To write a
+    #   video AdaptationSet for each different output framerate, and a
+    #   common SegmentTimeline in each AdaptationSet: Choose Distinct. To
+    #   write a SegmentTimeline in each AdaptationSet: Choose Full.
     #   @return [String]
     #
     # @!attribute [rw] destination
@@ -10879,12 +10935,12 @@ module Aws::MediaConvert
     #
     # @!attribute [rw] caption_container_type
     #   Use this setting only in DASH output groups that include sidecar
-    #   TTML or IMSC captions. You specify sidecar captions in a separate
-    #   output from your audio and video. Choose Raw for captions in a
-    #   single XML file in a raw container. Choose Fragmented MPEG-4 for
-    #   captions in XML format contained within fragmented MP4 files. This
-    #   set of fragmented MP4 files is separate from your video and audio
-    #   fragmented MP4 files.
+    #   TTML, IMSC or WEBVTT captions. You specify sidecar captions in a
+    #   separate output from your audio and video. Choose Raw for captions
+    #   in a single XML file in a raw container. Choose Fragmented MPEG-4
+    #   for captions in XML format contained within fragmented MP4 files.
+    #   This set of fragmented MP4 files is separate from your video and
+    #   audio fragmented MP4 files.
     #   @return [String]
     #
     # @!attribute [rw] klv_metadata
@@ -12179,6 +12235,25 @@ module Aws::MediaConvert
     #
     class PartnerWatermarking < Struct.new(
       :nexguard_file_marker_settings)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Optional settings when you set Codec to the value Passthrough.
+    #
+    # @!attribute [rw] video_selector_mode
+    #   AUTO will select the highest bitrate input in the video selector
+    #   source. REMUX\_ALL will passthrough all the selected streams in the
+    #   video selector source. When selecting streams from multiple
+    #   renditions (i.e. using Stream video selector type): REMUX\_ALL will
+    #   only remux all streams selected, and AUTO will use the highest
+    #   bitrate video stream among the selected streams as source.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PassthroughSettings AWS API Documentation
+    #
+    class PassthroughSettings < Struct.new(
+      :video_selector_mode)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -13669,6 +13744,21 @@ module Aws::MediaConvert
     # your caption source is IMSC 1.1 in a separate xml file, use
     # FileSourceSettings instead of TrackSourceSettings.
     #
+    # @!attribute [rw] stream_number
+    #   Use this setting to select a single captions track from a source.
+    #   Stream numbers include all tracks in the source file, regardless of
+    #   type, and correspond to either the order of tracks in the file, or
+    #   if applicable, the stream number metadata of the track. Although all
+    #   tracks count toward these stream numbers, in this caption selector
+    #   context, only the stream number of a track containing caption data
+    #   may be used. To include more than one captions track in your job
+    #   outputs, create multiple input captions selectors. Specify one
+    #   stream per selector. If your source file contains a track which is
+    #   not recognized by the service, then the corresponding stream number
+    #   will still be reserved for future use. If more types of caption data
+    #   get recognized in the future, these numberings will not shift.
+    #   @return [Integer]
+    #
     # @!attribute [rw] track_number
     #   Use this setting to select a single captions track from a source.
     #   Track numbers correspond to the order in the captions source file.
@@ -13676,12 +13766,15 @@ module Aws::MediaConvert
     #   captions appear in the CPL. For example, use 1 to select the
     #   captions asset that is listed first in the CPL. To include more than
     #   one captions track in your job outputs, create multiple input
-    #   captions selectors. Specify one track per selector.
+    #   captions selectors. Specify one track per selector. If more types of
+    #   caption data get recognized in the future, these numberings may
+    #   shift, but the numberings used for streamNumber will not.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/TrackSourceSettings AWS API Documentation
     #
     class TrackSourceSettings < Struct.new(
+      :stream_number,
       :track_number)
       SENSITIVE = []
       include Aws::Structure
@@ -14221,6 +14314,10 @@ module Aws::MediaConvert
     #   Required when you set Codec to the value MPEG2.
     #   @return [Types::Mpeg2Settings]
     #
+    # @!attribute [rw] passthrough_settings
+    #   Optional settings when you set Codec to the value Passthrough.
+    #   @return [Types::PassthroughSettings]
+    #
     # @!attribute [rw] prores_settings
     #   Required when you set Codec to the value PRORES.
     #   @return [Types::ProresSettings]
@@ -14257,6 +14354,7 @@ module Aws::MediaConvert
       :h264_settings,
       :h265_settings,
       :mpeg_2_settings,
+      :passthrough_settings,
       :prores_settings,
       :uncompressed_settings,
       :vc_3_settings,
@@ -14692,6 +14790,12 @@ module Aws::MediaConvert
     #   enter a value for Height and leave Width blank.
     #   @return [Integer]
     #
+    # @!attribute [rw] opacity
+    #   Use Opacity to specify how much of the underlying video shows
+    #   through the overlay video. 0 is transparent and 100 is fully opaque.
+    #   Default is 100.
+    #   @return [Integer]
+    #
     # @!attribute [rw] unit
     #   Specify the Unit type to use when you enter a value for X position,
     #   Y position, Width, or Height. You can choose Pixels or Percentage.
@@ -14742,6 +14846,7 @@ module Aws::MediaConvert
     #
     class VideoOverlayPosition < Struct.new(
       :height,
+      :opacity,
       :unit,
       :width,
       :x_position,
@@ -14754,7 +14859,7 @@ module Aws::MediaConvert
     # Transitions to reposition or resize your overlay over time. To use the
     # same position and size for the duration of your video overlay: Leave
     # blank. To specify a Transition: Enter a value for Start timecode, End
-    # Timecode, X Position, Y Position, Width, or Height.
+    # Timecode, X Position, Y Position, Width, Height, or Opacity
     #
     # @!attribute [rw] end_position
     #   Specify the ending position for this transition, relative to the
@@ -15062,8 +15167,14 @@ module Aws::MediaConvert
     #   @return [String]
     #
     # @!attribute [rw] streams
-    #   Specify a stream for MediaConvert to use from your HLS input. Enter
-    #   an integer corresponding to the stream order in your HLS manifest.
+    #   Specify one or more video streams for MediaConvert to use from your
+    #   HLS input. Enter an integer corresponding to the stream number, with
+    #   the first stream in your HLS multivariant playlist starting at 1.For
+    #   re-encoding workflows, MediaConvert uses the video stream that you
+    #   select with the highest bitrate as the input.For video passthrough
+    #   workflows, you specify whether to passthrough a single video stream
+    #   or multiple video streams under Video selector source in the output
+    #   video encoding settings.
     #   @return [Array<Integer>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/VideoSelector AWS API Documentation

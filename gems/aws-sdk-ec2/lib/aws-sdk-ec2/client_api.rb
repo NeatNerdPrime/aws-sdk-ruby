@@ -532,6 +532,10 @@ module Aws::EC2
     CreateIpamExternalResourceVerificationTokenResult = Shapes::StructureShape.new(name: 'CreateIpamExternalResourceVerificationTokenResult')
     CreateIpamPoolRequest = Shapes::StructureShape.new(name: 'CreateIpamPoolRequest')
     CreateIpamPoolResult = Shapes::StructureShape.new(name: 'CreateIpamPoolResult')
+    CreateIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'CreateIpamPrefixListResolverRequest')
+    CreateIpamPrefixListResolverResult = Shapes::StructureShape.new(name: 'CreateIpamPrefixListResolverResult')
+    CreateIpamPrefixListResolverTargetRequest = Shapes::StructureShape.new(name: 'CreateIpamPrefixListResolverTargetRequest')
+    CreateIpamPrefixListResolverTargetResult = Shapes::StructureShape.new(name: 'CreateIpamPrefixListResolverTargetResult')
     CreateIpamRequest = Shapes::StructureShape.new(name: 'CreateIpamRequest')
     CreateIpamResourceDiscoveryRequest = Shapes::StructureShape.new(name: 'CreateIpamResourceDiscoveryRequest')
     CreateIpamResourceDiscoveryResult = Shapes::StructureShape.new(name: 'CreateIpamResourceDiscoveryResult')
@@ -751,6 +755,10 @@ module Aws::EC2
     DeleteIpamExternalResourceVerificationTokenResult = Shapes::StructureShape.new(name: 'DeleteIpamExternalResourceVerificationTokenResult')
     DeleteIpamPoolRequest = Shapes::StructureShape.new(name: 'DeleteIpamPoolRequest')
     DeleteIpamPoolResult = Shapes::StructureShape.new(name: 'DeleteIpamPoolResult')
+    DeleteIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'DeleteIpamPrefixListResolverRequest')
+    DeleteIpamPrefixListResolverResult = Shapes::StructureShape.new(name: 'DeleteIpamPrefixListResolverResult')
+    DeleteIpamPrefixListResolverTargetRequest = Shapes::StructureShape.new(name: 'DeleteIpamPrefixListResolverTargetRequest')
+    DeleteIpamPrefixListResolverTargetResult = Shapes::StructureShape.new(name: 'DeleteIpamPrefixListResolverTargetResult')
     DeleteIpamRequest = Shapes::StructureShape.new(name: 'DeleteIpamRequest')
     DeleteIpamResourceDiscoveryRequest = Shapes::StructureShape.new(name: 'DeleteIpamResourceDiscoveryRequest')
     DeleteIpamResourceDiscoveryResult = Shapes::StructureShape.new(name: 'DeleteIpamResourceDiscoveryResult')
@@ -1083,6 +1091,10 @@ module Aws::EC2
     DescribeIpamExternalResourceVerificationTokensResult = Shapes::StructureShape.new(name: 'DescribeIpamExternalResourceVerificationTokensResult')
     DescribeIpamPoolsRequest = Shapes::StructureShape.new(name: 'DescribeIpamPoolsRequest')
     DescribeIpamPoolsResult = Shapes::StructureShape.new(name: 'DescribeIpamPoolsResult')
+    DescribeIpamPrefixListResolverTargetsRequest = Shapes::StructureShape.new(name: 'DescribeIpamPrefixListResolverTargetsRequest')
+    DescribeIpamPrefixListResolverTargetsResult = Shapes::StructureShape.new(name: 'DescribeIpamPrefixListResolverTargetsResult')
+    DescribeIpamPrefixListResolversRequest = Shapes::StructureShape.new(name: 'DescribeIpamPrefixListResolversRequest')
+    DescribeIpamPrefixListResolversResult = Shapes::StructureShape.new(name: 'DescribeIpamPrefixListResolversResult')
     DescribeIpamResourceDiscoveriesRequest = Shapes::StructureShape.new(name: 'DescribeIpamResourceDiscoveriesRequest')
     DescribeIpamResourceDiscoveriesResult = Shapes::StructureShape.new(name: 'DescribeIpamResourceDiscoveriesResult')
     DescribeIpamResourceDiscoveryAssociationsRequest = Shapes::StructureShape.new(name: 'DescribeIpamResourceDiscoveryAssociationsRequest')
@@ -1736,6 +1748,12 @@ module Aws::EC2
     GetIpamPoolAllocationsResult = Shapes::StructureShape.new(name: 'GetIpamPoolAllocationsResult')
     GetIpamPoolCidrsRequest = Shapes::StructureShape.new(name: 'GetIpamPoolCidrsRequest')
     GetIpamPoolCidrsResult = Shapes::StructureShape.new(name: 'GetIpamPoolCidrsResult')
+    GetIpamPrefixListResolverRulesRequest = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverRulesRequest')
+    GetIpamPrefixListResolverRulesResult = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverRulesResult')
+    GetIpamPrefixListResolverVersionEntriesRequest = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverVersionEntriesRequest')
+    GetIpamPrefixListResolverVersionEntriesResult = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverVersionEntriesResult')
+    GetIpamPrefixListResolverVersionsRequest = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverVersionsRequest')
+    GetIpamPrefixListResolverVersionsResult = Shapes::StructureShape.new(name: 'GetIpamPrefixListResolverVersionsResult')
     GetIpamResourceCidrsRequest = Shapes::StructureShape.new(name: 'GetIpamResourceCidrsRequest')
     GetIpamResourceCidrsResult = Shapes::StructureShape.new(name: 'GetIpamResourceCidrsResult')
     GetLaunchTemplateDataRequest = Shapes::StructureShape.new(name: 'GetLaunchTemplateDataRequest')
@@ -2150,6 +2168,30 @@ module Aws::EC2
     IpamPoolSourceResourceRequest = Shapes::StructureShape.new(name: 'IpamPoolSourceResourceRequest')
     IpamPoolSourceResourceType = Shapes::StringShape.new(name: 'IpamPoolSourceResourceType')
     IpamPoolState = Shapes::StringShape.new(name: 'IpamPoolState')
+    IpamPrefixListResolver = Shapes::StructureShape.new(name: 'IpamPrefixListResolver')
+    IpamPrefixListResolverId = Shapes::StringShape.new(name: 'IpamPrefixListResolverId')
+    IpamPrefixListResolverRule = Shapes::StructureShape.new(name: 'IpamPrefixListResolverRule')
+    IpamPrefixListResolverRuleCondition = Shapes::StructureShape.new(name: 'IpamPrefixListResolverRuleCondition')
+    IpamPrefixListResolverRuleConditionOperation = Shapes::StringShape.new(name: 'IpamPrefixListResolverRuleConditionOperation')
+    IpamPrefixListResolverRuleConditionRequest = Shapes::StructureShape.new(name: 'IpamPrefixListResolverRuleConditionRequest')
+    IpamPrefixListResolverRuleConditionRequestSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverRuleConditionRequestSet')
+    IpamPrefixListResolverRuleConditionSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverRuleConditionSet')
+    IpamPrefixListResolverRuleRequest = Shapes::StructureShape.new(name: 'IpamPrefixListResolverRuleRequest')
+    IpamPrefixListResolverRuleRequestSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverRuleRequestSet')
+    IpamPrefixListResolverRuleSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverRuleSet')
+    IpamPrefixListResolverRuleType = Shapes::StringShape.new(name: 'IpamPrefixListResolverRuleType')
+    IpamPrefixListResolverSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverSet')
+    IpamPrefixListResolverState = Shapes::StringShape.new(name: 'IpamPrefixListResolverState')
+    IpamPrefixListResolverTarget = Shapes::StructureShape.new(name: 'IpamPrefixListResolverTarget')
+    IpamPrefixListResolverTargetId = Shapes::StringShape.new(name: 'IpamPrefixListResolverTargetId')
+    IpamPrefixListResolverTargetSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverTargetSet')
+    IpamPrefixListResolverTargetState = Shapes::StringShape.new(name: 'IpamPrefixListResolverTargetState')
+    IpamPrefixListResolverVersion = Shapes::StructureShape.new(name: 'IpamPrefixListResolverVersion')
+    IpamPrefixListResolverVersionCreationStatus = Shapes::StringShape.new(name: 'IpamPrefixListResolverVersionCreationStatus')
+    IpamPrefixListResolverVersionEntry = Shapes::StructureShape.new(name: 'IpamPrefixListResolverVersionEntry')
+    IpamPrefixListResolverVersionEntrySet = Shapes::ListShape.new(name: 'IpamPrefixListResolverVersionEntrySet')
+    IpamPrefixListResolverVersionNumberSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverVersionNumberSet')
+    IpamPrefixListResolverVersionSet = Shapes::ListShape.new(name: 'IpamPrefixListResolverVersionSet')
     IpamPublicAddressAssociationStatus = Shapes::StringShape.new(name: 'IpamPublicAddressAssociationStatus')
     IpamPublicAddressAwsService = Shapes::StringShape.new(name: 'IpamPublicAddressAwsService')
     IpamPublicAddressSecurityGroup = Shapes::StructureShape.new(name: 'IpamPublicAddressSecurityGroup')
@@ -2477,6 +2519,10 @@ module Aws::EC2
     ModifyInstancePlacementResult = Shapes::StructureShape.new(name: 'ModifyInstancePlacementResult')
     ModifyIpamPoolRequest = Shapes::StructureShape.new(name: 'ModifyIpamPoolRequest')
     ModifyIpamPoolResult = Shapes::StructureShape.new(name: 'ModifyIpamPoolResult')
+    ModifyIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'ModifyIpamPrefixListResolverRequest')
+    ModifyIpamPrefixListResolverResult = Shapes::StructureShape.new(name: 'ModifyIpamPrefixListResolverResult')
+    ModifyIpamPrefixListResolverTargetRequest = Shapes::StructureShape.new(name: 'ModifyIpamPrefixListResolverTargetRequest')
+    ModifyIpamPrefixListResolverTargetResult = Shapes::StructureShape.new(name: 'ModifyIpamPrefixListResolverTargetResult')
     ModifyIpamRequest = Shapes::StructureShape.new(name: 'ModifyIpamRequest')
     ModifyIpamResourceCidrRequest = Shapes::StructureShape.new(name: 'ModifyIpamResourceCidrRequest')
     ModifyIpamResourceCidrResult = Shapes::StructureShape.new(name: 'ModifyIpamResourceCidrResult')
@@ -5660,6 +5706,31 @@ module Aws::EC2
     CreateIpamPoolResult.add_member(:ipam_pool, Shapes::ShapeRef.new(shape: IpamPool, location_name: "ipamPool"))
     CreateIpamPoolResult.struct_class = Types::CreateIpamPoolResult
 
+    CreateIpamPrefixListResolverRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    CreateIpamPrefixListResolverRequest.add_member(:ipam_id, Shapes::ShapeRef.new(shape: IpamId, required: true, location_name: "IpamId"))
+    CreateIpamPrefixListResolverRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
+    CreateIpamPrefixListResolverRequest.add_member(:address_family, Shapes::ShapeRef.new(shape: AddressFamily, required: true, location_name: "AddressFamily"))
+    CreateIpamPrefixListResolverRequest.add_member(:rules, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleRequestSet, location_name: "Rule"))
+    CreateIpamPrefixListResolverRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CreateIpamPrefixListResolverRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CreateIpamPrefixListResolverRequest.struct_class = Types::CreateIpamPrefixListResolverRequest
+
+    CreateIpamPrefixListResolverResult.add_member(:ipam_prefix_list_resolver, Shapes::ShapeRef.new(shape: IpamPrefixListResolver, location_name: "ipamPrefixListResolver"))
+    CreateIpamPrefixListResolverResult.struct_class = Types::CreateIpamPrefixListResolverResult
+
+    CreateIpamPrefixListResolverTargetRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:prefix_list_id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "PrefixListId"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:prefix_list_region, Shapes::ShapeRef.new(shape: String, required: true, location_name: "PrefixListRegion"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:desired_version, Shapes::ShapeRef.new(shape: BoxedLong, location_name: "DesiredVersion"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:track_latest_version, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "TrackLatestVersion"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CreateIpamPrefixListResolverTargetRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CreateIpamPrefixListResolverTargetRequest.struct_class = Types::CreateIpamPrefixListResolverTargetRequest
+
+    CreateIpamPrefixListResolverTargetResult.add_member(:ipam_prefix_list_resolver_target, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTarget, location_name: "ipamPrefixListResolverTarget"))
+    CreateIpamPrefixListResolverTargetResult.struct_class = Types::CreateIpamPrefixListResolverTargetResult
+
     CreateIpamRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     CreateIpamRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
     CreateIpamRequest.add_member(:operating_regions, Shapes::ShapeRef.new(shape: AddIpamOperatingRegionSet, location_name: "OperatingRegion"))
@@ -6759,6 +6830,20 @@ module Aws::EC2
 
     DeleteIpamPoolResult.add_member(:ipam_pool, Shapes::ShapeRef.new(shape: IpamPool, location_name: "ipamPool"))
     DeleteIpamPoolResult.struct_class = Types::DeleteIpamPoolResult
+
+    DeleteIpamPrefixListResolverRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DeleteIpamPrefixListResolverRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    DeleteIpamPrefixListResolverRequest.struct_class = Types::DeleteIpamPrefixListResolverRequest
+
+    DeleteIpamPrefixListResolverResult.add_member(:ipam_prefix_list_resolver, Shapes::ShapeRef.new(shape: IpamPrefixListResolver, location_name: "ipamPrefixListResolver"))
+    DeleteIpamPrefixListResolverResult.struct_class = Types::DeleteIpamPrefixListResolverResult
+
+    DeleteIpamPrefixListResolverTargetRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DeleteIpamPrefixListResolverTargetRequest.add_member(:ipam_prefix_list_resolver_target_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTargetId, required: true, location_name: "IpamPrefixListResolverTargetId"))
+    DeleteIpamPrefixListResolverTargetRequest.struct_class = Types::DeleteIpamPrefixListResolverTargetRequest
+
+    DeleteIpamPrefixListResolverTargetResult.add_member(:ipam_prefix_list_resolver_target, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTarget, location_name: "ipamPrefixListResolverTarget"))
+    DeleteIpamPrefixListResolverTargetResult.struct_class = Types::DeleteIpamPrefixListResolverTargetResult
 
     DeleteIpamRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DeleteIpamRequest.add_member(:ipam_id, Shapes::ShapeRef.new(shape: IpamId, required: true, location_name: "IpamId"))
@@ -8094,6 +8179,29 @@ module Aws::EC2
     DescribeIpamPoolsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
     DescribeIpamPoolsResult.add_member(:ipam_pools, Shapes::ShapeRef.new(shape: IpamPoolSet, location_name: "ipamPoolSet"))
     DescribeIpamPoolsResult.struct_class = Types::DescribeIpamPoolsResult
+
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:ipam_prefix_list_resolver_target_ids, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "IpamPrefixListResolverTargetId"))
+    DescribeIpamPrefixListResolverTargetsRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, location_name: "IpamPrefixListResolverId"))
+    DescribeIpamPrefixListResolverTargetsRequest.struct_class = Types::DescribeIpamPrefixListResolverTargetsRequest
+
+    DescribeIpamPrefixListResolverTargetsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    DescribeIpamPrefixListResolverTargetsResult.add_member(:ipam_prefix_list_resolver_targets, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTargetSet, location_name: "ipamPrefixListResolverTargetSet"))
+    DescribeIpamPrefixListResolverTargetsResult.struct_class = Types::DescribeIpamPrefixListResolverTargetsResult
+
+    DescribeIpamPrefixListResolversRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeIpamPrefixListResolversRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeIpamPrefixListResolversRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    DescribeIpamPrefixListResolversRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    DescribeIpamPrefixListResolversRequest.add_member(:ipam_prefix_list_resolver_ids, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "IpamPrefixListResolverId"))
+    DescribeIpamPrefixListResolversRequest.struct_class = Types::DescribeIpamPrefixListResolversRequest
+
+    DescribeIpamPrefixListResolversResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    DescribeIpamPrefixListResolversResult.add_member(:ipam_prefix_list_resolvers, Shapes::ShapeRef.new(shape: IpamPrefixListResolverSet, location_name: "ipamPrefixListResolverSet"))
+    DescribeIpamPrefixListResolversResult.struct_class = Types::DescribeIpamPrefixListResolversResult
 
     DescribeIpamResourceDiscoveriesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DescribeIpamResourceDiscoveriesRequest.add_member(:ipam_resource_discovery_ids, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "IpamResourceDiscoveryId"))
@@ -10789,6 +10897,40 @@ module Aws::EC2
     GetIpamPoolCidrsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
     GetIpamPoolCidrsResult.struct_class = Types::GetIpamPoolCidrsResult
 
+    GetIpamPrefixListResolverRulesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetIpamPrefixListResolverRulesRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    GetIpamPrefixListResolverRulesRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    GetIpamPrefixListResolverRulesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    GetIpamPrefixListResolverRulesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    GetIpamPrefixListResolverRulesRequest.struct_class = Types::GetIpamPrefixListResolverRulesRequest
+
+    GetIpamPrefixListResolverRulesResult.add_member(:rules, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleSet, location_name: "ruleSet"))
+    GetIpamPrefixListResolverRulesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    GetIpamPrefixListResolverRulesResult.struct_class = Types::GetIpamPrefixListResolverRulesResult
+
+    GetIpamPrefixListResolverVersionEntriesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetIpamPrefixListResolverVersionEntriesRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    GetIpamPrefixListResolverVersionEntriesRequest.add_member(:ipam_prefix_list_resolver_version, Shapes::ShapeRef.new(shape: Long, required: true, location_name: "IpamPrefixListResolverVersion"))
+    GetIpamPrefixListResolverVersionEntriesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    GetIpamPrefixListResolverVersionEntriesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    GetIpamPrefixListResolverVersionEntriesRequest.struct_class = Types::GetIpamPrefixListResolverVersionEntriesRequest
+
+    GetIpamPrefixListResolverVersionEntriesResult.add_member(:entries, Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersionEntrySet, location_name: "entrySet"))
+    GetIpamPrefixListResolverVersionEntriesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    GetIpamPrefixListResolverVersionEntriesResult.struct_class = Types::GetIpamPrefixListResolverVersionEntriesResult
+
+    GetIpamPrefixListResolverVersionsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetIpamPrefixListResolverVersionsRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    GetIpamPrefixListResolverVersionsRequest.add_member(:ipam_prefix_list_resolver_versions, Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersionNumberSet, location_name: "IpamPrefixListResolverVersion"))
+    GetIpamPrefixListResolverVersionsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    GetIpamPrefixListResolverVersionsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    GetIpamPrefixListResolverVersionsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    GetIpamPrefixListResolverVersionsRequest.struct_class = Types::GetIpamPrefixListResolverVersionsRequest
+
+    GetIpamPrefixListResolverVersionsResult.add_member(:ipam_prefix_list_resolver_versions, Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersionSet, location_name: "ipamPrefixListResolverVersionSet"))
+    GetIpamPrefixListResolverVersionsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    GetIpamPrefixListResolverVersionsResult.struct_class = Types::GetIpamPrefixListResolverVersionsResult
+
     GetIpamResourceCidrsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     GetIpamResourceCidrsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
     GetIpamResourceCidrsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
@@ -12406,6 +12548,89 @@ module Aws::EC2
     IpamPoolSourceResourceRequest.add_member(:resource_owner, Shapes::ShapeRef.new(shape: String, location_name: "ResourceOwner"))
     IpamPoolSourceResourceRequest.struct_class = Types::IpamPoolSourceResourceRequest
 
+    IpamPrefixListResolver.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
+    IpamPrefixListResolver.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, location_name: "ipamPrefixListResolverId"))
+    IpamPrefixListResolver.add_member(:ipam_prefix_list_resolver_arn, Shapes::ShapeRef.new(shape: ResourceArn, location_name: "ipamPrefixListResolverArn"))
+    IpamPrefixListResolver.add_member(:ipam_arn, Shapes::ShapeRef.new(shape: ResourceArn, location_name: "ipamArn"))
+    IpamPrefixListResolver.add_member(:ipam_region, Shapes::ShapeRef.new(shape: String, location_name: "ipamRegion"))
+    IpamPrefixListResolver.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "description"))
+    IpamPrefixListResolver.add_member(:address_family, Shapes::ShapeRef.new(shape: AddressFamily, location_name: "addressFamily"))
+    IpamPrefixListResolver.add_member(:state, Shapes::ShapeRef.new(shape: IpamPrefixListResolverState, location_name: "state"))
+    IpamPrefixListResolver.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    IpamPrefixListResolver.add_member(:last_version_creation_status, Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersionCreationStatus, location_name: "lastVersionCreationStatus"))
+    IpamPrefixListResolver.add_member(:last_version_creation_status_message, Shapes::ShapeRef.new(shape: String, location_name: "lastVersionCreationStatusMessage"))
+    IpamPrefixListResolver.struct_class = Types::IpamPrefixListResolver
+
+    IpamPrefixListResolverRule.add_member(:rule_type, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleType, location_name: "ruleType"))
+    IpamPrefixListResolverRule.add_member(:static_cidr, Shapes::ShapeRef.new(shape: String, location_name: "staticCidr"))
+    IpamPrefixListResolverRule.add_member(:ipam_scope_id, Shapes::ShapeRef.new(shape: IpamScopeId, location_name: "ipamScopeId"))
+    IpamPrefixListResolverRule.add_member(:resource_type, Shapes::ShapeRef.new(shape: IpamResourceType, location_name: "resourceType"))
+    IpamPrefixListResolverRule.add_member(:conditions, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleConditionSet, location_name: "conditionSet"))
+    IpamPrefixListResolverRule.struct_class = Types::IpamPrefixListResolverRule
+
+    IpamPrefixListResolverRuleCondition.add_member(:operation, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleConditionOperation, location_name: "operation"))
+    IpamPrefixListResolverRuleCondition.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: String, location_name: "ipamPoolId"))
+    IpamPrefixListResolverRuleCondition.add_member(:resource_id, Shapes::ShapeRef.new(shape: String, location_name: "resourceId"))
+    IpamPrefixListResolverRuleCondition.add_member(:resource_owner, Shapes::ShapeRef.new(shape: String, location_name: "resourceOwner"))
+    IpamPrefixListResolverRuleCondition.add_member(:resource_region, Shapes::ShapeRef.new(shape: String, location_name: "resourceRegion"))
+    IpamPrefixListResolverRuleCondition.add_member(:resource_tag, Shapes::ShapeRef.new(shape: IpamResourceTag, location_name: "resourceTag"))
+    IpamPrefixListResolverRuleCondition.add_member(:cidr, Shapes::ShapeRef.new(shape: String, location_name: "cidr"))
+    IpamPrefixListResolverRuleCondition.struct_class = Types::IpamPrefixListResolverRuleCondition
+
+    IpamPrefixListResolverRuleConditionRequest.add_member(:operation, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleConditionOperation, required: true, location_name: "Operation"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: String, location_name: "IpamPoolId"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:resource_id, Shapes::ShapeRef.new(shape: String, location_name: "ResourceId"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:resource_owner, Shapes::ShapeRef.new(shape: String, location_name: "ResourceOwner"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:resource_region, Shapes::ShapeRef.new(shape: String, location_name: "ResourceRegion"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:resource_tag, Shapes::ShapeRef.new(shape: RequestIpamResourceTag, location_name: "ResourceTag"))
+    IpamPrefixListResolverRuleConditionRequest.add_member(:cidr, Shapes::ShapeRef.new(shape: String, location_name: "Cidr"))
+    IpamPrefixListResolverRuleConditionRequest.struct_class = Types::IpamPrefixListResolverRuleConditionRequest
+
+    IpamPrefixListResolverRuleConditionRequestSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleConditionRequest, location_name: "Condition")
+
+    IpamPrefixListResolverRuleConditionSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleCondition, location_name: "item")
+
+    IpamPrefixListResolverRuleRequest.add_member(:rule_type, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleType, required: true, location_name: "RuleType"))
+    IpamPrefixListResolverRuleRequest.add_member(:static_cidr, Shapes::ShapeRef.new(shape: String, location_name: "StaticCidr"))
+    IpamPrefixListResolverRuleRequest.add_member(:ipam_scope_id, Shapes::ShapeRef.new(shape: IpamScopeId, location_name: "IpamScopeId"))
+    IpamPrefixListResolverRuleRequest.add_member(:resource_type, Shapes::ShapeRef.new(shape: IpamResourceType, location_name: "ResourceType"))
+    IpamPrefixListResolverRuleRequest.add_member(:conditions, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleConditionRequestSet, location_name: "Condition"))
+    IpamPrefixListResolverRuleRequest.struct_class = Types::IpamPrefixListResolverRuleRequest
+
+    IpamPrefixListResolverRuleRequestSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleRequest, location_name: "Rule")
+
+    IpamPrefixListResolverRuleSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverRule, location_name: "item")
+
+    IpamPrefixListResolverSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolver, location_name: "item")
+
+    IpamPrefixListResolverTarget.add_member(:ipam_prefix_list_resolver_target_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTargetId, location_name: "ipamPrefixListResolverTargetId"))
+    IpamPrefixListResolverTarget.add_member(:ipam_prefix_list_resolver_target_arn, Shapes::ShapeRef.new(shape: ResourceArn, location_name: "ipamPrefixListResolverTargetArn"))
+    IpamPrefixListResolverTarget.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, location_name: "ipamPrefixListResolverId"))
+    IpamPrefixListResolverTarget.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
+    IpamPrefixListResolverTarget.add_member(:prefix_list_id, Shapes::ShapeRef.new(shape: PrefixListResourceId, location_name: "prefixListId"))
+    IpamPrefixListResolverTarget.add_member(:prefix_list_region, Shapes::ShapeRef.new(shape: String, location_name: "prefixListRegion"))
+    IpamPrefixListResolverTarget.add_member(:desired_version, Shapes::ShapeRef.new(shape: BoxedLong, location_name: "desiredVersion"))
+    IpamPrefixListResolverTarget.add_member(:last_synced_version, Shapes::ShapeRef.new(shape: BoxedLong, location_name: "lastSyncedVersion"))
+    IpamPrefixListResolverTarget.add_member(:track_latest_version, Shapes::ShapeRef.new(shape: Boolean, location_name: "trackLatestVersion"))
+    IpamPrefixListResolverTarget.add_member(:state_message, Shapes::ShapeRef.new(shape: String, location_name: "stateMessage"))
+    IpamPrefixListResolverTarget.add_member(:state, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTargetState, location_name: "state"))
+    IpamPrefixListResolverTarget.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    IpamPrefixListResolverTarget.struct_class = Types::IpamPrefixListResolverTarget
+
+    IpamPrefixListResolverTargetSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverTarget, location_name: "item")
+
+    IpamPrefixListResolverVersion.add_member(:version, Shapes::ShapeRef.new(shape: Long, location_name: "version"))
+    IpamPrefixListResolverVersion.struct_class = Types::IpamPrefixListResolverVersion
+
+    IpamPrefixListResolverVersionEntry.add_member(:cidr, Shapes::ShapeRef.new(shape: String, location_name: "cidr"))
+    IpamPrefixListResolverVersionEntry.struct_class = Types::IpamPrefixListResolverVersionEntry
+
+    IpamPrefixListResolverVersionEntrySet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersionEntry, location_name: "item")
+
+    IpamPrefixListResolverVersionNumberSet.member = Shapes::ShapeRef.new(shape: Long, location_name: "item")
+
+    IpamPrefixListResolverVersionSet.member = Shapes::ShapeRef.new(shape: IpamPrefixListResolverVersion, location_name: "item")
+
     IpamPublicAddressSecurityGroup.add_member(:group_name, Shapes::ShapeRef.new(shape: String, location_name: "groupName"))
     IpamPublicAddressSecurityGroup.add_member(:group_id, Shapes::ShapeRef.new(shape: String, location_name: "groupId"))
     IpamPublicAddressSecurityGroup.struct_class = Types::IpamPublicAddressSecurityGroup
@@ -13166,6 +13391,8 @@ module Aws::EC2
     ManagedPrefixList.add_member(:version, Shapes::ShapeRef.new(shape: Long, location_name: "version"))
     ManagedPrefixList.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     ManagedPrefixList.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
+    ManagedPrefixList.add_member(:ipam_prefix_list_resolver_target_id, Shapes::ShapeRef.new(shape: String, location_name: "ipamPrefixListResolverTargetId"))
+    ManagedPrefixList.add_member(:ipam_prefix_list_resolver_sync_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "ipamPrefixListResolverSyncEnabled"))
     ManagedPrefixList.struct_class = Types::ManagedPrefixList
 
     ManagedPrefixListSet.member = Shapes::ShapeRef.new(shape: ManagedPrefixList, location_name: "item")
@@ -13517,6 +13744,25 @@ module Aws::EC2
     ModifyIpamPoolResult.add_member(:ipam_pool, Shapes::ShapeRef.new(shape: IpamPool, location_name: "ipamPool"))
     ModifyIpamPoolResult.struct_class = Types::ModifyIpamPoolResult
 
+    ModifyIpamPrefixListResolverRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    ModifyIpamPrefixListResolverRequest.add_member(:ipam_prefix_list_resolver_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverId, required: true, location_name: "IpamPrefixListResolverId"))
+    ModifyIpamPrefixListResolverRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
+    ModifyIpamPrefixListResolverRequest.add_member(:rules, Shapes::ShapeRef.new(shape: IpamPrefixListResolverRuleRequestSet, location_name: "Rule"))
+    ModifyIpamPrefixListResolverRequest.struct_class = Types::ModifyIpamPrefixListResolverRequest
+
+    ModifyIpamPrefixListResolverResult.add_member(:ipam_prefix_list_resolver, Shapes::ShapeRef.new(shape: IpamPrefixListResolver, location_name: "ipamPrefixListResolver"))
+    ModifyIpamPrefixListResolverResult.struct_class = Types::ModifyIpamPrefixListResolverResult
+
+    ModifyIpamPrefixListResolverTargetRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    ModifyIpamPrefixListResolverTargetRequest.add_member(:ipam_prefix_list_resolver_target_id, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTargetId, required: true, location_name: "IpamPrefixListResolverTargetId"))
+    ModifyIpamPrefixListResolverTargetRequest.add_member(:desired_version, Shapes::ShapeRef.new(shape: BoxedLong, location_name: "DesiredVersion"))
+    ModifyIpamPrefixListResolverTargetRequest.add_member(:track_latest_version, Shapes::ShapeRef.new(shape: BoxedBoolean, location_name: "TrackLatestVersion"))
+    ModifyIpamPrefixListResolverTargetRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    ModifyIpamPrefixListResolverTargetRequest.struct_class = Types::ModifyIpamPrefixListResolverTargetRequest
+
+    ModifyIpamPrefixListResolverTargetResult.add_member(:ipam_prefix_list_resolver_target, Shapes::ShapeRef.new(shape: IpamPrefixListResolverTarget, location_name: "ipamPrefixListResolverTarget"))
+    ModifyIpamPrefixListResolverTargetResult.struct_class = Types::ModifyIpamPrefixListResolverTargetResult
+
     ModifyIpamRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     ModifyIpamRequest.add_member(:ipam_id, Shapes::ShapeRef.new(shape: IpamId, required: true, location_name: "IpamId"))
     ModifyIpamRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
@@ -13590,6 +13836,7 @@ module Aws::EC2
     ModifyManagedPrefixListRequest.add_member(:add_entries, Shapes::ShapeRef.new(shape: AddPrefixListEntries, location_name: "AddEntry"))
     ModifyManagedPrefixListRequest.add_member(:remove_entries, Shapes::ShapeRef.new(shape: RemovePrefixListEntries, location_name: "RemoveEntry"))
     ModifyManagedPrefixListRequest.add_member(:max_entries, Shapes::ShapeRef.new(shape: Integer, location_name: "MaxEntries"))
+    ModifyManagedPrefixListRequest.add_member(:ipam_prefix_list_resolver_sync_enabled, Shapes::ShapeRef.new(shape: BoxedBoolean, location_name: "IpamPrefixListResolverSyncEnabled"))
     ModifyManagedPrefixListRequest.struct_class = Types::ModifyManagedPrefixListRequest
 
     ModifyManagedPrefixListResult.add_member(:prefix_list, Shapes::ShapeRef.new(shape: ManagedPrefixList, location_name: "prefixList"))
@@ -17941,6 +18188,9 @@ module Aws::EC2
     VpcEncryptionControlExclusions.add_member(:nat_gateway, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "natGateway"))
     VpcEncryptionControlExclusions.add_member(:virtual_private_gateway, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "virtualPrivateGateway"))
     VpcEncryptionControlExclusions.add_member(:vpc_peering, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "vpcPeering"))
+    VpcEncryptionControlExclusions.add_member(:lambda, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "lambda"))
+    VpcEncryptionControlExclusions.add_member(:vpc_lattice, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "vpcLattice"))
+    VpcEncryptionControlExclusions.add_member(:elastic_file_system, Shapes::ShapeRef.new(shape: VpcEncryptionControlExclusion, location_name: "elasticFileSystem"))
     VpcEncryptionControlExclusions.struct_class = Types::VpcEncryptionControlExclusions
 
     VpcEndpoint.add_member(:vpc_endpoint_id, Shapes::ShapeRef.new(shape: String, location_name: "vpcEndpointId"))
@@ -18900,6 +19150,22 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: CreateIpamPoolResult)
       end)
 
+      api.add_operation(:create_ipam_prefix_list_resolver, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateIpamPrefixListResolver"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateIpamPrefixListResolverRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateIpamPrefixListResolverResult)
+      end)
+
+      api.add_operation(:create_ipam_prefix_list_resolver_target, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateIpamPrefixListResolverTarget"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateIpamPrefixListResolverTargetRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateIpamPrefixListResolverTargetResult)
+      end)
+
       api.add_operation(:create_ipam_resource_discovery, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateIpamResourceDiscovery"
         o.http_method = "POST"
@@ -19586,6 +19852,22 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DeleteIpamPoolRequest)
         o.output = Shapes::ShapeRef.new(shape: DeleteIpamPoolResult)
+      end)
+
+      api.add_operation(:delete_ipam_prefix_list_resolver, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteIpamPrefixListResolver"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteIpamPrefixListResolverRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteIpamPrefixListResolverResult)
+      end)
+
+      api.add_operation(:delete_ipam_prefix_list_resolver_target, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteIpamPrefixListResolverTarget"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteIpamPrefixListResolverTargetRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteIpamPrefixListResolverTargetResult)
       end)
 
       api.add_operation(:delete_ipam_resource_discovery, Seahorse::Model::Operation.new.tap do |o|
@@ -21024,6 +21306,34 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DescribeIpamPoolsRequest)
         o.output = Shapes::ShapeRef.new(shape: DescribeIpamPoolsResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:describe_ipam_prefix_list_resolver_targets, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeIpamPrefixListResolverTargets"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeIpamPrefixListResolverTargetsRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeIpamPrefixListResolverTargetsResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:describe_ipam_prefix_list_resolvers, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeIpamPrefixListResolvers"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeIpamPrefixListResolversRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeIpamPrefixListResolversResult)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",
           tokens: {
@@ -23187,6 +23497,48 @@ module Aws::EC2
         )
       end)
 
+      api.add_operation(:get_ipam_prefix_list_resolver_rules, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIpamPrefixListResolverRules"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverRulesRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverRulesResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:get_ipam_prefix_list_resolver_version_entries, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIpamPrefixListResolverVersionEntries"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverVersionEntriesRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverVersionEntriesResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:get_ipam_prefix_list_resolver_versions, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIpamPrefixListResolverVersions"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverVersionsRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIpamPrefixListResolverVersionsResult)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
       api.add_operation(:get_ipam_resource_cidrs, Seahorse::Model::Operation.new.tap do |o|
         o.name = "GetIpamResourceCidrs"
         o.http_method = "POST"
@@ -23795,6 +24147,22 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: ModifyIpamPoolRequest)
         o.output = Shapes::ShapeRef.new(shape: ModifyIpamPoolResult)
+      end)
+
+      api.add_operation(:modify_ipam_prefix_list_resolver, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ModifyIpamPrefixListResolver"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ModifyIpamPrefixListResolverRequest)
+        o.output = Shapes::ShapeRef.new(shape: ModifyIpamPrefixListResolverResult)
+      end)
+
+      api.add_operation(:modify_ipam_prefix_list_resolver_target, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ModifyIpamPrefixListResolverTarget"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ModifyIpamPrefixListResolverTargetRequest)
+        o.output = Shapes::ShapeRef.new(shape: ModifyIpamPrefixListResolverTargetResult)
       end)
 
       api.add_operation(:modify_ipam_resource_cidr, Seahorse::Model::Operation.new.tap do |o|

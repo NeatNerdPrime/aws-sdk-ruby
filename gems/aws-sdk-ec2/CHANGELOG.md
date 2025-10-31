@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.568.0 (2025-10-31)
+------------------
+
+* Feature - Amazon VPC IP Address Manager (IPAM) now supports automated prefix list management, allowing you to create rules that automatically populate customer-managed prefix lists with CIDRs from your IPAM pools or AWS resources based on tags, Regions, or other criteria.
+
 1.567.0 (2025-10-28)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.172.0 (2025-10-31)
+------------------
+
+* Feature - Adds SlowPalPitchCorrection to audio pitch correction settings. Enables opacity for VideoOverlays. Adds REMUX_ALL option to enable multi-rendition passthrough to VideoSelector for allow listed accounts.
+
 1.171.0 (2025-10-21)
 ------------------
 

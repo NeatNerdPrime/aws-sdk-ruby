@@ -1,6 +1,23 @@
 Unreleased Changes
 ------------------
 
+3.243.0 (2025-10-31)
+------------------
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-robomaker` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-qldbsession` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-qldb` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-lookoutforvision` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-lookoutmetrics` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-iotfleethub` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-apptest` gem.
+
 3.242.0 (2025-10-22)
 ------------------
 

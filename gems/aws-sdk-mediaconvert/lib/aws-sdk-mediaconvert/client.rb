@@ -734,6 +734,9 @@ module Aws::MediaConvert
     #             target_lkfs: 1.0,
     #             true_peak_limiter_threshold: 1.0,
     #           },
+    #           audio_pitch_correction_settings: {
+    #             slow_pal_pitch_correction: "DISABLED", # accepts DISABLED, ENABLED
+    #           },
     #           audio_source_name: "__stringMax2048",
     #           audio_type: 1,
     #           audio_type_control: "FOLLOW_INPUT", # accepts FOLLOW_INPUT, USE_CONFIGURED
@@ -1304,6 +1307,9 @@ module Aws::MediaConvert
     #             telecine: "NONE", # accepts NONE, SOFT, HARD
     #             temporal_adaptive_quantization: "DISABLED", # accepts DISABLED, ENABLED
     #           },
+    #           passthrough_settings: {
+    #             video_selector_mode: "AUTO", # accepts AUTO, REMUX_ALL
+    #           },
     #           prores_settings: {
     #             chroma_sampling: "PRESERVE_444_SAMPLING", # accepts PRESERVE_444_SAMPLING, SUBSAMPLE_TO_422
     #             codec_profile: "APPLE_PRORES_422", # accepts APPLE_PRORES_422, APPLE_PRORES_422_HQ, APPLE_PRORES_422_LT, APPLE_PRORES_422_PROXY, APPLE_PRORES_4444, APPLE_PRORES_4444_XQ
@@ -1565,6 +1571,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.peak_calculation #=> String, one of "TRUE_PEAK", "NONE"
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.target_lkfs #=> Float
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.true_peak_limiter_threshold #=> Float
+    #   resp.preset.settings.audio_descriptions[0].audio_pitch_correction_settings.slow_pal_pitch_correction #=> String, one of "DISABLED", "ENABLED"
     #   resp.preset.settings.audio_descriptions[0].audio_source_name #=> String
     #   resp.preset.settings.audio_descriptions[0].audio_type #=> Integer
     #   resp.preset.settings.audio_descriptions[0].audio_type_control #=> String, one of "FOLLOW_INPUT", "USE_CONFIGURED"
@@ -2034,6 +2041,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.framerate_control #=> String, one of "INITIALIZE_FROM_SOURCE", "SPECIFIED"
@@ -2625,6 +2633,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.peak_calculation #=> String, one of "TRUE_PEAK", "NONE"
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.target_lkfs #=> Float
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.true_peak_limiter_threshold #=> Float
+    #   resp.preset.settings.audio_descriptions[0].audio_pitch_correction_settings.slow_pal_pitch_correction #=> String, one of "DISABLED", "ENABLED"
     #   resp.preset.settings.audio_descriptions[0].audio_source_name #=> String
     #   resp.preset.settings.audio_descriptions[0].audio_type #=> Integer
     #   resp.preset.settings.audio_descriptions[0].audio_type_control #=> String, one of "FOLLOW_INPUT", "USE_CONFIGURED"
@@ -3094,6 +3103,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.framerate_control #=> String, one of "INITIALIZE_FROM_SOURCE", "SPECIFIED"
@@ -3499,6 +3509,7 @@ module Aws::MediaConvert
     #   resp.presets[0].settings.audio_descriptions[0].audio_normalization_settings.peak_calculation #=> String, one of "TRUE_PEAK", "NONE"
     #   resp.presets[0].settings.audio_descriptions[0].audio_normalization_settings.target_lkfs #=> Float
     #   resp.presets[0].settings.audio_descriptions[0].audio_normalization_settings.true_peak_limiter_threshold #=> Float
+    #   resp.presets[0].settings.audio_descriptions[0].audio_pitch_correction_settings.slow_pal_pitch_correction #=> String, one of "DISABLED", "ENABLED"
     #   resp.presets[0].settings.audio_descriptions[0].audio_source_name #=> String
     #   resp.presets[0].settings.audio_descriptions[0].audio_type #=> Integer
     #   resp.presets[0].settings.audio_descriptions[0].audio_type_control #=> String, one of "FOLLOW_INPUT", "USE_CONFIGURED"
@@ -3968,6 +3979,7 @@ module Aws::MediaConvert
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.presets[0].settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.presets[0].settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.presets[0].settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
     #   resp.presets[0].settings.video_description.codec_settings.prores_settings.framerate_control #=> String, one of "INITIALIZE_FROM_SOURCE", "SPECIFIED"
@@ -4690,6 +4702,9 @@ module Aws::MediaConvert
     #             target_lkfs: 1.0,
     #             true_peak_limiter_threshold: 1.0,
     #           },
+    #           audio_pitch_correction_settings: {
+    #             slow_pal_pitch_correction: "DISABLED", # accepts DISABLED, ENABLED
+    #           },
     #           audio_source_name: "__stringMax2048",
     #           audio_type: 1,
     #           audio_type_control: "FOLLOW_INPUT", # accepts FOLLOW_INPUT, USE_CONFIGURED
@@ -5260,6 +5275,9 @@ module Aws::MediaConvert
     #             telecine: "NONE", # accepts NONE, SOFT, HARD
     #             temporal_adaptive_quantization: "DISABLED", # accepts DISABLED, ENABLED
     #           },
+    #           passthrough_settings: {
+    #             video_selector_mode: "AUTO", # accepts AUTO, REMUX_ALL
+    #           },
     #           prores_settings: {
     #             chroma_sampling: "PRESERVE_444_SAMPLING", # accepts PRESERVE_444_SAMPLING, SUBSAMPLE_TO_422
     #             codec_profile: "APPLE_PRORES_422", # accepts APPLE_PRORES_422, APPLE_PRORES_422_HQ, APPLE_PRORES_422_LT, APPLE_PRORES_422_PROXY, APPLE_PRORES_4444, APPLE_PRORES_4444_XQ
@@ -5518,6 +5536,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.peak_calculation #=> String, one of "TRUE_PEAK", "NONE"
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.target_lkfs #=> Float
     #   resp.preset.settings.audio_descriptions[0].audio_normalization_settings.true_peak_limiter_threshold #=> Float
+    #   resp.preset.settings.audio_descriptions[0].audio_pitch_correction_settings.slow_pal_pitch_correction #=> String, one of "DISABLED", "ENABLED"
     #   resp.preset.settings.audio_descriptions[0].audio_source_name #=> String
     #   resp.preset.settings.audio_descriptions[0].audio_type #=> Integer
     #   resp.preset.settings.audio_descriptions[0].audio_type_control #=> String, one of "FOLLOW_INPUT", "USE_CONFIGURED"
@@ -5987,6 +6006,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.framerate_control #=> String, one of "INITIALIZE_FROM_SOURCE", "SPECIFIED"
@@ -6273,7 +6293,7 @@ module Aws::MediaConvert
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-mediaconvert'
-      context[:gem_version] = '1.171.0'
+      context[:gem_version] = '1.172.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

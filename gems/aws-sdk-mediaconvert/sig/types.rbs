@@ -103,6 +103,7 @@ module Aws::MediaConvert
     class AudioDescription
       attr_accessor audio_channel_tagging_settings: Types::AudioChannelTaggingSettings
       attr_accessor audio_normalization_settings: Types::AudioNormalizationSettings
+      attr_accessor audio_pitch_correction_settings: Types::AudioPitchCorrectionSettings
       attr_accessor audio_source_name: ::String
       attr_accessor audio_type: ::Integer
       attr_accessor audio_type_control: ("FOLLOW_INPUT" | "USE_CONFIGURED")
@@ -123,6 +124,11 @@ module Aws::MediaConvert
       attr_accessor peak_calculation: ("TRUE_PEAK" | "NONE")
       attr_accessor target_lkfs: ::Float
       attr_accessor true_peak_limiter_threshold: ::Float
+      SENSITIVE: []
+    end
+
+    class AudioPitchCorrectionSettings
+      attr_accessor slow_pal_pitch_correction: ("DISABLED" | "ENABLED")
       SENSITIVE: []
     end
 
@@ -147,7 +153,8 @@ module Aws::MediaConvert
       attr_accessor pids: ::Array[::Integer]
       attr_accessor program_selection: ::Integer
       attr_accessor remix_settings: Types::RemixSettings
-      attr_accessor selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM")
+      attr_accessor selector_type: ("PID" | "TRACK" | "LANGUAGE_CODE" | "HLS_RENDITION_GROUP" | "ALL_PCM" | "STREAM")
+      attr_accessor streams: ::Array[::Integer]
       attr_accessor tracks: ::Array[::Integer]
       SENSITIVE: []
     end
@@ -370,7 +377,7 @@ module Aws::MediaConvert
       attr_accessor client_cache: ("DISABLED" | "ENABLED")
       attr_accessor codec_specification: ("RFC_6381" | "RFC_4281")
       attr_accessor dash_i_frame_trick_play_name_modifier: ::String
-      attr_accessor dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")
+      attr_accessor dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")
       attr_accessor destination: ::String
       attr_accessor destination_settings: Types::DestinationSettings
       attr_accessor encryption: Types::CmafEncryptionSettings
@@ -586,7 +593,7 @@ module Aws::MediaConvert
       attr_accessor audio_channel_config_scheme_id_uri: ("MPEG_CHANNEL_CONFIGURATION" | "DOLBY_CHANNEL_CONFIGURATION")
       attr_accessor base_url: ::String
       attr_accessor dash_i_frame_trick_play_name_modifier: ::String
-      attr_accessor dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT")
+      attr_accessor dash_manifest_style: ("BASIC" | "COMPACT" | "DISTINCT" | "FULL")
       attr_accessor destination: ::String
       attr_accessor destination_settings: Types::DestinationSettings
       attr_accessor encryption: Types::DashIsoEncryptionSettings
@@ -1932,6 +1939,11 @@ module Aws::MediaConvert
       SENSITIVE: []
     end
 
+    class PassthroughSettings
+      attr_accessor video_selector_mode: ("AUTO" | "REMUX_ALL")
+      SENSITIVE: []
+    end
+
     class Policy
       attr_accessor http_inputs: ("ALLOWED" | "DISALLOWED")
       attr_accessor https_inputs: ("ALLOWED" | "DISALLOWED")
@@ -2242,6 +2254,7 @@ module Aws::MediaConvert
     end
 
     class TrackSourceSettings
+      attr_accessor stream_number: ::Integer
       attr_accessor track_number: ::Integer
       SENSITIVE: []
     end
@@ -2340,6 +2353,7 @@ module Aws::MediaConvert
       attr_accessor h264_settings: Types::H264Settings
       attr_accessor h265_settings: Types::H265Settings
       attr_accessor mpeg_2_settings: Types::Mpeg2Settings
+      attr_accessor passthrough_settings: Types::PassthroughSettings
       attr_accessor prores_settings: Types::ProresSettings
       attr_accessor uncompressed_settings: Types::UncompressedSettings
       attr_accessor vc_3_settings: Types::Vc3Settings
@@ -2412,6 +2426,7 @@ module Aws::MediaConvert
 
     class VideoOverlayPosition
       attr_accessor height: ::Integer
+      attr_accessor opacity: ::Integer
       attr_accessor unit: ("PIXELS" | "PERCENTAGE")
       attr_accessor width: ::Integer
       attr_accessor x_position: ::Integer
