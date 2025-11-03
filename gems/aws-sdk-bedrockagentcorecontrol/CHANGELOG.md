@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.14.0 (2025-11-03)
+------------------
+
+* Feature - Adds support for direct code deploy with CreateAgentRuntime and UpdateAgentRuntime
+
 1.13.0 (2025-10-30)
 ------------------
 

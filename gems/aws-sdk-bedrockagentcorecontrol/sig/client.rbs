@@ -93,6 +93,17 @@ module Aws
                                   agent_runtime_artifact: {
                                     container_configuration: {
                                       container_uri: ::String
+                                    }?,
+                                    code_configuration: {
+                                      code: {
+                                        s3: {
+                                          bucket: ::String,
+                                          prefix: ::String,
+                                          version_id: ::String?
+                                        }?
+                                      },
+                                      runtime: ("PYTHON_3_10" | "PYTHON_3_11" | "PYTHON_3_12" | "PYTHON_3_13"),
+                                      entry_point: Array[::String]
                                     }?
                                   },
                                   role_arn: ::String,
@@ -185,7 +196,8 @@ module Aws
                               enabled: bool?,
                               s3_location: {
                                 bucket: ::String,
-                                prefix: ::String
+                                prefix: ::String,
+                                version_id: ::String?
                               }?
                             },
                             ?browser_signing: {
@@ -536,7 +548,8 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/BedrockAgentCoreControl/Client.html#delete_agent_runtime-instance_method
       def delete_agent_runtime: (
-                                  agent_runtime_id: ::String
+                                  agent_runtime_id: ::String,
+                                  ?client_token: ::String
                                 ) -> _DeleteAgentRuntimeResponseSuccess
                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteAgentRuntimeResponseSuccess
 
@@ -1057,6 +1070,17 @@ module Aws
                                   agent_runtime_artifact: {
                                     container_configuration: {
                                       container_uri: ::String
+                                    }?,
+                                    code_configuration: {
+                                      code: {
+                                        s3: {
+                                          bucket: ::String,
+                                          prefix: ::String,
+                                          version_id: ::String?
+                                        }?
+                                      },
+                                      runtime: ("PYTHON_3_10" | "PYTHON_3_11" | "PYTHON_3_12" | "PYTHON_3_13"),
+                                      entry_point: Array[::String]
                                     }?
                                   },
                                   role_arn: ::String,

@@ -26,10 +26,13 @@ module Aws::BedrockAgentCoreControl
 
     class AgentRuntimeArtifact
       attr_accessor container_configuration: Types::ContainerConfiguration
+      attr_accessor code_configuration: Types::CodeConfiguration
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class ContainerConfiguration < AgentRuntimeArtifact
+      end
+      class CodeConfiguration < AgentRuntimeArtifact
       end
       class Unknown < AgentRuntimeArtifact
       end
@@ -127,6 +130,24 @@ module Aws::BedrockAgentCoreControl
       attr_accessor created_at: ::Time
       attr_accessor last_updated_at: ::Time
       SENSITIVE: [:description]
+    end
+
+    class Code
+      attr_accessor s3: Types::S3Location
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class S3 < Code
+      end
+      class Unknown < Code
+      end
+    end
+
+    class CodeConfiguration
+      attr_accessor code: Types::Code
+      attr_accessor runtime: ("PYTHON_3_10" | "PYTHON_3_11" | "PYTHON_3_12" | "PYTHON_3_13")
+      attr_accessor entry_point: ::Array[::String]
+      SENSITIVE: []
     end
 
     class CodeInterpreterNetworkConfiguration
@@ -531,6 +552,7 @@ module Aws::BedrockAgentCoreControl
 
     class DeleteAgentRuntimeRequest
       attr_accessor agent_runtime_id: ::String
+      attr_accessor client_token: ::String
       SENSITIVE: []
     end
 
@@ -1448,6 +1470,7 @@ module Aws::BedrockAgentCoreControl
     class S3Location
       attr_accessor bucket: ::String
       attr_accessor prefix: ::String
+      attr_accessor version_id: ::String
       SENSITIVE: []
     end
 

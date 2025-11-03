@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.211.0 (2025-11-03)
+------------------
+
+* Feature - Documentation-only update for LINEAR and CANARY deployment strategies.
+
 1.210.0 (2025-10-30)
 ------------------
 

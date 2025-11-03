@@ -539,6 +539,17 @@ module Aws::BedrockAgentCoreControl
     #       container_configuration: {
     #         container_uri: "RuntimeContainerUri", # required
     #       },
+    #       code_configuration: {
+    #         code: { # required
+    #           s3: {
+    #             bucket: "S3LocationBucketString", # required
+    #             prefix: "S3LocationPrefixString", # required
+    #             version_id: "S3LocationVersionIdString",
+    #           },
+    #         },
+    #         runtime: "PYTHON_3_10", # required, accepts PYTHON_3_10, PYTHON_3_11, PYTHON_3_12, PYTHON_3_13
+    #         entry_point: ["entryPoint"], # required
+    #       },
     #     },
     #     role_arn: "RoleArn", # required
     #     network_configuration: { # required
@@ -772,6 +783,7 @@ module Aws::BedrockAgentCoreControl
     #       s3_location: {
     #         bucket: "S3LocationBucketString", # required
     #         prefix: "S3LocationPrefixString", # required
+    #         version_id: "S3LocationVersionIdString",
     #       },
     #     },
     #     browser_signing: {
@@ -1644,6 +1656,14 @@ module Aws::BedrockAgentCoreControl
     # @option params [required, String] :agent_runtime_id
     #   The unique identifier of the AgentCore Runtime to delete.
     #
+    # @option params [String] :client_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, the service ignores the request but does not return an error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
     # @return [Types::DeleteAgentRuntimeResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::DeleteAgentRuntimeResponse#status #status} => String
@@ -1653,6 +1673,7 @@ module Aws::BedrockAgentCoreControl
     #
     #   resp = client.delete_agent_runtime({
     #     agent_runtime_id: "AgentRuntimeId", # required
+    #     client_token: "ClientToken",
     #   })
     #
     # @example Response structure
@@ -2026,6 +2047,12 @@ module Aws::BedrockAgentCoreControl
     #   resp.description #=> String
     #   resp.workload_identity_details.workload_identity_arn #=> String
     #   resp.agent_runtime_artifact.container_configuration.container_uri #=> String
+    #   resp.agent_runtime_artifact.code_configuration.code.s3.bucket #=> String
+    #   resp.agent_runtime_artifact.code_configuration.code.s3.prefix #=> String
+    #   resp.agent_runtime_artifact.code_configuration.code.s3.version_id #=> String
+    #   resp.agent_runtime_artifact.code_configuration.runtime #=> String, one of "PYTHON_3_10", "PYTHON_3_11", "PYTHON_3_12", "PYTHON_3_13"
+    #   resp.agent_runtime_artifact.code_configuration.entry_point #=> Array
+    #   resp.agent_runtime_artifact.code_configuration.entry_point[0] #=> String
     #   resp.protocol_configuration.server_protocol #=> String, one of "MCP", "HTTP", "A2A"
     #   resp.environment_variables #=> Hash
     #   resp.environment_variables["EnvironmentVariableKey"] #=> String
@@ -2176,6 +2203,7 @@ module Aws::BedrockAgentCoreControl
     #   resp.recording.enabled #=> Boolean
     #   resp.recording.s3_location.bucket #=> String
     #   resp.recording.s3_location.prefix #=> String
+    #   resp.recording.s3_location.version_id #=> String
     #   resp.browser_signing.enabled #=> Boolean
     #   resp.status #=> String, one of "CREATING", "CREATE_FAILED", "READY", "DELETING", "DELETE_FAILED", "DELETED"
     #   resp.failure_reason #=> String
@@ -3449,6 +3477,17 @@ module Aws::BedrockAgentCoreControl
     #       container_configuration: {
     #         container_uri: "RuntimeContainerUri", # required
     #       },
+    #       code_configuration: {
+    #         code: { # required
+    #           s3: {
+    #             bucket: "S3LocationBucketString", # required
+    #             prefix: "S3LocationPrefixString", # required
+    #             version_id: "S3LocationVersionIdString",
+    #           },
+    #         },
+    #         runtime: "PYTHON_3_10", # required, accepts PYTHON_3_10, PYTHON_3_11, PYTHON_3_12, PYTHON_3_13
+    #         entry_point: ["entryPoint"], # required
+    #       },
     #     },
     #     role_arn: "RoleArn", # required
     #     network_configuration: { # required
@@ -4383,7 +4422,7 @@ module Aws::BedrockAgentCoreControl
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockagentcorecontrol'
-      context[:gem_version] = '1.13.0'
+      context[:gem_version] = '1.14.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

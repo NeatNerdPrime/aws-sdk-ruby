@@ -16,6 +16,7 @@ module Aws::BedrockAgentCoreControl
 
     AccessDeniedException = Shapes::StructureShape.new(name: 'AccessDeniedException')
     AgentEndpointDescription = Shapes::StringShape.new(name: 'AgentEndpointDescription')
+    AgentManagedRuntimeType = Shapes::StringShape.new(name: 'AgentManagedRuntimeType')
     AgentRuntime = Shapes::StructureShape.new(name: 'AgentRuntime')
     AgentRuntimeArn = Shapes::StringShape.new(name: 'AgentRuntimeArn')
     AgentRuntimeArtifact = Shapes::UnionShape.new(name: 'AgentRuntimeArtifact')
@@ -63,6 +64,9 @@ module Aws::BedrockAgentCoreControl
     ClientIdType = Shapes::StringShape.new(name: 'ClientIdType')
     ClientSecretType = Shapes::StringShape.new(name: 'ClientSecretType')
     ClientToken = Shapes::StringShape.new(name: 'ClientToken')
+    Code = Shapes::UnionShape.new(name: 'Code')
+    CodeConfiguration = Shapes::StructureShape.new(name: 'CodeConfiguration')
+    CodeConfigurationEntryPointList = Shapes::ListShape.new(name: 'CodeConfigurationEntryPointList')
     CodeInterpreterArn = Shapes::StringShape.new(name: 'CodeInterpreterArn')
     CodeInterpreterId = Shapes::StringShape.new(name: 'CodeInterpreterId')
     CodeInterpreterNetworkConfiguration = Shapes::StructureShape.new(name: 'CodeInterpreterNetworkConfiguration')
@@ -313,6 +317,7 @@ module Aws::BedrockAgentCoreControl
     S3Location = Shapes::StructureShape.new(name: 'S3Location')
     S3LocationBucketString = Shapes::StringShape.new(name: 'S3LocationBucketString')
     S3LocationPrefixString = Shapes::StringShape.new(name: 'S3LocationPrefixString')
+    S3LocationVersionIdString = Shapes::StringShape.new(name: 'S3LocationVersionIdString')
     SalesforceOauth2ProviderConfigInput = Shapes::StructureShape.new(name: 'SalesforceOauth2ProviderConfigInput')
     SalesforceOauth2ProviderConfigOutput = Shapes::StructureShape.new(name: 'SalesforceOauth2ProviderConfigOutput')
     SandboxName = Shapes::StringShape.new(name: 'SandboxName')
@@ -428,6 +433,7 @@ module Aws::BedrockAgentCoreControl
     WorkloadIdentityList = Shapes::ListShape.new(name: 'WorkloadIdentityList')
     WorkloadIdentityNameType = Shapes::StringShape.new(name: 'WorkloadIdentityNameType')
     WorkloadIdentityType = Shapes::StructureShape.new(name: 'WorkloadIdentityType')
+    entryPoint = Shapes::StringShape.new(name: 'entryPoint')
 
     AccessDeniedException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     AccessDeniedException.struct_class = Types::AccessDeniedException
@@ -442,8 +448,10 @@ module Aws::BedrockAgentCoreControl
     AgentRuntime.struct_class = Types::AgentRuntime
 
     AgentRuntimeArtifact.add_member(:container_configuration, Shapes::ShapeRef.new(shape: ContainerConfiguration, location_name: "containerConfiguration"))
+    AgentRuntimeArtifact.add_member(:code_configuration, Shapes::ShapeRef.new(shape: CodeConfiguration, location_name: "codeConfiguration"))
     AgentRuntimeArtifact.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     AgentRuntimeArtifact.add_member_subclass(:container_configuration, Types::AgentRuntimeArtifact::ContainerConfiguration)
+    AgentRuntimeArtifact.add_member_subclass(:code_configuration, Types::AgentRuntimeArtifact::CodeConfiguration)
     AgentRuntimeArtifact.add_member_subclass(:unknown, Types::AgentRuntimeArtifact::Unknown)
     AgentRuntimeArtifact.struct_class = Types::AgentRuntimeArtifact
 
@@ -523,6 +531,19 @@ module Aws::BedrockAgentCoreControl
     BrowserSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: DateTimestamp, required: true, location_name: "createdAt"))
     BrowserSummary.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: DateTimestamp, location_name: "lastUpdatedAt"))
     BrowserSummary.struct_class = Types::BrowserSummary
+
+    Code.add_member(:s3, Shapes::ShapeRef.new(shape: S3Location, location_name: "s3"))
+    Code.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    Code.add_member_subclass(:s3, Types::Code::S3)
+    Code.add_member_subclass(:unknown, Types::Code::Unknown)
+    Code.struct_class = Types::Code
+
+    CodeConfiguration.add_member(:code, Shapes::ShapeRef.new(shape: Code, required: true, location_name: "code"))
+    CodeConfiguration.add_member(:runtime, Shapes::ShapeRef.new(shape: AgentManagedRuntimeType, required: true, location_name: "runtime"))
+    CodeConfiguration.add_member(:entry_point, Shapes::ShapeRef.new(shape: CodeConfigurationEntryPointList, required: true, location_name: "entryPoint"))
+    CodeConfiguration.struct_class = Types::CodeConfiguration
+
+    CodeConfigurationEntryPointList.member = Shapes::ShapeRef.new(shape: entryPoint)
 
     CodeInterpreterNetworkConfiguration.add_member(:network_mode, Shapes::ShapeRef.new(shape: CodeInterpreterNetworkMode, required: true, location_name: "networkMode"))
     CodeInterpreterNetworkConfiguration.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "vpcConfig"))
@@ -818,6 +839,7 @@ module Aws::BedrockAgentCoreControl
     DeleteAgentRuntimeEndpointResponse.struct_class = Types::DeleteAgentRuntimeEndpointResponse
 
     DeleteAgentRuntimeRequest.add_member(:agent_runtime_id, Shapes::ShapeRef.new(shape: AgentRuntimeId, required: true, location: "uri", location_name: "agentRuntimeId"))
+    DeleteAgentRuntimeRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location: "querystring", location_name: "clientToken", metadata: {"idempotencyToken" => true}))
     DeleteAgentRuntimeRequest.struct_class = Types::DeleteAgentRuntimeRequest
 
     DeleteAgentRuntimeResponse.add_member(:status, Shapes::ShapeRef.new(shape: AgentRuntimeStatus, required: true, location_name: "status"))
@@ -1491,6 +1513,7 @@ module Aws::BedrockAgentCoreControl
 
     S3Location.add_member(:bucket, Shapes::ShapeRef.new(shape: S3LocationBucketString, required: true, location_name: "bucket"))
     S3Location.add_member(:prefix, Shapes::ShapeRef.new(shape: S3LocationPrefixString, required: true, location_name: "prefix"))
+    S3Location.add_member(:version_id, Shapes::ShapeRef.new(shape: S3LocationVersionIdString, location_name: "versionId"))
     S3Location.struct_class = Types::S3Location
 
     SalesforceOauth2ProviderConfigInput.add_member(:client_id, Shapes::ShapeRef.new(shape: ClientIdType, required: true, location_name: "clientId"))

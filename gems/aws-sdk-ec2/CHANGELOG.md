@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.569.0 (2025-11-03)
+------------------
+
+* Feature - Add Amazon EC2 trn2.3xlarge instance type.
+
 1.568.0 (2025-10-31)
 ------------------
 

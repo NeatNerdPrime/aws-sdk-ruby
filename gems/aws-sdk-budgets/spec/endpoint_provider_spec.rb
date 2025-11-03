@@ -182,7 +182,7 @@ module Aws::Budgets
 
     context "For region eusc-de-east-1 with FIPS disabled and DualStack disabled" do
       let(:expected) do
-        {"endpoint" => {"properties" => {"authSchemes" => [{"name" => "sigv4", "signingRegion" => "eusc-de-east-1"}]}, "url" => "https://budgets.amazonaws.eu"}}
+        {"endpoint" => {"properties" => {"authSchemes" => [{"name" => "sigv4", "signingRegion" => "eusc-de-east-1"}]}, "url" => "https://budgets.eusc-de-east-1.api.amazonwebservices.eu"}}
       end
 
       it 'produces the expected output from the EndpointProvider' do

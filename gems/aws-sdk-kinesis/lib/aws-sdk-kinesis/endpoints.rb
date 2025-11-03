@@ -344,6 +344,16 @@ module Aws::Kinesis
       end
     end
 
+    class UpdateStreamWarmThroughput
+      def self.build(context)
+        Aws::Kinesis::EndpointParameters.create(
+          context.config,
+          stream_arn: context.params[:stream_arn],
+          operation_type: "control",
+        )
+      end
+    end
+
 
     def self.parameters_for_operation(context)
       case context.operation_name
@@ -413,6 +423,8 @@ module Aws::Kinesis
         UpdateShardCount.build(context)
       when :update_stream_mode
         UpdateStreamMode.build(context)
+      when :update_stream_warm_throughput
+        UpdateStreamWarmThroughput.build(context)
       else
         Aws::Kinesis::EndpointParameters.create(context.config)
       end

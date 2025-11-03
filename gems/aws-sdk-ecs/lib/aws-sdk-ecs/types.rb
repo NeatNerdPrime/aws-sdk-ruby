@@ -362,8 +362,8 @@ module Aws::ECS
     #
     #   Consider the following when you set this value:
     #
-    #   * When you use `create-service` or `update-service`, the The default
-    #     is `DISABLED`.
+    #   * When you use `create-service` or `update-service`, the default is
+    #     `DISABLED`.
     #
     #   * When the service `deploymentController` is `ECS`, the value must
     #     be `DISABLED`.
@@ -413,7 +413,7 @@ module Aws::ECS
     #
     class BlockedException < Aws::EmptyStructure; end
 
-    # Configuration for canary deployment strategy that shifts a fixed
+    # Configuration for a canary deployment strategy that shifts a fixed
     # percentage of traffic to the new service revision, waits for a
     # specified bake time, then shifts the remaining traffic.
     #
@@ -423,8 +423,8 @@ module Aws::ECS
     #
     # @!attribute [rw] canary_percent
     #   The percentage of production traffic to shift to the new service
-    #   revision during the canary phase. Valid values are 0.1 to 100.0. The
-    #   default value is 5.0.
+    #   revision during the canary phase. Valid values are multiples of 0.1
+    #   from 0.1 to 100.0. The default value is 5.0.
     #   @return [Float]
     #
     # @!attribute [rw] canary_bake_time_in_minutes
@@ -4290,6 +4290,19 @@ module Aws::ECS
     #     revisions before directing production traffic to them. This
     #     approach provides a safer way to deploy changes with the ability
     #     to quickly roll back if needed.
+    #
+    #   * `LINEAR` - A *linear* deployment strategy (`LINEAR`) gradually
+    #     shifts traffic from the current production environment to a new
+    #     environment in equal percentages over time. With Amazon ECS linear
+    #     deployments, you can control the pace of traffic shifting and
+    #     validate new service revisions with increasing amounts of
+    #     production traffic.
+    #
+    #   * `CANARY` - A *canary* deployment strategy (`CANARY`) shifts a
+    #     small percentage of traffic to the new service revision first,
+    #     then shifts the remaining traffic all at once after a specified
+    #     time period. This allows you to test the new version with a subset
+    #     of users before full deployment.
     #   @return [String]
     #
     # @!attribute [rw] bake_time_in_minutes
@@ -6651,15 +6664,15 @@ module Aws::ECS
     #
     # @!attribute [rw] step_percent
     #   The percentage of production traffic to shift in each step during a
-    #   linear deployment. Valid values are 3.0 to 100.0. The default value
-    #   is 10.0.
+    #   linear deployment. Valid values are multiples of 0.1 from 3.0 to
+    #   100.0. The default value is 10.0.
     #   @return [Float]
     #
     # @!attribute [rw] step_bake_time_in_minutes
     #   The amount of time in minutes to wait between each traffic shifting
     #   step during a linear deployment. Valid values are 0 to 1440 minutes
     #   (24 hours). The default value is 6. This bake time is not applied
-    #   after reaching 100% traffic.
+    #   after reaching 100 percent traffic.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/LinearConfiguration AWS API Documentation

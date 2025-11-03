@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.91.0 (2025-11-03)
+------------------
+
+* Feature - Adds support for MinimumThroughputBillingCommitment with new UpdateAccountSettings API. Adds support to configure warm throughput for on-demand streams in new UpdateStreamWarmThroughput API and existing CreateStream API and UpdateStreamMode API.
+
 1.90.0 (2025-10-31)
 ------------------
 

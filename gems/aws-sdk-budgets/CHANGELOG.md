@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.98.0 (2025-11-03)
+------------------
+
+* Feature - Fix the AWS Budgets endpoint for the aws-eusc partition.
+
 1.97.0 (2025-10-24)
 ------------------
 

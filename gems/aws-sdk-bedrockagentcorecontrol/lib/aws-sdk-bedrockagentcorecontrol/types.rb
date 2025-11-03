@@ -79,16 +79,23 @@ module Aws::BedrockAgentCoreControl
     #   The container configuration for the agent artifact.
     #   @return [Types::ContainerConfiguration]
     #
+    # @!attribute [rw] code_configuration
+    #   The code configuration for the agent runtime artifact, including the
+    #   source code location and execution settings.
+    #   @return [Types::CodeConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/AgentRuntimeArtifact AWS API Documentation
     #
     class AgentRuntimeArtifact < Struct.new(
       :container_configuration,
+      :code_configuration,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
       include Aws::Structure::Union
 
       class ContainerConfiguration < AgentRuntimeArtifact; end
+      class CodeConfiguration < AgentRuntimeArtifact; end
       class Unknown < AgentRuntimeArtifact; end
     end
 
@@ -416,6 +423,59 @@ module Aws::BedrockAgentCoreControl
       :created_at,
       :last_updated_at)
       SENSITIVE = [:description]
+      include Aws::Structure
+    end
+
+    # The source code configuration that specifies the location and details
+    # of the code to be executed.
+    #
+    # @note Code is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note Code is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of Code corresponding to the set member.
+    #
+    # @!attribute [rw] s3
+    #   The Amazon Amazon S3 object that contains the source code for the
+    #   agent runtime.
+    #   @return [Types::S3Location]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/Code AWS API Documentation
+    #
+    class Code < Struct.new(
+      :s3,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class S3 < Code; end
+      class Unknown < Code; end
+    end
+
+    # The configuration for the source code that defines how the agent
+    # runtime code should be executed, including the code location, runtime
+    # environment, and entry point.
+    #
+    # @!attribute [rw] code
+    #   The source code location and configuration details.
+    #   @return [Types::Code]
+    #
+    # @!attribute [rw] runtime
+    #   The runtime environment for executing the code (for example, Python
+    #   3.9 or Node.js 18).
+    #   @return [String]
+    #
+    # @!attribute [rw] entry_point
+    #   The entry point for the code execution, specifying the function or
+    #   method that should be invoked when the code runs.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/CodeConfiguration AWS API Documentation
+    #
+    class CodeConfiguration < Struct.new(
+      :code,
+      :runtime,
+      :entry_point)
+      SENSITIVE = []
       include Aws::Structure
     end
 
@@ -1839,10 +1899,21 @@ module Aws::BedrockAgentCoreControl
     #   The unique identifier of the AgentCore Runtime to delete.
     #   @return [String]
     #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier to ensure that the operation
+    #   completes no more than one time. If this token matches a previous
+    #   request, the service ignores the request but does not return an
+    #   error.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/DeleteAgentRuntimeRequest AWS API Documentation
     #
     class DeleteAgentRuntimeRequest < Struct.new(
-      :agent_runtime_id)
+      :agent_runtime_id,
+      :client_token)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4747,11 +4818,17 @@ module Aws::BedrockAgentCoreControl
     #   to the object keys to organize the data.
     #   @return [String]
     #
+    # @!attribute [rw] version_id
+    #   The version ID of the Amazon Amazon S3 object. If not specified, the
+    #   latest version of the object is used.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-agentcore-control-2023-06-05/S3Location AWS API Documentation
     #
     class S3Location < Struct.new(
       :bucket,
-      :prefix)
+      :prefix,
+      :version_id)
       SENSITIVE = []
       include Aws::Structure
     end
