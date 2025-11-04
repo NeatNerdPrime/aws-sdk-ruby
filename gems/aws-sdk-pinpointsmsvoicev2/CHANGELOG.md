@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.47.0 (2025-11-04)
+------------------
+
+* Feature - This release adds support for the CarrierLookup API, which returns information about a destination phone number including if the number is valid, the carrier, and more.
+
 1.46.0 (2025-10-22)
 ------------------
 
