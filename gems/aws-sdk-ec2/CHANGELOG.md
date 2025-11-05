@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.570.0 (2025-11-05)
+------------------
+
+* Feature - This release adds AvailabilityZoneId support for DescribeFastSnapshotRestores, DisableFastSnapshotRestores, and EnableFastSnapshotRestores APIs.
+
 1.569.0 (2025-11-03)
 ------------------
 

@@ -802,6 +802,80 @@ module Aws::GroundStation
       include Aws::Structure
     end
 
+    # @!attribute [rw] endpoints
+    #   Dataflow endpoint group's endpoint definitions
+    #   @return [Array<Types::CreateEndpointDetails>]
+    #
+    # @!attribute [rw] contact_pre_pass_duration_seconds
+    #   Amount of time, in seconds, before a contact starts that the Ground
+    #   Station Dataflow Endpoint Group will be in a `PREPASS` state. A
+    #   Ground Station Dataflow Endpoint Group State Change event will be
+    #   emitted when the Dataflow Endpoint Group enters and exits the
+    #   `PREPASS` state.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] contact_post_pass_duration_seconds
+    #   Amount of time, in seconds, after a contact ends that the Ground
+    #   Station Dataflow Endpoint Group will be in a `POSTPASS` state. A
+    #   Ground Station Dataflow Endpoint Group State Change event will be
+    #   emitted when the Dataflow Endpoint Group enters and exits the
+    #   `POSTPASS` state.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] tags
+    #   Tags of a V2 dataflow endpoint group.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateDataflowEndpointGroupV2Request AWS API Documentation
+    #
+    class CreateDataflowEndpointGroupV2Request < Struct.new(
+      :endpoints,
+      :contact_pre_pass_duration_seconds,
+      :contact_post_pass_duration_seconds,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dataflow_endpoint_group_id
+    #   Dataflow endpoint group ID
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateDataflowEndpointGroupV2Response AWS API Documentation
+    #
+    class CreateDataflowEndpointGroupV2Response < Struct.new(
+      :dataflow_endpoint_group_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Endpoint definition used for creating a dataflow endpoint
+    #
+    # @note CreateEndpointDetails is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] uplink_aws_ground_station_agent_endpoint
+    #   Definition for an uplink agent endpoint
+    #   @return [Types::UplinkAwsGroundStationAgentEndpoint]
+    #
+    # @!attribute [rw] downlink_aws_ground_station_agent_endpoint
+    #   Definition for a downlink agent endpoint
+    #   @return [Types::DownlinkAwsGroundStationAgentEndpoint]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateEndpointDetails AWS API Documentation
+    #
+    class CreateEndpointDetails < Struct.new(
+      :uplink_aws_ground_station_agent_endpoint,
+      :downlink_aws_ground_station_agent_endpoint,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class UplinkAwsGroundStationAgentEndpoint < CreateEndpointDetails; end
+      class DownlinkAwsGroundStationAgentEndpoint < CreateEndpointDetails; end
+      class Unknown < CreateEndpointDetails; end
+    end
+
     # @!attribute [rw] satellite_id
     #   The satellite ID that associates this ephemeris with a satellite in
     #   AWS Ground Station.
@@ -1380,6 +1454,98 @@ module Aws::GroundStation
       include Aws::Structure
     end
 
+    # Definition for a downlink agent endpoint
+    #
+    # @!attribute [rw] name
+    #   Downlink dataflow endpoint name
+    #   @return [String]
+    #
+    # @!attribute [rw] dataflow_details
+    #   Dataflow details for the downlink endpoint
+    #   @return [Types::DownlinkDataflowDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DownlinkAwsGroundStationAgentEndpoint AWS API Documentation
+    #
+    class DownlinkAwsGroundStationAgentEndpoint < Struct.new(
+      :name,
+      :dataflow_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Details for a downlink agent endpoint
+    #
+    # @!attribute [rw] name
+    #   Downlink dataflow endpoint name
+    #   @return [String]
+    #
+    # @!attribute [rw] dataflow_details
+    #   Dataflow details for the downlink endpoint
+    #   @return [Types::DownlinkDataflowDetails]
+    #
+    # @!attribute [rw] agent_status
+    #   Status of the agent associated with the downlink dataflow endpoint
+    #   @return [String]
+    #
+    # @!attribute [rw] audit_results
+    #   Health audit results for the downlink dataflow endpoint
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DownlinkAwsGroundStationAgentEndpointDetails AWS API Documentation
+    #
+    class DownlinkAwsGroundStationAgentEndpointDetails < Struct.new(
+      :name,
+      :dataflow_details,
+      :agent_status,
+      :audit_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Connection details for Ground Station to Agent and Agent to customer
+    #
+    # @!attribute [rw] agent_ip_and_port_address
+    #   Ingress address of AgentEndpoint with a port range and an optional
+    #   mtu.
+    #   @return [Types::RangedConnectionDetails]
+    #
+    # @!attribute [rw] egress_address_and_port
+    #   Egress address of AgentEndpoint with an optional mtu.
+    #   @return [Types::ConnectionDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DownlinkConnectionDetails AWS API Documentation
+    #
+    class DownlinkConnectionDetails < Struct.new(
+      :agent_ip_and_port_address,
+      :egress_address_and_port)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Dataflow details for a downlink endpoint
+    #
+    # @note DownlinkDataflowDetails is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note DownlinkDataflowDetails is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of DownlinkDataflowDetails corresponding to the set member.
+    #
+    # @!attribute [rw] agent_connection_details
+    #   Downlink connection details for customer to Agent and Agent to
+    #   Ground Station
+    #   @return [Types::DownlinkConnectionDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/DownlinkDataflowDetails AWS API Documentation
+    #
+    class DownlinkDataflowDetails < Struct.new(
+      :agent_connection_details,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class AgentConnectionDetails < DownlinkDataflowDetails; end
+      class Unknown < DownlinkDataflowDetails; end
+    end
+
     # Object that represents EIRP.
     #
     # @!attribute [rw] value
@@ -1433,6 +1599,14 @@ module Aws::GroundStation
     #   An agent endpoint.
     #   @return [Types::AwsGroundStationAgentEndpoint]
     #
+    # @!attribute [rw] uplink_aws_ground_station_agent_endpoint
+    #   Definition for an uplink agent endpoint
+    #   @return [Types::UplinkAwsGroundStationAgentEndpointDetails]
+    #
+    # @!attribute [rw] downlink_aws_ground_station_agent_endpoint
+    #   Definition for a downlink agent endpoint
+    #   @return [Types::DownlinkAwsGroundStationAgentEndpointDetails]
+    #
     # @!attribute [rw] health_status
     #   A dataflow endpoint health status. This field is ignored when
     #   calling `CreateDataflowEndpointGroup`.
@@ -1449,6 +1623,8 @@ module Aws::GroundStation
       :security_details,
       :endpoint,
       :aws_ground_station_agent_endpoint,
+      :uplink_aws_ground_station_agent_endpoint,
+      :downlink_aws_ground_station_agent_endpoint,
       :health_status,
       :health_reasons)
       SENSITIVE = []
@@ -1829,6 +2005,46 @@ module Aws::GroundStation
     class GetAgentConfigurationResponse < Struct.new(
       :agent_id,
       :tasking_document)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] agent_id
+    #   UUID of agent requesting the response URL.
+    #   @return [String]
+    #
+    # @!attribute [rw] task_id
+    #   GUID of the agent task for which the response URL is being
+    #   requested.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/GetAgentTaskResponseUrlRequest AWS API Documentation
+    #
+    class GetAgentTaskResponseUrlRequest < Struct.new(
+      :agent_id,
+      :task_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] agent_id
+    #   UUID of the agent.
+    #   @return [String]
+    #
+    # @!attribute [rw] task_id
+    #   GUID of the agent task.
+    #   @return [String]
+    #
+    # @!attribute [rw] presigned_log_url
+    #   Presigned URL for uploading agent task response logs.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/GetAgentTaskResponseUrlResponse AWS API Documentation
+    #
+    class GetAgentTaskResponseUrlResponse < Struct.new(
+      :agent_id,
+      :task_id,
+      :presigned_log_url)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2972,6 +3188,24 @@ module Aws::GroundStation
       include Aws::Structure
     end
 
+    # Request would cause a service quota to be exceeded.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @!attribute [rw] parameter_name
+    #   Parameter name that caused the exception
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/ServiceQuotaExceededException AWS API Documentation
+    #
+    class ServiceQuotaExceededException < Struct.new(
+      :message,
+      :parameter_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Information about the socket address.
     #
     # @!attribute [rw] name
@@ -3411,6 +3645,98 @@ module Aws::GroundStation
       :streams_kms_role)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # Definition for an uplink agent endpoint
+    #
+    # @!attribute [rw] name
+    #   Uplink dataflow endpoint name
+    #   @return [String]
+    #
+    # @!attribute [rw] dataflow_details
+    #   Dataflow details for the uplink endpoint
+    #   @return [Types::UplinkDataflowDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UplinkAwsGroundStationAgentEndpoint AWS API Documentation
+    #
+    class UplinkAwsGroundStationAgentEndpoint < Struct.new(
+      :name,
+      :dataflow_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Details for an uplink agent endpoint
+    #
+    # @!attribute [rw] name
+    #   Uplink dataflow endpoint name
+    #   @return [String]
+    #
+    # @!attribute [rw] dataflow_details
+    #   Dataflow details for the uplink endpoint
+    #   @return [Types::UplinkDataflowDetails]
+    #
+    # @!attribute [rw] agent_status
+    #   Status of the agent associated with the uplink dataflow endpoint
+    #   @return [String]
+    #
+    # @!attribute [rw] audit_results
+    #   Health audit results for the uplink dataflow endpoint
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UplinkAwsGroundStationAgentEndpointDetails AWS API Documentation
+    #
+    class UplinkAwsGroundStationAgentEndpointDetails < Struct.new(
+      :name,
+      :dataflow_details,
+      :agent_status,
+      :audit_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Connection details for customer to Agent and Agent to Ground Station
+    #
+    # @!attribute [rw] ingress_address_and_port
+    #   Egress address of AgentEndpoint with an optional mtu.
+    #   @return [Types::ConnectionDetails]
+    #
+    # @!attribute [rw] agent_ip_and_port_address
+    #   Ingress address of AgentEndpoint with a port range and an optional
+    #   mtu.
+    #   @return [Types::RangedConnectionDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UplinkConnectionDetails AWS API Documentation
+    #
+    class UplinkConnectionDetails < Struct.new(
+      :ingress_address_and_port,
+      :agent_ip_and_port_address)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Dataflow details for an uplink endpoint
+    #
+    # @note UplinkDataflowDetails is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note UplinkDataflowDetails is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of UplinkDataflowDetails corresponding to the set member.
+    #
+    # @!attribute [rw] agent_connection_details
+    #   Uplink connection details for customer to Agent and Agent to Ground
+    #   Station
+    #   @return [Types::UplinkConnectionDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/UplinkDataflowDetails AWS API Documentation
+    #
+    class UplinkDataflowDetails < Struct.new(
+      :agent_connection_details,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class AgentConnectionDetails < UplinkDataflowDetails; end
+      class Unknown < UplinkDataflowDetails; end
     end
 
     # Information about an uplink echo `Config`.

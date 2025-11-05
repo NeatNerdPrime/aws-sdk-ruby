@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.126.0 (2025-11-05)
+------------------
+
+* Feature - Amazon FSx now enables secure management of Active Directory credentials through AWS Secrets Manager integration. Customers can use Secret ARNs instead of direct credentials when joining resources to Active Directory domains.
+
 1.125.0 (2025-10-31)
 ------------------
 

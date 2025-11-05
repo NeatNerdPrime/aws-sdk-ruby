@@ -236,6 +236,10 @@ module Aws::CloudFront
     #   The Amazon Resource Name (ARN) of the Anycast static IP list.
     #   @return [String]
     #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type for the Anycast static IP list.
+    #   @return [String]
+    #
     # @!attribute [rw] anycast_ips
     #   The static IP addresses that are allocated to the Anycast static IP
     #   list.
@@ -256,6 +260,7 @@ module Aws::CloudFront
       :name,
       :status,
       :arn,
+      :ip_address_type,
       :anycast_ips,
       :ip_count,
       :last_modified_time)
@@ -339,6 +344,14 @@ module Aws::CloudFront
     #   The last time the Anycast static IP list was modified.
     #   @return [Time]
     #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type for the Anycast static IP list.
+    #   @return [String]
+    #
+    # @!attribute [rw] etag
+    #   The current version (ETag value) of the Anycast static IP list.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/AnycastIpListSummary AWS API Documentation
     #
     class AnycastIpListSummary < Struct.new(
@@ -347,7 +360,9 @@ module Aws::CloudFront
       :status,
       :arn,
       :ip_count,
-      :last_modified_time)
+      :last_modified_time,
+      :ip_address_type,
+      :etag)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2216,12 +2231,24 @@ module Aws::CloudFront
     #   A complex type that contains zero or more `Tag` elements.
     #   @return [Types::Tags]
     #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type for the Anycast static IP list. You can specify
+    #   one of the following options:
+    #
+    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #
+    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #
+    #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateAnycastIpListRequest AWS API Documentation
     #
     class CreateAnycastIpListRequest < Struct.new(
       :name,
       :ip_count,
-      :tags)
+      :tags,
+      :ip_address_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4202,6 +4229,19 @@ module Aws::CloudFront
       include Aws::Structure
     end
 
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource for which
+    #   the resource policy should be deleted.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteResourcePolicyRequest AWS API Documentation
+    #
+    class DeleteResourcePolicyRequest < Struct.new(
+      :resource_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] id
     #   The identifier for the response headers policy that you are
     #   deleting.
@@ -4942,6 +4982,77 @@ module Aws::CloudFront
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DistributionIdList AWS API Documentation
     #
     class DistributionIdList < Struct.new(
+      :marker,
+      :next_marker,
+      :max_items,
+      :is_truncated,
+      :quantity,
+      :items)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A structure that pairs a CloudFront distribution ID with its owning
+    # Amazon Web Services account ID.
+    #
+    # @!attribute [rw] distribution_id
+    #   The ID of the distribution.
+    #   @return [String]
+    #
+    # @!attribute [rw] owner_account_id
+    #   The ID of the Amazon Web Services account that owns the
+    #   distribution.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DistributionIdOwner AWS API Documentation
+    #
+    class DistributionIdOwner < Struct.new(
+      :distribution_id,
+      :owner_account_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The list of distribution IDs and the Amazon Web Services accounts that
+    # they belong to.
+    #
+    # @!attribute [rw] marker
+    #   Use this field when paginating results to indicate where to begin in
+    #   your list of `DistributionIdOwner` objects. The response includes
+    #   distributions in the list that occur after the marker. To get the
+    #   next page of the list, set this field's value to the value of
+    #   `NextMarker` from the current page's response.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_marker
+    #   A token used for pagination of results returned in the response. You
+    #   can use the token from the previous request to define where the
+    #   current request should begin.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_items
+    #   The maximum number of `DistributionIdOwner` objects to return.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] is_truncated
+    #   A flag that indicates whether more `DistributionIdOwner` objects
+    #   remain to be listed. If your results were truncated, you can make a
+    #   follow-up pagination request using the `Marker` request parameter to
+    #   retrieve more results in the list.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] quantity
+    #   Specifies the actual number of `DistributionIdOwner` objects
+    #   included in the list for the current page.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] items
+    #   The number of `DistributionIdOwner` objects.
+    #   @return [Array<Types::DistributionIdOwner>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DistributionIdOwnerList AWS API Documentation
+    #
+    class DistributionIdOwnerList < Struct.new(
       :marker,
       :next_marker,
       :max_items,
@@ -7412,6 +7523,37 @@ module Aws::CloudFront
       include Aws::Structure
     end
 
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource that is
+    #   associated with the resource policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResourcePolicyRequest AWS API Documentation
+    #
+    class GetResourcePolicyRequest < Struct.new(
+      :resource_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource that is
+    #   associated with the resource policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_document
+    #   The resource policy in JSON format.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResourcePolicyResult AWS API Documentation
+    #
+    class GetResourcePolicyResult < Struct.new(
+      :resource_arn,
+      :policy_document)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] id
     #   The identifier for the response headers policy.
     #
@@ -9134,6 +9276,45 @@ module Aws::CloudFront
     #
     class ListDistributionsByOriginRequestPolicyIdResult < Struct.new(
       :distribution_id_list)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] resource_arn
+    #   The ARN of the CloudFront resource that you've shared with other
+    #   Amazon Web Services accounts.
+    #   @return [String]
+    #
+    # @!attribute [rw] marker
+    #   Use this field when paginating results to indicate where to begin in
+    #   your list of distributions. The response includes distributions in
+    #   the list that occur after the marker. To get the next page of the
+    #   list, set this field's value to the value of `NextMarker` from the
+    #   current page's response.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_items
+    #   The maximum number of distributions to return.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByOwnedResourceRequest AWS API Documentation
+    #
+    class ListDistributionsByOwnedResourceRequest < Struct.new(
+      :resource_arn,
+      :marker,
+      :max_items)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] distribution_list
+    #   The list of distributions that are using the shared resource.
+    #   @return [Types::DistributionIdOwnerList]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByOwnedResourceResult AWS API Documentation
+    #
+    class ListDistributionsByOwnedResourceResult < Struct.new(
+      :distribution_list)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -11763,6 +11944,37 @@ module Aws::CloudFront
     #
     class PublishFunctionResult < Struct.new(
       :function_summary)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource for which
+    #   the policy is being created.
+    #   @return [String]
+    #
+    # @!attribute [rw] policy_document
+    #   The JSON-formatted resource policy to create.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/PutResourcePolicyRequest AWS API Documentation
+    #
+    class PutResourcePolicyRequest < Struct.new(
+      :resource_arn,
+      :policy_document)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource for which
+    #   the policy was created.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/PutResourcePolicyResult AWS API Documentation
+    #
+    class PutResourcePolicyResult < Struct.new(
+      :resource_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -14815,6 +15027,59 @@ module Aws::CloudFront
       include Aws::Structure
     end
 
+    # @!attribute [rw] id
+    #   The ID of the Anycast static IP list.
+    #   @return [String]
+    #
+    # @!attribute [rw] ip_address_type
+    #   The IP address type for the Anycast static IP list. You can specify
+    #   one of the following options:
+    #
+    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #
+    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #
+    #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
+    #   @return [String]
+    #
+    # @!attribute [rw] if_match
+    #   The current version (ETag value) of the Anycast static IP list that
+    #   you are updating.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateAnycastIpListRequest AWS API Documentation
+    #
+    class UpdateAnycastIpListRequest < Struct.new(
+      :id,
+      :ip_address_type,
+      :if_match)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] anycast_ip_list
+    #   An Anycast static IP list. For more information, see [Request
+    #   Anycast static IPs to use for allowlisting][1] in the *Amazon
+    #   CloudFront Developer Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/request-static-ips.html
+    #   @return [Types::AnycastIpList]
+    #
+    # @!attribute [rw] etag
+    #   The current version of the Anycast static IP list.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateAnycastIpListResult AWS API Documentation
+    #
+    class UpdateAnycastIpListResult < Struct.new(
+      :anycast_ip_list,
+      :etag)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] cache_policy_config
     #   A cache policy configuration.
     #   @return [Types::CachePolicyConfig]
@@ -16021,6 +16286,11 @@ module Aws::CloudFront
     #   The VPC origin ARN.
     #   @return [String]
     #
+    # @!attribute [rw] account_id
+    #   The account ID of the Amazon Web Services account that owns the VPC
+    #   origin.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   The VPC origin status.
     #   @return [String]
@@ -16042,6 +16312,7 @@ module Aws::CloudFront
     class VpcOrigin < Struct.new(
       :id,
       :arn,
+      :account_id,
       :status,
       :created_time,
       :last_modified_time,
@@ -16054,6 +16325,11 @@ module Aws::CloudFront
     #
     # @!attribute [rw] vpc_origin_id
     #   The VPC origin ID.
+    #   @return [String]
+    #
+    # @!attribute [rw] owner_account_id
+    #   The account ID of the Amazon Web Services account that owns the VPC
+    #   origin.
     #   @return [String]
     #
     # @!attribute [rw] origin_read_timeout
@@ -16088,6 +16364,7 @@ module Aws::CloudFront
     #
     class VpcOriginConfig < Struct.new(
       :vpc_origin_id,
+      :owner_account_id,
       :origin_read_timeout,
       :origin_keepalive_timeout)
       SENSITIVE = []
@@ -16206,6 +16483,11 @@ module Aws::CloudFront
     #   The VPC origin summary ARN.
     #   @return [String]
     #
+    # @!attribute [rw] account_id
+    #   The account ID of the Amazon Web Services account that owns the VPC
+    #   origin.
+    #   @return [String]
+    #
     # @!attribute [rw] origin_endpoint_arn
     #   The VPC origin summary origin endpoint ARN.
     #   @return [String]
@@ -16219,6 +16501,7 @@ module Aws::CloudFront
       :created_time,
       :last_modified_time,
       :arn,
+      :account_id,
       :origin_endpoint_arn)
       SENSITIVE = []
       include Aws::Structure

@@ -1498,6 +1498,7 @@ module Aws::FSx
       attr_accessor file_system_administrators_group: ::String
       attr_accessor user_name: ::String
       attr_accessor dns_ips: ::Array[::String]
+      attr_accessor domain_join_service_account_secret: ::String
       SENSITIVE: []
     end
 
@@ -1508,6 +1509,7 @@ module Aws::FSx
       attr_accessor user_name: ::String
       attr_accessor password: ::String
       attr_accessor dns_ips: ::Array[::String]
+      attr_accessor domain_join_service_account_secret: ::String
       SENSITIVE: [:password]
     end
 
@@ -1518,6 +1520,7 @@ module Aws::FSx
       attr_accessor domain_name: ::String
       attr_accessor organizational_unit_distinguished_name: ::String
       attr_accessor file_system_administrators_group: ::String
+      attr_accessor domain_join_service_account_secret: ::String
       SENSITIVE: [:password]
     end
 

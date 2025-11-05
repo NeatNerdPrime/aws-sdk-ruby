@@ -9165,7 +9165,8 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#disable_fast_snapshot_restores-instance_method
       def disable_fast_snapshot_restores: (
-                                            availability_zones: Array[::String],
+                                            ?availability_zones: Array[::String],
+                                            ?availability_zone_ids: Array[::String],
                                             source_snapshot_ids: Array[::String],
                                             ?dry_run: bool
                                           ) -> _DisableFastSnapshotRestoresResponseSuccess
@@ -9612,7 +9613,8 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#enable_fast_snapshot_restores-instance_method
       def enable_fast_snapshot_restores: (
-                                           availability_zones: Array[::String],
+                                           ?availability_zones: Array[::String],
+                                           ?availability_zone_ids: Array[::String],
                                            source_snapshot_ids: Array[::String],
                                            ?dry_run: bool
                                          ) -> _EnableFastSnapshotRestoresResponseSuccess

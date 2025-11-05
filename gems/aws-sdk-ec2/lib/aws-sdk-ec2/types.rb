@@ -22516,6 +22516,10 @@ module Aws::EC2
     #   The Availability Zone.
     #   @return [String]
     #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
+    #   @return [String]
+    #
     # @!attribute [rw] state
     #   The state of fast snapshot restores.
     #   @return [String]
@@ -22572,6 +22576,7 @@ module Aws::EC2
     class DescribeFastSnapshotRestoreSuccessItem < Struct.new(
       :snapshot_id,
       :availability_zone,
+      :availability_zone_id,
       :state,
       :state_transition_reason,
       :owner_id,
@@ -22588,7 +22593,11 @@ module Aws::EC2
     # @!attribute [rw] filters
     #   The filters. The possible values are:
     #
-    #   * `availability-zone`: The Availability Zone of the snapshot.
+    #   * `availability-zone`: The Availability Zone of the snapshot. For
+    #     example, `us-east-2a`.
+    #
+    #   * `availability-zone-id`: The ID of the Availability Zone of the
+    #     snapshot. For example, `use2-az1`.
     #
     #   * `owner-id`: The ID of the Amazon Web Services account that enabled
     #     fast snapshot restore on the snapshot.
@@ -34640,6 +34649,10 @@ module Aws::EC2
     #   The Availability Zone.
     #   @return [String]
     #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
+    #   @return [String]
+    #
     # @!attribute [rw] error
     #   The error.
     #   @return [Types::DisableFastSnapshotRestoreStateError]
@@ -34648,6 +34661,7 @@ module Aws::EC2
     #
     class DisableFastSnapshotRestoreStateErrorItem < Struct.new(
       :availability_zone,
+      :availability_zone_id,
       :error)
       SENSITIVE = []
       include Aws::Structure
@@ -34661,6 +34675,10 @@ module Aws::EC2
     #
     # @!attribute [rw] availability_zone
     #   The Availability Zone.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
     #   @return [String]
     #
     # @!attribute [rw] state
@@ -34719,6 +34737,7 @@ module Aws::EC2
     class DisableFastSnapshotRestoreSuccessItem < Struct.new(
       :snapshot_id,
       :availability_zone,
+      :availability_zone_id,
       :state,
       :state_transition_reason,
       :owner_id,
@@ -34734,6 +34753,16 @@ module Aws::EC2
 
     # @!attribute [rw] availability_zones
     #   One or more Availability Zones. For example, `us-east-2a`.
+    #
+    #   Either `AvailabilityZone` or `AvailabilityZoneId` must be specified
+    #   in the request, but not both.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] availability_zone_ids
+    #   One or more Availability Zone IDs. For example, `use2-az1`.
+    #
+    #   Either `AvailabilityZone` or `AvailabilityZoneId` must be specified
+    #   in the request, but not both.
     #   @return [Array<String>]
     #
     # @!attribute [rw] source_snapshot_ids
@@ -34752,6 +34781,7 @@ module Aws::EC2
     #
     class DisableFastSnapshotRestoresRequest < Struct.new(
       :availability_zones,
+      :availability_zone_ids,
       :source_snapshot_ids,
       :dry_run)
       SENSITIVE = []
@@ -37383,6 +37413,10 @@ module Aws::EC2
     #   The Availability Zone.
     #   @return [String]
     #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
+    #   @return [String]
+    #
     # @!attribute [rw] error
     #   The error.
     #   @return [Types::EnableFastSnapshotRestoreStateError]
@@ -37391,6 +37425,7 @@ module Aws::EC2
     #
     class EnableFastSnapshotRestoreStateErrorItem < Struct.new(
       :availability_zone,
+      :availability_zone_id,
       :error)
       SENSITIVE = []
       include Aws::Structure
@@ -37404,6 +37439,10 @@ module Aws::EC2
     #
     # @!attribute [rw] availability_zone
     #   The Availability Zone.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone.
     #   @return [String]
     #
     # @!attribute [rw] state
@@ -37462,6 +37501,7 @@ module Aws::EC2
     class EnableFastSnapshotRestoreSuccessItem < Struct.new(
       :snapshot_id,
       :availability_zone,
+      :availability_zone_id,
       :state,
       :state_transition_reason,
       :owner_id,
@@ -37477,6 +37517,16 @@ module Aws::EC2
 
     # @!attribute [rw] availability_zones
     #   One or more Availability Zones. For example, `us-east-2a`.
+    #
+    #   Either `AvailabilityZone` or `AvailabilityZoneId` must be specified
+    #   in the request, but not both.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] availability_zone_ids
+    #   One or more Availability Zone IDs. For example, `use2-az1`.
+    #
+    #   Either `AvailabilityZone` or `AvailabilityZoneId` must be specified
+    #   in the request, but not both.
     #   @return [Array<String>]
     #
     # @!attribute [rw] source_snapshot_ids
@@ -37496,6 +37546,7 @@ module Aws::EC2
     #
     class EnableFastSnapshotRestoresRequest < Struct.new(
       :availability_zones,
+      :availability_zone_ids,
       :source_snapshot_ids,
       :dry_run)
       SENSITIVE = []
@@ -51861,41 +51912,46 @@ module Aws::EC2
     # selection rules, but it will generate empty versions (containing no
     # CIDRs) until you add rules.
     #
-    # There are three rule types:
+    # There are three rule types. Only 2 of the 3 rule types support
+    # conditions - **IPAM pool CIDR** and **Scope resource CIDR**. **Static
+    # CIDR** rules cannot have conditions.
     #
     # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
-    #   manual list replicated across Regions).
+    #   manual list replicated across Regions)
     #
     # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
-    #   from your IPAM production pool).
+    #   from your IPAM production pool)
     #
-    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
-    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #   If you choose this option, choose the following:
     #
-    # Condition availability by resource type:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
     #
-    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
-    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
-    #   conditions.
+    #   * **Conditions:**
     #
-    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #     * **Property**
     #
-    #     * Property:
+    #       * **IPAM pool ID**: Select an IPAM pool that contains the
+    #         resources
     #
-    #       * IPAM Pool ID
+    #       * **CIDR** (like 10.24.34.0/23)
+    #     * **Operation**: Equals/Not equals
     #
-    #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Value**: The value on which to match the condition
+    # * **Scope resource CIDR**: CIDRs from Amazon Web Services resources
+    #   like VPCs, subnets, EIPs within an IPAM scope
     #
-    #     * Value: The value on which to match the condition
-    #   * Conditions for the **Scope resource CIDR** resource type:
+    #   If you choose this option, choose the following:
     #
-    #     * Property:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
+    #
+    #   * **Resource type**: Select a resource, like a VPC or subnet.
+    #
+    #   * **Conditions**:
+    #
+    #     * **Property**:
     #
     #       * Resource ID: The unique ID of a resource (like
     #         vpc-1234567890abcdef0)
-    #
-    #       * Resource type (like VPC or Subnet)
     #
     #       * Resource owner (like 111122223333)
     #
@@ -51904,11 +51960,9 @@ module Aws::EC2
     #       * Resource tag (like key: name, value: dev-vpc-1)
     #
     #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Operation**: Equals/Not equals
     #
-    #     * Value: The value on which to match the condition
-    #   * When setting conditions for a rule, one or more conditions is
-    #     required.
+    #     * **Value**: The value on which to match the condition
     #
     # @!attribute [rw] operation
     #   The operation to perform when evaluating this condition. Valid
@@ -51970,41 +52024,46 @@ module Aws::EC2
     # selection rules, but it will generate empty versions (containing no
     # CIDRs) until you add rules.
     #
-    # There are three rule types:
+    # There are three rule types. Only 2 of the 3 rule types support
+    # conditions - **IPAM pool CIDR** and **Scope resource CIDR**. **Static
+    # CIDR** rules cannot have conditions.
     #
     # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
-    #   manual list replicated across Regions).
+    #   manual list replicated across Regions)
     #
     # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
-    #   from your IPAM production pool).
+    #   from your IPAM production pool)
     #
-    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
-    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #   If you choose this option, choose the following:
     #
-    # Condition availability by resource type:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
     #
-    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
-    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
-    #   conditions.
+    #   * **Conditions:**
     #
-    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #     * **Property**
     #
-    #     * Property:
+    #       * **IPAM pool ID**: Select an IPAM pool that contains the
+    #         resources
     #
-    #       * IPAM Pool ID
+    #       * **CIDR** (like 10.24.34.0/23)
+    #     * **Operation**: Equals/Not equals
     #
-    #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Value**: The value on which to match the condition
+    # * **Scope resource CIDR**: CIDRs from Amazon Web Services resources
+    #   like VPCs, subnets, EIPs within an IPAM scope
     #
-    #     * Value: The value on which to match the condition
-    #   * Conditions for the **Scope resource CIDR** resource type:
+    #   If you choose this option, choose the following:
     #
-    #     * Property:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
+    #
+    #   * **Resource type**: Select a resource, like a VPC or subnet.
+    #
+    #   * **Conditions**:
+    #
+    #     * **Property**:
     #
     #       * Resource ID: The unique ID of a resource (like
     #         vpc-1234567890abcdef0)
-    #
-    #       * Resource type (like VPC or Subnet)
     #
     #       * Resource owner (like 111122223333)
     #
@@ -52013,11 +52072,9 @@ module Aws::EC2
     #       * Resource tag (like key: name, value: dev-vpc-1)
     #
     #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Operation**: Equals/Not equals
     #
-    #     * Value: The value on which to match the condition
-    #   * When setting conditions for a rule, one or more conditions is
-    #     required.
+    #     * **Value**: The value on which to match the condition
     #
     # @!attribute [rw] operation
     #   The operation to perform when evaluating this condition.
@@ -52078,41 +52135,46 @@ module Aws::EC2
     # selection rules, but it will generate empty versions (containing no
     # CIDRs) until you add rules.
     #
-    # There are three rule types:
+    # There are three rule types. Only 2 of the 3 rule types support
+    # conditions - **IPAM pool CIDR** and **Scope resource CIDR**. **Static
+    # CIDR** rules cannot have conditions.
     #
     # * **Static CIDR**: A fixed list of CIDRs that do not change (like a
-    #   manual list replicated across Regions).
+    #   manual list replicated across Regions)
     #
     # * **IPAM pool CIDR**: CIDRs from specific IPAM pools (like all CIDRs
-    #   from your IPAM production pool).
+    #   from your IPAM production pool)
     #
-    # * **Scope resource CIDR**: CIDRs for Amazon Web Services resources
-    #   like VPCs, subnets, and EIPs within a specific IPAM scope.
+    #   If you choose this option, choose the following:
     #
-    # Condition availability by resource type:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
     #
-    # * Only 2 of the 3 rule types support conditions - **IPAM pool CIDR**
-    #   and **Scope resource CIDR**. **Static CIDR** rules cannot have
-    #   conditions.
+    #   * **Conditions:**
     #
-    #   * Condition available for the **IPAM pool CIDR** resource type:
+    #     * **Property**
     #
-    #     * Property:
+    #       * **IPAM pool ID**: Select an IPAM pool that contains the
+    #         resources
     #
-    #       * IPAM Pool ID
+    #       * **CIDR** (like 10.24.34.0/23)
+    #     * **Operation**: Equals/Not equals
     #
-    #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Value**: The value on which to match the condition
+    # * **Scope resource CIDR**: CIDRs from Amazon Web Services resources
+    #   like VPCs, subnets, EIPs within an IPAM scope
     #
-    #     * Value: The value on which to match the condition
-    #   * Conditions for the **Scope resource CIDR** resource type:
+    #   If you choose this option, choose the following:
     #
-    #     * Property:
+    #   * **IPAM scope**: Select the IPAM scope to search for resources
+    #
+    #   * **Resource type**: Select a resource, like a VPC or subnet.
+    #
+    #   * **Conditions**:
+    #
+    #     * **Property**:
     #
     #       * Resource ID: The unique ID of a resource (like
     #         vpc-1234567890abcdef0)
-    #
-    #       * Resource type (like VPC or Subnet)
     #
     #       * Resource owner (like 111122223333)
     #
@@ -52121,11 +52183,9 @@ module Aws::EC2
     #       * Resource tag (like key: name, value: dev-vpc-1)
     #
     #       * CIDR (like 10.24.34.0/23)
-    #     * Operation: Equals/Not equals
+    #     * **Operation**: Equals/Not equals
     #
-    #     * Value: The value on which to match the condition
-    #   * When setting conditions for a rule, one or more conditions is
-    #     required.
+    #     * **Value**: The value on which to match the condition
     #
     # @!attribute [rw] rule_type
     #   The type of CIDR selection rule. Valid values include `include` for

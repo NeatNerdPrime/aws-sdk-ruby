@@ -5032,6 +5032,19 @@ module Aws::SageMaker
     #   group.
     #   @return [String]
     #
+    # @!attribute [rw] target_state_count
+    #   The number of nodes running a specific image ID since the last
+    #   software update request.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] software_update_status
+    #   Status of the last software udpate request.
+    #   @return [String]
+    #
+    # @!attribute [rw] active_software_update_config
+    #   The configuration to use when updating the AMI versions.
+    #   @return [Types::DeploymentConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterInstanceGroupDetails AWS API Documentation
     #
     class ClusterInstanceGroupDetails < Struct.new(
@@ -5050,7 +5063,10 @@ module Aws::SageMaker
       :override_vpc_config,
       :scheduled_update_config,
       :current_image_id,
-      :desired_image_id)
+      :desired_image_id,
+      :target_state_count,
+      :software_update_status,
+      :active_software_update_config)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -731,6 +731,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -909,6 +910,16 @@ module Aws::CloudFront
     # @option params [Types::Tags] :tags
     #   A complex type that contains zero or more `Tag` elements.
     #
+    # @option params [String] :ip_address_type
+    #   The IP address type for the Anycast static IP list. You can specify
+    #   one of the following options:
+    #
+    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #
+    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #
+    #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
+    #
     # @return [Types::CreateAnycastIpListResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateAnycastIpListResult#anycast_ip_list #anycast_ip_list} => Types::AnycastIpList
@@ -927,6 +938,7 @@ module Aws::CloudFront
     #         },
     #       ],
     #     },
+    #     ip_address_type: "ipv4", # accepts ipv4, ipv6, dualstack
     #   })
     #
     # @example Response structure
@@ -935,6 +947,7 @@ module Aws::CloudFront
     #   resp.anycast_ip_list.name #=> String
     #   resp.anycast_ip_list.status #=> String
     #   resp.anycast_ip_list.arn #=> String
+    #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.anycast_ip_list.anycast_ips #=> Array
     #   resp.anycast_ip_list.anycast_ips[0] #=> String
     #   resp.anycast_ip_list.ip_count #=> Integer
@@ -1314,6 +1327,7 @@ module Aws::CloudFront
     #             },
     #             vpc_origin_config: {
     #               vpc_origin_id: "string", # required
+    #               owner_account_id: "string",
     #               origin_read_timeout: 1,
     #               origin_keepalive_timeout: 1,
     #             },
@@ -1609,6 +1623,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -1973,6 +1988,7 @@ module Aws::CloudFront
     #               },
     #               vpc_origin_config: {
     #                 vpc_origin_id: "string", # required
+    #                 owner_account_id: "string",
     #                 origin_read_timeout: 1,
     #                 origin_keepalive_timeout: 1,
     #               },
@@ -2277,6 +2293,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -3730,6 +3747,7 @@ module Aws::CloudFront
     #
     #   resp.vpc_origin.id #=> String
     #   resp.vpc_origin.arn #=> String
+    #   resp.vpc_origin.account_id #=> String
     #   resp.vpc_origin.status #=> String
     #   resp.vpc_origin.created_time #=> Time
     #   resp.vpc_origin.last_modified_time #=> Time
@@ -3904,6 +3922,10 @@ module Aws::CloudFront
     end
 
     # Delete a distribution.
+    #
+    # Before you can delete a distribution, you must disable it, which
+    # requires permission to update the distribution. Once deleted, a
+    # distribution cannot be recovered.
     #
     # @option params [required, String] :id
     #   The distribution ID.
@@ -4285,6 +4307,29 @@ module Aws::CloudFront
       req.send_request(options)
     end
 
+    # Deletes the resource policy attached to the CloudFront resource.
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource for which
+    #   the resource policy should be deleted.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_resource_policy({
+    #     resource_arn: "string", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/DeleteResourcePolicy AWS API Documentation
+    #
+    # @overload delete_resource_policy(params = {})
+    # @param [Hash] params ({})
+    def delete_resource_policy(params = {}, options = {})
+      req = build_request(:delete_resource_policy, params)
+      req.send_request(options)
+    end
+
     # Deletes a response headers policy.
     #
     # You cannot delete a response headers policy if it's attached to a
@@ -4457,6 +4502,7 @@ module Aws::CloudFront
     #
     #   resp.vpc_origin.id #=> String
     #   resp.vpc_origin.arn #=> String
+    #   resp.vpc_origin.account_id #=> String
     #   resp.vpc_origin.status #=> String
     #   resp.vpc_origin.created_time #=> Time
     #   resp.vpc_origin.last_modified_time #=> Time
@@ -4679,6 +4725,7 @@ module Aws::CloudFront
     #   resp.anycast_ip_list.name #=> String
     #   resp.anycast_ip_list.status #=> String
     #   resp.anycast_ip_list.arn #=> String
+    #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.anycast_ip_list.anycast_ips #=> Array
     #   resp.anycast_ip_list.anycast_ips[0] #=> String
     #   resp.anycast_ip_list.ip_count #=> Integer
@@ -5117,6 +5164,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -5332,6 +5380,7 @@ module Aws::CloudFront
     #   resp.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -6347,6 +6396,38 @@ module Aws::CloudFront
       req.send_request(options)
     end
 
+    # Retrieves the resource policy for the specified CloudFront resource
+    # that you own and have shared.
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource that is
+    #   associated with the resource policy.
+    #
+    # @return [Types::GetResourcePolicyResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetResourcePolicyResult#resource_arn #resource_arn} => String
+    #   * {Types::GetResourcePolicyResult#policy_document #policy_document} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_resource_policy({
+    #     resource_arn: "string", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.resource_arn #=> String
+    #   resp.policy_document #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/GetResourcePolicy AWS API Documentation
+    #
+    # @overload get_resource_policy(params = {})
+    # @param [Hash] params ({})
+    def get_resource_policy(params = {}, options = {})
+      req = build_request(:get_resource_policy, params)
+      req.send_request(options)
+    end
+
     # Gets a response headers policy, including metadata (the policy's
     # identifier and the date and time when the policy was last modified).
     #
@@ -6681,6 +6762,7 @@ module Aws::CloudFront
     #
     #   resp.vpc_origin.id #=> String
     #   resp.vpc_origin.arn #=> String
+    #   resp.vpc_origin.account_id #=> String
     #   resp.vpc_origin.status #=> String
     #   resp.vpc_origin.created_time #=> Time
     #   resp.vpc_origin.last_modified_time #=> Time
@@ -6735,6 +6817,8 @@ module Aws::CloudFront
     #   resp.anycast_ip_lists.items[0].arn #=> String
     #   resp.anycast_ip_lists.items[0].ip_count #=> Integer
     #   resp.anycast_ip_lists.items[0].last_modified_time #=> Time
+    #   resp.anycast_ip_lists.items[0].ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
+    #   resp.anycast_ip_lists.items[0].etag #=> String
     #   resp.anycast_ip_lists.marker #=> String
     #   resp.anycast_ip_lists.next_marker #=> String
     #   resp.anycast_ip_lists.max_items #=> Integer
@@ -7281,6 +7365,7 @@ module Aws::CloudFront
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].connection_attempts #=> Integer
@@ -7501,6 +7586,7 @@ module Aws::CloudFront
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].connection_attempts #=> Integer
@@ -7775,6 +7861,7 @@ module Aws::CloudFront
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].connection_attempts #=> Integer
@@ -8039,6 +8126,55 @@ module Aws::CloudFront
       req.send_request(options)
     end
 
+    # Lists the CloudFront distributions that are associated with the
+    # specified resource that you own.
+    #
+    # @option params [required, String] :resource_arn
+    #   The ARN of the CloudFront resource that you've shared with other
+    #   Amazon Web Services accounts.
+    #
+    # @option params [String] :marker
+    #   Use this field when paginating results to indicate where to begin in
+    #   your list of distributions. The response includes distributions in the
+    #   list that occur after the marker. To get the next page of the list,
+    #   set this field's value to the value of `NextMarker` from the current
+    #   page's response.
+    #
+    # @option params [Integer] :max_items
+    #   The maximum number of distributions to return.
+    #
+    # @return [Types::ListDistributionsByOwnedResourceResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListDistributionsByOwnedResourceResult#distribution_list #distribution_list} => Types::DistributionIdOwnerList
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_distributions_by_owned_resource({
+    #     resource_arn: "string", # required
+    #     marker: "string",
+    #     max_items: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.distribution_list.marker #=> String
+    #   resp.distribution_list.next_marker #=> String
+    #   resp.distribution_list.max_items #=> Integer
+    #   resp.distribution_list.is_truncated #=> Boolean
+    #   resp.distribution_list.quantity #=> Integer
+    #   resp.distribution_list.items #=> Array
+    #   resp.distribution_list.items[0].distribution_id #=> String
+    #   resp.distribution_list.items[0].owner_account_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListDistributionsByOwnedResource AWS API Documentation
+    #
+    # @overload list_distributions_by_owned_resource(params = {})
+    # @param [Hash] params ({})
+    def list_distributions_by_owned_resource(params = {}, options = {})
+      req = build_request(:list_distributions_by_owned_resource, params)
+      req.send_request(options)
+    end
+
     # Gets a list of distributions that have a cache behavior that's
     # associated with the specified real-time log configuration.
     #
@@ -8123,6 +8259,7 @@ module Aws::CloudFront
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].connection_attempts #=> Integer
@@ -8473,6 +8610,7 @@ module Aws::CloudFront
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution_list.items[0].origins.items[0].connection_attempts #=> Integer
@@ -9637,6 +9775,7 @@ module Aws::CloudFront
     #   resp.vpc_origin_list.items[0].created_time #=> Time
     #   resp.vpc_origin_list.items[0].last_modified_time #=> Time
     #   resp.vpc_origin_list.items[0].arn #=> String
+    #   resp.vpc_origin_list.items[0].account_id #=> String
     #   resp.vpc_origin_list.items[0].origin_endpoint_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/ListVpcOrigins AWS API Documentation
@@ -9699,6 +9838,39 @@ module Aws::CloudFront
     # @param [Hash] params ({})
     def publish_function(params = {}, options = {})
       req = build_request(:publish_function, params)
+      req.send_request(options)
+    end
+
+    # Creates a resource control policy for a given CloudFront resource.
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the CloudFront resource for which
+    #   the policy is being created.
+    #
+    # @option params [required, String] :policy_document
+    #   The JSON-formatted resource policy to create.
+    #
+    # @return [Types::PutResourcePolicyResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::PutResourcePolicyResult#resource_arn #resource_arn} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.put_resource_policy({
+    #     resource_arn: "string", # required
+    #     policy_document: "string", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.resource_arn #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/PutResourcePolicy AWS API Documentation
+    #
+    # @overload put_resource_policy(params = {})
+    # @param [Hash] params ({})
+    def put_resource_policy(params = {}, options = {})
+      req = build_request(:put_resource_policy, params)
       req.send_request(options)
     end
 
@@ -9851,6 +10023,60 @@ module Aws::CloudFront
     # @param [Hash] params ({})
     def untag_resource(params = {}, options = {})
       req = build_request(:untag_resource, params)
+      req.send_request(options)
+    end
+
+    # Updates an Anycast static IP list.
+    #
+    # @option params [required, String] :id
+    #   The ID of the Anycast static IP list.
+    #
+    # @option params [String] :ip_address_type
+    #   The IP address type for the Anycast static IP list. You can specify
+    #   one of the following options:
+    #
+    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #
+    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #
+    #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
+    #
+    # @option params [required, String] :if_match
+    #   The current version (ETag value) of the Anycast static IP list that
+    #   you are updating.
+    #
+    # @return [Types::UpdateAnycastIpListResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateAnycastIpListResult#anycast_ip_list #anycast_ip_list} => Types::AnycastIpList
+    #   * {Types::UpdateAnycastIpListResult#etag #etag} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_anycast_ip_list({
+    #     id: "string", # required
+    #     ip_address_type: "ipv4", # accepts ipv4, ipv6, dualstack
+    #     if_match: "string", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.anycast_ip_list.id #=> String
+    #   resp.anycast_ip_list.name #=> String
+    #   resp.anycast_ip_list.status #=> String
+    #   resp.anycast_ip_list.arn #=> String
+    #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
+    #   resp.anycast_ip_list.anycast_ips #=> Array
+    #   resp.anycast_ip_list.anycast_ips[0] #=> String
+    #   resp.anycast_ip_list.ip_count #=> Integer
+    #   resp.anycast_ip_list.last_modified_time #=> Time
+    #   resp.etag #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/UpdateAnycastIpList AWS API Documentation
+    #
+    # @overload update_anycast_ip_list(params = {})
+    # @param [Hash] params ({})
+    def update_anycast_ip_list(params = {}, options = {})
+      req = build_request(:update_anycast_ip_list, params)
       req.send_request(options)
     end
 
@@ -10251,6 +10477,7 @@ module Aws::CloudFront
     #             },
     #             vpc_origin_config: {
     #               vpc_origin_id: "string", # required
+    #               owner_account_id: "string",
     #               origin_read_timeout: 1,
     #               origin_keepalive_timeout: 1,
     #             },
@@ -10548,6 +10775,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -10939,6 +11167,7 @@ module Aws::CloudFront
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].custom_origin_config.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.vpc_origin_id #=> String
+    #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.owner_account_id #=> String
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_read_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].vpc_origin_config.origin_keepalive_timeout #=> Integer
     #   resp.distribution.distribution_config.origins.items[0].connection_attempts #=> Integer
@@ -12216,6 +12445,7 @@ module Aws::CloudFront
     #
     #   resp.vpc_origin.id #=> String
     #   resp.vpc_origin.arn #=> String
+    #   resp.vpc_origin.account_id #=> String
     #   resp.vpc_origin.status #=> String
     #   resp.vpc_origin.created_time #=> Time
     #   resp.vpc_origin.last_modified_time #=> Time
@@ -12296,7 +12526,7 @@ module Aws::CloudFront
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cloudfront'
-      context[:gem_version] = '1.132.0'
+      context[:gem_version] = '1.133.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

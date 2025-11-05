@@ -313,9 +313,10 @@ module Aws
                                     domain_name: ::String,
                                     organizational_unit_distinguished_name: ::String?,
                                     file_system_administrators_group: ::String?,
-                                    user_name: ::String,
-                                    password: ::String,
-                                    dns_ips: Array[::String]
+                                    user_name: ::String?,
+                                    password: ::String?,
+                                    dns_ips: Array[::String],
+                                    domain_join_service_account_secret: ::String?
                                   }?,
                                   deployment_type: ("MULTI_AZ_1" | "SINGLE_AZ_1" | "SINGLE_AZ_2")?,
                                   preferred_subnet_id: ::String?,
@@ -456,9 +457,10 @@ module Aws
                                                 domain_name: ::String,
                                                 organizational_unit_distinguished_name: ::String?,
                                                 file_system_administrators_group: ::String?,
-                                                user_name: ::String,
-                                                password: ::String,
-                                                dns_ips: Array[::String]
+                                                user_name: ::String?,
+                                                password: ::String?,
+                                                dns_ips: Array[::String],
+                                                domain_join_service_account_secret: ::String?
                                               }?,
                                               deployment_type: ("MULTI_AZ_1" | "SINGLE_AZ_1" | "SINGLE_AZ_2")?,
                                               preferred_subnet_id: ::String?,
@@ -592,9 +594,10 @@ module Aws
                                                 domain_name: ::String,
                                                 organizational_unit_distinguished_name: ::String?,
                                                 file_system_administrators_group: ::String?,
-                                                user_name: ::String,
-                                                password: ::String,
-                                                dns_ips: Array[::String]
+                                                user_name: ::String?,
+                                                password: ::String?,
+                                                dns_ips: Array[::String],
+                                                domain_join_service_account_secret: ::String?
                                               }?
                                             },
                                             ?client_request_token: ::String,
@@ -1232,7 +1235,8 @@ module Aws
                                     dns_ips: Array[::String]?,
                                     domain_name: ::String?,
                                     organizational_unit_distinguished_name: ::String?,
-                                    file_system_administrators_group: ::String?
+                                    file_system_administrators_group: ::String?,
+                                    domain_join_service_account_secret: ::String?
                                   }?,
                                   audit_log_configuration: {
                                     file_access_audit_log_level: ("DISABLED" | "SUCCESS_ONLY" | "FAILURE_ONLY" | "SUCCESS_AND_FAILURE"),
@@ -1346,7 +1350,8 @@ module Aws
                                                 dns_ips: Array[::String]?,
                                                 domain_name: ::String?,
                                                 organizational_unit_distinguished_name: ::String?,
-                                                file_system_administrators_group: ::String?
+                                                file_system_administrators_group: ::String?,
+                                                domain_join_service_account_secret: ::String?
                                               }?,
                                               net_bios_name: ::String?
                                             },

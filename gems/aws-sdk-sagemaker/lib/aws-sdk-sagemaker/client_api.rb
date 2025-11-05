@@ -2239,6 +2239,7 @@ module Aws::SageMaker
     SingleSignOnUserIdentifier = Shapes::StringShape.new(name: 'SingleSignOnUserIdentifier')
     SkipModelValidation = Shapes::StringShape.new(name: 'SkipModelValidation')
     SnsTopicArn = Shapes::StringShape.new(name: 'SnsTopicArn')
+    SoftwareUpdateStatus = Shapes::StringShape.new(name: 'SoftwareUpdateStatus')
     SortActionsBy = Shapes::StringShape.new(name: 'SortActionsBy')
     SortArtifactsBy = Shapes::StringShape.new(name: 'SortArtifactsBy')
     SortAssociationsBy = Shapes::StringShape.new(name: 'SortAssociationsBy')
@@ -3459,6 +3460,9 @@ module Aws::SageMaker
     ClusterInstanceGroupDetails.add_member(:scheduled_update_config, Shapes::ShapeRef.new(shape: ScheduledUpdateConfig, location_name: "ScheduledUpdateConfig"))
     ClusterInstanceGroupDetails.add_member(:current_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "CurrentImageId"))
     ClusterInstanceGroupDetails.add_member(:desired_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "DesiredImageId"))
+    ClusterInstanceGroupDetails.add_member(:target_state_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, location_name: "TargetStateCount"))
+    ClusterInstanceGroupDetails.add_member(:software_update_status, Shapes::ShapeRef.new(shape: SoftwareUpdateStatus, location_name: "SoftwareUpdateStatus"))
+    ClusterInstanceGroupDetails.add_member(:active_software_update_config, Shapes::ShapeRef.new(shape: DeploymentConfiguration, location_name: "ActiveSoftwareUpdateConfig"))
     ClusterInstanceGroupDetails.struct_class = Types::ClusterInstanceGroupDetails
 
     ClusterInstanceGroupDetailsList.member = Shapes::ShapeRef.new(shape: ClusterInstanceGroupDetails)
@@ -4494,11 +4498,11 @@ module Aws::SageMaker
 
     CreateTrainingJobRequest.add_member(:training_job_name, Shapes::ShapeRef.new(shape: TrainingJobName, required: true, location_name: "TrainingJobName"))
     CreateTrainingJobRequest.add_member(:hyper_parameters, Shapes::ShapeRef.new(shape: HyperParameters, location_name: "HyperParameters"))
-    CreateTrainingJobRequest.add_member(:algorithm_specification, Shapes::ShapeRef.new(shape: AlgorithmSpecification, required: true, location_name: "AlgorithmSpecification"))
+    CreateTrainingJobRequest.add_member(:algorithm_specification, Shapes::ShapeRef.new(shape: AlgorithmSpecification, location_name: "AlgorithmSpecification"))
     CreateTrainingJobRequest.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, required: true, location_name: "RoleArn"))
     CreateTrainingJobRequest.add_member(:input_data_config, Shapes::ShapeRef.new(shape: InputDataConfig, location_name: "InputDataConfig"))
     CreateTrainingJobRequest.add_member(:output_data_config, Shapes::ShapeRef.new(shape: OutputDataConfig, required: true, location_name: "OutputDataConfig"))
-    CreateTrainingJobRequest.add_member(:resource_config, Shapes::ShapeRef.new(shape: ResourceConfig, required: true, location_name: "ResourceConfig"))
+    CreateTrainingJobRequest.add_member(:resource_config, Shapes::ShapeRef.new(shape: ResourceConfig, location_name: "ResourceConfig"))
     CreateTrainingJobRequest.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "VpcConfig"))
     CreateTrainingJobRequest.add_member(:stopping_condition, Shapes::ShapeRef.new(shape: StoppingCondition, required: true, location_name: "StoppingCondition"))
     CreateTrainingJobRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))

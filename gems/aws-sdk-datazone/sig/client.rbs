@@ -1199,6 +1199,7 @@ module Aws
         def name: () -> ::String
         def project_profile_id: () -> ::String
         def project_status: () -> ("ACTIVE" | "DELETING" | "DELETE_FAILED" | "UPDATING" | "UPDATE_FAILED" | "MOVING")
+        def resource_tags: () -> ::Array[Types::ResourceTag]
         def user_parameters: () -> ::Array[Types::EnvironmentConfigurationUserParameter]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#create_project-instance_method
@@ -1209,6 +1210,7 @@ module Aws
                             ?glossary_terms: Array[::String],
                             name: ::String,
                             ?project_profile_id: ::String,
+                            ?resource_tags: Hash[::String, ::String],
                             ?user_parameters: Array[
                               {
                                 environment_configuration_name: ::String?,
@@ -1246,6 +1248,7 @@ module Aws
 
       interface _CreateProjectProfileResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateProjectProfileOutput]
+        def allow_custom_project_resource_tags: () -> bool
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def description: () -> ::String
@@ -1255,10 +1258,13 @@ module Aws
         def id: () -> ::String
         def last_updated_at: () -> ::Time
         def name: () -> ::String
+        def project_resource_tags: () -> ::Array[Types::ResourceTagParameter]
+        def project_resource_tags_description: () -> ::String
         def status: () -> ("ENABLED" | "DISABLED")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#create_project_profile-instance_method
       def create_project_profile: (
+                                    ?allow_custom_project_resource_tags: bool,
                                     ?description: ::String,
                                     domain_identifier: ::String,
                                     ?domain_unit_identifier: ::String,
@@ -1299,6 +1305,14 @@ module Aws
                                       },
                                     ],
                                     name: ::String,
+                                    ?project_resource_tags: Array[
+                                      {
+                                        is_value_editable: bool,
+                                        key: ::String,
+                                        value: ::String
+                                      },
+                                    ],
+                                    ?project_resource_tags_description: ::String,
                                     ?status: ("ENABLED" | "DISABLED")
                                   ) -> _CreateProjectProfileResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateProjectProfileResponseSuccess
@@ -2382,6 +2396,7 @@ module Aws
         def name: () -> ::String
         def project_profile_id: () -> ::String
         def project_status: () -> ("ACTIVE" | "DELETING" | "DELETE_FAILED" | "UPDATING" | "UPDATE_FAILED" | "MOVING")
+        def resource_tags: () -> ::Array[Types::ResourceTag]
         def user_parameters: () -> ::Array[Types::EnvironmentConfigurationUserParameter]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#get_project-instance_method
@@ -2393,6 +2408,7 @@ module Aws
 
       interface _GetProjectProfileResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetProjectProfileOutput]
+        def allow_custom_project_resource_tags: () -> bool
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def description: () -> ::String
@@ -2402,6 +2418,8 @@ module Aws
         def id: () -> ::String
         def last_updated_at: () -> ::Time
         def name: () -> ::String
+        def project_resource_tags: () -> ::Array[Types::ResourceTagParameter]
+        def project_resource_tags_description: () -> ::String
         def status: () -> ("ENABLED" | "DISABLED")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#get_project_profile-instance_method
@@ -4107,6 +4125,7 @@ module Aws
         def name: () -> ::String
         def project_profile_id: () -> ::String
         def project_status: () -> ("ACTIVE" | "DELETING" | "DELETE_FAILED" | "UPDATING" | "UPDATE_FAILED" | "MOVING")
+        def resource_tags: () -> ::Array[Types::ResourceTag]
         def user_parameters: () -> ::Array[Types::EnvironmentConfigurationUserParameter]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#update_project-instance_method
@@ -4127,6 +4146,7 @@ module Aws
                             identifier: ::String,
                             ?name: ::String,
                             ?project_profile_version: ::String,
+                            ?resource_tags: Hash[::String, ::String],
                             ?user_parameters: Array[
                               {
                                 environment_configuration_name: ::String?,
@@ -4149,6 +4169,7 @@ module Aws
 
       interface _UpdateProjectProfileResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::UpdateProjectProfileOutput]
+        def allow_custom_project_resource_tags: () -> bool
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def description: () -> ::String
@@ -4158,10 +4179,13 @@ module Aws
         def id: () -> ::String
         def last_updated_at: () -> ::Time
         def name: () -> ::String
+        def project_resource_tags: () -> ::Array[Types::ResourceTagParameter]
+        def project_resource_tags_description: () -> ::String
         def status: () -> ("ENABLED" | "DISABLED")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#update_project_profile-instance_method
       def update_project_profile: (
+                                    ?allow_custom_project_resource_tags: bool,
                                     ?description: ::String,
                                     domain_identifier: ::String,
                                     ?domain_unit_identifier: ::String,
@@ -4203,6 +4227,14 @@ module Aws
                                     ],
                                     identifier: ::String,
                                     ?name: ::String,
+                                    ?project_resource_tags: Array[
+                                      {
+                                        is_value_editable: bool,
+                                        key: ::String,
+                                        value: ::String
+                                      },
+                                    ],
+                                    ?project_resource_tags_description: ::String,
                                     ?status: ("ENABLED" | "DISABLED")
                                   ) -> _UpdateProjectProfileResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateProjectProfileResponseSuccess

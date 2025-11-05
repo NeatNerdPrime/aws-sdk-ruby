@@ -8639,6 +8639,12 @@ module Aws::FSx
     #   controllers in the self-managed AD directory.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] domain_join_service_account_secret
+    #   The Amazon Resource Name (ARN) of the Amazon Web Services Secrets
+    #   Manager secret containing the service account credentials used to
+    #   join the file system to your self-managed Active Directory domain.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/SelfManagedActiveDirectoryAttributes AWS API Documentation
     #
     class SelfManagedActiveDirectoryAttributes < Struct.new(
@@ -8646,7 +8652,8 @@ module Aws::FSx
       :organizational_unit_distinguished_name,
       :file_system_administrators_group,
       :user_name,
-      :dns_ips)
+      :dns_ips,
+      :domain_join_service_account_secret)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8713,6 +8720,31 @@ module Aws::FSx
     #   controllers in the self-managed AD directory.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] domain_join_service_account_secret
+    #   The Amazon Resource Name (ARN) of the Amazon Web Services Secrets
+    #   Manager secret containing the self-managed Active Directory domain
+    #   join service account credentials. When provided, Amazon FSx uses the
+    #   credentials stored in this secret to join the file system to your
+    #   self-managed Active Directory domain.
+    #
+    #   The secret must contain two key-value pairs:
+    #
+    #   * `CUSTOMER_MANAGED_ACTIVE_DIRECTORY_USERNAME` - The username for
+    #     the service account
+    #
+    #   * `CUSTOMER_MANAGED_ACTIVE_DIRECTORY_PASSWORD` - The password for
+    #     the service account
+    #
+    #   For more information, see [ Using Amazon FSx for Windows with your
+    #   self-managed Microsoft Active Directory][1] or [ Using Amazon FSx
+    #   for ONTAP with your self-managed Microsoft Active Directory][2].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/fsx/latest/WindowsGuide/self-manage-prereqs.html
+    #   [2]: https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/self-manage-prereqs.html
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/SelfManagedActiveDirectoryConfiguration AWS API Documentation
     #
     class SelfManagedActiveDirectoryConfiguration < Struct.new(
@@ -8721,7 +8753,8 @@ module Aws::FSx
       :file_system_administrators_group,
       :user_name,
       :password,
-      :dns_ips)
+      :dns_ips,
+      :domain_join_service_account_secret)
       SENSITIVE = [:password]
       include Aws::Structure
     end
@@ -8767,6 +8800,13 @@ module Aws::FSx
     #   granted administrative privileges for the Amazon FSx resource.
     #   @return [String]
     #
+    # @!attribute [rw] domain_join_service_account_secret
+    #   Specifies the updated Amazon Resource Name (ARN) of the Amazon Web
+    #   Services Secrets Manager secret containing the self-managed Active
+    #   Directory domain join service account credentials. Amazon FSx uses
+    #   this account to join to your self-managed Active Directory domain.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/fsx-2018-03-01/SelfManagedActiveDirectoryConfigurationUpdates AWS API Documentation
     #
     class SelfManagedActiveDirectoryConfigurationUpdates < Struct.new(
@@ -8775,7 +8815,8 @@ module Aws::FSx
       :dns_ips,
       :domain_name,
       :organizational_unit_distinguished_name,
-      :file_system_administrators_group)
+      :file_system_administrators_group,
+      :domain_join_service_account_secret)
       SENSITIVE = [:password]
       include Aws::Structure
     end

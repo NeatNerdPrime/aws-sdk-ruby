@@ -210,6 +210,7 @@ module Aws::DataZone
     CreateListingChangeSetOutput = Shapes::StructureShape.new(name: 'CreateListingChangeSetOutput')
     CreateProjectFromProjectProfilePolicyGrantDetail = Shapes::StructureShape.new(name: 'CreateProjectFromProjectProfilePolicyGrantDetail')
     CreateProjectInput = Shapes::StructureShape.new(name: 'CreateProjectInput')
+    CreateProjectInputResourceTagsMap = Shapes::MapShape.new(name: 'CreateProjectInputResourceTagsMap')
     CreateProjectMembershipInput = Shapes::StructureShape.new(name: 'CreateProjectMembershipInput')
     CreateProjectMembershipOutput = Shapes::StructureShape.new(name: 'CreateProjectMembershipOutput')
     CreateProjectOutput = Shapes::StructureShape.new(name: 'CreateProjectOutput')
@@ -794,6 +795,7 @@ module Aws::DataZone
     ProjectProfileName = Shapes::StringShape.new(name: 'ProjectProfileName')
     ProjectProfileSummaries = Shapes::ListShape.new(name: 'ProjectProfileSummaries')
     ProjectProfileSummary = Shapes::StructureShape.new(name: 'ProjectProfileSummary')
+    ProjectResourceTagParameters = Shapes::ListShape.new(name: 'ProjectResourceTagParameters')
     ProjectStatus = Shapes::StringShape.new(name: 'ProjectStatus')
     ProjectSummaries = Shapes::ListShape.new(name: 'ProjectSummaries')
     ProjectSummary = Shapes::StructureShape.new(name: 'ProjectSummary')
@@ -864,6 +866,10 @@ module Aws::DataZone
     Resource = Shapes::StructureShape.new(name: 'Resource')
     ResourceList = Shapes::ListShape.new(name: 'ResourceList')
     ResourceNotFoundException = Shapes::StructureShape.new(name: 'ResourceNotFoundException')
+    ResourceTag = Shapes::StructureShape.new(name: 'ResourceTag')
+    ResourceTagParameter = Shapes::StructureShape.new(name: 'ResourceTagParameter')
+    ResourceTagSource = Shapes::StringShape.new(name: 'ResourceTagSource')
+    ResourceTags = Shapes::ListShape.new(name: 'ResourceTags')
     Revision = Shapes::StringShape.new(name: 'Revision')
     RevisionInput = Shapes::StringShape.new(name: 'RevisionInput')
     RevokeSubscriptionInput = Shapes::StructureShape.new(name: 'RevokeSubscriptionInput')
@@ -1086,6 +1092,7 @@ module Aws::DataZone
     UpdateGroupProfileInput = Shapes::StructureShape.new(name: 'UpdateGroupProfileInput')
     UpdateGroupProfileOutput = Shapes::StructureShape.new(name: 'UpdateGroupProfileOutput')
     UpdateProjectInput = Shapes::StructureShape.new(name: 'UpdateProjectInput')
+    UpdateProjectInputResourceTagsMap = Shapes::MapShape.new(name: 'UpdateProjectInputResourceTagsMap')
     UpdateProjectOutput = Shapes::StructureShape.new(name: 'UpdateProjectOutput')
     UpdateProjectProfileInput = Shapes::StructureShape.new(name: 'UpdateProjectProfileInput')
     UpdateProjectProfileOutput = Shapes::StructureShape.new(name: 'UpdateProjectProfileOutput')
@@ -2123,8 +2130,12 @@ module Aws::DataZone
     CreateProjectInput.add_member(:glossary_terms, Shapes::ShapeRef.new(shape: GlossaryTerms, location_name: "glossaryTerms"))
     CreateProjectInput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectName, required: true, location_name: "name"))
     CreateProjectInput.add_member(:project_profile_id, Shapes::ShapeRef.new(shape: ProjectProfileId, location_name: "projectProfileId"))
+    CreateProjectInput.add_member(:resource_tags, Shapes::ShapeRef.new(shape: CreateProjectInputResourceTagsMap, location_name: "resourceTags"))
     CreateProjectInput.add_member(:user_parameters, Shapes::ShapeRef.new(shape: EnvironmentConfigurationUserParametersList, location_name: "userParameters"))
     CreateProjectInput.struct_class = Types::CreateProjectInput
+
+    CreateProjectInputResourceTagsMap.key = Shapes::ShapeRef.new(shape: TagKey)
+    CreateProjectInputResourceTagsMap.value = Shapes::ShapeRef.new(shape: TagValue)
 
     CreateProjectMembershipInput.add_member(:designation, Shapes::ShapeRef.new(shape: UserDesignation, required: true, location_name: "designation"))
     CreateProjectMembershipInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
@@ -2147,20 +2158,25 @@ module Aws::DataZone
     CreateProjectOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectName, required: true, location_name: "name"))
     CreateProjectOutput.add_member(:project_profile_id, Shapes::ShapeRef.new(shape: ProjectProfileId, location_name: "projectProfileId"))
     CreateProjectOutput.add_member(:project_status, Shapes::ShapeRef.new(shape: ProjectStatus, location_name: "projectStatus"))
+    CreateProjectOutput.add_member(:resource_tags, Shapes::ShapeRef.new(shape: ResourceTags, location_name: "resourceTags"))
     CreateProjectOutput.add_member(:user_parameters, Shapes::ShapeRef.new(shape: EnvironmentConfigurationUserParametersList, location_name: "userParameters"))
     CreateProjectOutput.struct_class = Types::CreateProjectOutput
 
     CreateProjectPolicyGrantDetail.add_member(:include_child_domain_units, Shapes::ShapeRef.new(shape: Boolean, location_name: "includeChildDomainUnits"))
     CreateProjectPolicyGrantDetail.struct_class = Types::CreateProjectPolicyGrantDetail
 
+    CreateProjectProfileInput.add_member(:allow_custom_project_resource_tags, Shapes::ShapeRef.new(shape: Boolean, location_name: "allowCustomProjectResourceTags"))
     CreateProjectProfileInput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
     CreateProjectProfileInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     CreateProjectProfileInput.add_member(:domain_unit_identifier, Shapes::ShapeRef.new(shape: DomainUnitId, location_name: "domainUnitIdentifier"))
     CreateProjectProfileInput.add_member(:environment_configurations, Shapes::ShapeRef.new(shape: EnvironmentConfigurationsList, location_name: "environmentConfigurations"))
     CreateProjectProfileInput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectProfileName, required: true, location_name: "name"))
+    CreateProjectProfileInput.add_member(:project_resource_tags, Shapes::ShapeRef.new(shape: ProjectResourceTagParameters, location_name: "projectResourceTags"))
+    CreateProjectProfileInput.add_member(:project_resource_tags_description, Shapes::ShapeRef.new(shape: Description, location_name: "projectResourceTagsDescription"))
     CreateProjectProfileInput.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     CreateProjectProfileInput.struct_class = Types::CreateProjectProfileInput
 
+    CreateProjectProfileOutput.add_member(:allow_custom_project_resource_tags, Shapes::ShapeRef.new(shape: Boolean, location_name: "allowCustomProjectResourceTags"))
     CreateProjectProfileOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "createdAt"))
     CreateProjectProfileOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     CreateProjectProfileOutput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
@@ -2170,6 +2186,8 @@ module Aws::DataZone
     CreateProjectProfileOutput.add_member(:id, Shapes::ShapeRef.new(shape: ProjectProfileId, required: true, location_name: "id"))
     CreateProjectProfileOutput.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "lastUpdatedAt"))
     CreateProjectProfileOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectProfileName, required: true, location_name: "name"))
+    CreateProjectProfileOutput.add_member(:project_resource_tags, Shapes::ShapeRef.new(shape: ProjectResourceTagParameters, location_name: "projectResourceTags"))
+    CreateProjectProfileOutput.add_member(:project_resource_tags_description, Shapes::ShapeRef.new(shape: Description, location_name: "projectResourceTagsDescription"))
     CreateProjectProfileOutput.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     CreateProjectProfileOutput.struct_class = Types::CreateProjectProfileOutput
 
@@ -3428,6 +3446,7 @@ module Aws::DataZone
     GetProjectOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectName, required: true, location_name: "name"))
     GetProjectOutput.add_member(:project_profile_id, Shapes::ShapeRef.new(shape: ProjectProfileId, location_name: "projectProfileId"))
     GetProjectOutput.add_member(:project_status, Shapes::ShapeRef.new(shape: ProjectStatus, location_name: "projectStatus"))
+    GetProjectOutput.add_member(:resource_tags, Shapes::ShapeRef.new(shape: ResourceTags, location_name: "resourceTags"))
     GetProjectOutput.add_member(:user_parameters, Shapes::ShapeRef.new(shape: EnvironmentConfigurationUserParametersList, location_name: "userParameters"))
     GetProjectOutput.struct_class = Types::GetProjectOutput
 
@@ -3435,6 +3454,7 @@ module Aws::DataZone
     GetProjectProfileInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ProjectProfileId, required: true, location: "uri", location_name: "identifier"))
     GetProjectProfileInput.struct_class = Types::GetProjectProfileInput
 
+    GetProjectProfileOutput.add_member(:allow_custom_project_resource_tags, Shapes::ShapeRef.new(shape: Boolean, location_name: "allowCustomProjectResourceTags"))
     GetProjectProfileOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "createdAt"))
     GetProjectProfileOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     GetProjectProfileOutput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
@@ -3444,6 +3464,8 @@ module Aws::DataZone
     GetProjectProfileOutput.add_member(:id, Shapes::ShapeRef.new(shape: ProjectProfileId, required: true, location_name: "id"))
     GetProjectProfileOutput.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "lastUpdatedAt"))
     GetProjectProfileOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectProfileName, required: true, location_name: "name"))
+    GetProjectProfileOutput.add_member(:project_resource_tags, Shapes::ShapeRef.new(shape: ProjectResourceTagParameters, location_name: "projectResourceTags"))
+    GetProjectProfileOutput.add_member(:project_resource_tags_description, Shapes::ShapeRef.new(shape: Description, location_name: "projectResourceTagsDescription"))
     GetProjectProfileOutput.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     GetProjectProfileOutput.struct_class = Types::GetProjectProfileOutput
 
@@ -4631,6 +4653,8 @@ module Aws::DataZone
     ProjectProfileSummary.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     ProjectProfileSummary.struct_class = Types::ProjectProfileSummary
 
+    ProjectResourceTagParameters.member = Shapes::ShapeRef.new(shape: ResourceTagParameter)
+
     ProjectSummaries.member = Shapes::ShapeRef.new(shape: ProjectSummary)
 
     ProjectSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "createdAt"))
@@ -4879,6 +4903,18 @@ module Aws::DataZone
 
     ResourceNotFoundException.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, required: true, location_name: "message"))
     ResourceNotFoundException.struct_class = Types::ResourceNotFoundException
+
+    ResourceTag.add_member(:key, Shapes::ShapeRef.new(shape: TagKey, required: true, location_name: "key"))
+    ResourceTag.add_member(:source, Shapes::ShapeRef.new(shape: ResourceTagSource, required: true, location_name: "source"))
+    ResourceTag.add_member(:value, Shapes::ShapeRef.new(shape: TagValue, required: true, location_name: "value"))
+    ResourceTag.struct_class = Types::ResourceTag
+
+    ResourceTagParameter.add_member(:is_value_editable, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "isValueEditable"))
+    ResourceTagParameter.add_member(:key, Shapes::ShapeRef.new(shape: TagKey, required: true, location_name: "key"))
+    ResourceTagParameter.add_member(:value, Shapes::ShapeRef.new(shape: TagValue, required: true, location_name: "value"))
+    ResourceTagParameter.struct_class = Types::ResourceTagParameter
+
+    ResourceTags.member = Shapes::ShapeRef.new(shape: ResourceTag)
 
     RevokeSubscriptionInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     RevokeSubscriptionInput.add_member(:identifier, Shapes::ShapeRef.new(shape: SubscriptionId, required: true, location: "uri", location_name: "identifier"))
@@ -5776,8 +5812,12 @@ module Aws::DataZone
     UpdateProjectInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ProjectId, required: true, location: "uri", location_name: "identifier"))
     UpdateProjectInput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectName, location_name: "name"))
     UpdateProjectInput.add_member(:project_profile_version, Shapes::ShapeRef.new(shape: String, location_name: "projectProfileVersion"))
+    UpdateProjectInput.add_member(:resource_tags, Shapes::ShapeRef.new(shape: UpdateProjectInputResourceTagsMap, location_name: "resourceTags"))
     UpdateProjectInput.add_member(:user_parameters, Shapes::ShapeRef.new(shape: EnvironmentConfigurationUserParametersList, location_name: "userParameters"))
     UpdateProjectInput.struct_class = Types::UpdateProjectInput
+
+    UpdateProjectInputResourceTagsMap.key = Shapes::ShapeRef.new(shape: TagKey)
+    UpdateProjectInputResourceTagsMap.value = Shapes::ShapeRef.new(shape: TagValue)
 
     UpdateProjectOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "createdAt"))
     UpdateProjectOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
@@ -5792,18 +5832,23 @@ module Aws::DataZone
     UpdateProjectOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectName, required: true, location_name: "name"))
     UpdateProjectOutput.add_member(:project_profile_id, Shapes::ShapeRef.new(shape: ProjectProfileId, location_name: "projectProfileId"))
     UpdateProjectOutput.add_member(:project_status, Shapes::ShapeRef.new(shape: ProjectStatus, location_name: "projectStatus"))
+    UpdateProjectOutput.add_member(:resource_tags, Shapes::ShapeRef.new(shape: ResourceTags, location_name: "resourceTags"))
     UpdateProjectOutput.add_member(:user_parameters, Shapes::ShapeRef.new(shape: EnvironmentConfigurationUserParametersList, location_name: "userParameters"))
     UpdateProjectOutput.struct_class = Types::UpdateProjectOutput
 
+    UpdateProjectProfileInput.add_member(:allow_custom_project_resource_tags, Shapes::ShapeRef.new(shape: Boolean, location_name: "allowCustomProjectResourceTags"))
     UpdateProjectProfileInput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
     UpdateProjectProfileInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     UpdateProjectProfileInput.add_member(:domain_unit_identifier, Shapes::ShapeRef.new(shape: DomainUnitId, location_name: "domainUnitIdentifier"))
     UpdateProjectProfileInput.add_member(:environment_configurations, Shapes::ShapeRef.new(shape: EnvironmentConfigurationsList, location_name: "environmentConfigurations"))
     UpdateProjectProfileInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ProjectProfileId, required: true, location: "uri", location_name: "identifier"))
     UpdateProjectProfileInput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectProfileName, location_name: "name"))
+    UpdateProjectProfileInput.add_member(:project_resource_tags, Shapes::ShapeRef.new(shape: ProjectResourceTagParameters, location_name: "projectResourceTags"))
+    UpdateProjectProfileInput.add_member(:project_resource_tags_description, Shapes::ShapeRef.new(shape: Description, location_name: "projectResourceTagsDescription"))
     UpdateProjectProfileInput.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     UpdateProjectProfileInput.struct_class = Types::UpdateProjectProfileInput
 
+    UpdateProjectProfileOutput.add_member(:allow_custom_project_resource_tags, Shapes::ShapeRef.new(shape: Boolean, location_name: "allowCustomProjectResourceTags"))
     UpdateProjectProfileOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "createdAt"))
     UpdateProjectProfileOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     UpdateProjectProfileOutput.add_member(:description, Shapes::ShapeRef.new(shape: Description, location_name: "description"))
@@ -5813,6 +5858,8 @@ module Aws::DataZone
     UpdateProjectProfileOutput.add_member(:id, Shapes::ShapeRef.new(shape: ProjectProfileId, required: true, location_name: "id"))
     UpdateProjectProfileOutput.add_member(:last_updated_at, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "lastUpdatedAt"))
     UpdateProjectProfileOutput.add_member(:name, Shapes::ShapeRef.new(shape: ProjectProfileName, required: true, location_name: "name"))
+    UpdateProjectProfileOutput.add_member(:project_resource_tags, Shapes::ShapeRef.new(shape: ProjectResourceTagParameters, location_name: "projectResourceTags"))
+    UpdateProjectProfileOutput.add_member(:project_resource_tags_description, Shapes::ShapeRef.new(shape: Description, location_name: "projectResourceTagsDescription"))
     UpdateProjectProfileOutput.add_member(:status, Shapes::ShapeRef.new(shape: Status, location_name: "status"))
     UpdateProjectProfileOutput.struct_class = Types::UpdateProjectProfileOutput
 

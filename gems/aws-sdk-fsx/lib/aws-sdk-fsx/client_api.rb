@@ -107,6 +107,7 @@ module Aws::FSx
     CreateVolumeRequest = Shapes::StructureShape.new(name: 'CreateVolumeRequest')
     CreateVolumeResponse = Shapes::StructureShape.new(name: 'CreateVolumeResponse')
     CreationTime = Shapes::TimestampShape.new(name: 'CreationTime')
+    CustomerSecretsManagerARN = Shapes::StringShape.new(name: 'CustomerSecretsManagerARN')
     DNSName = Shapes::StringShape.new(name: 'DNSName')
     DailyTime = Shapes::StringShape.new(name: 'DailyTime')
     DataCompressionType = Shapes::StringShape.new(name: 'DataCompressionType')
@@ -1690,14 +1691,16 @@ module Aws::FSx
     SelfManagedActiveDirectoryAttributes.add_member(:file_system_administrators_group, Shapes::ShapeRef.new(shape: FileSystemAdministratorsGroupName, location_name: "FileSystemAdministratorsGroup"))
     SelfManagedActiveDirectoryAttributes.add_member(:user_name, Shapes::ShapeRef.new(shape: DirectoryUserName, location_name: "UserName"))
     SelfManagedActiveDirectoryAttributes.add_member(:dns_ips, Shapes::ShapeRef.new(shape: DnsIps, location_name: "DnsIps"))
+    SelfManagedActiveDirectoryAttributes.add_member(:domain_join_service_account_secret, Shapes::ShapeRef.new(shape: CustomerSecretsManagerARN, location_name: "DomainJoinServiceAccountSecret"))
     SelfManagedActiveDirectoryAttributes.struct_class = Types::SelfManagedActiveDirectoryAttributes
 
     SelfManagedActiveDirectoryConfiguration.add_member(:domain_name, Shapes::ShapeRef.new(shape: ActiveDirectoryFullyQualifiedName, required: true, location_name: "DomainName"))
     SelfManagedActiveDirectoryConfiguration.add_member(:organizational_unit_distinguished_name, Shapes::ShapeRef.new(shape: OrganizationalUnitDistinguishedName, location_name: "OrganizationalUnitDistinguishedName"))
     SelfManagedActiveDirectoryConfiguration.add_member(:file_system_administrators_group, Shapes::ShapeRef.new(shape: FileSystemAdministratorsGroupName, location_name: "FileSystemAdministratorsGroup"))
-    SelfManagedActiveDirectoryConfiguration.add_member(:user_name, Shapes::ShapeRef.new(shape: DirectoryUserName, required: true, location_name: "UserName"))
-    SelfManagedActiveDirectoryConfiguration.add_member(:password, Shapes::ShapeRef.new(shape: DirectoryPassword, required: true, location_name: "Password"))
+    SelfManagedActiveDirectoryConfiguration.add_member(:user_name, Shapes::ShapeRef.new(shape: DirectoryUserName, location_name: "UserName"))
+    SelfManagedActiveDirectoryConfiguration.add_member(:password, Shapes::ShapeRef.new(shape: DirectoryPassword, location_name: "Password"))
     SelfManagedActiveDirectoryConfiguration.add_member(:dns_ips, Shapes::ShapeRef.new(shape: DnsIps, required: true, location_name: "DnsIps"))
+    SelfManagedActiveDirectoryConfiguration.add_member(:domain_join_service_account_secret, Shapes::ShapeRef.new(shape: CustomerSecretsManagerARN, location_name: "DomainJoinServiceAccountSecret"))
     SelfManagedActiveDirectoryConfiguration.struct_class = Types::SelfManagedActiveDirectoryConfiguration
 
     SelfManagedActiveDirectoryConfigurationUpdates.add_member(:user_name, Shapes::ShapeRef.new(shape: DirectoryUserName, location_name: "UserName"))
@@ -1706,6 +1709,7 @@ module Aws::FSx
     SelfManagedActiveDirectoryConfigurationUpdates.add_member(:domain_name, Shapes::ShapeRef.new(shape: ActiveDirectoryFullyQualifiedName, location_name: "DomainName"))
     SelfManagedActiveDirectoryConfigurationUpdates.add_member(:organizational_unit_distinguished_name, Shapes::ShapeRef.new(shape: OrganizationalUnitDistinguishedName, location_name: "OrganizationalUnitDistinguishedName"))
     SelfManagedActiveDirectoryConfigurationUpdates.add_member(:file_system_administrators_group, Shapes::ShapeRef.new(shape: FileSystemAdministratorsGroupName, location_name: "FileSystemAdministratorsGroup"))
+    SelfManagedActiveDirectoryConfigurationUpdates.add_member(:domain_join_service_account_secret, Shapes::ShapeRef.new(shape: CustomerSecretsManagerARN, location_name: "DomainJoinServiceAccountSecret"))
     SelfManagedActiveDirectoryConfigurationUpdates.struct_class = Types::SelfManagedActiveDirectoryConfigurationUpdates
 
     ServiceLimitExceeded.add_member(:limit, Shapes::ShapeRef.new(shape: ServiceLimit, required: true, location_name: "Limit"))

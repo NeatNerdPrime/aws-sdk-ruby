@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.335.0 (2025-11-05)
+------------------
+
+* Feature - Add new fields in SageMaker Hyperpod DescribeCluster API response: TargetStateCount, SoftwareUpdateStatus and ActiveSoftwareDeploymentConfig to provide AMI update progress visibility .
+
 1.334.0 (2025-10-31)
 ------------------
 

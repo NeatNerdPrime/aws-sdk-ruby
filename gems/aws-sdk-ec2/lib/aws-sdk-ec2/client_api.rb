@@ -215,6 +215,7 @@ module Aws::EC2
     AutoRecoveryFlag = Shapes::BooleanShape.new(name: 'AutoRecoveryFlag')
     AvailabilityZone = Shapes::StructureShape.new(name: 'AvailabilityZone')
     AvailabilityZoneId = Shapes::StringShape.new(name: 'AvailabilityZoneId')
+    AvailabilityZoneIdStringList = Shapes::ListShape.new(name: 'AvailabilityZoneIdStringList')
     AvailabilityZoneList = Shapes::ListShape.new(name: 'AvailabilityZoneList')
     AvailabilityZoneMessage = Shapes::StructureShape.new(name: 'AvailabilityZoneMessage')
     AvailabilityZoneMessageList = Shapes::ListShape.new(name: 'AvailabilityZoneMessageList')
@@ -4526,6 +4527,8 @@ module Aws::EC2
     AvailabilityZone.add_member(:state, Shapes::ShapeRef.new(shape: AvailabilityZoneState, location_name: "zoneState"))
     AvailabilityZone.struct_class = Types::AvailabilityZone
 
+    AvailabilityZoneIdStringList.member = Shapes::ShapeRef.new(shape: String, location_name: "AvailabilityZoneId")
+
     AvailabilityZoneList.member = Shapes::ShapeRef.new(shape: AvailabilityZone, location_name: "item")
 
     AvailabilityZoneMessage.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
@@ -7776,6 +7779,7 @@ module Aws::EC2
 
     DescribeFastSnapshotRestoreSuccessItem.add_member(:snapshot_id, Shapes::ShapeRef.new(shape: String, location_name: "snapshotId"))
     DescribeFastSnapshotRestoreSuccessItem.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    DescribeFastSnapshotRestoreSuccessItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     DescribeFastSnapshotRestoreSuccessItem.add_member(:state, Shapes::ShapeRef.new(shape: FastSnapshotRestoreStateCode, location_name: "state"))
     DescribeFastSnapshotRestoreSuccessItem.add_member(:state_transition_reason, Shapes::ShapeRef.new(shape: String, location_name: "stateTransitionReason"))
     DescribeFastSnapshotRestoreSuccessItem.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
@@ -9484,6 +9488,7 @@ module Aws::EC2
     DisableFastSnapshotRestoreStateError.struct_class = Types::DisableFastSnapshotRestoreStateError
 
     DisableFastSnapshotRestoreStateErrorItem.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    DisableFastSnapshotRestoreStateErrorItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     DisableFastSnapshotRestoreStateErrorItem.add_member(:error, Shapes::ShapeRef.new(shape: DisableFastSnapshotRestoreStateError, location_name: "error"))
     DisableFastSnapshotRestoreStateErrorItem.struct_class = Types::DisableFastSnapshotRestoreStateErrorItem
 
@@ -9491,6 +9496,7 @@ module Aws::EC2
 
     DisableFastSnapshotRestoreSuccessItem.add_member(:snapshot_id, Shapes::ShapeRef.new(shape: String, location_name: "snapshotId"))
     DisableFastSnapshotRestoreSuccessItem.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    DisableFastSnapshotRestoreSuccessItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     DisableFastSnapshotRestoreSuccessItem.add_member(:state, Shapes::ShapeRef.new(shape: FastSnapshotRestoreStateCode, location_name: "state"))
     DisableFastSnapshotRestoreSuccessItem.add_member(:state_transition_reason, Shapes::ShapeRef.new(shape: String, location_name: "stateTransitionReason"))
     DisableFastSnapshotRestoreSuccessItem.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
@@ -9504,7 +9510,8 @@ module Aws::EC2
 
     DisableFastSnapshotRestoreSuccessSet.member = Shapes::ShapeRef.new(shape: DisableFastSnapshotRestoreSuccessItem, location_name: "item")
 
-    DisableFastSnapshotRestoresRequest.add_member(:availability_zones, Shapes::ShapeRef.new(shape: AvailabilityZoneStringList, required: true, location_name: "AvailabilityZone"))
+    DisableFastSnapshotRestoresRequest.add_member(:availability_zones, Shapes::ShapeRef.new(shape: AvailabilityZoneStringList, location_name: "AvailabilityZone"))
+    DisableFastSnapshotRestoresRequest.add_member(:availability_zone_ids, Shapes::ShapeRef.new(shape: AvailabilityZoneIdStringList, location_name: "AvailabilityZoneId"))
     DisableFastSnapshotRestoresRequest.add_member(:source_snapshot_ids, Shapes::ShapeRef.new(shape: SnapshotIdStringList, required: true, location_name: "SourceSnapshotId"))
     DisableFastSnapshotRestoresRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DisableFastSnapshotRestoresRequest.struct_class = Types::DisableFastSnapshotRestoresRequest
@@ -10010,6 +10017,7 @@ module Aws::EC2
     EnableFastSnapshotRestoreStateError.struct_class = Types::EnableFastSnapshotRestoreStateError
 
     EnableFastSnapshotRestoreStateErrorItem.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    EnableFastSnapshotRestoreStateErrorItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     EnableFastSnapshotRestoreStateErrorItem.add_member(:error, Shapes::ShapeRef.new(shape: EnableFastSnapshotRestoreStateError, location_name: "error"))
     EnableFastSnapshotRestoreStateErrorItem.struct_class = Types::EnableFastSnapshotRestoreStateErrorItem
 
@@ -10017,6 +10025,7 @@ module Aws::EC2
 
     EnableFastSnapshotRestoreSuccessItem.add_member(:snapshot_id, Shapes::ShapeRef.new(shape: String, location_name: "snapshotId"))
     EnableFastSnapshotRestoreSuccessItem.add_member(:availability_zone, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZone"))
+    EnableFastSnapshotRestoreSuccessItem.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: String, location_name: "availabilityZoneId"))
     EnableFastSnapshotRestoreSuccessItem.add_member(:state, Shapes::ShapeRef.new(shape: FastSnapshotRestoreStateCode, location_name: "state"))
     EnableFastSnapshotRestoreSuccessItem.add_member(:state_transition_reason, Shapes::ShapeRef.new(shape: String, location_name: "stateTransitionReason"))
     EnableFastSnapshotRestoreSuccessItem.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
@@ -10030,7 +10039,8 @@ module Aws::EC2
 
     EnableFastSnapshotRestoreSuccessSet.member = Shapes::ShapeRef.new(shape: EnableFastSnapshotRestoreSuccessItem, location_name: "item")
 
-    EnableFastSnapshotRestoresRequest.add_member(:availability_zones, Shapes::ShapeRef.new(shape: AvailabilityZoneStringList, required: true, location_name: "AvailabilityZone"))
+    EnableFastSnapshotRestoresRequest.add_member(:availability_zones, Shapes::ShapeRef.new(shape: AvailabilityZoneStringList, location_name: "AvailabilityZone"))
+    EnableFastSnapshotRestoresRequest.add_member(:availability_zone_ids, Shapes::ShapeRef.new(shape: AvailabilityZoneIdStringList, location_name: "AvailabilityZoneId"))
     EnableFastSnapshotRestoresRequest.add_member(:source_snapshot_ids, Shapes::ShapeRef.new(shape: SnapshotIdStringList, required: true, location_name: "SourceSnapshotId"))
     EnableFastSnapshotRestoresRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     EnableFastSnapshotRestoresRequest.struct_class = Types::EnableFastSnapshotRestoresRequest

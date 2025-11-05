@@ -62,6 +62,10 @@ module Aws::GroundStation
     ContactStatus = Shapes::StringShape.new(name: 'ContactStatus')
     CreateConfigRequest = Shapes::StructureShape.new(name: 'CreateConfigRequest')
     CreateDataflowEndpointGroupRequest = Shapes::StructureShape.new(name: 'CreateDataflowEndpointGroupRequest')
+    CreateDataflowEndpointGroupV2Request = Shapes::StructureShape.new(name: 'CreateDataflowEndpointGroupV2Request')
+    CreateDataflowEndpointGroupV2Response = Shapes::StructureShape.new(name: 'CreateDataflowEndpointGroupV2Response')
+    CreateEndpointDetails = Shapes::UnionShape.new(name: 'CreateEndpointDetails')
+    CreateEndpointDetailsList = Shapes::ListShape.new(name: 'CreateEndpointDetailsList')
     CreateEphemerisRequest = Shapes::StructureShape.new(name: 'CreateEphemerisRequest')
     CreateMissionProfileRequest = Shapes::StructureShape.new(name: 'CreateMissionProfileRequest')
     Criticality = Shapes::StringShape.new(name: 'Criticality')
@@ -92,6 +96,10 @@ module Aws::GroundStation
     Destination = Shapes::StructureShape.new(name: 'Destination')
     DiscoveryData = Shapes::StructureShape.new(name: 'DiscoveryData')
     Double = Shapes::FloatShape.new(name: 'Double')
+    DownlinkAwsGroundStationAgentEndpoint = Shapes::StructureShape.new(name: 'DownlinkAwsGroundStationAgentEndpoint')
+    DownlinkAwsGroundStationAgentEndpointDetails = Shapes::StructureShape.new(name: 'DownlinkAwsGroundStationAgentEndpointDetails')
+    DownlinkConnectionDetails = Shapes::StructureShape.new(name: 'DownlinkConnectionDetails')
+    DownlinkDataflowDetails = Shapes::UnionShape.new(name: 'DownlinkDataflowDetails')
     DurationInSeconds = Shapes::IntegerShape.new(name: 'DurationInSeconds')
     Eirp = Shapes::StructureShape.new(name: 'Eirp')
     EirpUnits = Shapes::StringShape.new(name: 'EirpUnits')
@@ -123,6 +131,8 @@ module Aws::GroundStation
     FrequencyUnits = Shapes::StringShape.new(name: 'FrequencyUnits')
     GetAgentConfigurationRequest = Shapes::StructureShape.new(name: 'GetAgentConfigurationRequest')
     GetAgentConfigurationResponse = Shapes::StructureShape.new(name: 'GetAgentConfigurationResponse')
+    GetAgentTaskResponseUrlRequest = Shapes::StructureShape.new(name: 'GetAgentTaskResponseUrlRequest')
+    GetAgentTaskResponseUrlResponse = Shapes::StructureShape.new(name: 'GetAgentTaskResponseUrlResponse')
     GetConfigRequest = Shapes::StructureShape.new(name: 'GetConfigRequest')
     GetConfigResponse = Shapes::StructureShape.new(name: 'GetConfigResponse')
     GetDataflowEndpointGroupRequest = Shapes::StructureShape.new(name: 'GetDataflowEndpointGroupRequest')
@@ -200,6 +210,7 @@ module Aws::GroundStation
     SatelliteListItem = Shapes::StructureShape.new(name: 'SatelliteListItem')
     SecurityDetails = Shapes::StructureShape.new(name: 'SecurityDetails')
     SecurityGroupIdList = Shapes::ListShape.new(name: 'SecurityGroupIdList')
+    ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     SignatureMap = Shapes::MapShape.new(name: 'SignatureMap')
     SocketAddress = Shapes::StructureShape.new(name: 'SocketAddress')
     Source = Shapes::StructureShape.new(name: 'Source')
@@ -231,6 +242,10 @@ module Aws::GroundStation
     UpdateConfigRequest = Shapes::StructureShape.new(name: 'UpdateConfigRequest')
     UpdateEphemerisRequest = Shapes::StructureShape.new(name: 'UpdateEphemerisRequest')
     UpdateMissionProfileRequest = Shapes::StructureShape.new(name: 'UpdateMissionProfileRequest')
+    UplinkAwsGroundStationAgentEndpoint = Shapes::StructureShape.new(name: 'UplinkAwsGroundStationAgentEndpoint')
+    UplinkAwsGroundStationAgentEndpointDetails = Shapes::StructureShape.new(name: 'UplinkAwsGroundStationAgentEndpointDetails')
+    UplinkConnectionDetails = Shapes::StructureShape.new(name: 'UplinkConnectionDetails')
+    UplinkDataflowDetails = Shapes::UnionShape.new(name: 'UplinkDataflowDetails')
     UplinkEchoConfig = Shapes::StructureShape.new(name: 'UplinkEchoConfig')
     UplinkSpectrumConfig = Shapes::StructureShape.new(name: 'UplinkSpectrumConfig')
     Uuid = Shapes::StringShape.new(name: 'Uuid')
@@ -409,6 +424,25 @@ module Aws::GroundStation
     CreateDataflowEndpointGroupRequest.add_member(:contact_post_pass_duration_seconds, Shapes::ShapeRef.new(shape: DataflowEndpointGroupDurationInSeconds, location_name: "contactPostPassDurationSeconds"))
     CreateDataflowEndpointGroupRequest.struct_class = Types::CreateDataflowEndpointGroupRequest
 
+    CreateDataflowEndpointGroupV2Request.add_member(:endpoints, Shapes::ShapeRef.new(shape: CreateEndpointDetailsList, required: true, location_name: "endpoints"))
+    CreateDataflowEndpointGroupV2Request.add_member(:contact_pre_pass_duration_seconds, Shapes::ShapeRef.new(shape: DataflowEndpointGroupDurationInSeconds, location_name: "contactPrePassDurationSeconds"))
+    CreateDataflowEndpointGroupV2Request.add_member(:contact_post_pass_duration_seconds, Shapes::ShapeRef.new(shape: DataflowEndpointGroupDurationInSeconds, location_name: "contactPostPassDurationSeconds"))
+    CreateDataflowEndpointGroupV2Request.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
+    CreateDataflowEndpointGroupV2Request.struct_class = Types::CreateDataflowEndpointGroupV2Request
+
+    CreateDataflowEndpointGroupV2Response.add_member(:dataflow_endpoint_group_id, Shapes::ShapeRef.new(shape: Uuid, location_name: "dataflowEndpointGroupId"))
+    CreateDataflowEndpointGroupV2Response.struct_class = Types::CreateDataflowEndpointGroupV2Response
+
+    CreateEndpointDetails.add_member(:uplink_aws_ground_station_agent_endpoint, Shapes::ShapeRef.new(shape: UplinkAwsGroundStationAgentEndpoint, location_name: "uplinkAwsGroundStationAgentEndpoint"))
+    CreateEndpointDetails.add_member(:downlink_aws_ground_station_agent_endpoint, Shapes::ShapeRef.new(shape: DownlinkAwsGroundStationAgentEndpoint, location_name: "downlinkAwsGroundStationAgentEndpoint"))
+    CreateEndpointDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    CreateEndpointDetails.add_member_subclass(:uplink_aws_ground_station_agent_endpoint, Types::CreateEndpointDetails::UplinkAwsGroundStationAgentEndpoint)
+    CreateEndpointDetails.add_member_subclass(:downlink_aws_ground_station_agent_endpoint, Types::CreateEndpointDetails::DownlinkAwsGroundStationAgentEndpoint)
+    CreateEndpointDetails.add_member_subclass(:unknown, Types::CreateEndpointDetails::Unknown)
+    CreateEndpointDetails.struct_class = Types::CreateEndpointDetails
+
+    CreateEndpointDetailsList.member = Shapes::ShapeRef.new(shape: CreateEndpointDetails)
+
     CreateEphemerisRequest.add_member(:satellite_id, Shapes::ShapeRef.new(shape: Uuid, location_name: "satelliteId"))
     CreateEphemerisRequest.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "enabled"))
     CreateEphemerisRequest.add_member(:priority, Shapes::ShapeRef.new(shape: CustomerEphemerisPriority, location_name: "priority"))
@@ -533,6 +567,26 @@ module Aws::GroundStation
     DiscoveryData.add_member(:capability_arns, Shapes::ShapeRef.new(shape: CapabilityArnList, required: true, location_name: "capabilityArns"))
     DiscoveryData.struct_class = Types::DiscoveryData
 
+    DownlinkAwsGroundStationAgentEndpoint.add_member(:name, Shapes::ShapeRef.new(shape: SafeName, required: true, location_name: "name"))
+    DownlinkAwsGroundStationAgentEndpoint.add_member(:dataflow_details, Shapes::ShapeRef.new(shape: DownlinkDataflowDetails, required: true, location_name: "dataflowDetails"))
+    DownlinkAwsGroundStationAgentEndpoint.struct_class = Types::DownlinkAwsGroundStationAgentEndpoint
+
+    DownlinkAwsGroundStationAgentEndpointDetails.add_member(:name, Shapes::ShapeRef.new(shape: SafeName, required: true, location_name: "name"))
+    DownlinkAwsGroundStationAgentEndpointDetails.add_member(:dataflow_details, Shapes::ShapeRef.new(shape: DownlinkDataflowDetails, required: true, location_name: "dataflowDetails"))
+    DownlinkAwsGroundStationAgentEndpointDetails.add_member(:agent_status, Shapes::ShapeRef.new(shape: AgentStatus, location_name: "agentStatus"))
+    DownlinkAwsGroundStationAgentEndpointDetails.add_member(:audit_results, Shapes::ShapeRef.new(shape: AuditResults, location_name: "auditResults"))
+    DownlinkAwsGroundStationAgentEndpointDetails.struct_class = Types::DownlinkAwsGroundStationAgentEndpointDetails
+
+    DownlinkConnectionDetails.add_member(:agent_ip_and_port_address, Shapes::ShapeRef.new(shape: RangedConnectionDetails, required: true, location_name: "agentIpAndPortAddress"))
+    DownlinkConnectionDetails.add_member(:egress_address_and_port, Shapes::ShapeRef.new(shape: ConnectionDetails, required: true, location_name: "egressAddressAndPort"))
+    DownlinkConnectionDetails.struct_class = Types::DownlinkConnectionDetails
+
+    DownlinkDataflowDetails.add_member(:agent_connection_details, Shapes::ShapeRef.new(shape: DownlinkConnectionDetails, location_name: "agentConnectionDetails"))
+    DownlinkDataflowDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    DownlinkDataflowDetails.add_member_subclass(:agent_connection_details, Types::DownlinkDataflowDetails::AgentConnectionDetails)
+    DownlinkDataflowDetails.add_member_subclass(:unknown, Types::DownlinkDataflowDetails::Unknown)
+    DownlinkDataflowDetails.struct_class = Types::DownlinkDataflowDetails
+
     Eirp.add_member(:value, Shapes::ShapeRef.new(shape: Double, required: true, location_name: "value"))
     Eirp.add_member(:units, Shapes::ShapeRef.new(shape: EirpUnits, required: true, location_name: "units"))
     Eirp.struct_class = Types::Eirp
@@ -544,6 +598,8 @@ module Aws::GroundStation
     EndpointDetails.add_member(:security_details, Shapes::ShapeRef.new(shape: SecurityDetails, location_name: "securityDetails"))
     EndpointDetails.add_member(:endpoint, Shapes::ShapeRef.new(shape: DataflowEndpoint, location_name: "endpoint"))
     EndpointDetails.add_member(:aws_ground_station_agent_endpoint, Shapes::ShapeRef.new(shape: AwsGroundStationAgentEndpoint, location_name: "awsGroundStationAgentEndpoint"))
+    EndpointDetails.add_member(:uplink_aws_ground_station_agent_endpoint, Shapes::ShapeRef.new(shape: UplinkAwsGroundStationAgentEndpointDetails, location_name: "uplinkAwsGroundStationAgentEndpoint"))
+    EndpointDetails.add_member(:downlink_aws_ground_station_agent_endpoint, Shapes::ShapeRef.new(shape: DownlinkAwsGroundStationAgentEndpointDetails, location_name: "downlinkAwsGroundStationAgentEndpoint"))
     EndpointDetails.add_member(:health_status, Shapes::ShapeRef.new(shape: CapabilityHealth, location_name: "healthStatus"))
     EndpointDetails.add_member(:health_reasons, Shapes::ShapeRef.new(shape: CapabilityHealthReasonList, location_name: "healthReasons"))
     EndpointDetails.struct_class = Types::EndpointDetails
@@ -627,6 +683,15 @@ module Aws::GroundStation
     GetAgentConfigurationResponse.add_member(:agent_id, Shapes::ShapeRef.new(shape: Uuid, location_name: "agentId"))
     GetAgentConfigurationResponse.add_member(:tasking_document, Shapes::ShapeRef.new(shape: String, location_name: "taskingDocument"))
     GetAgentConfigurationResponse.struct_class = Types::GetAgentConfigurationResponse
+
+    GetAgentTaskResponseUrlRequest.add_member(:agent_id, Shapes::ShapeRef.new(shape: Uuid, required: true, location: "uri", location_name: "agentId"))
+    GetAgentTaskResponseUrlRequest.add_member(:task_id, Shapes::ShapeRef.new(shape: Uuid, required: true, location: "uri", location_name: "taskId"))
+    GetAgentTaskResponseUrlRequest.struct_class = Types::GetAgentTaskResponseUrlRequest
+
+    GetAgentTaskResponseUrlResponse.add_member(:agent_id, Shapes::ShapeRef.new(shape: Uuid, required: true, location_name: "agentId"))
+    GetAgentTaskResponseUrlResponse.add_member(:task_id, Shapes::ShapeRef.new(shape: Uuid, required: true, location_name: "taskId"))
+    GetAgentTaskResponseUrlResponse.add_member(:presigned_log_url, Shapes::ShapeRef.new(shape: String, required: true, location_name: "presignedLogUrl"))
+    GetAgentTaskResponseUrlResponse.struct_class = Types::GetAgentTaskResponseUrlResponse
 
     GetConfigRequest.add_member(:config_id, Shapes::ShapeRef.new(shape: Uuid, required: true, location: "uri", location_name: "configId"))
     GetConfigRequest.add_member(:config_type, Shapes::ShapeRef.new(shape: ConfigCapabilityType, required: true, location: "uri", location_name: "configType"))
@@ -883,6 +948,10 @@ module Aws::GroundStation
 
     SecurityGroupIdList.member = Shapes::ShapeRef.new(shape: String)
 
+    ServiceQuotaExceededException.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "message"))
+    ServiceQuotaExceededException.add_member(:parameter_name, Shapes::ShapeRef.new(shape: String, location_name: "parameterName"))
+    ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException
+
     SignatureMap.key = Shapes::ShapeRef.new(shape: String)
     SignatureMap.value = Shapes::ShapeRef.new(shape: Boolean)
 
@@ -982,6 +1051,26 @@ module Aws::GroundStation
     UpdateMissionProfileRequest.add_member(:streams_kms_role, Shapes::ShapeRef.new(shape: RoleArn, location_name: "streamsKmsRole"))
     UpdateMissionProfileRequest.struct_class = Types::UpdateMissionProfileRequest
 
+    UplinkAwsGroundStationAgentEndpoint.add_member(:name, Shapes::ShapeRef.new(shape: SafeName, required: true, location_name: "name"))
+    UplinkAwsGroundStationAgentEndpoint.add_member(:dataflow_details, Shapes::ShapeRef.new(shape: UplinkDataflowDetails, required: true, location_name: "dataflowDetails"))
+    UplinkAwsGroundStationAgentEndpoint.struct_class = Types::UplinkAwsGroundStationAgentEndpoint
+
+    UplinkAwsGroundStationAgentEndpointDetails.add_member(:name, Shapes::ShapeRef.new(shape: SafeName, required: true, location_name: "name"))
+    UplinkAwsGroundStationAgentEndpointDetails.add_member(:dataflow_details, Shapes::ShapeRef.new(shape: UplinkDataflowDetails, required: true, location_name: "dataflowDetails"))
+    UplinkAwsGroundStationAgentEndpointDetails.add_member(:agent_status, Shapes::ShapeRef.new(shape: AgentStatus, location_name: "agentStatus"))
+    UplinkAwsGroundStationAgentEndpointDetails.add_member(:audit_results, Shapes::ShapeRef.new(shape: AuditResults, location_name: "auditResults"))
+    UplinkAwsGroundStationAgentEndpointDetails.struct_class = Types::UplinkAwsGroundStationAgentEndpointDetails
+
+    UplinkConnectionDetails.add_member(:ingress_address_and_port, Shapes::ShapeRef.new(shape: ConnectionDetails, required: true, location_name: "ingressAddressAndPort"))
+    UplinkConnectionDetails.add_member(:agent_ip_and_port_address, Shapes::ShapeRef.new(shape: RangedConnectionDetails, required: true, location_name: "agentIpAndPortAddress"))
+    UplinkConnectionDetails.struct_class = Types::UplinkConnectionDetails
+
+    UplinkDataflowDetails.add_member(:agent_connection_details, Shapes::ShapeRef.new(shape: UplinkConnectionDetails, location_name: "agentConnectionDetails"))
+    UplinkDataflowDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    UplinkDataflowDetails.add_member_subclass(:agent_connection_details, Types::UplinkDataflowDetails::AgentConnectionDetails)
+    UplinkDataflowDetails.add_member_subclass(:unknown, Types::UplinkDataflowDetails::Unknown)
+    UplinkDataflowDetails.struct_class = Types::UplinkDataflowDetails
+
     UplinkEchoConfig.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "enabled"))
     UplinkEchoConfig.add_member(:antenna_uplink_config_arn, Shapes::ShapeRef.new(shape: ConfigArn, required: true, location_name: "antennaUplinkConfigArn"))
     UplinkEchoConfig.struct_class = Types::UplinkEchoConfig
@@ -1041,6 +1130,18 @@ module Aws::GroundStation
         o.input = Shapes::ShapeRef.new(shape: CreateDataflowEndpointGroupRequest)
         o.output = Shapes::ShapeRef.new(shape: DataflowEndpointGroupIdResponse)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: DependencyException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+      end)
+
+      api.add_operation(:create_dataflow_endpoint_group_v2, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateDataflowEndpointGroupV2"
+        o.http_method = "POST"
+        o.http_request_uri = "/dataflowEndpointGroupV2"
+        o.input = Shapes::ShapeRef.new(shape: CreateDataflowEndpointGroupV2Request)
+        o.output = Shapes::ShapeRef.new(shape: CreateDataflowEndpointGroupV2Response)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: DependencyException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
       end)
@@ -1140,6 +1241,17 @@ module Aws::GroundStation
         o.http_request_uri = "/agent/{agentId}/configuration"
         o.input = Shapes::ShapeRef.new(shape: GetAgentConfigurationRequest)
         o.output = Shapes::ShapeRef.new(shape: GetAgentConfigurationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: DependencyException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+      end)
+
+      api.add_operation(:get_agent_task_response_url, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetAgentTaskResponseUrl"
+        o.http_method = "GET"
+        o.http_request_uri = "/agentResponseUrl/{agentId}/{taskId}"
+        o.input = Shapes::ShapeRef.new(shape: GetAgentTaskResponseUrlRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetAgentTaskResponseUrlResponse)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
         o.errors << Shapes::ShapeRef.new(shape: DependencyException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)

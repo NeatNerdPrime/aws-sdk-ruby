@@ -5214,6 +5214,7 @@ module Aws::EC2
     class DescribeFastSnapshotRestoreSuccessItem
       attr_accessor snapshot_id: ::String
       attr_accessor availability_zone: ::String
+      attr_accessor availability_zone_id: ::String
       attr_accessor state: ("enabling" | "optimizing" | "enabled" | "disabling" | "disabled")
       attr_accessor state_transition_reason: ::String
       attr_accessor owner_id: ::String
@@ -7518,6 +7519,7 @@ module Aws::EC2
 
     class DisableFastSnapshotRestoreStateErrorItem
       attr_accessor availability_zone: ::String
+      attr_accessor availability_zone_id: ::String
       attr_accessor error: Types::DisableFastSnapshotRestoreStateError
       SENSITIVE: []
     end
@@ -7525,6 +7527,7 @@ module Aws::EC2
     class DisableFastSnapshotRestoreSuccessItem
       attr_accessor snapshot_id: ::String
       attr_accessor availability_zone: ::String
+      attr_accessor availability_zone_id: ::String
       attr_accessor state: ("enabling" | "optimizing" | "enabled" | "disabling" | "disabled")
       attr_accessor state_transition_reason: ::String
       attr_accessor owner_id: ::String
@@ -7539,6 +7542,7 @@ module Aws::EC2
 
     class DisableFastSnapshotRestoresRequest
       attr_accessor availability_zones: ::Array[::String]
+      attr_accessor availability_zone_ids: ::Array[::String]
       attr_accessor source_snapshot_ids: ::Array[::String]
       attr_accessor dry_run: bool
       SENSITIVE: []
@@ -8220,6 +8224,7 @@ module Aws::EC2
 
     class EnableFastSnapshotRestoreStateErrorItem
       attr_accessor availability_zone: ::String
+      attr_accessor availability_zone_id: ::String
       attr_accessor error: Types::EnableFastSnapshotRestoreStateError
       SENSITIVE: []
     end
@@ -8227,6 +8232,7 @@ module Aws::EC2
     class EnableFastSnapshotRestoreSuccessItem
       attr_accessor snapshot_id: ::String
       attr_accessor availability_zone: ::String
+      attr_accessor availability_zone_id: ::String
       attr_accessor state: ("enabling" | "optimizing" | "enabled" | "disabling" | "disabled")
       attr_accessor state_transition_reason: ::String
       attr_accessor owner_id: ::String
@@ -8241,6 +8247,7 @@ module Aws::EC2
 
     class EnableFastSnapshotRestoresRequest
       attr_accessor availability_zones: ::Array[::String]
+      attr_accessor availability_zone_ids: ::Array[::String]
       attr_accessor source_snapshot_ids: ::Array[::String]
       attr_accessor dry_run: bool
       SENSITIVE: []

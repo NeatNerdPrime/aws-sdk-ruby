@@ -3493,6 +3493,9 @@ module Aws::DataZone
     # @option params [String] :project_profile_id
     #   The ID of the project profile.
     #
+    # @option params [Hash<String,String>] :resource_tags
+    #   The resource tags of the project.
+    #
     # @option params [Array<Types::EnvironmentConfigurationUserParameter>] :user_parameters
     #   The user parameters of the project.
     #
@@ -3511,6 +3514,7 @@ module Aws::DataZone
     #   * {Types::CreateProjectOutput#name #name} => String
     #   * {Types::CreateProjectOutput#project_profile_id #project_profile_id} => String
     #   * {Types::CreateProjectOutput#project_status #project_status} => String
+    #   * {Types::CreateProjectOutput#resource_tags #resource_tags} => Array&lt;Types::ResourceTag&gt;
     #   * {Types::CreateProjectOutput#user_parameters #user_parameters} => Array&lt;Types::EnvironmentConfigurationUserParameter&gt;
     #
     # @example Request syntax with placeholder values
@@ -3522,6 +3526,9 @@ module Aws::DataZone
     #     glossary_terms: ["GlossaryTermId"],
     #     name: "ProjectName", # required
     #     project_profile_id: "ProjectProfileId",
+    #     resource_tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #     user_parameters: [
     #       {
     #         environment_configuration_name: "EnvironmentConfigurationName",
@@ -3563,6 +3570,10 @@ module Aws::DataZone
     #   resp.name #=> String
     #   resp.project_profile_id #=> String
     #   resp.project_status #=> String, one of "ACTIVE", "DELETING", "DELETE_FAILED", "UPDATING", "UPDATE_FAILED", "MOVING"
+    #   resp.resource_tags #=> Array
+    #   resp.resource_tags[0].key #=> String
+    #   resp.resource_tags[0].source #=> String, one of "PROJECT", "PROJECT_PROFILE"
+    #   resp.resource_tags[0].value #=> String
     #   resp.user_parameters #=> Array
     #   resp.user_parameters[0].environment_configuration_name #=> String
     #   resp.user_parameters[0].environment_id #=> String
@@ -3622,6 +3633,9 @@ module Aws::DataZone
 
     # Creates a project profile.
     #
+    # @option params [Boolean] :allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #
     # @option params [String] :description
     #   A description of a project profile.
     #
@@ -3637,11 +3651,19 @@ module Aws::DataZone
     # @option params [required, String] :name
     #   Project profile name.
     #
+    # @option params [Array<Types::ResourceTagParameter>] :project_resource_tags
+    #   The resource tags of the project profile.
+    #
+    # @option params [String] :project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #
     # @option params [String] :status
     #   Project profile status.
     #
     # @return [Types::CreateProjectProfileOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::CreateProjectProfileOutput#allow_custom_project_resource_tags #allow_custom_project_resource_tags} => Boolean
     #   * {Types::CreateProjectProfileOutput#created_at #created_at} => Time
     #   * {Types::CreateProjectProfileOutput#created_by #created_by} => String
     #   * {Types::CreateProjectProfileOutput#description #description} => String
@@ -3651,11 +3673,14 @@ module Aws::DataZone
     #   * {Types::CreateProjectProfileOutput#id #id} => String
     #   * {Types::CreateProjectProfileOutput#last_updated_at #last_updated_at} => Time
     #   * {Types::CreateProjectProfileOutput#name #name} => String
+    #   * {Types::CreateProjectProfileOutput#project_resource_tags #project_resource_tags} => Array&lt;Types::ResourceTagParameter&gt;
+    #   * {Types::CreateProjectProfileOutput#project_resource_tags_description #project_resource_tags_description} => String
     #   * {Types::CreateProjectProfileOutput#status #status} => String
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.create_project_profile({
+    #     allow_custom_project_resource_tags: false,
     #     description: "Description",
     #     domain_identifier: "DomainId", # required
     #     domain_unit_identifier: "DomainUnitId",
@@ -3696,11 +3721,20 @@ module Aws::DataZone
     #       },
     #     ],
     #     name: "ProjectProfileName", # required
+    #     project_resource_tags: [
+    #       {
+    #         is_value_editable: false, # required
+    #         key: "TagKey", # required
+    #         value: "TagValue", # required
+    #       },
+    #     ],
+    #     project_resource_tags_description: "Description",
     #     status: "ENABLED", # accepts ENABLED, DISABLED
     #   })
     #
     # @example Response structure
     #
+    #   resp.allow_custom_project_resource_tags #=> Boolean
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.description #=> String
@@ -3731,6 +3765,11 @@ module Aws::DataZone
     #   resp.id #=> String
     #   resp.last_updated_at #=> Time
     #   resp.name #=> String
+    #   resp.project_resource_tags #=> Array
+    #   resp.project_resource_tags[0].is_value_editable #=> Boolean
+    #   resp.project_resource_tags[0].key #=> String
+    #   resp.project_resource_tags[0].value #=> String
+    #   resp.project_resource_tags_description #=> String
     #   resp.status #=> String, one of "ENABLED", "DISABLED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/CreateProjectProfile AWS API Documentation
@@ -7207,6 +7246,7 @@ module Aws::DataZone
     #   * {Types::GetProjectOutput#name #name} => String
     #   * {Types::GetProjectOutput#project_profile_id #project_profile_id} => String
     #   * {Types::GetProjectOutput#project_status #project_status} => String
+    #   * {Types::GetProjectOutput#resource_tags #resource_tags} => Array&lt;Types::ResourceTag&gt;
     #   * {Types::GetProjectOutput#user_parameters #user_parameters} => Array&lt;Types::EnvironmentConfigurationUserParameter&gt;
     #
     # @example Request syntax with placeholder values
@@ -7238,6 +7278,10 @@ module Aws::DataZone
     #   resp.name #=> String
     #   resp.project_profile_id #=> String
     #   resp.project_status #=> String, one of "ACTIVE", "DELETING", "DELETE_FAILED", "UPDATING", "UPDATE_FAILED", "MOVING"
+    #   resp.resource_tags #=> Array
+    #   resp.resource_tags[0].key #=> String
+    #   resp.resource_tags[0].source #=> String, one of "PROJECT", "PROJECT_PROFILE"
+    #   resp.resource_tags[0].value #=> String
     #   resp.user_parameters #=> Array
     #   resp.user_parameters[0].environment_configuration_name #=> String
     #   resp.user_parameters[0].environment_id #=> String
@@ -7267,6 +7311,7 @@ module Aws::DataZone
     #
     # @return [Types::GetProjectProfileOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::GetProjectProfileOutput#allow_custom_project_resource_tags #allow_custom_project_resource_tags} => Boolean
     #   * {Types::GetProjectProfileOutput#created_at #created_at} => Time
     #   * {Types::GetProjectProfileOutput#created_by #created_by} => String
     #   * {Types::GetProjectProfileOutput#description #description} => String
@@ -7276,6 +7321,8 @@ module Aws::DataZone
     #   * {Types::GetProjectProfileOutput#id #id} => String
     #   * {Types::GetProjectProfileOutput#last_updated_at #last_updated_at} => Time
     #   * {Types::GetProjectProfileOutput#name #name} => String
+    #   * {Types::GetProjectProfileOutput#project_resource_tags #project_resource_tags} => Array&lt;Types::ResourceTagParameter&gt;
+    #   * {Types::GetProjectProfileOutput#project_resource_tags_description #project_resource_tags_description} => String
     #   * {Types::GetProjectProfileOutput#status #status} => String
     #
     # @example Request syntax with placeholder values
@@ -7287,6 +7334,7 @@ module Aws::DataZone
     #
     # @example Response structure
     #
+    #   resp.allow_custom_project_resource_tags #=> Boolean
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.description #=> String
@@ -7317,6 +7365,11 @@ module Aws::DataZone
     #   resp.id #=> String
     #   resp.last_updated_at #=> Time
     #   resp.name #=> String
+    #   resp.project_resource_tags #=> Array
+    #   resp.project_resource_tags[0].is_value_editable #=> Boolean
+    #   resp.project_resource_tags[0].key #=> String
+    #   resp.project_resource_tags[0].value #=> String
+    #   resp.project_resource_tags_description #=> String
     #   resp.status #=> String, one of "ENABLED", "DISABLED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/GetProjectProfile AWS API Documentation
@@ -13507,6 +13560,9 @@ module Aws::DataZone
     #   You can only specify the following string for this parameter:
     #   `latest`.
     #
+    # @option params [Hash<String,String>] :resource_tags
+    #   The resource tags of the project.
+    #
     # @option params [Array<Types::EnvironmentConfigurationUserParameter>] :user_parameters
     #   The user parameters of the project.
     #
@@ -13525,6 +13581,7 @@ module Aws::DataZone
     #   * {Types::UpdateProjectOutput#name #name} => String
     #   * {Types::UpdateProjectOutput#project_profile_id #project_profile_id} => String
     #   * {Types::UpdateProjectOutput#project_status #project_status} => String
+    #   * {Types::UpdateProjectOutput#resource_tags #resource_tags} => Array&lt;Types::ResourceTag&gt;
     #   * {Types::UpdateProjectOutput#user_parameters #user_parameters} => Array&lt;Types::EnvironmentConfigurationUserParameter&gt;
     #
     # @example Request syntax with placeholder values
@@ -13548,6 +13605,9 @@ module Aws::DataZone
     #     identifier: "ProjectId", # required
     #     name: "ProjectName",
     #     project_profile_version: "String",
+    #     resource_tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #     user_parameters: [
     #       {
     #         environment_configuration_name: "EnvironmentConfigurationName",
@@ -13589,6 +13649,10 @@ module Aws::DataZone
     #   resp.name #=> String
     #   resp.project_profile_id #=> String
     #   resp.project_status #=> String, one of "ACTIVE", "DELETING", "DELETE_FAILED", "UPDATING", "UPDATE_FAILED", "MOVING"
+    #   resp.resource_tags #=> Array
+    #   resp.resource_tags[0].key #=> String
+    #   resp.resource_tags[0].source #=> String, one of "PROJECT", "PROJECT_PROFILE"
+    #   resp.resource_tags[0].value #=> String
     #   resp.user_parameters #=> Array
     #   resp.user_parameters[0].environment_configuration_name #=> String
     #   resp.user_parameters[0].environment_id #=> String
@@ -13610,6 +13674,9 @@ module Aws::DataZone
 
     # Updates a project profile.
     #
+    # @option params [Boolean] :allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #
     # @option params [String] :description
     #   The description of a project profile.
     #
@@ -13628,11 +13695,19 @@ module Aws::DataZone
     # @option params [String] :name
     #   The name of a project profile.
     #
+    # @option params [Array<Types::ResourceTagParameter>] :project_resource_tags
+    #   The resource tags of the project profile.
+    #
+    # @option params [String] :project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #
     # @option params [String] :status
     #   The status of a project profile.
     #
     # @return [Types::UpdateProjectProfileOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::UpdateProjectProfileOutput#allow_custom_project_resource_tags #allow_custom_project_resource_tags} => Boolean
     #   * {Types::UpdateProjectProfileOutput#created_at #created_at} => Time
     #   * {Types::UpdateProjectProfileOutput#created_by #created_by} => String
     #   * {Types::UpdateProjectProfileOutput#description #description} => String
@@ -13642,11 +13717,14 @@ module Aws::DataZone
     #   * {Types::UpdateProjectProfileOutput#id #id} => String
     #   * {Types::UpdateProjectProfileOutput#last_updated_at #last_updated_at} => Time
     #   * {Types::UpdateProjectProfileOutput#name #name} => String
+    #   * {Types::UpdateProjectProfileOutput#project_resource_tags #project_resource_tags} => Array&lt;Types::ResourceTagParameter&gt;
+    #   * {Types::UpdateProjectProfileOutput#project_resource_tags_description #project_resource_tags_description} => String
     #   * {Types::UpdateProjectProfileOutput#status #status} => String
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_project_profile({
+    #     allow_custom_project_resource_tags: false,
     #     description: "Description",
     #     domain_identifier: "DomainId", # required
     #     domain_unit_identifier: "DomainUnitId",
@@ -13688,11 +13766,20 @@ module Aws::DataZone
     #     ],
     #     identifier: "ProjectProfileId", # required
     #     name: "ProjectProfileName",
+    #     project_resource_tags: [
+    #       {
+    #         is_value_editable: false, # required
+    #         key: "TagKey", # required
+    #         value: "TagValue", # required
+    #       },
+    #     ],
+    #     project_resource_tags_description: "Description",
     #     status: "ENABLED", # accepts ENABLED, DISABLED
     #   })
     #
     # @example Response structure
     #
+    #   resp.allow_custom_project_resource_tags #=> Boolean
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.description #=> String
@@ -13723,6 +13810,11 @@ module Aws::DataZone
     #   resp.id #=> String
     #   resp.last_updated_at #=> Time
     #   resp.name #=> String
+    #   resp.project_resource_tags #=> Array
+    #   resp.project_resource_tags[0].is_value_editable #=> Boolean
+    #   resp.project_resource_tags[0].key #=> String
+    #   resp.project_resource_tags[0].value #=> String
+    #   resp.project_resource_tags_description #=> String
     #   resp.status #=> String, one of "ENABLED", "DISABLED"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/UpdateProjectProfile AWS API Documentation
@@ -14210,7 +14302,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.56.0'
+      context[:gem_version] = '1.57.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

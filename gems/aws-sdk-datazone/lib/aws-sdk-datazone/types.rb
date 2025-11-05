@@ -4541,6 +4541,10 @@ module Aws::DataZone
     #   The ID of the project profile.
     #   @return [String]
     #
+    # @!attribute [rw] resource_tags
+    #   The resource tags of the project.
+    #   @return [Hash<String,String>]
+    #
     # @!attribute [rw] user_parameters
     #   The user parameters of the project.
     #   @return [Array<Types::EnvironmentConfigurationUserParameter>]
@@ -4554,6 +4558,7 @@ module Aws::DataZone
       :glossary_terms,
       :name,
       :project_profile_id,
+      :resource_tags,
       :user_parameters)
       SENSITIVE = [:description, :name]
       include Aws::Structure
@@ -4645,6 +4650,10 @@ module Aws::DataZone
     #   The status of the Amazon DataZone project that was created.
     #   @return [String]
     #
+    # @!attribute [rw] resource_tags
+    #   The resource tags of the project.
+    #   @return [Array<Types::ResourceTag>]
+    #
     # @!attribute [rw] user_parameters
     #   The user parameters of the project.
     #   @return [Array<Types::EnvironmentConfigurationUserParameter>]
@@ -4665,6 +4674,7 @@ module Aws::DataZone
       :name,
       :project_profile_id,
       :project_status,
+      :resource_tags,
       :user_parameters)
       SENSITIVE = [:description, :name]
       include Aws::Structure
@@ -4684,6 +4694,10 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # @!attribute [rw] allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] description
     #   A description of a project profile.
     #   @return [String]
@@ -4704,6 +4718,15 @@ module Aws::DataZone
     #   Project profile name.
     #   @return [String]
     #
+    # @!attribute [rw] project_resource_tags
+    #   The resource tags of the project profile.
+    #   @return [Array<Types::ResourceTagParameter>]
+    #
+    # @!attribute [rw] project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   Project profile status.
     #   @return [String]
@@ -4711,16 +4734,23 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/CreateProjectProfileInput AWS API Documentation
     #
     class CreateProjectProfileInput < Struct.new(
+      :allow_custom_project_resource_tags,
       :description,
       :domain_identifier,
       :domain_unit_identifier,
       :environment_configurations,
       :name,
+      :project_resource_tags,
+      :project_resource_tags_description,
       :status)
-      SENSITIVE = [:description, :name]
+      SENSITIVE = [:description, :name, :project_resource_tags_description]
       include Aws::Structure
     end
 
+    # @!attribute [rw] allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] created_at
     #   A timestamp at which a project profile is created.
     #   @return [Time]
@@ -4757,6 +4787,15 @@ module Aws::DataZone
     #   Project profile name.
     #   @return [String]
     #
+    # @!attribute [rw] project_resource_tags
+    #   The resource tags of the project profile.
+    #   @return [Array<Types::ResourceTagParameter>]
+    #
+    # @!attribute [rw] project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   Project profile status.
     #   @return [String]
@@ -4764,6 +4803,7 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/CreateProjectProfileOutput AWS API Documentation
     #
     class CreateProjectProfileOutput < Struct.new(
+      :allow_custom_project_resource_tags,
       :created_at,
       :created_by,
       :description,
@@ -4773,8 +4813,10 @@ module Aws::DataZone
       :id,
       :last_updated_at,
       :name,
+      :project_resource_tags,
+      :project_resource_tags_description,
       :status)
-      SENSITIVE = [:description, :name]
+      SENSITIVE = [:description, :name, :project_resource_tags_description]
       include Aws::Structure
     end
 
@@ -10304,6 +10346,10 @@ module Aws::DataZone
     #   The status of the project.
     #   @return [String]
     #
+    # @!attribute [rw] resource_tags
+    #   The resource tags of the project.
+    #   @return [Array<Types::ResourceTag>]
+    #
     # @!attribute [rw] user_parameters
     #   The user parameters of a project.
     #   @return [Array<Types::EnvironmentConfigurationUserParameter>]
@@ -10324,6 +10370,7 @@ module Aws::DataZone
       :name,
       :project_profile_id,
       :project_status,
+      :resource_tags,
       :user_parameters)
       SENSITIVE = [:description, :name]
       include Aws::Structure
@@ -10346,6 +10393,10 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # @!attribute [rw] allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] created_at
     #   The timestamp of when the project profile was created.
     #   @return [Time]
@@ -10382,6 +10433,15 @@ module Aws::DataZone
     #   The name of the project profile.
     #   @return [String]
     #
+    # @!attribute [rw] project_resource_tags
+    #   The resource tags of the project profile.
+    #   @return [Array<Types::ResourceTagParameter>]
+    #
+    # @!attribute [rw] project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   The status of the project profile.
     #   @return [String]
@@ -10389,6 +10449,7 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/GetProjectProfileOutput AWS API Documentation
     #
     class GetProjectProfileOutput < Struct.new(
+      :allow_custom_project_resource_tags,
       :created_at,
       :created_by,
       :description,
@@ -10398,8 +10459,10 @@ module Aws::DataZone
       :id,
       :last_updated_at,
       :name,
+      :project_resource_tags,
+      :project_resource_tags_description,
       :status)
-      SENSITIVE = [:description, :name]
+      SENSITIVE = [:description, :name, :project_resource_tags_description]
       include Aws::Structure
     end
 
@@ -17113,6 +17176,55 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # The resource tag of the project.
+    #
+    # @!attribute [rw] key
+    #   The key of the resource tag of the project.
+    #   @return [String]
+    #
+    # @!attribute [rw] source
+    #   The source of the resource tag of the project.
+    #   @return [String]
+    #
+    # @!attribute [rw] value
+    #   The value of the resource tag of the project.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/ResourceTag AWS API Documentation
+    #
+    class ResourceTag < Struct.new(
+      :key,
+      :source,
+      :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The resource tag parameter of the project profile.
+    #
+    # @!attribute [rw] is_value_editable
+    #   Specifies whether the value of the resource tag parameter of the
+    #   project profile is editable at the project level.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] key
+    #   The key of the resource tag parameter of the project profile.
+    #   @return [String]
+    #
+    # @!attribute [rw] value
+    #   The value of the resource tag parameter key of the project profile.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/ResourceTagParameter AWS API Documentation
+    #
+    class ResourceTagParameter < Struct.new(
+      :is_value_editable,
+      :key,
+      :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] domain_identifier
     #   The identifier of the Amazon DataZone domain where you want to
     #   revoke a subscription.
@@ -21093,6 +21205,10 @@ module Aws::DataZone
     #   `latest`.
     #   @return [String]
     #
+    # @!attribute [rw] resource_tags
+    #   The resource tags of the project.
+    #   @return [Hash<String,String>]
+    #
     # @!attribute [rw] user_parameters
     #   The user parameters of the project.
     #   @return [Array<Types::EnvironmentConfigurationUserParameter>]
@@ -21108,6 +21224,7 @@ module Aws::DataZone
       :identifier,
       :name,
       :project_profile_version,
+      :resource_tags,
       :user_parameters)
       SENSITIVE = [:description, :name]
       include Aws::Structure
@@ -21167,6 +21284,10 @@ module Aws::DataZone
     #   The status of the project.
     #   @return [String]
     #
+    # @!attribute [rw] resource_tags
+    #   The resource tags of the project.
+    #   @return [Array<Types::ResourceTag>]
+    #
     # @!attribute [rw] user_parameters
     #   The user parameters of the project.
     #   @return [Array<Types::EnvironmentConfigurationUserParameter>]
@@ -21187,11 +21308,16 @@ module Aws::DataZone
       :name,
       :project_profile_id,
       :project_status,
+      :resource_tags,
       :user_parameters)
       SENSITIVE = [:description, :name]
       include Aws::Structure
     end
 
+    # @!attribute [rw] allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] description
     #   The description of a project profile.
     #   @return [String]
@@ -21216,6 +21342,15 @@ module Aws::DataZone
     #   The name of a project profile.
     #   @return [String]
     #
+    # @!attribute [rw] project_resource_tags
+    #   The resource tags of the project profile.
+    #   @return [Array<Types::ResourceTagParameter>]
+    #
+    # @!attribute [rw] project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   The status of a project profile.
     #   @return [String]
@@ -21223,17 +21358,24 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/UpdateProjectProfileInput AWS API Documentation
     #
     class UpdateProjectProfileInput < Struct.new(
+      :allow_custom_project_resource_tags,
       :description,
       :domain_identifier,
       :domain_unit_identifier,
       :environment_configurations,
       :identifier,
       :name,
+      :project_resource_tags,
+      :project_resource_tags_description,
       :status)
-      SENSITIVE = [:description, :name]
+      SENSITIVE = [:description, :name, :project_resource_tags_description]
       include Aws::Structure
     end
 
+    # @!attribute [rw] allow_custom_project_resource_tags
+    #   Specifies whether custom project resource tags are supported.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] created_at
     #   The timestamp at which a project profile is created.
     #   @return [Time]
@@ -21270,6 +21412,15 @@ module Aws::DataZone
     #   The name of the project profile.
     #   @return [String]
     #
+    # @!attribute [rw] project_resource_tags
+    #   The resource tags of the project profile.
+    #   @return [Array<Types::ResourceTagParameter>]
+    #
+    # @!attribute [rw] project_resource_tags_description
+    #   Field viewable through the UI that provides a project user with the
+    #   allowed resource tag specifications.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   The status of the project profile.
     #   @return [String]
@@ -21277,6 +21428,7 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/UpdateProjectProfileOutput AWS API Documentation
     #
     class UpdateProjectProfileOutput < Struct.new(
+      :allow_custom_project_resource_tags,
       :created_at,
       :created_by,
       :description,
@@ -21286,8 +21438,10 @@ module Aws::DataZone
       :id,
       :last_updated_at,
       :name,
+      :project_resource_tags,
+      :project_resource_tags_description,
       :status)
-      SENSITIVE = [:description, :name]
+      SENSITIVE = [:description, :name, :project_resource_tags_description]
       include Aws::Structure
     end
 

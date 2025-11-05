@@ -910,6 +910,9 @@ module Aws::SageMaker
       attr_accessor scheduled_update_config: Types::ScheduledUpdateConfig
       attr_accessor current_image_id: ::String
       attr_accessor desired_image_id: ::String
+      attr_accessor target_state_count: ::Integer
+      attr_accessor software_update_status: ("Pending" | "InProgress" | "Succeeded" | "Failed" | "RollbackInProgress" | "RollbackComplete")
+      attr_accessor active_software_update_config: Types::DeploymentConfiguration
       SENSITIVE: []
     end
 

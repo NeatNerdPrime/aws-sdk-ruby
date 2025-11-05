@@ -695,6 +695,58 @@ module Aws::GroundStation
     #           agent_status: "SUCCESS", # accepts SUCCESS, FAILED, ACTIVE, INACTIVE
     #           audit_results: "HEALTHY", # accepts HEALTHY, UNHEALTHY
     #         },
+    #         uplink_aws_ground_station_agent_endpoint: {
+    #           name: "SafeName", # required
+    #           dataflow_details: { # required
+    #             agent_connection_details: {
+    #               ingress_address_and_port: { # required
+    #                 socket_address: { # required
+    #                   name: "String", # required
+    #                   port: 1, # required
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #               agent_ip_and_port_address: { # required
+    #                 socket_address: { # required
+    #                   name: "IpV4Address", # required
+    #                   port_range: { # required
+    #                     minimum: 1, # required
+    #                     maximum: 1, # required
+    #                   },
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #             },
+    #           },
+    #           agent_status: "SUCCESS", # accepts SUCCESS, FAILED, ACTIVE, INACTIVE
+    #           audit_results: "HEALTHY", # accepts HEALTHY, UNHEALTHY
+    #         },
+    #         downlink_aws_ground_station_agent_endpoint: {
+    #           name: "SafeName", # required
+    #           dataflow_details: { # required
+    #             agent_connection_details: {
+    #               agent_ip_and_port_address: { # required
+    #                 socket_address: { # required
+    #                   name: "IpV4Address", # required
+    #                   port_range: { # required
+    #                     minimum: 1, # required
+    #                     maximum: 1, # required
+    #                   },
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #               egress_address_and_port: { # required
+    #                 socket_address: { # required
+    #                   name: "String", # required
+    #                   port: 1, # required
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #             },
+    #           },
+    #           agent_status: "SUCCESS", # accepts SUCCESS, FAILED, ACTIVE, INACTIVE
+    #           audit_results: "HEALTHY", # accepts HEALTHY, UNHEALTHY
+    #         },
     #         health_status: "HEALTHY", # accepts HEALTHY, UNHEALTHY
     #         health_reasons: ["NO_REGISTERED_AGENT"], # accepts NO_REGISTERED_AGENT, INVALID_IP_OWNERSHIP, NOT_AUTHORIZED_TO_CREATE_SLR, UNVERIFIED_IP_OWNERSHIP, INITIALIZING_DATAPLANE, DATAPLANE_FAILURE, HEALTHY
     #       },
@@ -716,6 +768,114 @@ module Aws::GroundStation
     # @param [Hash] params ({})
     def create_dataflow_endpoint_group(params = {}, options = {})
       req = build_request(:create_dataflow_endpoint_group, params)
+      req.send_request(options)
+    end
+
+    # Creates a `DataflowEndpointGroupV2` containing the specified list of
+    # `DataflowEndpoint` objects.
+    #
+    # The `name` field in each endpoint is used in your mission profile
+    # `DataflowEndpointConfig` to specify which endpoints to use during a
+    # contact.
+    #
+    # When a contact uses multiple `DataflowEndpointConfig` objects, each
+    # `Config` must match a `DataflowEndpoint` in the same group.
+    #
+    # @option params [required, Array<Types::CreateEndpointDetails>] :endpoints
+    #   Dataflow endpoint group's endpoint definitions
+    #
+    # @option params [Integer] :contact_pre_pass_duration_seconds
+    #   Amount of time, in seconds, before a contact starts that the Ground
+    #   Station Dataflow Endpoint Group will be in a `PREPASS` state. A Ground
+    #   Station Dataflow Endpoint Group State Change event will be emitted
+    #   when the Dataflow Endpoint Group enters and exits the `PREPASS` state.
+    #
+    # @option params [Integer] :contact_post_pass_duration_seconds
+    #   Amount of time, in seconds, after a contact ends that the Ground
+    #   Station Dataflow Endpoint Group will be in a `POSTPASS` state. A
+    #   Ground Station Dataflow Endpoint Group State Change event will be
+    #   emitted when the Dataflow Endpoint Group enters and exits the
+    #   `POSTPASS` state.
+    #
+    # @option params [Hash<String,String>] :tags
+    #   Tags of a V2 dataflow endpoint group.
+    #
+    # @return [Types::CreateDataflowEndpointGroupV2Response] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateDataflowEndpointGroupV2Response#dataflow_endpoint_group_id #dataflow_endpoint_group_id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_dataflow_endpoint_group_v2({
+    #     endpoints: [ # required
+    #       {
+    #         uplink_aws_ground_station_agent_endpoint: {
+    #           name: "SafeName", # required
+    #           dataflow_details: { # required
+    #             agent_connection_details: {
+    #               ingress_address_and_port: { # required
+    #                 socket_address: { # required
+    #                   name: "String", # required
+    #                   port: 1, # required
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #               agent_ip_and_port_address: { # required
+    #                 socket_address: { # required
+    #                   name: "IpV4Address", # required
+    #                   port_range: { # required
+    #                     minimum: 1, # required
+    #                     maximum: 1, # required
+    #                   },
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #             },
+    #           },
+    #         },
+    #         downlink_aws_ground_station_agent_endpoint: {
+    #           name: "SafeName", # required
+    #           dataflow_details: { # required
+    #             agent_connection_details: {
+    #               agent_ip_and_port_address: { # required
+    #                 socket_address: { # required
+    #                   name: "IpV4Address", # required
+    #                   port_range: { # required
+    #                     minimum: 1, # required
+    #                     maximum: 1, # required
+    #                   },
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #               egress_address_and_port: { # required
+    #                 socket_address: { # required
+    #                   name: "String", # required
+    #                   port: 1, # required
+    #                 },
+    #                 mtu: 1,
+    #               },
+    #             },
+    #           },
+    #         },
+    #       },
+    #     ],
+    #     contact_pre_pass_duration_seconds: 1,
+    #     contact_post_pass_duration_seconds: 1,
+    #     tags: {
+    #       "String" => "String",
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.dataflow_endpoint_group_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/CreateDataflowEndpointGroupV2 AWS API Documentation
+    #
+    # @overload create_dataflow_endpoint_group_v2(params = {})
+    # @param [Hash] params ({})
+    def create_dataflow_endpoint_group_v2(params = {}, options = {})
+      req = build_request(:create_dataflow_endpoint_group_v2, params)
       req.send_request(options)
     end
 
@@ -1108,6 +1268,26 @@ module Aws::GroundStation
     #   resp.dataflow_list[0].source.config_details.endpoint_details.aws_ground_station_agent_endpoint.ingress_address.mtu #=> Integer
     #   resp.dataflow_list[0].source.config_details.endpoint_details.aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
     #   resp.dataflow_list[0].source.config_details.endpoint_details.aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.port #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.mtu #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.name #=> String
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.port #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.mtu #=> Integer
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.dataflow_list[0].source.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.dataflow_list[0].source.config_details.endpoint_details.health_status #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.dataflow_list[0].source.config_details.endpoint_details.health_reasons #=> Array
     #   resp.dataflow_list[0].source.config_details.endpoint_details.health_reasons[0] #=> String, one of "NO_REGISTERED_AGENT", "INVALID_IP_OWNERSHIP", "NOT_AUTHORIZED_TO_CREATE_SLR", "UNVERIFIED_IP_OWNERSHIP", "INITIALIZING_DATAPLANE", "DATAPLANE_FAILURE", "HEALTHY"
@@ -1137,6 +1317,26 @@ module Aws::GroundStation
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.aws_ground_station_agent_endpoint.ingress_address.mtu #=> Integer
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.port #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.mtu #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.uplink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.name #=> String
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.port #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.mtu #=> Integer
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.dataflow_list[0].destination.config_details.endpoint_details.downlink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.health_status #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.health_reasons #=> Array
     #   resp.dataflow_list[0].destination.config_details.endpoint_details.health_reasons[0] #=> String, one of "NO_REGISTERED_AGENT", "INVALID_IP_OWNERSHIP", "NOT_AUTHORIZED_TO_CREATE_SLR", "UNVERIFIED_IP_OWNERSHIP", "INITIALIZING_DATAPLANE", "DATAPLANE_FAILURE", "HEALTHY"
@@ -1262,6 +1462,47 @@ module Aws::GroundStation
       req.send_request(options)
     end
 
+    # <note markdown="1"> For use by AWS Ground Station Agent and shouldn't
+    # be called directly.
+    #
+    #  </note>
+    #
+    #  Gets a presigned URL for uploading agent task response logs.
+    #
+    # @option params [required, String] :agent_id
+    #   UUID of agent requesting the response URL.
+    #
+    # @option params [required, String] :task_id
+    #   GUID of the agent task for which the response URL is being requested.
+    #
+    # @return [Types::GetAgentTaskResponseUrlResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetAgentTaskResponseUrlResponse#agent_id #agent_id} => String
+    #   * {Types::GetAgentTaskResponseUrlResponse#task_id #task_id} => String
+    #   * {Types::GetAgentTaskResponseUrlResponse#presigned_log_url #presigned_log_url} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_agent_task_response_url({
+    #     agent_id: "Uuid", # required
+    #     task_id: "Uuid", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.agent_id #=> String
+    #   resp.task_id #=> String
+    #   resp.presigned_log_url #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/groundstation-2019-05-23/GetAgentTaskResponseUrl AWS API Documentation
+    #
+    # @overload get_agent_task_response_url(params = {})
+    # @param [Hash] params ({})
+    def get_agent_task_response_url(params = {}, options = {})
+      req = build_request(:get_agent_task_response_url, params)
+      req.send_request(options)
+    end
+
     # Returns `Config` information.
     #
     # Only one `Config` response can be returned.
@@ -1377,6 +1618,26 @@ module Aws::GroundStation
     #   resp.endpoints_details[0].aws_ground_station_agent_endpoint.ingress_address.mtu #=> Integer
     #   resp.endpoints_details[0].aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
     #   resp.endpoints_details[0].aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.name #=> String
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.socket_address.port #=> Integer
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.ingress_address_and_port.mtu #=> Integer
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.endpoints_details[0].uplink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.name #=> String
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.name #=> String
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.minimum #=> Integer
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.socket_address.port_range.maximum #=> Integer
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.agent_ip_and_port_address.mtu #=> Integer
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.name #=> String
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.socket_address.port #=> Integer
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.dataflow_details.agent_connection_details.egress_address_and_port.mtu #=> Integer
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.agent_status #=> String, one of "SUCCESS", "FAILED", "ACTIVE", "INACTIVE"
+    #   resp.endpoints_details[0].downlink_aws_ground_station_agent_endpoint.audit_results #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.endpoints_details[0].health_status #=> String, one of "HEALTHY", "UNHEALTHY"
     #   resp.endpoints_details[0].health_reasons #=> Array
     #   resp.endpoints_details[0].health_reasons[0] #=> String, one of "NO_REGISTERED_AGENT", "INVALID_IP_OWNERSHIP", "NOT_AUTHORIZED_TO_CREATE_SLR", "UNVERIFIED_IP_OWNERSHIP", "INITIALIZING_DATAPLANE", "DATAPLANE_FAILURE", "HEALTHY"
@@ -2412,7 +2673,7 @@ module Aws::GroundStation
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-groundstation'
-      context[:gem_version] = '1.74.0'
+      context[:gem_version] = '1.75.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

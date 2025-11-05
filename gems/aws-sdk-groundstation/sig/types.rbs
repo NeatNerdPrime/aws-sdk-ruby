@@ -229,6 +229,33 @@ module Aws::GroundStation
       SENSITIVE: []
     end
 
+    class CreateDataflowEndpointGroupV2Request
+      attr_accessor endpoints: ::Array[Types::CreateEndpointDetails]
+      attr_accessor contact_pre_pass_duration_seconds: ::Integer
+      attr_accessor contact_post_pass_duration_seconds: ::Integer
+      attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class CreateDataflowEndpointGroupV2Response
+      attr_accessor dataflow_endpoint_group_id: ::String
+      SENSITIVE: []
+    end
+
+    class CreateEndpointDetails
+      attr_accessor uplink_aws_ground_station_agent_endpoint: Types::UplinkAwsGroundStationAgentEndpoint
+      attr_accessor downlink_aws_ground_station_agent_endpoint: Types::DownlinkAwsGroundStationAgentEndpoint
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class UplinkAwsGroundStationAgentEndpoint < CreateEndpointDetails
+      end
+      class DownlinkAwsGroundStationAgentEndpoint < CreateEndpointDetails
+      end
+      class Unknown < CreateEndpointDetails
+      end
+    end
+
     class CreateEphemerisRequest
       attr_accessor satellite_id: ::String
       attr_accessor enabled: bool
@@ -385,6 +412,37 @@ module Aws::GroundStation
       SENSITIVE: []
     end
 
+    class DownlinkAwsGroundStationAgentEndpoint
+      attr_accessor name: ::String
+      attr_accessor dataflow_details: Types::DownlinkDataflowDetails
+      SENSITIVE: []
+    end
+
+    class DownlinkAwsGroundStationAgentEndpointDetails
+      attr_accessor name: ::String
+      attr_accessor dataflow_details: Types::DownlinkDataflowDetails
+      attr_accessor agent_status: ("SUCCESS" | "FAILED" | "ACTIVE" | "INACTIVE")
+      attr_accessor audit_results: ("HEALTHY" | "UNHEALTHY")
+      SENSITIVE: []
+    end
+
+    class DownlinkConnectionDetails
+      attr_accessor agent_ip_and_port_address: Types::RangedConnectionDetails
+      attr_accessor egress_address_and_port: Types::ConnectionDetails
+      SENSITIVE: []
+    end
+
+    class DownlinkDataflowDetails
+      attr_accessor agent_connection_details: Types::DownlinkConnectionDetails
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class AgentConnectionDetails < DownlinkDataflowDetails
+      end
+      class Unknown < DownlinkDataflowDetails
+      end
+    end
+
     class Eirp
       attr_accessor value: ::Float
       attr_accessor units: ("dBW")
@@ -401,6 +459,8 @@ module Aws::GroundStation
       attr_accessor security_details: Types::SecurityDetails
       attr_accessor endpoint: Types::DataflowEndpoint
       attr_accessor aws_ground_station_agent_endpoint: Types::AwsGroundStationAgentEndpoint
+      attr_accessor uplink_aws_ground_station_agent_endpoint: Types::UplinkAwsGroundStationAgentEndpointDetails
+      attr_accessor downlink_aws_ground_station_agent_endpoint: Types::DownlinkAwsGroundStationAgentEndpointDetails
       attr_accessor health_status: ("HEALTHY" | "UNHEALTHY")
       attr_accessor health_reasons: ::Array[("NO_REGISTERED_AGENT" | "INVALID_IP_OWNERSHIP" | "NOT_AUTHORIZED_TO_CREATE_SLR" | "UNVERIFIED_IP_OWNERSHIP" | "INITIALIZING_DATAPLANE" | "DATAPLANE_FAILURE" | "HEALTHY")]
       SENSITIVE: []
@@ -514,6 +574,19 @@ module Aws::GroundStation
     class GetAgentConfigurationResponse
       attr_accessor agent_id: ::String
       attr_accessor tasking_document: ::String
+      SENSITIVE: []
+    end
+
+    class GetAgentTaskResponseUrlRequest
+      attr_accessor agent_id: ::String
+      attr_accessor task_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetAgentTaskResponseUrlResponse
+      attr_accessor agent_id: ::String
+      attr_accessor task_id: ::String
+      attr_accessor presigned_log_url: ::String
       SENSITIVE: []
     end
 
@@ -864,6 +937,12 @@ module Aws::GroundStation
       SENSITIVE: []
     end
 
+    class ServiceQuotaExceededException
+      attr_accessor message: ::String
+      attr_accessor parameter_name: ::String
+      SENSITIVE: []
+    end
+
     class SocketAddress
       attr_accessor name: ::String
       attr_accessor port: ::Integer
@@ -979,6 +1058,37 @@ module Aws::GroundStation
       attr_accessor streams_kms_key: Types::KmsKey
       attr_accessor streams_kms_role: ::String
       SENSITIVE: []
+    end
+
+    class UplinkAwsGroundStationAgentEndpoint
+      attr_accessor name: ::String
+      attr_accessor dataflow_details: Types::UplinkDataflowDetails
+      SENSITIVE: []
+    end
+
+    class UplinkAwsGroundStationAgentEndpointDetails
+      attr_accessor name: ::String
+      attr_accessor dataflow_details: Types::UplinkDataflowDetails
+      attr_accessor agent_status: ("SUCCESS" | "FAILED" | "ACTIVE" | "INACTIVE")
+      attr_accessor audit_results: ("HEALTHY" | "UNHEALTHY")
+      SENSITIVE: []
+    end
+
+    class UplinkConnectionDetails
+      attr_accessor ingress_address_and_port: Types::ConnectionDetails
+      attr_accessor agent_ip_and_port_address: Types::RangedConnectionDetails
+      SENSITIVE: []
+    end
+
+    class UplinkDataflowDetails
+      attr_accessor agent_connection_details: Types::UplinkConnectionDetails
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class AgentConnectionDetails < UplinkDataflowDetails
+      end
+      class Unknown < UplinkDataflowDetails
+      end
     end
 
     class UplinkEchoConfig

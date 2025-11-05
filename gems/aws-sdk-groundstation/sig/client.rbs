@@ -209,6 +209,58 @@ module Aws
                                                   agent_status: ("SUCCESS" | "FAILED" | "ACTIVE" | "INACTIVE")?,
                                                   audit_results: ("HEALTHY" | "UNHEALTHY")?
                                                 }?,
+                                                uplink_aws_ground_station_agent_endpoint: {
+                                                  name: ::String,
+                                                  dataflow_details: {
+                                                    agent_connection_details: {
+                                                      ingress_address_and_port: {
+                                                        socket_address: {
+                                                          name: ::String,
+                                                          port: ::Integer
+                                                        },
+                                                        mtu: ::Integer?
+                                                      },
+                                                      agent_ip_and_port_address: {
+                                                        socket_address: {
+                                                          name: ::String,
+                                                          port_range: {
+                                                            minimum: ::Integer,
+                                                            maximum: ::Integer
+                                                          }
+                                                        },
+                                                        mtu: ::Integer?
+                                                      }
+                                                    }?
+                                                  },
+                                                  agent_status: ("SUCCESS" | "FAILED" | "ACTIVE" | "INACTIVE")?,
+                                                  audit_results: ("HEALTHY" | "UNHEALTHY")?
+                                                }?,
+                                                downlink_aws_ground_station_agent_endpoint: {
+                                                  name: ::String,
+                                                  dataflow_details: {
+                                                    agent_connection_details: {
+                                                      agent_ip_and_port_address: {
+                                                        socket_address: {
+                                                          name: ::String,
+                                                          port_range: {
+                                                            minimum: ::Integer,
+                                                            maximum: ::Integer
+                                                          }
+                                                        },
+                                                        mtu: ::Integer?
+                                                      },
+                                                      egress_address_and_port: {
+                                                        socket_address: {
+                                                          name: ::String,
+                                                          port: ::Integer
+                                                        },
+                                                        mtu: ::Integer?
+                                                      }
+                                                    }?
+                                                  },
+                                                  agent_status: ("SUCCESS" | "FAILED" | "ACTIVE" | "INACTIVE")?,
+                                                  audit_results: ("HEALTHY" | "UNHEALTHY")?
+                                                }?,
                                                 health_status: ("HEALTHY" | "UNHEALTHY")?,
                                                 health_reasons: Array[("NO_REGISTERED_AGENT" | "INVALID_IP_OWNERSHIP" | "NOT_AUTHORIZED_TO_CREATE_SLR" | "UNVERIFIED_IP_OWNERSHIP" | "INITIALIZING_DATAPLANE" | "DATAPLANE_FAILURE" | "HEALTHY")]?
                                               },
@@ -218,6 +270,70 @@ module Aws
                                             ?contact_post_pass_duration_seconds: ::Integer
                                           ) -> _CreateDataflowEndpointGroupResponseSuccess
                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateDataflowEndpointGroupResponseSuccess
+
+      interface _CreateDataflowEndpointGroupV2ResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateDataflowEndpointGroupV2Response]
+        def dataflow_endpoint_group_id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/GroundStation/Client.html#create_dataflow_endpoint_group_v2-instance_method
+      def create_dataflow_endpoint_group_v2: (
+                                               endpoints: Array[
+                                                 {
+                                                   uplink_aws_ground_station_agent_endpoint: {
+                                                     name: ::String,
+                                                     dataflow_details: {
+                                                       agent_connection_details: {
+                                                         ingress_address_and_port: {
+                                                           socket_address: {
+                                                             name: ::String,
+                                                             port: ::Integer
+                                                           },
+                                                           mtu: ::Integer?
+                                                         },
+                                                         agent_ip_and_port_address: {
+                                                           socket_address: {
+                                                             name: ::String,
+                                                             port_range: {
+                                                               minimum: ::Integer,
+                                                               maximum: ::Integer
+                                                             }
+                                                           },
+                                                           mtu: ::Integer?
+                                                         }
+                                                       }?
+                                                     }
+                                                   }?,
+                                                   downlink_aws_ground_station_agent_endpoint: {
+                                                     name: ::String,
+                                                     dataflow_details: {
+                                                       agent_connection_details: {
+                                                         agent_ip_and_port_address: {
+                                                           socket_address: {
+                                                             name: ::String,
+                                                             port_range: {
+                                                               minimum: ::Integer,
+                                                               maximum: ::Integer
+                                                             }
+                                                           },
+                                                           mtu: ::Integer?
+                                                         },
+                                                         egress_address_and_port: {
+                                                           socket_address: {
+                                                             name: ::String,
+                                                             port: ::Integer
+                                                           },
+                                                           mtu: ::Integer?
+                                                         }
+                                                       }?
+                                                     }
+                                                   }?
+                                                 },
+                                               ],
+                                               ?contact_pre_pass_duration_seconds: ::Integer,
+                                               ?contact_post_pass_duration_seconds: ::Integer,
+                                               ?tags: Hash[::String, ::String]
+                                             ) -> _CreateDataflowEndpointGroupV2ResponseSuccess
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateDataflowEndpointGroupV2ResponseSuccess
 
       interface _CreateEphemerisResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::EphemerisIdResponse]
@@ -415,6 +531,19 @@ module Aws
                                      agent_id: ::String
                                    ) -> _GetAgentConfigurationResponseSuccess
                                  | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAgentConfigurationResponseSuccess
+
+      interface _GetAgentTaskResponseUrlResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetAgentTaskResponseUrlResponse]
+        def agent_id: () -> ::String
+        def task_id: () -> ::String
+        def presigned_log_url: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/GroundStation/Client.html#get_agent_task_response_url-instance_method
+      def get_agent_task_response_url: (
+                                         agent_id: ::String,
+                                         task_id: ::String
+                                       ) -> _GetAgentTaskResponseUrlResponseSuccess
+                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetAgentTaskResponseUrlResponseSuccess
 
       interface _GetConfigResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetConfigResponse]
