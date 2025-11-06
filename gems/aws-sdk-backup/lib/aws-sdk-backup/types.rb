@@ -1129,6 +1129,12 @@ module Aws::Backup
     #   represents Friday, January 26, 2018 12:11:30.087 AM.
     #   @return [Time]
     #
+    # @!attribute [rw] encryption_key_type
+    #   The type of encryption key used for the backup vault. Valid values
+    #   are CUSTOMER\_MANAGED\_KMS\_KEY for customer-managed keys or Amazon
+    #   Web Services\_OWNED\_KMS\_KEY for Amazon Web Services-owned keys.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/BackupVaultListMember AWS API Documentation
     #
     class BackupVaultListMember < Struct.new(
@@ -1143,7 +1149,8 @@ module Aws::Backup
       :locked,
       :min_retention_days,
       :max_retention_days,
-      :lock_date)
+      :lock_date,
+      :encryption_key_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2109,6 +2116,13 @@ module Aws::Backup
     #   points.
     #   @return [Integer]
     #
+    # @!attribute [rw] encryption_key_arn
+    #   The ARN of the customer-managed KMS key to use for encrypting the
+    #   logically air-gapped backup vault. If not specified, the vault will
+    #   be encrypted with an Amazon Web Services-owned key managed by Amazon
+    #   Web Services Backup.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateLogicallyAirGappedBackupVaultInput AWS API Documentation
     #
     class CreateLogicallyAirGappedBackupVaultInput < Struct.new(
@@ -2116,7 +2130,8 @@ module Aws::Backup
       :backup_vault_tags,
       :creator_request_id,
       :min_retention_days,
-      :max_retention_days)
+      :max_retention_days,
+      :encryption_key_arn)
       SENSITIVE = [:backup_vault_tags]
       include Aws::Structure
     end
@@ -2423,6 +2438,9 @@ module Aws::Backup
     # @!attribute [rw] restore_testing_selection_name
     #   The name of the restore testing selection for the related restore
     #   testing plan.
+    #
+    #   The name cannot be changed after creation. The name consists of only
+    #   alphanumeric characters and underscores. Maximum length is 50.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateRestoreTestingSelectionOutput AWS API Documentation
@@ -3117,6 +3135,12 @@ module Aws::Backup
     #   association for this backup vault.
     #   @return [Types::LatestMpaApprovalTeamUpdate]
     #
+    # @!attribute [rw] encryption_key_type
+    #   The type of encryption key used for the backup vault. Valid values
+    #   are CUSTOMER\_MANAGED\_KMS\_KEY for customer-managed keys or Amazon
+    #   Web Services\_OWNED\_KMS\_KEY for Amazon Web Services-owned keys.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeBackupVaultOutput AWS API Documentation
     #
     class DescribeBackupVaultOutput < Struct.new(
@@ -3135,7 +3159,8 @@ module Aws::Backup
       :source_backup_vault_arn,
       :mpa_approval_team_arn,
       :mpa_session_arn,
-      :latest_mpa_approval_team_update)
+      :latest_mpa_approval_team_update,
+      :encryption_key_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3597,6 +3622,12 @@ module Aws::Backup
     #   a backup index associated with the recovery point.
     #   @return [String]
     #
+    # @!attribute [rw] encryption_key_type
+    #   The type of encryption key used for the recovery point. Valid values
+    #   are CUSTOMER\_MANAGED\_KMS\_KEY for customer-managed keys or Amazon
+    #   Web Services\_OWNED\_KMS\_KEY for Amazon Web Services-owned keys.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRecoveryPointOutput AWS API Documentation
     #
     class DescribeRecoveryPointOutput < Struct.new(
@@ -3626,7 +3657,8 @@ module Aws::Backup
       :resource_name,
       :vault_type,
       :index_status,
-      :index_status_message)
+      :index_status_message,
+      :encryption_key_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -7472,6 +7504,12 @@ module Aws::Backup
     #   a backup index associated with the recovery point.
     #   @return [String]
     #
+    # @!attribute [rw] encryption_key_type
+    #   The type of encryption key used for the recovery point. Valid values
+    #   are CUSTOMER\_MANAGED\_KMS\_KEY for customer-managed keys or Amazon
+    #   Web Services\_OWNED\_KMS\_KEY for Amazon Web Services-owned keys.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/RecoveryPointByBackupVault AWS API Documentation
     #
     class RecoveryPointByBackupVault < Struct.new(
@@ -7500,7 +7538,8 @@ module Aws::Backup
       :resource_name,
       :vault_type,
       :index_status,
-      :index_status_message)
+      :index_status_message,
+      :encryption_key_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -7579,6 +7618,12 @@ module Aws::Backup
     #   a backup index associated with the recovery point.
     #   @return [String]
     #
+    # @!attribute [rw] encryption_key_type
+    #   The type of encryption key used for the recovery point. Valid values
+    #   are CUSTOMER\_MANAGED\_KMS\_KEY for customer-managed keys or Amazon
+    #   Web Services\_OWNED\_KMS\_KEY for Amazon Web Services-owned keys.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/RecoveryPointByResource AWS API Documentation
     #
     class RecoveryPointByResource < Struct.new(
@@ -7594,7 +7639,8 @@ module Aws::Backup
       :resource_name,
       :vault_type,
       :index_status,
-      :index_status_message)
+      :index_status_message,
+      :encryption_key_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8680,6 +8726,9 @@ module Aws::Backup
     # @!attribute [rw] restore_testing_selection_name
     #   The unique name of the restore testing selection that belongs to the
     #   related restore testing plan.
+    #
+    #   The name consists of only alphanumeric characters and underscores.
+    #   Maximum length is 50.
     #   @return [String]
     #
     # @!attribute [rw] validation_window_hours
@@ -8765,6 +8814,9 @@ module Aws::Backup
     # @!attribute [rw] restore_testing_selection_name
     #   The unique name of the restore testing selection that belongs to the
     #   related restore testing plan.
+    #
+    #   The name consists of only alphanumeric characters and underscores.
+    #   Maximum length is 50.
     #   @return [String]
     #
     # @!attribute [rw] validation_window_hours
@@ -8821,6 +8873,9 @@ module Aws::Backup
     #
     # @!attribute [rw] restore_testing_selection_name
     #   Unique name of a restore testing selection.
+    #
+    #   The name consists of only alphanumeric characters and underscores.
+    #   Maximum length is 50.
     #   @return [String]
     #
     # @!attribute [rw] validation_window_hours

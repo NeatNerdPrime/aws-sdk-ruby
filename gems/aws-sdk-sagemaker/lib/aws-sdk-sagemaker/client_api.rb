@@ -11344,6 +11344,7 @@ module Aws::SageMaker
     UpdateClusterRequest.add_member(:tiered_storage_config, Shapes::ShapeRef.new(shape: ClusterTieredStorageConfig, location_name: "TieredStorageConfig"))
     UpdateClusterRequest.add_member(:node_recovery, Shapes::ShapeRef.new(shape: ClusterNodeRecovery, location_name: "NodeRecovery"))
     UpdateClusterRequest.add_member(:instance_groups_to_delete, Shapes::ShapeRef.new(shape: ClusterInstanceGroupsToDelete, location_name: "InstanceGroupsToDelete"))
+    UpdateClusterRequest.add_member(:node_provisioning_mode, Shapes::ShapeRef.new(shape: ClusterNodeProvisioningMode, location_name: "NodeProvisioningMode"))
     UpdateClusterRequest.add_member(:cluster_role, Shapes::ShapeRef.new(shape: RoleArn, location_name: "ClusterRole"))
     UpdateClusterRequest.add_member(:auto_scaling, Shapes::ShapeRef.new(shape: ClusterAutoScalingConfig, location_name: "AutoScaling"))
     UpdateClusterRequest.struct_class = Types::UpdateClusterRequest
@@ -11422,6 +11423,7 @@ module Aws::SageMaker
     UpdateDomainRequest.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: Subnets, location_name: "SubnetIds"))
     UpdateDomainRequest.add_member(:app_network_access_type, Shapes::ShapeRef.new(shape: AppNetworkAccessType, location_name: "AppNetworkAccessType"))
     UpdateDomainRequest.add_member(:tag_propagation, Shapes::ShapeRef.new(shape: TagPropagation, location_name: "TagPropagation"))
+    UpdateDomainRequest.add_member(:vpc_id, Shapes::ShapeRef.new(shape: VpcId, location_name: "VpcId"))
     UpdateDomainRequest.struct_class = Types::UpdateDomainRequest
 
     UpdateDomainResponse.add_member(:domain_arn, Shapes::ShapeRef.new(shape: DomainArn, location_name: "DomainArn"))

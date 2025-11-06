@@ -80,6 +80,7 @@ module Aws
 
       interface _CreateIndexResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateIndexOutput]
+        def index_arn: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Vectors/Client.html#create_index-instance_method
       def create_index: (
@@ -97,6 +98,7 @@ module Aws
 
       interface _CreateVectorBucketResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateVectorBucketOutput]
+        def vector_bucket_arn: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Vectors/Client.html#create_vector_bucket-instance_method
       def create_vector_bucket: (
@@ -282,6 +284,7 @@ module Aws
       interface _QueryVectorsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::QueryVectorsOutput]
         def vectors: () -> ::Array[Types::QueryOutputVector]
+        def distance_metric: () -> ("euclidean" | "cosine")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Vectors/Client.html#query_vectors-instance_method
       def query_vectors: (

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.206.0 (2025-11-06)
+------------------
+
+* Feature - Provides NoLongerSupportedException error message
+
 1.205.0 (2025-10-21)
 ------------------
 

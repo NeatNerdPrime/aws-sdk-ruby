@@ -50824,6 +50824,15 @@ module Aws::SageMaker
     #   as the separator between multiple names.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] node_provisioning_mode
+    #   Determines how instance provisioning is handled during cluster
+    #   operations. In `Continuous` mode, the cluster provisions available
+    #   instances incrementally and retries until the target count is
+    #   reached. The cluster becomes operational once cluster-level
+    #   resources are ready. Use `CurrentCount` and `TargetCount` in
+    #   `DescribeCluster` to track provisioning progress.
+    #   @return [String]
+    #
     # @!attribute [rw] cluster_role
     #   The Amazon Resource Name (ARN) of the IAM role that HyperPod assumes
     #   for cluster autoscaling operations. Cannot be updated while
@@ -50844,6 +50853,7 @@ module Aws::SageMaker
       :tiered_storage_config,
       :node_recovery,
       :instance_groups_to_delete,
+      :node_provisioning_mode,
       :cluster_role,
       :auto_scaling)
       SENSITIVE = []
@@ -51231,6 +51241,15 @@ module Aws::SageMaker
     #   domain. Defaults to `DISABLED`.
     #   @return [String]
     #
+    # @!attribute [rw] vpc_id
+    #   The identifier for the VPC used by the domain for network
+    #   communication. Use this field only when adding VPC configuration to
+    #   a SageMaker AI domain used in Amazon SageMaker Unified Studio that
+    #   was created without VPC settings. SageMaker AI doesn't
+    #   automatically apply VPC updates to existing applications. Stop and
+    #   restart your applications to apply the changes.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateDomainRequest AWS API Documentation
     #
     class UpdateDomainRequest < Struct.new(
@@ -51241,7 +51260,8 @@ module Aws::SageMaker
       :default_space_settings,
       :subnet_ids,
       :app_network_access_type,
-      :tag_propagation)
+      :tag_propagation,
+      :vpc_id)
       SENSITIVE = []
       include Aws::Structure
     end

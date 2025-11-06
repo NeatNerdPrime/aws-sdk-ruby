@@ -2502,6 +2502,9 @@ module Aws::Connect
     # @option params [Types::EvaluationFormScoringStrategy] :scoring_strategy
     #   A scoring strategy of the evaluation form.
     #
+    # @option params [Types::EvaluationFormAutoEvaluationConfiguration] :auto_evaluation_configuration
+    #   Configuration information about automated evaluations.
+    #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -2514,6 +2517,11 @@ module Aws::Connect
     #
     #
     #   [1]: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
+    #
+    # @option params [Hash<String,String>] :tags
+    #   The tags used to organize, track, or control access for this resource.
+    #   For example, \{ "Tags": \{"key1":"value1", "key2":"value2"}
+    #   }.
     #
     # @return [Types::CreateEvaluationFormResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2553,11 +2561,17 @@ module Aws::Connect
     #                   max_value: 1, # required
     #                   score: 1,
     #                   automatic_fail: false,
+    #                   automatic_fail_configuration: {
+    #                     target_section: "ReferenceId",
+    #                   },
     #                 },
     #               ],
     #               automation: {
     #                 property_value: {
-    #                   label: "OVERALL_CUSTOMER_SENTIMENT_SCORE", # required, accepts OVERALL_CUSTOMER_SENTIMENT_SCORE, OVERALL_AGENT_SENTIMENT_SCORE, NON_TALK_TIME, NON_TALK_TIME_PERCENTAGE, NUMBER_OF_INTERRUPTIONS, CONTACT_DURATION, AGENT_INTERACTION_DURATION, CUSTOMER_HOLD_TIME
+    #                   label: "OVERALL_CUSTOMER_SENTIMENT_SCORE", # required, accepts OVERALL_CUSTOMER_SENTIMENT_SCORE, OVERALL_AGENT_SENTIMENT_SCORE, NON_TALK_TIME, NON_TALK_TIME_PERCENTAGE, NUMBER_OF_INTERRUPTIONS, CONTACT_DURATION, AGENT_INTERACTION_DURATION, CUSTOMER_HOLD_TIME, LONGEST_HOLD_DURATION, NUMBER_OF_HOLDS, AGENT_INTERACTION_AND_HOLD_DURATION
+    #                 },
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
     #                 },
     #               },
     #             },
@@ -2568,11 +2582,14 @@ module Aws::Connect
     #                   text: "EvaluationFormSingleSelectQuestionOptionText", # required
     #                   score: 1,
     #                   automatic_fail: false,
+    #                   automatic_fail_configuration: {
+    #                     target_section: "ReferenceId",
+    #                   },
     #                 },
     #               ],
     #               display_as: "DROPDOWN", # accepts DROPDOWN, RADIO
     #               automation: {
-    #                 options: [ # required
+    #                 options: [
     #                   {
     #                     rule_category: {
     #                       category: "SingleSelectQuestionRuleCategoryAutomationLabel", # required
@@ -2582,8 +2599,45 @@ module Aws::Connect
     #                   },
     #                 ],
     #                 default_option_ref_id: "ReferenceId",
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
+    #                 },
     #               },
     #             },
+    #             text: {
+    #               automation: {
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
+    #                 },
+    #               },
+    #             },
+    #           },
+    #           enablement: {
+    #             condition: { # required
+    #               operands: [ # required
+    #                 {
+    #                   expression: {
+    #                     source: { # required
+    #                       type: "QUESTION_REF_ID", # required, accepts QUESTION_REF_ID
+    #                       ref_id: "ReferenceId",
+    #                     },
+    #                     values: [ # required
+    #                       {
+    #                         type: "OPTION_REF_ID", # required, accepts OPTION_REF_ID
+    #                         ref_id: "ReferenceId",
+    #                       },
+    #                     ],
+    #                     comparator: "IN", # required, accepts IN, NOT_IN
+    #                   },
+    #                   condition: {
+    #                     # recursive EvaluationFormItemEnablementCondition
+    #                   },
+    #                 },
+    #               ],
+    #               operator: "OR", # accepts OR, AND
+    #             },
+    #             action: "DISABLE", # required, accepts DISABLE, ENABLE
+    #             default_action: "DISABLE", # accepts DISABLE, ENABLE
     #           },
     #           weight: 1.0,
     #         },
@@ -2593,7 +2647,13 @@ module Aws::Connect
     #       mode: "QUESTION_ONLY", # required, accepts QUESTION_ONLY, SECTION_ONLY
     #       status: "ENABLED", # required, accepts ENABLED, DISABLED
     #     },
+    #     auto_evaluation_configuration: {
+    #       enabled: false, # required
+    #     },
     #     client_token: "ClientToken",
+    #     tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #   })
     #
     # @example Response structure
@@ -5605,8 +5665,8 @@ module Aws::Connect
     end
 
     # This API is in preview release for Amazon Connect and is subject to
-    # change. To request access to this API, contact Amazon Web
-    # ServicesSupport.
+    # change. To request access to this API, contact Amazon Web Services
+    # Support.
     #
     # Describes the target authentication profile.
     #
@@ -5933,9 +5993,15 @@ module Aws::Connect
     #   resp.evaluation.metadata.contact_id #=> String
     #   resp.evaluation.metadata.evaluator_arn #=> String
     #   resp.evaluation.metadata.contact_agent_id #=> String
+    #   resp.evaluation.metadata.calibration_session_id #=> String
     #   resp.evaluation.metadata.score.percentage #=> Float
     #   resp.evaluation.metadata.score.not_applicable #=> Boolean
     #   resp.evaluation.metadata.score.automatic_fail #=> Boolean
+    #   resp.evaluation.metadata.auto_evaluation.auto_evaluation_enabled #=> Boolean
+    #   resp.evaluation.metadata.auto_evaluation.auto_evaluation_status #=> String, one of "IN_PROGRESS", "FAILED", "SUCCEEDED"
+    #   resp.evaluation.metadata.acknowledgement.acknowledged_time #=> Time
+    #   resp.evaluation.metadata.acknowledgement.acknowledged_by #=> String
+    #   resp.evaluation.metadata.acknowledgement.acknowledger_comment #=> String
     #   resp.evaluation.answers #=> Hash
     #   resp.evaluation.answers["ResourceId"].value.string_value #=> String
     #   resp.evaluation.answers["ResourceId"].value.numeric_value #=> Float
@@ -5943,6 +6009,23 @@ module Aws::Connect
     #   resp.evaluation.answers["ResourceId"].system_suggested_value.string_value #=> String
     #   resp.evaluation.answers["ResourceId"].system_suggested_value.numeric_value #=> Float
     #   resp.evaluation.answers["ResourceId"].system_suggested_value.not_applicable #=> Boolean
+    #   resp.evaluation.answers["ResourceId"].suggested_answers #=> Array
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].value.string_value #=> String
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].value.numeric_value #=> Float
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].value.not_applicable #=> Boolean
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].status #=> String, one of "IN_PROGRESS", "FAILED", "SUCCEEDED"
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].input.transcript_type #=> String, one of "RAW", "REDACTED"
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.gen_ai.justification #=> String
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.gen_ai.points_of_interest #=> Array
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.gen_ai.points_of_interest[0].millisecond_offsets.begin_offset_millis #=> Integer
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.gen_ai.points_of_interest[0].transcript_segment #=> String
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories #=> Array
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories[0].category #=> String
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories[0].condition #=> String, one of "PRESENT", "NOT_PRESENT"
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories[0].points_of_interest #=> Array
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories[0].points_of_interest[0].millisecond_offsets.begin_offset_millis #=> Integer
+    #   resp.evaluation.answers["ResourceId"].suggested_answers[0].analysis_details.contact_lens.matched_rule_categories[0].points_of_interest[0].transcript_segment #=> String
     #   resp.evaluation.notes #=> Hash
     #   resp.evaluation.notes["ResourceId"].value #=> String
     #   resp.evaluation.status #=> String, one of "DRAFT", "SUBMITTED"
@@ -5952,6 +6035,7 @@ module Aws::Connect
     #   resp.evaluation.scores["ResourceId"].automatic_fail #=> Boolean
     #   resp.evaluation.created_time #=> Time
     #   resp.evaluation.last_modified_time #=> Time
+    #   resp.evaluation.evaluation_type #=> String, one of "STANDARD", "CALIBRATION"
     #   resp.evaluation.tags #=> Hash
     #   resp.evaluation.tags["TagKey"] #=> String
     #   resp.evaluation_form.evaluation_form_version #=> Integer
@@ -5977,21 +6061,38 @@ module Aws::Connect
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].max_value #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].score #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].automatic_fail #=> Boolean
-    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.property_value.label #=> String, one of "OVERALL_CUSTOMER_SENTIMENT_SCORE", "OVERALL_AGENT_SENTIMENT_SCORE", "NON_TALK_TIME", "NON_TALK_TIME_PERCENTAGE", "NUMBER_OF_INTERRUPTIONS", "CONTACT_DURATION", "AGENT_INTERACTION_DURATION", "CUSTOMER_HOLD_TIME"
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].automatic_fail_configuration.target_section #=> String
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.property_value.label #=> String, one of "OVERALL_CUSTOMER_SENTIMENT_SCORE", "OVERALL_AGENT_SENTIMENT_SCORE", "NON_TALK_TIME", "NON_TALK_TIME_PERCENTAGE", "NUMBER_OF_INTERRUPTIONS", "CONTACT_DURATION", "AGENT_INTERACTION_DURATION", "CUSTOMER_HOLD_TIME", "LONGEST_HOLD_DURATION", "NUMBER_OF_HOLDS", "AGENT_INTERACTION_AND_HOLD_DURATION"
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options #=> Array
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].ref_id #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].text #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].score #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].automatic_fail #=> Boolean
+    #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].automatic_fail_configuration.target_section #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.display_as #=> String, one of "DROPDOWN", "RADIO"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options #=> Array
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.category #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.condition #=> String, one of "PRESENT", "NOT_PRESENT"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.option_ref_id #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.default_option_ref_id #=> String
+    #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
+    #   resp.evaluation_form.items[0].question.question_type_properties.text.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands #=> Array
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.source.type #=> String, one of "QUESTION_REF_ID"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.source.ref_id #=> String
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values #=> Array
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values[0].type #=> String, one of "OPTION_REF_ID"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values[0].ref_id #=> String
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.comparator #=> String, one of "IN", "NOT_IN"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].condition #=> Types::EvaluationFormItemEnablementCondition
+    #   resp.evaluation_form.items[0].question.enablement.condition.operator #=> String, one of "OR", "AND"
+    #   resp.evaluation_form.items[0].question.enablement.action #=> String, one of "DISABLE", "ENABLE"
+    #   resp.evaluation_form.items[0].question.enablement.default_action #=> String, one of "DISABLE", "ENABLE"
     #   resp.evaluation_form.items[0].question.weight #=> Float
     #   resp.evaluation_form.scoring_strategy.mode #=> String, one of "QUESTION_ONLY", "SECTION_ONLY"
     #   resp.evaluation_form.scoring_strategy.status #=> String, one of "ENABLED", "DISABLED"
+    #   resp.evaluation_form.auto_evaluation_configuration.enabled #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/DescribeContactEvaluation AWS API Documentation
     #
@@ -6230,18 +6331,34 @@ module Aws::Connect
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].max_value #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].score #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].automatic_fail #=> Boolean
-    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.property_value.label #=> String, one of "OVERALL_CUSTOMER_SENTIMENT_SCORE", "OVERALL_AGENT_SENTIMENT_SCORE", "NON_TALK_TIME", "NON_TALK_TIME_PERCENTAGE", "NUMBER_OF_INTERRUPTIONS", "CONTACT_DURATION", "AGENT_INTERACTION_DURATION", "CUSTOMER_HOLD_TIME"
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.options[0].automatic_fail_configuration.target_section #=> String
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.property_value.label #=> String, one of "OVERALL_CUSTOMER_SENTIMENT_SCORE", "OVERALL_AGENT_SENTIMENT_SCORE", "NON_TALK_TIME", "NON_TALK_TIME_PERCENTAGE", "NUMBER_OF_INTERRUPTIONS", "CONTACT_DURATION", "AGENT_INTERACTION_DURATION", "CUSTOMER_HOLD_TIME", "LONGEST_HOLD_DURATION", "NUMBER_OF_HOLDS", "AGENT_INTERACTION_AND_HOLD_DURATION"
+    #   resp.evaluation_form.items[0].question.question_type_properties.numeric.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options #=> Array
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].ref_id #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].text #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].score #=> Integer
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].automatic_fail #=> Boolean
+    #   resp.evaluation_form.items[0].question.question_type_properties.single_select.options[0].automatic_fail_configuration.target_section #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.display_as #=> String, one of "DROPDOWN", "RADIO"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options #=> Array
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.category #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.condition #=> String, one of "PRESENT", "NOT_PRESENT"
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.options[0].rule_category.option_ref_id #=> String
     #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.default_option_ref_id #=> String
+    #   resp.evaluation_form.items[0].question.question_type_properties.single_select.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
+    #   resp.evaluation_form.items[0].question.question_type_properties.text.automation.answer_source.source_type #=> String, one of "CONTACT_LENS_DATA", "GEN_AI"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands #=> Array
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.source.type #=> String, one of "QUESTION_REF_ID"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.source.ref_id #=> String
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values #=> Array
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values[0].type #=> String, one of "OPTION_REF_ID"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.values[0].ref_id #=> String
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].expression.comparator #=> String, one of "IN", "NOT_IN"
+    #   resp.evaluation_form.items[0].question.enablement.condition.operands[0].condition #=> Types::EvaluationFormItemEnablementCondition
+    #   resp.evaluation_form.items[0].question.enablement.condition.operator #=> String, one of "OR", "AND"
+    #   resp.evaluation_form.items[0].question.enablement.action #=> String, one of "DISABLE", "ENABLE"
+    #   resp.evaluation_form.items[0].question.enablement.default_action #=> String, one of "DISABLE", "ENABLE"
     #   resp.evaluation_form.items[0].question.weight #=> Float
     #   resp.evaluation_form.scoring_strategy.mode #=> String, one of "QUESTION_ONLY", "SECTION_ONLY"
     #   resp.evaluation_form.scoring_strategy.status #=> String, one of "ENABLED", "DISABLED"
@@ -6249,6 +6366,7 @@ module Aws::Connect
     #   resp.evaluation_form.created_by #=> String
     #   resp.evaluation_form.last_modified_time #=> Time
     #   resp.evaluation_form.last_modified_by #=> String
+    #   resp.evaluation_form.auto_evaluation_configuration.enabled #=> Boolean
     #   resp.evaluation_form.tags #=> Hash
     #   resp.evaluation_form.tags["TagKey"] #=> String
     #
@@ -11347,7 +11465,7 @@ module Aws::Connect
     # service level quota of 99 phone numbers, and in any 180 day period you
     # release 99, claim 99, and then release 99, you will have exceeded the
     # 200% limit. At that point you are blocked from claiming any more
-    # numbers until you open an Amazon Web ServicesSupport ticket.
+    # numbers until you open an Amazon Web Services Support ticket.
     #
     #
     #
@@ -11691,8 +11809,8 @@ module Aws::Connect
     end
 
     # This API is in preview release for Amazon Connect and is subject to
-    # change. To request access to this API, contact Amazon Web
-    # ServicesSupport.
+    # change. To request access to this API, contact Amazon Web Services
+    # Support.
     #
     # Provides summary information about the authentication profiles in a
     # specified Amazon Connect instance.
@@ -11850,11 +11968,18 @@ module Aws::Connect
     #   resp.evaluation_summary_list[0].evaluation_arn #=> String
     #   resp.evaluation_summary_list[0].evaluation_form_title #=> String
     #   resp.evaluation_summary_list[0].evaluation_form_id #=> String
+    #   resp.evaluation_summary_list[0].calibration_session_id #=> String
     #   resp.evaluation_summary_list[0].status #=> String, one of "DRAFT", "SUBMITTED"
+    #   resp.evaluation_summary_list[0].auto_evaluation_enabled #=> Boolean
+    #   resp.evaluation_summary_list[0].auto_evaluation_status #=> String, one of "IN_PROGRESS", "FAILED", "SUCCEEDED"
     #   resp.evaluation_summary_list[0].evaluator_arn #=> String
     #   resp.evaluation_summary_list[0].score.percentage #=> Float
     #   resp.evaluation_summary_list[0].score.not_applicable #=> Boolean
     #   resp.evaluation_summary_list[0].score.automatic_fail #=> Boolean
+    #   resp.evaluation_summary_list[0].acknowledgement.acknowledged_time #=> Time
+    #   resp.evaluation_summary_list[0].acknowledgement.acknowledged_by #=> String
+    #   resp.evaluation_summary_list[0].acknowledgement.acknowledger_comment #=> String
+    #   resp.evaluation_summary_list[0].evaluation_type #=> String, one of "STANDARD", "CALIBRATION"
     #   resp.evaluation_summary_list[0].created_time #=> Time
     #   resp.evaluation_summary_list[0].last_modified_time #=> Time
     #   resp.next_token #=> String
@@ -14668,7 +14793,7 @@ module Aws::Connect
     #  After releasing a phone number, the phone number enters into a
     # cooldown period for up to 180 days. It cannot be searched for or
     # claimed again until the period has ended. If you accidentally release
-    # a phone number, contact Amazon Web ServicesSupport.
+    # a phone number, contact Amazon Web Services Support.
     #
     # If you plan to claim and release numbers frequently, contact us for a
     # service quota exception. Otherwise, it is possible you will be blocked
@@ -15047,6 +15172,174 @@ module Aws::Connect
     # @param [Hash] params ({})
     def search_available_phone_numbers(params = {}, options = {})
       req = build_request(:search_available_phone_numbers, params)
+      req.send_request(options)
+    end
+
+    # Searches contact evaluations in an Amazon Connect instance, with
+    # optional filtering.
+    #
+    # **Use cases**
+    #
+    # Following are common uses cases for this API:
+    #
+    # * Find contact evaluations by using specific search criteria.
+    #
+    # * Find contact evaluations that are tagged with a specific set of
+    #   tags.
+    #
+    # **Important things to know**
+    #
+    # * A Search operation, unlike a List operation, takes time to index
+    #   changes to resource (create, update or delete). If you don't see
+    #   updated information for recently changed contact evaluations, try
+    #   calling the API again in a few seconds. Contact Evaluations may not
+    #   be fully backfilled with historical data in all regions yet, however
+    #   all recently created Contact Evaluations should be available for
+    #   search.
+    #
+    # ^
+    #
+    # **Endpoints**: See [Amazon Connect endpoints and quotas][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/general/latest/gr/connect_region.html
+    #
+    # @option params [required, String] :instance_id
+    #   The identifier of the Amazon Connect instance. You can [find the
+    #   instance ID][1] in the Amazon Resource Name (ARN) of the instance.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html
+    #
+    # @option params [String] :next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of results to return per page.
+    #
+    # @option params [Types::EvaluationSearchCriteria] :search_criteria
+    #   The search criteria to be used to return contact evaluations.
+    #
+    # @option params [Types::EvaluationSearchFilter] :search_filter
+    #   Filters to be applied to search results.
+    #
+    # @return [Types::SearchContactEvaluationsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::SearchContactEvaluationsResponse#evaluation_search_summary_list #evaluation_search_summary_list} => Array&lt;Types::EvaluationSearchSummary&gt;
+    #   * {Types::SearchContactEvaluationsResponse#next_token #next_token} => String
+    #   * {Types::SearchContactEvaluationsResponse#approximate_total_count #approximate_total_count} => Integer
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.search_contact_evaluations({
+    #     instance_id: "InstanceId", # required
+    #     next_token: "NextToken",
+    #     max_results: 1,
+    #     search_criteria: {
+    #       or_conditions: [
+    #         {
+    #           # recursive EvaluationSearchCriteria
+    #         },
+    #       ],
+    #       and_conditions: [
+    #         {
+    #           # recursive EvaluationSearchCriteria
+    #         },
+    #       ],
+    #       string_condition: {
+    #         field_name: "String",
+    #         value: "String",
+    #         comparison_type: "STARTS_WITH", # accepts STARTS_WITH, CONTAINS, EXACT
+    #       },
+    #       number_condition: {
+    #         field_name: "String",
+    #         min_value: 1,
+    #         max_value: 1,
+    #         comparison_type: "GREATER_OR_EQUAL", # accepts GREATER_OR_EQUAL, GREATER, LESSER_OR_EQUAL, LESSER, EQUAL, NOT_EQUAL, RANGE
+    #       },
+    #       boolean_condition: {
+    #         field_name: "String",
+    #         comparison_type: "IS_TRUE", # accepts IS_TRUE, IS_FALSE
+    #       },
+    #       date_time_condition: {
+    #         field_name: "String",
+    #         min_value: "DateTimeFormat",
+    #         max_value: "DateTimeFormat",
+    #         comparison_type: "GREATER_THAN", # accepts GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN_OR_EQUAL_TO, EQUAL_TO, RANGE
+    #       },
+    #       decimal_condition: {
+    #         field_name: "String",
+    #         min_value: 1.0,
+    #         max_value: 1.0,
+    #         comparison_type: "GREATER_OR_EQUAL", # accepts GREATER_OR_EQUAL, GREATER, LESSER_OR_EQUAL, LESSER, EQUAL, NOT_EQUAL, RANGE
+    #       },
+    #     },
+    #     search_filter: {
+    #       attribute_filter: {
+    #         or_conditions: [
+    #           {
+    #             tag_conditions: [
+    #               {
+    #                 tag_key: "String",
+    #                 tag_value: "String",
+    #               },
+    #             ],
+    #           },
+    #         ],
+    #         and_condition: {
+    #           tag_conditions: [
+    #             {
+    #               tag_key: "String",
+    #               tag_value: "String",
+    #             },
+    #           ],
+    #         },
+    #         tag_condition: {
+    #           tag_key: "String",
+    #           tag_value: "String",
+    #         },
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.evaluation_search_summary_list #=> Array
+    #   resp.evaluation_search_summary_list[0].evaluation_id #=> String
+    #   resp.evaluation_search_summary_list[0].evaluation_arn #=> String
+    #   resp.evaluation_search_summary_list[0].evaluation_form_id #=> String
+    #   resp.evaluation_search_summary_list[0].evaluation_form_version #=> Integer
+    #   resp.evaluation_search_summary_list[0].metadata.contact_id #=> String
+    #   resp.evaluation_search_summary_list[0].metadata.evaluator_arn #=> String
+    #   resp.evaluation_search_summary_list[0].metadata.contact_agent_id #=> String
+    #   resp.evaluation_search_summary_list[0].metadata.calibration_session_id #=> String
+    #   resp.evaluation_search_summary_list[0].metadata.score_percentage #=> Float
+    #   resp.evaluation_search_summary_list[0].metadata.score_automatic_fail #=> Boolean
+    #   resp.evaluation_search_summary_list[0].metadata.score_not_applicable #=> Boolean
+    #   resp.evaluation_search_summary_list[0].metadata.auto_evaluation_enabled #=> Boolean
+    #   resp.evaluation_search_summary_list[0].metadata.auto_evaluation_status #=> String, one of "IN_PROGRESS", "FAILED", "SUCCEEDED"
+    #   resp.evaluation_search_summary_list[0].metadata.acknowledged_time #=> Time
+    #   resp.evaluation_search_summary_list[0].metadata.acknowledged_by #=> String
+    #   resp.evaluation_search_summary_list[0].metadata.acknowledger_comment #=> String
+    #   resp.evaluation_search_summary_list[0].status #=> String, one of "DRAFT", "SUBMITTED"
+    #   resp.evaluation_search_summary_list[0].evaluation_type #=> String, one of "STANDARD", "CALIBRATION"
+    #   resp.evaluation_search_summary_list[0].created_time #=> Time
+    #   resp.evaluation_search_summary_list[0].last_modified_time #=> Time
+    #   resp.evaluation_search_summary_list[0].tags #=> Hash
+    #   resp.evaluation_search_summary_list[0].tags["TagKey"] #=> String
+    #   resp.next_token #=> String
+    #   resp.approximate_total_count #=> Integer
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchContactEvaluations AWS API Documentation
+    #
+    # @overload search_contact_evaluations(params = {})
+    # @param [Hash] params ({})
+    def search_contact_evaluations(params = {}, options = {})
+      req = build_request(:search_contact_evaluations, params)
       req.send_request(options)
     end
 
@@ -15556,6 +15849,162 @@ module Aws::Connect
     # @param [Hash] params ({})
     def search_email_addresses(params = {}, options = {})
       req = build_request(:search_email_addresses, params)
+      req.send_request(options)
+    end
+
+    # Searches evaluation forms in an Amazon Connect instance, with optional
+    # filtering.
+    #
+    # **Use cases**
+    #
+    # Following are common uses cases for this API:
+    #
+    # * List all evaluation forms in an instance.
+    #
+    # * Find all evaluation forms that meet specific criteria, such as
+    #   Title, Description, Status, and more.
+    #
+    # * Find all evaluation forms that are tagged with a specific set of
+    #   tags.
+    #
+    # **Important things to know**
+    #
+    # * A Search operation, unlike a List operation, takes time to index
+    #   changes to resource (create, update or delete). If you don't see
+    #   updated information for recently changed contact evaluations, try
+    #   calling the API again in a few seconds.
+    #
+    # ^
+    #
+    # **Endpoints**: See [Amazon Connect endpoints and quotas][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/general/latest/gr/connect_region.html
+    #
+    # @option params [required, String] :instance_id
+    #   The identifier of the Amazon Connect instance. You can [find the
+    #   instance ID][1] in the Amazon Resource Name (ARN) of the instance.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html
+    #
+    # @option params [String] :next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of results to return per page.
+    #
+    # @option params [Types::EvaluationFormSearchCriteria] :search_criteria
+    #   The search criteria to be used to return evaluation forms.
+    #
+    # @option params [Types::EvaluationFormSearchFilter] :search_filter
+    #   Filters to be applied to search results.
+    #
+    # @return [Types::SearchEvaluationFormsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::SearchEvaluationFormsResponse#evaluation_form_search_summary_list #evaluation_form_search_summary_list} => Array&lt;Types::EvaluationFormSearchSummary&gt;
+    #   * {Types::SearchEvaluationFormsResponse#next_token #next_token} => String
+    #   * {Types::SearchEvaluationFormsResponse#approximate_total_count #approximate_total_count} => Integer
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.search_evaluation_forms({
+    #     instance_id: "InstanceId", # required
+    #     next_token: "NextToken",
+    #     max_results: 1,
+    #     search_criteria: {
+    #       or_conditions: [
+    #         {
+    #           # recursive EvaluationFormSearchCriteria
+    #         },
+    #       ],
+    #       and_conditions: [
+    #         {
+    #           # recursive EvaluationFormSearchCriteria
+    #         },
+    #       ],
+    #       string_condition: {
+    #         field_name: "String",
+    #         value: "String",
+    #         comparison_type: "STARTS_WITH", # accepts STARTS_WITH, CONTAINS, EXACT
+    #       },
+    #       number_condition: {
+    #         field_name: "String",
+    #         min_value: 1,
+    #         max_value: 1,
+    #         comparison_type: "GREATER_OR_EQUAL", # accepts GREATER_OR_EQUAL, GREATER, LESSER_OR_EQUAL, LESSER, EQUAL, NOT_EQUAL, RANGE
+    #       },
+    #       boolean_condition: {
+    #         field_name: "String",
+    #         comparison_type: "IS_TRUE", # accepts IS_TRUE, IS_FALSE
+    #       },
+    #       date_time_condition: {
+    #         field_name: "String",
+    #         min_value: "DateTimeFormat",
+    #         max_value: "DateTimeFormat",
+    #         comparison_type: "GREATER_THAN", # accepts GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN_OR_EQUAL_TO, EQUAL_TO, RANGE
+    #       },
+    #     },
+    #     search_filter: {
+    #       attribute_filter: {
+    #         or_conditions: [
+    #           {
+    #             tag_conditions: [
+    #               {
+    #                 tag_key: "String",
+    #                 tag_value: "String",
+    #               },
+    #             ],
+    #           },
+    #         ],
+    #         and_condition: {
+    #           tag_conditions: [
+    #             {
+    #               tag_key: "String",
+    #               tag_value: "String",
+    #             },
+    #           ],
+    #         },
+    #         tag_condition: {
+    #           tag_key: "String",
+    #           tag_value: "String",
+    #         },
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.evaluation_form_search_summary_list #=> Array
+    #   resp.evaluation_form_search_summary_list[0].evaluation_form_id #=> String
+    #   resp.evaluation_form_search_summary_list[0].evaluation_form_arn #=> String
+    #   resp.evaluation_form_search_summary_list[0].title #=> String
+    #   resp.evaluation_form_search_summary_list[0].status #=> String, one of "DRAFT", "ACTIVE"
+    #   resp.evaluation_form_search_summary_list[0].description #=> String
+    #   resp.evaluation_form_search_summary_list[0].created_time #=> Time
+    #   resp.evaluation_form_search_summary_list[0].created_by #=> String
+    #   resp.evaluation_form_search_summary_list[0].last_modified_time #=> Time
+    #   resp.evaluation_form_search_summary_list[0].last_modified_by #=> String
+    #   resp.evaluation_form_search_summary_list[0].last_activated_time #=> Time
+    #   resp.evaluation_form_search_summary_list[0].last_activated_by #=> String
+    #   resp.evaluation_form_search_summary_list[0].latest_version #=> Integer
+    #   resp.evaluation_form_search_summary_list[0].active_version #=> Integer
+    #   resp.evaluation_form_search_summary_list[0].auto_evaluation_enabled #=> Boolean
+    #   resp.evaluation_form_search_summary_list[0].tags #=> Hash
+    #   resp.evaluation_form_search_summary_list[0].tags["TagKey"] #=> String
+    #   resp.next_token #=> String
+    #   resp.approximate_total_count #=> Integer
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchEvaluationForms AWS API Documentation
+    #
+    # @overload search_evaluation_forms(params = {})
+    # @param [Hash] params ({})
+    def search_evaluation_forms(params = {}, options = {})
+      req = build_request(:search_evaluation_forms, params)
       req.send_request(options)
     end
 
@@ -17262,8 +17711,8 @@ module Aws::Connect
     #
     # If you use the `ChatDurationInMinutes` parameter and receive a 400
     # error, your account may not support the ability to configure custom
-    # chat durations. For more information, contact Amazon Web
-    # ServicesSupport.
+    # chat durations. For more information, contact Amazon Web Services
+    # Support.
     #
     # For more information about chat, see the following topics in the
     # *Amazon Connect Administrator Guide*:
@@ -17484,6 +17933,9 @@ module Aws::Connect
     # @option params [required, String] :evaluation_form_id
     #   The unique identifier for the evaluation form.
     #
+    # @option params [Types::AutoEvaluationConfiguration] :auto_evaluation_configuration
+    #   Whether automated evaluations are enabled.
+    #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -17497,6 +17949,11 @@ module Aws::Connect
     #
     #   [1]: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
     #
+    # @option params [Hash<String,String>] :tags
+    #   The tags used to organize, track, or control access for this resource.
+    #   For example, \{ "Tags": \{"key1":"value1", "key2":"value2"}
+    #   }.
+    #
     # @return [Types::StartContactEvaluationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::StartContactEvaluationResponse#evaluation_id #evaluation_id} => String
@@ -17508,7 +17965,13 @@ module Aws::Connect
     #     instance_id: "InstanceId", # required
     #     contact_id: "ContactId", # required
     #     evaluation_form_id: "ResourceId", # required
+    #     auto_evaluation_configuration: {
+    #       enabled: false, # required
+    #     },
     #     client_token: "ClientToken",
+    #     tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #   })
     #
     # @example Response structure
@@ -18917,6 +19380,9 @@ module Aws::Connect
     # @option params [Hash<String,Types::EvaluationNote>] :notes
     #   A map of question identifiers to note value.
     #
+    # @option params [Types::EvaluatorUserUnion] :submitted_by
+    #   The ID of the user who submitted the contact evaluation.
+    #
     # @return [Types::SubmitContactEvaluationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::SubmitContactEvaluationResponse#evaluation_id #evaluation_id} => String
@@ -18940,6 +19406,9 @@ module Aws::Connect
     #       "ResourceId" => {
     #         value: "EvaluationNoteString",
     #       },
+    #     },
+    #     submitted_by: {
+    #       connect_user_arn: "ARN",
     #     },
     #   })
     #
@@ -19307,8 +19776,8 @@ module Aws::Connect
     end
 
     # This API is in preview release for Amazon Connect and is subject to
-    # change. To request access to this API, contact Amazon Web
-    # ServicesSupport.
+    # change. To request access to this API, contact Amazon Web Services
+    # Support.
     #
     # Updates the selected authentication profile.
     #
@@ -19638,6 +20107,9 @@ module Aws::Connect
     # @option params [Hash<String,Types::EvaluationNote>] :notes
     #   A map of question identifiers to note value.
     #
+    # @option params [Types::EvaluatorUserUnion] :updated_by
+    #   The ID of the user who updated the contact evaluation.
+    #
     # @return [Types::UpdateContactEvaluationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::UpdateContactEvaluationResponse#evaluation_id #evaluation_id} => String
@@ -19661,6 +20133,9 @@ module Aws::Connect
     #       "ResourceId" => {
     #         value: "EvaluationNoteString",
     #       },
+    #     },
+    #     updated_by: {
+    #       connect_user_arn: "ARN",
     #     },
     #   })
     #
@@ -20159,6 +20634,9 @@ module Aws::Connect
     # @option params [Types::EvaluationFormScoringStrategy] :scoring_strategy
     #   A scoring strategy of the evaluation form.
     #
+    # @option params [Types::EvaluationFormAutoEvaluationConfiguration] :auto_evaluation_configuration
+    #   Whether automated evaluations are enabled.
+    #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -20214,11 +20692,17 @@ module Aws::Connect
     #                   max_value: 1, # required
     #                   score: 1,
     #                   automatic_fail: false,
+    #                   automatic_fail_configuration: {
+    #                     target_section: "ReferenceId",
+    #                   },
     #                 },
     #               ],
     #               automation: {
     #                 property_value: {
-    #                   label: "OVERALL_CUSTOMER_SENTIMENT_SCORE", # required, accepts OVERALL_CUSTOMER_SENTIMENT_SCORE, OVERALL_AGENT_SENTIMENT_SCORE, NON_TALK_TIME, NON_TALK_TIME_PERCENTAGE, NUMBER_OF_INTERRUPTIONS, CONTACT_DURATION, AGENT_INTERACTION_DURATION, CUSTOMER_HOLD_TIME
+    #                   label: "OVERALL_CUSTOMER_SENTIMENT_SCORE", # required, accepts OVERALL_CUSTOMER_SENTIMENT_SCORE, OVERALL_AGENT_SENTIMENT_SCORE, NON_TALK_TIME, NON_TALK_TIME_PERCENTAGE, NUMBER_OF_INTERRUPTIONS, CONTACT_DURATION, AGENT_INTERACTION_DURATION, CUSTOMER_HOLD_TIME, LONGEST_HOLD_DURATION, NUMBER_OF_HOLDS, AGENT_INTERACTION_AND_HOLD_DURATION
+    #                 },
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
     #                 },
     #               },
     #             },
@@ -20229,11 +20713,14 @@ module Aws::Connect
     #                   text: "EvaluationFormSingleSelectQuestionOptionText", # required
     #                   score: 1,
     #                   automatic_fail: false,
+    #                   automatic_fail_configuration: {
+    #                     target_section: "ReferenceId",
+    #                   },
     #                 },
     #               ],
     #               display_as: "DROPDOWN", # accepts DROPDOWN, RADIO
     #               automation: {
-    #                 options: [ # required
+    #                 options: [
     #                   {
     #                     rule_category: {
     #                       category: "SingleSelectQuestionRuleCategoryAutomationLabel", # required
@@ -20243,8 +20730,45 @@ module Aws::Connect
     #                   },
     #                 ],
     #                 default_option_ref_id: "ReferenceId",
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
+    #                 },
     #               },
     #             },
+    #             text: {
+    #               automation: {
+    #                 answer_source: {
+    #                   source_type: "CONTACT_LENS_DATA", # required, accepts CONTACT_LENS_DATA, GEN_AI
+    #                 },
+    #               },
+    #             },
+    #           },
+    #           enablement: {
+    #             condition: { # required
+    #               operands: [ # required
+    #                 {
+    #                   expression: {
+    #                     source: { # required
+    #                       type: "QUESTION_REF_ID", # required, accepts QUESTION_REF_ID
+    #                       ref_id: "ReferenceId",
+    #                     },
+    #                     values: [ # required
+    #                       {
+    #                         type: "OPTION_REF_ID", # required, accepts OPTION_REF_ID
+    #                         ref_id: "ReferenceId",
+    #                       },
+    #                     ],
+    #                     comparator: "IN", # required, accepts IN, NOT_IN
+    #                   },
+    #                   condition: {
+    #                     # recursive EvaluationFormItemEnablementCondition
+    #                   },
+    #                 },
+    #               ],
+    #               operator: "OR", # accepts OR, AND
+    #             },
+    #             action: "DISABLE", # required, accepts DISABLE, ENABLE
+    #             default_action: "DISABLE", # accepts DISABLE, ENABLE
     #           },
     #           weight: 1.0,
     #         },
@@ -20253,6 +20777,9 @@ module Aws::Connect
     #     scoring_strategy: {
     #       mode: "QUESTION_ONLY", # required, accepts QUESTION_ONLY, SECTION_ONLY
     #       status: "ENABLED", # required, accepts ENABLED, DISABLED
+    #     },
+    #     auto_evaluation_configuration: {
+    #       enabled: false, # required
     #     },
     #     client_token: "ClientToken",
     #   })
@@ -20411,7 +20938,7 @@ module Aws::Connect
     #   The type of attribute.
     #
     #   <note markdown="1"> Only allowlisted customers can consume USE\_CUSTOM\_TTS\_VOICES. To
-    #   access this feature, contact Amazon Web ServicesSupport for
+    #   access this feature, contact Amazon Web Services Support for
     #   allowlisting.
     #
     #    </note>
@@ -22381,7 +22908,7 @@ module Aws::Connect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connect'
-      context[:gem_version] = '1.221.0'
+      context[:gem_version] = '1.222.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

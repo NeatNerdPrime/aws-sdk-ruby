@@ -38,6 +38,7 @@ module Aws::S3Tables
     class CreateTableBucketRequest
       attr_accessor name: ::String
       attr_accessor encryption_configuration: Types::EncryptionConfiguration
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -53,6 +54,7 @@ module Aws::S3Tables
       attr_accessor format: ("ICEBERG")
       attr_accessor metadata: Types::TableMetadata
       attr_accessor encryption_configuration: Types::EncryptionConfiguration
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -339,6 +341,16 @@ module Aws::S3Tables
       SENSITIVE: []
     end
 
+    class ListTagsForResourceRequest
+      attr_accessor resource_arn: ::String
+      SENSITIVE: []
+    end
+
+    class ListTagsForResourceResponse
+      attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
     class NamespaceSummary
       attr_accessor namespace: ::Array[::String]
       attr_accessor created_at: ::Time
@@ -484,9 +496,27 @@ module Aws::S3Tables
       SENSITIVE: []
     end
 
+    class TagResourceRequest
+      attr_accessor resource_arn: ::String
+      attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class TagResourceResponse < Aws::EmptyStructure
+    end
+
     class TooManyRequestsException
       attr_accessor message: ::String
       SENSITIVE: []
+    end
+
+    class UntagResourceRequest
+      attr_accessor resource_arn: ::String
+      attr_accessor tag_keys: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class UntagResourceResponse < Aws::EmptyStructure
     end
 
     class UpdateTableMetadataLocationRequest

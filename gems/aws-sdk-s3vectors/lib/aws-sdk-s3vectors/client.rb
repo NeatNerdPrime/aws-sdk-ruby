@@ -513,7 +513,9 @@ module Aws::S3Vectors
     # @option params [Types::MetadataConfiguration] :metadata_configuration
     #   The metadata configuration for the vector index.
     #
-    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    # @return [Types::CreateIndexOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateIndexOutput#index_arn #index_arn} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -528,6 +530,10 @@ module Aws::S3Vectors
     #       non_filterable_metadata_keys: ["MetadataKey"], # required
     #     },
     #   })
+    #
+    # @example Response structure
+    #
+    #   resp.index_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/CreateIndex AWS API Documentation
     #
@@ -561,7 +567,9 @@ module Aws::S3Vectors
     #   server-side encryption with Amazon S3 managed keys (SSE-S3),
     #   specifically `AES256`.
     #
-    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    # @return [Types::CreateVectorBucketOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateVectorBucketOutput#vector_bucket_arn #vector_bucket_arn} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -572,6 +580,10 @@ module Aws::S3Vectors
     #       kms_key_arn: "KmsKeyArn",
     #     },
     #   })
+    #
+    # @example Response structure
+    #
+    #   resp.vector_bucket_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/CreateVectorBucket AWS API Documentation
     #
@@ -1430,6 +1442,7 @@ module Aws::S3Vectors
     # @return [Types::QueryVectorsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::QueryVectorsOutput#vectors #vectors} => Array&lt;Types::QueryOutputVector&gt;
+    #   * {Types::QueryVectorsOutput#distance_metric #distance_metric} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -1454,6 +1467,7 @@ module Aws::S3Vectors
     #   resp.vectors[0].data.float32 #=> Array
     #   resp.vectors[0].data.float32[0] #=> Float
     #   resp.vectors[0].distance #=> Float
+    #   resp.distance_metric #=> String, one of "euclidean", "cosine"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/QueryVectors AWS API Documentation
     #
@@ -1482,7 +1496,7 @@ module Aws::S3Vectors
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3vectors'
-      context[:gem_version] = '1.7.0'
+      context[:gem_version] = '1.8.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

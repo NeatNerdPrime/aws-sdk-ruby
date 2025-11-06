@@ -139,6 +139,7 @@ module Aws::Backup
     DisassociateBackupVaultMpaApprovalTeamInput = Shapes::StructureShape.new(name: 'DisassociateBackupVaultMpaApprovalTeamInput')
     DisassociateRecoveryPointFromParentInput = Shapes::StructureShape.new(name: 'DisassociateRecoveryPointFromParentInput')
     DisassociateRecoveryPointInput = Shapes::StructureShape.new(name: 'DisassociateRecoveryPointInput')
+    EncryptionKeyType = Shapes::StringShape.new(name: 'EncryptionKeyType')
     ExportBackupPlanTemplateInput = Shapes::StructureShape.new(name: 'ExportBackupPlanTemplateInput')
     ExportBackupPlanTemplateOutput = Shapes::StructureShape.new(name: 'ExportBackupPlanTemplateOutput')
     FormatList = Shapes::ListShape.new(name: 'FormatList')
@@ -549,6 +550,7 @@ module Aws::Backup
     BackupVaultListMember.add_member(:min_retention_days, Shapes::ShapeRef.new(shape: Long, location_name: "MinRetentionDays"))
     BackupVaultListMember.add_member(:max_retention_days, Shapes::ShapeRef.new(shape: Long, location_name: "MaxRetentionDays"))
     BackupVaultListMember.add_member(:lock_date, Shapes::ShapeRef.new(shape: timestamp, location_name: "LockDate"))
+    BackupVaultListMember.add_member(:encryption_key_type, Shapes::ShapeRef.new(shape: EncryptionKeyType, location_name: "EncryptionKeyType"))
     BackupVaultListMember.struct_class = Types::BackupVaultListMember
 
     CalculatedLifecycle.add_member(:move_to_cold_storage_at, Shapes::ShapeRef.new(shape: timestamp, location_name: "MoveToColdStorageAt"))
@@ -714,6 +716,7 @@ module Aws::Backup
     CreateLogicallyAirGappedBackupVaultInput.add_member(:creator_request_id, Shapes::ShapeRef.new(shape: string, location_name: "CreatorRequestId", metadata: {"idempotencyToken" => true}))
     CreateLogicallyAirGappedBackupVaultInput.add_member(:min_retention_days, Shapes::ShapeRef.new(shape: Long, required: true, location_name: "MinRetentionDays"))
     CreateLogicallyAirGappedBackupVaultInput.add_member(:max_retention_days, Shapes::ShapeRef.new(shape: Long, required: true, location_name: "MaxRetentionDays"))
+    CreateLogicallyAirGappedBackupVaultInput.add_member(:encryption_key_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "EncryptionKeyArn"))
     CreateLogicallyAirGappedBackupVaultInput.struct_class = Types::CreateLogicallyAirGappedBackupVaultInput
 
     CreateLogicallyAirGappedBackupVaultOutput.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultName, location_name: "BackupVaultName"))
@@ -878,6 +881,7 @@ module Aws::Backup
     DescribeBackupVaultOutput.add_member(:mpa_approval_team_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "MpaApprovalTeamArn"))
     DescribeBackupVaultOutput.add_member(:mpa_session_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "MpaSessionArn"))
     DescribeBackupVaultOutput.add_member(:latest_mpa_approval_team_update, Shapes::ShapeRef.new(shape: LatestMpaApprovalTeamUpdate, location_name: "LatestMpaApprovalTeamUpdate"))
+    DescribeBackupVaultOutput.add_member(:encryption_key_type, Shapes::ShapeRef.new(shape: EncryptionKeyType, location_name: "EncryptionKeyType"))
     DescribeBackupVaultOutput.struct_class = Types::DescribeBackupVaultOutput
 
     DescribeCopyJobInput.add_member(:copy_job_id, Shapes::ShapeRef.new(shape: string, required: true, location: "uri", location_name: "copyJobId"))
@@ -951,6 +955,7 @@ module Aws::Backup
     DescribeRecoveryPointOutput.add_member(:vault_type, Shapes::ShapeRef.new(shape: VaultType, location_name: "VaultType"))
     DescribeRecoveryPointOutput.add_member(:index_status, Shapes::ShapeRef.new(shape: IndexStatus, location_name: "IndexStatus"))
     DescribeRecoveryPointOutput.add_member(:index_status_message, Shapes::ShapeRef.new(shape: string, location_name: "IndexStatusMessage"))
+    DescribeRecoveryPointOutput.add_member(:encryption_key_type, Shapes::ShapeRef.new(shape: EncryptionKeyType, location_name: "EncryptionKeyType"))
     DescribeRecoveryPointOutput.struct_class = Types::DescribeRecoveryPointOutput
 
     DescribeRegionSettingsInput.struct_class = Types::DescribeRegionSettingsInput
@@ -1604,6 +1609,7 @@ module Aws::Backup
     RecoveryPointByBackupVault.add_member(:vault_type, Shapes::ShapeRef.new(shape: VaultType, location_name: "VaultType"))
     RecoveryPointByBackupVault.add_member(:index_status, Shapes::ShapeRef.new(shape: IndexStatus, location_name: "IndexStatus"))
     RecoveryPointByBackupVault.add_member(:index_status_message, Shapes::ShapeRef.new(shape: string, location_name: "IndexStatusMessage"))
+    RecoveryPointByBackupVault.add_member(:encryption_key_type, Shapes::ShapeRef.new(shape: EncryptionKeyType, location_name: "EncryptionKeyType"))
     RecoveryPointByBackupVault.struct_class = Types::RecoveryPointByBackupVault
 
     RecoveryPointByBackupVaultList.member = Shapes::ShapeRef.new(shape: RecoveryPointByBackupVault)
@@ -1621,6 +1627,7 @@ module Aws::Backup
     RecoveryPointByResource.add_member(:vault_type, Shapes::ShapeRef.new(shape: VaultType, location_name: "VaultType"))
     RecoveryPointByResource.add_member(:index_status, Shapes::ShapeRef.new(shape: IndexStatus, location_name: "IndexStatus"))
     RecoveryPointByResource.add_member(:index_status_message, Shapes::ShapeRef.new(shape: string, location_name: "IndexStatusMessage"))
+    RecoveryPointByResource.add_member(:encryption_key_type, Shapes::ShapeRef.new(shape: EncryptionKeyType, location_name: "EncryptionKeyType"))
     RecoveryPointByResource.struct_class = Types::RecoveryPointByResource
 
     RecoveryPointByResourceList.member = Shapes::ShapeRef.new(shape: RecoveryPointByResource)

@@ -83,9 +83,17 @@ module Aws::S3Vectors
       include Aws::Structure
     end
 
+    # @!attribute [rw] index_arn
+    #   The Amazon Resource Name (ARN) of the newly created vector index.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/CreateIndexOutput AWS API Documentation
     #
-    class CreateIndexOutput < Aws::EmptyStructure; end
+    class CreateIndexOutput < Struct.new(
+      :index_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # @!attribute [rw] vector_bucket_name
     #   The name of the vector bucket to create.
@@ -107,9 +115,17 @@ module Aws::S3Vectors
       include Aws::Structure
     end
 
+    # @!attribute [rw] vector_bucket_arn
+    #   The Amazon Resource Name (ARN) of the newly created vector bucket.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/CreateVectorBucketOutput AWS API Documentation
     #
-    class CreateVectorBucketOutput < Aws::EmptyStructure; end
+    class CreateVectorBucketOutput < Struct.new(
+      :vector_bucket_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # @!attribute [rw] vector_bucket_name
     #   The name of the vector bucket that contains the vector index.
@@ -1082,10 +1098,30 @@ module Aws::S3Vectors
     #   The vectors in the approximate nearest neighbor search.
     #   @return [Array<Types::QueryOutputVector>]
     #
+    # @!attribute [rw] distance_metric
+    #   The distance metric that was used for the similarity search
+    #   calculation. This is the same distance metric that was configured
+    #   for the vector index when it was created.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/QueryVectorsOutput AWS API Documentation
     #
     class QueryVectorsOutput < Struct.new(
-      :vectors)
+      :vectors,
+      :distance_metric)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The request timed out. Retry your request.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3vectors-2025-07-15/RequestTimeoutException AWS API Documentation
+    #
+    class RequestTimeoutException < Struct.new(
+      :message)
       SENSITIVE = []
       include Aws::Structure
     end

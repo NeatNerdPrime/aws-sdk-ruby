@@ -78,6 +78,8 @@ module Aws::S3Tables
     ListTablesRequest = Shapes::StructureShape.new(name: 'ListTablesRequest')
     ListTablesRequestPrefixString = Shapes::StringShape.new(name: 'ListTablesRequestPrefixString')
     ListTablesResponse = Shapes::StructureShape.new(name: 'ListTablesResponse')
+    ListTagsForResourceRequest = Shapes::StructureShape.new(name: 'ListTagsForResourceRequest')
+    ListTagsForResourceResponse = Shapes::StructureShape.new(name: 'ListTagsForResourceResponse')
     MaintenanceStatus = Shapes::StringShape.new(name: 'MaintenanceStatus')
     MetadataLocation = Shapes::StringShape.new(name: 'MetadataLocation')
     NamespaceId = Shapes::StringShape.new(name: 'NamespaceId')
@@ -95,6 +97,7 @@ module Aws::S3Tables
     PutTableMaintenanceConfigurationRequest = Shapes::StructureShape.new(name: 'PutTableMaintenanceConfigurationRequest')
     PutTablePolicyRequest = Shapes::StructureShape.new(name: 'PutTablePolicyRequest')
     RenameTableRequest = Shapes::StructureShape.new(name: 'RenameTableRequest')
+    ResourceArn = Shapes::StringShape.new(name: 'ResourceArn')
     ResourcePolicy = Shapes::StringShape.new(name: 'ResourcePolicy')
     SSEAlgorithm = Shapes::StringShape.new(name: 'SSEAlgorithm')
     SchemaField = Shapes::StructureShape.new(name: 'SchemaField')
@@ -124,7 +127,15 @@ module Aws::S3Tables
     TableSummary = Shapes::StructureShape.new(name: 'TableSummary')
     TableSummaryList = Shapes::ListShape.new(name: 'TableSummaryList')
     TableType = Shapes::StringShape.new(name: 'TableType')
+    TagKey = Shapes::StringShape.new(name: 'TagKey')
+    TagKeyList = Shapes::ListShape.new(name: 'TagKeyList')
+    TagResourceRequest = Shapes::StructureShape.new(name: 'TagResourceRequest')
+    TagResourceResponse = Shapes::StructureShape.new(name: 'TagResourceResponse')
+    TagValue = Shapes::StringShape.new(name: 'TagValue')
+    Tags = Shapes::MapShape.new(name: 'Tags')
     TooManyRequestsException = Shapes::StructureShape.new(name: 'TooManyRequestsException')
+    UntagResourceRequest = Shapes::StructureShape.new(name: 'UntagResourceRequest')
+    UntagResourceResponse = Shapes::StructureShape.new(name: 'UntagResourceResponse')
     UpdateTableMetadataLocationRequest = Shapes::StructureShape.new(name: 'UpdateTableMetadataLocationRequest')
     UpdateTableMetadataLocationResponse = Shapes::StructureShape.new(name: 'UpdateTableMetadataLocationResponse')
     VersionToken = Shapes::StringShape.new(name: 'VersionToken')
@@ -151,6 +162,7 @@ module Aws::S3Tables
 
     CreateTableBucketRequest.add_member(:name, Shapes::ShapeRef.new(shape: TableBucketName, required: true, location_name: "name"))
     CreateTableBucketRequest.add_member(:encryption_configuration, Shapes::ShapeRef.new(shape: EncryptionConfiguration, location_name: "encryptionConfiguration"))
+    CreateTableBucketRequest.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "tags"))
     CreateTableBucketRequest.struct_class = Types::CreateTableBucketRequest
 
     CreateTableBucketResponse.add_member(:arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location_name: "arn"))
@@ -162,6 +174,7 @@ module Aws::S3Tables
     CreateTableRequest.add_member(:format, Shapes::ShapeRef.new(shape: OpenTableFormat, required: true, location_name: "format"))
     CreateTableRequest.add_member(:metadata, Shapes::ShapeRef.new(shape: TableMetadata, location_name: "metadata"))
     CreateTableRequest.add_member(:encryption_configuration, Shapes::ShapeRef.new(shape: EncryptionConfiguration, location_name: "encryptionConfiguration"))
+    CreateTableRequest.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "tags"))
     CreateTableRequest.struct_class = Types::CreateTableRequest
 
     CreateTableResponse.add_member(:table_arn, Shapes::ShapeRef.new(shape: TableARN, required: true, location_name: "tableARN"))
@@ -361,6 +374,12 @@ module Aws::S3Tables
     ListTablesResponse.add_member(:continuation_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "continuationToken"))
     ListTablesResponse.struct_class = Types::ListTablesResponse
 
+    ListTagsForResourceRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location: "uri", location_name: "resourceArn"))
+    ListTagsForResourceRequest.struct_class = Types::ListTagsForResourceRequest
+
+    ListTagsForResourceResponse.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "tags"))
+    ListTagsForResourceResponse.struct_class = Types::ListTagsForResourceResponse
+
     NamespaceList.member = Shapes::ShapeRef.new(shape: NamespaceName)
 
     NamespaceSummary.add_member(:namespace, Shapes::ShapeRef.new(shape: NamespaceList, required: true, location_name: "namespace"))
@@ -481,8 +500,25 @@ module Aws::S3Tables
 
     TableSummaryList.member = Shapes::ShapeRef.new(shape: TableSummary)
 
+    TagKeyList.member = Shapes::ShapeRef.new(shape: TagKey)
+
+    TagResourceRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location: "uri", location_name: "resourceArn"))
+    TagResourceRequest.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, required: true, location_name: "tags"))
+    TagResourceRequest.struct_class = Types::TagResourceRequest
+
+    TagResourceResponse.struct_class = Types::TagResourceResponse
+
+    Tags.key = Shapes::ShapeRef.new(shape: TagKey)
+    Tags.value = Shapes::ShapeRef.new(shape: TagValue)
+
     TooManyRequestsException.add_member(:message, Shapes::ShapeRef.new(shape: ErrorMessage, location_name: "message"))
     TooManyRequestsException.struct_class = Types::TooManyRequestsException
+
+    UntagResourceRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location: "uri", location_name: "resourceArn"))
+    UntagResourceRequest.add_member(:tag_keys, Shapes::ShapeRef.new(shape: TagKeyList, required: true, location: "querystring", location_name: "tagKeys"))
+    UntagResourceRequest.struct_class = Types::UntagResourceRequest
+
+    UntagResourceResponse.struct_class = Types::UntagResourceResponse
 
     UpdateTableMetadataLocationRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
     UpdateTableMetadataLocationRequest.add_member(:namespace, Shapes::ShapeRef.new(shape: NamespaceName, required: true, location: "uri", location_name: "namespace"))
@@ -862,6 +898,20 @@ module Aws::S3Tables
         )
       end)
 
+      api.add_operation(:list_tags_for_resource, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListTagsForResource"
+        o.http_method = "GET"
+        o.http_request_uri = "/tag/{resourceArn}"
+        o.input = Shapes::ShapeRef.new(shape: ListTagsForResourceRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListTagsForResourceResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
       api.add_operation(:put_table_bucket_encryption, Seahorse::Model::Operation.new.tap do |o|
         o.name = "PutTableBucketEncryption"
         o.http_method = "PUT"
@@ -938,6 +988,34 @@ module Aws::S3Tables
         o.http_request_uri = "/tables/{tableBucketARN}/{namespace}/{name}/rename"
         o.input = Shapes::ShapeRef.new(shape: RenameTableRequest)
         o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
+      api.add_operation(:tag_resource, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "TagResource"
+        o.http_method = "POST"
+        o.http_request_uri = "/tag/{resourceArn}"
+        o.input = Shapes::ShapeRef.new(shape: TagResourceRequest)
+        o.output = Shapes::ShapeRef.new(shape: TagResourceResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
+      api.add_operation(:untag_resource, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UntagResource"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/tag/{resourceArn}"
+        o.input = Shapes::ShapeRef.new(shape: UntagResourceRequest)
+        o.output = Shapes::ShapeRef.new(shape: UntagResourceResponse)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
         o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)

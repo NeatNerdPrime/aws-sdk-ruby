@@ -290,7 +290,8 @@ module Aws
                                                       ?backup_vault_tags: Hash[::String, ::String],
                                                       ?creator_request_id: ::String,
                                                       min_retention_days: ::Integer,
-                                                      max_retention_days: ::Integer
+                                                      max_retention_days: ::Integer,
+                                                      ?encryption_key_arn: ::String
                                                     ) -> _CreateLogicallyAirGappedBackupVaultResponseSuccess
                                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateLogicallyAirGappedBackupVaultResponseSuccess
 
@@ -536,6 +537,7 @@ module Aws
         def mpa_approval_team_arn: () -> ::String
         def mpa_session_arn: () -> ::String
         def latest_mpa_approval_team_update: () -> Types::LatestMpaApprovalTeamUpdate
+        def encryption_key_type: () -> ("AWS_OWNED_KMS_KEY" | "CUSTOMER_MANAGED_KMS_KEY")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Backup/Client.html#describe_backup_vault-instance_method
       def describe_backup_vault: (
@@ -628,6 +630,7 @@ module Aws
         def vault_type: () -> ("BACKUP_VAULT" | "LOGICALLY_AIR_GAPPED_BACKUP_VAULT" | "RESTORE_ACCESS_BACKUP_VAULT")
         def index_status: () -> ("PENDING" | "ACTIVE" | "FAILED" | "DELETING")
         def index_status_message: () -> ::String
+        def encryption_key_type: () -> ("AWS_OWNED_KMS_KEY" | "CUSTOMER_MANAGED_KMS_KEY")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Backup/Client.html#describe_recovery_point-instance_method
       def describe_recovery_point: (

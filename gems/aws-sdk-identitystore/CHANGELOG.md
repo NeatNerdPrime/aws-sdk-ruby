@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.60.0 (2025-11-06)
+------------------
+
+* Feature - IdentityStore API: added new KMSExceptionReason fields to the Exception object; added multiple new fields to the User APIs - UserStatus, Birthdate, Website and Photos; added multiple new metadata fields for User, Groups and Membership APIs - CreatedAt, CreatedBy, UpdatedAt and UpdatedBy.
+
 1.59.0 (2025-10-21)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.571.0 (2025-11-06)
+------------------
+
+* Feature - Add Amazon EC2 R8a instance types
+
 1.570.0 (2025-11-05)
 ------------------
 

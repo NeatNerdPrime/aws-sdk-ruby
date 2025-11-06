@@ -93,6 +93,7 @@ module Aws::S3Vectors
     QueryVectorsInput = Shapes::StructureShape.new(name: 'QueryVectorsInput')
     QueryVectorsOutput = Shapes::StructureShape.new(name: 'QueryVectorsOutput')
     QueryVectorsOutputList = Shapes::ListShape.new(name: 'QueryVectorsOutputList')
+    RequestTimeoutException = Shapes::StructureShape.new(name: 'RequestTimeoutException')
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     ServiceUnavailableException = Shapes::StructureShape.new(name: 'ServiceUnavailableException')
     SseType = Shapes::StringShape.new(name: 'SseType')
@@ -127,12 +128,14 @@ module Aws::S3Vectors
     CreateIndexInput.add_member(:metadata_configuration, Shapes::ShapeRef.new(shape: MetadataConfiguration, location_name: "metadataConfiguration"))
     CreateIndexInput.struct_class = Types::CreateIndexInput
 
+    CreateIndexOutput.add_member(:index_arn, Shapes::ShapeRef.new(shape: IndexArn, required: true, location_name: "indexArn"))
     CreateIndexOutput.struct_class = Types::CreateIndexOutput
 
     CreateVectorBucketInput.add_member(:vector_bucket_name, Shapes::ShapeRef.new(shape: VectorBucketName, required: true, location_name: "vectorBucketName"))
     CreateVectorBucketInput.add_member(:encryption_configuration, Shapes::ShapeRef.new(shape: EncryptionConfiguration, location_name: "encryptionConfiguration"))
     CreateVectorBucketInput.struct_class = Types::CreateVectorBucketInput
 
+    CreateVectorBucketOutput.add_member(:vector_bucket_arn, Shapes::ShapeRef.new(shape: VectorBucketArn, required: true, location_name: "vectorBucketArn"))
     CreateVectorBucketOutput.struct_class = Types::CreateVectorBucketOutput
 
     DeleteIndexInput.add_member(:vector_bucket_name, Shapes::ShapeRef.new(shape: VectorBucketName, location_name: "vectorBucketName"))
@@ -336,9 +339,13 @@ module Aws::S3Vectors
     QueryVectorsInput.struct_class = Types::QueryVectorsInput
 
     QueryVectorsOutput.add_member(:vectors, Shapes::ShapeRef.new(shape: QueryVectorsOutputList, required: true, location_name: "vectors"))
+    QueryVectorsOutput.add_member(:distance_metric, Shapes::ShapeRef.new(shape: DistanceMetric, required: true, location_name: "distanceMetric"))
     QueryVectorsOutput.struct_class = Types::QueryVectorsOutput
 
     QueryVectorsOutputList.member = Shapes::ShapeRef.new(shape: QueryOutputVector)
+
+    RequestTimeoutException.add_member(:message, Shapes::ShapeRef.new(shape: ExceptionMessage, required: true, location_name: "message"))
+    RequestTimeoutException.struct_class = Types::RequestTimeoutException
 
     ServiceQuotaExceededException.add_member(:message, Shapes::ShapeRef.new(shape: ExceptionMessage, required: true, location_name: "message"))
     ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException
@@ -406,6 +413,7 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
@@ -422,6 +430,7 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
@@ -437,7 +446,7 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
       end)
 
       api.add_operation(:delete_vector_bucket, Seahorse::Model::Operation.new.tap do |o|
@@ -451,8 +460,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:delete_vector_bucket_policy, Seahorse::Model::Operation.new.tap do |o|
@@ -466,8 +475,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:delete_vectors, Seahorse::Model::Operation.new.tap do |o|
@@ -484,8 +493,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: KmsInvalidStateException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: KmsNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: KmsDisabledException)
       end)
 
@@ -500,8 +509,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:get_vector_bucket, Seahorse::Model::Operation.new.tap do |o|
@@ -515,8 +524,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:get_vector_bucket_policy, Seahorse::Model::Operation.new.tap do |o|
@@ -530,8 +539,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:get_vectors, Seahorse::Model::Operation.new.tap do |o|
@@ -548,8 +557,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: KmsInvalidStateException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: KmsNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: KmsDisabledException)
       end)
 
@@ -564,8 +573,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",
           tokens: {
@@ -585,7 +594,7 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",
           tokens: {
@@ -605,8 +614,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",
           tokens: {
@@ -626,8 +635,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:put_vectors, Seahorse::Model::Operation.new.tap do |o|
@@ -644,6 +653,7 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: KmsInvalidStateException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: KmsNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: KmsDisabledException)
@@ -663,8 +673,8 @@ module Aws::S3Vectors
         o.errors << Shapes::ShapeRef.new(shape: KmsInvalidStateException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: KmsNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: RequestTimeoutException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
-        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: KmsDisabledException)
       end)
     end

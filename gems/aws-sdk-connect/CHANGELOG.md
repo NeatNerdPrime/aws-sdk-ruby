@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.222.0 (2025-11-06)
+------------------
+
+* Feature - Added support for Conditional Questions in Evaluation Forms. Introduced Auto Evaluation capability for Evaluation Forms and Contact Evaluations. Added new API operations: SearchEvaluationForms and SearchContactEvaluations.
+
 1.221.0 (2025-10-22)
 ------------------
 

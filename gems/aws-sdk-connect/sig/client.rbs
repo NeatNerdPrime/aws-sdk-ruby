@@ -590,12 +590,18 @@ module Aws
                                                   min_value: ::Integer,
                                                   max_value: ::Integer,
                                                   score: ::Integer?,
-                                                  automatic_fail: bool?
+                                                  automatic_fail: bool?,
+                                                  automatic_fail_configuration: {
+                                                    target_section: ::String?
+                                                  }?
                                                 },
                                               ]?,
                                               automation: {
                                                 property_value: {
-                                                  label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME")
+                                                  label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME" | "LONGEST_HOLD_DURATION" | "NUMBER_OF_HOLDS" | "AGENT_INTERACTION_AND_HOLD_DURATION")
+                                                }?,
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
                                                 }?
                                               }?
                                             }?,
@@ -605,7 +611,10 @@ module Aws
                                                   ref_id: ::String,
                                                   text: ::String,
                                                   score: ::Integer?,
-                                                  automatic_fail: bool?
+                                                  automatic_fail: bool?,
+                                                  automatic_fail_configuration: {
+                                                    target_section: ::String?
+                                                  }?
                                                 },
                                               ],
                                               display_as: ("DROPDOWN" | "RADIO")?,
@@ -618,10 +627,45 @@ module Aws
                                                       option_ref_id: ::String
                                                     }?
                                                   },
-                                                ],
-                                                default_option_ref_id: ::String?
+                                                ]?,
+                                                default_option_ref_id: ::String?,
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
+                                                }?
+                                              }?
+                                            }?,
+                                            text: {
+                                              automation: {
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
+                                                }?
                                               }?
                                             }?
+                                          }?,
+                                          enablement: {
+                                            condition: {
+                                              operands: Array[
+                                                {
+                                                  expression: {
+                                                    source: {
+                                                      type: ("QUESTION_REF_ID"),
+                                                      ref_id: ::String?
+                                                    },
+                                                    values: Array[
+                                                      {
+                                                        type: ("OPTION_REF_ID"),
+                                                        ref_id: ::String?
+                                                      },
+                                                    ],
+                                                    comparator: ("IN" | "NOT_IN")
+                                                  }?,
+                                                  condition: untyped?
+                                                },
+                                              ],
+                                              operator: ("OR" | "AND")?
+                                            },
+                                            action: ("DISABLE" | "ENABLE"),
+                                            default_action: ("DISABLE" | "ENABLE")?
                                           }?,
                                           weight: ::Float?
                                         }?
@@ -631,7 +675,11 @@ module Aws
                                       mode: ("QUESTION_ONLY" | "SECTION_ONLY"),
                                       status: ("ENABLED" | "DISABLED")
                                     },
-                                    ?client_token: ::String
+                                    ?auto_evaluation_configuration: {
+                                      enabled: bool
+                                    },
+                                    ?client_token: ::String,
+                                    ?tags: Hash[::String, ::String]
                                   ) -> _CreateEvaluationFormResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateEvaluationFormResponseSuccess
 
@@ -3073,6 +3121,81 @@ module Aws
                                           ) -> _SearchAvailablePhoneNumbersResponseSuccess
                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchAvailablePhoneNumbersResponseSuccess
 
+      interface _SearchContactEvaluationsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::SearchContactEvaluationsResponse]
+        def evaluation_search_summary_list: () -> ::Array[Types::EvaluationSearchSummary]
+        def next_token: () -> ::String
+        def approximate_total_count: () -> ::Integer
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Connect/Client.html#search_contact_evaluations-instance_method
+      def search_contact_evaluations: (
+                                        instance_id: ::String,
+                                        ?next_token: ::String,
+                                        ?max_results: ::Integer,
+                                        ?search_criteria: {
+                                          or_conditions: Array[
+                                            untyped,
+                                          ]?,
+                                          and_conditions: Array[
+                                            untyped,
+                                          ]?,
+                                          string_condition: {
+                                            field_name: ::String?,
+                                            value: ::String?,
+                                            comparison_type: ("STARTS_WITH" | "CONTAINS" | "EXACT")?
+                                          }?,
+                                          number_condition: {
+                                            field_name: ::String?,
+                                            min_value: ::Integer?,
+                                            max_value: ::Integer?,
+                                            comparison_type: ("GREATER_OR_EQUAL" | "GREATER" | "LESSER_OR_EQUAL" | "LESSER" | "EQUAL" | "NOT_EQUAL" | "RANGE")?
+                                          }?,
+                                          boolean_condition: {
+                                            field_name: ::String?,
+                                            comparison_type: ("IS_TRUE" | "IS_FALSE")?
+                                          }?,
+                                          date_time_condition: {
+                                            field_name: ::String?,
+                                            min_value: ::String?,
+                                            max_value: ::String?,
+                                            comparison_type: ("GREATER_THAN" | "LESS_THAN" | "GREATER_THAN_OR_EQUAL_TO" | "LESS_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "RANGE")?
+                                          }?,
+                                          decimal_condition: {
+                                            field_name: ::String?,
+                                            min_value: ::Float?,
+                                            max_value: ::Float?,
+                                            comparison_type: ("GREATER_OR_EQUAL" | "GREATER" | "LESSER_OR_EQUAL" | "LESSER" | "EQUAL" | "NOT_EQUAL" | "RANGE")?
+                                          }?
+                                        },
+                                        ?search_filter: {
+                                          attribute_filter: {
+                                            or_conditions: Array[
+                                              {
+                                                tag_conditions: Array[
+                                                  {
+                                                    tag_key: ::String?,
+                                                    tag_value: ::String?
+                                                  },
+                                                ]?
+                                              },
+                                            ]?,
+                                            and_condition: {
+                                              tag_conditions: Array[
+                                                {
+                                                  tag_key: ::String?,
+                                                  tag_value: ::String?
+                                                },
+                                              ]?
+                                            }?,
+                                            tag_condition: {
+                                              tag_key: ::String?,
+                                              tag_value: ::String?
+                                            }?
+                                          }?
+                                        }
+                                      ) -> _SearchContactEvaluationsResponseSuccess
+                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchContactEvaluationsResponseSuccess
+
       interface _SearchContactFlowModulesResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::SearchContactFlowModulesResponse]
         def contact_flow_modules: () -> ::Array[Types::ContactFlowModule]
@@ -3320,6 +3443,75 @@ module Aws
                                     }
                                   ) -> _SearchEmailAddressesResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchEmailAddressesResponseSuccess
+
+      interface _SearchEvaluationFormsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::SearchEvaluationFormsResponse]
+        def evaluation_form_search_summary_list: () -> ::Array[Types::EvaluationFormSearchSummary]
+        def next_token: () -> ::String
+        def approximate_total_count: () -> ::Integer
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Connect/Client.html#search_evaluation_forms-instance_method
+      def search_evaluation_forms: (
+                                     instance_id: ::String,
+                                     ?next_token: ::String,
+                                     ?max_results: ::Integer,
+                                     ?search_criteria: {
+                                       or_conditions: Array[
+                                         untyped,
+                                       ]?,
+                                       and_conditions: Array[
+                                         untyped,
+                                       ]?,
+                                       string_condition: {
+                                         field_name: ::String?,
+                                         value: ::String?,
+                                         comparison_type: ("STARTS_WITH" | "CONTAINS" | "EXACT")?
+                                       }?,
+                                       number_condition: {
+                                         field_name: ::String?,
+                                         min_value: ::Integer?,
+                                         max_value: ::Integer?,
+                                         comparison_type: ("GREATER_OR_EQUAL" | "GREATER" | "LESSER_OR_EQUAL" | "LESSER" | "EQUAL" | "NOT_EQUAL" | "RANGE")?
+                                       }?,
+                                       boolean_condition: {
+                                         field_name: ::String?,
+                                         comparison_type: ("IS_TRUE" | "IS_FALSE")?
+                                       }?,
+                                       date_time_condition: {
+                                         field_name: ::String?,
+                                         min_value: ::String?,
+                                         max_value: ::String?,
+                                         comparison_type: ("GREATER_THAN" | "LESS_THAN" | "GREATER_THAN_OR_EQUAL_TO" | "LESS_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "RANGE")?
+                                       }?
+                                     },
+                                     ?search_filter: {
+                                       attribute_filter: {
+                                         or_conditions: Array[
+                                           {
+                                             tag_conditions: Array[
+                                               {
+                                                 tag_key: ::String?,
+                                                 tag_value: ::String?
+                                               },
+                                             ]?
+                                           },
+                                         ]?,
+                                         and_condition: {
+                                           tag_conditions: Array[
+                                             {
+                                               tag_key: ::String?,
+                                               tag_value: ::String?
+                                             },
+                                           ]?
+                                         }?,
+                                         tag_condition: {
+                                           tag_key: ::String?,
+                                           tag_value: ::String?
+                                         }?
+                                       }?
+                                     }
+                                   ) -> _SearchEvaluationFormsResponseSuccess
+                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchEvaluationFormsResponseSuccess
 
       interface _SearchHoursOfOperationOverridesResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::SearchHoursOfOperationOverridesResponse]
@@ -4046,7 +4238,11 @@ module Aws
                                       instance_id: ::String,
                                       contact_id: ::String,
                                       evaluation_form_id: ::String,
-                                      ?client_token: ::String
+                                      ?auto_evaluation_configuration: {
+                                        enabled: bool
+                                      },
+                                      ?client_token: ::String,
+                                      ?tags: Hash[::String, ::String]
                                     ) -> _StartContactEvaluationResponseSuccess
                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartContactEvaluationResponseSuccess
 
@@ -4414,7 +4610,10 @@ module Aws
                                          }],
                                        ?notes: Hash[::String, {
                                            value: ::String?
-                                         }]
+                                         }],
+                                       ?submitted_by: {
+                                         connect_user_arn: ::String?
+                                       }
                                      ) -> _SubmitContactEvaluationResponseSuccess
                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SubmitContactEvaluationResponseSuccess
 
@@ -4577,7 +4776,10 @@ module Aws
                                          }],
                                        ?notes: Hash[::String, {
                                            value: ::String?
-                                         }]
+                                         }],
+                                       ?updated_by: {
+                                         connect_user_arn: ::String?
+                                       }
                                      ) -> _UpdateContactEvaluationResponseSuccess
                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateContactEvaluationResponseSuccess
 
@@ -4764,12 +4966,18 @@ module Aws
                                                   min_value: ::Integer,
                                                   max_value: ::Integer,
                                                   score: ::Integer?,
-                                                  automatic_fail: bool?
+                                                  automatic_fail: bool?,
+                                                  automatic_fail_configuration: {
+                                                    target_section: ::String?
+                                                  }?
                                                 },
                                               ]?,
                                               automation: {
                                                 property_value: {
-                                                  label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME")
+                                                  label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME" | "LONGEST_HOLD_DURATION" | "NUMBER_OF_HOLDS" | "AGENT_INTERACTION_AND_HOLD_DURATION")
+                                                }?,
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
                                                 }?
                                               }?
                                             }?,
@@ -4779,7 +4987,10 @@ module Aws
                                                   ref_id: ::String,
                                                   text: ::String,
                                                   score: ::Integer?,
-                                                  automatic_fail: bool?
+                                                  automatic_fail: bool?,
+                                                  automatic_fail_configuration: {
+                                                    target_section: ::String?
+                                                  }?
                                                 },
                                               ],
                                               display_as: ("DROPDOWN" | "RADIO")?,
@@ -4792,10 +5003,45 @@ module Aws
                                                       option_ref_id: ::String
                                                     }?
                                                   },
-                                                ],
-                                                default_option_ref_id: ::String?
+                                                ]?,
+                                                default_option_ref_id: ::String?,
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
+                                                }?
+                                              }?
+                                            }?,
+                                            text: {
+                                              automation: {
+                                                answer_source: {
+                                                  source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
+                                                }?
                                               }?
                                             }?
+                                          }?,
+                                          enablement: {
+                                            condition: {
+                                              operands: Array[
+                                                {
+                                                  expression: {
+                                                    source: {
+                                                      type: ("QUESTION_REF_ID"),
+                                                      ref_id: ::String?
+                                                    },
+                                                    values: Array[
+                                                      {
+                                                        type: ("OPTION_REF_ID"),
+                                                        ref_id: ::String?
+                                                      },
+                                                    ],
+                                                    comparator: ("IN" | "NOT_IN")
+                                                  }?,
+                                                  condition: untyped?
+                                                },
+                                              ],
+                                              operator: ("OR" | "AND")?
+                                            },
+                                            action: ("DISABLE" | "ENABLE"),
+                                            default_action: ("DISABLE" | "ENABLE")?
                                           }?,
                                           weight: ::Float?
                                         }?
@@ -4804,6 +5050,9 @@ module Aws
                                     ?scoring_strategy: {
                                       mode: ("QUESTION_ONLY" | "SECTION_ONLY"),
                                       status: ("ENABLED" | "DISABLED")
+                                    },
+                                    ?auto_evaluation_configuration: {
+                                      enabled: bool
                                     },
                                     ?client_token: ::String
                                   ) -> _UpdateEvaluationFormResponseSuccess

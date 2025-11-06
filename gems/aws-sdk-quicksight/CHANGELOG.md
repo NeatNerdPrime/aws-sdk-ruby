@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.163.0 (2025-11-06)
+------------------
+
+* Feature - Support for New Data Prep Experience
+
 1.162.0 (2025-10-21)
 ------------------
 

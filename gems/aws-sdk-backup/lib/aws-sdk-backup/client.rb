@@ -1005,6 +1005,12 @@ module Aws::Backup
     #   The maximum retention period that the vault retains its recovery
     #   points.
     #
+    # @option params [String] :encryption_key_arn
+    #   The ARN of the customer-managed KMS key to use for encrypting the
+    #   logically air-gapped backup vault. If not specified, the vault will be
+    #   encrypted with an Amazon Web Services-owned key managed by Amazon Web
+    #   Services Backup.
+    #
     # @return [Types::CreateLogicallyAirGappedBackupVaultOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateLogicallyAirGappedBackupVaultOutput#backup_vault_name #backup_vault_name} => String
@@ -1022,6 +1028,7 @@ module Aws::Backup
     #     creator_request_id: "string",
     #     min_retention_days: 1, # required
     #     max_retention_days: 1, # required
+    #     encryption_key_arn: "ARN",
     #   })
     #
     # @example Response structure
@@ -1810,6 +1817,7 @@ module Aws::Backup
     #   * {Types::DescribeBackupVaultOutput#mpa_approval_team_arn #mpa_approval_team_arn} => String
     #   * {Types::DescribeBackupVaultOutput#mpa_session_arn #mpa_session_arn} => String
     #   * {Types::DescribeBackupVaultOutput#latest_mpa_approval_team_update #latest_mpa_approval_team_update} => Types::LatestMpaApprovalTeamUpdate
+    #   * {Types::DescribeBackupVaultOutput#encryption_key_type #encryption_key_type} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -1840,6 +1848,7 @@ module Aws::Backup
     #   resp.latest_mpa_approval_team_update.status_message #=> String
     #   resp.latest_mpa_approval_team_update.initiation_date #=> Time
     #   resp.latest_mpa_approval_team_update.expiry_date #=> Time
+    #   resp.encryption_key_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeBackupVault AWS API Documentation
     #
@@ -2082,6 +2091,7 @@ module Aws::Backup
     #   * {Types::DescribeRecoveryPointOutput#vault_type #vault_type} => String
     #   * {Types::DescribeRecoveryPointOutput#index_status #index_status} => String
     #   * {Types::DescribeRecoveryPointOutput#index_status_message #index_status_message} => String
+    #   * {Types::DescribeRecoveryPointOutput#encryption_key_type #encryption_key_type} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -2130,6 +2140,7 @@ module Aws::Backup
     #   resp.vault_type #=> String, one of "BACKUP_VAULT", "LOGICALLY_AIR_GAPPED_BACKUP_VAULT", "RESTORE_ACCESS_BACKUP_VAULT"
     #   resp.index_status #=> String, one of "PENDING", "ACTIVE", "FAILED", "DELETING"
     #   resp.index_status_message #=> String
+    #   resp.encryption_key_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRecoveryPoint AWS API Documentation
     #
@@ -3718,6 +3729,7 @@ module Aws::Backup
     #   resp.backup_vault_list[0].min_retention_days #=> Integer
     #   resp.backup_vault_list[0].max_retention_days #=> Integer
     #   resp.backup_vault_list[0].lock_date #=> Time
+    #   resp.backup_vault_list[0].encryption_key_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListBackupVaults AWS API Documentation
@@ -4454,6 +4466,7 @@ module Aws::Backup
     #   resp.recovery_points[0].vault_type #=> String, one of "BACKUP_VAULT", "LOGICALLY_AIR_GAPPED_BACKUP_VAULT", "RESTORE_ACCESS_BACKUP_VAULT"
     #   resp.recovery_points[0].index_status #=> String, one of "PENDING", "ACTIVE", "FAILED", "DELETING"
     #   resp.recovery_points[0].index_status_message #=> String
+    #   resp.recovery_points[0].encryption_key_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRecoveryPointsByBackupVault AWS API Documentation
     #
@@ -4581,6 +4594,7 @@ module Aws::Backup
     #   resp.recovery_points[0].vault_type #=> String, one of "BACKUP_VAULT", "LOGICALLY_AIR_GAPPED_BACKUP_VAULT", "RESTORE_ACCESS_BACKUP_VAULT"
     #   resp.recovery_points[0].index_status #=> String, one of "PENDING", "ACTIVE", "FAILED", "DELETING"
     #   resp.recovery_points[0].index_status_message #=> String
+    #   resp.recovery_points[0].encryption_key_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRecoveryPointsByResource AWS API Documentation
     #
@@ -6683,7 +6697,7 @@ module Aws::Backup
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-backup'
-      context[:gem_version] = '1.98.0'
+      context[:gem_version] = '1.99.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -453,6 +453,22 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class AutoEvaluationConfiguration
+      attr_accessor enabled: bool
+      SENSITIVE: []
+    end
+
+    class AutoEvaluationDetails
+      attr_accessor auto_evaluation_enabled: bool
+      attr_accessor auto_evaluation_status: ("IN_PROGRESS" | "FAILED" | "SUCCEEDED")
+      SENSITIVE: []
+    end
+
+    class AutomaticFailConfiguration
+      attr_accessor target_section: ::String
+      SENSITIVE: []
+    end
+
     class AvailableNumberSummary
       attr_accessor phone_number: ::String
       attr_accessor phone_number_country_code: ("AF" | "AL" | "DZ" | "AS" | "AD" | "AO" | "AI" | "AQ" | "AG" | "AR" | "AM" | "AW" | "AU" | "AT" | "AZ" | "BS" | "BH" | "BD" | "BB" | "BY" | "BE" | "BZ" | "BJ" | "BM" | "BT" | "BO" | "BA" | "BW" | "BR" | "IO" | "VG" | "BN" | "BG" | "BF" | "BI" | "KH" | "CM" | "CA" | "CV" | "KY" | "CF" | "TD" | "CL" | "CN" | "CX" | "CC" | "CO" | "KM" | "CK" | "CR" | "HR" | "CU" | "CW" | "CY" | "CZ" | "CD" | "DK" | "DJ" | "DM" | "DO" | "TL" | "EC" | "EG" | "SV" | "GQ" | "ER" | "EE" | "ET" | "FK" | "FO" | "FJ" | "FI" | "FR" | "PF" | "GA" | "GM" | "GE" | "DE" | "GH" | "GI" | "GR" | "GL" | "GD" | "GU" | "GT" | "GG" | "GN" | "GW" | "GY" | "HT" | "HN" | "HK" | "HU" | "IS" | "IN" | "ID" | "IR" | "IQ" | "IE" | "IM" | "IL" | "IT" | "CI" | "JM" | "JP" | "JE" | "JO" | "KZ" | "KE" | "KI" | "KW" | "KG" | "LA" | "LV" | "LB" | "LS" | "LR" | "LY" | "LI" | "LT" | "LU" | "MO" | "MK" | "MG" | "MW" | "MY" | "MV" | "ML" | "MT" | "MH" | "MR" | "MU" | "YT" | "MX" | "FM" | "MD" | "MC" | "MN" | "ME" | "MS" | "MA" | "MZ" | "MM" | "NA" | "NR" | "NP" | "NL" | "AN" | "NC" | "NZ" | "NI" | "NE" | "NG" | "NU" | "KP" | "MP" | "NO" | "OM" | "PK" | "PW" | "PA" | "PG" | "PY" | "PE" | "PH" | "PN" | "PL" | "PT" | "PR" | "QA" | "CG" | "RE" | "RO" | "RU" | "RW" | "BL" | "SH" | "KN" | "LC" | "MF" | "PM" | "VC" | "WS" | "SM" | "ST" | "SA" | "SN" | "RS" | "SC" | "SL" | "SG" | "SX" | "SK" | "SI" | "SB" | "SO" | "ZA" | "KR" | "ES" | "LK" | "SD" | "SR" | "SJ" | "SZ" | "SE" | "CH" | "SY" | "TW" | "TJ" | "TZ" | "TH" | "TG" | "TK" | "TO" | "TT" | "TN" | "TR" | "TM" | "TC" | "TV" | "VI" | "UG" | "UA" | "AE" | "GB" | "US" | "UY" | "UZ" | "VU" | "VA" | "VE" | "VN" | "WF" | "EH" | "YE" | "ZM" | "ZW")
@@ -521,6 +537,12 @@ module Aws::Connect
     class BatchPutContactResponse
       attr_accessor successful_request_list: ::Array[Types::SuccessfulRequest]
       attr_accessor failed_request_list: ::Array[Types::FailedRequest]
+      SENSITIVE: []
+    end
+
+    class BooleanCondition
+      attr_accessor field_name: ::String
+      attr_accessor comparison_type: ("IS_TRUE" | "IS_FALSE")
       SENSITIVE: []
     end
 
@@ -1035,7 +1057,9 @@ module Aws::Connect
       attr_accessor description: ::String
       attr_accessor items: ::Array[Types::EvaluationFormItem]
       attr_accessor scoring_strategy: Types::EvaluationFormScoringStrategy
+      attr_accessor auto_evaluation_configuration: Types::EvaluationFormAutoEvaluationConfiguration
       attr_accessor client_token: ::String
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -1478,6 +1502,14 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class DateTimeCondition
+      attr_accessor field_name: ::String
+      attr_accessor min_value: ::String
+      attr_accessor max_value: ::String
+      attr_accessor comparison_type: ("GREATER_THAN" | "LESS_THAN" | "GREATER_THAN_OR_EQUAL_TO" | "LESS_THAN_OR_EQUAL_TO" | "EQUAL_TO" | "RANGE")
+      SENSITIVE: []
+    end
+
     class DeactivateEvaluationFormRequest
       attr_accessor instance_id: ::String
       attr_accessor evaluation_form_id: ::String
@@ -1489,6 +1521,14 @@ module Aws::Connect
       attr_accessor evaluation_form_id: ::String
       attr_accessor evaluation_form_arn: ::String
       attr_accessor evaluation_form_version: ::Integer
+      SENSITIVE: []
+    end
+
+    class DecimalCondition
+      attr_accessor field_name: ::String
+      attr_accessor min_value: ::Float
+      attr_accessor max_value: ::Float
+      attr_accessor comparison_type: ("GREATER_OR_EQUAL" | "GREATER" | "LESSER_OR_EQUAL" | "LESSER" | "EQUAL" | "NOT_EQUAL" | "RANGE")
       SENSITIVE: []
     end
 
@@ -2279,7 +2319,22 @@ module Aws::Connect
       attr_accessor scores: ::Hash[::String, Types::EvaluationScore]
       attr_accessor created_time: ::Time
       attr_accessor last_modified_time: ::Time
+      attr_accessor evaluation_type: ("STANDARD" | "CALIBRATION")
       attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class EvaluationAcknowledgement
+      attr_accessor acknowledged_time: ::Time
+      attr_accessor acknowledged_by: ::String
+      attr_accessor acknowledger_comment: ::String
+      SENSITIVE: []
+    end
+
+    class EvaluationAcknowledgementSummary
+      attr_accessor acknowledged_time: ::Time
+      attr_accessor acknowledged_by: ::String
+      attr_accessor acknowledger_comment: ::String
       SENSITIVE: []
     end
 
@@ -2308,6 +2363,19 @@ module Aws::Connect
     class EvaluationAnswerOutput
       attr_accessor value: Types::EvaluationAnswerData
       attr_accessor system_suggested_value: Types::EvaluationAnswerData
+      attr_accessor suggested_answers: ::Array[Types::EvaluationSuggestedAnswer]
+      SENSITIVE: []
+    end
+
+    class EvaluationAutomationRuleCategory
+      attr_accessor category: ::String
+      attr_accessor condition: ("PRESENT" | "NOT_PRESENT")
+      attr_accessor points_of_interest: ::Array[Types::EvaluationTranscriptPointOfInterest]
+      SENSITIVE: []
+    end
+
+    class EvaluationContactLensAnswerAnalysisDetails
+      attr_accessor matched_rule_categories: ::Array[Types::EvaluationAutomationRuleCategory]
       SENSITIVE: []
     end
 
@@ -2325,7 +2393,13 @@ module Aws::Connect
       attr_accessor created_by: ::String
       attr_accessor last_modified_time: ::Time
       attr_accessor last_modified_by: ::String
+      attr_accessor auto_evaluation_configuration: Types::EvaluationFormAutoEvaluationConfiguration
       attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class EvaluationFormAutoEvaluationConfiguration
+      attr_accessor enabled: bool
       SENSITIVE: []
     end
 
@@ -2337,6 +2411,7 @@ module Aws::Connect
       attr_accessor description: ::String
       attr_accessor items: ::Array[Types::EvaluationFormItem]
       attr_accessor scoring_strategy: Types::EvaluationFormScoringStrategy
+      attr_accessor auto_evaluation_configuration: Types::EvaluationFormAutoEvaluationConfiguration
       SENSITIVE: []
     end
 
@@ -2354,12 +2429,61 @@ module Aws::Connect
       end
     end
 
+    class EvaluationFormItemEnablementCondition
+      attr_accessor operands: ::Array[Types::EvaluationFormItemEnablementConditionOperand]
+      attr_accessor operator: ("OR" | "AND")
+      SENSITIVE: []
+    end
+
+    class EvaluationFormItemEnablementConditionOperand
+      attr_accessor expression: Types::EvaluationFormItemEnablementExpression
+      attr_accessor condition: Types::EvaluationFormItemEnablementCondition
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Expression < EvaluationFormItemEnablementConditionOperand
+      end
+      class Condition < EvaluationFormItemEnablementConditionOperand
+      end
+      class Unknown < EvaluationFormItemEnablementConditionOperand
+      end
+    end
+
+    class EvaluationFormItemEnablementConfiguration
+      attr_accessor condition: Types::EvaluationFormItemEnablementCondition
+      attr_accessor action: ("DISABLE" | "ENABLE")
+      attr_accessor default_action: ("DISABLE" | "ENABLE")
+      SENSITIVE: []
+    end
+
+    class EvaluationFormItemEnablementExpression
+      attr_accessor source: Types::EvaluationFormItemEnablementSource
+      attr_accessor values: ::Array[Types::EvaluationFormItemEnablementSourceValue]
+      attr_accessor comparator: ("IN" | "NOT_IN")
+      SENSITIVE: []
+    end
+
+    class EvaluationFormItemEnablementSource
+      attr_accessor type: ("QUESTION_REF_ID")
+      attr_accessor ref_id: ::String
+      SENSITIVE: []
+    end
+
+    class EvaluationFormItemEnablementSourceValue
+      attr_accessor type: ("OPTION_REF_ID")
+      attr_accessor ref_id: ::String
+      SENSITIVE: []
+    end
+
     class EvaluationFormNumericQuestionAutomation
       attr_accessor property_value: Types::NumericQuestionPropertyValueAutomation
+      attr_accessor answer_source: Types::EvaluationFormQuestionAutomationAnswerSource
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class PropertyValue < EvaluationFormNumericQuestionAutomation
+      end
+      class AnswerSource < EvaluationFormNumericQuestionAutomation
       end
       class Unknown < EvaluationFormNumericQuestionAutomation
       end
@@ -2370,6 +2494,7 @@ module Aws::Connect
       attr_accessor max_value: ::Integer
       attr_accessor score: ::Integer
       attr_accessor automatic_fail: bool
+      attr_accessor automatic_fail_configuration: Types::AutomaticFailConfiguration
       SENSITIVE: []
     end
 
@@ -2388,19 +2513,28 @@ module Aws::Connect
       attr_accessor not_applicable_enabled: bool
       attr_accessor question_type: ("TEXT" | "SINGLESELECT" | "NUMERIC")
       attr_accessor question_type_properties: Types::EvaluationFormQuestionTypeProperties
+      attr_accessor enablement: Types::EvaluationFormItemEnablementConfiguration
       attr_accessor weight: ::Float
+      SENSITIVE: []
+    end
+
+    class EvaluationFormQuestionAutomationAnswerSource
+      attr_accessor source_type: ("CONTACT_LENS_DATA" | "GEN_AI")
       SENSITIVE: []
     end
 
     class EvaluationFormQuestionTypeProperties
       attr_accessor numeric: Types::EvaluationFormNumericQuestionProperties
       attr_accessor single_select: Types::EvaluationFormSingleSelectQuestionProperties
+      attr_accessor text: Types::EvaluationFormTextQuestionProperties
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class Numeric < EvaluationFormQuestionTypeProperties
       end
       class SingleSelect < EvaluationFormQuestionTypeProperties
+      end
+      class Text < EvaluationFormQuestionTypeProperties
       end
       class Unknown < EvaluationFormQuestionTypeProperties
       end
@@ -2409,6 +2543,40 @@ module Aws::Connect
     class EvaluationFormScoringStrategy
       attr_accessor mode: ("QUESTION_ONLY" | "SECTION_ONLY")
       attr_accessor status: ("ENABLED" | "DISABLED")
+      SENSITIVE: []
+    end
+
+    class EvaluationFormSearchCriteria
+      attr_accessor or_conditions: ::Array[Types::EvaluationFormSearchCriteria]
+      attr_accessor and_conditions: ::Array[Types::EvaluationFormSearchCriteria]
+      attr_accessor string_condition: Types::StringCondition
+      attr_accessor number_condition: Types::NumberCondition
+      attr_accessor boolean_condition: Types::BooleanCondition
+      attr_accessor date_time_condition: Types::DateTimeCondition
+      SENSITIVE: []
+    end
+
+    class EvaluationFormSearchFilter
+      attr_accessor attribute_filter: Types::ControlPlaneAttributeFilter
+      SENSITIVE: []
+    end
+
+    class EvaluationFormSearchSummary
+      attr_accessor evaluation_form_id: ::String
+      attr_accessor evaluation_form_arn: ::String
+      attr_accessor title: ::String
+      attr_accessor status: ("DRAFT" | "ACTIVE")
+      attr_accessor description: ::String
+      attr_accessor created_time: ::Time
+      attr_accessor created_by: ::String
+      attr_accessor last_modified_time: ::Time
+      attr_accessor last_modified_by: ::String
+      attr_accessor last_activated_time: ::Time
+      attr_accessor last_activated_by: ::String
+      attr_accessor latest_version: ::Integer
+      attr_accessor active_version: ::Integer
+      attr_accessor auto_evaluation_enabled: bool
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -2424,6 +2592,7 @@ module Aws::Connect
     class EvaluationFormSingleSelectQuestionAutomation
       attr_accessor options: ::Array[Types::EvaluationFormSingleSelectQuestionAutomationOption]
       attr_accessor default_option_ref_id: ::String
+      attr_accessor answer_source: Types::EvaluationFormQuestionAutomationAnswerSource
       SENSITIVE: []
     end
 
@@ -2443,6 +2612,7 @@ module Aws::Connect
       attr_accessor text: ::String
       attr_accessor score: ::Integer
       attr_accessor automatic_fail: bool
+      attr_accessor automatic_fail_configuration: Types::AutomaticFailConfiguration
       SENSITIVE: []
     end
 
@@ -2468,6 +2638,16 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class EvaluationFormTextQuestionAutomation
+      attr_accessor answer_source: Types::EvaluationFormQuestionAutomationAnswerSource
+      SENSITIVE: []
+    end
+
+    class EvaluationFormTextQuestionProperties
+      attr_accessor automation: Types::EvaluationFormTextQuestionAutomation
+      SENSITIVE: []
+    end
+
     class EvaluationFormVersionSummary
       attr_accessor evaluation_form_arn: ::String
       attr_accessor evaluation_form_id: ::String
@@ -2481,16 +2661,44 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class EvaluationGenAIAnswerAnalysisDetails
+      attr_accessor justification: ::String
+      attr_accessor points_of_interest: ::Array[Types::EvaluationTranscriptPointOfInterest]
+      SENSITIVE: []
+    end
+
     class EvaluationMetadata
       attr_accessor contact_id: ::String
       attr_accessor evaluator_arn: ::String
       attr_accessor contact_agent_id: ::String
+      attr_accessor calibration_session_id: ::String
       attr_accessor score: Types::EvaluationScore
+      attr_accessor auto_evaluation: Types::AutoEvaluationDetails
+      attr_accessor acknowledgement: Types::EvaluationAcknowledgement
       SENSITIVE: []
     end
 
     class EvaluationNote
       attr_accessor value: ::String
+      SENSITIVE: []
+    end
+
+    class EvaluationQuestionAnswerAnalysisDetails
+      attr_accessor gen_ai: Types::EvaluationGenAIAnswerAnalysisDetails
+      attr_accessor contact_lens: Types::EvaluationContactLensAnswerAnalysisDetails
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class GenAi < EvaluationQuestionAnswerAnalysisDetails
+      end
+      class ContactLens < EvaluationQuestionAnswerAnalysisDetails
+      end
+      class Unknown < EvaluationQuestionAnswerAnalysisDetails
+      end
+    end
+
+    class EvaluationQuestionInputDetails
+      attr_accessor transcript_type: ("RAW" | "REDACTED")
       SENSITIVE: []
     end
 
@@ -2501,17 +2709,99 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class EvaluationSearchCriteria
+      attr_accessor or_conditions: ::Array[Types::EvaluationSearchCriteria]
+      attr_accessor and_conditions: ::Array[Types::EvaluationSearchCriteria]
+      attr_accessor string_condition: Types::StringCondition
+      attr_accessor number_condition: Types::NumberCondition
+      attr_accessor boolean_condition: Types::BooleanCondition
+      attr_accessor date_time_condition: Types::DateTimeCondition
+      attr_accessor decimal_condition: Types::DecimalCondition
+      SENSITIVE: []
+    end
+
+    class EvaluationSearchFilter
+      attr_accessor attribute_filter: Types::ControlPlaneAttributeFilter
+      SENSITIVE: []
+    end
+
+    class EvaluationSearchMetadata
+      attr_accessor contact_id: ::String
+      attr_accessor evaluator_arn: ::String
+      attr_accessor contact_agent_id: ::String
+      attr_accessor calibration_session_id: ::String
+      attr_accessor score_percentage: ::Float
+      attr_accessor score_automatic_fail: bool
+      attr_accessor score_not_applicable: bool
+      attr_accessor auto_evaluation_enabled: bool
+      attr_accessor auto_evaluation_status: ("IN_PROGRESS" | "FAILED" | "SUCCEEDED")
+      attr_accessor acknowledged_time: ::Time
+      attr_accessor acknowledged_by: ::String
+      attr_accessor acknowledger_comment: ::String
+      SENSITIVE: []
+    end
+
+    class EvaluationSearchSummary
+      attr_accessor evaluation_id: ::String
+      attr_accessor evaluation_arn: ::String
+      attr_accessor evaluation_form_id: ::String
+      attr_accessor evaluation_form_version: ::Integer
+      attr_accessor metadata: Types::EvaluationSearchMetadata
+      attr_accessor status: ("DRAFT" | "SUBMITTED")
+      attr_accessor evaluation_type: ("STANDARD" | "CALIBRATION")
+      attr_accessor created_time: ::Time
+      attr_accessor last_modified_time: ::Time
+      attr_accessor tags: ::Hash[::String, ::String]
+      SENSITIVE: []
+    end
+
+    class EvaluationSuggestedAnswer
+      attr_accessor value: Types::EvaluationAnswerData
+      attr_accessor status: ("IN_PROGRESS" | "FAILED" | "SUCCEEDED")
+      attr_accessor input: Types::EvaluationQuestionInputDetails
+      attr_accessor analysis_type: ("CONTACT_LENS_DATA" | "GEN_AI")
+      attr_accessor analysis_details: Types::EvaluationQuestionAnswerAnalysisDetails
+      SENSITIVE: []
+    end
+
+    class EvaluationSuggestedAnswerTranscriptMillisecondOffsets
+      attr_accessor begin_offset_millis: ::Integer
+      SENSITIVE: []
+    end
+
     class EvaluationSummary
       attr_accessor evaluation_id: ::String
       attr_accessor evaluation_arn: ::String
       attr_accessor evaluation_form_title: ::String
       attr_accessor evaluation_form_id: ::String
+      attr_accessor calibration_session_id: ::String
       attr_accessor status: ("DRAFT" | "SUBMITTED")
+      attr_accessor auto_evaluation_enabled: bool
+      attr_accessor auto_evaluation_status: ("IN_PROGRESS" | "FAILED" | "SUCCEEDED")
       attr_accessor evaluator_arn: ::String
       attr_accessor score: Types::EvaluationScore
+      attr_accessor acknowledgement: Types::EvaluationAcknowledgementSummary
+      attr_accessor evaluation_type: ("STANDARD" | "CALIBRATION")
       attr_accessor created_time: ::Time
       attr_accessor last_modified_time: ::Time
       SENSITIVE: []
+    end
+
+    class EvaluationTranscriptPointOfInterest
+      attr_accessor millisecond_offsets: Types::EvaluationSuggestedAnswerTranscriptMillisecondOffsets
+      attr_accessor transcript_segment: ::String
+      SENSITIVE: []
+    end
+
+    class EvaluatorUserUnion
+      attr_accessor connect_user_arn: ::String
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class ConnectUserArn < EvaluatorUserUnion
+      end
+      class Unknown < EvaluatorUserUnion
+      end
     end
 
     class EventBridgeActionDefinition
@@ -4006,7 +4296,7 @@ module Aws::Connect
     end
 
     class NumericQuestionPropertyValueAutomation
-      attr_accessor label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME")
+      attr_accessor label: ("OVERALL_CUSTOMER_SENTIMENT_SCORE" | "OVERALL_AGENT_SENTIMENT_SCORE" | "NON_TALK_TIME" | "NON_TALK_TIME_PERCENTAGE" | "NUMBER_OF_INTERRUPTIONS" | "CONTACT_DURATION" | "AGENT_INTERACTION_DURATION" | "CUSTOMER_HOLD_TIME" | "LONGEST_HOLD_DURATION" | "NUMBER_OF_HOLDS" | "AGENT_INTERACTION_AND_HOLD_DURATION")
       SENSITIVE: []
     end
 
@@ -4868,6 +5158,22 @@ module Aws::Connect
       SENSITIVE: []
     end
 
+    class SearchContactEvaluationsRequest
+      attr_accessor instance_id: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor search_criteria: Types::EvaluationSearchCriteria
+      attr_accessor search_filter: Types::EvaluationSearchFilter
+      SENSITIVE: []
+    end
+
+    class SearchContactEvaluationsResponse
+      attr_accessor evaluation_search_summary_list: ::Array[Types::EvaluationSearchSummary]
+      attr_accessor next_token: ::String
+      attr_accessor approximate_total_count: ::Integer
+      SENSITIVE: []
+    end
+
     class SearchContactFlowModulesRequest
       attr_accessor instance_id: ::String
       attr_accessor next_token: ::String
@@ -4969,6 +5275,22 @@ module Aws::Connect
     class SearchEmailAddressesResponse
       attr_accessor next_token: ::String
       attr_accessor email_addresses: ::Array[Types::EmailAddressMetadata]
+      attr_accessor approximate_total_count: ::Integer
+      SENSITIVE: []
+    end
+
+    class SearchEvaluationFormsRequest
+      attr_accessor instance_id: ::String
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor search_criteria: Types::EvaluationFormSearchCriteria
+      attr_accessor search_filter: Types::EvaluationFormSearchFilter
+      SENSITIVE: []
+    end
+
+    class SearchEvaluationFormsResponse
+      attr_accessor evaluation_form_search_summary_list: ::Array[Types::EvaluationFormSearchSummary]
+      attr_accessor next_token: ::String
       attr_accessor approximate_total_count: ::Integer
       SENSITIVE: []
     end
@@ -5403,7 +5725,9 @@ module Aws::Connect
       attr_accessor instance_id: ::String
       attr_accessor contact_id: ::String
       attr_accessor evaluation_form_id: ::String
+      attr_accessor auto_evaluation_configuration: Types::AutoEvaluationConfiguration
       attr_accessor client_token: ::String
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -5642,6 +5966,7 @@ module Aws::Connect
       attr_accessor evaluation_id: ::String
       attr_accessor answers: ::Hash[::String, Types::EvaluationAnswerInput]
       attr_accessor notes: ::Hash[::String, Types::EvaluationNote]
+      attr_accessor submitted_by: Types::EvaluatorUserUnion
       SENSITIVE: []
     end
 
@@ -5914,6 +6239,7 @@ module Aws::Connect
       attr_accessor evaluation_id: ::String
       attr_accessor answers: ::Hash[::String, Types::EvaluationAnswerInput]
       attr_accessor notes: ::Hash[::String, Types::EvaluationNote]
+      attr_accessor updated_by: Types::EvaluatorUserUnion
       SENSITIVE: []
     end
 
@@ -6041,6 +6367,7 @@ module Aws::Connect
       attr_accessor description: ::String
       attr_accessor items: ::Array[Types::EvaluationFormItem]
       attr_accessor scoring_strategy: Types::EvaluationFormScoringStrategy
+      attr_accessor auto_evaluation_configuration: Types::EvaluationFormAutoEvaluationConfiguration
       attr_accessor client_token: ::String
       SENSITIVE: []
     end

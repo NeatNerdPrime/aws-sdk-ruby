@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.81.0 (2025-11-06)
+------------------
+
+* Feature - New field totalActiveErrors added to getFindingsStatistics response.
+
 1.80.0 (2025-10-27)
 ------------------
 

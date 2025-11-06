@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.113.0 (2025-11-06)
+------------------
+
+* Feature - Amazon GameLift Servers now supports game builds that use the Windows 2022 operating system.
+
 1.112.0 (2025-10-21)
 ------------------
 

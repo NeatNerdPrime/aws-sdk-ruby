@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.19.0 (2025-11-06)
+------------------
+
+* Feature - Adds support for tagging APIs for S3 Tables
+
 1.18.0 (2025-10-24)
 ------------------
 

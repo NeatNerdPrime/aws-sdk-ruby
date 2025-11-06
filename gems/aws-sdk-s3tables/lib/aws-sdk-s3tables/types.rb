@@ -99,11 +99,30 @@ module Aws::S3Tables
     #   and, if using SSE-KMS, the KMS key to use.
     #   @return [Types::EncryptionConfiguration]
     #
+    # @!attribute [rw] tags
+    #   A map of user-defined tags that you would like to apply to the table
+    #   bucket that you are creating. A tag is a key-value pair that you
+    #   apply to your resources. Tags can help you organize and control
+    #   access to resources. For more information, see [Tagging for cost
+    #   allocation or attribute-based access control (ABAC)][1].
+    #
+    #   <note markdown="1"> You must have the `s3tables:TagResource` permission in addition to
+    #   `s3tables:CreateTableBucket` permisson to create a table bucket with
+    #   tags.
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/CreateTableBucketRequest AWS API Documentation
     #
     class CreateTableBucketRequest < Struct.new(
       :name,
-      :encryption_configuration)
+      :encryption_configuration,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -157,6 +176,23 @@ module Aws::S3Tables
     #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-kms-permissions.html
     #   @return [Types::EncryptionConfiguration]
     #
+    # @!attribute [rw] tags
+    #   A map of user-defined tags that you would like to apply to the table
+    #   that you are creating. A tag is a key-value pair that you apply to
+    #   your resources. Tags can help you organize, track costs for, and
+    #   control access to resources. For more information, see [Tagging for
+    #   cost allocation or attribute-based access control (ABAC)][1].
+    #
+    #   <note markdown="1"> You must have the `s3tables:TagResource` permission in addition to
+    #   `s3tables:CreateTable` permission to create a table with tags.
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/CreateTableRequest AWS API Documentation
     #
     class CreateTableRequest < Struct.new(
@@ -165,7 +201,8 @@ module Aws::S3Tables
       :name,
       :format,
       :metadata,
-      :encryption_configuration)
+      :encryption_configuration,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -601,7 +638,8 @@ module Aws::S3Tables
     #   @return [String]
     #
     # @!attribute [rw] name
-    #   The name of the maintenance job.
+    #   The name of the table containing the maintenance job status you want
+    #   to check.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/GetTableMaintenanceJobStatusRequest AWS API Documentation
@@ -1079,6 +1117,43 @@ module Aws::S3Tables
       include Aws::Structure
     end
 
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you want to list tags for. The tagged resource can be a table bucket
+    #   or a table. For a list of all S3 resources that support tagging, see
+    #   [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/ListTagsForResourceRequest AWS API Documentation
+    #
+    class ListTagsForResourceRequest < Struct.new(
+      :resource_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] tags
+    #   The user-defined tags that are applied to the resource. For more
+    #   information, see [Tagging for cost allocation or attribute-based
+    #   access control (ABAC)][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/ListTagsForResourceResponse AWS API Documentation
+    #
+    class ListTagsForResourceResponse < Struct.new(
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Contains details about a namespace.
     #
     # @!attribute [rw] namespace
@@ -1201,7 +1276,7 @@ module Aws::S3Tables
     #   @return [String]
     #
     # @!attribute [rw] name
-    #   The name of the maintenance configuration.
+    #   The name of the table.
     #   @return [String]
     #
     # @!attribute [rw] type
@@ -1551,6 +1626,40 @@ module Aws::S3Tables
       include Aws::Structure
     end
 
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you're applying tags to. The tagged resource can be a table bucket
+    #   or a table. For a list of all S3 resources that support tagging, see
+    #   [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   The user-defined tag that you want to add to the specified S3 Tables
+    #   resource. For more information, see [Tagging for cost allocation or
+    #   attribute-based access control (ABAC)][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/TagResourceRequest AWS API Documentation
+    #
+    class TagResourceRequest < Struct.new(
+      :resource_arn,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/TagResourceResponse AWS API Documentation
+    #
+    class TagResourceResponse < Aws::EmptyStructure; end
+
     # The limit on the number of requests per second was exceeded.
     #
     # @!attribute [rw] message
@@ -1563,6 +1672,40 @@ module Aws::S3Tables
       SENSITIVE = []
       include Aws::Structure
     end
+
+    # @!attribute [rw] resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you're removing tags from. The tagged resource can be a table
+    #   bucket or a table. For a list of all S3 resources that support
+    #   tagging, see [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #   @return [String]
+    #
+    # @!attribute [rw] tag_keys
+    #   The array of tag keys that you're removing from the S3 Tables
+    #   resource. For more information, see [Tagging for cost allocation or
+    #   attribute-based access control (ABAC)][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/UntagResourceRequest AWS API Documentation
+    #
+    class UntagResourceRequest < Struct.new(
+      :resource_arn,
+      :tag_keys)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/UntagResourceResponse AWS API Documentation
+    #
+    class UntagResourceResponse < Aws::EmptyStructure; end
 
     # @!attribute [rw] table_bucket_arn
     #   The Amazon Resource Name (ARN) of the table bucket.

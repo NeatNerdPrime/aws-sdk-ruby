@@ -29,7 +29,9 @@ module Aws::S3Vectors
       SENSITIVE: []
     end
 
-    class CreateIndexOutput < Aws::EmptyStructure
+    class CreateIndexOutput
+      attr_accessor index_arn: ::String
+      SENSITIVE: []
     end
 
     class CreateVectorBucketInput
@@ -38,7 +40,9 @@ module Aws::S3Vectors
       SENSITIVE: []
     end
 
-    class CreateVectorBucketOutput < Aws::EmptyStructure
+    class CreateVectorBucketOutput
+      attr_accessor vector_bucket_arn: ::String
+      SENSITIVE: []
     end
 
     class DeleteIndexInput
@@ -301,6 +305,12 @@ module Aws::S3Vectors
 
     class QueryVectorsOutput
       attr_accessor vectors: ::Array[Types::QueryOutputVector]
+      attr_accessor distance_metric: ("euclidean" | "cosine")
+      SENSITIVE: []
+    end
+
+    class RequestTimeoutException
+      attr_accessor message: ::String
       SENSITIVE: []
     end
 

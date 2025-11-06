@@ -1708,8 +1708,8 @@ module Aws::Connect
     end
 
     # This API is in preview release for Amazon Connect and is subject to
-    # change. To request access to this API, contact Amazon Web
-    # ServicesSupport.
+    # change. To request access to this API, contact Amazon Web Services
+    # Support.
     #
     # Information about an authentication profile. An authentication profile
     # is a resource that stores the authentication settings for users in
@@ -1822,8 +1822,8 @@ module Aws::Connect
     end
 
     # This API is in preview release for Amazon Connect and is subject to
-    # change. To request access to this API, contact Amazon Web
-    # ServicesSupport.
+    # change. To request access to this API, contact Amazon Web Services
+    # Support.
     #
     # A summary of a given authentication profile.
     #
@@ -1866,6 +1866,53 @@ module Aws::Connect
       :is_default,
       :last_modified_time,
       :last_modified_region)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration information about automated evaluations.
+    #
+    # @!attribute [rw] enabled
+    #   Whether automated evaluations are enabled.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/AutoEvaluationConfiguration AWS API Documentation
+    #
+    class AutoEvaluationConfiguration < Struct.new(
+      :enabled)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Details about automated evaluations.
+    #
+    # @!attribute [rw] auto_evaluation_enabled
+    #   Whether automated evaluation is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] auto_evaluation_status
+    #   The status of the contact auto-evaluation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/AutoEvaluationDetails AWS API Documentation
+    #
+    class AutoEvaluationDetails < Struct.new(
+      :auto_evaluation_enabled,
+      :auto_evaluation_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about automatic fail configuration for an evaluation form.
+    #
+    # @!attribute [rw] target_section
+    #   The referenceId of the target section for auto failure.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/AutomaticFailConfiguration AWS API Documentation
+    #
+    class AutomaticFailConfiguration < Struct.new(
+      :target_section)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2136,6 +2183,25 @@ module Aws::Connect
     class BatchPutContactResponse < Struct.new(
       :successful_request_list,
       :failed_request_list)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A boolean search condition for Search APIs.
+    #
+    # @!attribute [rw] field_name
+    #   A name of the property to be searched.
+    #   @return [String]
+    #
+    # @!attribute [rw] comparison_type
+    #   Boolean property comparison type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/BooleanCondition AWS API Documentation
+    #
+    class BooleanCondition < Struct.new(
+      :field_name,
+      :comparison_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4462,6 +4528,10 @@ module Aws::Connect
     #   A scoring strategy of the evaluation form.
     #   @return [Types::EvaluationFormScoringStrategy]
     #
+    # @!attribute [rw] auto_evaluation_configuration
+    #   Configuration information about automated evaluations.
+    #   @return [Types::EvaluationFormAutoEvaluationConfiguration]
+    #
     # @!attribute [rw] client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -4476,6 +4546,12 @@ module Aws::Connect
     #   [1]: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
     #   @return [String]
     #
+    # @!attribute [rw] tags
+    #   The tags used to organize, track, or control access for this
+    #   resource. For example, \{ "Tags": \{"key1":"value1",
+    #   "key2":"value2"} }.
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/CreateEvaluationFormRequest AWS API Documentation
     #
     class CreateEvaluationFormRequest < Struct.new(
@@ -4484,7 +4560,9 @@ module Aws::Connect
       :description,
       :items,
       :scoring_strategy,
-      :client_token)
+      :auto_evaluation_configuration,
+      :client_token,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6363,6 +6441,35 @@ module Aws::Connect
       include Aws::Structure
     end
 
+    # A datetime search condition for Search APIs.
+    #
+    # @!attribute [rw] field_name
+    #   A name of the datetime property to be searched
+    #   @return [String]
+    #
+    # @!attribute [rw] min_value
+    #   A minimum value of the property.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_value
+    #   A maximum value of the property.
+    #   @return [String]
+    #
+    # @!attribute [rw] comparison_type
+    #   Datetime property comparison type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/DateTimeCondition AWS API Documentation
+    #
+    class DateTimeCondition < Struct.new(
+      :field_name,
+      :min_value,
+      :max_value,
+      :comparison_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] instance_id
     #   The identifier of the Amazon Connect instance. You can [find the
     #   instance ID][1] in the Amazon Resource Name (ARN) of the instance.
@@ -6409,6 +6516,36 @@ module Aws::Connect
       :evaluation_form_id,
       :evaluation_form_arn,
       :evaluation_form_version)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A decimal search condition for Search APIs.
+    #
+    # @!attribute [rw] field_name
+    #   A name of the decimal property to be searched.
+    #   @return [String]
+    #
+    # @!attribute [rw] min_value
+    #   A minimum value of the decimal property.
+    #   @return [Float]
+    #
+    # @!attribute [rw] max_value
+    #   A maximum value of the decimal property.
+    #   @return [Float]
+    #
+    # @!attribute [rw] comparison_type
+    #   The type of comparison to be made when evaluating the decimal
+    #   condition.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/DecimalCondition AWS API Documentation
+    #
+    class DecimalCondition < Struct.new(
+      :field_name,
+      :min_value,
+      :max_value,
+      :comparison_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9133,6 +9270,10 @@ module Aws::Connect
     #   The timestamp for when the evaluation was last updated.
     #   @return [Time]
     #
+    # @!attribute [rw] evaluation_type
+    #   Type of the evaluation.
+    #   @return [String]
+    #
     # @!attribute [rw] tags
     #   The tags used to organize, track, or control access for this
     #   resource. For example, \{ "Tags": \{"key1":"value1",
@@ -9151,7 +9292,58 @@ module Aws::Connect
       :scores,
       :created_time,
       :last_modified_time,
+      :evaluation_type,
       :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about the evaluation acknowledgement.
+    #
+    # @!attribute [rw] acknowledged_time
+    #   When the agent acknowledged the evaluation.
+    #   @return [Time]
+    #
+    # @!attribute [rw] acknowledged_by
+    #   The agent who acknowledged the evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] acknowledger_comment
+    #   A comment from the agent when they confirmed they acknowledged the
+    #   evaluation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationAcknowledgement AWS API Documentation
+    #
+    class EvaluationAcknowledgement < Struct.new(
+      :acknowledged_time,
+      :acknowledged_by,
+      :acknowledger_comment)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Summary information about an evaluation acknowledgement.
+    #
+    # @!attribute [rw] acknowledged_time
+    #   The time when an agent acknowledged the evaluation.
+    #   @return [Time]
+    #
+    # @!attribute [rw] acknowledged_by
+    #   The agent who acknowledged the evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] acknowledger_comment
+    #   A comment from the agent when they confirmed they acknowledged the
+    #   evaluation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationAcknowledgementSummary AWS API Documentation
+    #
+    class EvaluationAcknowledgementSummary < Struct.new(
+      :acknowledged_time,
+      :acknowledged_by,
+      :acknowledger_comment)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9216,11 +9408,56 @@ module Aws::Connect
     #   The system suggested value for an answer in a contact evaluation.
     #   @return [Types::EvaluationAnswerData]
     #
+    # @!attribute [rw] suggested_answers
+    #   Automation suggested answers for the questions.
+    #   @return [Array<Types::EvaluationSuggestedAnswer>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationAnswerOutput AWS API Documentation
     #
     class EvaluationAnswerOutput < Struct.new(
       :value,
-      :system_suggested_value)
+      :system_suggested_value,
+      :suggested_answers)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The Contact Lens category used by evaluation automation.
+    #
+    # @!attribute [rw] category
+    #   A category label.
+    #   @return [String]
+    #
+    # @!attribute [rw] condition
+    #   An automation condition for a Contact Lens category.
+    #   @return [String]
+    #
+    # @!attribute [rw] points_of_interest
+    #   A point of interest in a contact transcript that indicates match of
+    #   condition.
+    #   @return [Array<Types::EvaluationTranscriptPointOfInterest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationAutomationRuleCategory AWS API Documentation
+    #
+    class EvaluationAutomationRuleCategory < Struct.new(
+      :category,
+      :condition,
+      :points_of_interest)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Analysis details providing explanation for Contact Lens automation
+    # decision.
+    #
+    # @!attribute [rw] matched_rule_categories
+    #   A list of match rule categories.
+    #   @return [Array<Types::EvaluationAutomationRuleCategory>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationContactLensAnswerAnalysisDetails AWS API Documentation
+    #
+    class EvaluationContactLensAnswerAnalysisDetails < Struct.new(
+      :matched_rule_categories)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9284,6 +9521,10 @@ module Aws::Connect
     #   evaluation form.
     #   @return [String]
     #
+    # @!attribute [rw] auto_evaluation_configuration
+    #   The automatic evaluation configuration of an evaluation form.
+    #   @return [Types::EvaluationFormAutoEvaluationConfiguration]
+    #
     # @!attribute [rw] tags
     #   The tags used to organize, track, or control access for this
     #   resource. For example, \{ "Tags": \{"key1":"value1",
@@ -9306,7 +9547,22 @@ module Aws::Connect
       :created_by,
       :last_modified_time,
       :last_modified_by,
+      :auto_evaluation_configuration,
       :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The automatic evaluation configuration of an evaluation form.
+    #
+    # @!attribute [rw] enabled
+    #   When automated evaluation is enabled.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormAutoEvaluationConfiguration AWS API Documentation
+    #
+    class EvaluationFormAutoEvaluationConfiguration < Struct.new(
+      :enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9343,6 +9599,10 @@ module Aws::Connect
     #   A scoring strategy of the evaluation form.
     #   @return [Types::EvaluationFormScoringStrategy]
     #
+    # @!attribute [rw] auto_evaluation_configuration
+    #   The configuration of the automated evaluation.
+    #   @return [Types::EvaluationFormAutoEvaluationConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormContent AWS API Documentation
     #
     class EvaluationFormContent < Struct.new(
@@ -9352,7 +9612,8 @@ module Aws::Connect
       :title,
       :description,
       :items,
-      :scoring_strategy)
+      :scoring_strategy,
+      :auto_evaluation_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9387,6 +9648,142 @@ module Aws::Connect
       class Unknown < EvaluationFormItem; end
     end
 
+    # A condition for item enablement.
+    #
+    # @!attribute [rw] operands
+    #   Operands of the enablement condition.
+    #   @return [Array<Types::EvaluationFormItemEnablementConditionOperand>]
+    #
+    # @!attribute [rw] operator
+    #   The operator to be used to be applied to operands if more than one
+    #   provided.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementCondition AWS API Documentation
+    #
+    class EvaluationFormItemEnablementCondition < Struct.new(
+      :operands,
+      :operator)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An operand of the enablement condition.
+    #
+    # @note EvaluationFormItemEnablementConditionOperand is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note EvaluationFormItemEnablementConditionOperand is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of EvaluationFormItemEnablementConditionOperand corresponding to the set member.
+    #
+    # @!attribute [rw] expression
+    #   An expression of the enablement condition.
+    #   @return [Types::EvaluationFormItemEnablementExpression]
+    #
+    # @!attribute [rw] condition
+    #   A condition for item enablement.
+    #   @return [Types::EvaluationFormItemEnablementCondition]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementConditionOperand AWS API Documentation
+    #
+    class EvaluationFormItemEnablementConditionOperand < Struct.new(
+      :expression,
+      :condition,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Expression < EvaluationFormItemEnablementConditionOperand; end
+      class Condition < EvaluationFormItemEnablementConditionOperand; end
+      class Unknown < EvaluationFormItemEnablementConditionOperand; end
+    end
+
+    # An item enablement configuration.
+    #
+    # @!attribute [rw] condition
+    #   A condition for item enablement configuration.
+    #   @return [Types::EvaluationFormItemEnablementCondition]
+    #
+    # @!attribute [rw] action
+    #   An enablement action that if condition is satisfied.
+    #   @return [String]
+    #
+    # @!attribute [rw] default_action
+    #   An enablement action that if condition is not satisfied.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementConfiguration AWS API Documentation
+    #
+    class EvaluationFormItemEnablementConfiguration < Struct.new(
+      :condition,
+      :action,
+      :default_action)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An expression that defines a basic building block of conditional
+    # enablement.
+    #
+    # @!attribute [rw] source
+    #   A source item of enablement expression.
+    #   @return [Types::EvaluationFormItemEnablementSource]
+    #
+    # @!attribute [rw] values
+    #   A list of values from source item.
+    #   @return [Array<Types::EvaluationFormItemEnablementSourceValue>]
+    #
+    # @!attribute [rw] comparator
+    #   A comparator to be used against list of values.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementExpression AWS API Documentation
+    #
+    class EvaluationFormItemEnablementExpression < Struct.new(
+      :source,
+      :values,
+      :comparator)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An enablement expression source item.
+    #
+    # @!attribute [rw] type
+    #   A type of source item.
+    #   @return [String]
+    #
+    # @!attribute [rw] ref_id
+    #   A referenceId of the source item.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementSource AWS API Documentation
+    #
+    class EvaluationFormItemEnablementSource < Struct.new(
+      :type,
+      :ref_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An enablement expression source value.
+    #
+    # @!attribute [rw] type
+    #   A type of source item value.
+    #   @return [String]
+    #
+    # @!attribute [rw] ref_id
+    #   A referenceId of the source value.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormItemEnablementSourceValue AWS API Documentation
+    #
+    class EvaluationFormItemEnablementSourceValue < Struct.new(
+      :type,
+      :ref_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Information about the automation configuration in numeric questions.
     #
     # @note EvaluationFormNumericQuestionAutomation is a union - when making an API calls you must set exactly one of the members.
@@ -9397,16 +9794,22 @@ module Aws::Connect
     #   The property value of the automation.
     #   @return [Types::NumericQuestionPropertyValueAutomation]
     #
+    # @!attribute [rw] answer_source
+    #   A source of automation answer for numeric question.
+    #   @return [Types::EvaluationFormQuestionAutomationAnswerSource]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormNumericQuestionAutomation AWS API Documentation
     #
     class EvaluationFormNumericQuestionAutomation < Struct.new(
       :property_value,
+      :answer_source,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
       include Aws::Structure::Union
 
       class PropertyValue < EvaluationFormNumericQuestionAutomation; end
+      class AnswerSource < EvaluationFormNumericQuestionAutomation; end
       class Unknown < EvaluationFormNumericQuestionAutomation; end
     end
 
@@ -9430,13 +9833,18 @@ module Aws::Connect
     #   answer is provided, the overall evaluation gets a score of 0.
     #   @return [Boolean]
     #
+    # @!attribute [rw] automatic_fail_configuration
+    #   A configuration for automatic fail.
+    #   @return [Types::AutomaticFailConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormNumericQuestionOption AWS API Documentation
     #
     class EvaluationFormNumericQuestionOption < Struct.new(
       :min_value,
       :max_value,
       :score,
-      :automatic_fail)
+      :automatic_fail,
+      :automatic_fail_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9499,6 +9907,10 @@ module Aws::Connect
     #   to define question type properties.
     #   @return [Types::EvaluationFormQuestionTypeProperties]
     #
+    # @!attribute [rw] enablement
+    #   A question conditional enablement.
+    #   @return [Types::EvaluationFormItemEnablementConfiguration]
+    #
     # @!attribute [rw] weight
     #   The scoring weight of the section.
     #   @return [Float]
@@ -9512,7 +9924,22 @@ module Aws::Connect
       :not_applicable_enabled,
       :question_type,
       :question_type_properties,
+      :enablement,
       :weight)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A question automation answer.
+    #
+    # @!attribute [rw] source_type
+    #   The automation answer source type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormQuestionAutomationAnswerSource AWS API Documentation
+    #
+    class EvaluationFormQuestionAutomationAnswerSource < Struct.new(
+      :source_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9533,11 +9960,16 @@ module Aws::Connect
     #   The properties of the numeric question.
     #   @return [Types::EvaluationFormSingleSelectQuestionProperties]
     #
+    # @!attribute [rw] text
+    #   The properties of the text question.
+    #   @return [Types::EvaluationFormTextQuestionProperties]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormQuestionTypeProperties AWS API Documentation
     #
     class EvaluationFormQuestionTypeProperties < Struct.new(
       :numeric,
       :single_select,
+      :text,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
@@ -9545,6 +9977,7 @@ module Aws::Connect
 
       class Numeric < EvaluationFormQuestionTypeProperties; end
       class SingleSelect < EvaluationFormQuestionTypeProperties; end
+      class Text < EvaluationFormQuestionTypeProperties; end
       class Unknown < EvaluationFormQuestionTypeProperties; end
     end
 
@@ -9563,6 +9996,161 @@ module Aws::Connect
     class EvaluationFormScoringStrategy < Struct.new(
       :mode,
       :status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The search criteria to be used to return evaluation forms.
+    #
+    # @!attribute [rw] or_conditions
+    #   A list of conditions which would be applied together with an OR
+    #   condition.
+    #   @return [Array<Types::EvaluationFormSearchCriteria>]
+    #
+    # @!attribute [rw] and_conditions
+    #   A list of conditions which would be applied together with an AND
+    #   condition.
+    #   @return [Array<Types::EvaluationFormSearchCriteria>]
+    #
+    # @!attribute [rw] string_condition
+    #   A leaf node condition which can be used to specify a string
+    #   condition.
+    #   @return [Types::StringCondition]
+    #
+    # @!attribute [rw] number_condition
+    #   A leaf node condition which can be used to specify a numeric
+    #   condition.
+    #
+    #   <note markdown="1"> The currently supported value for `FieldName` is `limit`.
+    #
+    #    </note>
+    #   @return [Types::NumberCondition]
+    #
+    # @!attribute [rw] boolean_condition
+    #   Boolean search condition.
+    #   @return [Types::BooleanCondition]
+    #
+    # @!attribute [rw] date_time_condition
+    #   Datetime search condition.
+    #   @return [Types::DateTimeCondition]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormSearchCriteria AWS API Documentation
+    #
+    class EvaluationFormSearchCriteria < Struct.new(
+      :or_conditions,
+      :and_conditions,
+      :string_condition,
+      :number_condition,
+      :boolean_condition,
+      :date_time_condition)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Filters to be applied to search results.
+    #
+    # @!attribute [rw] attribute_filter
+    #   An object that can be used to specify Tag conditions inside the
+    #   `SearchFilter`. This accepts an `OR` or `AND` (List of List) input
+    #   where:
+    #
+    #   * The top level list specifies conditions that need to be applied
+    #     with `OR` operator.
+    #
+    #   * The inner list specifies conditions that need to be applied with
+    #     `AND` operator.
+    #   @return [Types::ControlPlaneAttributeFilter]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormSearchFilter AWS API Documentation
+    #
+    class EvaluationFormSearchFilter < Struct.new(
+      :attribute_filter)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about the returned evaluation forms.
+    #
+    # @!attribute [rw] evaluation_form_id
+    #   The unique identifier for the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluation_form_arn
+    #   The Amazon Resource Name (ARN) for the evaluation form resource.
+    #   @return [String]
+    #
+    # @!attribute [rw] title
+    #   The title of the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The status of the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   The description of the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_time
+    #   When the evaluation form was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] created_by
+    #   Who created the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_modified_time
+    #   When the evaluation form was last changed.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_modified_by
+    #   Who changed the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_activated_time
+    #   When the evaluation format was last activated.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_activated_by
+    #   The ID of user who last activated evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] latest_version
+    #   Latest version of the evaluation form.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] active_version
+    #   Active version of the evaluation form.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] auto_evaluation_enabled
+    #   Whether automated evaluation is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] tags
+    #   The tags used to organize, track, or control access for this
+    #   resource. For example, \{ "Tags": \{"key1":"value1",
+    #   "key2":"value2"} }.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormSearchSummary AWS API Documentation
+    #
+    class EvaluationFormSearchSummary < Struct.new(
+      :evaluation_form_id,
+      :evaluation_form_arn,
+      :title,
+      :status,
+      :description,
+      :created_time,
+      :created_by,
+      :last_modified_time,
+      :last_modified_by,
+      :last_activated_time,
+      :last_activated_by,
+      :latest_version,
+      :active_version,
+      :auto_evaluation_enabled,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9618,11 +10206,16 @@ module Aws::Connect
     #   automation options match the criteria.
     #   @return [String]
     #
+    # @!attribute [rw] answer_source
+    #   Automation answer source.
+    #   @return [Types::EvaluationFormQuestionAutomationAnswerSource]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormSingleSelectQuestionAutomation AWS API Documentation
     #
     class EvaluationFormSingleSelectQuestionAutomation < Struct.new(
       :options,
-      :default_option_ref_id)
+      :default_option_ref_id,
+      :answer_source)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9672,13 +10265,18 @@ module Aws::Connect
     #   answer is provided, the overall evaluation gets a score of 0.
     #   @return [Boolean]
     #
+    # @!attribute [rw] automatic_fail_configuration
+    #   Whether automatic fail is configured on a single select question.
+    #   @return [Types::AutomaticFailConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormSingleSelectQuestionOption AWS API Documentation
     #
     class EvaluationFormSingleSelectQuestionOption < Struct.new(
       :ref_id,
       :text,
       :score,
-      :automatic_fail)
+      :automatic_fail,
+      :automatic_fail_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9774,6 +10372,35 @@ module Aws::Connect
       include Aws::Structure
     end
 
+    # Information about the automation configuration in text questions.
+    #
+    # @!attribute [rw] answer_source
+    #   Automation answer source.
+    #   @return [Types::EvaluationFormQuestionAutomationAnswerSource]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormTextQuestionAutomation AWS API Documentation
+    #
+    class EvaluationFormTextQuestionAutomation < Struct.new(
+      :answer_source)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about properties for a text question in an evaluation
+    # form.
+    #
+    # @!attribute [rw] automation
+    #   The automation properties of the text question.
+    #   @return [Types::EvaluationFormTextQuestionAutomation]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationFormTextQuestionProperties AWS API Documentation
+    #
+    class EvaluationFormTextQuestionProperties < Struct.new(
+      :automation)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Summary information about an evaluation form.
     #
     # @!attribute [rw] evaluation_form_arn
@@ -9831,6 +10458,25 @@ module Aws::Connect
       include Aws::Structure
     end
 
+    # An analysis for a generative AI answer to the question.
+    #
+    # @!attribute [rw] justification
+    #   Generative AI automation answer justification.
+    #   @return [String]
+    #
+    # @!attribute [rw] points_of_interest
+    #   Generative AI automation answer analysis points of interest.
+    #   @return [Array<Types::EvaluationTranscriptPointOfInterest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationGenAIAnswerAnalysisDetails AWS API Documentation
+    #
+    class EvaluationGenAIAnswerAnalysisDetails < Struct.new(
+      :justification,
+      :points_of_interest)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Metadata information about a contact evaluation.
     #
     # @!attribute [rw] contact_id
@@ -9846,9 +10492,21 @@ module Aws::Connect
     #   The identifier of the agent who performed the contact.
     #   @return [String]
     #
+    # @!attribute [rw] calibration_session_id
+    #   The calibration session ID that this evaluation belongs to.
+    #   @return [String]
+    #
     # @!attribute [rw] score
     #   The overall score of the contact evaluation.
     #   @return [Types::EvaluationScore]
+    #
+    # @!attribute [rw] auto_evaluation
+    #   Information related to automated evaluation.
+    #   @return [Types::AutoEvaluationDetails]
+    #
+    # @!attribute [rw] acknowledgement
+    #   Information related to evaluation acknowledgement.
+    #   @return [Types::EvaluationAcknowledgement]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationMetadata AWS API Documentation
     #
@@ -9856,7 +10514,10 @@ module Aws::Connect
       :contact_id,
       :evaluator_arn,
       :contact_agent_id,
-      :score)
+      :calibration_session_id,
+      :score,
+      :auto_evaluation,
+      :acknowledgement)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9879,6 +10540,48 @@ module Aws::Connect
     #
     class EvaluationNote < Struct.new(
       :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Detailed analysis results of the automated answer to the evaluation
+    # question.
+    #
+    # @note EvaluationQuestionAnswerAnalysisDetails is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of EvaluationQuestionAnswerAnalysisDetails corresponding to the set member.
+    #
+    # @!attribute [rw] gen_ai
+    #   Analysis results from the generative AI automation for the question.
+    #   @return [Types::EvaluationGenAIAnswerAnalysisDetails]
+    #
+    # @!attribute [rw] contact_lens
+    #   Analysis results from the Contact Lens automation for the question.
+    #   @return [Types::EvaluationContactLensAnswerAnalysisDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationQuestionAnswerAnalysisDetails AWS API Documentation
+    #
+    class EvaluationQuestionAnswerAnalysisDetails < Struct.new(
+      :gen_ai,
+      :contact_lens,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class GenAi < EvaluationQuestionAnswerAnalysisDetails; end
+      class ContactLens < EvaluationQuestionAnswerAnalysisDetails; end
+      class Unknown < EvaluationQuestionAnswerAnalysisDetails; end
+    end
+
+    # Details of the input data used for automated question processing.
+    #
+    # @!attribute [rw] transcript_type
+    #   Transcript type.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationQuestionInputDetails AWS API Documentation
+    #
+    class EvaluationQuestionInputDetails < Struct.new(
+      :transcript_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9909,6 +10612,262 @@ module Aws::Connect
       include Aws::Structure
     end
 
+    # The search criteria to be used to return evaluations.
+    #
+    # @!attribute [rw] or_conditions
+    #   A list of conditions which would be applied together with an OR
+    #   condition.
+    #   @return [Array<Types::EvaluationSearchCriteria>]
+    #
+    # @!attribute [rw] and_conditions
+    #   A list of conditions which would be applied together with an AND
+    #   condition.
+    #   @return [Array<Types::EvaluationSearchCriteria>]
+    #
+    # @!attribute [rw] string_condition
+    #   A leaf node condition which can be used to specify a string
+    #   condition.
+    #   @return [Types::StringCondition]
+    #
+    # @!attribute [rw] number_condition
+    #   A leaf node condition which can be used to specify a numeric
+    #   condition.
+    #
+    #   <note markdown="1"> The currently supported value for `FieldName` is `limit`.
+    #
+    #    </note>
+    #   @return [Types::NumberCondition]
+    #
+    # @!attribute [rw] boolean_condition
+    #   The boolean condition search criteria for searching evaluations.
+    #   @return [Types::BooleanCondition]
+    #
+    # @!attribute [rw] date_time_condition
+    #   The datetime condition search criteria for searching evaluations.
+    #   @return [Types::DateTimeCondition]
+    #
+    # @!attribute [rw] decimal_condition
+    #   The decimal condition search criteria for searching evaluations.
+    #   @return [Types::DecimalCondition]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSearchCriteria AWS API Documentation
+    #
+    class EvaluationSearchCriteria < Struct.new(
+      :or_conditions,
+      :and_conditions,
+      :string_condition,
+      :number_condition,
+      :boolean_condition,
+      :date_time_condition,
+      :decimal_condition)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Filters to be applied to search results.
+    #
+    # @!attribute [rw] attribute_filter
+    #   An object that can be used to specify Tag conditions inside the
+    #   `SearchFilter`. This accepts an `OR` or `AND` (List of List) input
+    #   where:
+    #
+    #   * The top level list specifies conditions that need to be applied
+    #     with `OR` operator.
+    #
+    #   * The inner list specifies conditions that need to be applied with
+    #     `AND` operator.
+    #   @return [Types::ControlPlaneAttributeFilter]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSearchFilter AWS API Documentation
+    #
+    class EvaluationSearchFilter < Struct.new(
+      :attribute_filter)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Metadata information about an evaluation search.
+    #
+    # @!attribute [rw] contact_id
+    #   The identifier of the contact in this instance of Amazon Connect.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluator_arn
+    #   The Amazon Resource Name (ARN) of the person who evaluated the
+    #   contact.
+    #   @return [String]
+    #
+    # @!attribute [rw] contact_agent_id
+    #   The unique ID of the agent who handled the contact.
+    #   @return [String]
+    #
+    # @!attribute [rw] calibration_session_id
+    #   The calibration session ID that this evaluation belongs to.
+    #   @return [String]
+    #
+    # @!attribute [rw] score_percentage
+    #   The total evaluation score expressed as a percentage.
+    #   @return [Float]
+    #
+    # @!attribute [rw] score_automatic_fail
+    #   The flag that marks the item as automatic fail. If the item or a
+    #   child item gets an automatic fail answer, this flag is true.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] score_not_applicable
+    #   The flag to mark the item as not applicable for scoring.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] auto_evaluation_enabled
+    #   Whether auto-evaluation is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] auto_evaluation_status
+    #   The status of the contact auto evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] acknowledged_time
+    #   When the evaluation was acknowledged by the agent.
+    #   @return [Time]
+    #
+    # @!attribute [rw] acknowledged_by
+    #   The agent who acknowledged the evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] acknowledger_comment
+    #   The comment from the agent when they acknowledged the evaluation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSearchMetadata AWS API Documentation
+    #
+    class EvaluationSearchMetadata < Struct.new(
+      :contact_id,
+      :evaluator_arn,
+      :contact_agent_id,
+      :calibration_session_id,
+      :score_percentage,
+      :score_automatic_fail,
+      :score_not_applicable,
+      :auto_evaluation_enabled,
+      :auto_evaluation_status,
+      :acknowledged_time,
+      :acknowledged_by,
+      :acknowledger_comment)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Summary of evaluation obtained from the search operation.
+    #
+    # @!attribute [rw] evaluation_id
+    #   A unique identifier for the contact evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluation_arn
+    #   The Amazon Resource Name (ARN) for the contact evaluation resource.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluation_form_id
+    #   The unique identifier for the evaluation form.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluation_form_version
+    #   A version of the evaluation form.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] metadata
+    #   Summary information about the evaluation search.
+    #   @return [Types::EvaluationSearchMetadata]
+    #
+    # @!attribute [rw] status
+    #   The status of the evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] evaluation_type
+    #   Type of the evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_time
+    #   The date and time when the evaluation was created, in UTC time.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_modified_time
+    #   The date and time when the evaluation was modified last time, in UTC
+    #   time.
+    #   @return [Time]
+    #
+    # @!attribute [rw] tags
+    #   The tags used to organize, track, or control access for this
+    #   resource. For example, \{ "Tags": \{"key1":"value1",
+    #   "key2":"value2"} }.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSearchSummary AWS API Documentation
+    #
+    class EvaluationSearchSummary < Struct.new(
+      :evaluation_id,
+      :evaluation_arn,
+      :evaluation_form_id,
+      :evaluation_form_version,
+      :metadata,
+      :status,
+      :evaluation_type,
+      :created_time,
+      :last_modified_time,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The information about the suggested answer for the question.
+    #
+    # @!attribute [rw] value
+    #   Information about answer data for a contact evaluation. Answer data
+    #   must be either string, numeric, or not applicable.
+    #   @return [Types::EvaluationAnswerData]
+    #
+    # @!attribute [rw] status
+    #   The status of the suggested answer. D
+    #   @return [String]
+    #
+    # @!attribute [rw] input
+    #   Details about the input used to question automation.
+    #   @return [Types::EvaluationQuestionInputDetails]
+    #
+    # @!attribute [rw] analysis_type
+    #   Type of analysis used to provide suggested answer.
+    #   @return [String]
+    #
+    # @!attribute [rw] analysis_details
+    #   Detailed analysis results.
+    #   @return [Types::EvaluationQuestionAnswerAnalysisDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSuggestedAnswer AWS API Documentation
+    #
+    class EvaluationSuggestedAnswer < Struct.new(
+      :value,
+      :status,
+      :input,
+      :analysis_type,
+      :analysis_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The milliseconds offset for transcript reference in suggested answer.
+    #
+    # @!attribute [rw] begin_offset_millis
+    #   Offset in milliseconds from the beginning of the transcript.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationSuggestedAnswerTranscriptMillisecondOffsets AWS API Documentation
+    #
+    class EvaluationSuggestedAnswerTranscriptMillisecondOffsets < Struct.new(
+      :begin_offset_millis)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Summary information about a contact evaluation.
     #
     # @!attribute [rw] evaluation_id
@@ -9927,8 +10886,20 @@ module Aws::Connect
     #   The unique identifier for the evaluation form.
     #   @return [String]
     #
+    # @!attribute [rw] calibration_session_id
+    #   The calibration session ID that this evaluation belongs to.
+    #   @return [String]
+    #
     # @!attribute [rw] status
     #   The status of the contact evaluation.
+    #   @return [String]
+    #
+    # @!attribute [rw] auto_evaluation_enabled
+    #   Whether automated evaluation is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] auto_evaluation_status
+    #   The status of the contact auto evaluation.
     #   @return [String]
     #
     # @!attribute [rw] evaluator_arn
@@ -9939,6 +10910,14 @@ module Aws::Connect
     # @!attribute [rw] score
     #   The overall score of the contact evaluation.
     #   @return [Types::EvaluationScore]
+    #
+    # @!attribute [rw] acknowledgement
+    #   Information related to evaluation acknowledgement.
+    #   @return [Types::EvaluationAcknowledgementSummary]
+    #
+    # @!attribute [rw] evaluation_type
+    #   Type of the evaluation.
+    #   @return [String]
     #
     # @!attribute [rw] created_time
     #   The timestamp for when the evaluation was created.
@@ -9955,13 +10934,59 @@ module Aws::Connect
       :evaluation_arn,
       :evaluation_form_title,
       :evaluation_form_id,
+      :calibration_session_id,
       :status,
+      :auto_evaluation_enabled,
+      :auto_evaluation_status,
       :evaluator_arn,
       :score,
+      :acknowledgement,
+      :evaluation_type,
       :created_time,
       :last_modified_time)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # Information about the point of interest in transcript provided to
+    # evaluation.
+    #
+    # @!attribute [rw] millisecond_offsets
+    #   Offset in milliseconds from the beginning of transcript.
+    #   @return [Types::EvaluationSuggestedAnswerTranscriptMillisecondOffsets]
+    #
+    # @!attribute [rw] transcript_segment
+    #   Segment of transcript.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluationTranscriptPointOfInterest AWS API Documentation
+    #
+    class EvaluationTranscriptPointOfInterest < Struct.new(
+      :millisecond_offsets,
+      :transcript_segment)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents the entity that performed the action on the evaluation.
+    #
+    # @note EvaluatorUserUnion is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] connect_user_arn
+    #   Represents the Amazon Connect ARN of the user.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/EvaluatorUserUnion AWS API Documentation
+    #
+    class EvaluatorUserUnion < Struct.new(
+      :connect_user_arn,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class ConnectUserArn < EvaluatorUserUnion; end
+      class Unknown < EvaluatorUserUnion; end
     end
 
     # The EventBridge action definition.
@@ -21550,6 +22575,69 @@ module Aws::Connect
     end
 
     # @!attribute [rw] instance_id
+    #   The identifier of the Amazon Connect instance. You can [find the
+    #   instance ID][1] in the Amazon Resource Name (ARN) of the instance.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return per page.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] search_criteria
+    #   The search criteria to be used to return contact evaluations.
+    #   @return [Types::EvaluationSearchCriteria]
+    #
+    # @!attribute [rw] search_filter
+    #   Filters to be applied to search results.
+    #   @return [Types::EvaluationSearchFilter]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchContactEvaluationsRequest AWS API Documentation
+    #
+    class SearchContactEvaluationsRequest < Struct.new(
+      :instance_id,
+      :next_token,
+      :max_results,
+      :search_criteria,
+      :search_filter)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] evaluation_search_summary_list
+    #   Contains information about contact evaluations.
+    #   @return [Array<Types::EvaluationSearchSummary>]
+    #
+    # @!attribute [rw] next_token
+    #   If there are additional results, this is the token for the next set
+    #   of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] approximate_total_count
+    #   The total number of contact evaluations that matched your search
+    #   query.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchContactEvaluationsResponse AWS API Documentation
+    #
+    class SearchContactEvaluationsResponse < Struct.new(
+      :evaluation_search_summary_list,
+      :next_token,
+      :approximate_total_count)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] instance_id
     #   The identifier of the Amazon Connect instance. You can find the
     #   instance ID in the Amazon Resource Name (ARN) of the instance.
     #   @return [String]
@@ -21971,6 +23059,68 @@ module Aws::Connect
     class SearchEmailAddressesResponse < Struct.new(
       :next_token,
       :email_addresses,
+      :approximate_total_count)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] instance_id
+    #   The identifier of the Amazon Connect instance. You can [find the
+    #   instance ID][1] in the Amazon Resource Name (ARN) of the instance.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/find-instance-arn.html
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next set of results. Use the value returned in the
+    #   previous response in the next request to retrieve the next set of
+    #   results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return per page.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] search_criteria
+    #   The search criteria to be used to return evaluation forms.
+    #   @return [Types::EvaluationFormSearchCriteria]
+    #
+    # @!attribute [rw] search_filter
+    #   Filters to be applied to search results.
+    #   @return [Types::EvaluationFormSearchFilter]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchEvaluationFormsRequest AWS API Documentation
+    #
+    class SearchEvaluationFormsRequest < Struct.new(
+      :instance_id,
+      :next_token,
+      :max_results,
+      :search_criteria,
+      :search_filter)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] evaluation_form_search_summary_list
+    #   Information about the returned evaluation forms.
+    #   @return [Array<Types::EvaluationFormSearchSummary>]
+    #
+    # @!attribute [rw] next_token
+    #   If there are additional results, this is the token for the next set
+    #   of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] approximate_total_count
+    #   The total number of evaluation forms that matched your search query.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SearchEvaluationFormsResponse AWS API Documentation
+    #
+    class SearchEvaluationFormsResponse < Struct.new(
+      :evaluation_form_search_summary_list,
+      :next_token,
       :approximate_total_count)
       SENSITIVE = []
       include Aws::Structure
@@ -23803,6 +24953,10 @@ module Aws::Connect
     #   The unique identifier for the evaluation form.
     #   @return [String]
     #
+    # @!attribute [rw] auto_evaluation_configuration
+    #   Whether automated evaluations are enabled.
+    #   @return [Types::AutoEvaluationConfiguration]
+    #
     # @!attribute [rw] client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -23817,13 +24971,21 @@ module Aws::Connect
     #   [1]: https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
     #   @return [String]
     #
+    # @!attribute [rw] tags
+    #   The tags used to organize, track, or control access for this
+    #   resource. For example, \{ "Tags": \{"key1":"value1",
+    #   "key2":"value2"} }.
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/StartContactEvaluationRequest AWS API Documentation
     #
     class StartContactEvaluationRequest < Struct.new(
       :instance_id,
       :contact_id,
       :evaluation_form_id,
-      :client_token)
+      :auto_evaluation_configuration,
+      :client_token,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -25003,13 +26165,18 @@ module Aws::Connect
     #   A map of question identifiers to note value.
     #   @return [Hash<String,Types::EvaluationNote>]
     #
+    # @!attribute [rw] submitted_by
+    #   The ID of the user who submitted the contact evaluation.
+    #   @return [Types::EvaluatorUserUnion]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SubmitContactEvaluationRequest AWS API Documentation
     #
     class SubmitContactEvaluationRequest < Struct.new(
       :instance_id,
       :evaluation_id,
       :answers,
-      :notes)
+      :notes,
+      :submitted_by)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -26114,13 +27281,18 @@ module Aws::Connect
     #   A map of question identifiers to note value.
     #   @return [Hash<String,Types::EvaluationNote>]
     #
+    # @!attribute [rw] updated_by
+    #   The ID of the user who updated the contact evaluation.
+    #   @return [Types::EvaluatorUserUnion]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/UpdateContactEvaluationRequest AWS API Documentation
     #
     class UpdateContactEvaluationRequest < Struct.new(
       :instance_id,
       :evaluation_id,
       :answers,
-      :notes)
+      :notes,
+      :updated_by)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -26617,6 +27789,10 @@ module Aws::Connect
     #   A scoring strategy of the evaluation form.
     #   @return [Types::EvaluationFormScoringStrategy]
     #
+    # @!attribute [rw] auto_evaluation_configuration
+    #   Whether automated evaluations are enabled.
+    #   @return [Types::EvaluationFormAutoEvaluationConfiguration]
+    #
     # @!attribute [rw] client_token
     #   A unique, case-sensitive identifier that you provide to ensure the
     #   idempotency of the request. If not provided, the Amazon Web Services
@@ -26642,6 +27818,7 @@ module Aws::Connect
       :description,
       :items,
       :scoring_strategy,
+      :auto_evaluation_configuration,
       :client_token)
       SENSITIVE = []
       include Aws::Structure
@@ -26773,7 +27950,7 @@ module Aws::Connect
     #   The type of attribute.
     #
     #   <note markdown="1"> Only allowlisted customers can consume USE\_CUSTOM\_TTS\_VOICES. To
-    #   access this feature, contact Amazon Web ServicesSupport for
+    #   access this feature, contact Amazon Web Services Support for
     #   allowlisting.
     #
     #    </note>

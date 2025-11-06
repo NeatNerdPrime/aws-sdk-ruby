@@ -539,6 +539,9 @@ module Aws::S3Tables
     #     `encryptionConfiguration` request parameter you must have the
     #     `s3tables:PutTableEncryption` permission.
     #
+    #   * You must have the `s3tables:TagResource` permission in addition to
+    #     `s3tables:CreateTable` permission to create a table with tags.
+    #
     #   <note markdown="1"> Additionally, If you choose SSE-KMS encryption you must grant the S3
     #   Tables maintenance principal access to your KMS key. For more
     #   information, see [Permissions requirements for S3 Tables SSE-KMS
@@ -582,6 +585,22 @@ module Aws::S3Tables
     #
     #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-kms-permissions.html
     #
+    # @option params [Hash<String,String>] :tags
+    #   A map of user-defined tags that you would like to apply to the table
+    #   that you are creating. A tag is a key-value pair that you apply to
+    #   your resources. Tags can help you organize, track costs for, and
+    #   control access to resources. For more information, see [Tagging for
+    #   cost allocation or attribute-based access control (ABAC)][1].
+    #
+    #   <note markdown="1"> You must have the `s3tables:TagResource` permission in addition to
+    #   `s3tables:CreateTable` permission to create a table with tags.
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #
     # @return [Types::CreateTableResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateTableResponse#table_arn #table_arn} => String
@@ -611,6 +630,9 @@ module Aws::S3Tables
     #       sse_algorithm: "AES256", # required, accepts AES256, aws:kms
     #       kms_key_arn: "EncryptionConfigurationKmsKeyArnString",
     #     },
+    #     tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #   })
     #
     # @example Response structure
@@ -638,6 +660,10 @@ module Aws::S3Tables
     #     `encryptionConfiguration` parameter you must have the
     #     `s3tables:PutTableBucketEncryption` permission.
     #
+    #   * You must have the `s3tables:TagResource` permission in addition to
+    #     `s3tables:CreateTableBucket` permission to create a table bucket
+    #     with tags.
+    #
     #
     #
     # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-tables-buckets-create.html
@@ -652,6 +678,23 @@ module Aws::S3Tables
     #   table level. The configuration includes the encryption algorithm and,
     #   if using SSE-KMS, the KMS key to use.
     #
+    # @option params [Hash<String,String>] :tags
+    #   A map of user-defined tags that you would like to apply to the table
+    #   bucket that you are creating. A tag is a key-value pair that you apply
+    #   to your resources. Tags can help you organize and control access to
+    #   resources. For more information, see [Tagging for cost allocation or
+    #   attribute-based access control (ABAC)][1].
+    #
+    #   <note markdown="1"> You must have the `s3tables:TagResource` permission in addition to
+    #   `s3tables:CreateTableBucket` permisson to create a table bucket with
+    #   tags.
+    #
+    #    </note>
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #
     # @return [Types::CreateTableBucketResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateTableBucketResponse#arn #arn} => String
@@ -663,6 +706,9 @@ module Aws::S3Tables
     #     encryption_configuration: {
     #       sse_algorithm: "AES256", # required, accepts AES256, aws:kms
     #       kms_key_arn: "EncryptionConfigurationKmsKeyArnString",
+    #     },
+    #     tags: {
+    #       "TagKey" => "TagValue",
     #     },
     #   })
     #
@@ -1315,7 +1361,8 @@ module Aws::S3Tables
     #   The name of the namespace the table is associated with.
     #
     # @option params [required, String] :name
-    #   The name of the maintenance job.
+    #   The name of the table containing the maintenance job status you want
+    #   to check.
     #
     # @return [Types::GetTableMaintenanceJobStatusResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -1637,6 +1684,59 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
+    # Lists all of the tags applied to a specified Amazon S3 Tables
+    # resource. Each tag is a label consisting of a key and value pair. Tags
+    # can help you organize, track costs for, and control access to
+    # resources.
+    #
+    # <note markdown="1"> For a list of S3 resources that support tagging, see [Managing tags
+    # for Amazon S3 resources][1].
+    #
+    #  </note>
+    #
+    # Permissions
+    #
+    # : For tables and table buckets, you must have the
+    #   `s3tables:ListTagsForResource` permission to use this operation.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you want to list tags for. The tagged resource can be a table bucket
+    #   or a table. For a list of all S3 resources that support tagging, see
+    #   [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @return [Types::ListTagsForResourceResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListTagsForResourceResponse#tags #tags} => Hash&lt;String,String&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_tags_for_resource({
+    #     resource_arn: "ResourceArn", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.tags #=> Hash
+    #   resp.tags["TagKey"] #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/ListTagsForResource AWS API Documentation
+    #
+    # @overload list_tags_for_resource(params = {})
+    # @param [Hash] params ({})
+    def list_tags_for_resource(params = {}, options = {})
+      req = build_request(:list_tags_for_resource, params)
+      req.send_request(options)
+    end
+
     # Sets the encryption configuration for a table bucket.
     #
     # Permissions
@@ -1734,10 +1834,9 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
-    # Creates a new maintenance configuration or replaces an existing table
-    # bucket policy for a table bucket. For more information, see [Adding a
-    # table bucket policy][1] in the *Amazon Simple Storage Service User
-    # Guide*.
+    # Creates a new table bucket policy or replaces an existing table bucket
+    # policy for a table bucket. For more information, see [Adding a table
+    # bucket policy][1] in the *Amazon Simple Storage Service User Guide*.
     #
     # Permissions
     #
@@ -1794,7 +1893,7 @@ module Aws::S3Tables
     #   The namespace of the table.
     #
     # @option params [required, String] :name
-    #   The name of the maintenance configuration.
+    #   The name of the table.
     #
     # @option params [required, String] :type
     #   The type of the maintenance configuration.
@@ -1835,9 +1934,9 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
-    # Creates a new maintenance configuration or replaces an existing table
-    # policy for a table. For more information, see [Adding a table
-    # policy][1] in the *Amazon Simple Storage Service User Guide*.
+    # Creates a new table policy or replaces an existing table policy for a
+    # table. For more information, see [Adding a table policy][1] in the
+    # *Amazon Simple Storage Service User Guide*.
     #
     # Permissions
     #
@@ -1933,6 +2032,119 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
+    # Applies one or more user-defined tags to an Amazon S3 Tables resource
+    # or updates existing tags. Each tag is a label consisting of a key and
+    # value pair. Tags can help you organize, track costs for, and control
+    # access to your resources. You can add up to 50 tags for each S3
+    # resource.
+    #
+    # <note markdown="1"> For a list of S3 resources that support tagging, see [Managing tags
+    # for Amazon S3 resources][1].
+    #
+    #  </note>
+    #
+    # Permissions
+    #
+    # : For tables and table buckets, you must have the
+    #   `s3tables:TagResource` permission to use this operation.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you're applying tags to. The tagged resource can be a table bucket or
+    #   a table. For a list of all S3 resources that support tagging, see
+    #   [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @option params [required, Hash<String,String>] :tags
+    #   The user-defined tag that you want to add to the specified S3 Tables
+    #   resource. For more information, see [Tagging for cost allocation or
+    #   attribute-based access control (ABAC)][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.tag_resource({
+    #     resource_arn: "ResourceArn", # required
+    #     tags: { # required
+    #       "TagKey" => "TagValue",
+    #     },
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/TagResource AWS API Documentation
+    #
+    # @overload tag_resource(params = {})
+    # @param [Hash] params ({})
+    def tag_resource(params = {}, options = {})
+      req = build_request(:tag_resource, params)
+      req.send_request(options)
+    end
+
+    # Removes the specified user-defined tags from an Amazon S3 Tables
+    # resource. You can pass one or more tag keys.
+    #
+    # <note markdown="1"> For a list of S3 resources that support tagging, see [Managing tags
+    # for Amazon S3 resources][1].
+    #
+    #  </note>
+    #
+    # Permissions
+    #
+    # : For tables and table buckets, you must have the
+    #   `s3tables:UntagResource` permission to use this operation.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @option params [required, String] :resource_arn
+    #   The Amazon Resource Name (ARN) of the Amazon S3 Tables resource that
+    #   you're removing tags from. The tagged resource can be a table bucket
+    #   or a table. For a list of all S3 resources that support tagging, see
+    #   [Managing tags for Amazon S3 resources][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html#manage-tags
+    #
+    # @option params [required, Array<String>] :tag_keys
+    #   The array of tag keys that you're removing from the S3 Tables
+    #   resource. For more information, see [Tagging for cost allocation or
+    #   attribute-based access control (ABAC)][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/tagging.html
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.untag_resource({
+    #     resource_arn: "ResourceArn", # required
+    #     tag_keys: ["TagKey"], # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/UntagResource AWS API Documentation
+    #
+    # @overload untag_resource(params = {})
+    # @param [Hash] params ({})
+    def untag_resource(params = {}, options = {})
+      req = build_request(:untag_resource, params)
+      req.send_request(options)
+    end
+
     # Updates the metadata location for a table. The metadata location of a
     # table must be an S3 URI that begins with the table's warehouse
     # location. The metadata location for an Apache Iceberg table must end
@@ -2013,7 +2225,7 @@ module Aws::S3Tables
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3tables'
-      context[:gem_version] = '1.18.0'
+      context[:gem_version] = '1.19.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
