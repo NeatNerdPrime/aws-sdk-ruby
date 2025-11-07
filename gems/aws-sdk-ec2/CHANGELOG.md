@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.572.0 (2025-11-07)
+------------------
+
+* Feature - Adds PrivateDnsPreference and PrivateDnsSpecifiedDomains to control private DNS resolution for resource and service network VPC endpoints and IpamScopeExternalAuthorityConfiguration to integrate Amazon VPC IPAM with a third-party IPAM service
+
 1.571.0 (2025-11-06)
 ------------------
 

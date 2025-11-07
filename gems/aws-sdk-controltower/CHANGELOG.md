@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.52.0 (2025-11-07)
+------------------
+
+* Feature - Added Parent Identifier support to ListEnabledControls and GetEnabledControl API. Implemented RemediationType support for Landing Zone operations: CreateLandingZone, UpdateLandingZone and GetLandingZone APIs
+
 1.51.0 (2025-10-27)
 ------------------
 

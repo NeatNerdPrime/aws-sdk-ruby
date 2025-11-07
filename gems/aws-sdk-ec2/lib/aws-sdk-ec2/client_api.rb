@@ -1604,6 +1604,7 @@ module Aws::EC2
     ExportVerifiedAccessInstanceClientConfigurationRequest = Shapes::StructureShape.new(name: 'ExportVerifiedAccessInstanceClientConfigurationRequest')
     ExportVerifiedAccessInstanceClientConfigurationResult = Shapes::StructureShape.new(name: 'ExportVerifiedAccessInstanceClientConfigurationResult')
     ExportVmTaskId = Shapes::StringShape.new(name: 'ExportVmTaskId')
+    ExternalAuthorityConfiguration = Shapes::StructureShape.new(name: 'ExternalAuthorityConfiguration')
     FailedCapacityReservationFleetCancellationResult = Shapes::StructureShape.new(name: 'FailedCapacityReservationFleetCancellationResult')
     FailedCapacityReservationFleetCancellationResultSet = Shapes::ListShape.new(name: 'FailedCapacityReservationFleetCancellationResultSet')
     FailedQueuedPurchaseDeletion = Shapes::StructureShape.new(name: 'FailedQueuedPurchaseDeletion')
@@ -2216,6 +2217,8 @@ module Aws::EC2
     IpamResourceTagList = Shapes::ListShape.new(name: 'IpamResourceTagList')
     IpamResourceType = Shapes::StringShape.new(name: 'IpamResourceType')
     IpamScope = Shapes::StructureShape.new(name: 'IpamScope')
+    IpamScopeExternalAuthorityConfiguration = Shapes::StructureShape.new(name: 'IpamScopeExternalAuthorityConfiguration')
+    IpamScopeExternalAuthorityType = Shapes::StringShape.new(name: 'IpamScopeExternalAuthorityType')
     IpamScopeId = Shapes::StringShape.new(name: 'IpamScopeId')
     IpamScopeSet = Shapes::ListShape.new(name: 'IpamScopeSet')
     IpamScopeState = Shapes::StringShape.new(name: 'IpamScopeState')
@@ -2851,6 +2854,7 @@ module Aws::EC2
     PrivateDnsNameOptionsOnLaunch = Shapes::StructureShape.new(name: 'PrivateDnsNameOptionsOnLaunch')
     PrivateDnsNameOptionsRequest = Shapes::StructureShape.new(name: 'PrivateDnsNameOptionsRequest')
     PrivateDnsNameOptionsResponse = Shapes::StructureShape.new(name: 'PrivateDnsNameOptionsResponse')
+    PrivateDnsSpecifiedDomainSet = Shapes::ListShape.new(name: 'PrivateDnsSpecifiedDomainSet')
     PrivateIpAddressConfigSet = Shapes::ListShape.new(name: 'PrivateIpAddressConfigSet')
     PrivateIpAddressCount = Shapes::IntegerShape.new(name: 'PrivateIpAddressCount')
     PrivateIpAddressSpecification = Shapes::StructureShape.new(name: 'PrivateIpAddressSpecification')
@@ -5762,6 +5766,7 @@ module Aws::EC2
     CreateIpamScopeRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
     CreateIpamScopeRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
     CreateIpamScopeRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CreateIpamScopeRequest.add_member(:external_authority_configuration, Shapes::ShapeRef.new(shape: ExternalAuthorityConfiguration, location_name: "ExternalAuthorityConfiguration"))
     CreateIpamScopeRequest.struct_class = Types::CreateIpamScopeRequest
 
     CreateIpamScopeResult.add_member(:ipam_scope, Shapes::ShapeRef.new(shape: IpamScope, location_name: "ipamScope"))
@@ -9776,10 +9781,14 @@ module Aws::EC2
 
     DnsOptions.add_member(:dns_record_ip_type, Shapes::ShapeRef.new(shape: DnsRecordIpType, location_name: "dnsRecordIpType"))
     DnsOptions.add_member(:private_dns_only_for_inbound_resolver_endpoint, Shapes::ShapeRef.new(shape: Boolean, location_name: "privateDnsOnlyForInboundResolverEndpoint"))
+    DnsOptions.add_member(:private_dns_preference, Shapes::ShapeRef.new(shape: String, location_name: "privateDnsPreference"))
+    DnsOptions.add_member(:private_dns_specified_domains, Shapes::ShapeRef.new(shape: PrivateDnsSpecifiedDomainSet, location_name: "privateDnsSpecifiedDomainSet"))
     DnsOptions.struct_class = Types::DnsOptions
 
     DnsOptionsSpecification.add_member(:dns_record_ip_type, Shapes::ShapeRef.new(shape: DnsRecordIpType, location_name: "DnsRecordIpType"))
     DnsOptionsSpecification.add_member(:private_dns_only_for_inbound_resolver_endpoint, Shapes::ShapeRef.new(shape: Boolean, location_name: "PrivateDnsOnlyForInboundResolverEndpoint"))
+    DnsOptionsSpecification.add_member(:private_dns_preference, Shapes::ShapeRef.new(shape: String, location_name: "PrivateDnsPreference"))
+    DnsOptionsSpecification.add_member(:private_dns_specified_domains, Shapes::ShapeRef.new(shape: PrivateDnsSpecifiedDomainSet, location_name: "PrivateDnsSpecifiedDomain"))
     DnsOptionsSpecification.struct_class = Types::DnsOptionsSpecification
 
     DnsServersOptionsModifyStructure.add_member(:custom_dns_servers, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "CustomDnsServers"))
@@ -10325,6 +10334,10 @@ module Aws::EC2
     ExportVerifiedAccessInstanceClientConfigurationResult.add_member(:user_trust_provider, Shapes::ShapeRef.new(shape: VerifiedAccessInstanceUserTrustProviderClientConfiguration, location_name: "userTrustProvider"))
     ExportVerifiedAccessInstanceClientConfigurationResult.add_member(:open_vpn_configurations, Shapes::ShapeRef.new(shape: VerifiedAccessInstanceOpenVpnClientConfigurationList, location_name: "openVpnConfigurationSet"))
     ExportVerifiedAccessInstanceClientConfigurationResult.struct_class = Types::ExportVerifiedAccessInstanceClientConfigurationResult
+
+    ExternalAuthorityConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: IpamScopeExternalAuthorityType, location_name: "Type"))
+    ExternalAuthorityConfiguration.add_member(:external_resource_identifier, Shapes::ShapeRef.new(shape: String, location_name: "ExternalResourceIdentifier"))
+    ExternalAuthorityConfiguration.struct_class = Types::ExternalAuthorityConfiguration
 
     FailedCapacityReservationFleetCancellationResult.add_member(:capacity_reservation_fleet_id, Shapes::ShapeRef.new(shape: CapacityReservationFleetId, location_name: "capacityReservationFleetId"))
     FailedCapacityReservationFleetCancellationResult.add_member(:cancel_capacity_reservation_fleet_error, Shapes::ShapeRef.new(shape: CancelCapacityReservationFleetError, location_name: "cancelCapacityReservationFleetError"))
@@ -12722,7 +12735,12 @@ module Aws::EC2
     IpamScope.add_member(:pool_count, Shapes::ShapeRef.new(shape: Integer, location_name: "poolCount"))
     IpamScope.add_member(:state, Shapes::ShapeRef.new(shape: IpamScopeState, location_name: "state"))
     IpamScope.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    IpamScope.add_member(:external_authority_configuration, Shapes::ShapeRef.new(shape: IpamScopeExternalAuthorityConfiguration, location_name: "externalAuthorityConfiguration"))
     IpamScope.struct_class = Types::IpamScope
+
+    IpamScopeExternalAuthorityConfiguration.add_member(:type, Shapes::ShapeRef.new(shape: IpamScopeExternalAuthorityType, location_name: "type"))
+    IpamScopeExternalAuthorityConfiguration.add_member(:external_resource_identifier, Shapes::ShapeRef.new(shape: String, location_name: "externalResourceIdentifier"))
+    IpamScopeExternalAuthorityConfiguration.struct_class = Types::IpamScopeExternalAuthorityConfiguration
 
     IpamScopeSet.member = Shapes::ShapeRef.new(shape: IpamScope, location_name: "item")
 
@@ -13813,6 +13831,8 @@ module Aws::EC2
     ModifyIpamScopeRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     ModifyIpamScopeRequest.add_member(:ipam_scope_id, Shapes::ShapeRef.new(shape: IpamScopeId, required: true, location_name: "IpamScopeId"))
     ModifyIpamScopeRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
+    ModifyIpamScopeRequest.add_member(:external_authority_configuration, Shapes::ShapeRef.new(shape: ExternalAuthorityConfiguration, location_name: "ExternalAuthorityConfiguration"))
+    ModifyIpamScopeRequest.add_member(:remove_external_authority_configuration, Shapes::ShapeRef.new(shape: Boolean, location_name: "RemoveExternalAuthorityConfiguration"))
     ModifyIpamScopeRequest.struct_class = Types::ModifyIpamScopeRequest
 
     ModifyIpamScopeResult.add_member(:ipam_scope, Shapes::ShapeRef.new(shape: IpamScope, location_name: "ipamScope"))
@@ -15062,6 +15082,8 @@ module Aws::EC2
     PrivateDnsNameOptionsResponse.add_member(:enable_resource_name_dns_a_record, Shapes::ShapeRef.new(shape: Boolean, location_name: "enableResourceNameDnsARecord"))
     PrivateDnsNameOptionsResponse.add_member(:enable_resource_name_dns_aaaa_record, Shapes::ShapeRef.new(shape: Boolean, location_name: "enableResourceNameDnsAAAARecord"))
     PrivateDnsNameOptionsResponse.struct_class = Types::PrivateDnsNameOptionsResponse
+
+    PrivateDnsSpecifiedDomainSet.member = Shapes::ShapeRef.new(shape: String, location_name: "item")
 
     PrivateIpAddressConfigSet.member = Shapes::ShapeRef.new(shape: ScheduledInstancesPrivateIpAddressConfig, location_name: "PrivateIpAddressConfigSet")
 

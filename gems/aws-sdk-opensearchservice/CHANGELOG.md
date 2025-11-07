@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.78.0 (2025-11-07)
+------------------
+
+* Feature - This release introduces the Default Application feature, allowing users to set, change, or unset a preferred OpenSearch UI application on a per-region basis for a streamlined and consistent user experience.
+
 1.77.0 (2025-10-28)
 ------------------
 

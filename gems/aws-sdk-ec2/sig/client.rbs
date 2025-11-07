@@ -2176,7 +2176,11 @@ module Aws
                                    ]?
                                  },
                                ],
-                               ?client_token: ::String
+                               ?client_token: ::String,
+                               ?external_authority_configuration: {
+                                 type: ("infoblox")?,
+                                 external_resource_identifier: ::String?
+                               }
                              ) -> _CreateIpamScopeResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateIpamScopeResponseSuccess
 
@@ -4404,7 +4408,9 @@ module Aws
                                  ?ip_address_type: ("ipv4" | "dualstack" | "ipv6"),
                                  ?dns_options: {
                                    dns_record_ip_type: ("ipv4" | "dualstack" | "ipv6" | "service-defined")?,
-                                   private_dns_only_for_inbound_resolver_endpoint: bool?
+                                   private_dns_only_for_inbound_resolver_endpoint: bool?,
+                                   private_dns_preference: ::String?,
+                                   private_dns_specified_domains: Array[::String]?
                                  },
                                  ?client_token: ::String,
                                  ?private_dns_enabled: bool,
@@ -12027,7 +12033,12 @@ module Aws
       def modify_ipam_scope: (
                                ?dry_run: bool,
                                ipam_scope_id: ::String,
-                               ?description: ::String
+                               ?description: ::String,
+                               ?external_authority_configuration: {
+                                 type: ("infoblox")?,
+                                 external_resource_identifier: ::String?
+                               },
+                               ?remove_external_authority_configuration: bool
                              ) -> _ModifyIpamScopeResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ModifyIpamScopeResponseSuccess
 
@@ -12752,7 +12763,9 @@ module Aws
                                  ?ip_address_type: ("ipv4" | "dualstack" | "ipv6"),
                                  ?dns_options: {
                                    dns_record_ip_type: ("ipv4" | "dualstack" | "ipv6" | "service-defined")?,
-                                   private_dns_only_for_inbound_resolver_endpoint: bool?
+                                   private_dns_only_for_inbound_resolver_endpoint: bool?,
+                                   private_dns_preference: ::String?,
+                                   private_dns_specified_domains: Array[::String]?
                                  },
                                  ?private_dns_enabled: bool,
                                  ?subnet_configurations: Array[

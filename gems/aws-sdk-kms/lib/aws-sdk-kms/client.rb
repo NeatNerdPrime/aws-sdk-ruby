@@ -1576,8 +1576,8 @@ module Aws::KMS
     #   download the public key so it can be used outside of KMS. Each KMS
     #   key can have only one key usage. KMS keys with RSA key pairs can be
     #   used to encrypt and decrypt data or sign and verify messages (but
-    #   not both). KMS keys with NIST-recommended ECC key pairs can be used
-    #   to sign and verify messages or derive shared secrets (but not both).
+    #   not both). KMS keys with NIST-standard ECC key pairs can be used to
+    #   sign and verify messages or derive shared secrets (but not both).
     #   KMS keys with `ECC_SECG_P256K1` can be used only to sign and verify
     #   messages. KMS keys with ML-DSA key pairs can be used to sign and
     #   verify messages. KMS keys with SM2 key pairs (China Regions only)
@@ -1827,8 +1827,8 @@ module Aws::KMS
     #   * For asymmetric KMS keys with RSA key pairs, specify
     #     `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
     #
-    #   * For asymmetric KMS keys with NIST-recommended elliptic curve key
-    #     pairs, specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
+    #   * For asymmetric KMS keys with NIST-standard elliptic curve key pairs,
+    #     specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
     #
     #   * For asymmetric KMS keys with `ECC_SECG_P256K1` key pairs, specify
     #     `SIGN_VERIFY`.
@@ -1899,7 +1899,7 @@ module Aws::KMS
     #     * `RSA_3072`
     #
     #     * `RSA_4096`
-    #   * Asymmetric NIST-recommended elliptic curve key pairs (signing and
+    #   * Asymmetric NIST-standard elliptic curve key pairs (signing and
     #     verification -or- deriving shared secrets)
     #
     #     * `ECC_NIST_P256` (secp256r1)
@@ -1907,6 +1907,17 @@ module Aws::KMS
     #     * `ECC_NIST_P384` (secp384r1)
     #
     #     * `ECC_NIST_P521` (secp521r1)
+    #
+    #     * `ECC_NIST_EDWARDS25519` (ed25519) - signing and verification only
+    #
+    #       * **Note:** For ECC\_NIST\_EDWARDS25519 KMS keys, the
+    #         ED25519\_SHA\_512 signing algorithm requires [ `MessageType:RAW`
+    #         ](kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType),
+    #         while ED25519\_PH\_SHA\_512 requires [ `MessageType:DIGEST`
+    #         ](kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType).
+    #         These message types cannot be used interchangeably.
+    #
+    #       ^
     #   * Other asymmetric elliptic curve key pairs (signing and verification)
     #
     #     * `ECC_SECG_P256K1` (secp256k1), commonly used for cryptocurrencies.
@@ -2422,7 +2433,7 @@ module Aws::KMS
     #     description: "DescriptionType",
     #     key_usage: "SIGN_VERIFY", # accepts SIGN_VERIFY, ENCRYPT_DECRYPT, GENERATE_VERIFY_MAC, KEY_AGREEMENT
     #     customer_master_key_spec: "RSA_2048", # accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SYMMETRIC_DEFAULT, HMAC_224, HMAC_256, HMAC_384, HMAC_512, SM2
-    #     key_spec: "RSA_2048", # accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SYMMETRIC_DEFAULT, HMAC_224, HMAC_256, HMAC_384, HMAC_512, SM2, ML_DSA_44, ML_DSA_65, ML_DSA_87
+    #     key_spec: "RSA_2048", # accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SYMMETRIC_DEFAULT, HMAC_224, HMAC_256, HMAC_384, HMAC_512, SM2, ML_DSA_44, ML_DSA_65, ML_DSA_87, ECC_NIST_EDWARDS25519
     #     origin: "AWS_KMS", # accepts AWS_KMS, EXTERNAL, AWS_CLOUDHSM, EXTERNAL_KEY_STORE
     #     custom_key_store_id: "CustomKeyStoreIdType",
     #     bypass_policy_lockout_safety_check: false,
@@ -2454,11 +2465,11 @@ module Aws::KMS
     #   resp.key_metadata.expiration_model #=> String, one of "KEY_MATERIAL_EXPIRES", "KEY_MATERIAL_DOES_NOT_EXPIRE"
     #   resp.key_metadata.key_manager #=> String, one of "AWS", "CUSTOMER"
     #   resp.key_metadata.customer_master_key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2"
-    #   resp.key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87"
+    #   resp.key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "ECC_NIST_EDWARDS25519"
     #   resp.key_metadata.encryption_algorithms #=> Array
     #   resp.key_metadata.encryption_algorithms[0] #=> String, one of "SYMMETRIC_DEFAULT", "RSAES_OAEP_SHA_1", "RSAES_OAEP_SHA_256", "SM2PKE"
     #   resp.key_metadata.signing_algorithms #=> Array
-    #   resp.key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #   resp.key_metadata.key_agreement_algorithms #=> Array
     #   resp.key_metadata.key_agreement_algorithms[0] #=> String, one of "ECDH"
     #   resp.key_metadata.multi_region #=> Boolean
@@ -3086,8 +3097,8 @@ module Aws::KMS
 
     # Derives a shared secret using a key agreement algorithm.
     #
-    # <note markdown="1"> You must use an asymmetric NIST-recommended elliptic curve (ECC) or
-    # SM2 (China Regions only) KMS key pair with a `KeyUsage` value of
+    # <note markdown="1"> You must use an asymmetric NIST-standard elliptic curve (ECC) or SM2
+    # (China Regions only) KMS key pair with a `KeyUsage` value of
     # `KEY_AGREEMENT` to call DeriveSharedSecret.
     #
     #  </note>
@@ -3108,15 +3119,15 @@ module Aws::KMS
     # 1.  **Alice** calls CreateKey to create an asymmetric KMS key pair
     #     with a `KeyUsage` value of `KEY_AGREEMENT`.
     #
-    #     The asymmetric KMS key must use a NIST-recommended elliptic curve
+    #     The asymmetric KMS key must use a NIST-standard elliptic curve
     #     (ECC) or SM2 (China Regions only) key spec.
     #
     # 2.  **Bob** creates an elliptic curve key pair.
     #
     #     Bob can call CreateKey to create an asymmetric KMS key pair or
     #     generate a key pair outside of KMS. Bob's key pair must use the
-    #     same NIST-recommended elliptic curve (ECC) or SM2 (China Regions
-    #     ony) curve as Alice.
+    #     same NIST-standard elliptic curve (ECC) or SM2 (China Regions ony)
+    #     curve as Alice.
     #
     # 3.  Alice and Bob **exchange their public keys** through an insecure
     #     communication channel (like the internet).
@@ -3143,12 +3154,12 @@ module Aws::KMS
     #     his private key and Alice's public key.
     #
     # To derive a shared secret you must provide a key agreement algorithm,
-    # the private key of the caller's asymmetric NIST-recommended elliptic
+    # the private key of the caller's asymmetric NIST-standard elliptic
     # curve or SM2 (China Regions only) KMS key pair, and the public key
-    # from your peer's NIST-recommended elliptic curve or SM2 (China
-    # Regions only) key pair. The public key can be from another asymmetric
-    # KMS key pair or from a key pair generated outside of KMS, but both key
-    # pairs must be on the same elliptic curve.
+    # from your peer's NIST-standard elliptic curve or SM2 (China Regions
+    # only) key pair. The public key can be from another asymmetric KMS key
+    # pair or from a key pair generated outside of KMS, but both key pairs
+    # must be on the same elliptic curve.
     #
     # The KMS key that you use for this operation must be in a compatible
     # key state. For details, see [Key states of KMS keys][3] in the *Key
@@ -3180,9 +3191,9 @@ module Aws::KMS
     # [5]: https://docs.aws.amazon.com/kms/latest/developerguide/accessing-kms.html#programming-eventual-consistency
     #
     # @option params [required, String] :key_id
-    #   Identifies an asymmetric NIST-recommended ECC or SM2 (China Regions
-    #   only) KMS key. KMS uses the private key in the specified key pair to
-    #   derive the shared secret. The key usage of the KMS key must be
+    #   Identifies an asymmetric NIST-standard ECC or SM2 (China Regions only)
+    #   KMS key. KMS uses the private key in the specified key pair to derive
+    #   the shared secret. The key usage of the KMS key must be
     #   `KEY_AGREEMENT`. To find the `KeyUsage` of a KMS key, use the
     #   DescribeKey operation.
     #
@@ -3210,8 +3221,8 @@ module Aws::KMS
     #   secret. The only valid value is `ECDH`.
     #
     # @option params [required, String, StringIO, File] :public_key
-    #   Specifies the public key in your peer's NIST-recommended elliptic
-    #   curve (ECC) or SM2 (China Regions only) key pair.
+    #   Specifies the public key in your peer's NIST-standard elliptic curve
+    #   (ECC) or SM2 (China Regions only) key pair.
     #
     #   The public key must be a DER-encoded X.509 public key, also known as
     #   `SubjectPublicKeyInfo` (SPKI), as defined in [RFC 5280][1].
@@ -3975,11 +3986,11 @@ module Aws::KMS
     #   resp.key_metadata.expiration_model #=> String, one of "KEY_MATERIAL_EXPIRES", "KEY_MATERIAL_DOES_NOT_EXPIRE"
     #   resp.key_metadata.key_manager #=> String, one of "AWS", "CUSTOMER"
     #   resp.key_metadata.customer_master_key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2"
-    #   resp.key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87"
+    #   resp.key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "ECC_NIST_EDWARDS25519"
     #   resp.key_metadata.encryption_algorithms #=> Array
     #   resp.key_metadata.encryption_algorithms[0] #=> String, one of "SYMMETRIC_DEFAULT", "RSAES_OAEP_SHA_1", "RSAES_OAEP_SHA_256", "SM2PKE"
     #   resp.key_metadata.signing_algorithms #=> Array
-    #   resp.key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #   resp.key_metadata.key_agreement_algorithms #=> Array
     #   resp.key_metadata.key_agreement_algorithms[0] #=> String, one of "ECDH"
     #   resp.key_metadata.multi_region #=> Boolean
@@ -5358,7 +5369,7 @@ module Aws::KMS
     #       "EncryptionContextKey" => "EncryptionContextValue",
     #     },
     #     key_id: "KeyIdType", # required
-    #     key_pair_spec: "RSA_2048", # required, accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SM2
+    #     key_pair_spec: "RSA_2048", # required, accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SM2, ECC_NIST_EDWARDS25519
     #     grant_tokens: ["GrantTokenType"],
     #     recipient: {
     #       key_encryption_algorithm: "RSAES_OAEP_SHA_256", # accepts RSAES_OAEP_SHA_256
@@ -5373,7 +5384,7 @@ module Aws::KMS
     #   resp.private_key_plaintext #=> String
     #   resp.public_key #=> String
     #   resp.key_id #=> String
-    #   resp.key_pair_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SM2"
+    #   resp.key_pair_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SM2", "ECC_NIST_EDWARDS25519"
     #   resp.ciphertext_for_recipient #=> String
     #   resp.key_material_id #=> String
     #
@@ -5576,7 +5587,7 @@ module Aws::KMS
     #       "EncryptionContextKey" => "EncryptionContextValue",
     #     },
     #     key_id: "KeyIdType", # required
-    #     key_pair_spec: "RSA_2048", # required, accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SM2
+    #     key_pair_spec: "RSA_2048", # required, accepts RSA_2048, RSA_3072, RSA_4096, ECC_NIST_P256, ECC_NIST_P384, ECC_NIST_P521, ECC_SECG_P256K1, SM2, ECC_NIST_EDWARDS25519
     #     grant_tokens: ["GrantTokenType"],
     #     dry_run: false,
     #   })
@@ -5586,7 +5597,7 @@ module Aws::KMS
     #   resp.private_key_ciphertext_blob #=> String
     #   resp.public_key #=> String
     #   resp.key_id #=> String
-    #   resp.key_pair_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SM2"
+    #   resp.key_pair_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SM2", "ECC_NIST_EDWARDS25519"
     #   resp.key_material_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/GenerateDataKeyPairWithoutPlaintext AWS API Documentation
@@ -6750,12 +6761,12 @@ module Aws::KMS
     #   resp.key_id #=> String
     #   resp.public_key #=> String
     #   resp.customer_master_key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2"
-    #   resp.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87"
+    #   resp.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "ECC_NIST_EDWARDS25519"
     #   resp.key_usage #=> String, one of "SIGN_VERIFY", "ENCRYPT_DECRYPT", "GENERATE_VERIFY_MAC", "KEY_AGREEMENT"
     #   resp.encryption_algorithms #=> Array
     #   resp.encryption_algorithms[0] #=> String, one of "SYMMETRIC_DEFAULT", "RSAES_OAEP_SHA_1", "RSAES_OAEP_SHA_256", "SM2PKE"
     #   resp.signing_algorithms #=> Array
-    #   resp.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #   resp.key_agreement_algorithms #=> Array
     #   resp.key_agreement_algorithms[0] #=> String, one of "ECDH"
     #
@@ -8928,11 +8939,11 @@ module Aws::KMS
     #   resp.replica_key_metadata.expiration_model #=> String, one of "KEY_MATERIAL_EXPIRES", "KEY_MATERIAL_DOES_NOT_EXPIRE"
     #   resp.replica_key_metadata.key_manager #=> String, one of "AWS", "CUSTOMER"
     #   resp.replica_key_metadata.customer_master_key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2"
-    #   resp.replica_key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87"
+    #   resp.replica_key_metadata.key_spec #=> String, one of "RSA_2048", "RSA_3072", "RSA_4096", "ECC_NIST_P256", "ECC_NIST_P384", "ECC_NIST_P521", "ECC_SECG_P256K1", "SYMMETRIC_DEFAULT", "HMAC_224", "HMAC_256", "HMAC_384", "HMAC_512", "SM2", "ML_DSA_44", "ML_DSA_65", "ML_DSA_87", "ECC_NIST_EDWARDS25519"
     #   resp.replica_key_metadata.encryption_algorithms #=> Array
     #   resp.replica_key_metadata.encryption_algorithms[0] #=> String, one of "SYMMETRIC_DEFAULT", "RSAES_OAEP_SHA_1", "RSAES_OAEP_SHA_256", "SM2PKE"
     #   resp.replica_key_metadata.signing_algorithms #=> Array
-    #   resp.replica_key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.replica_key_metadata.signing_algorithms[0] #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #   resp.replica_key_metadata.key_agreement_algorithms #=> Array
     #   resp.replica_key_metadata.key_agreement_algorithms[0] #=> String, one of "ECDH"
     #   resp.replica_key_metadata.multi_region #=> Boolean
@@ -9605,6 +9616,13 @@ module Aws::KMS
     #   with an unhashed message, the security of the signing operation can be
     #   compromised.
     #
+    #   When using ECC\_NIST\_EDWARDS25519 KMS keys:
+    #
+    #   * ED25519\_SHA\_512 signing algorithm requires KMS `MessageType:RAW`
+    #
+    #   * ED25519\_PH\_SHA\_512 signing algorithm requires KMS
+    #     `MessageType:DIGEST`
+    #
     #   When the value of `MessageType` is `DIGEST`, the length of the
     #   `Message` value must match the length of hashed messages for the
     #   specified signing algorithm.
@@ -9724,7 +9742,7 @@ module Aws::KMS
     #     message: "data", # required
     #     message_type: "RAW", # accepts RAW, DIGEST, EXTERNAL_MU
     #     grant_tokens: ["GrantTokenType"],
-    #     signing_algorithm: "RSASSA_PSS_SHA_256", # required, accepts RSASSA_PSS_SHA_256, RSASSA_PSS_SHA_384, RSASSA_PSS_SHA_512, RSASSA_PKCS1_V1_5_SHA_256, RSASSA_PKCS1_V1_5_SHA_384, RSASSA_PKCS1_V1_5_SHA_512, ECDSA_SHA_256, ECDSA_SHA_384, ECDSA_SHA_512, SM2DSA, ML_DSA_SHAKE_256
+    #     signing_algorithm: "RSASSA_PSS_SHA_256", # required, accepts RSASSA_PSS_SHA_256, RSASSA_PSS_SHA_384, RSASSA_PSS_SHA_512, RSASSA_PKCS1_V1_5_SHA_256, RSASSA_PKCS1_V1_5_SHA_384, RSASSA_PKCS1_V1_5_SHA_512, ECDSA_SHA_256, ECDSA_SHA_384, ECDSA_SHA_512, SM2DSA, ML_DSA_SHAKE_256, ED25519_SHA_512, ED25519_PH_SHA_512
     #     dry_run: false,
     #   })
     #
@@ -9732,7 +9750,7 @@ module Aws::KMS
     #
     #   resp.key_id #=> String
     #   resp.signature #=> String
-    #   resp.signing_algorithm #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.signing_algorithm #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Sign AWS API Documentation
     #
@@ -10801,6 +10819,13 @@ module Aws::KMS
     #   with an unhashed message, the security of the signing operation can be
     #   compromised.
     #
+    #   When using ECC\_NIST\_EDWARDS25519 KMS keys:
+    #
+    #   * ED25519\_SHA\_512 signing algorithm requires KMS `MessageType:RAW`
+    #
+    #   * ED25519\_PH\_SHA\_512 signing algorithm requires KMS
+    #     `MessageType:DIGEST`
+    #
     #   When the value of `MessageType` is `DIGEST`, the length of the
     #   `Message` value must match the length of hashed messages for the
     #   specified signing algorithm.
@@ -10921,7 +10946,7 @@ module Aws::KMS
     #     message: "data", # required
     #     message_type: "RAW", # accepts RAW, DIGEST, EXTERNAL_MU
     #     signature: "data", # required
-    #     signing_algorithm: "RSASSA_PSS_SHA_256", # required, accepts RSASSA_PSS_SHA_256, RSASSA_PSS_SHA_384, RSASSA_PSS_SHA_512, RSASSA_PKCS1_V1_5_SHA_256, RSASSA_PKCS1_V1_5_SHA_384, RSASSA_PKCS1_V1_5_SHA_512, ECDSA_SHA_256, ECDSA_SHA_384, ECDSA_SHA_512, SM2DSA, ML_DSA_SHAKE_256
+    #     signing_algorithm: "RSASSA_PSS_SHA_256", # required, accepts RSASSA_PSS_SHA_256, RSASSA_PSS_SHA_384, RSASSA_PSS_SHA_512, RSASSA_PKCS1_V1_5_SHA_256, RSASSA_PKCS1_V1_5_SHA_384, RSASSA_PKCS1_V1_5_SHA_512, ECDSA_SHA_256, ECDSA_SHA_384, ECDSA_SHA_512, SM2DSA, ML_DSA_SHAKE_256, ED25519_SHA_512, ED25519_PH_SHA_512
     #     grant_tokens: ["GrantTokenType"],
     #     dry_run: false,
     #   })
@@ -10930,7 +10955,7 @@ module Aws::KMS
     #
     #   resp.key_id #=> String
     #   resp.signature_valid #=> Boolean
-    #   resp.signing_algorithm #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256"
+    #   resp.signing_algorithm #=> String, one of "RSASSA_PSS_SHA_256", "RSASSA_PSS_SHA_384", "RSASSA_PSS_SHA_512", "RSASSA_PKCS1_V1_5_SHA_256", "RSASSA_PKCS1_V1_5_SHA_384", "RSASSA_PKCS1_V1_5_SHA_512", "ECDSA_SHA_256", "ECDSA_SHA_384", "ECDSA_SHA_512", "SM2DSA", "ML_DSA_SHAKE_256", "ED25519_SHA_512", "ED25519_PH_SHA_512"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kms-2014-11-01/Verify AWS API Documentation
     #
@@ -11099,7 +11124,7 @@ module Aws::KMS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-kms'
-      context[:gem_version] = '1.116.0'
+      context[:gem_version] = '1.117.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

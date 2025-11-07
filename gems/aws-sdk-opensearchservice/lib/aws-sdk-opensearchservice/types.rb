@@ -368,8 +368,8 @@ module Aws::OpenSearchService
     #   @return [Types::JWTOptionsOutput]
     #
     # @!attribute [rw] iam_federation_options
-    #   Container for information about the IAM federation configuration for
-    #   an OpenSearch UI application.
+    #   Configuration options for IAM identity federation in advanced
+    #   security settings.
     #   @return [Types::IAMFederationOptionsOutput]
     #
     # @!attribute [rw] anonymous_auth_disable_date
@@ -437,8 +437,8 @@ module Aws::OpenSearchService
     #   @return [Types::JWTOptionsInput]
     #
     # @!attribute [rw] iam_federation_options
-    #   Container for information about the IAM federation configuration for
-    #   an OpenSearch UI application.
+    #   Input configuration for IAM identity federation within advanced
+    #   security options.
     #   @return [Types::IAMFederationOptionsInput]
     #
     # @!attribute [rw] anonymous_auth_enabled
@@ -4219,6 +4219,30 @@ module Aws::OpenSearchService
       include Aws::Structure
     end
 
+    # @api private
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/GetDefaultApplicationSettingRequest AWS API Documentation
+    #
+    class GetDefaultApplicationSettingRequest < Aws::EmptyStructure; end
+
+    # @!attribute [rw] application_arn
+    #   The Amazon Resource Name (ARN) of the domain. See [Identifiers for
+    #   IAM Entities ][1] in *Using Amazon Web Services Identity and Access
+    #   Management* for more information.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/index.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/GetDefaultApplicationSettingResponse AWS API Documentation
+    #
+    class GetDefaultApplicationSettingResponse < Struct.new(
+      :application_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] data_source_name
     #   A unique, user-defined label that identifies the data source within
     #   your OpenSearch Service environment.
@@ -4481,21 +4505,21 @@ module Aws::OpenSearchService
       include Aws::Structure
     end
 
-    # The IAM federation authentication configuration for an Amazon
-    # OpenSearch Service domain.
+    # Input parameters for configuring IAM identity federation settings.
     #
     # @!attribute [rw] enabled
-    #   True to enable IAM federation authentication for a domain.
+    #   Specifies whether IAM identity federation is enabled for the
+    #   OpenSearch domain.
     #   @return [Boolean]
     #
     # @!attribute [rw] subject_key
-    #   Element of the IAM federation assertion to use for the user name.
-    #   Default is `sub`.
+    #   The key in the SAML assertion that contains the user's subject
+    #   identifier.
     #   @return [String]
     #
     # @!attribute [rw] roles_key
-    #   Element of the IAM federation assertion to use for backend roles.
-    #   Default is `roles`.
+    #   The key in the SAML assertion that contains the user's role
+    #   information.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/IAMFederationOptionsInput AWS API Documentation
@@ -4508,18 +4532,22 @@ module Aws::OpenSearchService
       include Aws::Structure
     end
 
-    # Describes the IAM federation options configured for the domain.
+    # Output parameters showing the current IAM identity federation
+    # configuration.
     #
     # @!attribute [rw] enabled
-    #   True if IAM federation is enabled.
+    #   Indicates whether IAM identity federation is currently enabled for
+    #   the domain.
     #   @return [Boolean]
     #
     # @!attribute [rw] subject_key
-    #   The key used for matching the IAM federation subject attribute.
+    #   The configured key in the SAML assertion for the user's subject
+    #   identifier.
     #   @return [String]
     #
     # @!attribute [rw] roles_key
-    #   The key used for matching the IAM federation roles attribute.
+    #   The configured key in the SAML assertion for the user's role
+    #   information.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/IAMFederationOptionsOutput AWS API Documentation
@@ -6431,6 +6459,48 @@ module Aws::OpenSearchService
     class PurchaseReservedInstanceOfferingResponse < Struct.new(
       :reserved_instance_id,
       :reservation_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] application_arn
+    #   The Amazon Resource Name (ARN) of the domain. See [Identifiers for
+    #   IAM Entities ][1] in *Using Amazon Web Services Identity and Access
+    #   Management* for more information.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/index.html
+    #   @return [String]
+    #
+    # @!attribute [rw] set_as_default
+    #   Set to true to set the specified ARN as the default application. Set
+    #   to false to clear the default application.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/PutDefaultApplicationSettingRequest AWS API Documentation
+    #
+    class PutDefaultApplicationSettingRequest < Struct.new(
+      :application_arn,
+      :set_as_default)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] application_arn
+    #   The Amazon Resource Name (ARN) of the domain. See [Identifiers for
+    #   IAM Entities ][1] in *Using Amazon Web Services Identity and Access
+    #   Management* for more information.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/index.html
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/PutDefaultApplicationSettingResponse AWS API Documentation
+    #
+    class PutDefaultApplicationSettingResponse < Struct.new(
+      :application_arn)
       SENSITIVE = []
       include Aws::Structure
     end

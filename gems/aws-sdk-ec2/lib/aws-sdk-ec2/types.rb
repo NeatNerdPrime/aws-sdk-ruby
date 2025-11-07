@@ -11226,6 +11226,20 @@ module Aws::EC2
     #   [1]: https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html
     #   @return [String]
     #
+    # @!attribute [rw] external_authority_configuration
+    #   The configuration that links an Amazon VPC IPAM scope to an external
+    #   authority system. It specifies the type of external system and the
+    #   external resource identifier that identifies your account or
+    #   instance in that system.
+    #
+    #   In IPAM, an external authority is a third-party IP address
+    #   management system that provides CIDR blocks when you provision
+    #   address space for top-level IPAM pools. This allows you to use your
+    #   existing IP management system to control which address ranges are
+    #   allocated to Amazon Web Services while using Amazon VPC IPAM to
+    #   manage subnets within those ranges.
+    #   @return [Types::ExternalAuthorityConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamScopeRequest AWS API Documentation
     #
     class CreateIpamScopeRequest < Struct.new(
@@ -11233,7 +11247,8 @@ module Aws::EC2
       :ipam_id,
       :description,
       :tag_specifications,
-      :client_token)
+      :client_token,
+      :external_authority_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -36020,11 +36035,45 @@ module Aws::EC2
     #   Indicates whether to enable private DNS only for inbound endpoints.
     #   @return [Boolean]
     #
+    # @!attribute [rw] private_dns_preference
+    #   The preference for which private domains have a private hosted zone
+    #   created for and associated with the specified VPC. Only supported
+    #   when private DNS is enabled and when the VPC endpoint type is
+    #   ServiceNetwork or Resource.
+    #
+    #   * `ALL_DOMAINS` - VPC Lattice provisions private hosted zones for
+    #     all custom domain names.
+    #
+    #   * `VERIFIED_DOMAINS_ONLY` - VPC Lattice provisions a private hosted
+    #     zone only if custom domain name has been verified by the provider.
+    #
+    #   * `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` - VPC Lattice provisions
+    #     private hosted zones for all verified custom domain names and
+    #     other domain names that the resource consumer specifies. The
+    #     resource consumer specifies the domain names in the
+    #     PrivateDnsSpecifiedDomains parameter.
+    #
+    #   * `SPECIFIED_DOMAINS_ONLY` - VPC Lattice provisions a private hosted
+    #     zone for domain names specified by the resource consumer. The
+    #     resource consumer specifies the domain names in the
+    #     PrivateDnsSpecifiedDomains parameter.
+    #   @return [String]
+    #
+    # @!attribute [rw] private_dns_specified_domains
+    #   Indicates which of the private domains to create private hosted
+    #   zones for and associate with the specified VPC. Only supported when
+    #   private DNS is enabled and the private DNS preference is
+    #   `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` or
+    #   `SPECIFIED_DOMAINS_ONLY`.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DnsOptions AWS API Documentation
     #
     class DnsOptions < Struct.new(
       :dns_record_ip_type,
-      :private_dns_only_for_inbound_resolver_endpoint)
+      :private_dns_only_for_inbound_resolver_endpoint,
+      :private_dns_preference,
+      :private_dns_specified_domains)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -36043,11 +36092,44 @@ module Aws::EC2
     #   on-premises to the interface endpoint.
     #   @return [Boolean]
     #
+    # @!attribute [rw] private_dns_preference
+    #   The preference for which private domains have a private hosted zone
+    #   created for and associated with the specified VPC. Only supported
+    #   when private DNS is enabled and when the VPC endpoint type is
+    #   ServiceNetwork or Resource.
+    #
+    #   * `ALL_DOMAINS` - VPC Lattice provisions private hosted zones for
+    #     all custom domain names.
+    #
+    #   * `VERIFIED_DOMAINS_ONLY` - VPC Lattice provisions a private hosted
+    #     zone only if custom domain name has been verified by the provider.
+    #
+    #   * `VERIFIED_DOMAINS_AND_SPECIFIED_DOMAINS` - VPC Lattice provisions
+    #     private hosted zones for all verified custom domain names and
+    #     other domain names that the resource consumer specifies. The
+    #     resource consumer specifies the domain names in the
+    #     PrivateDnsSpecifiedDomains parameter.
+    #
+    #   * `SPECIFIED_DOMAINS_ONLY` - VPC Lattice provisions a private hosted
+    #     zone for domain names specified by the resource consumer. The
+    #     resource consumer specifies the domain names in the
+    #     PrivateDnsSpecifiedDomains parameter.
+    #   @return [String]
+    #
+    # @!attribute [rw] private_dns_specified_domains
+    #   Indicates which of the private domains to create private hosted
+    #   zones for and associate with the specified VPC. Only supported when
+    #   private DNS is enabled and the private DNS preference is
+    #   verified-domains-and-specified-domains or specified-domains-only.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DnsOptionsSpecification AWS API Documentation
     #
     class DnsOptionsSpecification < Struct.new(
       :dns_record_ip_type,
-      :private_dns_only_for_inbound_resolver_endpoint)
+      :private_dns_only_for_inbound_resolver_endpoint,
+      :private_dns_preference,
+      :private_dns_specified_domains)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -39013,6 +39095,37 @@ module Aws::EC2
       :device_trust_providers,
       :user_trust_provider,
       :open_vpn_configurations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The configuration that links an Amazon VPC IPAM scope to an external
+    # authority system. It specifies the type of external system and the
+    # external resource identifier that identifies your account or instance
+    # in that system.
+    #
+    # For more information, see [Integrate VPC IPAM with Infoblox
+    # infrastructure][1] in the *Amazon VPC IPAM User Guide*..
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/vpc/latest/ipam/integrate-infoblox-ipam.html
+    #
+    # @!attribute [rw] type
+    #   The type of external authority.
+    #   @return [String]
+    #
+    # @!attribute [rw] external_resource_identifier
+    #   The identifier for the external resource managing this scope. For
+    #   Infoblox integrations, this is the Infoblox resource identifier in
+    #   the format `<version>.identity.account.<entity_realm>.<entity_id>`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ExternalAuthorityConfiguration AWS API Documentation
+    #
+    class ExternalAuthorityConfiguration < Struct.new(
+      :type,
+      :external_resource_identifier)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -52841,6 +52954,23 @@ module Aws::EC2
     #   name and `TeamA` for the filter value.
     #   @return [Array<Types::Tag>]
     #
+    # @!attribute [rw] external_authority_configuration
+    #   The external authority configuration for this IPAM scope, if
+    #   configured.
+    #
+    #   The configuration that links an Amazon VPC IPAM scope to an external
+    #   authority system. It specifies the type of external system and the
+    #   external resource identifier that identifies your account or
+    #   instance in that system.
+    #
+    #   In IPAM, an external authority is a third-party IP address
+    #   management system that provides CIDR blocks when you provision
+    #   address space for top-level IPAM pools. This allows you to use your
+    #   existing IP management system to control which address ranges are
+    #   allocated to Amazon Web Services while using Amazon VPC IPAM to
+    #   manage subnets within those ranges.
+    #   @return [Types::IpamScopeExternalAuthorityConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamScope AWS API Documentation
     #
     class IpamScope < Struct.new(
@@ -52854,7 +52984,40 @@ module Aws::EC2
       :description,
       :pool_count,
       :state,
-      :tags)
+      :tags,
+      :external_authority_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The configuration that links an Amazon VPC IPAM scope to an external
+    # authority system. It specifies the type of external system and the
+    # external resource identifier that identifies your account or instance
+    # in that system.
+    #
+    # In IPAM, an external authority is a third-party IP address management
+    # system that provides CIDR blocks when you provision address space for
+    # top-level IPAM pools. This allows you to use your existing IP
+    # management system to control which address ranges are allocated to
+    # Amazon Web Services while using Amazon VPC IPAM to manage subnets
+    # within those ranges.
+    #
+    # @!attribute [rw] type
+    #   The type of external authority managing this scope. Currently
+    #   supports `Infoblox` for integration with Infoblox Universal DDI.
+    #   @return [String]
+    #
+    # @!attribute [rw] external_resource_identifier
+    #   The identifier for the external resource managing this scope. For
+    #   Infoblox integrations, this is the Infoblox resource identifier in
+    #   the format `<version>.identity.account.<entity_realm>.<entity_id>`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamScopeExternalAuthorityConfiguration AWS API Documentation
+    #
+    class IpamScopeExternalAuthorityConfiguration < Struct.new(
+      :type,
+      :external_resource_identifier)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -58906,12 +59069,32 @@ module Aws::EC2
     #   The description of the scope you want to modify.
     #   @return [String]
     #
+    # @!attribute [rw] external_authority_configuration
+    #   The configuration that links an Amazon VPC IPAM scope to an external
+    #   authority system. It specifies the type of external system and the
+    #   external resource identifier that identifies your account or
+    #   instance in that system.
+    #
+    #   In IPAM, an external authority is a third-party IP address
+    #   management system that provides CIDR blocks when you provision
+    #   address space for top-level IPAM pools. This allows you to use your
+    #   existing IP management system to control which address ranges are
+    #   allocated to Amazon Web Services while using Amazon VPC IPAM to
+    #   manage subnets within those ranges.
+    #   @return [Types::ExternalAuthorityConfiguration]
+    #
+    # @!attribute [rw] remove_external_authority_configuration
+    #   Remove the external authority configuration. `true` to remove.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamScopeRequest AWS API Documentation
     #
     class ModifyIpamScopeRequest < Struct.new(
       :dry_run,
       :ipam_scope_id,
-      :description)
+      :description,
+      :external_authority_configuration,
+      :remove_external_authority_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -65203,8 +65386,8 @@ module Aws::EC2
     # @!attribute [rw] state
     #   The verification state of the VPC endpoint service.
     #
-    #   &gt;Consumers of the endpoint service can use the private name only
-    #   when the state is `verified`.
+    #   Consumers of the endpoint service can use the private name only when
+    #   the state is `verified`.
     #   @return [String]
     #
     # @!attribute [rw] type

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.117.0 (2025-11-07)
+------------------
+
+* Feature - Added support for new ECC_NIST_EDWARDS25519 AWS KMS key spec
+
 1.116.0 (2025-10-30)
 ------------------
 

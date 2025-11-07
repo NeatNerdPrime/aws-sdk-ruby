@@ -249,6 +249,8 @@ module Aws::OpenSearchService
     GetCompatibleVersionsResponse = Shapes::StructureShape.new(name: 'GetCompatibleVersionsResponse')
     GetDataSourceRequest = Shapes::StructureShape.new(name: 'GetDataSourceRequest')
     GetDataSourceResponse = Shapes::StructureShape.new(name: 'GetDataSourceResponse')
+    GetDefaultApplicationSettingRequest = Shapes::StructureShape.new(name: 'GetDefaultApplicationSettingRequest')
+    GetDefaultApplicationSettingResponse = Shapes::StructureShape.new(name: 'GetDefaultApplicationSettingResponse')
     GetDirectQueryDataSourceRequest = Shapes::StructureShape.new(name: 'GetDirectQueryDataSourceRequest')
     GetDirectQueryDataSourceResponse = Shapes::StructureShape.new(name: 'GetDirectQueryDataSourceResponse')
     GetDomainMaintenanceStatusRequest = Shapes::StructureShape.new(name: 'GetDomainMaintenanceStatusRequest')
@@ -416,6 +418,8 @@ module Aws::OpenSearchService
     PropertyValueType = Shapes::StringShape.new(name: 'PropertyValueType')
     PurchaseReservedInstanceOfferingRequest = Shapes::StructureShape.new(name: 'PurchaseReservedInstanceOfferingRequest')
     PurchaseReservedInstanceOfferingResponse = Shapes::StructureShape.new(name: 'PurchaseReservedInstanceOfferingResponse')
+    PutDefaultApplicationSettingRequest = Shapes::StructureShape.new(name: 'PutDefaultApplicationSettingRequest')
+    PutDefaultApplicationSettingResponse = Shapes::StructureShape.new(name: 'PutDefaultApplicationSettingResponse')
     RecurringCharge = Shapes::StructureShape.new(name: 'RecurringCharge')
     RecurringChargeList = Shapes::ListShape.new(name: 'RecurringChargeList')
     ReferencePath = Shapes::StringShape.new(name: 'ReferencePath')
@@ -1370,6 +1374,11 @@ module Aws::OpenSearchService
     GetDataSourceResponse.add_member(:status, Shapes::ShapeRef.new(shape: DataSourceStatus, location_name: "Status"))
     GetDataSourceResponse.struct_class = Types::GetDataSourceResponse
 
+    GetDefaultApplicationSettingRequest.struct_class = Types::GetDefaultApplicationSettingRequest
+
+    GetDefaultApplicationSettingResponse.add_member(:application_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "applicationArn"))
+    GetDefaultApplicationSettingResponse.struct_class = Types::GetDefaultApplicationSettingResponse
+
     GetDirectQueryDataSourceRequest.add_member(:data_source_name, Shapes::ShapeRef.new(shape: DirectQueryDataSourceName, required: true, location: "uri", location_name: "DataSourceName"))
     GetDirectQueryDataSourceRequest.struct_class = Types::GetDirectQueryDataSourceRequest
 
@@ -1804,6 +1813,13 @@ module Aws::OpenSearchService
     PurchaseReservedInstanceOfferingResponse.add_member(:reserved_instance_id, Shapes::ShapeRef.new(shape: GUID, location_name: "ReservedInstanceId"))
     PurchaseReservedInstanceOfferingResponse.add_member(:reservation_name, Shapes::ShapeRef.new(shape: ReservationToken, location_name: "ReservationName"))
     PurchaseReservedInstanceOfferingResponse.struct_class = Types::PurchaseReservedInstanceOfferingResponse
+
+    PutDefaultApplicationSettingRequest.add_member(:application_arn, Shapes::ShapeRef.new(shape: ARN, required: true, location_name: "applicationArn"))
+    PutDefaultApplicationSettingRequest.add_member(:set_as_default, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "setAsDefault"))
+    PutDefaultApplicationSettingRequest.struct_class = Types::PutDefaultApplicationSettingRequest
+
+    PutDefaultApplicationSettingResponse.add_member(:application_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "applicationArn"))
+    PutDefaultApplicationSettingResponse.struct_class = Types::PutDefaultApplicationSettingResponse
 
     RecurringCharge.add_member(:recurring_charge_amount, Shapes::ShapeRef.new(shape: Double, location_name: "RecurringChargeAmount"))
     RecurringCharge.add_member(:recurring_charge_frequency, Shapes::ShapeRef.new(shape: String, location_name: "RecurringChargeFrequency"))
@@ -2764,6 +2780,18 @@ module Aws::OpenSearchService
         o.errors << Shapes::ShapeRef.new(shape: DependencyFailureException)
       end)
 
+      api.add_operation(:get_default_application_setting, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetDefaultApplicationSetting"
+        o.http_method = "GET"
+        o.http_request_uri = "/2021-01-01/opensearch/defaultApplicationSetting"
+        o.input = Shapes::ShapeRef.new(shape: GetDefaultApplicationSettingRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetDefaultApplicationSettingResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+      end)
+
       api.add_operation(:get_direct_query_data_source, Seahorse::Model::Operation.new.tap do |o|
         o.name = "GetDirectQueryDataSource"
         o.http_method = "GET"
@@ -3069,6 +3097,18 @@ module Aws::OpenSearchService
         o.errors << Shapes::ShapeRef.new(shape: DisabledOperationException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalException)
+      end)
+
+      api.add_operation(:put_default_application_setting, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "PutDefaultApplicationSetting"
+        o.http_method = "PUT"
+        o.http_request_uri = "/2021-01-01/opensearch/defaultApplicationSetting"
+        o.input = Shapes::ShapeRef.new(shape: PutDefaultApplicationSettingRequest)
+        o.output = Shapes::ShapeRef.new(shape: PutDefaultApplicationSettingResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
       end)
 
       api.add_operation(:reject_inbound_connection, Seahorse::Model::Operation.new.tap do |o|

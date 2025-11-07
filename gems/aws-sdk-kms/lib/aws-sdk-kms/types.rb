@@ -872,7 +872,7 @@ module Aws::KMS
     #   * For asymmetric KMS keys with RSA key pairs, specify
     #     `ENCRYPT_DECRYPT` or `SIGN_VERIFY`.
     #
-    #   * For asymmetric KMS keys with NIST-recommended elliptic curve key
+    #   * For asymmetric KMS keys with NIST-standard elliptic curve key
     #     pairs, specify `SIGN_VERIFY` or `KEY_AGREEMENT`.
     #
     #   * For asymmetric KMS keys with `ECC_SECG_P256K1` key pairs, specify
@@ -947,7 +947,7 @@ module Aws::KMS
     #     * `RSA_3072`
     #
     #     * `RSA_4096`
-    #   * Asymmetric NIST-recommended elliptic curve key pairs (signing and
+    #   * Asymmetric NIST-standard elliptic curve key pairs (signing and
     #     verification -or- deriving shared secrets)
     #
     #     * `ECC_NIST_P256` (secp256r1)
@@ -955,6 +955,19 @@ module Aws::KMS
     #     * `ECC_NIST_P384` (secp384r1)
     #
     #     * `ECC_NIST_P521` (secp521r1)
+    #
+    #     * `ECC_NIST_EDWARDS25519` (ed25519) - signing and verification
+    #       only
+    #
+    #       * **Note:** For ECC\_NIST\_EDWARDS25519 KMS keys, the
+    #         ED25519\_SHA\_512 signing algorithm requires [
+    #         `MessageType:RAW`
+    #         ](kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType),
+    #         while ED25519\_PH\_SHA\_512 requires [ `MessageType:DIGEST`
+    #         ](kms/latest/APIReference/API_Sign.html#KMS-Sign-request-MessageType).
+    #         These message types cannot be used interchangeably.
+    #
+    #       ^
     #   * Other asymmetric elliptic curve key pairs (signing and
     #     verification)
     #
@@ -1850,7 +1863,7 @@ module Aws::KMS
     end
 
     # @!attribute [rw] key_id
-    #   Identifies an asymmetric NIST-recommended ECC or SM2 (China Regions
+    #   Identifies an asymmetric NIST-standard ECC or SM2 (China Regions
     #   only) KMS key. KMS uses the private key in the specified key pair to
     #   derive the shared secret. The key usage of the KMS key must be
     #   `KEY_AGREEMENT`. To find the `KeyUsage` of a KMS key, use the
@@ -1882,7 +1895,7 @@ module Aws::KMS
     #   @return [String]
     #
     # @!attribute [rw] public_key
-    #   Specifies the public key in your peer's NIST-recommended elliptic
+    #   Specifies the public key in your peer's NIST-standard elliptic
     #   curve (ECC) or SM2 (China Regions only) key pair.
     #
     #   The public key must be a DER-encoded X.509 public key, also known as
@@ -6198,6 +6211,13 @@ module Aws::KMS
     #   value with an unhashed message, the security of the signing
     #   operation can be compromised.
     #
+    #   When using ECC\_NIST\_EDWARDS25519 KMS keys:
+    #
+    #   * ED25519\_SHA\_512 signing algorithm requires KMS `MessageType:RAW`
+    #
+    #   * ED25519\_PH\_SHA\_512 signing algorithm requires KMS
+    #     `MessageType:DIGEST`
+    #
     #   When the value of `MessageType` is `DIGEST`, the length of the
     #   `Message` value must match the length of hashed messages for the
     #   specified signing algorithm.
@@ -6891,6 +6911,13 @@ module Aws::KMS
     #   `Message` parameter is a message digest. If you use the `DIGEST`
     #   value with an unhashed message, the security of the signing
     #   operation can be compromised.
+    #
+    #   When using ECC\_NIST\_EDWARDS25519 KMS keys:
+    #
+    #   * ED25519\_SHA\_512 signing algorithm requires KMS `MessageType:RAW`
+    #
+    #   * ED25519\_PH\_SHA\_512 signing algorithm requires KMS
+    #     `MessageType:DIGEST`
     #
     #   When the value of `MessageType` is `DIGEST`, the length of the
     #   `Message` value must match the length of hashed messages for the

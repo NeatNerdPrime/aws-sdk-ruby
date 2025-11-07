@@ -2435,6 +2435,7 @@ module Aws::EC2
       attr_accessor description: ::String
       attr_accessor tag_specifications: ::Array[Types::TagSpecification]
       attr_accessor client_token: ::String
+      attr_accessor external_authority_configuration: Types::ExternalAuthorityConfiguration
       SENSITIVE: []
     end
 
@@ -7931,12 +7932,16 @@ module Aws::EC2
     class DnsOptions
       attr_accessor dns_record_ip_type: ("ipv4" | "dualstack" | "ipv6" | "service-defined")
       attr_accessor private_dns_only_for_inbound_resolver_endpoint: bool
+      attr_accessor private_dns_preference: ::String
+      attr_accessor private_dns_specified_domains: ::Array[::String]
       SENSITIVE: []
     end
 
     class DnsOptionsSpecification
       attr_accessor dns_record_ip_type: ("ipv4" | "dualstack" | "ipv6" | "service-defined")
       attr_accessor private_dns_only_for_inbound_resolver_endpoint: bool
+      attr_accessor private_dns_preference: ::String
+      attr_accessor private_dns_specified_domains: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -8607,6 +8612,12 @@ module Aws::EC2
       attr_accessor device_trust_providers: ::Array[("jamf" | "crowdstrike" | "jumpcloud")]
       attr_accessor user_trust_provider: Types::VerifiedAccessInstanceUserTrustProviderClientConfiguration
       attr_accessor open_vpn_configurations: ::Array[Types::VerifiedAccessInstanceOpenVpnClientConfiguration]
+      SENSITIVE: []
+    end
+
+    class ExternalAuthorityConfiguration
+      attr_accessor type: ("infoblox")
+      attr_accessor external_resource_identifier: ::String
       SENSITIVE: []
     end
 
@@ -11343,6 +11354,13 @@ module Aws::EC2
       attr_accessor pool_count: ::Integer
       attr_accessor state: ("create-in-progress" | "create-complete" | "create-failed" | "modify-in-progress" | "modify-complete" | "modify-failed" | "delete-in-progress" | "delete-complete" | "delete-failed" | "isolate-in-progress" | "isolate-complete" | "restore-in-progress")
       attr_accessor tags: ::Array[Types::Tag]
+      attr_accessor external_authority_configuration: Types::IpamScopeExternalAuthorityConfiguration
+      SENSITIVE: []
+    end
+
+    class IpamScopeExternalAuthorityConfiguration
+      attr_accessor type: ("infoblox")
+      attr_accessor external_resource_identifier: ::String
       SENSITIVE: []
     end
 
@@ -12616,6 +12634,8 @@ module Aws::EC2
       attr_accessor dry_run: bool
       attr_accessor ipam_scope_id: ::String
       attr_accessor description: ::String
+      attr_accessor external_authority_configuration: Types::ExternalAuthorityConfiguration
+      attr_accessor remove_external_authority_configuration: bool
       SENSITIVE: []
     end
 

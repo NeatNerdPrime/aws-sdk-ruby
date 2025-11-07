@@ -3663,6 +3663,28 @@ module Aws::OpenSearchService
       req.send_request(options)
     end
 
+    # Gets the ARN of the current default application.
+    #
+    # If the default application isn't set, the operation returns a
+    # resource not found error.
+    #
+    # @return [Types::GetDefaultApplicationSettingResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetDefaultApplicationSettingResponse#application_arn #application_arn} => String
+    #
+    # @example Response structure
+    #
+    #   resp.application_arn #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/GetDefaultApplicationSetting AWS API Documentation
+    #
+    # @overload get_default_application_setting(params = {})
+    # @param [Hash] params ({})
+    def get_default_application_setting(params = {}, options = {})
+      req = build_request(:get_default_application_setting, params)
+      req.send_request(options)
+    end
+
     # Returns detailed configuration information for a specific direct query
     # data source in Amazon OpenSearch Service.
     #
@@ -4615,6 +4637,51 @@ module Aws::OpenSearchService
     # @param [Hash] params ({})
     def purchase_reserved_instance_offering(params = {}, options = {})
       req = build_request(:purchase_reserved_instance_offering, params)
+      req.send_request(options)
+    end
+
+    # Sets the default application to the application with the specified
+    # ARN.
+    #
+    # To remove the default application, use the
+    # `GetDefaultApplicationSetting` operation to get the current default
+    # and then call the `PutDefaultApplicationSetting` with the current
+    # applications ARN and the `setAsDefault` parameter set to `false`.
+    #
+    # @option params [required, String] :application_arn
+    #   The Amazon Resource Name (ARN) of the domain. See [Identifiers for IAM
+    #   Entities ][1] in *Using Amazon Web Services Identity and Access
+    #   Management* for more information.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/index.html
+    #
+    # @option params [required, Boolean] :set_as_default
+    #   Set to true to set the specified ARN as the default application. Set
+    #   to false to clear the default application.
+    #
+    # @return [Types::PutDefaultApplicationSettingResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::PutDefaultApplicationSettingResponse#application_arn #application_arn} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.put_default_application_setting({
+    #     application_arn: "ARN", # required
+    #     set_as_default: false, # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.application_arn #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/opensearch-2021-01-01/PutDefaultApplicationSetting AWS API Documentation
+    #
+    # @overload put_default_application_setting(params = {})
+    # @param [Hash] params ({})
+    def put_default_application_setting(params = {}, options = {})
+      req = build_request(:put_default_application_setting, params)
       req.send_request(options)
     end
 
@@ -5843,7 +5910,7 @@ module Aws::OpenSearchService
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-opensearchservice'
-      context[:gem_version] = '1.77.0'
+      context[:gem_version] = '1.78.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1066,6 +1066,14 @@ module Aws::OpenSearchService
       SENSITIVE: []
     end
 
+    class GetDefaultApplicationSettingRequest < Aws::EmptyStructure
+    end
+
+    class GetDefaultApplicationSettingResponse
+      attr_accessor application_arn: ::String
+      SENSITIVE: []
+    end
+
     class GetDirectQueryDataSourceRequest
       attr_accessor data_source_name: ::String
       SENSITIVE: []
@@ -1634,6 +1642,17 @@ module Aws::OpenSearchService
     class PurchaseReservedInstanceOfferingResponse
       attr_accessor reserved_instance_id: ::String
       attr_accessor reservation_name: ::String
+      SENSITIVE: []
+    end
+
+    class PutDefaultApplicationSettingRequest
+      attr_accessor application_arn: ::String
+      attr_accessor set_as_default: bool
+      SENSITIVE: []
+    end
+
+    class PutDefaultApplicationSettingResponse
+      attr_accessor application_arn: ::String
       SENSITIVE: []
     end
 

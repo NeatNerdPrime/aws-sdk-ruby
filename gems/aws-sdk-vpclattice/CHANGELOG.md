@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.40.0 (2025-11-07)
+------------------
+
+* Feature - Amazon VPC Lattice now supports custom domain name for resource configurations
+
 1.39.0 (2025-10-24)
 ------------------
 
