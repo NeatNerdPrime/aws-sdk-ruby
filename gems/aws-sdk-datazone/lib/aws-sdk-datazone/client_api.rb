@@ -4405,15 +4405,12 @@ module Aws::DataZone
     MetadataMap.value = Shapes::ShapeRef.new(shape: String)
 
     MlflowPropertiesInput.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
-    MlflowPropertiesInput.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
     MlflowPropertiesInput.struct_class = Types::MlflowPropertiesInput
 
     MlflowPropertiesOutput.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
-    MlflowPropertiesOutput.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
     MlflowPropertiesOutput.struct_class = Types::MlflowPropertiesOutput
 
     MlflowPropertiesPatch.add_member(:tracking_server_arn, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerArn"))
-    MlflowPropertiesPatch.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: String, location_name: "trackingServerName"))
     MlflowPropertiesPatch.struct_class = Types::MlflowPropertiesPatch
 
     Model.add_member(:smithy, Shapes::ShapeRef.new(shape: Smithy, location_name: "smithy"))

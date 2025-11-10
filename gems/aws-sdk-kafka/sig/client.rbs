@@ -196,6 +196,9 @@ module Aws
                               }
                             },
                             ?tags: Hash[::String, ::String],
+                            ?rebalancing: {
+                              status: ("PAUSED" | "ACTIVE")
+                            },
                             ?storage_mode: ("LOCAL" | "TIERED")
                           ) -> _CreateClusterResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateClusterResponseSuccess
@@ -308,7 +311,10 @@ module Aws
                                    }
                                  }?,
                                  number_of_broker_nodes: ::Integer,
-                                 storage_mode: ("LOCAL" | "TIERED")?
+                                 storage_mode: ("LOCAL" | "TIERED")?,
+                                 rebalancing: {
+                                   status: ("PAUSED" | "ACTIVE")
+                                 }?
                                },
                                ?serverless: {
                                  vpc_configs: Array[
@@ -1014,6 +1020,21 @@ module Aws
                                }
                              ) -> _UpdateMonitoringResponseSuccess
                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateMonitoringResponseSuccess
+
+      interface _UpdateRebalancingResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::UpdateRebalancingResponse]
+        def cluster_arn: () -> ::String
+        def cluster_operation_arn: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Kafka/Client.html#update_rebalancing-instance_method
+      def update_rebalancing: (
+                                cluster_arn: ::String,
+                                current_version: ::String,
+                                rebalancing: {
+                                  status: ("PAUSED" | "ACTIVE")
+                                }
+                              ) -> _UpdateRebalancingResponseSuccess
+                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateRebalancingResponseSuccess
 
       interface _UpdateReplicationInfoResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::UpdateReplicationInfoResponse]

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.15.0 (2025-11-10)
+------------------
+
+* Feature - Added new invoicing get-invoice-pdf API Operation
+
 1.14.0 (2025-10-27)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.62.0 (2025-11-10)
+------------------
+
+* Feature - Adds ExperimentalCapabilities field to CreateQuantumTask request and GetQuantumTask response objects. Enables use of experimental software capabilities when creating quantum tasks.
+
 1.61.0 (2025-10-27)
 ------------------
 

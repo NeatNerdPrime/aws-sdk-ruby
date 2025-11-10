@@ -693,6 +693,8 @@ module Aws
         def validation_status_message: () -> ::String
         def deletion_status: () -> ("DELETING" | "FAILED" | "SUCCESSFUL")
         def deletion_status_message: () -> ::String
+        def is_parent: () -> bool
+        def parent_job_id: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Backup/Client.html#describe_restore_job-instance_method
       def describe_restore_job: (
@@ -1252,7 +1254,8 @@ module Aws
                                ?by_status: ("PENDING" | "RUNNING" | "COMPLETED" | "ABORTED" | "FAILED"),
                                ?by_complete_before: ::Time,
                                ?by_complete_after: ::Time,
-                               ?by_restore_testing_plan_arn: ::String
+                               ?by_restore_testing_plan_arn: ::String,
+                               ?by_parent_job_id: ::String
                              ) -> _ListRestoreJobsResponseSuccess
                            | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListRestoreJobsResponseSuccess
 

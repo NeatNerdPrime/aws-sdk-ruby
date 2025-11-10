@@ -1287,6 +1287,9 @@ module Aws::GuardDuty
     #   **A suitable default value is auto-generated.** You should normally
     #   not need to pass this option.**
     #
+    # @option params [Hash<String,String>] :tags
+    #   The tags to be added to a new publishing destination resource.
+    #
     # @return [Types::CreatePublishingDestinationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreatePublishingDestinationResponse#destination_id #destination_id} => String
@@ -1301,6 +1304,9 @@ module Aws::GuardDuty
     #       kms_key_arn: "String",
     #     },
     #     client_token: "ClientToken",
+    #     tags: {
+    #       "TagKey" => "TagValue",
+    #     },
     #   })
     #
     # @example Response structure
@@ -2200,6 +2206,7 @@ module Aws::GuardDuty
     #   * {Types::DescribePublishingDestinationResponse#status #status} => String
     #   * {Types::DescribePublishingDestinationResponse#publishing_failure_start_timestamp #publishing_failure_start_timestamp} => Integer
     #   * {Types::DescribePublishingDestinationResponse#destination_properties #destination_properties} => Types::DestinationProperties
+    #   * {Types::DescribePublishingDestinationResponse#tags #tags} => Hash&lt;String,String&gt;
     #
     # @example Request syntax with placeholder values
     #
@@ -2216,6 +2223,8 @@ module Aws::GuardDuty
     #   resp.publishing_failure_start_timestamp #=> Integer
     #   resp.destination_properties.destination_arn #=> String
     #   resp.destination_properties.kms_key_arn #=> String
+    #   resp.tags #=> Hash
+    #   resp.tags["TagKey"] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DescribePublishingDestination AWS API Documentation
     #
@@ -6209,7 +6218,7 @@ module Aws::GuardDuty
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-guardduty'
-      context[:gem_version] = '1.131.0'
+      context[:gem_version] = '1.132.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

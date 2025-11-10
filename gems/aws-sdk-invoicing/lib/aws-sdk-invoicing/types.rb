@@ -375,6 +375,31 @@ module Aws::Invoicing
       include Aws::Structure
     end
 
+    # @!attribute [rw] invoice_id
+    #   Your unique invoice ID.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/GetInvoicePDFRequest AWS API Documentation
+    #
+    class GetInvoicePDFRequest < Struct.new(
+      :invoice_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] invoice_pdf
+    #   The invoice document and supplemental documents associated with the
+    #   invoice.
+    #   @return [Types::InvoicePDF]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/GetInvoicePDFResponse AWS API Documentation
+    #
+    class GetInvoicePDFResponse < Struct.new(
+      :invoice_pdf)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] invoice_unit_arn
     #   The ARN to identify an invoice unit. This information can't be
     #   modified or deleted.
@@ -495,6 +520,35 @@ module Aws::Invoicing
       :currency_code,
       :amount_breakdown,
       :currency_exchange_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Invoice document data.
+    #
+    # @!attribute [rw] invoice_id
+    #   Your unique invoice ID.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_url
+    #   The pre-signed URL to download the invoice document.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_url_expiration_date
+    #   The pre-signed URL expiration date of the invoice document.
+    #   @return [Time]
+    #
+    # @!attribute [rw] supplemental_documents
+    #   List of supplemental documents associated with the invoice.
+    #   @return [Array<Types::SupplementalDocument>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/InvoicePDF AWS API Documentation
+    #
+    class InvoicePDF < Struct.new(
+      :invoice_id,
+      :document_url,
+      :document_url_expiration_date,
+      :supplemental_documents)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -951,6 +1005,25 @@ module Aws::Invoicing
     #
     class ServiceQuotaExceededException < Struct.new(
       :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Supplemental document associated with the invoice.
+    #
+    # @!attribute [rw] document_url
+    #   The pre-signed URL to download invoice supplemental document.
+    #   @return [String]
+    #
+    # @!attribute [rw] document_url_expiration_date
+    #   The pre-signed URL expiration date of invoice supplemental document.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/SupplementalDocument AWS API Documentation
+    #
+    class SupplementalDocument < Struct.new(
+      :document_url,
+      :document_url_expiration_date)
       SENSITIVE = []
       include Aws::Structure
     end

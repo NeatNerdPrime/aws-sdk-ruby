@@ -35,7 +35,7 @@ module Aws::STS
     #   The regex used to validate this parameter is a string of characters
     #   consisting of upper- and lower-case alphanumeric characters with no
     #   spaces. You can also include underscores or any of the following
-    #   characters: =,.@-
+    #   characters: +=,.@-
     #
     #
     #
@@ -240,7 +240,7 @@ module Aws::STS
     #   The regex used to validate this parameter is a string of characters
     #   consisting of upper- and lower-case alphanumeric characters with no
     #   spaces. You can also include underscores or any of the following
-    #   characters: =,.@:/-
+    #   characters: +=,.@:\\/-
     #
     #
     #
@@ -259,7 +259,7 @@ module Aws::STS
     #   The regex used to validate this parameter is a string of characters
     #   consisting of upper- and lower-case alphanumeric characters with no
     #   spaces. You can also include underscores or any of the following
-    #   characters: =,.@-
+    #   characters: +=/:,.@-
     #   @return [String]
     #
     # @!attribute [rw] token_code
@@ -961,8 +961,8 @@ module Aws::STS
     #
     # @!attribute [rw] task_policy_arn
     #   The identity based policy that scopes the session to the privileged
-    #   tasks that can be performed. You can use one of following Amazon Web
-    #   Services managed policies to scope root session actions.
+    #   tasks that can be performed. You must use one of following Amazon
+    #   Web Services managed policies to scope root session actions:
     #
     #   * [IAMAuditRootUserCredentials][1]
     #
@@ -1144,6 +1144,17 @@ module Aws::STS
       include Aws::Structure
     end
 
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/ExpiredTradeInTokenException AWS API Documentation
+    #
+    class ExpiredTradeInTokenException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Identifiers for the federated user that is associated with the
     # credentials.
     #
@@ -1235,6 +1246,37 @@ module Aws::STS
       :user_id,
       :account,
       :arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] trade_in_token
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetDelegatedAccessTokenRequest AWS API Documentation
+    #
+    class GetDelegatedAccessTokenRequest < Struct.new(
+      :trade_in_token)
+      SENSITIVE = [:trade_in_token]
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] credentials
+    #   Amazon Web Services credentials for API authentication.
+    #   @return [Types::Credentials]
+    #
+    # @!attribute [rw] packed_policy_size
+    #   @return [Integer]
+    #
+    # @!attribute [rw] assumed_principal
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sts-2011-06-15/GetDelegatedAccessTokenResponse AWS API Documentation
+    #
+    class GetDelegatedAccessTokenResponse < Struct.new(
+      :credentials,
+      :packed_policy_size,
+      :assumed_principal)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1686,7 +1728,7 @@ module Aws::STS
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html
+    # [1]: https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#sts-regions-activate-deactivate
     #
     # @!attribute [rw] message
     #   @return [String]

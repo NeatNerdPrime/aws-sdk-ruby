@@ -15112,16 +15112,10 @@ module Aws::DataZone
     #   connection.
     #   @return [String]
     #
-    # @!attribute [rw] tracking_server_name
-    #   The name of the tracking server as part of the MLflow properties of
-    #   a connection.
-    #   @return [String]
-    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesInput AWS API Documentation
     #
     class MlflowPropertiesInput < Struct.new(
-      :tracking_server_arn,
-      :tracking_server_name)
+      :tracking_server_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15131,18 +15125,12 @@ module Aws::DataZone
     # @!attribute [rw] tracking_server_arn
     #   The tracking server ARN as part of the MLflow properties of a
     #   connection.
-    #   @return [String]
-    #
-    # @!attribute [rw] tracking_server_name
-    #   The name of the tracking server as part of the MLflow properties of
-    #   a connection.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesOutput AWS API Documentation
     #
     class MlflowPropertiesOutput < Struct.new(
-      :tracking_server_arn,
-      :tracking_server_name)
+      :tracking_server_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15154,16 +15142,10 @@ module Aws::DataZone
     #   connection.
     #   @return [String]
     #
-    # @!attribute [rw] tracking_server_name
-    #   The name of the tracking server as part of the MLflow properties of
-    #   a connection.
-    #   @return [String]
-    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/MlflowPropertiesPatch AWS API Documentation
     #
     class MlflowPropertiesPatch < Struct.new(
-      :tracking_server_arn,
-      :tracking_server_name)
+      :tracking_server_arn)
       SENSITIVE = []
       include Aws::Structure
     end

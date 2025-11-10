@@ -2296,6 +2296,8 @@ module Aws::Backup
     #   * {Types::DescribeRestoreJobOutput#validation_status_message #validation_status_message} => String
     #   * {Types::DescribeRestoreJobOutput#deletion_status #deletion_status} => String
     #   * {Types::DescribeRestoreJobOutput#deletion_status_message #deletion_status_message} => String
+    #   * {Types::DescribeRestoreJobOutput#is_parent #is_parent} => Boolean
+    #   * {Types::DescribeRestoreJobOutput#parent_job_id #parent_job_id} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -2326,6 +2328,8 @@ module Aws::Backup
     #   resp.validation_status_message #=> String
     #   resp.deletion_status #=> String, one of "DELETING", "FAILED", "SUCCESSFUL"
     #   resp.deletion_status_message #=> String
+    #   resp.is_parent #=> Boolean
+    #   resp.parent_job_id #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRestoreJob AWS API Documentation
     #
@@ -4972,6 +4976,10 @@ module Aws::Backup
     #   This returns only restore testing jobs that match the specified
     #   resource Amazon Resource Name (ARN).
     #
+    # @option params [String] :by_parent_job_id
+    #   This is a filter to list child (nested) restore jobs based on parent
+    #   restore job ID.
+    #
     # @return [Types::ListRestoreJobsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::ListRestoreJobsOutput#restore_jobs #restore_jobs} => Array&lt;Types::RestoreJobsListMember&gt;
@@ -4992,6 +5000,7 @@ module Aws::Backup
     #     by_complete_before: Time.now,
     #     by_complete_after: Time.now,
     #     by_restore_testing_plan_arn: "ARN",
+    #     by_parent_job_id: "string",
     #   })
     #
     # @example Response structure
@@ -5013,6 +5022,8 @@ module Aws::Backup
     #   resp.restore_jobs[0].created_resource_arn #=> String
     #   resp.restore_jobs[0].resource_type #=> String
     #   resp.restore_jobs[0].recovery_point_creation_date #=> Time
+    #   resp.restore_jobs[0].is_parent #=> Boolean
+    #   resp.restore_jobs[0].parent_job_id #=> String
     #   resp.restore_jobs[0].created_by.restore_testing_plan_arn #=> String
     #   resp.restore_jobs[0].validation_status #=> String, one of "FAILED", "SUCCESSFUL", "TIMED_OUT", "VALIDATING"
     #   resp.restore_jobs[0].validation_status_message #=> String
@@ -5098,6 +5109,8 @@ module Aws::Backup
     #   resp.restore_jobs[0].created_resource_arn #=> String
     #   resp.restore_jobs[0].resource_type #=> String
     #   resp.restore_jobs[0].recovery_point_creation_date #=> Time
+    #   resp.restore_jobs[0].is_parent #=> Boolean
+    #   resp.restore_jobs[0].parent_job_id #=> String
     #   resp.restore_jobs[0].created_by.restore_testing_plan_arn #=> String
     #   resp.restore_jobs[0].validation_status #=> String, one of "FAILED", "SUCCESSFUL", "TIMED_OUT", "VALIDATING"
     #   resp.restore_jobs[0].validation_status_message #=> String
@@ -6697,7 +6710,7 @@ module Aws::Backup
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-backup'
-      context[:gem_version] = '1.99.0'
+      context[:gem_version] = '1.100.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

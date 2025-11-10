@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.99.0 (2025-11-10)
+------------------
+
+* Feature - Amazon MSK now supports intelligent rebalancing for MSK Express brokers.
+
 1.98.0 (2025-10-21)
 ------------------
 

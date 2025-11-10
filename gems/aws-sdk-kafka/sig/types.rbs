@@ -112,6 +112,7 @@ module Aws::Kafka
       attr_accessor zookeeper_connect_string: ::String
       attr_accessor zookeeper_connect_string_tls: ::String
       attr_accessor storage_mode: ("LOCAL" | "TIERED")
+      attr_accessor rebalancing: Types::Rebalancing
       attr_accessor customer_action_status: ("CRITICAL_ACTION_REQUIRED" | "ACTION_RECOMMENDED" | "NONE")
       SENSITIVE: []
     end
@@ -275,6 +276,7 @@ module Aws::Kafka
       attr_accessor number_of_broker_nodes: ::Integer
       attr_accessor open_monitoring: Types::OpenMonitoringInfo
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor rebalancing: Types::Rebalancing
       attr_accessor storage_mode: ("LOCAL" | "TIERED")
       SENSITIVE: []
     end
@@ -726,6 +728,11 @@ module Aws::Kafka
       SENSITIVE: []
     end
 
+    class Rebalancing
+      attr_accessor status: ("PAUSED" | "ACTIVE")
+      SENSITIVE: []
+    end
+
     class ProvisionedRequest
       attr_accessor broker_node_group_info: Types::BrokerNodeGroupInfo
       attr_accessor client_authentication: Types::ClientAuthentication
@@ -737,6 +744,7 @@ module Aws::Kafka
       attr_accessor logging_info: Types::LoggingInfo
       attr_accessor number_of_broker_nodes: ::Integer
       attr_accessor storage_mode: ("LOCAL" | "TIERED")
+      attr_accessor rebalancing: Types::Rebalancing
       SENSITIVE: []
     end
 
@@ -752,6 +760,7 @@ module Aws::Kafka
       attr_accessor zookeeper_connect_string: ::String
       attr_accessor zookeeper_connect_string_tls: ::String
       attr_accessor storage_mode: ("LOCAL" | "TIERED")
+      attr_accessor rebalancing: Types::Rebalancing
       attr_accessor customer_action_status: ("CRITICAL_ACTION_REQUIRED" | "ACTION_RECOMMENDED" | "NONE")
       SENSITIVE: []
     end
@@ -936,6 +945,7 @@ module Aws::Kafka
       attr_accessor connectivity_info: Types::ConnectivityInfo
       attr_accessor storage_mode: ("LOCAL" | "TIERED")
       attr_accessor broker_count_update_info: Types::BrokerCountUpdateInfo
+      attr_accessor rebalancing: Types::Rebalancing
       SENSITIVE: []
     end
 
@@ -1146,6 +1156,19 @@ module Aws::Kafka
     end
 
     class UpdateBrokerCountResponse
+      attr_accessor cluster_arn: ::String
+      attr_accessor cluster_operation_arn: ::String
+      SENSITIVE: []
+    end
+
+    class UpdateRebalancingRequest
+      attr_accessor cluster_arn: ::String
+      attr_accessor current_version: ::String
+      attr_accessor rebalancing: Types::Rebalancing
+      SENSITIVE: []
+    end
+
+    class UpdateRebalancingResponse
       attr_accessor cluster_arn: ::String
       attr_accessor cluster_operation_arn: ::String
       SENSITIVE: []

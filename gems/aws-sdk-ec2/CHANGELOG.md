@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.573.0 (2025-11-10)
+------------------
+
+* Feature - Amazon EC2 Fleet customers can now filter instance types based on encryption-in-transit support using Attribute-Based Instance Type Selection (ABIS), eliminating the manual effort of identifying and selecting compatible instance types for security-sensitive workloads.
+
 1.572.0 (2025-11-07)
 ------------------
 

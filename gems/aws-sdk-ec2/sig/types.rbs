@@ -10784,6 +10784,7 @@ module Aws::EC2
       attr_accessor allowed_instance_types: ::Array[::String]
       attr_accessor max_spot_price_as_percentage_of_optimal_on_demand_price: ::Integer
       attr_accessor baseline_performance_factors: Types::BaselinePerformanceFactors
+      attr_accessor require_encryption_in_transit: bool
       SENSITIVE: []
     end
 
@@ -10813,6 +10814,7 @@ module Aws::EC2
       attr_accessor allowed_instance_types: ::Array[::String]
       attr_accessor max_spot_price_as_percentage_of_optimal_on_demand_price: ::Integer
       attr_accessor baseline_performance_factors: Types::BaselinePerformanceFactorsRequest
+      attr_accessor require_encryption_in_transit: bool
       SENSITIVE: []
     end
 

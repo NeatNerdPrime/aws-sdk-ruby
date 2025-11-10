@@ -1658,7 +1658,8 @@ module Aws
                                           },
                                         ]?
                                       }?
-                                    }?
+                                    }?,
+                                    require_encryption_in_transit: bool?
                                   }?,
                                   image_id: ::String?
                                 },
@@ -2450,7 +2451,8 @@ module Aws
                                               },
                                             ]?
                                           }?
-                                        }?
+                                        }?,
+                                        require_encryption_in_transit: bool?
                                       }?,
                                       private_dns_name_options: {
                                         hostname_type: ("ip-name" | "resource-name")?,
@@ -2725,7 +2727,8 @@ module Aws
                                                       },
                                                     ]?
                                                   }?
-                                                }?
+                                                }?,
+                                                require_encryption_in_transit: bool?
                                               }?,
                                               private_dns_name_options: {
                                                 hostname_type: ("ip-name" | "resource-name")?,
@@ -10290,7 +10293,8 @@ module Aws
                                                                    },
                                                                  ]?
                                                                }?
-                                                             }?
+                                                             }?,
+                                                             require_encryption_in_transit: bool?
                                                            },
                                                            ?max_results: ::Integer,
                                                            ?next_token: ::String,
@@ -10783,7 +10787,8 @@ module Aws
                                                  },
                                                ]?
                                              }?
-                                           }?
+                                           }?,
+                                           require_encryption_in_transit: bool?
                                          }?
                                        },
                                        ?dry_run: bool,
@@ -11539,7 +11544,8 @@ module Aws
                                           },
                                         ]?
                                       }?
-                                    }?
+                                    }?,
+                                    require_encryption_in_transit: bool?
                                   }?,
                                   image_id: ::String?
                                 },
@@ -12335,7 +12341,8 @@ module Aws
                                                        },
                                                      ]?
                                                    }?
-                                                 }?
+                                                 }?,
+                                                 require_encryption_in_transit: bool?
                                                }?
                                              },
                                            ]?
@@ -13759,7 +13766,8 @@ module Aws
                                               },
                                             ]?
                                           }?
-                                        }?
+                                        }?,
+                                        require_encryption_in_transit: bool?
                                       }?,
                                       security_groups: Array[
                                         {
@@ -13844,7 +13852,8 @@ module Aws
                                                   },
                                                 ]?
                                               }?
-                                            }?
+                                            }?,
+                                            require_encryption_in_transit: bool?
                                           }?
                                         },
                                       ]?

@@ -432,6 +432,7 @@ module Aws::GuardDuty
       attr_accessor destination_type: ("S3")
       attr_accessor destination_properties: Types::DestinationProperties
       attr_accessor client_token: ::String
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 
@@ -699,6 +700,7 @@ module Aws::GuardDuty
       attr_accessor status: ("PENDING_VERIFICATION" | "PUBLISHING" | "UNABLE_TO_PUBLISH_FIX_DESTINATION_PROPERTY" | "STOPPED")
       attr_accessor publishing_failure_start_timestamp: ::Integer
       attr_accessor destination_properties: Types::DestinationProperties
+      attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
 

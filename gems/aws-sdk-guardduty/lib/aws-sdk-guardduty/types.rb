@@ -1895,13 +1895,18 @@ module Aws::GuardDuty
     #   not need to pass this option.
     #   @return [String]
     #
+    # @!attribute [rw] tags
+    #   The tags to be added to a new publishing destination resource.
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/CreatePublishingDestinationRequest AWS API Documentation
     #
     class CreatePublishingDestinationRequest < Struct.new(
       :detector_id,
       :destination_type,
       :destination_properties,
-      :client_token)
+      :client_token,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2938,6 +2943,10 @@ module Aws::GuardDuty
     #   and `KmsKeyArn` of the publishing destination.
     #   @return [Types::DestinationProperties]
     #
+    # @!attribute [rw] tags
+    #   The tags of the publishing destination resource.
+    #   @return [Hash<String,String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/guardduty-2017-11-28/DescribePublishingDestinationResponse AWS API Documentation
     #
     class DescribePublishingDestinationResponse < Struct.new(
@@ -2945,7 +2954,8 @@ module Aws::GuardDuty
       :destination_type,
       :status,
       :publishing_failure_start_timestamp,
-      :destination_properties)
+      :destination_properties,
+      :tags)
       SENSITIVE = []
       include Aws::Structure
     end

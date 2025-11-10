@@ -1246,6 +1246,7 @@ module Aws::AppStream
     Metadata.value = Shapes::ShapeRef.new(shape: String)
 
     NetworkAccessConfiguration.add_member(:eni_private_ip_address, Shapes::ShapeRef.new(shape: String, location_name: "EniPrivateIpAddress"))
+    NetworkAccessConfiguration.add_member(:eni_ipv_6_addresses, Shapes::ShapeRef.new(shape: StringList, location_name: "EniIpv6Addresses"))
     NetworkAccessConfiguration.add_member(:eni_id, Shapes::ShapeRef.new(shape: String, location_name: "EniId"))
     NetworkAccessConfiguration.struct_class = Types::NetworkAccessConfiguration
 

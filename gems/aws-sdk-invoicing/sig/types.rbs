@@ -114,6 +114,16 @@ module Aws::Invoicing
       SENSITIVE: []
     end
 
+    class GetInvoicePDFRequest
+      attr_accessor invoice_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetInvoicePDFResponse
+      attr_accessor invoice_pdf: Types::InvoicePDF
+      SENSITIVE: []
+    end
+
     class GetInvoiceUnitRequest
       attr_accessor invoice_unit_arn: ::String
       attr_accessor as_of: ::Time
@@ -143,6 +153,14 @@ module Aws::Invoicing
       attr_accessor currency_code: ::String
       attr_accessor amount_breakdown: Types::AmountBreakdown
       attr_accessor currency_exchange_details: Types::CurrencyExchangeDetails
+      SENSITIVE: []
+    end
+
+    class InvoicePDF
+      attr_accessor invoice_id: ::String
+      attr_accessor document_url: ::String
+      attr_accessor document_url_expiration_date: ::Time
+      attr_accessor supplemental_documents: ::Array[Types::SupplementalDocument]
       SENSITIVE: []
     end
 
@@ -266,6 +284,12 @@ module Aws::Invoicing
 
     class ServiceQuotaExceededException
       attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class SupplementalDocument
+      attr_accessor document_url: ::String
+      attr_accessor document_url_expiration_date: ::Time
       SENSITIVE: []
     end
 

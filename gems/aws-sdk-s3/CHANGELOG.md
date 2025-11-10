@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+1.203.1 (2025-11-10)
+------------------
+
 * Issue - Deprecated `:checksum_mode` parameter in `FileDownloader#download`. When set to "DISABLED", a deprecation warning is issued and the parameter is ignored. Use `:response_checksum_validation` on the S3 client instead to control checksum validation behavior.
 
 1.203.0 (2025-11-05)

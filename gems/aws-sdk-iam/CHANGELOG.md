@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.133.0 (2025-11-10)
+------------------
+
+* Feature - Added CreateDelegationRequest API, which is not available for general use at this time.
+
 1.132.0 (2025-10-27)
 ------------------
 

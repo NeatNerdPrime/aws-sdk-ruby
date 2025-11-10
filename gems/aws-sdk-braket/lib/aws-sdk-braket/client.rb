@@ -730,6 +730,9 @@ module Aws::Braket
     # @option params [Array<Types::Association>] :associations
     #   The list of Amazon Braket resources associated with the quantum task.
     #
+    # @option params [Types::ExperimentalCapabilities] :experimental_capabilities
+    #   Enable experimental capabilities for the quantum task.
+    #
     # @return [Types::CreateQuantumTaskResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateQuantumTaskResponse#quantum_task_arn #quantum_task_arn} => String
@@ -754,6 +757,9 @@ module Aws::Braket
     #         type: "RESERVATION_TIME_WINDOW_ARN", # required, accepts RESERVATION_TIME_WINDOW_ARN
     #       },
     #     ],
+    #     experimental_capabilities: {
+    #       enabled: "ALL", # accepts ALL, NONE
+    #     },
     #   })
     #
     # @example Response structure
@@ -943,6 +949,7 @@ module Aws::Braket
     #   * {Types::GetQuantumTaskResponse#associations #associations} => Array&lt;Types::Association&gt;
     #   * {Types::GetQuantumTaskResponse#num_successful_shots #num_successful_shots} => Integer
     #   * {Types::GetQuantumTaskResponse#action_metadata #action_metadata} => Types::ActionMetadata
+    #   * {Types::GetQuantumTaskResponse#experimental_capabilities #experimental_capabilities} => Types::ExperimentalCapabilities
     #
     # @example Request syntax with placeholder values
     #
@@ -977,6 +984,7 @@ module Aws::Braket
     #   resp.action_metadata.action_type #=> String
     #   resp.action_metadata.program_count #=> Integer
     #   resp.action_metadata.executable_count #=> Integer
+    #   resp.experimental_capabilities.enabled #=> String, one of "ALL", "NONE"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/braket-2019-09-01/GetQuantumTask AWS API Documentation
     #
@@ -1262,7 +1270,7 @@ module Aws::Braket
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-braket'
-      context[:gem_version] = '1.61.0'
+      context[:gem_version] = '1.62.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

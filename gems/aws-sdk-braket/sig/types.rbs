@@ -98,6 +98,7 @@ module Aws::Braket
       attr_accessor tags: ::Hash[::String, ::String]
       attr_accessor job_token: ::String
       attr_accessor associations: ::Array[Types::Association]
+      attr_accessor experimental_capabilities: Types::ExperimentalCapabilities
       SENSITIVE: []
     end
 
@@ -140,6 +141,17 @@ module Aws::Braket
       attr_accessor device_type: ("QPU" | "SIMULATOR")
       attr_accessor device_status: ("ONLINE" | "OFFLINE" | "RETIRED")
       SENSITIVE: []
+    end
+
+    class ExperimentalCapabilities
+      attr_accessor enabled: ("ALL" | "NONE")
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class Enabled < ExperimentalCapabilities
+      end
+      class Unknown < ExperimentalCapabilities
+      end
     end
 
     class GetDeviceRequest
@@ -212,6 +224,7 @@ module Aws::Braket
       attr_accessor associations: ::Array[Types::Association]
       attr_accessor num_successful_shots: ::Integer
       attr_accessor action_metadata: Types::ActionMetadata
+      attr_accessor experimental_capabilities: Types::ExperimentalCapabilities
       SENSITIVE: []
     end
 

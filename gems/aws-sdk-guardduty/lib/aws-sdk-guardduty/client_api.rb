@@ -978,6 +978,7 @@ module Aws::GuardDuty
     CreatePublishingDestinationRequest.add_member(:destination_type, Shapes::ShapeRef.new(shape: DestinationType, required: true, location_name: "destinationType"))
     CreatePublishingDestinationRequest.add_member(:destination_properties, Shapes::ShapeRef.new(shape: DestinationProperties, required: true, location_name: "destinationProperties"))
     CreatePublishingDestinationRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
+    CreatePublishingDestinationRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "tags"))
     CreatePublishingDestinationRequest.struct_class = Types::CreatePublishingDestinationRequest
 
     CreatePublishingDestinationResponse.add_member(:destination_id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "destinationId"))
@@ -1170,6 +1171,7 @@ module Aws::GuardDuty
     DescribePublishingDestinationResponse.add_member(:status, Shapes::ShapeRef.new(shape: PublishingStatus, required: true, location_name: "status"))
     DescribePublishingDestinationResponse.add_member(:publishing_failure_start_timestamp, Shapes::ShapeRef.new(shape: Long, required: true, location_name: "publishingFailureStartTimestamp"))
     DescribePublishingDestinationResponse.add_member(:destination_properties, Shapes::ShapeRef.new(shape: DestinationProperties, required: true, location_name: "destinationProperties"))
+    DescribePublishingDestinationResponse.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "tags"))
     DescribePublishingDestinationResponse.struct_class = Types::DescribePublishingDestinationResponse
 
     Destination.add_member(:destination_id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "destinationId"))

@@ -1000,6 +1000,8 @@ module Aws::Backup
     DescribeRestoreJobOutput.add_member(:validation_status_message, Shapes::ShapeRef.new(shape: string, location_name: "ValidationStatusMessage"))
     DescribeRestoreJobOutput.add_member(:deletion_status, Shapes::ShapeRef.new(shape: RestoreDeletionStatus, location_name: "DeletionStatus"))
     DescribeRestoreJobOutput.add_member(:deletion_status_message, Shapes::ShapeRef.new(shape: string, location_name: "DeletionStatusMessage"))
+    DescribeRestoreJobOutput.add_member(:is_parent, Shapes::ShapeRef.new(shape: boolean, location_name: "IsParent"))
+    DescribeRestoreJobOutput.add_member(:parent_job_id, Shapes::ShapeRef.new(shape: string, location_name: "ParentJobId"))
     DescribeRestoreJobOutput.struct_class = Types::DescribeRestoreJobOutput
 
     DisassociateBackupVaultMpaApprovalTeamInput.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultName, required: true, location: "uri", location_name: "backupVaultName"))
@@ -1508,6 +1510,7 @@ module Aws::Backup
     ListRestoreJobsInput.add_member(:by_complete_before, Shapes::ShapeRef.new(shape: timestamp, location: "querystring", location_name: "completeBefore"))
     ListRestoreJobsInput.add_member(:by_complete_after, Shapes::ShapeRef.new(shape: timestamp, location: "querystring", location_name: "completeAfter"))
     ListRestoreJobsInput.add_member(:by_restore_testing_plan_arn, Shapes::ShapeRef.new(shape: ARN, location: "querystring", location_name: "restoreTestingPlanArn"))
+    ListRestoreJobsInput.add_member(:by_parent_job_id, Shapes::ShapeRef.new(shape: string, location: "querystring", location_name: "parentJobId"))
     ListRestoreJobsInput.struct_class = Types::ListRestoreJobsInput
 
     ListRestoreJobsOutput.add_member(:restore_jobs, Shapes::ShapeRef.new(shape: RestoreJobsList, location_name: "RestoreJobs"))
@@ -1758,6 +1761,8 @@ module Aws::Backup
     RestoreJobsListMember.add_member(:created_resource_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "CreatedResourceArn"))
     RestoreJobsListMember.add_member(:resource_type, Shapes::ShapeRef.new(shape: ResourceType, location_name: "ResourceType"))
     RestoreJobsListMember.add_member(:recovery_point_creation_date, Shapes::ShapeRef.new(shape: timestamp, location_name: "RecoveryPointCreationDate"))
+    RestoreJobsListMember.add_member(:is_parent, Shapes::ShapeRef.new(shape: boolean, location_name: "IsParent"))
+    RestoreJobsListMember.add_member(:parent_job_id, Shapes::ShapeRef.new(shape: string, location_name: "ParentJobId"))
     RestoreJobsListMember.add_member(:created_by, Shapes::ShapeRef.new(shape: RestoreJobCreator, location_name: "CreatedBy"))
     RestoreJobsListMember.add_member(:validation_status, Shapes::ShapeRef.new(shape: RestoreValidationStatus, location_name: "ValidationStatus"))
     RestoreJobsListMember.add_member(:validation_status_message, Shapes::ShapeRef.new(shape: string, location_name: "ValidationStatusMessage"))

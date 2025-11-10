@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.100.0 (2025-11-10)
+------------------
+
+* Feature - AWS Backup supports backups of Amazon EKS clusters, including Kubernetes cluster state and persistent storage attached to the EKS cluster via a persistent volume claim (EBS volumes, EFS file systems, and S3 buckets).
+
 1.99.0 (2025-11-06)
 ------------------
 

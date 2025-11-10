@@ -3877,6 +3877,16 @@ module Aws::Backup
     #   This describes the restore job deletion status.
     #   @return [String]
     #
+    # @!attribute [rw] is_parent
+    #   This is a boolean value indicating whether the restore job is a
+    #   parent (composite) restore job.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] parent_job_id
+    #   This is the unique identifier of the parent restore job for the
+    #   selected restore job.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DescribeRestoreJobOutput AWS API Documentation
     #
     class DescribeRestoreJobOutput < Struct.new(
@@ -3900,7 +3910,9 @@ module Aws::Backup
       :validation_status,
       :validation_status_message,
       :deletion_status,
-      :deletion_status_message)
+      :deletion_status_message,
+      :is_parent,
+      :parent_job_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6902,6 +6914,11 @@ module Aws::Backup
     #   resource Amazon Resource Name (ARN).
     #   @return [String]
     #
+    # @!attribute [rw] by_parent_job_id
+    #   This is a filter to list child (nested) restore jobs based on parent
+    #   restore job ID.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListRestoreJobsInput AWS API Documentation
     #
     class ListRestoreJobsInput < Struct.new(
@@ -6914,7 +6931,8 @@ module Aws::Backup
       :by_status,
       :by_complete_before,
       :by_complete_after,
-      :by_restore_testing_plan_arn)
+      :by_restore_testing_plan_arn,
+      :by_parent_job_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8250,6 +8268,16 @@ module Aws::Backup
     #   The date on which a recovery point was created.
     #   @return [Time]
     #
+    # @!attribute [rw] is_parent
+    #   This is a boolean value indicating whether the restore job is a
+    #   parent (composite) restore job.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] parent_job_id
+    #   This is the unique identifier of the parent restore job for the
+    #   selected restore job.
+    #   @return [String]
+    #
     # @!attribute [rw] created_by
     #   Contains identifying information about the creation of a restore
     #   job.
@@ -8292,6 +8320,8 @@ module Aws::Backup
       :created_resource_arn,
       :resource_type,
       :recovery_point_creation_date,
+      :is_parent,
+      :parent_job_id,
       :created_by,
       :validation_status,
       :validation_status_message,

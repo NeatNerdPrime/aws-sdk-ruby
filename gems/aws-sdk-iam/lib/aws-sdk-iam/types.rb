@@ -706,6 +706,64 @@ module Aws::IAM
       include Aws::Structure
     end
 
+    # @!attribute [rw] owner_account_id
+    #   @return [String]
+    #
+    # @!attribute [rw] description
+    #   @return [String]
+    #
+    # @!attribute [rw] permissions
+    #   @return [Types::DelegationPermission]
+    #
+    # @!attribute [rw] request_message
+    #   @return [String]
+    #
+    # @!attribute [rw] requestor_workflow_id
+    #   @return [String]
+    #
+    # @!attribute [rw] redirect_url
+    #   @return [String]
+    #
+    # @!attribute [rw] notification_channel
+    #   @return [String]
+    #
+    # @!attribute [rw] session_duration
+    #   @return [Integer]
+    #
+    # @!attribute [rw] only_send_by_owner
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateDelegationRequestRequest AWS API Documentation
+    #
+    class CreateDelegationRequestRequest < Struct.new(
+      :owner_account_id,
+      :description,
+      :permissions,
+      :request_message,
+      :requestor_workflow_id,
+      :redirect_url,
+      :notification_channel,
+      :session_duration,
+      :only_send_by_owner)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] console_deep_link
+    #   @return [String]
+    #
+    # @!attribute [rw] delegation_request_id
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateDelegationRequestResponse AWS API Documentation
+    #
+    class CreateDelegationRequestResponse < Struct.new(
+      :console_deep_link,
+      :delegation_request_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] path
     #   The path to the group. For more information about paths, see [IAM
     #   identifiers][1] in the *IAM User Guide*.
@@ -1910,6 +1968,30 @@ module Aws::IAM
     class DeactivateMFADeviceRequest < Struct.new(
       :user_name,
       :serial_number)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] policy_template_arn
+    #   The Amazon Resource Name (ARN). ARNs are unique identifiers for
+    #   Amazon Web Services resources.
+    #
+    #   For more information about ARNs, go to [Amazon Resource Names
+    #   (ARNs)][1] in the *Amazon Web Services General Reference*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
+    #   @return [String]
+    #
+    # @!attribute [rw] parameters
+    #   @return [Array<Types::PolicyParameter>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/DelegationPermission AWS API Documentation
+    #
+    class DelegationPermission < Struct.new(
+      :policy_template_arn,
+      :parameters)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8682,6 +8764,25 @@ module Aws::IAM
     #
     class PolicyNotAttachableException < Struct.new(
       :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] name
+    #   @return [String]
+    #
+    # @!attribute [rw] values
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] type
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/PolicyParameter AWS API Documentation
+    #
+    class PolicyParameter < Struct.new(
+      :name,
+      :values,
+      :type)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -87,6 +87,7 @@ module Aws
         def multi_region_properties: () -> Types::MultiRegionProperties
         def encryption_details: () -> Types::EncryptionDetails
         def deletion_protection_enabled: () -> bool
+        def endpoint: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DSQL/Client.html#create_cluster-instance_method
       def create_cluster: (
@@ -139,6 +140,7 @@ module Aws
         def multi_region_properties: () -> Types::MultiRegionProperties
         def tags: () -> ::Hash[::String, ::String]
         def encryption_details: () -> Types::EncryptionDetails
+        def endpoint: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DSQL/Client.html#get_cluster-instance_method
       def get_cluster: (

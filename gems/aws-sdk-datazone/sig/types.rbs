@@ -4029,19 +4029,16 @@ module Aws::DataZone
 
     class MlflowPropertiesInput
       attr_accessor tracking_server_arn: ::String
-      attr_accessor tracking_server_name: ::String
       SENSITIVE: []
     end
 
     class MlflowPropertiesOutput
       attr_accessor tracking_server_arn: ::String
-      attr_accessor tracking_server_name: ::String
       SENSITIVE: []
     end
 
     class MlflowPropertiesPatch
       attr_accessor tracking_server_arn: ::String
-      attr_accessor tracking_server_name: ::String
       SENSITIVE: []
     end
 

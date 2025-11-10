@@ -159,6 +159,10 @@ module Aws::DSQL
     #   Whether deletion protection is enabled on this cluster.
     #   @return [Boolean]
     #
+    # @!attribute [rw] endpoint
+    #   The connection endpoint for the created cluster.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dsql-2018-05-10/CreateClusterOutput AWS API Documentation
     #
     class CreateClusterOutput < Struct.new(
@@ -168,7 +172,8 @@ module Aws::DSQL
       :creation_time,
       :multi_region_properties,
       :encryption_details,
-      :deletion_protection_enabled)
+      :deletion_protection_enabled,
+      :endpoint)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -341,6 +346,10 @@ module Aws::DSQL
     #   The current encryption configuration details for the cluster.
     #   @return [Types::EncryptionDetails]
     #
+    # @!attribute [rw] endpoint
+    #   The connection endpoint for the cluster.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dsql-2018-05-10/GetClusterOutput AWS API Documentation
     #
     class GetClusterOutput < Struct.new(
@@ -351,7 +360,8 @@ module Aws::DSQL
       :deletion_protection_enabled,
       :multi_region_properties,
       :tags,
-      :encryption_details)
+      :encryption_details,
+      :endpoint)
       SENSITIVE = []
       include Aws::Structure
     end

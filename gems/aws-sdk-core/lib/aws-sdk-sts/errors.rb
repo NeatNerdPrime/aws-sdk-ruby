@@ -28,6 +28,7 @@ module Aws::STS
   #
   # ## Error Classes
   # * {ExpiredTokenException}
+  # * {ExpiredTradeInTokenException}
   # * {IDPCommunicationErrorException}
   #    * This error class is not used. `IDPCommunicationError` is used during parsing instead.
   # * {IDPRejectedClaimException}
@@ -52,6 +53,21 @@ module Aws::STS
       # @param [Seahorse::Client::RequestContext] context
       # @param [String] message
       # @param [Aws::STS::Types::ExpiredTokenException] data
+      def initialize(context, message, data = Aws::EmptyStructure.new)
+        super(context, message, data)
+      end
+
+      # @return [String]
+      def message
+        @message || @data[:message]
+      end
+    end
+
+    class ExpiredTradeInTokenException < ServiceError
+
+      # @param [Seahorse::Client::RequestContext] context
+      # @param [String] message
+      # @param [Aws::STS::Types::ExpiredTradeInTokenException] data
       def initialize(context, message, data = Aws::EmptyStructure.new)
         super(context, message, data)
       end

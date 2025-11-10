@@ -4913,6 +4913,11 @@ module Aws::AppStream
     #   attached to instances in your VPC.
     #   @return [String]
     #
+    # @!attribute [rw] eni_ipv_6_addresses
+    #   The IPv6 addresses of the elastic network interface that is attached
+    #   to instances in your VPC.
+    #   @return [Array<String>]
+    #
     # @!attribute [rw] eni_id
     #   The resource identifier of the elastic network interface that is
     #   attached to instances in your VPC. All network interfaces have the
@@ -4923,6 +4928,7 @@ module Aws::AppStream
     #
     class NetworkAccessConfiguration < Struct.new(
       :eni_private_ip_address,
+      :eni_ipv_6_addresses,
       :eni_id)
       SENSITIVE = []
       include Aws::Structure

@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.237.0 (2025-11-10)
+------------------
+
+* Feature - Updated Aws::STS::Client with the latest API changes.
+
+* Feature - Added GetDelegatedAccessToken API, which is not available for general use at this time.
+
 3.236.0 (2025-10-30)
 ------------------
 

@@ -637,8 +637,7 @@ module Aws
                                    glue_lineage_sync_enabled: bool?
                                  }?,
                                  mlflow_properties: {
-                                   tracking_server_arn: ::String?,
-                                   tracking_server_name: ::String?
+                                   tracking_server_arn: ::String?
                                  }?,
                                  redshift_properties: {
                                    credentials: {
@@ -3718,8 +3717,7 @@ module Aws
                                    glue_lineage_sync_enabled: bool?
                                  }?,
                                  mlflow_properties: {
-                                   tracking_server_arn: ::String?,
-                                   tracking_server_name: ::String?
+                                   tracking_server_arn: ::String?
                                  }?,
                                  redshift_properties: {
                                    credentials: {

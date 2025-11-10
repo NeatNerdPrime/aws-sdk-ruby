@@ -121,6 +121,16 @@ module Aws
                                ) -> _DeleteInvoiceUnitResponseSuccess
                              | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DeleteInvoiceUnitResponseSuccess
 
+      interface _GetInvoicePDFResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetInvoicePDFResponse]
+        def invoice_pdf: () -> Types::InvoicePDF
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Invoicing/Client.html#get_invoice_pdf-instance_method
+      def get_invoice_pdf: (
+                             invoice_id: ::String
+                           ) -> _GetInvoicePDFResponseSuccess
+                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetInvoicePDFResponseSuccess
+
       interface _GetInvoiceUnitResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetInvoiceUnitResponse]
         def invoice_unit_arn: () -> ::String

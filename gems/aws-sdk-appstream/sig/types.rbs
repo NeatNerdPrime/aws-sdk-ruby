@@ -1143,6 +1143,7 @@ module Aws::AppStream
 
     class NetworkAccessConfiguration
       attr_accessor eni_private_ip_address: ::String
+      attr_accessor eni_ipv_6_addresses: ::Array[::String]
       attr_accessor eni_id: ::String
       SENSITIVE: []
     end

@@ -742,6 +742,8 @@ module Aws::Backup
       attr_accessor validation_status_message: ::String
       attr_accessor deletion_status: ("DELETING" | "FAILED" | "SUCCESSFUL")
       attr_accessor deletion_status_message: ::String
+      attr_accessor is_parent: bool
+      attr_accessor parent_job_id: ::String
       SENSITIVE: []
     end
 
@@ -1411,6 +1413,7 @@ module Aws::Backup
       attr_accessor by_complete_before: ::Time
       attr_accessor by_complete_after: ::Time
       attr_accessor by_restore_testing_plan_arn: ::String
+      attr_accessor by_parent_job_id: ::String
       SENSITIVE: []
     end
 
@@ -1684,6 +1687,8 @@ module Aws::Backup
       attr_accessor created_resource_arn: ::String
       attr_accessor resource_type: ::String
       attr_accessor recovery_point_creation_date: ::Time
+      attr_accessor is_parent: bool
+      attr_accessor parent_job_id: ::String
       attr_accessor created_by: Types::RestoreJobCreator
       attr_accessor validation_status: ("FAILED" | "SUCCESSFUL" | "TIMED_OUT" | "VALIDATING")
       attr_accessor validation_status_message: ::String

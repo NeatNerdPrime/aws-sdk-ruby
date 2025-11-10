@@ -52,6 +52,8 @@ module Aws::Braket
     DeviceSummary = Shapes::StructureShape.new(name: 'DeviceSummary')
     DeviceSummaryList = Shapes::ListShape.new(name: 'DeviceSummaryList')
     DeviceType = Shapes::StringShape.new(name: 'DeviceType')
+    ExperimentalCapabilities = Shapes::UnionShape.new(name: 'ExperimentalCapabilities')
+    ExperimentalCapabilitiesEnablementType = Shapes::StringShape.new(name: 'ExperimentalCapabilitiesEnablementType')
     GetDeviceRequest = Shapes::StructureShape.new(name: 'GetDeviceRequest')
     GetDeviceResponse = Shapes::StructureShape.new(name: 'GetDeviceResponse')
     GetJobRequest = Shapes::StructureShape.new(name: 'GetJobRequest')
@@ -218,6 +220,7 @@ module Aws::Braket
     CreateQuantumTaskRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
     CreateQuantumTaskRequest.add_member(:job_token, Shapes::ShapeRef.new(shape: JobToken, location_name: "jobToken"))
     CreateQuantumTaskRequest.add_member(:associations, Shapes::ShapeRef.new(shape: CreateQuantumTaskRequestAssociationsList, location_name: "associations"))
+    CreateQuantumTaskRequest.add_member(:experimental_capabilities, Shapes::ShapeRef.new(shape: ExperimentalCapabilities, location_name: "experimentalCapabilities"))
     CreateQuantumTaskRequest.struct_class = Types::CreateQuantumTaskRequest
 
     CreateQuantumTaskRequestAssociationsList.member = Shapes::ShapeRef.new(shape: Association)
@@ -252,6 +255,12 @@ module Aws::Braket
     DeviceSummary.struct_class = Types::DeviceSummary
 
     DeviceSummaryList.member = Shapes::ShapeRef.new(shape: DeviceSummary)
+
+    ExperimentalCapabilities.add_member(:enabled, Shapes::ShapeRef.new(shape: ExperimentalCapabilitiesEnablementType, location_name: "enabled"))
+    ExperimentalCapabilities.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    ExperimentalCapabilities.add_member_subclass(:enabled, Types::ExperimentalCapabilities::Enabled)
+    ExperimentalCapabilities.add_member_subclass(:unknown, Types::ExperimentalCapabilities::Unknown)
+    ExperimentalCapabilities.struct_class = Types::ExperimentalCapabilities
 
     GetDeviceRequest.add_member(:device_arn, Shapes::ShapeRef.new(shape: DeviceArn, required: true, location: "uri", location_name: "deviceArn"))
     GetDeviceRequest.struct_class = Types::GetDeviceRequest
@@ -312,6 +321,7 @@ module Aws::Braket
     GetQuantumTaskResponse.add_member(:associations, Shapes::ShapeRef.new(shape: Associations, location_name: "associations"))
     GetQuantumTaskResponse.add_member(:num_successful_shots, Shapes::ShapeRef.new(shape: Long, location_name: "numSuccessfulShots"))
     GetQuantumTaskResponse.add_member(:action_metadata, Shapes::ShapeRef.new(shape: ActionMetadata, location_name: "actionMetadata"))
+    GetQuantumTaskResponse.add_member(:experimental_capabilities, Shapes::ShapeRef.new(shape: ExperimentalCapabilities, location_name: "experimentalCapabilities"))
     GetQuantumTaskResponse.struct_class = Types::GetQuantumTaskResponse
 
     HybridJobAdditionalAttributeNamesList.member = Shapes::ShapeRef.new(shape: HybridJobAdditionalAttributeName)

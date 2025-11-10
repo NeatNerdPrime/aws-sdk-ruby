@@ -143,6 +143,34 @@ module Aws
                                 ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
+      interface _CreateDelegationRequestResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::CreateDelegationRequestResponse]
+        def console_deep_link: () -> ::String
+        def delegation_request_id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/IAM/Client.html#create_delegation_request-instance_method
+      def create_delegation_request: (
+                                       ?owner_account_id: ::String,
+                                       description: ::String,
+                                       permissions: {
+                                         policy_template_arn: ::String?,
+                                         parameters: Array[
+                                           {
+                                             name: ::String?,
+                                             values: Array[::String]?,
+                                             type: ("string" | "stringList")?
+                                           },
+                                         ]?
+                                       },
+                                       ?request_message: ::String,
+                                       requestor_workflow_id: ::String,
+                                       ?redirect_url: ::String,
+                                       notification_channel: ::String,
+                                       session_duration: ::Integer,
+                                       ?only_send_by_owner: bool
+                                     ) -> _CreateDelegationRequestResponseSuccess
+                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateDelegationRequestResponseSuccess
+
       interface _CreateGroupResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateGroupResponse]
         def group: () -> Types::Group

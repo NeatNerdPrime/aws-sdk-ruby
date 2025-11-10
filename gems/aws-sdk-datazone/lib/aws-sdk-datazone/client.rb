@@ -1859,7 +1859,6 @@ module Aws::DataZone
     #       },
     #       mlflow_properties: {
     #         tracking_server_arn: "String",
-    #         tracking_server_name: "String",
     #       },
     #       redshift_properties: {
     #         credentials: {
@@ -1987,7 +1986,6 @@ module Aws::DataZone
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
     #   resp.props.mlflow_properties.tracking_server_arn #=> String
-    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -5810,7 +5808,6 @@ module Aws::DataZone
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
     #   resp.props.mlflow_properties.tracking_server_arn #=> String
-    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -8288,7 +8285,6 @@ module Aws::DataZone
     #   resp.items[0].props.iam_properties.environment_id #=> String
     #   resp.items[0].props.iam_properties.glue_lineage_sync_enabled #=> Boolean
     #   resp.items[0].props.mlflow_properties.tracking_server_arn #=> String
-    #   resp.items[0].props.mlflow_properties.tracking_server_name #=> String
     #   resp.items[0].props.redshift_properties.credentials.secret_arn #=> String
     #   resp.items[0].props.redshift_properties.credentials.username_password.password #=> String
     #   resp.items[0].props.redshift_properties.credentials.username_password.username #=> String
@@ -12414,7 +12410,6 @@ module Aws::DataZone
     #       },
     #       mlflow_properties: {
     #         tracking_server_arn: "String",
-    #         tracking_server_name: "String",
     #       },
     #       redshift_properties: {
     #         credentials: {
@@ -12529,7 +12524,6 @@ module Aws::DataZone
     #   resp.props.iam_properties.environment_id #=> String
     #   resp.props.iam_properties.glue_lineage_sync_enabled #=> Boolean
     #   resp.props.mlflow_properties.tracking_server_arn #=> String
-    #   resp.props.mlflow_properties.tracking_server_name #=> String
     #   resp.props.redshift_properties.credentials.secret_arn #=> String
     #   resp.props.redshift_properties.credentials.username_password.password #=> String
     #   resp.props.redshift_properties.credentials.username_password.username #=> String
@@ -14302,7 +14296,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.57.0'
+      context[:gem_version] = '1.58.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

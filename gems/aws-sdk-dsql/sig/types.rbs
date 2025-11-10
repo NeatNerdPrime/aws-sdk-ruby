@@ -45,6 +45,7 @@ module Aws::DSQL
       attr_accessor multi_region_properties: Types::MultiRegionProperties
       attr_accessor encryption_details: Types::EncryptionDetails
       attr_accessor deletion_protection_enabled: bool
+      attr_accessor endpoint: ::String
       SENSITIVE: []
     end
 
@@ -95,6 +96,7 @@ module Aws::DSQL
       attr_accessor multi_region_properties: Types::MultiRegionProperties
       attr_accessor tags: ::Hash[::String, ::String]
       attr_accessor encryption_details: Types::EncryptionDetails
+      attr_accessor endpoint: ::String
       SENSITIVE: []
     end
 

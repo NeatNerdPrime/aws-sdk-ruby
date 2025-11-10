@@ -12173,6 +12173,7 @@ module Aws::EC2
     InstanceRequirements.add_member(:allowed_instance_types, Shapes::ShapeRef.new(shape: AllowedInstanceTypeSet, location_name: "allowedInstanceTypeSet"))
     InstanceRequirements.add_member(:max_spot_price_as_percentage_of_optimal_on_demand_price, Shapes::ShapeRef.new(shape: Integer, location_name: "maxSpotPriceAsPercentageOfOptimalOnDemandPrice"))
     InstanceRequirements.add_member(:baseline_performance_factors, Shapes::ShapeRef.new(shape: BaselinePerformanceFactors, location_name: "baselinePerformanceFactors"))
+    InstanceRequirements.add_member(:require_encryption_in_transit, Shapes::ShapeRef.new(shape: Boolean, location_name: "requireEncryptionInTransit"))
     InstanceRequirements.struct_class = Types::InstanceRequirements
 
     InstanceRequirementsRequest.add_member(:v_cpu_count, Shapes::ShapeRef.new(shape: VCpuCountRangeRequest, required: true, location_name: "VCpuCount"))
@@ -12200,6 +12201,7 @@ module Aws::EC2
     InstanceRequirementsRequest.add_member(:allowed_instance_types, Shapes::ShapeRef.new(shape: AllowedInstanceTypeSet, location_name: "AllowedInstanceType"))
     InstanceRequirementsRequest.add_member(:max_spot_price_as_percentage_of_optimal_on_demand_price, Shapes::ShapeRef.new(shape: Integer, location_name: "MaxSpotPriceAsPercentageOfOptimalOnDemandPrice"))
     InstanceRequirementsRequest.add_member(:baseline_performance_factors, Shapes::ShapeRef.new(shape: BaselinePerformanceFactorsRequest, location_name: "BaselinePerformanceFactors"))
+    InstanceRequirementsRequest.add_member(:require_encryption_in_transit, Shapes::ShapeRef.new(shape: Boolean, location_name: "RequireEncryptionInTransit"))
     InstanceRequirementsRequest.struct_class = Types::InstanceRequirementsRequest
 
     InstanceRequirementsWithMetadataRequest.add_member(:architecture_types, Shapes::ShapeRef.new(shape: ArchitectureTypeSet, location_name: "ArchitectureType"))

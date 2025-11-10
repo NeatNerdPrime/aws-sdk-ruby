@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.121.0 (2025-11-10)
+------------------
+
+* Feature - AWS Appstream support for IPv6
+
 1.120.0 (2025-10-21)
 ------------------
 

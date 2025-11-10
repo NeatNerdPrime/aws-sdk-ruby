@@ -28,11 +28,14 @@ module Aws::STS
     DecodeAuthorizationMessageRequest = Shapes::StructureShape.new(name: 'DecodeAuthorizationMessageRequest')
     DecodeAuthorizationMessageResponse = Shapes::StructureShape.new(name: 'DecodeAuthorizationMessageResponse')
     ExpiredTokenException = Shapes::StructureShape.new(name: 'ExpiredTokenException', error: {"code" => "ExpiredTokenException", "httpStatusCode" => 400, "senderFault" => true})
+    ExpiredTradeInTokenException = Shapes::StructureShape.new(name: 'ExpiredTradeInTokenException', error: {"code" => "ExpiredTradeInTokenException", "httpStatusCode" => 400, "senderFault" => true})
     FederatedUser = Shapes::StructureShape.new(name: 'FederatedUser')
     GetAccessKeyInfoRequest = Shapes::StructureShape.new(name: 'GetAccessKeyInfoRequest')
     GetAccessKeyInfoResponse = Shapes::StructureShape.new(name: 'GetAccessKeyInfoResponse')
     GetCallerIdentityRequest = Shapes::StructureShape.new(name: 'GetCallerIdentityRequest')
     GetCallerIdentityResponse = Shapes::StructureShape.new(name: 'GetCallerIdentityResponse')
+    GetDelegatedAccessTokenRequest = Shapes::StructureShape.new(name: 'GetDelegatedAccessTokenRequest')
+    GetDelegatedAccessTokenResponse = Shapes::StructureShape.new(name: 'GetDelegatedAccessTokenResponse')
     GetFederationTokenRequest = Shapes::StructureShape.new(name: 'GetFederationTokenRequest')
     GetFederationTokenResponse = Shapes::StructureShape.new(name: 'GetFederationTokenResponse')
     GetSessionTokenRequest = Shapes::StructureShape.new(name: 'GetSessionTokenRequest')
@@ -67,6 +70,7 @@ module Aws::STS
     durationSecondsType = Shapes::IntegerShape.new(name: 'durationSecondsType')
     encodedMessageType = Shapes::StringShape.new(name: 'encodedMessageType')
     expiredIdentityTokenMessage = Shapes::StringShape.new(name: 'expiredIdentityTokenMessage')
+    expiredTradeInTokenExceptionMessage = Shapes::StringShape.new(name: 'expiredTradeInTokenExceptionMessage')
     externalIdType = Shapes::StringShape.new(name: 'externalIdType')
     federatedIdType = Shapes::StringShape.new(name: 'federatedIdType')
     idpCommunicationErrorMessage = Shapes::StringShape.new(name: 'idpCommunicationErrorMessage')
@@ -89,6 +93,7 @@ module Aws::STS
     tagValueType = Shapes::StringShape.new(name: 'tagValueType')
     tokenCodeType = Shapes::StringShape.new(name: 'tokenCodeType')
     tokenType = Shapes::StringShape.new(name: 'tokenType')
+    tradeInTokenType = Shapes::StringShape.new(name: 'tradeInTokenType')
     unrestrictedSessionPolicyDocumentType = Shapes::StringShape.new(name: 'unrestrictedSessionPolicyDocumentType')
     urlType = Shapes::StringShape.new(name: 'urlType')
     userIdType = Shapes::StringShape.new(name: 'userIdType')
@@ -180,6 +185,9 @@ module Aws::STS
     ExpiredTokenException.add_member(:message, Shapes::ShapeRef.new(shape: expiredIdentityTokenMessage, location_name: "message"))
     ExpiredTokenException.struct_class = Types::ExpiredTokenException
 
+    ExpiredTradeInTokenException.add_member(:message, Shapes::ShapeRef.new(shape: expiredTradeInTokenExceptionMessage, location_name: "message"))
+    ExpiredTradeInTokenException.struct_class = Types::ExpiredTradeInTokenException
+
     FederatedUser.add_member(:federated_user_id, Shapes::ShapeRef.new(shape: federatedIdType, required: true, location_name: "FederatedUserId"))
     FederatedUser.add_member(:arn, Shapes::ShapeRef.new(shape: arnType, required: true, location_name: "Arn"))
     FederatedUser.struct_class = Types::FederatedUser
@@ -196,6 +204,14 @@ module Aws::STS
     GetCallerIdentityResponse.add_member(:account, Shapes::ShapeRef.new(shape: accountType, location_name: "Account"))
     GetCallerIdentityResponse.add_member(:arn, Shapes::ShapeRef.new(shape: arnType, location_name: "Arn"))
     GetCallerIdentityResponse.struct_class = Types::GetCallerIdentityResponse
+
+    GetDelegatedAccessTokenRequest.add_member(:trade_in_token, Shapes::ShapeRef.new(shape: tradeInTokenType, required: true, location_name: "TradeInToken"))
+    GetDelegatedAccessTokenRequest.struct_class = Types::GetDelegatedAccessTokenRequest
+
+    GetDelegatedAccessTokenResponse.add_member(:credentials, Shapes::ShapeRef.new(shape: Credentials, location_name: "Credentials"))
+    GetDelegatedAccessTokenResponse.add_member(:packed_policy_size, Shapes::ShapeRef.new(shape: nonNegativeIntegerType, location_name: "PackedPolicySize"))
+    GetDelegatedAccessTokenResponse.add_member(:assumed_principal, Shapes::ShapeRef.new(shape: arnType, location_name: "AssumedPrincipal"))
+    GetDelegatedAccessTokenResponse.struct_class = Types::GetDelegatedAccessTokenResponse
 
     GetFederationTokenRequest.add_member(:name, Shapes::ShapeRef.new(shape: userNameType, required: true, location_name: "Name"))
     GetFederationTokenRequest.add_member(:policy, Shapes::ShapeRef.new(shape: sessionPolicyDocumentType, location_name: "Policy"))
@@ -356,6 +372,16 @@ module Aws::STS
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: GetCallerIdentityRequest)
         o.output = Shapes::ShapeRef.new(shape: GetCallerIdentityResponse)
+      end)
+
+      api.add_operation(:get_delegated_access_token, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetDelegatedAccessToken"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetDelegatedAccessTokenRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetDelegatedAccessTokenResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ExpiredTradeInTokenException)
+        o.errors << Shapes::ShapeRef.new(shape: RegionDisabledException)
       end)
 
       api.add_operation(:get_federation_token, Seahorse::Model::Operation.new.tap do |o|

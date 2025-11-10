@@ -40,11 +40,14 @@ module Aws::Invoicing
     FeesBreakdownAmount = Shapes::StructureShape.new(name: 'FeesBreakdownAmount')
     FeesBreakdownAmountList = Shapes::ListShape.new(name: 'FeesBreakdownAmountList')
     Filters = Shapes::StructureShape.new(name: 'Filters')
+    GetInvoicePDFRequest = Shapes::StructureShape.new(name: 'GetInvoicePDFRequest')
+    GetInvoicePDFResponse = Shapes::StructureShape.new(name: 'GetInvoicePDFResponse')
     GetInvoiceUnitRequest = Shapes::StructureShape.new(name: 'GetInvoiceUnitRequest')
     GetInvoiceUnitResponse = Shapes::StructureShape.new(name: 'GetInvoiceUnitResponse')
     Integer = Shapes::IntegerShape.new(name: 'Integer')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     InvoiceCurrencyAmount = Shapes::StructureShape.new(name: 'InvoiceCurrencyAmount')
+    InvoicePDF = Shapes::StructureShape.new(name: 'InvoicePDF')
     InvoiceProfile = Shapes::StructureShape.new(name: 'InvoiceProfile')
     InvoiceSummaries = Shapes::ListShape.new(name: 'InvoiceSummaries')
     InvoiceSummariesFilter = Shapes::StructureShape.new(name: 'InvoiceSummariesFilter')
@@ -80,6 +83,8 @@ module Aws::Invoicing
     SensitiveBasicStringWithoutSpace = Shapes::StringShape.new(name: 'SensitiveBasicStringWithoutSpace')
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     StringWithoutNewLine = Shapes::StringShape.new(name: 'StringWithoutNewLine')
+    SupplementalDocument = Shapes::StructureShape.new(name: 'SupplementalDocument')
+    SupplementalDocuments = Shapes::ListShape.new(name: 'SupplementalDocuments')
     TagResourceRequest = Shapes::StructureShape.new(name: 'TagResourceRequest')
     TagResourceResponse = Shapes::StructureShape.new(name: 'TagResourceResponse')
     TagrisArn = Shapes::StringShape.new(name: 'TagrisArn')
@@ -177,6 +182,12 @@ module Aws::Invoicing
     Filters.add_member(:accounts, Shapes::ShapeRef.new(shape: AccountIdList, location_name: "Accounts"))
     Filters.struct_class = Types::Filters
 
+    GetInvoicePDFRequest.add_member(:invoice_id, Shapes::ShapeRef.new(shape: StringWithoutNewLine, required: true, location_name: "InvoiceId"))
+    GetInvoicePDFRequest.struct_class = Types::GetInvoicePDFRequest
+
+    GetInvoicePDFResponse.add_member(:invoice_pdf, Shapes::ShapeRef.new(shape: InvoicePDF, location_name: "InvoicePDF"))
+    GetInvoicePDFResponse.struct_class = Types::GetInvoicePDFResponse
+
     GetInvoiceUnitRequest.add_member(:invoice_unit_arn, Shapes::ShapeRef.new(shape: InvoiceUnitArnString, required: true, location_name: "InvoiceUnitArn"))
     GetInvoiceUnitRequest.add_member(:as_of, Shapes::ShapeRef.new(shape: AsOfTimestamp, location_name: "AsOf"))
     GetInvoiceUnitRequest.struct_class = Types::GetInvoiceUnitRequest
@@ -200,6 +211,12 @@ module Aws::Invoicing
     InvoiceCurrencyAmount.add_member(:amount_breakdown, Shapes::ShapeRef.new(shape: AmountBreakdown, location_name: "AmountBreakdown"))
     InvoiceCurrencyAmount.add_member(:currency_exchange_details, Shapes::ShapeRef.new(shape: CurrencyExchangeDetails, location_name: "CurrencyExchangeDetails"))
     InvoiceCurrencyAmount.struct_class = Types::InvoiceCurrencyAmount
+
+    InvoicePDF.add_member(:invoice_id, Shapes::ShapeRef.new(shape: StringWithoutNewLine, location_name: "InvoiceId"))
+    InvoicePDF.add_member(:document_url, Shapes::ShapeRef.new(shape: StringWithoutNewLine, location_name: "DocumentUrl"))
+    InvoicePDF.add_member(:document_url_expiration_date, Shapes::ShapeRef.new(shape: Timestamp, location_name: "DocumentUrlExpirationDate"))
+    InvoicePDF.add_member(:supplemental_documents, Shapes::ShapeRef.new(shape: SupplementalDocuments, location_name: "SupplementalDocuments"))
+    InvoicePDF.struct_class = Types::InvoicePDF
 
     InvoiceProfile.add_member(:account_id, Shapes::ShapeRef.new(shape: AccountIdString, location_name: "AccountId"))
     InvoiceProfile.add_member(:receiver_name, Shapes::ShapeRef.new(shape: BasicStringWithoutSpace, location_name: "ReceiverName"))
@@ -304,6 +321,12 @@ module Aws::Invoicing
     ServiceQuotaExceededException.add_member(:message, Shapes::ShapeRef.new(shape: BasicString, required: true, location_name: "message"))
     ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException
 
+    SupplementalDocument.add_member(:document_url, Shapes::ShapeRef.new(shape: StringWithoutNewLine, location_name: "DocumentUrl"))
+    SupplementalDocument.add_member(:document_url_expiration_date, Shapes::ShapeRef.new(shape: Timestamp, location_name: "DocumentUrlExpirationDate"))
+    SupplementalDocument.struct_class = Types::SupplementalDocument
+
+    SupplementalDocuments.member = Shapes::ShapeRef.new(shape: SupplementalDocument)
+
     TagResourceRequest.add_member(:resource_arn, Shapes::ShapeRef.new(shape: TagrisArn, required: true, location_name: "ResourceArn"))
     TagResourceRequest.add_member(:resource_tags, Shapes::ShapeRef.new(shape: ResourceTagList, required: true, location_name: "ResourceTags"))
     TagResourceRequest.struct_class = Types::TagResourceRequest
@@ -403,6 +426,19 @@ module Aws::Invoicing
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DeleteInvoiceUnitRequest)
         o.output = Shapes::ShapeRef.new(shape: DeleteInvoiceUnitResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+      end)
+
+      api.add_operation(:get_invoice_pdf, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetInvoicePDF"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetInvoicePDFRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetInvoicePDFResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)

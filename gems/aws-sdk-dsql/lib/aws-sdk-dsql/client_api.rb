@@ -36,6 +36,7 @@ module Aws::DSQL
     EncryptionDetails = Shapes::StructureShape.new(name: 'EncryptionDetails')
     EncryptionStatus = Shapes::StringShape.new(name: 'EncryptionStatus')
     EncryptionType = Shapes::StringShape.new(name: 'EncryptionType')
+    Endpoint = Shapes::StringShape.new(name: 'Endpoint')
     GetClusterInput = Shapes::StructureShape.new(name: 'GetClusterInput')
     GetClusterOutput = Shapes::StructureShape.new(name: 'GetClusterOutput')
     GetClusterPolicyInput = Shapes::StructureShape.new(name: 'GetClusterPolicyInput')
@@ -108,6 +109,7 @@ module Aws::DSQL
     CreateClusterOutput.add_member(:multi_region_properties, Shapes::ShapeRef.new(shape: MultiRegionProperties, location_name: "multiRegionProperties"))
     CreateClusterOutput.add_member(:encryption_details, Shapes::ShapeRef.new(shape: EncryptionDetails, location_name: "encryptionDetails"))
     CreateClusterOutput.add_member(:deletion_protection_enabled, Shapes::ShapeRef.new(shape: DeletionProtectionEnabled, required: true, location_name: "deletionProtectionEnabled"))
+    CreateClusterOutput.add_member(:endpoint, Shapes::ShapeRef.new(shape: Endpoint, location_name: "endpoint"))
     CreateClusterOutput.struct_class = Types::CreateClusterOutput
 
     DeleteClusterInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ClusterId, required: true, location: "uri", location_name: "identifier"))
@@ -144,6 +146,7 @@ module Aws::DSQL
     GetClusterOutput.add_member(:multi_region_properties, Shapes::ShapeRef.new(shape: MultiRegionProperties, location_name: "multiRegionProperties"))
     GetClusterOutput.add_member(:tags, Shapes::ShapeRef.new(shape: TagMap, location_name: "tags"))
     GetClusterOutput.add_member(:encryption_details, Shapes::ShapeRef.new(shape: EncryptionDetails, location_name: "encryptionDetails"))
+    GetClusterOutput.add_member(:endpoint, Shapes::ShapeRef.new(shape: Endpoint, location_name: "endpoint"))
     GetClusterOutput.struct_class = Types::GetClusterOutput
 
     GetClusterPolicyInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ClusterId, required: true, location: "uri", location_name: "identifier"))

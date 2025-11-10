@@ -1075,6 +1075,68 @@ module Aws::IAM
       req.send_request(options)
     end
 
+    # This API is currently unavailable for general use.
+    #
+    # @option params [String] :owner_account_id
+    #
+    # @option params [required, String] :description
+    #
+    # @option params [required, Types::DelegationPermission] :permissions
+    #
+    # @option params [String] :request_message
+    #
+    # @option params [required, String] :requestor_workflow_id
+    #
+    # @option params [String] :redirect_url
+    #
+    # @option params [required, String] :notification_channel
+    #
+    # @option params [required, Integer] :session_duration
+    #
+    # @option params [Boolean] :only_send_by_owner
+    #
+    # @return [Types::CreateDelegationRequestResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateDelegationRequestResponse#console_deep_link #console_deep_link} => String
+    #   * {Types::CreateDelegationRequestResponse#delegation_request_id #delegation_request_id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_delegation_request({
+    #     owner_account_id: "accountIdType",
+    #     description: "delegationRequestDescriptionType", # required
+    #     permissions: { # required
+    #       policy_template_arn: "arnType",
+    #       parameters: [
+    #         {
+    #           name: "policyParameterNameType",
+    #           values: ["policyParameterValueType"],
+    #           type: "string", # accepts string, stringList
+    #         },
+    #       ],
+    #     },
+    #     request_message: "requestMessageType",
+    #     requestor_workflow_id: "requestorWorkflowIdType", # required
+    #     redirect_url: "redirectUrlType",
+    #     notification_channel: "notificationChannelType", # required
+    #     session_duration: 1, # required
+    #     only_send_by_owner: false,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.console_deep_link #=> String
+    #   resp.delegation_request_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/iam-2010-05-08/CreateDelegationRequest AWS API Documentation
+    #
+    # @overload create_delegation_request(params = {})
+    # @param [Hash] params ({})
+    def create_delegation_request(params = {}, options = {})
+      req = build_request(:create_delegation_request, params)
+      req.send_request(options)
+    end
+
     # Creates a new group.
     #
     # For information about the number of groups you can create, see [IAM
@@ -14069,7 +14131,7 @@ module Aws::IAM
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-iam'
-      context[:gem_version] = '1.132.0'
+      context[:gem_version] = '1.133.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

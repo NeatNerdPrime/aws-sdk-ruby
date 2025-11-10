@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.20.0 (2025-11-10)
+------------------
+
+* Feature - Cluster endpoint added to CreateCluster and GetCluster API responses
+
 1.19.0 (2025-10-23)
 ------------------
 

@@ -49493,6 +49493,19 @@ module Aws::EC2
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html#ec2fleet-abis-performance-protection
     #   @return [Types::BaselinePerformanceFactors]
     #
+    # @!attribute [rw] require_encryption_in_transit
+    #   Specifies whether instance types must support encrypting in-transit
+    #   traffic between instances. For more information, including the
+    #   supported instance types, see [Encryption in transit][1] in the
+    #   *Amazon EC2 User Guide*.
+    #
+    #   Default: `false`
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-transit
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceRequirements AWS API Documentation
     #
     class InstanceRequirements < Struct.new(
@@ -49520,7 +49533,8 @@ module Aws::EC2
       :network_bandwidth_gbps,
       :allowed_instance_types,
       :max_spot_price_as_percentage_of_optimal_on_demand_price,
-      :baseline_performance_factors)
+      :baseline_performance_factors,
+      :require_encryption_in_transit)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -49984,6 +49998,19 @@ module Aws::EC2
     #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-attribute-based-instance-type-selection.html#ec2fleet-abis-performance-protection
     #   @return [Types::BaselinePerformanceFactorsRequest]
     #
+    # @!attribute [rw] require_encryption_in_transit
+    #   Specifies whether instance types must support encrypting in-transit
+    #   traffic between instances. For more information, including the
+    #   supported instance types, see [Encryption in transit][1] in the
+    #   *Amazon EC2 User Guide*.
+    #
+    #   Default: `false`
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/data-protection.html#encryption-transit
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InstanceRequirementsRequest AWS API Documentation
     #
     class InstanceRequirementsRequest < Struct.new(
@@ -50011,7 +50038,8 @@ module Aws::EC2
       :network_bandwidth_gbps,
       :allowed_instance_types,
       :max_spot_price_as_percentage_of_optimal_on_demand_price,
-      :baseline_performance_factors)
+      :baseline_performance_factors,
+      :require_encryption_in_transit)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -549,6 +549,11 @@ module Aws::Kafka
     # @option params [Hash<String,String>] :tags
     #   Create tags when creating the cluster.
     #
+    # @option params [Types::Rebalancing] :rebalancing
+    #   Specifies if intelligent rebalancing should be turned on for the new
+    #   MSK Provisioned cluster with Express brokers. By default, intelligent
+    #   rebalancing status is ACTIVE for all new clusters.
+    #
     # @option params [String] :storage_mode
     #   This controls storage mode for supported storage tiers.
     #
@@ -660,6 +665,9 @@ module Aws::Kafka
     #     },
     #     tags: {
     #       "__string" => "__string",
+    #     },
+    #     rebalancing: {
+    #       status: "PAUSED", # required, accepts PAUSED, ACTIVE
     #     },
     #     storage_mode: "LOCAL", # accepts LOCAL, TIERED
     #   })
@@ -806,6 +814,9 @@ module Aws::Kafka
     #       },
     #       number_of_broker_nodes: 1, # required
     #       storage_mode: "LOCAL", # accepts LOCAL, TIERED
+    #       rebalancing: {
+    #         status: "PAUSED", # required, accepts PAUSED, ACTIVE
+    #       },
     #     },
     #     serverless: {
     #       vpc_configs: [ # required
@@ -1242,6 +1253,7 @@ module Aws::Kafka
     #   resp.cluster_info.zookeeper_connect_string #=> String
     #   resp.cluster_info.zookeeper_connect_string_tls #=> String
     #   resp.cluster_info.storage_mode #=> String, one of "LOCAL", "TIERED"
+    #   resp.cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_info.customer_action_status #=> String, one of "CRITICAL_ACTION_REQUIRED", "ACTION_RECOMMENDED", "NONE"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/DescribeCluster AWS API Documentation
@@ -1324,6 +1336,7 @@ module Aws::Kafka
     #   resp.cluster_info.provisioned.zookeeper_connect_string #=> String
     #   resp.cluster_info.provisioned.zookeeper_connect_string_tls #=> String
     #   resp.cluster_info.provisioned.storage_mode #=> String, one of "LOCAL", "TIERED"
+    #   resp.cluster_info.provisioned.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_info.provisioned.customer_action_status #=> String, one of "CRITICAL_ACTION_REQUIRED", "ACTION_RECOMMENDED", "NONE"
     #   resp.cluster_info.serverless.vpc_configs #=> Array
     #   resp.cluster_info.serverless.vpc_configs[0].subnet_ids #=> Array
@@ -1407,6 +1420,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info.source_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info.source_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info.source_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info.source_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info.target_cluster_info.broker_ebs_volume_info #=> Array
     #   resp.cluster_operation_info.target_cluster_info.broker_ebs_volume_info[0].kafka_broker_node_id #=> String
     #   resp.cluster_operation_info.target_cluster_info.broker_ebs_volume_info[0].provisioned_throughput.enabled #=> Boolean
@@ -1445,6 +1459,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info.target_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info.target_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info.target_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info.target_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info.vpc_connection_info.vpc_connection_arn #=> String
     #   resp.cluster_operation_info.vpc_connection_info.owner #=> String
     #   resp.cluster_operation_info.vpc_connection_info.user_identity.type #=> String, one of "AWSACCOUNT", "AWSSERVICE"
@@ -1524,6 +1539,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info.provisioned.source_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info.provisioned.source_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info.provisioned.source_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info.provisioned.source_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_ebs_volume_info #=> Array
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_ebs_volume_info[0].kafka_broker_node_id #=> String
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_ebs_volume_info[0].provisioned_throughput.enabled #=> Boolean
@@ -1562,6 +1578,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info.provisioned.target_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info.provisioned.target_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info.provisioned.vpc_connection_info.vpc_connection_arn #=> String
     #   resp.cluster_operation_info.provisioned.vpc_connection_info.owner #=> String
     #   resp.cluster_operation_info.provisioned.vpc_connection_info.user_identity.type #=> String, one of "AWSACCOUNT", "AWSSERVICE"
@@ -1981,6 +1998,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info_list[0].source_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info_list[0].source_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info_list[0].source_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info_list[0].source_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_ebs_volume_info #=> Array
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_ebs_volume_info[0].kafka_broker_node_id #=> String
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_ebs_volume_info[0].provisioned_throughput.enabled #=> Boolean
@@ -2019,6 +2037,7 @@ module Aws::Kafka
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_count_update_info.created_broker_ids[0] #=> Float
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_count_update_info.deleted_broker_ids #=> Array
     #   resp.cluster_operation_info_list[0].target_cluster_info.broker_count_update_info.deleted_broker_ids[0] #=> Float
+    #   resp.cluster_operation_info_list[0].target_cluster_info.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_operation_info_list[0].vpc_connection_info.vpc_connection_arn #=> String
     #   resp.cluster_operation_info_list[0].vpc_connection_info.owner #=> String
     #   resp.cluster_operation_info_list[0].vpc_connection_info.user_identity.type #=> String, one of "AWSACCOUNT", "AWSSERVICE"
@@ -2157,6 +2176,7 @@ module Aws::Kafka
     #   resp.cluster_info_list[0].zookeeper_connect_string #=> String
     #   resp.cluster_info_list[0].zookeeper_connect_string_tls #=> String
     #   resp.cluster_info_list[0].storage_mode #=> String, one of "LOCAL", "TIERED"
+    #   resp.cluster_info_list[0].rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_info_list[0].customer_action_status #=> String, one of "CRITICAL_ACTION_REQUIRED", "ACTION_RECOMMENDED", "NONE"
     #   resp.next_token #=> String
     #
@@ -2258,6 +2278,7 @@ module Aws::Kafka
     #   resp.cluster_info_list[0].provisioned.zookeeper_connect_string #=> String
     #   resp.cluster_info_list[0].provisioned.zookeeper_connect_string_tls #=> String
     #   resp.cluster_info_list[0].provisioned.storage_mode #=> String, one of "LOCAL", "TIERED"
+    #   resp.cluster_info_list[0].provisioned.rebalancing.status #=> String, one of "PAUSED", "ACTIVE"
     #   resp.cluster_info_list[0].provisioned.customer_action_status #=> String, one of "CRITICAL_ACTION_REQUIRED", "ACTION_RECOMMENDED", "NONE"
     #   resp.cluster_info_list[0].serverless.vpc_configs #=> Array
     #   resp.cluster_info_list[0].serverless.vpc_configs[0].subnet_ids #=> Array
@@ -3233,6 +3254,47 @@ module Aws::Kafka
       req.send_request(options)
     end
 
+    # Use this resource to update the intelligent rebalancing status of an
+    # Amazon MSK Provisioned cluster with Express brokers.
+    #
+    # @option params [required, String] :cluster_arn
+    #   The Amazon Resource Name (ARN) of the cluster.
+    #
+    # @option params [required, String] :current_version
+    #   The current version of the cluster.
+    #
+    # @option params [required, Types::Rebalancing] :rebalancing
+    #   Includes all rebalancing-related information for the cluster.
+    #
+    # @return [Types::UpdateRebalancingResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateRebalancingResponse#cluster_arn #cluster_arn} => String
+    #   * {Types::UpdateRebalancingResponse#cluster_operation_arn #cluster_operation_arn} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_rebalancing({
+    #     cluster_arn: "__string", # required
+    #     current_version: "__string", # required
+    #     rebalancing: { # required
+    #       status: "PAUSED", # required, accepts PAUSED, ACTIVE
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.cluster_arn #=> String
+    #   resp.cluster_operation_arn #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/kafka-2018-11-14/UpdateRebalancing AWS API Documentation
+    #
+    # @overload update_rebalancing(params = {})
+    # @param [Hash] params ({})
+    def update_rebalancing(params = {}, options = {})
+      req = build_request(:update_rebalancing, params)
+      req.send_request(options)
+    end
+
     # Updates replication info of a replicator.
     #
     # @option params [Types::ConsumerGroupReplicationUpdate] :consumer_group_replication
@@ -3429,7 +3491,7 @@ module Aws::Kafka
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-kafka'
-      context[:gem_version] = '1.98.0'
+      context[:gem_version] = '1.99.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

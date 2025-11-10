@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.55.0 (2025-11-10)
+------------------
+
+* Feature - Amazon Verified Permissions / Features : Adds support for entity Cedar tags.
+
 1.54.0 (2025-10-24)
 ------------------
 

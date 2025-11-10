@@ -584,6 +584,7 @@ module Aws::DSQL
     #   * {Types::CreateClusterOutput#multi_region_properties #multi_region_properties} => Types::MultiRegionProperties
     #   * {Types::CreateClusterOutput#encryption_details #encryption_details} => Types::EncryptionDetails
     #   * {Types::CreateClusterOutput#deletion_protection_enabled #deletion_protection_enabled} => Boolean
+    #   * {Types::CreateClusterOutput#endpoint #endpoint} => String
     #
     #
     # @example Example: Create Cluster
@@ -625,6 +626,7 @@ module Aws::DSQL
     #   resp.encryption_details.kms_key_arn #=> String
     #   resp.encryption_details.encryption_status #=> String, one of "ENABLED", "UPDATING", "KMS_KEY_INACCESSIBLE", "ENABLING"
     #   resp.deletion_protection_enabled #=> Boolean
+    #   resp.endpoint #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/dsql-2018-05-10/CreateCluster AWS API Documentation
     #
@@ -749,6 +751,7 @@ module Aws::DSQL
     #   * {Types::GetClusterOutput#multi_region_properties #multi_region_properties} => Types::MultiRegionProperties
     #   * {Types::GetClusterOutput#tags #tags} => Hash&lt;String,String&gt;
     #   * {Types::GetClusterOutput#encryption_details #encryption_details} => Types::EncryptionDetails
+    #   * {Types::GetClusterOutput#endpoint #endpoint} => String
     #
     #
     # @example Example: Get Cluster
@@ -778,6 +781,7 @@ module Aws::DSQL
     #   resp.encryption_details.encryption_type #=> String, one of "AWS_OWNED_KMS_KEY", "CUSTOMER_MANAGED_KMS_KEY"
     #   resp.encryption_details.kms_key_arn #=> String
     #   resp.encryption_details.encryption_status #=> String, one of "ENABLED", "UPDATING", "KMS_KEY_INACCESSIBLE", "ENABLING"
+    #   resp.endpoint #=> String
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -1241,7 +1245,7 @@ module Aws::DSQL
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-dsql'
-      context[:gem_version] = '1.19.0'
+      context[:gem_version] = '1.20.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

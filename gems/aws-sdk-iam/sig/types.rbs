@@ -129,6 +129,25 @@ module Aws::IAM
       SENSITIVE: []
     end
 
+    class CreateDelegationRequestRequest
+      attr_accessor owner_account_id: ::String
+      attr_accessor description: ::String
+      attr_accessor permissions: Types::DelegationPermission
+      attr_accessor request_message: ::String
+      attr_accessor requestor_workflow_id: ::String
+      attr_accessor redirect_url: ::String
+      attr_accessor notification_channel: ::String
+      attr_accessor session_duration: ::Integer
+      attr_accessor only_send_by_owner: bool
+      SENSITIVE: []
+    end
+
+    class CreateDelegationRequestResponse
+      attr_accessor console_deep_link: ::String
+      attr_accessor delegation_request_id: ::String
+      SENSITIVE: []
+    end
+
     class CreateGroupRequest
       attr_accessor path: ::String
       attr_accessor group_name: ::String
@@ -302,6 +321,12 @@ module Aws::IAM
     class DeactivateMFADeviceRequest
       attr_accessor user_name: ::String
       attr_accessor serial_number: ::String
+      SENSITIVE: []
+    end
+
+    class DelegationPermission
+      attr_accessor policy_template_arn: ::String
+      attr_accessor parameters: ::Array[Types::PolicyParameter]
       SENSITIVE: []
     end
 
@@ -1586,6 +1611,13 @@ module Aws::IAM
 
     class PolicyNotAttachableException
       attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class PolicyParameter
+      attr_accessor name: ::String
+      attr_accessor values: ::Array[::String]
+      attr_accessor type: ("string" | "stringList")
       SENSITIVE: []
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.132.0 (2025-11-10)
+------------------
+
+* Feature - Include tags filed in CreatePublishingDestinationRequest and DescribePublishingDestinationResponse.
+
 1.131.0 (2025-10-21)
 ------------------
 

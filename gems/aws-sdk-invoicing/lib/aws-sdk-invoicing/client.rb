@@ -683,6 +683,85 @@ module Aws::Invoicing
       req.send_request(options)
     end
 
+    # Returns a URL to download the invoice document and supplemental
+    # documents associated with an invoice. The URLs are pre-signed and have
+    # expiration time. For special cases like Brazil, where Amazon Web
+    # Services generated invoice identifiers and government provided
+    # identifiers do not match, use the Amazon Web Services generated
+    # invoice identifier when making API requests. To grant IAM permission
+    # to use this operation, the caller needs the `invoicing:GetInvoicePDF`
+    # policy action.
+    #
+    # @option params [required, String] :invoice_id
+    #   Your unique invoice ID.
+    #
+    # @return [Types::GetInvoicePDFResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetInvoicePDFResponse#invoice_pdf #invoice_pdf} => Types::InvoicePDF
+    #
+    #
+    # @example Example: GetInvoicePDF without supplemental documents
+    #
+    #   resp = client.get_invoice_pdf({
+    #     invoice_id: "abc123", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     invoice_pdf: {
+    #       document_url: "https://abcd123.com?securityTokenForDoc", 
+    #       document_url_expiration_date: Time.parse("2025-04-01T01:00:00.000Z"), 
+    #       invoice_id: "abc123", 
+    #       supplemental_documents: [
+    #       ], 
+    #     }, 
+    #   }
+    #
+    # @example Example: GetInvoicePDF with supplemental documents
+    #
+    #   resp = client.get_invoice_pdf({
+    #     invoice_id: "abc123", 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     invoice_pdf: {
+    #       document_url: "https://abcd123.com?securityTokenForDoc", 
+    #       document_url_expiration_date: Time.parse("2025-04-01T01:00:00.000Z"), 
+    #       invoice_id: "abc123", 
+    #       supplemental_documents: [
+    #         {
+    #           document_url: "https://abcd123.com?securityTokenForSupplementalDoc", 
+    #           document_url_expiration_date: Time.parse("2025-04-01T01:00:00.000Z"), 
+    #         }, 
+    #       ], 
+    #     }, 
+    #   }
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_invoice_pdf({
+    #     invoice_id: "StringWithoutNewLine", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.invoice_pdf.invoice_id #=> String
+    #   resp.invoice_pdf.document_url #=> String
+    #   resp.invoice_pdf.document_url_expiration_date #=> Time
+    #   resp.invoice_pdf.supplemental_documents #=> Array
+    #   resp.invoice_pdf.supplemental_documents[0].document_url #=> String
+    #   resp.invoice_pdf.supplemental_documents[0].document_url_expiration_date #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/GetInvoicePDF AWS API Documentation
+    #
+    # @overload get_invoice_pdf(params = {})
+    # @param [Hash] params ({})
+    def get_invoice_pdf(params = {}, options = {})
+      req = build_request(:get_invoice_pdf, params)
+      req.send_request(options)
+    end
+
     # This retrieves the invoice unit definition.
     #
     # @option params [required, String] :invoice_unit_arn
@@ -1834,7 +1913,7 @@ module Aws::Invoicing
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-invoicing'
-      context[:gem_version] = '1.14.0'
+      context[:gem_version] = '1.15.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

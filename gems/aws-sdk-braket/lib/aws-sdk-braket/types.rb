@@ -32,12 +32,12 @@ module Aws::Braket
     #
     # @!attribute [rw] program_count
     #   The number of programs in a program set. This is only available for
-    #   a Program Set.
+    #   a program set.
     #   @return [Integer]
     #
     # @!attribute [rw] executable_count
     #   The number of executables in a program set. This is only available
-    #   for a Program Set.
+    #   for a program set.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/braket-2019-09-01/ActionMetadata AWS API Documentation
@@ -339,6 +339,10 @@ module Aws::Braket
     #   task.
     #   @return [Array<Types::Association>]
     #
+    # @!attribute [rw] experimental_capabilities
+    #   Enable experimental capabilities for the quantum task.
+    #   @return [Types::ExperimentalCapabilities]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/braket-2019-09-01/CreateQuantumTaskRequest AWS API Documentation
     #
     class CreateQuantumTaskRequest < Struct.new(
@@ -351,7 +355,8 @@ module Aws::Braket
       :action,
       :tags,
       :job_token,
-      :associations)
+      :associations,
+      :experimental_capabilities)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -484,6 +489,31 @@ module Aws::Braket
       :device_status)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # Enabled experimental capabilities for quantum hardware. Note that the
+    # use of these features may impact device capabilities and performance
+    # beyond its standard specifications.
+    #
+    # @note ExperimentalCapabilities is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note ExperimentalCapabilities is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of ExperimentalCapabilities corresponding to the set member.
+    #
+    # @!attribute [rw] enabled
+    #   Enabled experimental capabilities.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/braket-2019-09-01/ExperimentalCapabilities AWS API Documentation
+    #
+    class ExperimentalCapabilities < Struct.new(
+      :enabled,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class Enabled < ExperimentalCapabilities; end
+      class Unknown < ExperimentalCapabilities; end
     end
 
     # @!attribute [rw] device_arn
@@ -777,6 +807,10 @@ module Aws::Braket
     #   information about the type of action and program counts.
     #   @return [Types::ActionMetadata]
     #
+    # @!attribute [rw] experimental_capabilities
+    #   Enabled experimental capabilities for the quantum task, if any.
+    #   @return [Types::ExperimentalCapabilities]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/braket-2019-09-01/GetQuantumTaskResponse AWS API Documentation
     #
     class GetQuantumTaskResponse < Struct.new(
@@ -795,7 +829,8 @@ module Aws::Braket
       :queue_info,
       :associations,
       :num_successful_shots,
-      :action_metadata)
+      :action_metadata,
+      :experimental_capabilities)
       SENSITIVE = []
       include Aws::Structure
     end
