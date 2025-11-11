@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.128.0 (2025-11-11)
+------------------
+
+* Feature - Documentation-only update: update API and doc descriptions per EKS ImageType default value switch from AL2 to AL2023.
+
 1.127.0 (2025-10-21)
 ------------------
 

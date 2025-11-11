@@ -639,6 +639,9 @@ module Aws::RTBFabric
     # @option params [Types::LinkAttributes] :attributes
     #   Attributes of the link.
     #
+    # @option params [required, Types::LinkLogSettings] :log_settings
+    #   Describes the settings for a link log.
+    #
     # @option params [Hash<String,String>] :tags
     #   A map of the key-value pairs of the tag or tags to assign to the
     #   resource.
@@ -658,6 +661,14 @@ module Aws::RTBFabric
     #   resp = client.create_inbound_external_link({
     #     client_token: "randomClientToken", 
     #     gateway_id: "rtb-gw-12345678", 
+    #     log_settings: {
+    #       application_logs: {
+    #         sampling: {
+    #           error_log: 100.0, 
+    #           filter_log: 0.0, 
+    #         }, 
+    #       }, 
+    #     }, 
     #   })
     #
     #   resp.to_h outputs the following:
@@ -683,6 +694,14 @@ module Aws::RTBFabric
     #         },
     #       ],
     #       customer_provided_id: "CustomerProvidedId",
+    #     },
+    #     log_settings: { # required
+    #       application_logs: { # required
+    #         sampling: { # required
+    #           error_log: 1.0, # required
+    #           filter_log: 1.0, # required
+    #         },
+    #       },
     #     },
     #     tags: {
     #       "TagKey" => "TagValue",
@@ -877,8 +896,14 @@ module Aws::RTBFabric
     # @option params [required, String] :gateway_id
     #   The unique identifier of the gateway.
     #
+    # @option params [Types::LinkAttributes] :attributes
+    #   Describes the attributes of a link.
+    #
     # @option params [required, String] :public_endpoint
     #   The public endpoint of the link.
+    #
+    # @option params [required, Types::LinkLogSettings] :log_settings
+    #   Describes the settings for a link log.
     #
     # @option params [Hash<String,String>] :tags
     #   A map of the key-value pairs of the tag or tags to assign to the
@@ -898,6 +923,14 @@ module Aws::RTBFabric
     #   resp = client.create_outbound_external_link({
     #     client_token: "12345678-1234-1234-1234-123456789012", 
     #     gateway_id: "rtb-gw-12345678", 
+    #     log_settings: {
+    #       application_logs: {
+    #         sampling: {
+    #           error_log: 100.0, 
+    #           filter_log: 0.0, 
+    #         }, 
+    #       }, 
+    #     }, 
     #     public_endpoint: "https://external-responder.example.com", 
     #   })
     #
@@ -913,7 +946,26 @@ module Aws::RTBFabric
     #   resp = client.create_outbound_external_link({
     #     client_token: "String", # required
     #     gateway_id: "GatewayId", # required
+    #     attributes: {
+    #       responder_error_masking: [
+    #         {
+    #           http_code: "ResponderErrorMaskingForHttpCodeHttpCodeString", # required
+    #           action: "NO_BID", # required, accepts NO_BID, PASSTHROUGH
+    #           logging_types: ["NONE"], # required, accepts NONE, METRIC, RESPONSE
+    #           response_logging_percentage: 1.0,
+    #         },
+    #       ],
+    #       customer_provided_id: "CustomerProvidedId",
+    #     },
     #     public_endpoint: "URL", # required
+    #     log_settings: { # required
+    #       application_logs: { # required
+    #         sampling: { # required
+    #           error_log: 1.0, # required
+    #           filter_log: 1.0, # required
+    #         },
+    #       },
+    #     },
     #     tags: {
     #       "TagKey" => "TagValue",
     #     },
@@ -1399,6 +1451,7 @@ module Aws::RTBFabric
     #   * {Types::GetInboundExternalLinkResponse#created_at #created_at} => Time
     #   * {Types::GetInboundExternalLinkResponse#updated_at #updated_at} => Time
     #   * {Types::GetInboundExternalLinkResponse#tags #tags} => Hash&lt;String,String&gt;
+    #   * {Types::GetInboundExternalLinkResponse#log_settings #log_settings} => Types::LinkLogSettings
     #
     #
     # @example Example: Get inbound external link details
@@ -1482,6 +1535,8 @@ module Aws::RTBFabric
     #   resp.updated_at #=> Time
     #   resp.tags #=> Hash
     #   resp.tags["TagKey"] #=> String
+    #   resp.log_settings.application_logs.sampling.error_log #=> Float
+    #   resp.log_settings.application_logs.sampling.filter_log #=> Float
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -1641,6 +1696,7 @@ module Aws::RTBFabric
     #   * {Types::GetOutboundExternalLinkResponse#created_at #created_at} => Time
     #   * {Types::GetOutboundExternalLinkResponse#updated_at #updated_at} => Time
     #   * {Types::GetOutboundExternalLinkResponse#tags #tags} => Hash&lt;String,String&gt;
+    #   * {Types::GetOutboundExternalLinkResponse#log_settings #log_settings} => Types::LinkLogSettings
     #
     #
     # @example Example: Get outbound external link details
@@ -1679,6 +1735,8 @@ module Aws::RTBFabric
     #   resp.updated_at #=> Time
     #   resp.tags #=> Hash
     #   resp.tags["TagKey"] #=> String
+    #   resp.log_settings.application_logs.sampling.error_log #=> Float
+    #   resp.log_settings.application_logs.sampling.filter_log #=> Float
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -2796,7 +2854,7 @@ module Aws::RTBFabric
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rtbfabric'
-      context[:gem_version] = '1.2.0'
+      context[:gem_version] = '1.3.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

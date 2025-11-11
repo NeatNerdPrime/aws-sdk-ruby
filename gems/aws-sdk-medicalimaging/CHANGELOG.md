@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.38.0 (2025-11-11)
+------------------
+
+* Feature - Added new fields in existing APIs.
+
 1.37.0 (2025-10-21)
 ------------------
 

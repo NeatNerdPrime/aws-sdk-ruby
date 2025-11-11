@@ -25,8 +25,16 @@ module Aws::BedrockDataAutomation
       SENSITIVE: []
     end
 
+    class AudioLanguageConfiguration
+      attr_accessor input_languages: ::Array[("EN" | "DE" | "ES" | "FR" | "IT" | "PT" | "JA" | "KO" | "CN" | "TW" | "HK")]
+      attr_accessor generative_output_language: ("DEFAULT" | "EN")
+      attr_accessor identify_multiple_languages: bool
+      SENSITIVE: []
+    end
+
     class AudioOverrideConfiguration
       attr_accessor modality_processing: Types::ModalityProcessingConfiguration
+      attr_accessor language_configuration: Types::AudioLanguageConfiguration
       SENSITIVE: []
     end
 

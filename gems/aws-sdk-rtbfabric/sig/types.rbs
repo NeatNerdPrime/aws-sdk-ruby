@@ -64,6 +64,7 @@ module Aws::RTBFabric
       attr_accessor client_token: ::String
       attr_accessor gateway_id: ::String
       attr_accessor attributes: Types::LinkAttributes
+      attr_accessor log_settings: Types::LinkLogSettings
       attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
@@ -104,7 +105,9 @@ module Aws::RTBFabric
     class CreateOutboundExternalLinkRequest
       attr_accessor client_token: ::String
       attr_accessor gateway_id: ::String
+      attr_accessor attributes: Types::LinkAttributes
       attr_accessor public_endpoint: ::String
+      attr_accessor log_settings: Types::LinkLogSettings
       attr_accessor tags: ::Hash[::String, ::String]
       SENSITIVE: []
     end
@@ -250,6 +253,7 @@ module Aws::RTBFabric
       attr_accessor created_at: ::Time
       attr_accessor updated_at: ::Time
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor log_settings: Types::LinkLogSettings
       SENSITIVE: []
     end
 
@@ -289,6 +293,7 @@ module Aws::RTBFabric
       attr_accessor created_at: ::Time
       attr_accessor updated_at: ::Time
       attr_accessor tags: ::Hash[::String, ::String]
+      attr_accessor log_settings: Types::LinkLogSettings
       SENSITIVE: []
     end
 

@@ -779,7 +779,7 @@ module Aws::SecurityIR
     #     impacted_services: ["AwsService"],
     #     impacted_aws_regions: [
     #       {
-    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
+    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-6, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
     #       },
     #     ],
     #     tags: {
@@ -951,6 +951,7 @@ module Aws::SecurityIR
     #         name: "IncidentResponderName", # required
     #         job_title: "JobTitle", # required
     #         email: "EmailAddress", # required
+    #         communication_preferences: ["Case Created"], # accepts Case Created, Case Updated, Case Acknowledged, Case Closed, Case Updated To Service Managed, Case Status Updated, Case Pending Customer Action Reminder, Case Attachment Url Uploaded, Case Comment Added, Case Comment Updated, Membership Created, Membership Updated, Membership Cancelled, Register Delegated Administrator, Deregister Delegated Administrator, Disable AWS Service Access
     #       },
     #     ],
     #     opt_in_features: [
@@ -1074,7 +1075,7 @@ module Aws::SecurityIR
     #   resp.reported_incident_start_date #=> Time
     #   resp.actual_incident_start_date #=> Time
     #   resp.impacted_aws_regions #=> Array
-    #   resp.impacted_aws_regions[0].region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
+    #   resp.impacted_aws_regions[0].region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-6", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
     #   resp.threat_actor_ip_addresses #=> Array
     #   resp.threat_actor_ip_addresses[0].ip_address #=> String
     #   resp.threat_actor_ip_addresses[0].user_agent #=> String
@@ -1292,7 +1293,7 @@ module Aws::SecurityIR
     #
     #   resp.membership_id #=> String
     #   resp.account_id #=> String
-    #   resp.region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
+    #   resp.region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-6", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
     #   resp.membership_name #=> String
     #   resp.membership_arn #=> String
     #   resp.membership_status #=> String, one of "Active", "Cancelled", "Terminated"
@@ -1304,6 +1305,8 @@ module Aws::SecurityIR
     #   resp.incident_response_team[0].name #=> String
     #   resp.incident_response_team[0].job_title #=> String
     #   resp.incident_response_team[0].email #=> String
+    #   resp.incident_response_team[0].communication_preferences #=> Array
+    #   resp.incident_response_team[0].communication_preferences[0] #=> String, one of "Case Created", "Case Updated", "Case Acknowledged", "Case Closed", "Case Updated To Service Managed", "Case Status Updated", "Case Pending Customer Action Reminder", "Case Attachment Url Uploaded", "Case Comment Added", "Case Comment Updated", "Membership Created", "Membership Updated", "Membership Cancelled", "Register Delegated Administrator", "Deregister Delegated Administrator", "Disable AWS Service Access"
     #   resp.opt_in_features #=> Array
     #   resp.opt_in_features[0].feature_name #=> String, one of "Triage"
     #   resp.opt_in_features[0].is_enabled #=> Boolean
@@ -1583,7 +1586,7 @@ module Aws::SecurityIR
     #   resp.items #=> Array
     #   resp.items[0].membership_id #=> String
     #   resp.items[0].account_id #=> String
-    #   resp.items[0].region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
+    #   resp.items[0].region #=> String, one of "af-south-1", "ap-east-1", "ap-east-2", "ap-northeast-1", "ap-northeast-2", "ap-northeast-3", "ap-south-1", "ap-south-2", "ap-southeast-1", "ap-southeast-2", "ap-southeast-3", "ap-southeast-4", "ap-southeast-5", "ap-southeast-6", "ap-southeast-7", "ca-central-1", "ca-west-1", "cn-north-1", "cn-northwest-1", "eu-central-1", "eu-central-2", "eu-north-1", "eu-south-1", "eu-south-2", "eu-west-1", "eu-west-2", "eu-west-3", "il-central-1", "me-central-1", "me-south-1", "mx-central-1", "sa-east-1", "us-east-1", "us-east-2", "us-west-1", "us-west-2"
     #   resp.items[0].membership_arn #=> String
     #   resp.items[0].membership_status #=> String, one of "Active", "Cancelled", "Terminated"
     #
@@ -1908,12 +1911,12 @@ module Aws::SecurityIR
     #     impacted_services_to_delete: ["AwsService"],
     #     impacted_aws_regions_to_add: [
     #       {
-    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
+    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-6, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
     #       },
     #     ],
     #     impacted_aws_regions_to_delete: [
     #       {
-    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
+    #         region: "af-south-1", # required, accepts af-south-1, ap-east-1, ap-east-2, ap-northeast-1, ap-northeast-2, ap-northeast-3, ap-south-1, ap-south-2, ap-southeast-1, ap-southeast-2, ap-southeast-3, ap-southeast-4, ap-southeast-5, ap-southeast-6, ap-southeast-7, ca-central-1, ca-west-1, cn-north-1, cn-northwest-1, eu-central-1, eu-central-2, eu-north-1, eu-south-1, eu-south-2, eu-west-1, eu-west-2, eu-west-3, il-central-1, me-central-1, me-south-1, mx-central-1, sa-east-1, us-east-1, us-east-2, us-west-1, us-west-2
     #       },
     #     ],
     #     impacted_accounts_to_add: ["AWSAccountId"],
@@ -2134,6 +2137,7 @@ module Aws::SecurityIR
     #         name: "IncidentResponderName", # required
     #         job_title: "JobTitle", # required
     #         email: "EmailAddress", # required
+    #         communication_preferences: ["Case Created"], # accepts Case Created, Case Updated, Case Acknowledged, Case Closed, Case Updated To Service Managed, Case Status Updated, Case Pending Customer Action Reminder, Case Attachment Url Uploaded, Case Comment Added, Case Comment Updated, Membership Created, Membership Updated, Membership Cancelled, Register Delegated Administrator, Deregister Delegated Administrator, Disable AWS Service Access
     #       },
     #     ],
     #     opt_in_features: [
@@ -2231,7 +2235,7 @@ module Aws::SecurityIR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-securityir'
-      context[:gem_version] = '1.15.0'
+      context[:gem_version] = '1.16.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

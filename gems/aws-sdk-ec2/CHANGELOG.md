@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.574.0 (2025-11-11)
+------------------
+
+* Feature - AWS Site-to-Site VPN now supports VPN connections with up to 5 Gbps bandwidth per tunnel, a 4x improvement from existing limit of 1.25 Gbps.
+
 1.573.0 (2025-11-10)
 ------------------
 

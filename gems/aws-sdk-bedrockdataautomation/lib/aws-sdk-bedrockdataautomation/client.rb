@@ -748,6 +748,11 @@ module Aws::BedrockDataAutomation
     #         modality_processing: {
     #           state: "ENABLED", # accepts ENABLED, DISABLED
     #         },
+    #         language_configuration: {
+    #           input_languages: ["EN"], # accepts EN, DE, ES, FR, IT, PT, JA, KO, CN, TW, HK
+    #           generative_output_language: "DEFAULT", # accepts DEFAULT, EN
+    #           identify_multiple_languages: false,
+    #         },
     #       },
     #       modality_routing: {
     #         jpeg: "IMAGE", # accepts IMAGE, DOCUMENT, AUDIO, VIDEO
@@ -955,6 +960,10 @@ module Aws::BedrockDataAutomation
     #   resp.project.override_configuration.image.modality_processing.state #=> String, one of "ENABLED", "DISABLED"
     #   resp.project.override_configuration.video.modality_processing.state #=> String, one of "ENABLED", "DISABLED"
     #   resp.project.override_configuration.audio.modality_processing.state #=> String, one of "ENABLED", "DISABLED"
+    #   resp.project.override_configuration.audio.language_configuration.input_languages #=> Array
+    #   resp.project.override_configuration.audio.language_configuration.input_languages[0] #=> String, one of "EN", "DE", "ES", "FR", "IT", "PT", "JA", "KO", "CN", "TW", "HK"
+    #   resp.project.override_configuration.audio.language_configuration.generative_output_language #=> String, one of "DEFAULT", "EN"
+    #   resp.project.override_configuration.audio.language_configuration.identify_multiple_languages #=> Boolean
     #   resp.project.override_configuration.modality_routing.jpeg #=> String, one of "IMAGE", "DOCUMENT", "AUDIO", "VIDEO"
     #   resp.project.override_configuration.modality_routing.png #=> String, one of "IMAGE", "DOCUMENT", "AUDIO", "VIDEO"
     #   resp.project.override_configuration.modality_routing.mp4 #=> String, one of "IMAGE", "DOCUMENT", "AUDIO", "VIDEO"
@@ -1375,6 +1384,11 @@ module Aws::BedrockDataAutomation
     #         modality_processing: {
     #           state: "ENABLED", # accepts ENABLED, DISABLED
     #         },
+    #         language_configuration: {
+    #           input_languages: ["EN"], # accepts EN, DE, ES, FR, IT, PT, JA, KO, CN, TW, HK
+    #           generative_output_language: "DEFAULT", # accepts DEFAULT, EN
+    #           identify_multiple_languages: false,
+    #         },
     #       },
     #       modality_routing: {
     #         jpeg: "IMAGE", # accepts IMAGE, DOCUMENT, AUDIO, VIDEO
@@ -1424,7 +1438,7 @@ module Aws::BedrockDataAutomation
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockdataautomation'
-      context[:gem_version] = '1.19.0'
+      context[:gem_version] = '1.20.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

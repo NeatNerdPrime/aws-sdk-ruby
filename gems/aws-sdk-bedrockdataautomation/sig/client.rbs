@@ -230,6 +230,11 @@ module Aws
                                               audio: {
                                                 modality_processing: {
                                                   state: ("ENABLED" | "DISABLED")?
+                                                }?,
+                                                language_configuration: {
+                                                  input_languages: Array[("EN" | "DE" | "ES" | "FR" | "IT" | "PT" | "JA" | "KO" | "CN" | "TW" | "HK")]?,
+                                                  generative_output_language: ("DEFAULT" | "EN")?,
+                                                  identify_multiple_languages: bool?
                                                 }?
                                               }?,
                                               modality_routing: {
@@ -503,6 +508,11 @@ module Aws
                                               audio: {
                                                 modality_processing: {
                                                   state: ("ENABLED" | "DISABLED")?
+                                                }?,
+                                                language_configuration: {
+                                                  input_languages: Array[("EN" | "DE" | "ES" | "FR" | "IT" | "PT" | "JA" | "KO" | "CN" | "TW" | "HK")]?,
+                                                  generative_output_language: ("DEFAULT" | "EN")?,
+                                                  identify_multiple_languages: bool?
                                                 }?
                                               }?,
                                               modality_routing: {

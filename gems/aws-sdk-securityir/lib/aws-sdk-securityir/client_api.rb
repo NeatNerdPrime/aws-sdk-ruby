@@ -43,6 +43,8 @@ module Aws::SecurityIR
     ClosureCode = Shapes::StringShape.new(name: 'ClosureCode')
     CommentBody = Shapes::StringShape.new(name: 'CommentBody')
     CommentId = Shapes::StringShape.new(name: 'CommentId')
+    CommunicationPreferences = Shapes::ListShape.new(name: 'CommunicationPreferences')
+    CommunicationType = Shapes::StringShape.new(name: 'CommunicationType')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ContentLength = Shapes::IntegerShape.new(name: 'ContentLength')
     CreateCaseCommentRequest = Shapes::StructureShape.new(name: 'CreateCaseCommentRequest')
@@ -206,6 +208,8 @@ module Aws::SecurityIR
     CloseCaseResponse.add_member(:closed_date, Shapes::ShapeRef.new(shape: Timestamp, location_name: "closedDate"))
     CloseCaseResponse.struct_class = Types::CloseCaseResponse
 
+    CommunicationPreferences.member = Shapes::ShapeRef.new(shape: CommunicationType)
+
     ConflictException.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "message"))
     ConflictException.add_member(:resource_id, Shapes::ShapeRef.new(shape: String, required: true, location_name: "resourceId"))
     ConflictException.add_member(:resource_type, Shapes::ShapeRef.new(shape: String, required: true, location_name: "resourceType"))
@@ -331,6 +335,7 @@ module Aws::SecurityIR
     IncidentResponder.add_member(:name, Shapes::ShapeRef.new(shape: IncidentResponderName, required: true, location_name: "name"))
     IncidentResponder.add_member(:job_title, Shapes::ShapeRef.new(shape: JobTitle, required: true, location_name: "jobTitle"))
     IncidentResponder.add_member(:email, Shapes::ShapeRef.new(shape: EmailAddress, required: true, location_name: "email"))
+    IncidentResponder.add_member(:communication_preferences, Shapes::ShapeRef.new(shape: CommunicationPreferences, location_name: "communicationPreferences"))
     IncidentResponder.struct_class = Types::IncidentResponder
 
     IncidentResponseTeam.member = Shapes::ShapeRef.new(shape: IncidentResponder)

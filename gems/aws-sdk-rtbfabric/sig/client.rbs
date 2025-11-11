@@ -139,6 +139,14 @@ module Aws
                                             ]?,
                                             customer_provided_id: ::String?
                                           },
+                                          log_settings: {
+                                            application_logs: {
+                                              sampling: {
+                                                error_log: ::Float,
+                                                filter_log: ::Float
+                                              }
+                                            }
+                                          },
                                           ?tags: Hash[::String, ::String]
                                         ) -> _CreateInboundExternalLinkResponseSuccess
                                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateInboundExternalLinkResponseSuccess
@@ -195,7 +203,26 @@ module Aws
       def create_outbound_external_link: (
                                            client_token: ::String,
                                            gateway_id: ::String,
+                                           ?attributes: {
+                                             responder_error_masking: Array[
+                                               {
+                                                 http_code: ::String,
+                                                 action: ("NO_BID" | "PASSTHROUGH"),
+                                                 logging_types: Array[("NONE" | "METRIC" | "RESPONSE")],
+                                                 response_logging_percentage: ::Float?
+                                               },
+                                             ]?,
+                                             customer_provided_id: ::String?
+                                           },
                                            public_endpoint: ::String,
+                                           log_settings: {
+                                             application_logs: {
+                                               sampling: {
+                                                 error_log: ::Float,
+                                                 filter_log: ::Float
+                                               }
+                                             }
+                                           },
                                            ?tags: Hash[::String, ::String]
                                          ) -> _CreateOutboundExternalLinkResponseSuccess
                                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateOutboundExternalLinkResponseSuccess
@@ -323,6 +350,7 @@ module Aws
         def created_at: () -> ::Time
         def updated_at: () -> ::Time
         def tags: () -> ::Hash[::String, ::String]
+        def log_settings: () -> Types::LinkLogSettings
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RTBFabric/Client.html#get_inbound_external_link-instance_method
       def get_inbound_external_link: (
@@ -362,6 +390,7 @@ module Aws
         def created_at: () -> ::Time
         def updated_at: () -> ::Time
         def tags: () -> ::Hash[::String, ::String]
+        def log_settings: () -> Types::LinkLogSettings
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/RTBFabric/Client.html#get_outbound_external_link-instance_method
       def get_outbound_external_link: (

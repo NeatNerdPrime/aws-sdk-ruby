@@ -812,12 +812,16 @@ module Aws::SecurityIR
     # @!attribute [rw] email
     #   @return [String]
     #
+    # @!attribute [rw] communication_preferences
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/security-ir-2018-05-10/IncidentResponder AWS API Documentation
     #
     class IncidentResponder < Struct.new(
       :name,
       :job_title,
-      :email)
+      :email,
+      :communication_preferences)
       SENSITIVE = [:name, :job_title, :email]
       include Aws::Structure
     end

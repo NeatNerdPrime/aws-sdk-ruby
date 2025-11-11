@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.16.0 (2025-11-11)
+------------------
+
+* Feature - Added support for configuring communication preferences as well as clearly displaying case comment author identities.
+
 1.15.0 (2025-10-28)
 ------------------
 

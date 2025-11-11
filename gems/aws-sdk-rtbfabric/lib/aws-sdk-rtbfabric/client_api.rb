@@ -213,6 +213,7 @@ module Aws::RTBFabric
     CreateInboundExternalLinkRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, required: true, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
     CreateInboundExternalLinkRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: GatewayId, required: true, location: "uri", location_name: "gatewayId"))
     CreateInboundExternalLinkRequest.add_member(:attributes, Shapes::ShapeRef.new(shape: LinkAttributes, location_name: "attributes"))
+    CreateInboundExternalLinkRequest.add_member(:log_settings, Shapes::ShapeRef.new(shape: LinkLogSettings, required: true, location_name: "logSettings"))
     CreateInboundExternalLinkRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
     CreateInboundExternalLinkRequest.struct_class = Types::CreateInboundExternalLinkRequest
 
@@ -245,7 +246,9 @@ module Aws::RTBFabric
 
     CreateOutboundExternalLinkRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, required: true, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
     CreateOutboundExternalLinkRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: GatewayId, required: true, location: "uri", location_name: "gatewayId"))
+    CreateOutboundExternalLinkRequest.add_member(:attributes, Shapes::ShapeRef.new(shape: LinkAttributes, location_name: "attributes"))
     CreateOutboundExternalLinkRequest.add_member(:public_endpoint, Shapes::ShapeRef.new(shape: URL, required: true, location_name: "publicEndpoint"))
+    CreateOutboundExternalLinkRequest.add_member(:log_settings, Shapes::ShapeRef.new(shape: LinkLogSettings, required: true, location_name: "logSettings"))
     CreateOutboundExternalLinkRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
     CreateOutboundExternalLinkRequest.struct_class = Types::CreateOutboundExternalLinkRequest
 
@@ -369,6 +372,7 @@ module Aws::RTBFabric
     GetInboundExternalLinkResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "createdAt"))
     GetInboundExternalLinkResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "updatedAt"))
     GetInboundExternalLinkResponse.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
+    GetInboundExternalLinkResponse.add_member(:log_settings, Shapes::ShapeRef.new(shape: LinkLogSettings, location_name: "logSettings"))
     GetInboundExternalLinkResponse.struct_class = Types::GetInboundExternalLinkResponse
 
     GetLinkRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: GatewayId, required: true, location: "uri", location_name: "gatewayId"))
@@ -400,6 +404,7 @@ module Aws::RTBFabric
     GetOutboundExternalLinkResponse.add_member(:created_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "createdAt"))
     GetOutboundExternalLinkResponse.add_member(:updated_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "updatedAt"))
     GetOutboundExternalLinkResponse.add_member(:tags, Shapes::ShapeRef.new(shape: TagsMap, location_name: "tags"))
+    GetOutboundExternalLinkResponse.add_member(:log_settings, Shapes::ShapeRef.new(shape: LinkLogSettings, location_name: "logSettings"))
     GetOutboundExternalLinkResponse.struct_class = Types::GetOutboundExternalLinkResponse
 
     GetRequesterGatewayRequest.add_member(:gateway_id, Shapes::ShapeRef.new(shape: GatewayId, required: true, location: "uri", location_name: "gatewayId"))

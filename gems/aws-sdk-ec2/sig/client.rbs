@@ -4601,6 +4601,7 @@ module Aws
                                      remote_ipv_6_network_cidr: ::String?,
                                      outside_ip_address_type: ::String?,
                                      transport_transit_gateway_attachment_id: ::String?,
+                                     tunnel_bandwidth: ("standard" | "large")?,
                                      static_routes_only: bool?
                                    }
                                  ) -> _CreateVpnConnectionResponseSuccess

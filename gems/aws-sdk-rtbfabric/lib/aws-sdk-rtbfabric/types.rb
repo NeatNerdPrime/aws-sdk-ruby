@@ -185,6 +185,10 @@ module Aws::RTBFabric
     #   Attributes of the link.
     #   @return [Types::LinkAttributes]
     #
+    # @!attribute [rw] log_settings
+    #   Describes the settings for a link log.
+    #   @return [Types::LinkLogSettings]
+    #
     # @!attribute [rw] tags
     #   A map of the key-value pairs of the tag or tags to assign to the
     #   resource.
@@ -196,6 +200,7 @@ module Aws::RTBFabric
       :client_token,
       :gateway_id,
       :attributes,
+      :log_settings,
       :tags)
       SENSITIVE = []
       include Aws::Structure
@@ -339,9 +344,17 @@ module Aws::RTBFabric
     #   The unique identifier of the gateway.
     #   @return [String]
     #
+    # @!attribute [rw] attributes
+    #   Describes the attributes of a link.
+    #   @return [Types::LinkAttributes]
+    #
     # @!attribute [rw] public_endpoint
     #   The public endpoint of the link.
     #   @return [String]
+    #
+    # @!attribute [rw] log_settings
+    #   Describes the settings for a link log.
+    #   @return [Types::LinkLogSettings]
     #
     # @!attribute [rw] tags
     #   A map of the key-value pairs of the tag or tags to assign to the
@@ -353,7 +366,9 @@ module Aws::RTBFabric
     class CreateOutboundExternalLinkRequest < Struct.new(
       :client_token,
       :gateway_id,
+      :attributes,
       :public_endpoint,
+      :log_settings,
       :tags)
       SENSITIVE = []
       include Aws::Structure
@@ -818,6 +833,10 @@ module Aws::RTBFabric
     #   specified resource.
     #   @return [Hash<String,String>]
     #
+    # @!attribute [rw] log_settings
+    #   Describes the settings for a link log.
+    #   @return [Types::LinkLogSettings]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rtbfabric-2023-05-15/GetInboundExternalLinkResponse AWS API Documentation
     #
     class GetInboundExternalLinkResponse < Struct.new(
@@ -830,7 +849,8 @@ module Aws::RTBFabric
       :attributes,
       :created_at,
       :updated_at,
-      :tags)
+      :tags,
+      :log_settings)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -966,6 +986,10 @@ module Aws::RTBFabric
     #   specified resource.
     #   @return [Hash<String,String>]
     #
+    # @!attribute [rw] log_settings
+    #   Describes the settings for a link log.
+    #   @return [Types::LinkLogSettings]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/rtbfabric-2023-05-15/GetOutboundExternalLinkResponse AWS API Documentation
     #
     class GetOutboundExternalLinkResponse < Struct.new(
@@ -975,7 +999,8 @@ module Aws::RTBFabric
       :public_endpoint,
       :created_at,
       :updated_at,
-      :tags)
+      :tags,
+      :log_settings)
       SENSITIVE = []
       include Aws::Structure
     end

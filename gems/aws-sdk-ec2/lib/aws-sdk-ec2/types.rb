@@ -82104,6 +82104,15 @@ module Aws::EC2
     #   Indicates the VPN tunnel options.
     #   @return [Array<Types::TunnelOption>]
     #
+    # @!attribute [rw] tunnel_bandwidth
+    #   The configured bandwidth for the VPN tunnel. Represents the current
+    #   throughput capacity setting for the tunnel connection. `standard`
+    #   tunnel bandwidth supports up to 1.25 Gbps per tunnel while `large`
+    #   supports up to 5 Gbps per tunnel. If no tunnel bandwidth was
+    #   specified for the connection, `standard` is used as the default
+    #   value.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpnConnectionOptions AWS API Documentation
     #
     class VpnConnectionOptions < Struct.new(
@@ -82116,7 +82125,8 @@ module Aws::EC2
       :outside_ip_address_type,
       :transport_transit_gateway_attachment_id,
       :tunnel_inside_ip_version,
-      :tunnel_options)
+      :tunnel_options,
+      :tunnel_bandwidth)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -82180,6 +82190,15 @@ module Aws::EC2
     #   Required if `OutsideIpAddressType` is set to `PrivateIpv4`.
     #   @return [String]
     #
+    # @!attribute [rw] tunnel_bandwidth
+    #   The desired bandwidth specification for the VPN tunnel, used when
+    #   creating or modifying VPN connection options to set the tunnel's
+    #   throughput capacity. `standard` supports up to 1.25 Gbps per tunnel,
+    #   while `large` supports up to 5 Gbps per tunnel. The default value is
+    #   `standard`. Existing VPN connections without a bandwidth setting
+    #   will automatically default to `standard`.
+    #   @return [String]
+    #
     # @!attribute [rw] static_routes_only
     #   Indicate whether the VPN connection uses static routes only. If you
     #   are creating a VPN connection for a device that does not support
@@ -82201,6 +82220,7 @@ module Aws::EC2
       :remote_ipv_6_network_cidr,
       :outside_ip_address_type,
       :transport_transit_gateway_attachment_id,
+      :tunnel_bandwidth,
       :static_routes_only)
       SENSITIVE = []
       include Aws::Structure

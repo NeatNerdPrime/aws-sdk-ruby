@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.20.0 (2025-11-11)
+------------------
+
+* Feature - Added support for Language Expansion feature for BDA Audio modality.
+
 1.19.0 (2025-10-27)
 ------------------
 

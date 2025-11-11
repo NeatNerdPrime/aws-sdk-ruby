@@ -17718,6 +17718,7 @@ module Aws::EC2
       attr_accessor transport_transit_gateway_attachment_id: ::String
       attr_accessor tunnel_inside_ip_version: ("ipv4" | "ipv6")
       attr_accessor tunnel_options: ::Array[Types::TunnelOption]
+      attr_accessor tunnel_bandwidth: ("standard" | "large")
       SENSITIVE: []
     end
 
@@ -17731,6 +17732,7 @@ module Aws::EC2
       attr_accessor remote_ipv_6_network_cidr: ::String
       attr_accessor outside_ip_address_type: ::String
       attr_accessor transport_transit_gateway_attachment_id: ::String
+      attr_accessor tunnel_bandwidth: ("standard" | "large")
       attr_accessor static_routes_only: bool
       SENSITIVE: []
     end

@@ -63,16 +63,45 @@ module Aws::BedrockDataAutomation
       include Aws::Structure
     end
 
+    # Optional configuration for audio language settings
+    #
+    # @!attribute [rw] input_languages
+    #   List of supported audio languages
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] generative_output_language
+    #   Configuration for Audio output language
+    #   @return [String]
+    #
+    # @!attribute [rw] identify_multiple_languages
+    #   Enable multiple language identification in audio
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-data-automation-2023-07-26/AudioLanguageConfiguration AWS API Documentation
+    #
+    class AudioLanguageConfiguration < Struct.new(
+      :input_languages,
+      :generative_output_language,
+      :identify_multiple_languages)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Override Configuration of Audio
     #
     # @!attribute [rw] modality_processing
     #   Configuration to enable/disable processing of modality
     #   @return [Types::ModalityProcessingConfiguration]
     #
+    # @!attribute [rw] language_configuration
+    #   Optional configuration for audio language settings
+    #   @return [Types::AudioLanguageConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-data-automation-2023-07-26/AudioOverrideConfiguration AWS API Documentation
     #
     class AudioOverrideConfiguration < Struct.new(
-      :modality_processing)
+      :modality_processing,
+      :language_configuration)
       SENSITIVE = []
       include Aws::Structure
     end

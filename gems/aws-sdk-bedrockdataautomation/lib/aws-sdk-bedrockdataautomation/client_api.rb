@@ -19,6 +19,9 @@ module Aws::BedrockDataAutomation
     AudioExtractionCategoryType = Shapes::StringShape.new(name: 'AudioExtractionCategoryType')
     AudioExtractionCategoryTypeConfiguration = Shapes::StructureShape.new(name: 'AudioExtractionCategoryTypeConfiguration')
     AudioExtractionCategoryTypes = Shapes::ListShape.new(name: 'AudioExtractionCategoryTypes')
+    AudioGenerativeOutputLanguage = Shapes::StringShape.new(name: 'AudioGenerativeOutputLanguage')
+    AudioInputLanguages = Shapes::ListShape.new(name: 'AudioInputLanguages')
+    AudioLanguageConfiguration = Shapes::StructureShape.new(name: 'AudioLanguageConfiguration')
     AudioOverrideConfiguration = Shapes::StructureShape.new(name: 'AudioOverrideConfiguration')
     AudioStandardExtraction = Shapes::StructureShape.new(name: 'AudioStandardExtraction')
     AudioStandardGenerativeField = Shapes::StructureShape.new(name: 'AudioStandardGenerativeField')
@@ -37,6 +40,7 @@ module Aws::BedrockDataAutomation
     BlueprintSummary = Shapes::StructureShape.new(name: 'BlueprintSummary')
     BlueprintVersion = Shapes::StringShape.new(name: 'BlueprintVersion')
     Blueprints = Shapes::ListShape.new(name: 'Blueprints')
+    Boolean = Shapes::BooleanShape.new(name: 'Boolean')
     ChannelLabelingConfiguration = Shapes::StructureShape.new(name: 'ChannelLabelingConfiguration')
     ClientToken = Shapes::StringShape.new(name: 'ClientToken')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
@@ -96,6 +100,7 @@ module Aws::BedrockDataAutomation
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     KmsEncryptionContext = Shapes::MapShape.new(name: 'KmsEncryptionContext')
     KmsKeyId = Shapes::StringShape.new(name: 'KmsKeyId')
+    Language = Shapes::StringShape.new(name: 'Language')
     ListBlueprintsRequest = Shapes::StructureShape.new(name: 'ListBlueprintsRequest')
     ListBlueprintsResponse = Shapes::StructureShape.new(name: 'ListBlueprintsResponse')
     ListDataAutomationProjectsRequest = Shapes::StructureShape.new(name: 'ListDataAutomationProjectsRequest')
@@ -159,7 +164,15 @@ module Aws::BedrockDataAutomation
 
     AudioExtractionCategoryTypes.member = Shapes::ShapeRef.new(shape: AudioExtractionCategoryType)
 
+    AudioInputLanguages.member = Shapes::ShapeRef.new(shape: Language)
+
+    AudioLanguageConfiguration.add_member(:input_languages, Shapes::ShapeRef.new(shape: AudioInputLanguages, location_name: "inputLanguages"))
+    AudioLanguageConfiguration.add_member(:generative_output_language, Shapes::ShapeRef.new(shape: AudioGenerativeOutputLanguage, location_name: "generativeOutputLanguage"))
+    AudioLanguageConfiguration.add_member(:identify_multiple_languages, Shapes::ShapeRef.new(shape: Boolean, location_name: "identifyMultipleLanguages"))
+    AudioLanguageConfiguration.struct_class = Types::AudioLanguageConfiguration
+
     AudioOverrideConfiguration.add_member(:modality_processing, Shapes::ShapeRef.new(shape: ModalityProcessingConfiguration, location_name: "modalityProcessing"))
+    AudioOverrideConfiguration.add_member(:language_configuration, Shapes::ShapeRef.new(shape: AudioLanguageConfiguration, location_name: "languageConfiguration"))
     AudioOverrideConfiguration.struct_class = Types::AudioOverrideConfiguration
 
     AudioStandardExtraction.add_member(:category, Shapes::ShapeRef.new(shape: AudioExtractionCategory, required: true, location_name: "category"))

@@ -3741,6 +3741,7 @@ module Aws::EC2
     VpnStaticRoute = Shapes::StructureShape.new(name: 'VpnStaticRoute')
     VpnStaticRouteList = Shapes::ListShape.new(name: 'VpnStaticRouteList')
     VpnStaticRouteSource = Shapes::StringShape.new(name: 'VpnStaticRouteSource')
+    VpnTunnelBandwidth = Shapes::StringShape.new(name: 'VpnTunnelBandwidth')
     VpnTunnelLogOptions = Shapes::StructureShape.new(name: 'VpnTunnelLogOptions')
     VpnTunnelLogOptionsSpecification = Shapes::StructureShape.new(name: 'VpnTunnelLogOptionsSpecification')
     VpnTunnelOptionsSpecification = Shapes::StructureShape.new(name: 'VpnTunnelOptionsSpecification')
@@ -18383,6 +18384,7 @@ module Aws::EC2
     VpnConnectionOptions.add_member(:transport_transit_gateway_attachment_id, Shapes::ShapeRef.new(shape: String, location_name: "transportTransitGatewayAttachmentId"))
     VpnConnectionOptions.add_member(:tunnel_inside_ip_version, Shapes::ShapeRef.new(shape: TunnelInsideIpVersion, location_name: "tunnelInsideIpVersion"))
     VpnConnectionOptions.add_member(:tunnel_options, Shapes::ShapeRef.new(shape: TunnelOptionsList, location_name: "tunnelOptionSet"))
+    VpnConnectionOptions.add_member(:tunnel_bandwidth, Shapes::ShapeRef.new(shape: VpnTunnelBandwidth, location_name: "tunnelBandwidth"))
     VpnConnectionOptions.struct_class = Types::VpnConnectionOptions
 
     VpnConnectionOptionsSpecification.add_member(:enable_acceleration, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableAcceleration"))
@@ -18394,6 +18396,7 @@ module Aws::EC2
     VpnConnectionOptionsSpecification.add_member(:remote_ipv_6_network_cidr, Shapes::ShapeRef.new(shape: String, location_name: "RemoteIpv6NetworkCidr"))
     VpnConnectionOptionsSpecification.add_member(:outside_ip_address_type, Shapes::ShapeRef.new(shape: String, location_name: "OutsideIpAddressType"))
     VpnConnectionOptionsSpecification.add_member(:transport_transit_gateway_attachment_id, Shapes::ShapeRef.new(shape: TransitGatewayAttachmentId, location_name: "TransportTransitGatewayAttachmentId"))
+    VpnConnectionOptionsSpecification.add_member(:tunnel_bandwidth, Shapes::ShapeRef.new(shape: VpnTunnelBandwidth, location_name: "TunnelBandwidth"))
     VpnConnectionOptionsSpecification.add_member(:static_routes_only, Shapes::ShapeRef.new(shape: Boolean, location_name: "staticRoutesOnly"))
     VpnConnectionOptionsSpecification.struct_class = Types::VpnConnectionOptionsSpecification
 
