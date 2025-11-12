@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.575.0 (2025-11-12)
+------------------
+
+* Feature - Adds complete AMI ancestry tracing from immediate parent through each preceding generation back to the root AMI
+
 1.574.0 (2025-11-11)
 ------------------
 

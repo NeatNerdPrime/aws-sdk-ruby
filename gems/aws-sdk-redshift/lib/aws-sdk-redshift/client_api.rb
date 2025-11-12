@@ -79,6 +79,7 @@ module Aws::Redshift
     ClusterExtendedCredentials = Shapes::StructureShape.new(name: 'ClusterExtendedCredentials')
     ClusterIamRole = Shapes::StructureShape.new(name: 'ClusterIamRole')
     ClusterIamRoleList = Shapes::ListShape.new(name: 'ClusterIamRoleList')
+    ClusterIdentifierList = Shapes::ListShape.new(name: 'ClusterIdentifierList')
     ClusterList = Shapes::ListShape.new(name: 'ClusterList')
     ClusterNode = Shapes::StructureShape.new(name: 'ClusterNode')
     ClusterNodesList = Shapes::ListShape.new(name: 'ClusterNodesList')
@@ -302,6 +303,8 @@ module Aws::Redshift
     FailoverPrimaryComputeResult = Shapes::StructureShape.new(name: 'FailoverPrimaryComputeResult')
     GetClusterCredentialsMessage = Shapes::StructureShape.new(name: 'GetClusterCredentialsMessage')
     GetClusterCredentialsWithIAMMessage = Shapes::StructureShape.new(name: 'GetClusterCredentialsWithIAMMessage')
+    GetIdentityCenterAuthTokenRequest = Shapes::StructureShape.new(name: 'GetIdentityCenterAuthTokenRequest')
+    GetIdentityCenterAuthTokenResponse = Shapes::StructureShape.new(name: 'GetIdentityCenterAuthTokenResponse')
     GetReservedNodeExchangeConfigurationOptionsInputMessage = Shapes::StructureShape.new(name: 'GetReservedNodeExchangeConfigurationOptionsInputMessage')
     GetReservedNodeExchangeConfigurationOptionsOutputMessage = Shapes::StructureShape.new(name: 'GetReservedNodeExchangeConfigurationOptionsOutputMessage')
     GetReservedNodeExchangeOfferingsInputMessage = Shapes::StructureShape.new(name: 'GetReservedNodeExchangeOfferingsInputMessage')
@@ -487,6 +490,7 @@ module Aws::Redshift
     RedshiftIdcApplicationName = Shapes::StringShape.new(name: 'RedshiftIdcApplicationName')
     RedshiftIdcApplicationNotExistsFault = Shapes::StructureShape.new(name: 'RedshiftIdcApplicationNotExistsFault', error: {"code" => "RedshiftIdcApplicationNotExists", "httpStatusCode" => 404, "senderFault" => true})
     RedshiftIdcApplicationQuotaExceededFault = Shapes::StructureShape.new(name: 'RedshiftIdcApplicationQuotaExceededFault', error: {"code" => "RedshiftIdcApplicationQuotaExceeded", "httpStatusCode" => 400, "senderFault" => true})
+    RedshiftInvalidParameterFault = Shapes::StructureShape.new(name: 'RedshiftInvalidParameterFault', error: {"code" => "RedshiftInvalidParameter", "httpStatusCode" => 400, "senderFault" => true})
     ReferenceLink = Shapes::StructureShape.new(name: 'ReferenceLink')
     ReferenceLinkList = Shapes::ListShape.new(name: 'ReferenceLinkList')
     RegisterNamespaceInputMessage = Shapes::StructureShape.new(name: 'RegisterNamespaceInputMessage')
@@ -895,6 +899,8 @@ module Aws::Redshift
     ClusterIamRole.struct_class = Types::ClusterIamRole
 
     ClusterIamRoleList.member = Shapes::ShapeRef.new(shape: ClusterIamRole, location_name: "ClusterIamRole")
+
+    ClusterIdentifierList.member = Shapes::ShapeRef.new(shape: String, location_name: "ClusterIdentifier")
 
     ClusterList.member = Shapes::ShapeRef.new(shape: Cluster, location_name: "Cluster")
 
@@ -1862,6 +1868,13 @@ module Aws::Redshift
     GetClusterCredentialsWithIAMMessage.add_member(:custom_domain_name, Shapes::ShapeRef.new(shape: String, location_name: "CustomDomainName"))
     GetClusterCredentialsWithIAMMessage.struct_class = Types::GetClusterCredentialsWithIAMMessage
 
+    GetIdentityCenterAuthTokenRequest.add_member(:cluster_ids, Shapes::ShapeRef.new(shape: ClusterIdentifierList, required: true, location_name: "ClusterIds"))
+    GetIdentityCenterAuthTokenRequest.struct_class = Types::GetIdentityCenterAuthTokenRequest
+
+    GetIdentityCenterAuthTokenResponse.add_member(:token, Shapes::ShapeRef.new(shape: SensitiveString, location_name: "Token"))
+    GetIdentityCenterAuthTokenResponse.add_member(:expiration_time, Shapes::ShapeRef.new(shape: TStamp, location_name: "ExpirationTime"))
+    GetIdentityCenterAuthTokenResponse.struct_class = Types::GetIdentityCenterAuthTokenResponse
+
     GetReservedNodeExchangeConfigurationOptionsInputMessage.add_member(:action_type, Shapes::ShapeRef.new(shape: ReservedNodeExchangeActionType, required: true, location_name: "ActionType"))
     GetReservedNodeExchangeConfigurationOptionsInputMessage.add_member(:cluster_identifier, Shapes::ShapeRef.new(shape: String, location_name: "ClusterIdentifier"))
     GetReservedNodeExchangeConfigurationOptionsInputMessage.add_member(:snapshot_identifier, Shapes::ShapeRef.new(shape: String, location_name: "SnapshotIdentifier"))
@@ -2467,6 +2480,8 @@ module Aws::Redshift
     RedshiftIdcApplicationNotExistsFault.struct_class = Types::RedshiftIdcApplicationNotExistsFault
 
     RedshiftIdcApplicationQuotaExceededFault.struct_class = Types::RedshiftIdcApplicationQuotaExceededFault
+
+    RedshiftInvalidParameterFault.struct_class = Types::RedshiftInvalidParameterFault
 
     ReferenceLink.add_member(:text, Shapes::ShapeRef.new(shape: String, location_name: "Text"))
     ReferenceLink.add_member(:link, Shapes::ShapeRef.new(shape: String, location_name: "Link"))
@@ -4404,6 +4419,18 @@ module Aws::Redshift
         o.output = Shapes::ShapeRef.new(shape: ClusterExtendedCredentials)
         o.errors << Shapes::ShapeRef.new(shape: ClusterNotFoundFault)
         o.errors << Shapes::ShapeRef.new(shape: UnsupportedOperationFault)
+      end)
+
+      api.add_operation(:get_identity_center_auth_token, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIdentityCenterAuthToken"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIdentityCenterAuthTokenRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIdentityCenterAuthTokenResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ClusterNotFoundFault)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidClusterStateFault)
+        o.errors << Shapes::ShapeRef.new(shape: UnsupportedOperationFault)
+        o.errors << Shapes::ShapeRef.new(shape: RedshiftInvalidParameterFault)
       end)
 
       api.add_operation(:get_reserved_node_exchange_configuration_options, Seahorse::Model::Operation.new.tap do |o|

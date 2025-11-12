@@ -732,6 +732,9 @@ module Aws::PrometheusService
     # with exactly one rules file. A workspace can have multiple rule groups
     # namespaces.
     #
+    # The combined length of a rule group namespace and a rule group name
+    # cannot exceed 721 UTF-8 bytes.
+    #
     # Use this operation only to create new rule groups namespaces. To
     # update an existing rule groups namespace, use
     # `PutRuleGroupsNamespace`.
@@ -803,16 +806,18 @@ module Aws::PrometheusService
     end
 
     # The `CreateScraper` operation creates a scraper to collect metrics. A
-    # scraper pulls metrics from Prometheus-compatible sources within an
-    # Amazon EKS cluster, and sends them to your Amazon Managed Service for
-    # Prometheus workspace. Scrapers are flexible, and can be configured to
-    # control what metrics are collected, the frequency of collection, what
+    # scraper pulls metrics from Prometheus-compatible sources and sends
+    # them to your Amazon Managed Service for Prometheus workspace. You can
+    # configure scrapers to collect metrics from Amazon EKS clusters, Amazon
+    # MSK clusters, or from VPC-based sources that support DNS-based service
+    # discovery. Scrapers are flexible, and can be configured to control
+    # what metrics are collected, the frequency of collection, what
     # transformations are applied to the metrics, and more.
     #
     # An IAM role will be created for you that Amazon Managed Service for
-    # Prometheus uses to access the metrics in your cluster. You must
+    # Prometheus uses to access the metrics in your source. You must
     # configure this role with a policy that allows it to scrape metrics
-    # from your cluster. For more information, see [Configuring your Amazon
+    # from your source. For Amazon EKS sources, see [Configuring your Amazon
     # EKS cluster][1] in the *Amazon Managed Service for Prometheus User
     # Guide*.
     #
@@ -821,8 +826,8 @@ module Aws::PrometheusService
     #
     # When creating a scraper, the service creates a `Network Interface` in
     # each **Availability Zone** that are passed into `CreateScraper`
-    # through subnets. These network interfaces are used to connect to the
-    # Amazon EKS cluster within the VPC for scraping metrics.
+    # through subnets. These network interfaces are used to connect to your
+    # source within the VPC for scraping metrics.
     #
     # <note markdown="1"> For more information about collectors, including what metrics are
     # collected, and how to configure the scraper, see [Using an Amazon Web
@@ -850,7 +855,8 @@ module Aws::PrometheusService
     #   [1]: https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-collector-how-to.html#AMP-collector-configuration
     #
     # @option params [required, Types::Source] :source
-    #   The Amazon EKS cluster from which the scraper will collect metrics.
+    #   The Amazon EKS or Amazon Web Services cluster from which the scraper
+    #   will collect metrics.
     #
     # @option params [required, Types::Destination] :destination
     #   The Amazon Managed Service for Prometheus workspace to send metrics
@@ -920,6 +926,46 @@ module Aws::PrometheusService
     #     }, 
     #   }
     #
+    # @example Example: CreateScraper with generic VPC config with mandatory securityGroupIds and subnetIds
+    #
+    #   resp = client.create_scraper({
+    #     alias: "alias", 
+    #     client_token: "token", 
+    #     destination: {
+    #       amp_configuration: {
+    #         workspace_arn: "arn:aws:aps:us-west-2:123456789012:workspace/ws-ogh2u499-ce12-hg89-v6c7-123412341234", 
+    #       }, 
+    #     }, 
+    #     scrape_configuration: {
+    #       configuration_blob: "blob", 
+    #     }, 
+    #     source: {
+    #       vpc_configuration: {
+    #         security_group_ids: [
+    #           "sg-abc123", 
+    #         ], 
+    #         subnet_ids: [
+    #           "subnet-abc123", 
+    #         ], 
+    #       }, 
+    #     }, 
+    #     tags: {
+    #       "exampleTag" => "exampleValue", 
+    #     }, 
+    #   })
+    #
+    #   resp.to_h outputs the following:
+    #   {
+    #     arn: "arn:aws:aps:us-west-2:123456789012:scraper/scraper-123", 
+    #     scraper_id: "scraper-123", 
+    #     status: {
+    #       status_code: "CREATING", 
+    #     }, 
+    #     tags: {
+    #       "exampleTag" => "exampleValue", 
+    #     }, 
+    #   }
+    #
     # @example Request syntax with placeholder values
     #
     #   resp = client.create_scraper({
@@ -931,6 +977,10 @@ module Aws::PrometheusService
     #       eks_configuration: {
     #         cluster_arn: "ClusterArn", # required
     #         security_group_ids: ["SecurityGroupId"],
+    #         subnet_ids: ["SubnetId"], # required
+    #       },
+    #       vpc_configuration: {
+    #         security_group_ids: ["SecurityGroupId"], # required
     #         subnet_ids: ["SubnetId"], # required
     #       },
     #     },
@@ -1681,6 +1731,10 @@ module Aws::PrometheusService
     #   resp.scraper.source.eks_configuration.security_group_ids[0] #=> String
     #   resp.scraper.source.eks_configuration.subnet_ids #=> Array
     #   resp.scraper.source.eks_configuration.subnet_ids[0] #=> String
+    #   resp.scraper.source.vpc_configuration.security_group_ids #=> Array
+    #   resp.scraper.source.vpc_configuration.security_group_ids[0] #=> String
+    #   resp.scraper.source.vpc_configuration.subnet_ids #=> Array
+    #   resp.scraper.source.vpc_configuration.subnet_ids[0] #=> String
     #   resp.scraper.destination.amp_configuration.workspace_arn #=> String
     #   resp.scraper.role_configuration.source_role_arn #=> String
     #   resp.scraper.role_configuration.target_role_arn #=> String
@@ -2167,6 +2221,10 @@ module Aws::PrometheusService
     #   resp.scrapers[0].source.eks_configuration.security_group_ids[0] #=> String
     #   resp.scrapers[0].source.eks_configuration.subnet_ids #=> Array
     #   resp.scrapers[0].source.eks_configuration.subnet_ids[0] #=> String
+    #   resp.scrapers[0].source.vpc_configuration.security_group_ids #=> Array
+    #   resp.scrapers[0].source.vpc_configuration.security_group_ids[0] #=> String
+    #   resp.scrapers[0].source.vpc_configuration.subnet_ids #=> Array
+    #   resp.scrapers[0].source.vpc_configuration.subnet_ids[0] #=> String
     #   resp.scrapers[0].destination.amp_configuration.workspace_arn #=> String
     #   resp.scrapers[0].role_configuration.source_role_arn #=> String
     #   resp.scrapers[0].role_configuration.target_role_arn #=> String
@@ -2505,6 +2563,9 @@ module Aws::PrometheusService
     # Updates an existing rule groups namespace within a workspace. A rule
     # groups namespace is associated with exactly one rules file. A
     # workspace can have multiple rule groups namespaces.
+    #
+    # The combined length of a rule group namespace and a rule group name
+    # cannot exceed 721 UTF-8 bytes.
     #
     # Use this operation only to update existing rule groups namespaces. To
     # create a new rule groups namespace, use `CreateRuleGroupsNamespace`.
@@ -3022,7 +3083,7 @@ module Aws::PrometheusService
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-prometheusservice'
-      context[:gem_version] = '1.63.0'
+      context[:gem_version] = '1.64.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

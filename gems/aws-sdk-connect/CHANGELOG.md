@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.223.0 (2025-11-12)
+------------------
+
+* Feature - Updated Authentication Profile APIs to add support for automatic logout on user inactivity
+
 1.222.0 (2025-11-06)
 ------------------
 

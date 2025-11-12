@@ -28,6 +28,7 @@ module Aws::S3Tables
     CreateTableResponse = Shapes::StructureShape.new(name: 'CreateTableResponse')
     DeleteNamespaceRequest = Shapes::StructureShape.new(name: 'DeleteNamespaceRequest')
     DeleteTableBucketEncryptionRequest = Shapes::StructureShape.new(name: 'DeleteTableBucketEncryptionRequest')
+    DeleteTableBucketMetricsConfigurationRequest = Shapes::StructureShape.new(name: 'DeleteTableBucketMetricsConfigurationRequest')
     DeleteTableBucketPolicyRequest = Shapes::StructureShape.new(name: 'DeleteTableBucketPolicyRequest')
     DeleteTableBucketRequest = Shapes::StructureShape.new(name: 'DeleteTableBucketRequest')
     DeleteTablePolicyRequest = Shapes::StructureShape.new(name: 'DeleteTablePolicyRequest')
@@ -42,6 +43,8 @@ module Aws::S3Tables
     GetTableBucketEncryptionResponse = Shapes::StructureShape.new(name: 'GetTableBucketEncryptionResponse')
     GetTableBucketMaintenanceConfigurationRequest = Shapes::StructureShape.new(name: 'GetTableBucketMaintenanceConfigurationRequest')
     GetTableBucketMaintenanceConfigurationResponse = Shapes::StructureShape.new(name: 'GetTableBucketMaintenanceConfigurationResponse')
+    GetTableBucketMetricsConfigurationRequest = Shapes::StructureShape.new(name: 'GetTableBucketMetricsConfigurationRequest')
+    GetTableBucketMetricsConfigurationResponse = Shapes::StructureShape.new(name: 'GetTableBucketMetricsConfigurationResponse')
     GetTableBucketPolicyRequest = Shapes::StructureShape.new(name: 'GetTableBucketPolicyRequest')
     GetTableBucketPolicyResponse = Shapes::StructureShape.new(name: 'GetTableBucketPolicyResponse')
     GetTableBucketRequest = Shapes::StructureShape.new(name: 'GetTableBucketRequest')
@@ -93,6 +96,7 @@ module Aws::S3Tables
     PositiveInteger = Shapes::IntegerShape.new(name: 'PositiveInteger')
     PutTableBucketEncryptionRequest = Shapes::StructureShape.new(name: 'PutTableBucketEncryptionRequest')
     PutTableBucketMaintenanceConfigurationRequest = Shapes::StructureShape.new(name: 'PutTableBucketMaintenanceConfigurationRequest')
+    PutTableBucketMetricsConfigurationRequest = Shapes::StructureShape.new(name: 'PutTableBucketMetricsConfigurationRequest')
     PutTableBucketPolicyRequest = Shapes::StructureShape.new(name: 'PutTableBucketPolicyRequest')
     PutTableMaintenanceConfigurationRequest = Shapes::StructureShape.new(name: 'PutTableMaintenanceConfigurationRequest')
     PutTablePolicyRequest = Shapes::StructureShape.new(name: 'PutTablePolicyRequest')
@@ -188,6 +192,9 @@ module Aws::S3Tables
     DeleteTableBucketEncryptionRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
     DeleteTableBucketEncryptionRequest.struct_class = Types::DeleteTableBucketEncryptionRequest
 
+    DeleteTableBucketMetricsConfigurationRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
+    DeleteTableBucketMetricsConfigurationRequest.struct_class = Types::DeleteTableBucketMetricsConfigurationRequest
+
     DeleteTableBucketPolicyRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
     DeleteTableBucketPolicyRequest.struct_class = Types::DeleteTableBucketPolicyRequest
 
@@ -236,6 +243,13 @@ module Aws::S3Tables
     GetTableBucketMaintenanceConfigurationResponse.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location_name: "tableBucketARN"))
     GetTableBucketMaintenanceConfigurationResponse.add_member(:configuration, Shapes::ShapeRef.new(shape: TableBucketMaintenanceConfiguration, required: true, location_name: "configuration"))
     GetTableBucketMaintenanceConfigurationResponse.struct_class = Types::GetTableBucketMaintenanceConfigurationResponse
+
+    GetTableBucketMetricsConfigurationRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
+    GetTableBucketMetricsConfigurationRequest.struct_class = Types::GetTableBucketMetricsConfigurationRequest
+
+    GetTableBucketMetricsConfigurationResponse.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location_name: "tableBucketARN"))
+    GetTableBucketMetricsConfigurationResponse.add_member(:id, Shapes::ShapeRef.new(shape: String, location_name: "id"))
+    GetTableBucketMetricsConfigurationResponse.struct_class = Types::GetTableBucketMetricsConfigurationResponse
 
     GetTableBucketPolicyRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
     GetTableBucketPolicyRequest.struct_class = Types::GetTableBucketPolicyRequest
@@ -403,6 +417,9 @@ module Aws::S3Tables
     PutTableBucketMaintenanceConfigurationRequest.add_member(:type, Shapes::ShapeRef.new(shape: TableBucketMaintenanceType, required: true, location: "uri", location_name: "type"))
     PutTableBucketMaintenanceConfigurationRequest.add_member(:value, Shapes::ShapeRef.new(shape: TableBucketMaintenanceConfigurationValue, required: true, location_name: "value"))
     PutTableBucketMaintenanceConfigurationRequest.struct_class = Types::PutTableBucketMaintenanceConfigurationRequest
+
+    PutTableBucketMetricsConfigurationRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
+    PutTableBucketMetricsConfigurationRequest.struct_class = Types::PutTableBucketMetricsConfigurationRequest
 
     PutTableBucketPolicyRequest.add_member(:table_bucket_arn, Shapes::ShapeRef.new(shape: TableBucketARN, required: true, location: "uri", location_name: "tableBucketARN"))
     PutTableBucketPolicyRequest.add_member(:resource_policy, Shapes::ShapeRef.new(shape: ResourcePolicy, required: true, location_name: "resourcePolicy"))
@@ -651,6 +668,20 @@ module Aws::S3Tables
         o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
       end)
 
+      api.add_operation(:delete_table_bucket_metrics_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteTableBucketMetricsConfiguration"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/buckets/{tableBucketARN}/metrics"
+        o.input = Shapes::ShapeRef.new(shape: DeleteTableBucketMetricsConfigurationRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
       api.add_operation(:delete_table_bucket_policy, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteTableBucketPolicy"
         o.http_method = "DELETE"
@@ -744,6 +775,20 @@ module Aws::S3Tables
         o.http_request_uri = "/buckets/{tableBucketARN}/maintenance"
         o.input = Shapes::ShapeRef.new(shape: GetTableBucketMaintenanceConfigurationRequest)
         o.output = Shapes::ShapeRef.new(shape: GetTableBucketMaintenanceConfigurationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
+      api.add_operation(:get_table_bucket_metrics_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetTableBucketMetricsConfiguration"
+        o.http_method = "GET"
+        o.http_request_uri = "/buckets/{tableBucketARN}/metrics"
+        o.input = Shapes::ShapeRef.new(shape: GetTableBucketMetricsConfigurationRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetTableBucketMetricsConfigurationResponse)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
         o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
         o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
@@ -931,6 +976,20 @@ module Aws::S3Tables
         o.http_method = "PUT"
         o.http_request_uri = "/buckets/{tableBucketARN}/maintenance/{type}"
         o.input = Shapes::ShapeRef.new(shape: PutTableBucketMaintenanceConfigurationRequest)
+        o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
+        o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)
+        o.errors << Shapes::ShapeRef.new(shape: NotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: TooManyRequestsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: BadRequestException)
+      end)
+
+      api.add_operation(:put_table_bucket_metrics_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "PutTableBucketMetricsConfiguration"
+        o.http_method = "PUT"
+        o.http_request_uri = "/buckets/{tableBucketARN}/metrics"
+        o.input = Shapes::ShapeRef.new(shape: PutTableBucketMetricsConfigurationRequest)
         o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
         o.errors << Shapes::ShapeRef.new(shape: InternalServerErrorException)
         o.errors << Shapes::ShapeRef.new(shape: ForbiddenException)

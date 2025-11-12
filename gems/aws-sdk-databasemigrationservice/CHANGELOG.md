@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.133.0 (2025-11-12)
+------------------
+
+* Feature - Added support of SQL statements creation, metadata model discovery and selection rules transformation.
+
 1.132.0 (2025-10-23)
 ------------------
 

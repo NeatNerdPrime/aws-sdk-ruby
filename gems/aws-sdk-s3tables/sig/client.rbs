@@ -165,6 +165,12 @@ module Aws
                                           ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Tables/Client.html#delete_table_bucket_metrics_configuration-instance_method
+      def delete_table_bucket_metrics_configuration: (
+                                                       table_bucket_arn: ::String
+                                                     ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Tables/Client.html#delete_table_bucket_policy-instance_method
       def delete_table_bucket_policy: (
                                         table_bucket_arn: ::String
@@ -258,6 +264,17 @@ module Aws
                                                         table_bucket_arn: ::String
                                                       ) -> _GetTableBucketMaintenanceConfigurationResponseSuccess
                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetTableBucketMaintenanceConfigurationResponseSuccess
+
+      interface _GetTableBucketMetricsConfigurationResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetTableBucketMetricsConfigurationResponse]
+        def table_bucket_arn: () -> ::String
+        def id: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Tables/Client.html#get_table_bucket_metrics_configuration-instance_method
+      def get_table_bucket_metrics_configuration: (
+                                                    table_bucket_arn: ::String
+                                                  ) -> _GetTableBucketMetricsConfigurationResponseSuccess
+                                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetTableBucketMetricsConfigurationResponseSuccess
 
       interface _GetTableBucketPolicyResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetTableBucketPolicyResponse]
@@ -411,6 +428,12 @@ module Aws
                                                         }
                                                       ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Tables/Client.html#put_table_bucket_metrics_configuration-instance_method
+      def put_table_bucket_metrics_configuration: (
+                                                    table_bucket_arn: ::String
+                                                  ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3Tables/Client.html#put_table_bucket_policy-instance_method
       def put_table_bucket_policy: (

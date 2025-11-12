@@ -1638,6 +1638,17 @@ module Aws
                                             ) -> _GetClusterCredentialsWithIAMResponseSuccess
                                           | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetClusterCredentialsWithIAMResponseSuccess
 
+      interface _GetIdentityCenterAuthTokenResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetIdentityCenterAuthTokenResponse]
+        def token: () -> ::String
+        def expiration_time: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Redshift/Client.html#get_identity_center_auth_token-instance_method
+      def get_identity_center_auth_token: (
+                                            cluster_ids: Array[::String]
+                                          ) -> _GetIdentityCenterAuthTokenResponseSuccess
+                                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetIdentityCenterAuthTokenResponseSuccess
+
       interface _GetReservedNodeExchangeConfigurationOptionsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetReservedNodeExchangeConfigurationOptionsOutputMessage]
         def marker: () -> ::String

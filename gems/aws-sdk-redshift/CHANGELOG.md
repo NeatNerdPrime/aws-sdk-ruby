@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.150.0 (2025-11-12)
+------------------
+
+* Feature - Added GetIdentityCenterAuthToken API to retrieve encrypted authentication tokens for Identity Center integrated applications. This API enables programmatic access to secure Identity Center tokens with proper error handling and parameter validation across supported SDK languages.
+
 1.149.0 (2025-10-31)
 ------------------
 

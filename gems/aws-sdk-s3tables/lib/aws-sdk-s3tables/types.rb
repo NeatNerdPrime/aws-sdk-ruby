@@ -258,6 +258,18 @@ module Aws::S3Tables
     #   The Amazon Resource Name (ARN) of the table bucket.
     #   @return [String]
     #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/DeleteTableBucketMetricsConfigurationRequest AWS API Documentation
+    #
+    class DeleteTableBucketMetricsConfigurationRequest < Struct.new(
+      :table_bucket_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/DeleteTableBucketPolicyRequest AWS API Documentation
     #
     class DeleteTableBucketPolicyRequest < Struct.new(
@@ -478,6 +490,35 @@ module Aws::S3Tables
     class GetTableBucketMaintenanceConfigurationResponse < Struct.new(
       :table_bucket_arn,
       :configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/GetTableBucketMetricsConfigurationRequest AWS API Documentation
+    #
+    class GetTableBucketMetricsConfigurationRequest < Struct.new(
+      :table_bucket_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #   @return [String]
+    #
+    # @!attribute [rw] id
+    #   The unique identifier of the metrics configuration.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/GetTableBucketMetricsConfigurationResponse AWS API Documentation
+    #
+    class GetTableBucketMetricsConfigurationResponse < Struct.new(
+      :table_bucket_arn,
+      :id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1245,6 +1286,18 @@ module Aws::S3Tables
       :table_bucket_arn,
       :type,
       :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/PutTableBucketMetricsConfigurationRequest AWS API Documentation
+    #
+    class PutTableBucketMetricsConfigurationRequest < Struct.new(
+      :table_bucket_arn)
       SENSITIVE = []
       include Aws::Structure
     end

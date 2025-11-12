@@ -10187,6 +10187,17 @@ module Aws
                                                  ) -> _GetHostReservationPurchasePreviewResponseSuccess
                                                | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetHostReservationPurchasePreviewResponseSuccess
 
+      interface _GetImageAncestryResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetImageAncestryResult]
+        def image_ancestry_entries: () -> ::Array[Types::ImageAncestryEntry]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#get_image_ancestry-instance_method
+      def get_image_ancestry: (
+                                image_id: ::String,
+                                ?dry_run: bool
+                              ) -> _GetImageAncestryResponseSuccess
+                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetImageAncestryResponseSuccess
+
       interface _GetImageBlockPublicAccessStateResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetImageBlockPublicAccessStateResult]
         def image_block_public_access_state: () -> ::String

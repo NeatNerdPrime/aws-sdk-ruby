@@ -649,7 +649,8 @@ module Aws::PrometheusService
     #   @return [Types::ScrapeConfiguration]
     #
     # @!attribute [rw] source
-    #   The Amazon EKS cluster from which the scraper will collect metrics.
+    #   The Amazon EKS or Amazon Web Services cluster from which the scraper
+    #   will collect metrics.
     #   @return [Types::Source]
     #
     # @!attribute [rw] destination
@@ -2742,16 +2743,25 @@ module Aws::PrometheusService
     #   The Amazon EKS cluster from which a scraper collects metrics.
     #   @return [Types::EksConfiguration]
     #
+    # @!attribute [rw] vpc_configuration
+    #   The Amazon VPC configuration for the Prometheus collector when
+    #   connecting to Amazon MSK clusters. This configuration enables
+    #   secure, private network connectivity between the collector and your
+    #   Amazon MSK cluster within your Amazon VPC.
+    #   @return [Types::VpcConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/amp-2020-08-01/Source AWS API Documentation
     #
     class Source < Struct.new(
       :eks_configuration,
+      :vpc_configuration,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
       include Aws::Structure::Union
 
       class EksConfiguration < Source; end
+      class VpcConfiguration < Source; end
       class Unknown < Source; end
     end
 
@@ -3153,6 +3163,32 @@ module Aws::PrometheusService
     class ValidationExceptionField < Struct.new(
       :name,
       :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The Amazon VPC configuration that specifies the network settings for a
+    # Prometheus collector to securely connect to Amazon MSK clusters. This
+    # configuration includes the security groups and subnets that control
+    # network access and placement for the collector.
+    #
+    # @!attribute [rw] security_group_ids
+    #   The security group IDs that control network access for the
+    #   Prometheus collector. These security groups must allow the collector
+    #   to communicate with your Amazon MSK cluster on the required ports.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] subnet_ids
+    #   The subnet IDs where the Prometheus collector will be deployed. The
+    #   subnets must be in the same Amazon VPC as your Amazon MSK cluster
+    #   and have network connectivity to the cluster.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/amp-2020-08-01/VpcConfiguration AWS API Documentation
+    #
+    class VpcConfiguration < Struct.new(
+      :security_group_ids,
+      :subnet_ids)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -207,6 +207,7 @@ module Aws::PrometheusService
     ValidationExceptionField = Shapes::StructureShape.new(name: 'ValidationExceptionField')
     ValidationExceptionFieldList = Shapes::ListShape.new(name: 'ValidationExceptionFieldList')
     ValidationExceptionReason = Shapes::StringShape.new(name: 'ValidationExceptionReason')
+    VpcConfiguration = Shapes::StructureShape.new(name: 'VpcConfiguration')
     WorkspaceAlias = Shapes::StringShape.new(name: 'WorkspaceAlias')
     WorkspaceArn = Shapes::StringShape.new(name: 'WorkspaceArn')
     WorkspaceConfigurationDescription = Shapes::StructureShape.new(name: 'WorkspaceConfigurationDescription')
@@ -758,8 +759,10 @@ module Aws::PrometheusService
     ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException
 
     Source.add_member(:eks_configuration, Shapes::ShapeRef.new(shape: EksConfiguration, location_name: "eksConfiguration"))
+    Source.add_member(:vpc_configuration, Shapes::ShapeRef.new(shape: VpcConfiguration, location_name: "vpcConfiguration"))
     Source.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     Source.add_member_subclass(:eks_configuration, Types::Source::EksConfiguration)
+    Source.add_member_subclass(:vpc_configuration, Types::Source::VpcConfiguration)
     Source.add_member_subclass(:unknown, Types::Source::Unknown)
     Source.struct_class = Types::Source
 
@@ -853,6 +856,10 @@ module Aws::PrometheusService
     ValidationExceptionField.struct_class = Types::ValidationExceptionField
 
     ValidationExceptionFieldList.member = Shapes::ShapeRef.new(shape: ValidationExceptionField)
+
+    VpcConfiguration.add_member(:security_group_ids, Shapes::ShapeRef.new(shape: SecurityGroupIds, required: true, location_name: "securityGroupIds"))
+    VpcConfiguration.add_member(:subnet_ids, Shapes::ShapeRef.new(shape: SubnetIds, required: true, location_name: "subnetIds"))
+    VpcConfiguration.struct_class = Types::VpcConfiguration
 
     WorkspaceConfigurationDescription.add_member(:status, Shapes::ShapeRef.new(shape: WorkspaceConfigurationStatus, required: true, location_name: "status"))
     WorkspaceConfigurationDescription.add_member(:limits_per_label_set, Shapes::ShapeRef.new(shape: LimitsPerLabelSetList, location_name: "limitsPerLabelSet"))

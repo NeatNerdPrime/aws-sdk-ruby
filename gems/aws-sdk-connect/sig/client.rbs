@@ -4701,7 +4701,9 @@ module Aws
                                            ?description: ::String,
                                            ?allowed_ips: Array[::String],
                                            ?blocked_ips: Array[::String],
-                                           ?periodic_session_duration: ::Integer
+                                           ?periodic_session_duration: ::Integer,
+                                           ?session_inactivity_duration: ::Integer,
+                                           ?session_inactivity_handling_enabled: bool
                                          ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                                        | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 

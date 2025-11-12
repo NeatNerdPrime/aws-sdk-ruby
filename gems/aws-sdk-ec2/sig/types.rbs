@@ -9188,6 +9188,17 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class GetImageAncestryRequest
+      attr_accessor image_id: ::String
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class GetImageAncestryResult
+      attr_accessor image_ancestry_entries: ::Array[Types::ImageAncestryEntry]
+      SENSITIVE: []
+    end
+
     class GetImageBlockPublicAccessStateRequest
       attr_accessor dry_run: bool
       SENSITIVE: []
@@ -10015,6 +10026,15 @@ module Aws::EC2
       attr_accessor kernel_id: ::String
       attr_accessor ramdisk_id: ::String
       attr_accessor platform: ("Windows")
+      SENSITIVE: []
+    end
+
+    class ImageAncestryEntry
+      attr_accessor creation_date: ::Time
+      attr_accessor image_id: ::String
+      attr_accessor image_owner_alias: ::String
+      attr_accessor source_image_id: ::String
+      attr_accessor source_image_region: ::String
       SENSITIVE: []
     end
 

@@ -8587,6 +8587,70 @@ module Aws::Redshift
       req.send_request(options)
     end
 
+    # Generates an encrypted authentication token that propagates the
+    # caller's Amazon Web Services IAM Identity Center identity to Amazon
+    # Redshift clusters. This API extracts the Amazon Web Services IAM
+    # Identity Center identity from enhanced credentials and creates a
+    # secure token that Amazon Redshift drivers can use for authentication.
+    #
+    # The token is encrypted using Key Management Service (KMS) and can only
+    # be decrypted by the specified Amazon Redshift clusters. The token
+    # contains the caller's Amazon Web Services IAM Identity Center
+    # identity information and is valid for a limited time period.
+    #
+    # This API is exclusively for use with Amazon Web Services IAM Identity
+    # Center enhanced credentials. If the caller is not using enhanced
+    # credentials with embedded Amazon Web Services IAM Identity Center
+    # identity, the API will return an error.
+    #
+    # @option params [required, Array<String>] :cluster_ids
+    #   A list of cluster identifiers that the generated token can be used
+    #   with. The token will be scoped to only allow authentication to the
+    #   specified clusters.
+    #
+    #   Constraints:
+    #
+    #   * `ClusterIds` must contain at least 1 cluster identifier.
+    #
+    #   * `ClusterIds` can hold a maximum of 20 cluster identifiers.
+    #
+    #   * Cluster identifiers must be 1 to 63 characters in length.
+    #
+    #   * The characters accepted for cluster identifiers are the following:
+    #
+    #     * Alphanumeric characters
+    #
+    #     * Hyphens
+    #   * Cluster identifiers must start with a letter.
+    #
+    #   * Cluster identifiers can't end with a hyphen or contain two
+    #     consecutive hyphens.
+    #
+    # @return [Types::GetIdentityCenterAuthTokenResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetIdentityCenterAuthTokenResponse#token #token} => String
+    #   * {Types::GetIdentityCenterAuthTokenResponse#expiration_time #expiration_time} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_identity_center_auth_token({
+    #     cluster_ids: ["String"], # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.token #=> String
+    #   resp.expiration_time #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetIdentityCenterAuthToken AWS API Documentation
+    #
+    # @overload get_identity_center_auth_token(params = {})
+    # @param [Hash] params ({})
+    def get_identity_center_auth_token(params = {}, options = {})
+      req = build_request(:get_identity_center_auth_token, params)
+      req.send_request(options)
+    end
+
     # Gets the configuration options for the reserved-node exchange. These
     # options include information about the source reserved node and target
     # reserved node offering. Details include the node type, the price, the
@@ -12998,7 +13062,7 @@ module Aws::Redshift
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-redshift'
-      context[:gem_version] = '1.149.0'
+      context[:gem_version] = '1.150.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

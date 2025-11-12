@@ -866,6 +866,33 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
+    # Deletes the metrics configuration for a table bucket.
+    #
+    # Permissions
+    #
+    # : You must have the `s3tables:DeleteTableBucketMetricsConfiguration`
+    #   permission to use this operation.
+    #
+    # @option params [required, String] :table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_table_bucket_metrics_configuration({
+    #     table_bucket_arn: "TableBucketARN", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/DeleteTableBucketMetricsConfiguration AWS API Documentation
+    #
+    # @overload delete_table_bucket_metrics_configuration(params = {})
+    # @param [Hash] params ({})
+    def delete_table_bucket_metrics_configuration(params = {}, options = {})
+      req = build_request(:delete_table_bucket_metrics_configuration, params)
+      req.send_request(options)
+    end
+
     # Deletes a table bucket policy. For more information, see [Deleting a
     # table bucket policy][1] in the *Amazon Simple Storage Service User
     # Guide*.
@@ -1200,6 +1227,41 @@ module Aws::S3Tables
     # @param [Hash] params ({})
     def get_table_bucket_maintenance_configuration(params = {}, options = {})
       req = build_request(:get_table_bucket_maintenance_configuration, params)
+      req.send_request(options)
+    end
+
+    # Gets the metrics configuration for a table bucket.
+    #
+    # Permissions
+    #
+    # : You must have the `s3tables:GetTableBucketMetricsConfiguration`
+    #   permission to use this operation.
+    #
+    # @option params [required, String] :table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #
+    # @return [Types::GetTableBucketMetricsConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetTableBucketMetricsConfigurationResponse#table_bucket_arn #table_bucket_arn} => String
+    #   * {Types::GetTableBucketMetricsConfigurationResponse#id #id} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_table_bucket_metrics_configuration({
+    #     table_bucket_arn: "TableBucketARN", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.table_bucket_arn #=> String
+    #   resp.id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/GetTableBucketMetricsConfiguration AWS API Documentation
+    #
+    # @overload get_table_bucket_metrics_configuration(params = {})
+    # @param [Hash] params ({})
+    def get_table_bucket_metrics_configuration(params = {}, options = {})
+      req = build_request(:get_table_bucket_metrics_configuration, params)
       req.send_request(options)
     end
 
@@ -1834,6 +1896,33 @@ module Aws::S3Tables
       req.send_request(options)
     end
 
+    # Sets the metrics configuration for a table bucket.
+    #
+    # Permissions
+    #
+    # : You must have the `s3tables:PutTableBucketMetricsConfiguration`
+    #   permission to use this operation.
+    #
+    # @option params [required, String] :table_bucket_arn
+    #   The Amazon Resource Name (ARN) of the table bucket.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.put_table_bucket_metrics_configuration({
+    #     table_bucket_arn: "TableBucketARN", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3tables-2018-05-10/PutTableBucketMetricsConfiguration AWS API Documentation
+    #
+    # @overload put_table_bucket_metrics_configuration(params = {})
+    # @param [Hash] params ({})
+    def put_table_bucket_metrics_configuration(params = {}, options = {})
+      req = build_request(:put_table_bucket_metrics_configuration, params)
+      req.send_request(options)
+    end
+
     # Creates a new table bucket policy or replaces an existing table bucket
     # policy for a table bucket. For more information, see [Adding a table
     # bucket policy][1] in the *Amazon Simple Storage Service User Guide*.
@@ -2225,7 +2314,7 @@ module Aws::S3Tables
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3tables'
-      context[:gem_version] = '1.19.0'
+      context[:gem_version] = '1.20.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

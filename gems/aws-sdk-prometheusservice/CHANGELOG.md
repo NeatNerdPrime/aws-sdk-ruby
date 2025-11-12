@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.64.0 (2025-11-12)
+------------------
+
+* Feature - Add VPC source configuration support enabling Amazon Managed Service for Prometheus Collector to collect metrics from MSK clusters.
+
 1.63.0 (2025-10-30)
 ------------------
 

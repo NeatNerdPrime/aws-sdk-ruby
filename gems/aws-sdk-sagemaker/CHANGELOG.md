@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.337.0 (2025-11-12)
+------------------
+
+* Feature - Add support for trn2.3xlarge instance type for SageMaker Hyperpod
+
 1.336.0 (2025-11-06)
 ------------------
 

@@ -63,6 +63,28 @@ module Aws::DatabaseMigrationService
       SENSITIVE: []
     end
 
+    class CancelMetadataModelConversionMessage
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor request_identifier: ::String
+      SENSITIVE: []
+    end
+
+    class CancelMetadataModelConversionResponse
+      attr_accessor request: Types::SchemaConversionRequest
+      SENSITIVE: []
+    end
+
+    class CancelMetadataModelCreationMessage
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor request_identifier: ::String
+      SENSITIVE: []
+    end
+
+    class CancelMetadataModelCreationResponse
+      attr_accessor request: Types::SchemaConversionRequest
+      SENSITIVE: []
+    end
+
     class CancelReplicationTaskAssessmentRunMessage
       attr_accessor replication_task_assessment_run_arn: ::String
       SENSITIVE: []
@@ -948,6 +970,21 @@ module Aws::DatabaseMigrationService
       SENSITIVE: []
     end
 
+    class DescribeMetadataModelChildrenMessage
+      attr_accessor selection_rules: ::String
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor origin: ("SOURCE" | "TARGET")
+      attr_accessor marker: ::String
+      attr_accessor max_records: ::Integer
+      SENSITIVE: []
+    end
+
+    class DescribeMetadataModelChildrenResponse
+      attr_accessor marker: ::String
+      attr_accessor metadata_model_children: ::Array[Types::MetadataModelReference]
+      SENSITIVE: []
+    end
+
     class DescribeMetadataModelConversionsMessage
       attr_accessor migration_project_identifier: ::String
       attr_accessor filters: ::Array[Types::Filter]
@@ -957,6 +994,20 @@ module Aws::DatabaseMigrationService
     end
 
     class DescribeMetadataModelConversionsResponse
+      attr_accessor marker: ::String
+      attr_accessor requests: ::Array[Types::SchemaConversionRequest]
+      SENSITIVE: []
+    end
+
+    class DescribeMetadataModelCreationsMessage
+      attr_accessor filters: ::Array[Types::Filter]
+      attr_accessor marker: ::String
+      attr_accessor max_records: ::Integer
+      attr_accessor migration_project_identifier: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeMetadataModelCreationsResponse
       attr_accessor marker: ::String
       attr_accessor requests: ::Array[Types::SchemaConversionRequest]
       SENSITIVE: []
@@ -1001,6 +1052,21 @@ module Aws::DatabaseMigrationService
     class DescribeMetadataModelImportsResponse
       attr_accessor marker: ::String
       attr_accessor requests: ::Array[Types::SchemaConversionRequest]
+      SENSITIVE: []
+    end
+
+    class DescribeMetadataModelMessage
+      attr_accessor selection_rules: ::String
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor origin: ("SOURCE" | "TARGET")
+      SENSITIVE: []
+    end
+
+    class DescribeMetadataModelResponse
+      attr_accessor metadata_model_name: ::String
+      attr_accessor metadata_model_type: ::String
+      attr_accessor target_metadata_models: ::Array[Types::MetadataModelReference]
+      attr_accessor definition: ::String
       SENSITIVE: []
     end
 
@@ -1462,6 +1528,17 @@ module Aws::DatabaseMigrationService
       SENSITIVE: [:password]
     end
 
+    class GetTargetSelectionRulesMessage
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor selection_rules: ::String
+      SENSITIVE: []
+    end
+
+    class GetTargetSelectionRulesResponse
+      attr_accessor target_selection_rules: ::String
+      SENSITIVE: []
+    end
+
     class IBMDb2Settings
       attr_accessor database_name: ::String
       attr_accessor password: ::String
@@ -1670,6 +1747,23 @@ module Aws::DatabaseMigrationService
       attr_accessor certificate_arn: ::String
       attr_accessor s3_path: ::String
       attr_accessor s3_access_role_arn: ::String
+      SENSITIVE: []
+    end
+
+    class MetadataModelProperties
+      attr_accessor statement_properties: Types::StatementProperties
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class StatementProperties < MetadataModelProperties
+      end
+      class Unknown < MetadataModelProperties
+      end
+    end
+
+    class MetadataModelReference
+      attr_accessor metadata_model_name: ::String
+      attr_accessor selection_rules: ::String
       SENSITIVE: []
     end
 
@@ -2733,6 +2827,19 @@ module Aws::DatabaseMigrationService
       SENSITIVE: []
     end
 
+    class StartMetadataModelCreationMessage
+      attr_accessor migration_project_identifier: ::String
+      attr_accessor selection_rules: ::String
+      attr_accessor metadata_model_name: ::String
+      attr_accessor properties: Types::MetadataModelProperties
+      SENSITIVE: []
+    end
+
+    class StartMetadataModelCreationResponse
+      attr_accessor request_identifier: ::String
+      SENSITIVE: []
+    end
+
     class StartMetadataModelExportAsScriptMessage
       attr_accessor migration_project_identifier: ::String
       attr_accessor selection_rules: ::String
@@ -2838,6 +2945,11 @@ module Aws::DatabaseMigrationService
 
     class StartReplicationTaskResponse
       attr_accessor replication_task: Types::ReplicationTask
+      SENSITIVE: []
+    end
+
+    class StatementProperties
+      attr_accessor definition: ::String
       SENSITIVE: []
     end
 
@@ -2954,7 +3066,7 @@ module Aws::DatabaseMigrationService
     end
 
     class TargetDataSetting
-      attr_accessor table_preparation_mode: ("do-nothing" | "truncate" | "drop-tables-on-target")
+      attr_accessor table_preparation_mode: ("drop-tables-on-target" | "truncate" | "do-nothing")
       SENSITIVE: []
     end
 

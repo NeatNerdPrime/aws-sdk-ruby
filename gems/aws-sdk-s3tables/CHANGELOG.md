@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.20.0 (2025-11-12)
+------------------
+
+* Feature - Adds support for request metrics metrics APIs for S3 Tables
+
 1.19.0 (2025-11-06)
 ------------------
 

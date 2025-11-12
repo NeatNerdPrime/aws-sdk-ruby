@@ -203,6 +203,67 @@ module Aws::DatabaseMigrationService
       include Aws::Structure
     end
 
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] request_identifier
+    #   The identifier for the metadata model conversion operation to
+    #   cancel. This operation was initiated by
+    #   StartMetadataModelConversion.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelConversionMessage AWS API Documentation
+    #
+    class CancelMetadataModelConversionMessage < Struct.new(
+      :migration_project_identifier,
+      :request_identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] request
+    #   Provides information about a schema conversion action.
+    #   @return [Types::SchemaConversionRequest]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelConversionResponse AWS API Documentation
+    #
+    class CancelMetadataModelConversionResponse < Struct.new(
+      :request)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] request_identifier
+    #   The identifier for the metadata model creation operation to cancel.
+    #   This operation was initiated by `StartMetadataModelCreation`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelCreationMessage AWS API Documentation
+    #
+    class CancelMetadataModelCreationMessage < Struct.new(
+      :migration_project_identifier,
+      :request_identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] request
+    #   Provides information about a schema conversion action.
+    #   @return [Types::SchemaConversionRequest]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelCreationResponse AWS API Documentation
+    #
+    class CancelMetadataModelCreationResponse < Struct.new(
+      :request)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] replication_task_assessment_run_arn
     #   Amazon Resource Name (ARN) of the premigration assessment run to be
     #   canceled.
@@ -3979,6 +4040,71 @@ module Aws::DatabaseMigrationService
       include Aws::Structure
     end
 
+    # @!attribute [rw] selection_rules
+    #   The JSON string that specifies which metadata model's children to
+    #   retrieve. Only one selection rule with "rule-action": "explicit"
+    #   can be provided. For more information, see [Selection Rules][1] in
+    #   the DMS User Guide.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.SelectionTransformation.Selections.html
+    #   @return [String]
+    #
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] origin
+    #   Specifies whether to retrieve metadata from the source or target
+    #   tree. Valid values: SOURCE \| TARGET
+    #   @return [String]
+    #
+    # @!attribute [rw] marker
+    #   Specifies the unique pagination token that indicates where the next
+    #   page should start. If this parameter is specified, the response
+    #   includes only records beyond the marker, up to the value specified
+    #   by MaxRecords.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_records
+    #   The maximum number of metadata model children to include in the
+    #   response. If more items exist than the specified MaxRecords value, a
+    #   marker is included in the response so that the remaining results can
+    #   be retrieved.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelChildrenMessage AWS API Documentation
+    #
+    class DescribeMetadataModelChildrenMessage < Struct.new(
+      :selection_rules,
+      :migration_project_identifier,
+      :origin,
+      :marker,
+      :max_records)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] marker
+    #   Specifies the unique pagination token that makes it possible to
+    #   display the next page of metadata model children. If a marker is
+    #   returned, there are more metadata model children available.
+    #   @return [String]
+    #
+    # @!attribute [rw] metadata_model_children
+    #   A list of child metadata models.
+    #   @return [Array<Types::MetadataModelReference>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelChildrenResponse AWS API Documentation
+    #
+    class DescribeMetadataModelChildrenResponse < Struct.new(
+      :marker,
+      :metadata_model_children)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] migration_project_identifier
     #   The migration project name or Amazon Resource Name (ARN).
     #   @return [String]
@@ -4037,6 +4163,63 @@ module Aws::DatabaseMigrationService
     # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelConversionsResponse AWS API Documentation
     #
     class DescribeMetadataModelConversionsResponse < Struct.new(
+      :marker,
+      :requests)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] filters
+    #   Filters applied to the metadata model creation requests described in
+    #   the form of key-value pairs. The supported filters are request-id
+    #   and status.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] marker
+    #   Specifies the unique pagination token that makes it possible to
+    #   display the next page of metadata model creation requests. If Marker
+    #   is returned by a previous response, there are more metadata model
+    #   creation requests available.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_records
+    #   The maximum number of metadata model creation requests to include in
+    #   the response. If more requests exist than the specified MaxRecords
+    #   value, a pagination token is provided in the response so that you
+    #   can retrieve the remaining results.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelCreationsMessage AWS API Documentation
+    #
+    class DescribeMetadataModelCreationsMessage < Struct.new(
+      :filters,
+      :marker,
+      :max_records,
+      :migration_project_identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] marker
+    #   Specifies the unique pagination token that makes it possible to
+    #   display the next page of metadata model creation requests. If Marker
+    #   is returned, there are more metadata model creation requests
+    #   available.
+    #   @return [String]
+    #
+    # @!attribute [rw] requests
+    #   A list of metadata model creation requests. The ExportSqlDetails
+    #   field will never be populated for the DescribeMetadataModelCreations
+    #   operation.
+    #   @return [Array<Types::SchemaConversionRequest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelCreationsResponse AWS API Documentation
+    #
+    class DescribeMetadataModelCreationsResponse < Struct.new(
       :marker,
       :requests)
       SENSITIVE = []
@@ -4228,6 +4411,66 @@ module Aws::DatabaseMigrationService
     class DescribeMetadataModelImportsResponse < Struct.new(
       :marker,
       :requests)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] selection_rules
+    #   The JSON string that specifies which metadata model to retrieve.
+    #   Only one selection rule with "rule-action": "explicit" can be
+    #   provided. For more information, see [Selection Rules][1] in the DMS
+    #   User Guide.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.SelectionTransformation.Selections.html
+    #   @return [String]
+    #
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] origin
+    #   Specifies whether to retrieve metadata from the source or target
+    #   tree. Valid values: SOURCE \| TARGET
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelMessage AWS API Documentation
+    #
+    class DescribeMetadataModelMessage < Struct.new(
+      :selection_rules,
+      :migration_project_identifier,
+      :origin)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] metadata_model_name
+    #   The name of the metadata model.
+    #   @return [String]
+    #
+    # @!attribute [rw] metadata_model_type
+    #   The type of the metadata model.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_metadata_models
+    #   A list of counterpart metadata models in the target. This field is
+    #   populated only when Origin is SOURCE and after the object has been
+    #   converted by DMS Schema Conversion.
+    #   @return [Array<Types::MetadataModelReference>]
+    #
+    # @!attribute [rw] definition
+    #   The SQL text of the metadata model. This field might not be
+    #   populated for some metadata models.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelResponse AWS API Documentation
+    #
+    class DescribeMetadataModelResponse < Struct.new(
+      :metadata_model_name,
+      :metadata_model_type,
+      :target_metadata_models,
+      :definition)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6271,6 +6514,39 @@ module Aws::DatabaseMigrationService
       include Aws::Structure
     end
 
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] selection_rules
+    #   The JSON string representing the source selection rules for
+    #   conversion. Selection rules must contain only supported metadata
+    #   model types. For more information, see Selection Rules in the DMS
+    #   User Guide.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/GetTargetSelectionRulesMessage AWS API Documentation
+    #
+    class GetTargetSelectionRulesMessage < Struct.new(
+      :migration_project_identifier,
+      :selection_rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] target_selection_rules
+    #   The JSON string representing the counterpart selection rules in the
+    #   target.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/GetTargetSelectionRulesResponse AWS API Documentation
+    #
+    class GetTargetSelectionRulesResponse < Struct.new(
+      :target_selection_rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Provides information that defines an IBM Db2 LUW endpoint.
     #
     # @!attribute [rw] database_name
@@ -7204,6 +7480,48 @@ module Aws::DatabaseMigrationService
       :certificate_arn,
       :s3_path,
       :s3_access_role_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The properties of metadata model in JSON format. This object is a
+    # Union. Only one member of this object can be specified or returned.
+    #
+    # @note MetadataModelProperties is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] statement_properties
+    #   The properties of the statement.
+    #   @return [Types::StatementProperties]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/MetadataModelProperties AWS API Documentation
+    #
+    class MetadataModelProperties < Struct.new(
+      :statement_properties,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class StatementProperties < MetadataModelProperties; end
+      class Unknown < MetadataModelProperties; end
+    end
+
+    # A reference to a metadata model, including its name and selection
+    # rules for location identification.
+    #
+    # @!attribute [rw] metadata_model_name
+    #   The name of the metadata model.
+    #   @return [String]
+    #
+    # @!attribute [rw] selection_rules
+    #   The JSON string representing metadata model location.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/MetadataModelReference AWS API Documentation
+    #
+    class MetadataModelReference < Struct.new(
+      :metadata_model_name,
+      :selection_rules)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -13474,6 +13792,48 @@ module Aws::DatabaseMigrationService
     #   @return [String]
     #
     # @!attribute [rw] selection_rules
+    #   The JSON string that specifies the location where the metadata model
+    #   will be created. Selection rules must specify a single schema. For
+    #   more information, see Selection Rules in the DMS User Guide.
+    #   @return [String]
+    #
+    # @!attribute [rw] metadata_model_name
+    #   The name of the metadata model.
+    #   @return [String]
+    #
+    # @!attribute [rw] properties
+    #   The properties of metadata model in JSON format. This object is a
+    #   Union. Only one member of this object can be specified or returned.
+    #   @return [Types::MetadataModelProperties]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelCreationMessage AWS API Documentation
+    #
+    class StartMetadataModelCreationMessage < Struct.new(
+      :migration_project_identifier,
+      :selection_rules,
+      :metadata_model_name,
+      :properties)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] request_identifier
+    #   The identifier for the metadata model creation operation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelCreationResponse AWS API Documentation
+    #
+    class StartMetadataModelCreationResponse < Struct.new(
+      :request_identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #   @return [String]
+    #
+    # @!attribute [rw] selection_rules
     #   A value that specifies the database objects to export.
     #   @return [String]
     #
@@ -13979,6 +14339,20 @@ module Aws::DatabaseMigrationService
     #
     class StartReplicationTaskResponse < Struct.new(
       :replication_task)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The properties of the statement for metadata model creation.
+    #
+    # @!attribute [rw] definition
+    #   The SQL text of the statement.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StatementProperties AWS API Documentation
+    #
+    class StatementProperties < Struct.new(
+      :definition)
       SENSITIVE = []
       include Aws::Structure
     end

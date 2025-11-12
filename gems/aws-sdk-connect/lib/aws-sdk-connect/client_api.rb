@@ -772,6 +772,7 @@ module Aws::Connect
     IdempotencyException = Shapes::StructureShape.new(name: 'IdempotencyException')
     ImportPhoneNumberRequest = Shapes::StructureShape.new(name: 'ImportPhoneNumberRequest')
     ImportPhoneNumberResponse = Shapes::StructureShape.new(name: 'ImportPhoneNumberResponse')
+    InactivityDuration = Shapes::IntegerShape.new(name: 'InactivityDuration')
     InboundAdditionalRecipients = Shapes::StructureShape.new(name: 'InboundAdditionalRecipients')
     InboundCallsEnabled = Shapes::BooleanShape.new(name: 'InboundCallsEnabled')
     InboundEmailContent = Shapes::StructureShape.new(name: 'InboundEmailContent')
@@ -2046,8 +2047,10 @@ module Aws::Connect
     AuthenticationProfile.add_member(:created_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreatedTime"))
     AuthenticationProfile.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
     AuthenticationProfile.add_member(:last_modified_region, Shapes::ShapeRef.new(shape: RegionName, location_name: "LastModifiedRegion"))
-    AuthenticationProfile.add_member(:periodic_session_duration, Shapes::ShapeRef.new(shape: AccessTokenDuration, location_name: "PeriodicSessionDuration"))
+    AuthenticationProfile.add_member(:periodic_session_duration, Shapes::ShapeRef.new(shape: AccessTokenDuration, deprecated: true, location_name: "PeriodicSessionDuration", metadata: {"deprecatedMessage" => "PeriodicSessionDuration is deprecated. Use SessionInactivityDuration instead.", "deprecatedSince" => "10/31/2025"}))
     AuthenticationProfile.add_member(:max_session_duration, Shapes::ShapeRef.new(shape: RefreshTokenDuration, location_name: "MaxSessionDuration"))
+    AuthenticationProfile.add_member(:session_inactivity_duration, Shapes::ShapeRef.new(shape: InactivityDuration, location_name: "SessionInactivityDuration", metadata: {"box" => true}))
+    AuthenticationProfile.add_member(:session_inactivity_handling_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "SessionInactivityHandlingEnabled", metadata: {"box" => true}))
     AuthenticationProfile.struct_class = Types::AuthenticationProfile
 
     AuthenticationProfileSummary.add_member(:id, Shapes::ShapeRef.new(shape: AuthenticationProfileId, location_name: "Id"))
@@ -6616,7 +6619,9 @@ module Aws::Connect
     UpdateAuthenticationProfileRequest.add_member(:description, Shapes::ShapeRef.new(shape: AuthenticationProfileDescription, location_name: "Description"))
     UpdateAuthenticationProfileRequest.add_member(:allowed_ips, Shapes::ShapeRef.new(shape: IpCidrList, location_name: "AllowedIps"))
     UpdateAuthenticationProfileRequest.add_member(:blocked_ips, Shapes::ShapeRef.new(shape: IpCidrList, location_name: "BlockedIps"))
-    UpdateAuthenticationProfileRequest.add_member(:periodic_session_duration, Shapes::ShapeRef.new(shape: AccessTokenDuration, location_name: "PeriodicSessionDuration", metadata: {"box" => true}))
+    UpdateAuthenticationProfileRequest.add_member(:periodic_session_duration, Shapes::ShapeRef.new(shape: AccessTokenDuration, deprecated: true, location_name: "PeriodicSessionDuration", metadata: {"box" => true, "deprecatedMessage" => "PeriodicSessionDuration is deprecated. Use SessionInactivityDuration instead.", "deprecatedSince" => "10/31/2025"}))
+    UpdateAuthenticationProfileRequest.add_member(:session_inactivity_duration, Shapes::ShapeRef.new(shape: InactivityDuration, location_name: "SessionInactivityDuration", metadata: {"box" => true}))
+    UpdateAuthenticationProfileRequest.add_member(:session_inactivity_handling_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "SessionInactivityHandlingEnabled", metadata: {"box" => true}))
     UpdateAuthenticationProfileRequest.struct_class = Types::UpdateAuthenticationProfileRequest
 
     UpdateCaseActionDefinition.add_member(:fields, Shapes::ShapeRef.new(shape: FieldValues, required: true, location_name: "Fields"))

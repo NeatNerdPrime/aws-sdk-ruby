@@ -6961,6 +6961,66 @@ module Aws::Redshift
       include Aws::Structure
     end
 
+    # The request parameters for `GetIdentityCenterAuthToken`.
+    #
+    # @!attribute [rw] cluster_ids
+    #   A list of cluster identifiers that the generated token can be used
+    #   with. The token will be scoped to only allow authentication to the
+    #   specified clusters.
+    #
+    #   Constraints:
+    #
+    #   * `ClusterIds` must contain at least 1 cluster identifier.
+    #
+    #   * `ClusterIds` can hold a maximum of 20 cluster identifiers.
+    #
+    #   * Cluster identifiers must be 1 to 63 characters in length.
+    #
+    #   * The characters accepted for cluster identifiers are the following:
+    #
+    #     * Alphanumeric characters
+    #
+    #     * Hyphens
+    #   * Cluster identifiers must start with a letter.
+    #
+    #   * Cluster identifiers can't end with a hyphen or contain two
+    #     consecutive hyphens.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetIdentityCenterAuthTokenRequest AWS API Documentation
+    #
+    class GetIdentityCenterAuthTokenRequest < Struct.new(
+      :cluster_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The response from GetIdentityCenterAuthToken containing the encrypted
+    # authentication token and expiration time.
+    #
+    # @!attribute [rw] token
+    #   The encrypted authentication token containing the caller's Amazon
+    #   Web Services IAM Identity Center identity information. This token is
+    #   encrypted using Key Management Service and can only be decrypted by
+    #   the specified Amazon Redshift clusters. Use this token with Amazon
+    #   Redshift drivers to authenticate using your Amazon Web Services IAM
+    #   Identity Center identity.
+    #   @return [String]
+    #
+    # @!attribute [rw] expiration_time
+    #   The time (UTC) when the token expires. After this timestamp, the
+    #   token will no longer be valid for authentication.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/GetIdentityCenterAuthTokenResponse AWS API Documentation
+    #
+    class GetIdentityCenterAuthTokenResponse < Struct.new(
+      :token,
+      :expiration_time)
+      SENSITIVE = [:token]
+      include Aws::Structure
+    end
+
     # @!attribute [rw] action_type
     #   The action type of the reserved-node configuration. The action type
     #   can be an exchange initiated from either a snapshot or a resize.
@@ -9902,6 +9962,14 @@ module Aws::Redshift
     # @see http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RedshiftIdcApplicationQuotaExceededFault AWS API Documentation
     #
     class RedshiftIdcApplicationQuotaExceededFault < Aws::EmptyStructure; end
+
+    # The request contains one or more invalid parameters. This error occurs
+    # when required parameters are missing, parameter values are outside
+    # acceptable ranges, or parameter formats are incorrect.
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/redshift-2012-12-01/RedshiftInvalidParameterFault AWS API Documentation
+    #
+    class RedshiftInvalidParameterFault < Aws::EmptyStructure; end
 
     # A link to an Amazon Redshift Advisor reference for more information
     # about a recommendation.

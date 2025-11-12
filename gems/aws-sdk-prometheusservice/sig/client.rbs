@@ -195,6 +195,10 @@ module Aws
                                 cluster_arn: ::String,
                                 security_group_ids: Array[::String]?,
                                 subnet_ids: Array[::String]
+                              }?,
+                              vpc_configuration: {
+                                security_group_ids: Array[::String],
+                                subnet_ids: Array[::String]
                               }?
                             },
                             destination: {

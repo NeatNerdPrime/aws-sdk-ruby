@@ -5708,6 +5708,8 @@ module Aws::Connect
     #   resp.authentication_profile.last_modified_region #=> String
     #   resp.authentication_profile.periodic_session_duration #=> Integer
     #   resp.authentication_profile.max_session_duration #=> Integer
+    #   resp.authentication_profile.session_inactivity_duration #=> Integer
+    #   resp.authentication_profile.session_inactivity_handling_enabled #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/DescribeAuthenticationProfile AWS API Documentation
     #
@@ -19830,6 +19832,13 @@ module Aws::Connect
     #
     #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts
     #
+    # @option params [Integer] :session_inactivity_duration
+    #   The period, in minutes, before an agent is automatically signed out of
+    #   the contact center when they go inactive.
+    #
+    # @option params [Boolean] :session_inactivity_handling_enabled
+    #   Determines if automatic logout on user inactivity is enabled.
+    #
     # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
     #
     # @example Request syntax with placeholder values
@@ -19842,6 +19851,8 @@ module Aws::Connect
     #     allowed_ips: ["IpCidr"],
     #     blocked_ips: ["IpCidr"],
     #     periodic_session_duration: 1,
+    #     session_inactivity_duration: 1,
+    #     session_inactivity_handling_enabled: false,
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/UpdateAuthenticationProfile AWS API Documentation
@@ -22908,7 +22919,7 @@ module Aws::Connect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connect'
-      context[:gem_version] = '1.222.0'
+      context[:gem_version] = '1.223.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -18,9 +18,13 @@ module Aws::ElasticLoadBalancingV2
 
     # Information about an action.
     #
-    # Each rule must include exactly one of the following types of actions:
+    # Each rule must include exactly one of the following routing actions:
     # `forward`, `fixed-response`, or `redirect`, and it must be the last
     # action to be performed.
+    #
+    # Optionally, a rule for an HTTPS listener can also include one of the
+    # following user authentication actions: `authenticate-oidc`,
+    # `authenticate-cognito`, or `jwt-validation`.
     #
     # @!attribute [rw] type
     #   The type of action.
@@ -29,8 +33,8 @@ module Aws::ElasticLoadBalancingV2
     # @!attribute [rw] target_group_arn
     #   The Amazon Resource Name (ARN) of the target group. Specify only
     #   when `Type` is `forward` and you want to route to a single target
-    #   group. To route to one or more target groups, use `ForwardConfig`
-    #   instead.
+    #   group. To route to multiple target groups, you must use
+    #   `ForwardConfig` instead.
     #   @return [String]
     #
     # @!attribute [rw] authenticate_oidc_config
@@ -64,12 +68,17 @@ module Aws::ElasticLoadBalancingV2
     #
     # @!attribute [rw] forward_config
     #   Information for creating an action that distributes requests among
-    #   one or more target groups. For Network Load Balancers, you can
-    #   specify a single target group. Specify only when `Type` is
-    #   `forward`. If you specify both `ForwardConfig` and `TargetGroupArn`,
-    #   you can specify only one target group using `ForwardConfig` and it
-    #   must be the same target group specified in `TargetGroupArn`.
+    #   multiple target groups. Specify only when `Type` is `forward`.
+    #
+    #   If you specify both `ForwardConfig` and `TargetGroupArn`, you can
+    #   specify only one target group using `ForwardConfig` and it must be
+    #   the same target group specified in `TargetGroupArn`.
     #   @return [Types::ForwardActionConfig]
+    #
+    # @!attribute [rw] jwt_validation_config
+    #   \[HTTPS listeners\] Information for validating JWT access tokens in
+    #   client requests. Specify only when `Type` is `jwt-validation`.
+    #   @return [Types::JwtValidationActionConfig]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/Action AWS API Documentation
     #
@@ -81,7 +90,8 @@ module Aws::ElasticLoadBalancingV2
       :order,
       :redirect_config,
       :fixed_response_config,
-      :forward_config)
+      :forward_config,
+      :jwt_validation_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1878,8 +1888,7 @@ module Aws::ElasticLoadBalancingV2
     # Information about a forward action.
     #
     # @!attribute [rw] target_groups
-    #   The target groups. For Network Load Balancers, you can specify a
-    #   single target group.
+    #   The target groups.
     #   @return [Array<Types::TargetGroupTuple>]
     #
     # @!attribute [rw] target_group_stickiness_config
@@ -2177,6 +2186,63 @@ module Aws::ElasticLoadBalancingV2
     #
     class IpamPools < Struct.new(
       :ipv_4_ipam_pool_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about an additional claim to validate.
+    #
+    # @!attribute [rw] format
+    #   The format of the claim value.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the claim. You can't specify `exp`, `iss`, `nbf`, or
+    #   `iat` because we validate them by default.
+    #   @return [String]
+    #
+    # @!attribute [rw] values
+    #   The claim value. The maximum size of the list is 10. Each value can
+    #   be up to 256 characters in length. If the format is
+    #   `space-separated-values`, the values can't include spaces.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/JwtValidationActionAdditionalClaim AWS API Documentation
+    #
+    class JwtValidationActionAdditionalClaim < Struct.new(
+      :format,
+      :name,
+      :values)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about a JSON Web Token (JWT) validation action.
+    #
+    # @!attribute [rw] jwks_endpoint
+    #   The JSON Web Key Set (JWKS) endpoint. This endpoint contains JSON
+    #   Web Keys (JWK) that are used to validate signatures from the
+    #   provider.
+    #
+    #   This must be a full URL, including the HTTPS protocol, the domain,
+    #   and the path. The maximum length is 256 characters.
+    #   @return [String]
+    #
+    # @!attribute [rw] issuer
+    #   The issuer of the JWT. The maximum length is 256 characters.
+    #   @return [String]
+    #
+    # @!attribute [rw] additional_claims
+    #   Additional claims to validate. The maximum size of the list is 10.
+    #   We validate the `exp`, `iss`, `nbf`, and `iat` claims by default.
+    #   @return [Array<Types::JwtValidationActionAdditionalClaim>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/JwtValidationActionConfig AWS API Documentation
+    #
+    class JwtValidationActionConfig < Struct.new(
+      :jwks_endpoint,
+      :issuer,
+      :additional_claims)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3887,7 +3953,8 @@ module Aws::ElasticLoadBalancingV2
     # @!attribute [rw] enforce_security_group_inbound_rules_on_private_link_traffic
     #   Indicates whether to evaluate inbound security group rules for
     #   traffic sent to a Network Load Balancer through Amazon Web Services
-    #   PrivateLink. The default is `on`.
+    #   PrivateLink. Applies only if the load balancer has an associated
+    #   security group. The default is `on`.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetSecurityGroupsInput AWS API Documentation
@@ -4542,10 +4609,10 @@ module Aws::ElasticLoadBalancingV2
     #   @return [Boolean]
     #
     # @!attribute [rw] duration_seconds
-    #   The time period, in seconds, during which requests from a client
-    #   should be routed to the same target group. The range is 1-604800
-    #   seconds (7 days). You must specify this value when enabling target
-    #   group stickiness.
+    #   \[Application Load Balancers\] The time period, in seconds, during
+    #   which requests from a client should be routed to the same target
+    #   group. The range is 1-604800 seconds (7 days). You must specify this
+    #   value when enabling target group stickiness.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/TargetGroupStickinessConfig AWS API Documentation
@@ -4602,18 +4669,16 @@ module Aws::ElasticLoadBalancingV2
     #   the following values:
     #
     #   * `Target.ResponseCodeMismatch` - The health checks did not return
-    #     an expected HTTP code. Applies only to Application Load Balancers
-    #     and Gateway Load Balancers.
+    #     an expected HTTP code.
     #
-    #   * `Target.Timeout` - The health check requests timed out. Applies
-    #     only to Application Load Balancers and Gateway Load Balancers.
+    #   * `Target.Timeout` - The health check requests timed out.
     #
     #   * `Target.FailedHealthChecks` - The load balancer received an error
     #     while establishing a connection to the target or the target
     #     response was malformed.
     #
     #   * `Elb.InternalError` - The health checks failed due to an internal
-    #     error. Applies only to Application Load Balancers.
+    #     error.
     #
     #   If the target state is `unused`, the reason code can be one of the
     #   following values:
@@ -4644,10 +4709,10 @@ module Aws::ElasticLoadBalancingV2
     #   following value:
     #
     #   * `Target.HealthCheckDisabled` - Health checks are disabled for the
-    #     target group. Applies only to Application Load Balancers.
+    #     target group.
     #
     #   * `Elb.InternalError` - Target health is unavailable due to an
-    #     internal error. Applies only to Network Load Balancers.
+    #     internal error.
     #   @return [String]
     #
     # @!attribute [rw] description

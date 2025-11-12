@@ -195,6 +195,15 @@ module Aws::ElasticLoadBalancingV2
     IpamPoolId = Shapes::StringShape.new(name: 'IpamPoolId')
     IpamPools = Shapes::StructureShape.new(name: 'IpamPools')
     IsDefault = Shapes::BooleanShape.new(name: 'IsDefault')
+    JwtValidationActionAdditionalClaim = Shapes::StructureShape.new(name: 'JwtValidationActionAdditionalClaim')
+    JwtValidationActionAdditionalClaimFormatEnum = Shapes::StringShape.new(name: 'JwtValidationActionAdditionalClaimFormatEnum')
+    JwtValidationActionAdditionalClaimName = Shapes::StringShape.new(name: 'JwtValidationActionAdditionalClaimName')
+    JwtValidationActionAdditionalClaimValue = Shapes::StringShape.new(name: 'JwtValidationActionAdditionalClaimValue')
+    JwtValidationActionAdditionalClaimValues = Shapes::ListShape.new(name: 'JwtValidationActionAdditionalClaimValues')
+    JwtValidationActionAdditionalClaims = Shapes::ListShape.new(name: 'JwtValidationActionAdditionalClaims')
+    JwtValidationActionConfig = Shapes::StructureShape.new(name: 'JwtValidationActionConfig')
+    JwtValidationActionIssuer = Shapes::StringShape.new(name: 'JwtValidationActionIssuer')
+    JwtValidationActionJwksEndpoint = Shapes::StringShape.new(name: 'JwtValidationActionJwksEndpoint')
     LastModifiedTime = Shapes::TimestampShape.new(name: 'LastModifiedTime')
     Limit = Shapes::StructureShape.new(name: 'Limit')
     Limits = Shapes::ListShape.new(name: 'Limits')
@@ -430,6 +439,7 @@ module Aws::ElasticLoadBalancingV2
     Action.add_member(:redirect_config, Shapes::ShapeRef.new(shape: RedirectActionConfig, location_name: "RedirectConfig"))
     Action.add_member(:fixed_response_config, Shapes::ShapeRef.new(shape: FixedResponseActionConfig, location_name: "FixedResponseConfig"))
     Action.add_member(:forward_config, Shapes::ShapeRef.new(shape: ForwardActionConfig, location_name: "ForwardConfig"))
+    Action.add_member(:jwt_validation_config, Shapes::ShapeRef.new(shape: JwtValidationActionConfig, location_name: "JwtValidationConfig"))
     Action.struct_class = Types::Action
 
     Actions.member = Shapes::ShapeRef.new(shape: Action)
@@ -869,6 +879,20 @@ module Aws::ElasticLoadBalancingV2
 
     IpamPools.add_member(:ipv_4_ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, location_name: "Ipv4IpamPoolId"))
     IpamPools.struct_class = Types::IpamPools
+
+    JwtValidationActionAdditionalClaim.add_member(:format, Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaimFormatEnum, required: true, location_name: "Format"))
+    JwtValidationActionAdditionalClaim.add_member(:name, Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaimName, required: true, location_name: "Name"))
+    JwtValidationActionAdditionalClaim.add_member(:values, Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaimValues, required: true, location_name: "Values"))
+    JwtValidationActionAdditionalClaim.struct_class = Types::JwtValidationActionAdditionalClaim
+
+    JwtValidationActionAdditionalClaimValues.member = Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaimValue)
+
+    JwtValidationActionAdditionalClaims.member = Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaim)
+
+    JwtValidationActionConfig.add_member(:jwks_endpoint, Shapes::ShapeRef.new(shape: JwtValidationActionJwksEndpoint, required: true, location_name: "JwksEndpoint"))
+    JwtValidationActionConfig.add_member(:issuer, Shapes::ShapeRef.new(shape: JwtValidationActionIssuer, required: true, location_name: "Issuer"))
+    JwtValidationActionConfig.add_member(:additional_claims, Shapes::ShapeRef.new(shape: JwtValidationActionAdditionalClaims, location_name: "AdditionalClaims"))
+    JwtValidationActionConfig.struct_class = Types::JwtValidationActionConfig
 
     Limit.add_member(:name, Shapes::ShapeRef.new(shape: Name, location_name: "Name"))
     Limit.add_member(:max, Shapes::ShapeRef.new(shape: Max, location_name: "Max"))

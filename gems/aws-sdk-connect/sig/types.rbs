@@ -440,6 +440,8 @@ module Aws::Connect
       attr_accessor last_modified_region: ::String
       attr_accessor periodic_session_duration: ::Integer
       attr_accessor max_session_duration: ::Integer
+      attr_accessor session_inactivity_duration: ::Integer
+      attr_accessor session_inactivity_handling_enabled: bool
       SENSITIVE: []
     end
 
@@ -6216,6 +6218,8 @@ module Aws::Connect
       attr_accessor allowed_ips: ::Array[::String]
       attr_accessor blocked_ips: ::Array[::String]
       attr_accessor periodic_session_duration: ::Integer
+      attr_accessor session_inactivity_duration: ::Integer
+      attr_accessor session_inactivity_handling_enabled: bool
       SENSITIVE: []
     end
 

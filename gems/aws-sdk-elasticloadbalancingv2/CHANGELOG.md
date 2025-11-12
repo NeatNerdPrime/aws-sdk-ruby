@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.142.0 (2025-11-12)
+------------------
+
+* Feature - This release expands ALB Authentication to support JWT verification and adds support for a new JWT validation action in listener rule.
+
 1.141.0 (2025-10-21)
 ------------------
 

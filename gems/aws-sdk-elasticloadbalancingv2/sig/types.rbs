@@ -12,7 +12,7 @@ module Aws::ElasticLoadBalancingV2
     end
 
     class Action
-      attr_accessor type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response")
+      attr_accessor type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response" | "jwt-validation")
       attr_accessor target_group_arn: ::String
       attr_accessor authenticate_oidc_config: Types::AuthenticateOidcActionConfig
       attr_accessor authenticate_cognito_config: Types::AuthenticateCognitoActionConfig
@@ -20,6 +20,7 @@ module Aws::ElasticLoadBalancingV2
       attr_accessor redirect_config: Types::RedirectActionConfig
       attr_accessor fixed_response_config: Types::FixedResponseActionConfig
       attr_accessor forward_config: Types::ForwardActionConfig
+      attr_accessor jwt_validation_config: Types::JwtValidationActionConfig
       SENSITIVE: []
     end
 
@@ -624,6 +625,20 @@ module Aws::ElasticLoadBalancingV2
 
     class IpamPools
       attr_accessor ipv_4_ipam_pool_id: ::String
+      SENSITIVE: []
+    end
+
+    class JwtValidationActionAdditionalClaim
+      attr_accessor format: ("single-string" | "string-array" | "space-separated-values")
+      attr_accessor name: ::String
+      attr_accessor values: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class JwtValidationActionConfig
+      attr_accessor jwks_endpoint: ::String
+      attr_accessor issuer: ::String
+      attr_accessor additional_claims: ::Array[Types::JwtValidationActionAdditionalClaim]
       SENSITIVE: []
     end
 

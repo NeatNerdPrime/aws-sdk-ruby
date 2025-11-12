@@ -667,6 +667,84 @@ module Aws::DatabaseMigrationService
       req.send_request(options)
     end
 
+    # Cancels a single metadata model conversion operation that was started
+    # with `StartMetadataModelConversion`.
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :request_identifier
+    #   The identifier for the metadata model conversion operation to cancel.
+    #   This operation was initiated by StartMetadataModelConversion.
+    #
+    # @return [Types::CancelMetadataModelConversionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CancelMetadataModelConversionResponse#request #request} => Types::SchemaConversionRequest
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.cancel_metadata_model_conversion({
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     request_identifier: "String", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.request.status #=> String
+    #   resp.request.request_identifier #=> String
+    #   resp.request.migration_project_arn #=> String
+    #   resp.request.error.default_error_details.message #=> String
+    #   resp.request.export_sql_details.s3_object_key #=> String
+    #   resp.request.export_sql_details.object_url #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelConversion AWS API Documentation
+    #
+    # @overload cancel_metadata_model_conversion(params = {})
+    # @param [Hash] params ({})
+    def cancel_metadata_model_conversion(params = {}, options = {})
+      req = build_request(:cancel_metadata_model_conversion, params)
+      req.send_request(options)
+    end
+
+    # Cancels a single metadata model creation operation that was started
+    # with `StartMetadataModelCreation`.
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :request_identifier
+    #   The identifier for the metadata model creation operation to cancel.
+    #   This operation was initiated by `StartMetadataModelCreation`.
+    #
+    # @return [Types::CancelMetadataModelCreationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CancelMetadataModelCreationResponse#request #request} => Types::SchemaConversionRequest
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.cancel_metadata_model_creation({
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     request_identifier: "String", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.request.status #=> String
+    #   resp.request.request_identifier #=> String
+    #   resp.request.migration_project_arn #=> String
+    #   resp.request.error.default_error_details.message #=> String
+    #   resp.request.export_sql_details.s3_object_key #=> String
+    #   resp.request.export_sql_details.object_url #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/CancelMetadataModelCreation AWS API Documentation
+    #
+    # @overload cancel_metadata_model_creation(params = {})
+    # @param [Hash] params ({})
+    def cancel_metadata_model_creation(params = {}, options = {})
+      req = build_request(:cancel_metadata_model_creation, params)
+      req.send_request(options)
+    end
+
     # Cancels a single premigration assessment run.
     #
     # This operation prevents any individual assessments from running if
@@ -785,7 +863,7 @@ module Aws::DatabaseMigrationService
     #     ],
     #     target_data_settings: [
     #       {
-    #         table_preparation_mode: "do-nothing", # accepts do-nothing, truncate, drop-tables-on-target
+    #         table_preparation_mode: "drop-tables-on-target", # accepts drop-tables-on-target, truncate, do-nothing
     #       },
     #     ],
     #     number_of_jobs: 1,
@@ -818,7 +896,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migration.source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migration.source_data_settings[0].slot_name #=> String
     #   resp.data_migration.target_data_settings #=> Array
-    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migration.data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migration.data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migration.data_migration_statistics.tables_loading #=> Integer
@@ -3556,7 +3634,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migration.source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migration.source_data_settings[0].slot_name #=> String
     #   resp.data_migration.target_data_settings #=> Array
-    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migration.data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migration.data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migration.data_migration_statistics.tables_loading #=> Integer
@@ -5191,7 +5269,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migrations[0].source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migrations[0].source_data_settings[0].slot_name #=> String
     #   resp.data_migrations[0].target_data_settings #=> Array
-    #   resp.data_migrations[0].target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migrations[0].target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migrations[0].data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migrations[0].data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migrations[0].data_migration_statistics.tables_loading #=> Integer
@@ -6841,6 +6919,59 @@ module Aws::DatabaseMigrationService
       req.send_request(options)
     end
 
+    # Gets detailed information about the specified metadata model,
+    # including its definition and corresponding converted objects in the
+    # target database if applicable.
+    #
+    # @option params [required, String] :selection_rules
+    #   The JSON string that specifies which metadata model to retrieve. Only
+    #   one selection rule with "rule-action": "explicit" can be provided.
+    #   For more information, see [Selection Rules][1] in the DMS User Guide.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.SelectionTransformation.Selections.html
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :origin
+    #   Specifies whether to retrieve metadata from the source or target tree.
+    #   Valid values: SOURCE \| TARGET
+    #
+    # @return [Types::DescribeMetadataModelResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeMetadataModelResponse#metadata_model_name #metadata_model_name} => String
+    #   * {Types::DescribeMetadataModelResponse#metadata_model_type #metadata_model_type} => String
+    #   * {Types::DescribeMetadataModelResponse#target_metadata_models #target_metadata_models} => Array&lt;Types::MetadataModelReference&gt;
+    #   * {Types::DescribeMetadataModelResponse#definition #definition} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_metadata_model({
+    #     selection_rules: "String", # required
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     origin: "SOURCE", # required, accepts SOURCE, TARGET
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.metadata_model_name #=> String
+    #   resp.metadata_model_type #=> String
+    #   resp.target_metadata_models #=> Array
+    #   resp.target_metadata_models[0].metadata_model_name #=> String
+    #   resp.target_metadata_models[0].selection_rules #=> String
+    #   resp.definition #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModel AWS API Documentation
+    #
+    # @overload describe_metadata_model(params = {})
+    # @param [Hash] params ({})
+    def describe_metadata_model(params = {}, options = {})
+      req = build_request(:describe_metadata_model, params)
+      req.send_request(options)
+    end
+
     # Returns a paginated list of metadata model assessments for your
     # account in the current region.
     #
@@ -6940,6 +7071,71 @@ module Aws::DatabaseMigrationService
       req.send_request(options)
     end
 
+    # Gets a list of child metadata models for the specified metadata model
+    # in the database hierarchy.
+    #
+    # @option params [required, String] :selection_rules
+    #   The JSON string that specifies which metadata model's children to
+    #   retrieve. Only one selection rule with "rule-action": "explicit"
+    #   can be provided. For more information, see [Selection Rules][1] in the
+    #   DMS User Guide.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.SelectionTransformation.Selections.html
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :origin
+    #   Specifies whether to retrieve metadata from the source or target tree.
+    #   Valid values: SOURCE \| TARGET
+    #
+    # @option params [String] :marker
+    #   Specifies the unique pagination token that indicates where the next
+    #   page should start. If this parameter is specified, the response
+    #   includes only records beyond the marker, up to the value specified by
+    #   MaxRecords.
+    #
+    # @option params [Integer] :max_records
+    #   The maximum number of metadata model children to include in the
+    #   response. If more items exist than the specified MaxRecords value, a
+    #   marker is included in the response so that the remaining results can
+    #   be retrieved.
+    #
+    # @return [Types::DescribeMetadataModelChildrenResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeMetadataModelChildrenResponse#marker #marker} => String
+    #   * {Types::DescribeMetadataModelChildrenResponse#metadata_model_children #metadata_model_children} => Array&lt;Types::MetadataModelReference&gt;
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_metadata_model_children({
+    #     selection_rules: "String", # required
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     origin: "SOURCE", # required, accepts SOURCE, TARGET
+    #     marker: "String",
+    #     max_records: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.marker #=> String
+    #   resp.metadata_model_children #=> Array
+    #   resp.metadata_model_children[0].metadata_model_name #=> String
+    #   resp.metadata_model_children[0].selection_rules #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelChildren AWS API Documentation
+    #
+    # @overload describe_metadata_model_children(params = {})
+    # @param [Hash] params ({})
+    def describe_metadata_model_children(params = {}, options = {})
+      req = build_request(:describe_metadata_model_children, params)
+      req.send_request(options)
+    end
+
     # Returns a paginated list of metadata model conversions for a migration
     # project.
     #
@@ -7036,6 +7232,70 @@ module Aws::DatabaseMigrationService
     # @param [Hash] params ({})
     def describe_metadata_model_conversions(params = {}, options = {})
       req = build_request(:describe_metadata_model_conversions, params)
+      req.send_request(options)
+    end
+
+    # Returns a paginated list of metadata model creation requests for a
+    # migration project.
+    #
+    # @option params [Array<Types::Filter>] :filters
+    #   Filters applied to the metadata model creation requests described in
+    #   the form of key-value pairs. The supported filters are request-id and
+    #   status.
+    #
+    # @option params [String] :marker
+    #   Specifies the unique pagination token that makes it possible to
+    #   display the next page of metadata model creation requests. If Marker
+    #   is returned by a previous response, there are more metadata model
+    #   creation requests available.
+    #
+    # @option params [Integer] :max_records
+    #   The maximum number of metadata model creation requests to include in
+    #   the response. If more requests exist than the specified MaxRecords
+    #   value, a pagination token is provided in the response so that you can
+    #   retrieve the remaining results.
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @return [Types::DescribeMetadataModelCreationsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeMetadataModelCreationsResponse#marker #marker} => String
+    #   * {Types::DescribeMetadataModelCreationsResponse#requests #requests} => Array&lt;Types::SchemaConversionRequest&gt;
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_metadata_model_creations({
+    #     filters: [
+    #       {
+    #         name: "String", # required
+    #         values: ["String"], # required
+    #       },
+    #     ],
+    #     marker: "String",
+    #     max_records: 1,
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.marker #=> String
+    #   resp.requests #=> Array
+    #   resp.requests[0].status #=> String
+    #   resp.requests[0].request_identifier #=> String
+    #   resp.requests[0].migration_project_arn #=> String
+    #   resp.requests[0].error.default_error_details.message #=> String
+    #   resp.requests[0].export_sql_details.s3_object_key #=> String
+    #   resp.requests[0].export_sql_details.object_url #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/DescribeMetadataModelCreations AWS API Documentation
+    #
+    # @overload describe_metadata_model_creations(params = {})
+    # @param [Hash] params ({})
+    def describe_metadata_model_creations(params = {}, options = {})
+      req = build_request(:describe_metadata_model_creations, params)
       req.send_request(options)
     end
 
@@ -8977,6 +9237,42 @@ module Aws::DatabaseMigrationService
       req.send_request(options)
     end
 
+    # Converts source selection rules into their target counterparts for
+    # schema conversion operations.
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :selection_rules
+    #   The JSON string representing the source selection rules for
+    #   conversion. Selection rules must contain only supported metadata model
+    #   types. For more information, see Selection Rules in the DMS User
+    #   Guide.
+    #
+    # @return [Types::GetTargetSelectionRulesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetTargetSelectionRulesResponse#target_selection_rules #target_selection_rules} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_target_selection_rules({
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     selection_rules: "String", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.target_selection_rules #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/GetTargetSelectionRules AWS API Documentation
+    #
+    # @overload get_target_selection_rules(params = {})
+    # @param [Hash] params ({})
+    def get_target_selection_rules(params = {}, options = {})
+      req = build_request(:get_target_selection_rules, params)
+      req.send_request(options)
+    end
+
     # Uploads the specified certificate.
     #
     # @option params [required, String] :certificate_identifier
@@ -9220,7 +9516,7 @@ module Aws::DatabaseMigrationService
     #     ],
     #     target_data_settings: [
     #       {
-    #         table_preparation_mode: "do-nothing", # accepts do-nothing, truncate, drop-tables-on-target
+    #         table_preparation_mode: "drop-tables-on-target", # accepts drop-tables-on-target, truncate, do-nothing
     #       },
     #     ],
     #     number_of_jobs: 1,
@@ -9246,7 +9542,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migration.source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migration.source_data_settings[0].slot_name #=> String
     #   resp.data_migration.target_data_settings #=> Array
-    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migration.data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migration.data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migration.data_migration_statistics.tables_loading #=> Integer
@@ -11901,7 +12197,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migration.source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migration.source_data_settings[0].slot_name #=> String
     #   resp.data_migration.target_data_settings #=> Array
-    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migration.data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migration.data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migration.data_migration_statistics.tables_loading #=> Integer
@@ -12070,6 +12366,59 @@ module Aws::DatabaseMigrationService
     # @param [Hash] params ({})
     def start_metadata_model_conversion(params = {}, options = {})
       req = build_request(:start_metadata_model_conversion, params)
+      req.send_request(options)
+    end
+
+    # Creates source metadata model of the given type with the specified
+    # properties for schema conversion operations.
+    #
+    # <note markdown="1"> This action supports only these directions: from SQL Server to Aurora
+    # PostgreSQL, or from SQL Server to RDS for PostgreSQL.
+    #
+    #  </note>
+    #
+    # @option params [required, String] :migration_project_identifier
+    #   The migration project name or Amazon Resource Name (ARN).
+    #
+    # @option params [required, String] :selection_rules
+    #   The JSON string that specifies the location where the metadata model
+    #   will be created. Selection rules must specify a single schema. For
+    #   more information, see Selection Rules in the DMS User Guide.
+    #
+    # @option params [required, String] :metadata_model_name
+    #   The name of the metadata model.
+    #
+    # @option params [required, Types::MetadataModelProperties] :properties
+    #   The properties of metadata model in JSON format. This object is a
+    #   Union. Only one member of this object can be specified or returned.
+    #
+    # @return [Types::StartMetadataModelCreationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StartMetadataModelCreationResponse#request_identifier #request_identifier} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.start_metadata_model_creation({
+    #     migration_project_identifier: "MigrationProjectIdentifier", # required
+    #     selection_rules: "String", # required
+    #     metadata_model_name: "String", # required
+    #     properties: { # required
+    #       statement_properties: {
+    #         definition: "String", # required
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.request_identifier #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/dms-2016-01-01/StartMetadataModelCreation AWS API Documentation
+    #
+    # @overload start_metadata_model_creation(params = {})
+    # @param [Hash] params ({})
+    def start_metadata_model_creation(params = {}, options = {})
+      req = build_request(:start_metadata_model_creation, params)
       req.send_request(options)
     end
 
@@ -12882,7 +13231,7 @@ module Aws::DatabaseMigrationService
     #   resp.data_migration.source_data_settings[0].cdc_stop_time #=> Time
     #   resp.data_migration.source_data_settings[0].slot_name #=> String
     #   resp.data_migration.target_data_settings #=> Array
-    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "do-nothing", "truncate", "drop-tables-on-target"
+    #   resp.data_migration.target_data_settings[0].table_preparation_mode #=> String, one of "drop-tables-on-target", "truncate", "do-nothing"
     #   resp.data_migration.data_migration_statistics.tables_loaded #=> Integer
     #   resp.data_migration.data_migration_statistics.elapsed_time_millis #=> Integer
     #   resp.data_migration.data_migration_statistics.tables_loading #=> Integer
@@ -13194,7 +13543,7 @@ module Aws::DatabaseMigrationService
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-databasemigrationservice'
-      context[:gem_version] = '1.132.0'
+      context[:gem_version] = '1.133.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

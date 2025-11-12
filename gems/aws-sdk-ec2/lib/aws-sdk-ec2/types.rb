@@ -41941,6 +41941,39 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] image_id
+    #   The ID of the AMI whose ancestry you want to trace.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetImageAncestryRequest AWS API Documentation
+    #
+    class GetImageAncestryRequest < Struct.new(
+      :image_id,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] image_ancestry_entries
+    #   A list of entries in the AMI ancestry chain, from the specified AMI
+    #   to the root AMI.
+    #   @return [Array<Types::ImageAncestryEntry>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetImageAncestryResult AWS API Documentation
+    #
+    class GetImageAncestryResult < Struct.new(
+      :image_ancestry_entries)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
@@ -45364,6 +45397,42 @@ module Aws::EC2
       :kernel_id,
       :ramdisk_id,
       :platform)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about a single AMI in the ancestry chain and its source
+    # (parent) AMI.
+    #
+    # @!attribute [rw] creation_date
+    #   The date and time when this AMI was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] image_id
+    #   The ID of this AMI.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_owner_alias
+    #   The owner alias (`amazon` \| `aws-backup-vault` \| `aws-marketplace`
+    #   ) of this AMI, if one is assigned. Otherwise, the value is `null`.
+    #   @return [String]
+    #
+    # @!attribute [rw] source_image_id
+    #   The ID of the parent AMI.
+    #   @return [String]
+    #
+    # @!attribute [rw] source_image_region
+    #   The Amazon Web Services Region of the parent AMI.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ImageAncestryEntry AWS API Documentation
+    #
+    class ImageAncestryEntry < Struct.new(
+      :creation_date,
+      :image_id,
+      :image_owner_alias,
+      :source_image_id,
+      :source_image_region)
       SENSITIVE = []
       include Aws::Structure
     end

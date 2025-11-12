@@ -1549,6 +1549,17 @@ module Aws::Redshift
       SENSITIVE: []
     end
 
+    class GetIdentityCenterAuthTokenRequest
+      attr_accessor cluster_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class GetIdentityCenterAuthTokenResponse
+      attr_accessor token: ::String
+      attr_accessor expiration_time: ::Time
+      SENSITIVE: [:token]
+    end
+
     class GetReservedNodeExchangeConfigurationOptionsInputMessage
       attr_accessor action_type: ("restore-cluster" | "resize-cluster")
       attr_accessor cluster_identifier: ::String
@@ -2328,6 +2339,9 @@ module Aws::Redshift
     end
 
     class RedshiftIdcApplicationQuotaExceededFault < Aws::EmptyStructure
+    end
+
+    class RedshiftInvalidParameterFault < Aws::EmptyStructure
     end
 
     class ReferenceLink

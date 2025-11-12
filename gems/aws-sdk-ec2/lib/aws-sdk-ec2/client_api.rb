@@ -1727,6 +1727,8 @@ module Aws::EC2
     GetGroupsForCapacityReservationResult = Shapes::StructureShape.new(name: 'GetGroupsForCapacityReservationResult')
     GetHostReservationPurchasePreviewRequest = Shapes::StructureShape.new(name: 'GetHostReservationPurchasePreviewRequest')
     GetHostReservationPurchasePreviewResult = Shapes::StructureShape.new(name: 'GetHostReservationPurchasePreviewResult')
+    GetImageAncestryRequest = Shapes::StructureShape.new(name: 'GetImageAncestryRequest')
+    GetImageAncestryResult = Shapes::StructureShape.new(name: 'GetImageAncestryResult')
     GetImageBlockPublicAccessStateRequest = Shapes::StructureShape.new(name: 'GetImageBlockPublicAccessStateRequest')
     GetImageBlockPublicAccessStateResult = Shapes::StructureShape.new(name: 'GetImageBlockPublicAccessStateResult')
     GetInstanceMetadataDefaultsRequest = Shapes::StructureShape.new(name: 'GetInstanceMetadataDefaultsRequest')
@@ -1875,6 +1877,8 @@ module Aws::EC2
     IdFormatList = Shapes::ListShape.new(name: 'IdFormatList')
     Igmpv2SupportValue = Shapes::StringShape.new(name: 'Igmpv2SupportValue')
     Image = Shapes::StructureShape.new(name: 'Image')
+    ImageAncestryEntry = Shapes::StructureShape.new(name: 'ImageAncestryEntry')
+    ImageAncestryEntryList = Shapes::ListShape.new(name: 'ImageAncestryEntryList')
     ImageAttribute = Shapes::StructureShape.new(name: 'ImageAttribute')
     ImageAttributeName = Shapes::StringShape.new(name: 'ImageAttributeName')
     ImageBlockPublicAccessDisabledState = Shapes::StringShape.new(name: 'ImageBlockPublicAccessDisabledState')
@@ -10801,6 +10805,13 @@ module Aws::EC2
     GetHostReservationPurchasePreviewResult.add_member(:total_upfront_price, Shapes::ShapeRef.new(shape: String, location_name: "totalUpfrontPrice"))
     GetHostReservationPurchasePreviewResult.struct_class = Types::GetHostReservationPurchasePreviewResult
 
+    GetImageAncestryRequest.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, required: true, location_name: "ImageId"))
+    GetImageAncestryRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetImageAncestryRequest.struct_class = Types::GetImageAncestryRequest
+
+    GetImageAncestryResult.add_member(:image_ancestry_entries, Shapes::ShapeRef.new(shape: ImageAncestryEntryList, location_name: "imageAncestryEntrySet"))
+    GetImageAncestryResult.struct_class = Types::GetImageAncestryResult
+
     GetImageBlockPublicAccessStateRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     GetImageBlockPublicAccessStateRequest.struct_class = Types::GetImageBlockPublicAccessStateRequest
 
@@ -11452,6 +11463,15 @@ module Aws::EC2
     Image.add_member(:ramdisk_id, Shapes::ShapeRef.new(shape: String, location_name: "ramdiskId"))
     Image.add_member(:platform, Shapes::ShapeRef.new(shape: PlatformValues, location_name: "platform"))
     Image.struct_class = Types::Image
+
+    ImageAncestryEntry.add_member(:creation_date, Shapes::ShapeRef.new(shape: MillisecondDateTime, location_name: "creationDate"))
+    ImageAncestryEntry.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "imageId"))
+    ImageAncestryEntry.add_member(:image_owner_alias, Shapes::ShapeRef.new(shape: String, location_name: "imageOwnerAlias"))
+    ImageAncestryEntry.add_member(:source_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "sourceImageId"))
+    ImageAncestryEntry.add_member(:source_image_region, Shapes::ShapeRef.new(shape: String, location_name: "sourceImageRegion"))
+    ImageAncestryEntry.struct_class = Types::ImageAncestryEntry
+
+    ImageAncestryEntryList.member = Shapes::ShapeRef.new(shape: ImageAncestryEntry, location_name: "item")
 
     ImageAttribute.add_member(:description, Shapes::ShapeRef.new(shape: AttributeValue, location_name: "description"))
     ImageAttribute.add_member(:kernel_id, Shapes::ShapeRef.new(shape: AttributeValue, location_name: "kernel"))
@@ -23408,6 +23428,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: GetHostReservationPurchasePreviewRequest)
         o.output = Shapes::ShapeRef.new(shape: GetHostReservationPurchasePreviewResult)
+      end)
+
+      api.add_operation(:get_image_ancestry, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetImageAncestry"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetImageAncestryRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetImageAncestryResult)
       end)
 
       api.add_operation(:get_image_block_public_access_state, Seahorse::Model::Operation.new.tap do |o|

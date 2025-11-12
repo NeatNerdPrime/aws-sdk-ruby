@@ -820,7 +820,7 @@ module Aws::ElasticLoadBalancingV2
     #     ],
     #     default_actions: [ # required
     #       {
-    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response
+    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response, jwt-validation
     #         target_group_arn: "TargetGroupArn",
     #         authenticate_oidc_config: {
     #           issuer: "AuthenticateOidcActionIssuer", # required
@@ -876,6 +876,17 @@ module Aws::ElasticLoadBalancingV2
     #             duration_seconds: 1,
     #           },
     #         },
+    #         jwt_validation_config: {
+    #           jwks_endpoint: "JwtValidationActionJwksEndpoint", # required
+    #           issuer: "JwtValidationActionIssuer", # required
+    #           additional_claims: [
+    #             {
+    #               format: "single-string", # required, accepts single-string, string-array, space-separated-values
+    #               name: "JwtValidationActionAdditionalClaimName", # required
+    #               values: ["JwtValidationActionAdditionalClaimValue"], # required
+    #             },
+    #           ],
+    #         },
     #       },
     #     ],
     #     alpn_policy: ["AlpnPolicyValue"],
@@ -906,7 +917,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
     #   resp.listeners[0].ssl_policy #=> String
     #   resp.listeners[0].default_actions #=> Array
-    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.listeners[0].default_actions[0].target_group_arn #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -945,6 +956,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].default_actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.issuer #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.listeners[0].alpn_policy #=> Array
     #   resp.listeners[0].alpn_policy[0] #=> String
     #   resp.listeners[0].mutual_authentication.mode #=> String
@@ -1386,7 +1404,7 @@ module Aws::ElasticLoadBalancingV2
     #     priority: 1, # required
     #     actions: [ # required
     #       {
-    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response
+    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response, jwt-validation
     #         target_group_arn: "TargetGroupArn",
     #         authenticate_oidc_config: {
     #           issuer: "AuthenticateOidcActionIssuer", # required
@@ -1441,6 +1459,17 @@ module Aws::ElasticLoadBalancingV2
     #             enabled: false,
     #             duration_seconds: 1,
     #           },
+    #         },
+    #         jwt_validation_config: {
+    #           jwks_endpoint: "JwtValidationActionJwksEndpoint", # required
+    #           issuer: "JwtValidationActionIssuer", # required
+    #           additional_claims: [
+    #             {
+    #               format: "single-string", # required, accepts single-string, string-array, space-separated-values
+    #               name: "JwtValidationActionAdditionalClaimName", # required
+    #               values: ["JwtValidationActionAdditionalClaimValue"], # required
+    #             },
+    #           ],
     #         },
     #       },
     #     ],
@@ -1505,7 +1534,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].conditions[0].regex_values #=> Array
     #   resp.rules[0].conditions[0].regex_values[0] #=> String
     #   resp.rules[0].actions #=> Array
-    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.rules[0].actions[0].target_group_arn #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -1544,6 +1573,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.rules[0].actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.issuer #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.rules[0].is_default #=> Boolean
     #   resp.rules[0].transforms #=> Array
     #   resp.rules[0].transforms[0].type #=> String, one of "host-header-rewrite", "url-rewrite"
@@ -2423,7 +2459,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
     #   resp.listeners[0].ssl_policy #=> String
     #   resp.listeners[0].default_actions #=> Array
-    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.listeners[0].default_actions[0].target_group_arn #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -2462,6 +2498,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].default_actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.issuer #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.listeners[0].alpn_policy #=> Array
     #   resp.listeners[0].alpn_policy[0] #=> String
     #   resp.listeners[0].mutual_authentication.mode #=> String
@@ -2686,7 +2729,7 @@ module Aws::ElasticLoadBalancingV2
     end
 
     # Describes the specified rules or the rules for the specified listener.
-    # You must specify either a listener or one or more rules.
+    # You must specify either a listener or rules.
     #
     # @option params [String] :listener_arn
     #   The Amazon Resource Name (ARN) of the listener.
@@ -2785,7 +2828,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].conditions[0].regex_values #=> Array
     #   resp.rules[0].conditions[0].regex_values[0] #=> String
     #   resp.rules[0].actions #=> Array
-    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.rules[0].actions[0].target_group_arn #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -2824,6 +2867,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.rules[0].actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.issuer #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.rules[0].is_default #=> Boolean
     #   resp.rules[0].transforms #=> Array
     #   resp.rules[0].transforms[0].type #=> String, one of "host-header-rewrite", "url-rewrite"
@@ -3887,7 +3937,7 @@ module Aws::ElasticLoadBalancingV2
     #     ],
     #     default_actions: [
     #       {
-    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response
+    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response, jwt-validation
     #         target_group_arn: "TargetGroupArn",
     #         authenticate_oidc_config: {
     #           issuer: "AuthenticateOidcActionIssuer", # required
@@ -3943,6 +3993,17 @@ module Aws::ElasticLoadBalancingV2
     #             duration_seconds: 1,
     #           },
     #         },
+    #         jwt_validation_config: {
+    #           jwks_endpoint: "JwtValidationActionJwksEndpoint", # required
+    #           issuer: "JwtValidationActionIssuer", # required
+    #           additional_claims: [
+    #             {
+    #               format: "single-string", # required, accepts single-string, string-array, space-separated-values
+    #               name: "JwtValidationActionAdditionalClaimName", # required
+    #               values: ["JwtValidationActionAdditionalClaimValue"], # required
+    #             },
+    #           ],
+    #         },
     #       },
     #     ],
     #     alpn_policy: ["AlpnPolicyValue"],
@@ -3967,7 +4028,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
     #   resp.listeners[0].ssl_policy #=> String
     #   resp.listeners[0].default_actions #=> Array
-    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.listeners[0].default_actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.listeners[0].default_actions[0].target_group_arn #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.listeners[0].default_actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -4006,6 +4067,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].default_actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.listeners[0].default_actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.issuer #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.listeners[0].default_actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.listeners[0].alpn_policy #=> Array
     #   resp.listeners[0].alpn_policy[0] #=> String
     #   resp.listeners[0].mutual_authentication.mode #=> String
@@ -4348,7 +4416,7 @@ module Aws::ElasticLoadBalancingV2
     #     ],
     #     actions: [
     #       {
-    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response
+    #         type: "forward", # required, accepts forward, authenticate-oidc, authenticate-cognito, redirect, fixed-response, jwt-validation
     #         target_group_arn: "TargetGroupArn",
     #         authenticate_oidc_config: {
     #           issuer: "AuthenticateOidcActionIssuer", # required
@@ -4403,6 +4471,17 @@ module Aws::ElasticLoadBalancingV2
     #             enabled: false,
     #             duration_seconds: 1,
     #           },
+    #         },
+    #         jwt_validation_config: {
+    #           jwks_endpoint: "JwtValidationActionJwksEndpoint", # required
+    #           issuer: "JwtValidationActionIssuer", # required
+    #           additional_claims: [
+    #             {
+    #               format: "single-string", # required, accepts single-string, string-array, space-separated-values
+    #               name: "JwtValidationActionAdditionalClaimName", # required
+    #               values: ["JwtValidationActionAdditionalClaimValue"], # required
+    #             },
+    #           ],
     #         },
     #       },
     #     ],
@@ -4462,7 +4541,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].conditions[0].regex_values #=> Array
     #   resp.rules[0].conditions[0].regex_values[0] #=> String
     #   resp.rules[0].actions #=> Array
-    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.rules[0].actions[0].target_group_arn #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -4501,6 +4580,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.rules[0].actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.issuer #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.rules[0].is_default #=> Boolean
     #   resp.rules[0].transforms #=> Array
     #   resp.rules[0].transforms[0].type #=> String, one of "host-header-rewrite", "url-rewrite"
@@ -5130,7 +5216,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].conditions[0].regex_values #=> Array
     #   resp.rules[0].conditions[0].regex_values[0] #=> String
     #   resp.rules[0].actions #=> Array
-    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response"
+    #   resp.rules[0].actions[0].type #=> String, one of "forward", "authenticate-oidc", "authenticate-cognito", "redirect", "fixed-response", "jwt-validation"
     #   resp.rules[0].actions[0].target_group_arn #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.issuer #=> String
     #   resp.rules[0].actions[0].authenticate_oidc_config.authorization_endpoint #=> String
@@ -5169,6 +5255,13 @@ module Aws::ElasticLoadBalancingV2
     #   resp.rules[0].actions[0].forward_config.target_groups[0].weight #=> Integer
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.enabled #=> Boolean
     #   resp.rules[0].actions[0].forward_config.target_group_stickiness_config.duration_seconds #=> Integer
+    #   resp.rules[0].actions[0].jwt_validation_config.jwks_endpoint #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.issuer #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].format #=> String, one of "single-string", "string-array", "space-separated-values"
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].name #=> String
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values #=> Array
+    #   resp.rules[0].actions[0].jwt_validation_config.additional_claims[0].values[0] #=> String
     #   resp.rules[0].is_default #=> Boolean
     #   resp.rules[0].transforms #=> Array
     #   resp.rules[0].transforms[0].type #=> String, one of "host-header-rewrite", "url-rewrite"
@@ -5207,7 +5300,8 @@ module Aws::ElasticLoadBalancingV2
     # @option params [String] :enforce_security_group_inbound_rules_on_private_link_traffic
     #   Indicates whether to evaluate inbound security group rules for traffic
     #   sent to a Network Load Balancer through Amazon Web Services
-    #   PrivateLink. The default is `on`.
+    #   PrivateLink. Applies only if the load balancer has an associated
+    #   security group. The default is `on`.
     #
     # @return [Types::SetSecurityGroupsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -5421,7 +5515,7 @@ module Aws::ElasticLoadBalancingV2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-elasticloadbalancingv2'
-      context[:gem_version] = '1.141.0'
+      context[:gem_version] = '1.142.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

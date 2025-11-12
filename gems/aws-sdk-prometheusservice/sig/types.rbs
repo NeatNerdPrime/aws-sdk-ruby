@@ -741,10 +741,13 @@ module Aws::PrometheusService
 
     class Source
       attr_accessor eks_configuration: Types::EksConfiguration
+      attr_accessor vpc_configuration: Types::VpcConfiguration
       attr_accessor unknown: untyped
       SENSITIVE: []
 
       class EksConfiguration < Source
+      end
+      class VpcConfiguration < Source
       end
       class Unknown < Source
       end
@@ -860,6 +863,12 @@ module Aws::PrometheusService
     class ValidationExceptionField
       attr_accessor name: ::String
       attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class VpcConfiguration
+      attr_accessor security_group_ids: ::Array[::String]
+      attr_accessor subnet_ids: ::Array[::String]
       SENSITIVE: []
     end
 

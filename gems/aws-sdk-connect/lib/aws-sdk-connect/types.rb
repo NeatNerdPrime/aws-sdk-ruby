@@ -1802,6 +1802,15 @@ module Aws::Connect
     #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts
     #   @return [Integer]
     #
+    # @!attribute [rw] session_inactivity_duration
+    #   The period, in minutes, before an agent is automatically signed out
+    #   of the contact center when they go inactive.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] session_inactivity_handling_enabled
+    #   Determines if automatic logout on user inactivity is enabled.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/AuthenticationProfile AWS API Documentation
     #
     class AuthenticationProfile < Struct.new(
@@ -1816,7 +1825,9 @@ module Aws::Connect
       :last_modified_time,
       :last_modified_region,
       :periodic_session_duration,
-      :max_session_duration)
+      :max_session_duration,
+      :session_inactivity_duration,
+      :session_inactivity_handling_enabled)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -27178,6 +27189,15 @@ module Aws::Connect
     #   [1]: https://docs.aws.amazon.com/connect/latest/adminguide/authentication-profiles.html#configure-session-timeouts
     #   @return [Integer]
     #
+    # @!attribute [rw] session_inactivity_duration
+    #   The period, in minutes, before an agent is automatically signed out
+    #   of the contact center when they go inactive.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] session_inactivity_handling_enabled
+    #   Determines if automatic logout on user inactivity is enabled.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/UpdateAuthenticationProfileRequest AWS API Documentation
     #
     class UpdateAuthenticationProfileRequest < Struct.new(
@@ -27187,7 +27207,9 @@ module Aws::Connect
       :description,
       :allowed_ips,
       :blocked_ips,
-      :periodic_session_duration)
+      :periodic_session_duration,
+      :session_inactivity_duration,
+      :session_inactivity_handling_enabled)
       SENSITIVE = []
       include Aws::Structure
     end

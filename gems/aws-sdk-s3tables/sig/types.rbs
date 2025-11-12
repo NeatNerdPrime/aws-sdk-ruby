@@ -75,6 +75,11 @@ module Aws::S3Tables
       SENSITIVE: []
     end
 
+    class DeleteTableBucketMetricsConfigurationRequest
+      attr_accessor table_bucket_arn: ::String
+      SENSITIVE: []
+    end
+
     class DeleteTableBucketPolicyRequest
       attr_accessor table_bucket_arn: ::String
       SENSITIVE: []
@@ -145,6 +150,17 @@ module Aws::S3Tables
     class GetTableBucketMaintenanceConfigurationResponse
       attr_accessor table_bucket_arn: ::String
       attr_accessor configuration: ::Hash[("icebergUnreferencedFileRemoval"), Types::TableBucketMaintenanceConfigurationValue]
+      SENSITIVE: []
+    end
+
+    class GetTableBucketMetricsConfigurationRequest
+      attr_accessor table_bucket_arn: ::String
+      SENSITIVE: []
+    end
+
+    class GetTableBucketMetricsConfigurationResponse
+      attr_accessor table_bucket_arn: ::String
+      attr_accessor id: ::String
       SENSITIVE: []
     end
 
@@ -376,6 +392,11 @@ module Aws::S3Tables
       attr_accessor table_bucket_arn: ::String
       attr_accessor type: ("icebergUnreferencedFileRemoval")
       attr_accessor value: Types::TableBucketMaintenanceConfigurationValue
+      SENSITIVE: []
+    end
+
+    class PutTableBucketMetricsConfigurationRequest
+      attr_accessor table_bucket_arn: ::String
       SENSITIVE: []
     end
 

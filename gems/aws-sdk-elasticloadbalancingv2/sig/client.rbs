@@ -145,7 +145,7 @@ module Aws
                              ],
                              default_actions: Array[
                                {
-                                 type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response"),
+                                 type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response" | "jwt-validation"),
                                  target_group_arn: ::String?,
                                  authenticate_oidc_config: {
                                    issuer: ::String,
@@ -196,6 +196,17 @@ module Aws
                                      enabled: bool?,
                                      duration_seconds: ::Integer?
                                    }?
+                                 }?,
+                                 jwt_validation_config: {
+                                   jwks_endpoint: ::String,
+                                   issuer: ::String,
+                                   additional_claims: Array[
+                                     {
+                                       format: ("single-string" | "string-array" | "space-separated-values"),
+                                       name: ::String,
+                                       values: Array[::String]
+                                     },
+                                   ]?
                                  }?
                                },
                              ],
@@ -295,7 +306,7 @@ module Aws
                          priority: ::Integer,
                          actions: Array[
                            {
-                             type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response"),
+                             type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response" | "jwt-validation"),
                              target_group_arn: ::String?,
                              authenticate_oidc_config: {
                                issuer: ::String,
@@ -346,6 +357,17 @@ module Aws
                                  enabled: bool?,
                                  duration_seconds: ::Integer?
                                }?
+                             }?,
+                             jwt_validation_config: {
+                               jwks_endpoint: ::String,
+                               issuer: ::String,
+                               additional_claims: Array[
+                                 {
+                                   format: ("single-string" | "string-array" | "space-separated-values"),
+                                   name: ::String,
+                                   values: Array[::String]
+                                 },
+                               ]?
                              }?
                            },
                          ],
@@ -791,7 +813,7 @@ module Aws
                              ],
                              ?default_actions: Array[
                                {
-                                 type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response"),
+                                 type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response" | "jwt-validation"),
                                  target_group_arn: ::String?,
                                  authenticate_oidc_config: {
                                    issuer: ::String,
@@ -842,6 +864,17 @@ module Aws
                                      enabled: bool?,
                                      duration_seconds: ::Integer?
                                    }?
+                                 }?,
+                                 jwt_validation_config: {
+                                   jwks_endpoint: ::String,
+                                   issuer: ::String,
+                                   additional_claims: Array[
+                                     {
+                                       format: ("single-string" | "string-array" | "space-separated-values"),
+                                       name: ::String,
+                                       values: Array[::String]
+                                     },
+                                   ]?
                                  }?
                                },
                              ],
@@ -931,7 +964,7 @@ module Aws
                          ],
                          ?actions: Array[
                            {
-                             type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response"),
+                             type: ("forward" | "authenticate-oidc" | "authenticate-cognito" | "redirect" | "fixed-response" | "jwt-validation"),
                              target_group_arn: ::String?,
                              authenticate_oidc_config: {
                                issuer: ::String,
@@ -982,6 +1015,17 @@ module Aws
                                  enabled: bool?,
                                  duration_seconds: ::Integer?
                                }?
+                             }?,
+                             jwt_validation_config: {
+                               jwks_endpoint: ::String,
+                               issuer: ::String,
+                               additional_claims: Array[
+                                 {
+                                   format: ("single-string" | "string-array" | "space-separated-values"),
+                                   name: ::String,
+                                   values: Array[::String]
+                                 },
+                               ]?
                              }?
                            },
                          ],
