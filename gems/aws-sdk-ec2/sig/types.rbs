@@ -10795,10 +10795,10 @@ module Aws::EC2
       attr_accessor local_storage_types: ::Array[("hdd" | "ssd")]
       attr_accessor total_local_storage_gb: Types::TotalLocalStorageGB
       attr_accessor baseline_ebs_bandwidth_mbps: Types::BaselineEbsBandwidthMbps
-      attr_accessor accelerator_types: ::Array[("gpu" | "fpga" | "inference")]
+      attr_accessor accelerator_types: ::Array[("gpu" | "fpga" | "inference" | "media")]
       attr_accessor accelerator_count: Types::AcceleratorCount
       attr_accessor accelerator_manufacturers: ::Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]
-      attr_accessor accelerator_names: ::Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]
+      attr_accessor accelerator_names: ::Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]
       attr_accessor accelerator_total_memory_mi_b: Types::AcceleratorTotalMemoryMiB
       attr_accessor network_bandwidth_gbps: Types::NetworkBandwidthGbps
       attr_accessor allowed_instance_types: ::Array[::String]
@@ -10825,10 +10825,10 @@ module Aws::EC2
       attr_accessor local_storage_types: ::Array[("hdd" | "ssd")]
       attr_accessor total_local_storage_gb: Types::TotalLocalStorageGBRequest
       attr_accessor baseline_ebs_bandwidth_mbps: Types::BaselineEbsBandwidthMbpsRequest
-      attr_accessor accelerator_types: ::Array[("gpu" | "fpga" | "inference")]
+      attr_accessor accelerator_types: ::Array[("gpu" | "fpga" | "inference" | "media")]
       attr_accessor accelerator_count: Types::AcceleratorCountRequest
       attr_accessor accelerator_manufacturers: ::Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]
-      attr_accessor accelerator_names: ::Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]
+      attr_accessor accelerator_names: ::Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]
       attr_accessor accelerator_total_memory_mi_b: Types::AcceleratorTotalMemoryMiBRequest
       attr_accessor network_bandwidth_gbps: Types::NetworkBandwidthGbpsRequest
       attr_accessor allowed_instance_types: ::Array[::String]

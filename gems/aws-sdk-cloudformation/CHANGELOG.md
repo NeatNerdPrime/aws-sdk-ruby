@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.144.0 (2025-11-13)
+------------------
+
+* Feature - CloudFormation now supports GetHookResult API with annotations to retrieve structured compliance check results and remediation guidance for each evaluated resource, replacing the previous single-message limitation with detailed validation outcomes.
+
 1.143.0 (2025-10-22)
 ------------------
 

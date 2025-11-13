@@ -3808,10 +3808,18 @@ module Aws
                                 tier: ::String,
                                 ?application_config: {
                                   admin_users: Array[::String]?,
-                                  arguments: Hash[::String, ::String]?
+                                  arguments: Hash[::String, ::String]?,
+                                  assigned_group_patterns: Array[::String]?,
+                                  role_group_assignments: Array[
+                                    {
+                                      role_name: ::String,
+                                      group_patterns: Array[::String]
+                                    },
+                                  ]?
                                 },
                                 auth_type: ("IAM"),
                                 ?enable_iam_session_based_identity: bool,
+                                ?enable_auto_minor_version_upgrade: bool,
                                 ?client_token: ::String,
                                 ?tags: Array[
                                   {
@@ -6405,10 +6413,14 @@ module Aws
         def application_config: () -> Types::PartnerAppConfig
         def auth_type: () -> ("IAM")
         def enable_iam_session_based_identity: () -> bool
+        def enable_auto_minor_version_upgrade: () -> bool
+        def current_version_eol_date: () -> ::Time
+        def available_upgrade: () -> Types::AvailableUpgrade
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#describe_partner_app-instance_method
       def describe_partner_app: (
-                                  arn: ::String
+                                  arn: ::String,
+                                  ?include_available_upgrade: bool
                                 ) -> _DescribePartnerAppResponseSuccess
                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribePartnerAppResponseSuccess
 
@@ -10205,9 +10217,18 @@ module Aws
                                 ?tier: ::String,
                                 ?application_config: {
                                   admin_users: Array[::String]?,
-                                  arguments: Hash[::String, ::String]?
+                                  arguments: Hash[::String, ::String]?,
+                                  assigned_group_patterns: Array[::String]?,
+                                  role_group_assignments: Array[
+                                    {
+                                      role_name: ::String,
+                                      group_patterns: Array[::String]
+                                    },
+                                  ]?
                                 },
                                 ?enable_iam_session_based_identity: bool,
+                                ?enable_auto_minor_version_upgrade: bool,
+                                ?app_version: ::String,
                                 ?client_token: ::String,
                                 ?tags: Array[
                                   {

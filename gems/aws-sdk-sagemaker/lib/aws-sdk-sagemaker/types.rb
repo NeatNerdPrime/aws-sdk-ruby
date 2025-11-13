@@ -3080,6 +3080,28 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Contains information about an available upgrade for a SageMaker
+    # Partner AI App, including the version number and release notes.
+    #
+    # @!attribute [rw] version
+    #   The semantic version number of the available upgrade for the
+    #   SageMaker Partner AI App.
+    #   @return [String]
+    #
+    # @!attribute [rw] release_notes
+    #   A list of release notes describing the changes and improvements
+    #   included in the available upgrade version.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AvailableUpgrade AWS API Documentation
+    #
+    class AvailableUpgrade < Struct.new(
+      :version,
+      :release_notes)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Information about an error that occurred during the node addition
     # operation.
     #
@@ -10944,6 +10966,12 @@ module Aws::SageMaker
     #   identity of the SageMaker Partner AI App user.
     #   @return [Boolean]
     #
+    # @!attribute [rw] enable_auto_minor_version_upgrade
+    #   When set to `TRUE`, the SageMaker Partner AI App is automatically
+    #   upgraded to the latest minor version during the next scheduled
+    #   maintenance window, if one is available. Default is `FALSE`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] client_token
     #   A unique token that guarantees that the call to this API is
     #   idempotent.
@@ -10969,6 +10997,7 @@ module Aws::SageMaker
       :application_config,
       :auth_type,
       :enable_iam_session_based_identity,
+      :enable_auto_minor_version_upgrade,
       :client_token,
       :tags)
       SENSITIVE = []
@@ -19410,10 +19439,16 @@ module Aws::SageMaker
     #   The ARN of the SageMaker Partner AI App to describe.
     #   @return [String]
     #
+    # @!attribute [rw] include_available_upgrade
+    #   When set to `TRUE`, the response includes available upgrade
+    #   information for the SageMaker Partner AI App. Default is `FALSE`.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribePartnerAppRequest AWS API Documentation
     #
     class DescribePartnerAppRequest < Struct.new(
-      :arn)
+      :arn,
+      :include_available_upgrade)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -19512,6 +19547,24 @@ module Aws::SageMaker
     #   reason for an operation failure.
     #   @return [Types::ErrorInfo]
     #
+    # @!attribute [rw] enable_auto_minor_version_upgrade
+    #   Indicates whether the SageMaker Partner AI App is configured for
+    #   automatic minor version upgrades during scheduled maintenance
+    #   windows.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] current_version_eol_date
+    #   The end-of-life date for the current version of the SageMaker
+    #   Partner AI App.
+    #   @return [Time]
+    #
+    # @!attribute [rw] available_upgrade
+    #   A map of available minor version upgrades for the SageMaker Partner
+    #   AI App. The key is the semantic version number, and the value is a
+    #   list of release notes for that version. A null value indicates no
+    #   upgrades are available.
+    #   @return [Types::AvailableUpgrade]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribePartnerAppResponse AWS API Documentation
     #
     class DescribePartnerAppResponse < Struct.new(
@@ -19530,7 +19583,10 @@ module Aws::SageMaker
       :application_config,
       :auth_type,
       :enable_iam_session_based_identity,
-      :error)
+      :error,
+      :enable_auto_minor_version_upgrade,
+      :current_version_eol_date,
+      :available_upgrade)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -40245,11 +40301,31 @@ module Aws::SageMaker
     #   value pair that is specific to the user and application.
     #   @return [Hash<String,String>]
     #
+    # @!attribute [rw] assigned_group_patterns
+    #   A list of Amazon Web Services IAM Identity Center group patterns
+    #   that can access the SageMaker Partner AI App. Group names support
+    #   wildcard matching using `*`. An empty list indicates the app will
+    #   not use Identity Center group features. All groups specified in
+    #   `RoleGroupAssignments` must match patterns in this list.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] role_group_assignments
+    #   A map of in-app roles to Amazon Web Services IAM Identity Center
+    #   group patterns. Groups assigned to specific roles receive those
+    #   permissions, while groups in `AssignedGroupPatterns` but not in this
+    #   map receive default in-app role depending on app type. Group
+    #   patterns support wildcard matching using `*`. Currently supported by
+    #   Fiddler version 1.3 and later with roles: `ORG_MEMBER` (default) and
+    #   `ORG_ADMIN`.
+    #   @return [Array<Types::RoleGroupAssignment>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/PartnerAppConfig AWS API Documentation
     #
     class PartnerAppConfig < Struct.new(
       :admin_users,
-      :arguments)
+      :arguments,
+      :assigned_group_patterns,
+      :role_group_assignments)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -44573,6 +44649,30 @@ module Aws::SageMaker
     #
     class RetryStrategy < Struct.new(
       :maximum_retry_attempts)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Defines the mapping between an in-app role and the AWS IAM Identity
+    # Center group patterns that should be assigned to that role within the
+    # SageMaker Partner AI App.
+    #
+    # @!attribute [rw] role_name
+    #   The name of the in-app role within the SageMaker Partner AI App. The
+    #   specific roles available depend on the app type and version.
+    #   @return [String]
+    #
+    # @!attribute [rw] group_patterns
+    #   A list of AWS IAM Identity Center group patterns that should be
+    #   assigned to the specified role. Group patterns support wildcard
+    #   matching using `*`.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/RoleGroupAssignment AWS API Documentation
+    #
+    class RoleGroupAssignment < Struct.new(
+      :role_name,
+      :group_patterns)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -52454,6 +52554,19 @@ module Aws::SageMaker
     #   identity of the SageMaker Partner AI App user.
     #   @return [Boolean]
     #
+    # @!attribute [rw] enable_auto_minor_version_upgrade
+    #   When set to `TRUE`, the SageMaker Partner AI App is automatically
+    #   upgraded to the latest minor version during the next scheduled
+    #   maintenance window, if one is available.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] app_version
+    #   The semantic version to upgrade the SageMaker Partner AI App to.
+    #   Must be the same semantic version returned in the `AvailableUpgrade`
+    #   field from `DescribePartnerApp`. Version skipping and downgrades are
+    #   not supported.
+    #   @return [String]
+    #
     # @!attribute [rw] client_token
     #   A unique token that guarantees that the call to this API is
     #   idempotent.
@@ -52475,6 +52588,8 @@ module Aws::SageMaker
       :tier,
       :application_config,
       :enable_iam_session_based_identity,
+      :enable_auto_minor_version_upgrade,
+      :app_version,
       :client_token,
       :tags)
       SENSITIVE = []

@@ -395,7 +395,7 @@ module Aws::RDS
       attr_accessor performance_insights_kms_key_id: ::String
       attr_accessor performance_insights_retention_period: ::Integer
       attr_accessor enable_limitless_database: bool
-      attr_accessor cluster_scalability_type: ("standard" | "limitless" | "scaleout")
+      attr_accessor cluster_scalability_type: ("standard" | "limitless")
       attr_accessor db_system_id: ::String
       attr_accessor manage_master_user_password: bool
       attr_accessor enable_local_write_forwarding: bool
@@ -845,7 +845,7 @@ module Aws::RDS
       attr_accessor local_write_forwarding_status: ("enabled" | "disabled" | "enabling" | "disabling" | "requested")
       attr_accessor aws_backup_recovery_point_arn: ::String
       attr_accessor limitless_database: Types::LimitlessDatabase
-      attr_accessor cluster_scalability_type: ("standard" | "limitless" | "scaleout")
+      attr_accessor cluster_scalability_type: ("standard" | "limitless")
       attr_accessor certificate_details: Types::CertificateDetails
       attr_accessor engine_lifecycle_support: ::String
       SENSITIVE: []

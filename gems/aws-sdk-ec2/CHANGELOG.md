@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.576.0 (2025-11-13)
+------------------
+
+* Feature - Added support for new accelerator types ("media") and accelerator names ("L4", "L40s", "GAUDI_HL_205", "INFERENTIA2", "TRAINIUM", "TRAINIUM2", "U30") in Attributes Based Instance Type Selection for launched instance types.
+
 1.575.0 (2025-11-12)
 ------------------
 

@@ -48,6 +48,16 @@ module Aws::CloudFormation
     class AlreadyExistsException < Aws::EmptyStructure
     end
 
+    class Annotation
+      attr_accessor annotation_name: ::String
+      attr_accessor status: ("PASSED" | "FAILED" | "SKIPPED")
+      attr_accessor status_message: ::String
+      attr_accessor remediation_message: ::String
+      attr_accessor remediation_link: ::String
+      attr_accessor severity_level: ("INFORMATIONAL" | "LOW" | "MEDIUM" | "HIGH" | "CRITICAL")
+      SENSITIVE: []
+    end
+
     class AutoDeployment
       attr_accessor enabled: bool
       attr_accessor retain_stacks_on_account_removal: bool
@@ -752,6 +762,28 @@ module Aws::CloudFormation
       SENSITIVE: []
     end
 
+    class GetHookResultInput
+      attr_accessor hook_result_id: ::String
+      SENSITIVE: []
+    end
+
+    class GetHookResultOutput
+      attr_accessor hook_result_id: ::String
+      attr_accessor invocation_point: ("PRE_PROVISION")
+      attr_accessor failure_mode: ("FAIL" | "WARN")
+      attr_accessor type_name: ::String
+      attr_accessor original_type_name: ::String
+      attr_accessor type_version_id: ::String
+      attr_accessor type_configuration_version_id: ::String
+      attr_accessor type_arn: ::String
+      attr_accessor status: ("HOOK_IN_PROGRESS" | "HOOK_COMPLETE_SUCCEEDED" | "HOOK_COMPLETE_FAILED" | "HOOK_FAILED")
+      attr_accessor hook_status_reason: ::String
+      attr_accessor invoked_at: ::Time
+      attr_accessor target: Types::HookTarget
+      attr_accessor annotations: ::Array[Types::Annotation]
+      SENSITIVE: []
+    end
+
     class GetStackPolicyInput
       attr_accessor stack_name: ::String
       SENSITIVE: []
@@ -816,6 +848,14 @@ module Aws::CloudFormation
       attr_accessor target_id: ::String
       attr_accessor type_arn: ::String
       attr_accessor hook_execution_target: ::String
+      SENSITIVE: []
+    end
+
+    class HookTarget
+      attr_accessor target_type: ("RESOURCE")
+      attr_accessor target_type_name: ::String
+      attr_accessor target_id: ::String
+      attr_accessor action: ("CREATE" | "UPDATE" | "DELETE" | "IMPORT")
       SENSITIVE: []
     end
 

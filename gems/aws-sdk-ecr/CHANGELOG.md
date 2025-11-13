@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.113.0 (2025-11-13)
+------------------
+
+* Feature - Add Amazon ECR FIPS PrivateLink endpoint support
+
 1.112.0 (2025-10-23)
 ------------------
 

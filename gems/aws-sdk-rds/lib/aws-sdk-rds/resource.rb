@@ -107,7 +107,7 @@ module Aws::RDS
     #     performance_insights_kms_key_id: "String",
     #     performance_insights_retention_period: 1,
     #     enable_limitless_database: false,
-    #     cluster_scalability_type: "standard", # accepts standard, limitless, scaleout
+    #     cluster_scalability_type: "standard", # accepts standard, limitless
     #     db_system_id: "String",
     #     manage_master_user_password: false,
     #     enable_local_write_forwarding: false,

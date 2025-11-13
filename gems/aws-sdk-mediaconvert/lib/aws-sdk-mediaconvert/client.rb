@@ -972,12 +972,15 @@ module Aws::MediaConvert
     #           audio_group_id: "__string",
     #           audio_rendition_sets: "__string",
     #           audio_track_type: "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", # accepts ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT, ALTERNATE_AUDIO_AUTO_SELECT, ALTERNATE_AUDIO_NOT_AUTO_SELECT, AUDIO_ONLY_VARIANT_STREAM
+    #           c2pa_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
+    #           certificate_secret: "__stringMin1Max2048PatternArnAZSecretsmanagerWD12SecretAZAZ09",
     #           descriptive_video_service_flag: "DONT_FLAG", # accepts DONT_FLAG, FLAG
     #           i_frame_only_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           klv_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           manifest_metadata_signaling: "ENABLED", # accepts ENABLED, DISABLED
     #           scte_35_esam: "INSERT", # accepts INSERT, NONE
     #           scte_35_source: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
+    #           signing_kms_key: "__stringMin1PatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932",
     #           timed_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           timed_metadata_box_version: "VERSION_0", # accepts VERSION_0, VERSION_1
     #           timed_metadata_scheme_id_uri: "__stringMax1000",
@@ -1090,11 +1093,14 @@ module Aws::MediaConvert
     #         mpd_settings: {
     #           accessibility_caption_hints: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           audio_duration: "DEFAULT_CODEC_DURATION", # accepts DEFAULT_CODEC_DURATION, MATCH_VIDEO_DURATION
+    #           c2pa_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           caption_container_type: "RAW", # accepts RAW, FRAGMENTED_MP4
+    #           certificate_secret: "__stringMin1Max2048PatternArnAZSecretsmanagerWD12SecretAZAZ09",
     #           klv_metadata: "NONE", # accepts NONE, PASSTHROUGH
     #           manifest_metadata_signaling: "ENABLED", # accepts ENABLED, DISABLED
     #           scte_35_esam: "INSERT", # accepts INSERT, NONE
     #           scte_35_source: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
+    #           signing_kms_key: "__stringMin1PatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932",
     #           timed_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           timed_metadata_box_version: "VERSION_0", # accepts VERSION_0, VERSION_1
     #           timed_metadata_scheme_id_uri: "__stringMax1000",
@@ -1308,6 +1314,7 @@ module Aws::MediaConvert
     #             temporal_adaptive_quantization: "DISABLED", # accepts DISABLED, ENABLED
     #           },
     #           passthrough_settings: {
+    #             frame_control: "NEAREST_IDRFRAME", # accepts NEAREST_IDRFRAME, NEAREST_IFRAME
     #             video_selector_mode: "AUTO", # accepts AUTO, REMUX_ALL
     #           },
     #           prores_settings: {
@@ -1752,12 +1759,15 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.cmfc_settings.audio_group_id #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_rendition_sets #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_track_type #=> String, one of "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", "ALTERNATE_AUDIO_AUTO_SELECT", "ALTERNATE_AUDIO_NOT_AUTO_SELECT", "AUDIO_ONLY_VARIANT_STREAM"
+    #   resp.preset.settings.container_settings.cmfc_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
+    #   resp.preset.settings.container_settings.cmfc_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.descriptive_video_service_flag #=> String, one of "DONT_FLAG", "FLAG"
     #   resp.preset.settings.container_settings.cmfc_settings.i_frame_only_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.cmfc_settings.klv_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.cmfc_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_scheme_id_uri #=> String
@@ -1853,11 +1863,14 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.mp_4_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.accessibility_caption_hints #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.audio_duration #=> String, one of "DEFAULT_CODEC_DURATION", "MATCH_VIDEO_DURATION"
+    #   resp.preset.settings.container_settings.mpd_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.caption_container_type #=> String, one of "RAW", "FRAGMENTED_MP4"
+    #   resp.preset.settings.container_settings.mpd_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.mpd_settings.klv_metadata #=> String, one of "NONE", "PASSTHROUGH"
     #   resp.preset.settings.container_settings.mpd_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.mpd_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_scheme_id_uri #=> String
@@ -2041,6 +2054,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.frame_control #=> String, one of "NEAREST_IDRFRAME", "NEAREST_IFRAME"
     #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
@@ -2814,12 +2828,15 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.cmfc_settings.audio_group_id #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_rendition_sets #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_track_type #=> String, one of "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", "ALTERNATE_AUDIO_AUTO_SELECT", "ALTERNATE_AUDIO_NOT_AUTO_SELECT", "AUDIO_ONLY_VARIANT_STREAM"
+    #   resp.preset.settings.container_settings.cmfc_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
+    #   resp.preset.settings.container_settings.cmfc_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.descriptive_video_service_flag #=> String, one of "DONT_FLAG", "FLAG"
     #   resp.preset.settings.container_settings.cmfc_settings.i_frame_only_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.cmfc_settings.klv_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.cmfc_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_scheme_id_uri #=> String
@@ -2915,11 +2932,14 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.mp_4_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.accessibility_caption_hints #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.audio_duration #=> String, one of "DEFAULT_CODEC_DURATION", "MATCH_VIDEO_DURATION"
+    #   resp.preset.settings.container_settings.mpd_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.caption_container_type #=> String, one of "RAW", "FRAGMENTED_MP4"
+    #   resp.preset.settings.container_settings.mpd_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.mpd_settings.klv_metadata #=> String, one of "NONE", "PASSTHROUGH"
     #   resp.preset.settings.container_settings.mpd_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.mpd_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_scheme_id_uri #=> String
@@ -3103,6 +3123,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.frame_control #=> String, one of "NEAREST_IDRFRAME", "NEAREST_IFRAME"
     #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
@@ -3690,12 +3711,15 @@ module Aws::MediaConvert
     #   resp.presets[0].settings.container_settings.cmfc_settings.audio_group_id #=> String
     #   resp.presets[0].settings.container_settings.cmfc_settings.audio_rendition_sets #=> String
     #   resp.presets[0].settings.container_settings.cmfc_settings.audio_track_type #=> String, one of "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", "ALTERNATE_AUDIO_AUTO_SELECT", "ALTERNATE_AUDIO_NOT_AUTO_SELECT", "AUDIO_ONLY_VARIANT_STREAM"
+    #   resp.presets[0].settings.container_settings.cmfc_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
+    #   resp.presets[0].settings.container_settings.cmfc_settings.certificate_secret #=> String
     #   resp.presets[0].settings.container_settings.cmfc_settings.descriptive_video_service_flag #=> String, one of "DONT_FLAG", "FLAG"
     #   resp.presets[0].settings.container_settings.cmfc_settings.i_frame_only_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.presets[0].settings.container_settings.cmfc_settings.klv_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.presets[0].settings.container_settings.cmfc_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.presets[0].settings.container_settings.cmfc_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.presets[0].settings.container_settings.cmfc_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.presets[0].settings.container_settings.cmfc_settings.signing_kms_key #=> String
     #   resp.presets[0].settings.container_settings.cmfc_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.presets[0].settings.container_settings.cmfc_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.presets[0].settings.container_settings.cmfc_settings.timed_metadata_scheme_id_uri #=> String
@@ -3791,11 +3815,14 @@ module Aws::MediaConvert
     #   resp.presets[0].settings.container_settings.mp_4_settings.signing_kms_key #=> String
     #   resp.presets[0].settings.container_settings.mpd_settings.accessibility_caption_hints #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.presets[0].settings.container_settings.mpd_settings.audio_duration #=> String, one of "DEFAULT_CODEC_DURATION", "MATCH_VIDEO_DURATION"
+    #   resp.presets[0].settings.container_settings.mpd_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.presets[0].settings.container_settings.mpd_settings.caption_container_type #=> String, one of "RAW", "FRAGMENTED_MP4"
+    #   resp.presets[0].settings.container_settings.mpd_settings.certificate_secret #=> String
     #   resp.presets[0].settings.container_settings.mpd_settings.klv_metadata #=> String, one of "NONE", "PASSTHROUGH"
     #   resp.presets[0].settings.container_settings.mpd_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.presets[0].settings.container_settings.mpd_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.presets[0].settings.container_settings.mpd_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.presets[0].settings.container_settings.mpd_settings.signing_kms_key #=> String
     #   resp.presets[0].settings.container_settings.mpd_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.presets[0].settings.container_settings.mpd_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.presets[0].settings.container_settings.mpd_settings.timed_metadata_scheme_id_uri #=> String
@@ -3979,6 +4006,7 @@ module Aws::MediaConvert
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.presets[0].settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.presets[0].settings.video_description.codec_settings.passthrough_settings.frame_control #=> String, one of "NEAREST_IDRFRAME", "NEAREST_IFRAME"
     #   resp.presets[0].settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.presets[0].settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.presets[0].settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
@@ -4940,12 +4968,15 @@ module Aws::MediaConvert
     #           audio_group_id: "__string",
     #           audio_rendition_sets: "__string",
     #           audio_track_type: "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", # accepts ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT, ALTERNATE_AUDIO_AUTO_SELECT, ALTERNATE_AUDIO_NOT_AUTO_SELECT, AUDIO_ONLY_VARIANT_STREAM
+    #           c2pa_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
+    #           certificate_secret: "__stringMin1Max2048PatternArnAZSecretsmanagerWD12SecretAZAZ09",
     #           descriptive_video_service_flag: "DONT_FLAG", # accepts DONT_FLAG, FLAG
     #           i_frame_only_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           klv_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           manifest_metadata_signaling: "ENABLED", # accepts ENABLED, DISABLED
     #           scte_35_esam: "INSERT", # accepts INSERT, NONE
     #           scte_35_source: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
+    #           signing_kms_key: "__stringMin1PatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932",
     #           timed_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           timed_metadata_box_version: "VERSION_0", # accepts VERSION_0, VERSION_1
     #           timed_metadata_scheme_id_uri: "__stringMax1000",
@@ -5058,11 +5089,14 @@ module Aws::MediaConvert
     #         mpd_settings: {
     #           accessibility_caption_hints: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           audio_duration: "DEFAULT_CODEC_DURATION", # accepts DEFAULT_CODEC_DURATION, MATCH_VIDEO_DURATION
+    #           c2pa_manifest: "INCLUDE", # accepts INCLUDE, EXCLUDE
     #           caption_container_type: "RAW", # accepts RAW, FRAGMENTED_MP4
+    #           certificate_secret: "__stringMin1Max2048PatternArnAZSecretsmanagerWD12SecretAZAZ09",
     #           klv_metadata: "NONE", # accepts NONE, PASSTHROUGH
     #           manifest_metadata_signaling: "ENABLED", # accepts ENABLED, DISABLED
     #           scte_35_esam: "INSERT", # accepts INSERT, NONE
     #           scte_35_source: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
+    #           signing_kms_key: "__stringMin1PatternArnAwsUsGovCnKmsAZ26EastWestCentralNorthSouthEastWest1912D12KeyAFAF098AFAF094AFAF094AFAF094AFAF0912MrkAFAF0932",
     #           timed_metadata: "PASSTHROUGH", # accepts PASSTHROUGH, NONE
     #           timed_metadata_box_version: "VERSION_0", # accepts VERSION_0, VERSION_1
     #           timed_metadata_scheme_id_uri: "__stringMax1000",
@@ -5276,6 +5310,7 @@ module Aws::MediaConvert
     #             temporal_adaptive_quantization: "DISABLED", # accepts DISABLED, ENABLED
     #           },
     #           passthrough_settings: {
+    #             frame_control: "NEAREST_IDRFRAME", # accepts NEAREST_IDRFRAME, NEAREST_IFRAME
     #             video_selector_mode: "AUTO", # accepts AUTO, REMUX_ALL
     #           },
     #           prores_settings: {
@@ -5717,12 +5752,15 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.cmfc_settings.audio_group_id #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_rendition_sets #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.audio_track_type #=> String, one of "ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT", "ALTERNATE_AUDIO_AUTO_SELECT", "ALTERNATE_AUDIO_NOT_AUTO_SELECT", "AUDIO_ONLY_VARIANT_STREAM"
+    #   resp.preset.settings.container_settings.cmfc_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
+    #   resp.preset.settings.container_settings.cmfc_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.descriptive_video_service_flag #=> String, one of "DONT_FLAG", "FLAG"
     #   resp.preset.settings.container_settings.cmfc_settings.i_frame_only_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.cmfc_settings.klv_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.cmfc_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.cmfc_settings.timed_metadata_scheme_id_uri #=> String
@@ -5818,11 +5856,14 @@ module Aws::MediaConvert
     #   resp.preset.settings.container_settings.mp_4_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.accessibility_caption_hints #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.audio_duration #=> String, one of "DEFAULT_CODEC_DURATION", "MATCH_VIDEO_DURATION"
+    #   resp.preset.settings.container_settings.mpd_settings.c2pa_manifest #=> String, one of "INCLUDE", "EXCLUDE"
     #   resp.preset.settings.container_settings.mpd_settings.caption_container_type #=> String, one of "RAW", "FRAGMENTED_MP4"
+    #   resp.preset.settings.container_settings.mpd_settings.certificate_secret #=> String
     #   resp.preset.settings.container_settings.mpd_settings.klv_metadata #=> String, one of "NONE", "PASSTHROUGH"
     #   resp.preset.settings.container_settings.mpd_settings.manifest_metadata_signaling #=> String, one of "ENABLED", "DISABLED"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_esam #=> String, one of "INSERT", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.scte_35_source #=> String, one of "PASSTHROUGH", "NONE"
+    #   resp.preset.settings.container_settings.mpd_settings.signing_kms_key #=> String
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata #=> String, one of "PASSTHROUGH", "NONE"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_box_version #=> String, one of "VERSION_0", "VERSION_1"
     #   resp.preset.settings.container_settings.mpd_settings.timed_metadata_scheme_id_uri #=> String
@@ -6006,6 +6047,7 @@ module Aws::MediaConvert
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.syntax #=> String, one of "DEFAULT", "D_10"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.telecine #=> String, one of "NONE", "SOFT", "HARD"
     #   resp.preset.settings.video_description.codec_settings.mpeg_2_settings.temporal_adaptive_quantization #=> String, one of "DISABLED", "ENABLED"
+    #   resp.preset.settings.video_description.codec_settings.passthrough_settings.frame_control #=> String, one of "NEAREST_IDRFRAME", "NEAREST_IFRAME"
     #   resp.preset.settings.video_description.codec_settings.passthrough_settings.video_selector_mode #=> String, one of "AUTO", "REMUX_ALL"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.chroma_sampling #=> String, one of "PRESERVE_444_SAMPLING", "SUBSAMPLE_TO_422"
     #   resp.preset.settings.video_description.codec_settings.prores_settings.codec_profile #=> String, one of "APPLE_PRORES_422", "APPLE_PRORES_422_HQ", "APPLE_PRORES_422_LT", "APPLE_PRORES_422_PROXY", "APPLE_PRORES_4444", "APPLE_PRORES_4444_XQ"
@@ -6293,7 +6335,7 @@ module Aws::MediaConvert
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-mediaconvert'
-      context[:gem_version] = '1.172.0'
+      context[:gem_version] = '1.173.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

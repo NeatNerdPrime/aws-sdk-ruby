@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.78.0 (2025-11-13)
+------------------
+
+* Feature - Integration of Device Location with Amazon Sidewalk network for Amazon Sidewalk enabled devices
+
 1.77.0 (2025-10-24)
 ------------------
 

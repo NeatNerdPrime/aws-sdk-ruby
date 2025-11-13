@@ -1972,6 +1972,101 @@
         ]
     },
     {
+        "description": "Test cases for HttpQueryParamsOnlyOperation operation",
+        "metadata": {
+            "apiVersion": "2019-12-16",
+            "auth": [
+                "aws.auth#sigv4"
+            ],
+            "endpointPrefix": "restjson",
+            "protocol": "rest-json",
+            "protocols": [
+                "rest-json"
+            ],
+            "serviceFullName": "RestJson",
+            "serviceId": "Rest Json Protocol",
+            "signatureVersion": "v4",
+            "signingName": "RestJson",
+            "uid": "rest-json-protocol-2019-12-16"
+        },
+        "shapes": {
+            "HttpQueryParamsOnlyInput": {
+                "type": "structure",
+                "members": {
+                    "queryMap": {
+                        "shape": "QueryMap",
+                        "location": "querystring"
+                    }
+                }
+            },
+            "QueryMap": {
+                "type": "map",
+                "key": {
+                    "shape": "String"
+                },
+                "value": {
+                    "shape": "String"
+                }
+            },
+            "String": {
+                "type": "string"
+            }
+        },
+        "cases": [
+            {
+                "id": "HttpQueryParamsOnlyRequest",
+                "description": "Test that httpQueryParams are included in request when no other query parameters exist",
+                "given": {
+                    "name": "HttpQueryParamsOnlyOperation",
+                    "http": {
+                        "method": "GET",
+                        "requestUri": "/http-query-params-only",
+                        "responseCode": 200
+                    },
+                    "input": {
+                        "shape": "HttpQueryParamsOnlyInput"
+                    },
+                    "documentation": "<p>This example tests httpQueryParams when no other query parameters exist.</p>",
+                    "readonly": true
+                },
+                "params": {
+                    "queryMap": {
+                        "a": "b",
+                        "c": "d"
+                    }
+                },
+                "serialized": {
+                    "method": "GET",
+                    "uri": "/http-query-params-only?a=b&c=d"
+                }
+            },
+            {
+                "id": "HttpQueryParamsOnlyEmptyRequest",
+                "description": "Test that empty httpQueryParams map results in no query parameters",
+                "given": {
+                    "name": "HttpQueryParamsOnlyOperation",
+                    "http": {
+                        "method": "GET",
+                        "requestUri": "/http-query-params-only",
+                        "responseCode": 200
+                    },
+                    "input": {
+                        "shape": "HttpQueryParamsOnlyInput"
+                    },
+                    "documentation": "<p>This example tests httpQueryParams when no other query parameters exist.</p>",
+                    "readonly": true
+                },
+                "params": {
+                    "queryMap": {}
+                },
+                "serialized": {
+                    "method": "GET",
+                    "uri": "/http-query-params-only"
+                }
+            }
+        ]
+    },
+    {
         "description": "Test cases for HttpRequestWithFloatLabels operation",
         "metadata": {
             "apiVersion": "2019-12-16",

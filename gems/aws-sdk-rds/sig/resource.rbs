@@ -151,7 +151,7 @@ module Aws
                                ?performance_insights_kms_key_id: ::String,
                                ?performance_insights_retention_period: ::Integer,
                                ?enable_limitless_database: bool,
-                               ?cluster_scalability_type: ("standard" | "limitless" | "scaleout"),
+                               ?cluster_scalability_type: ("standard" | "limitless"),
                                ?db_system_id: ::String,
                                ?manage_master_user_password: bool,
                                ?enable_local_write_forwarding: bool,

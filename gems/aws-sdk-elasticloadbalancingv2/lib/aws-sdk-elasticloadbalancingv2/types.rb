@@ -4284,12 +4284,25 @@ module Aws::ElasticLoadBalancingV2
     #   only supported value is `all`.
     #   @return [String]
     #
+    # @!attribute [rw] quic_server_id
+    #   The server ID for the targets. This value is required if the
+    #   protocol is `QUIC` or `TCP_QUIC` and can't be used with other
+    #   protocols.
+    #
+    #   The ID consists of the `0x` prefix followed by 16 hexadecimal
+    #   characters. Any letters must be lowercase. The value must be unique
+    #   at the listener level. You can't modify the server ID for a
+    #   registered target. You must deregister the target and then provide a
+    #   new server ID when you register the target again.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/TargetDescription AWS API Documentation
     #
     class TargetDescription < Struct.new(
       :id,
       :port,
-      :availability_zone)
+      :availability_zone,
+      :quic_server_id)
       SENSITIVE = []
       include Aws::Structure
     end

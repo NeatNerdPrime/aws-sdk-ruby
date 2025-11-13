@@ -33,6 +33,12 @@ module Aws::CloudFormation
     AllowedValue = Shapes::StringShape.new(name: 'AllowedValue')
     AllowedValues = Shapes::ListShape.new(name: 'AllowedValues')
     AlreadyExistsException = Shapes::StructureShape.new(name: 'AlreadyExistsException', error: {"code" => "AlreadyExistsException", "httpStatusCode" => 400, "senderFault" => true})
+    Annotation = Shapes::StructureShape.new(name: 'Annotation')
+    AnnotationList = Shapes::ListShape.new(name: 'AnnotationList')
+    AnnotationName = Shapes::StringShape.new(name: 'AnnotationName')
+    AnnotationRemediationLink = Shapes::StringShape.new(name: 'AnnotationRemediationLink')
+    AnnotationSeverityLevel = Shapes::StringShape.new(name: 'AnnotationSeverityLevel')
+    AnnotationStatus = Shapes::StringShape.new(name: 'AnnotationStatus')
     Arn = Shapes::StringShape.new(name: 'Arn')
     AttributeChangeType = Shapes::StringShape.new(name: 'AttributeChangeType')
     AutoDeployment = Shapes::StructureShape.new(name: 'AutoDeployment')
@@ -193,6 +199,8 @@ module Aws::CloudFormation
     GeneratedTemplateUpdateReplacePolicy = Shapes::StringShape.new(name: 'GeneratedTemplateUpdateReplacePolicy')
     GetGeneratedTemplateInput = Shapes::StructureShape.new(name: 'GetGeneratedTemplateInput')
     GetGeneratedTemplateOutput = Shapes::StructureShape.new(name: 'GetGeneratedTemplateOutput')
+    GetHookResultInput = Shapes::StructureShape.new(name: 'GetHookResultInput')
+    GetHookResultOutput = Shapes::StructureShape.new(name: 'GetHookResultOutput')
     GetStackPolicyInput = Shapes::StructureShape.new(name: 'GetStackPolicyInput')
     GetStackPolicyOutput = Shapes::StructureShape.new(name: 'GetStackPolicyOutput')
     GetTemplateInput = Shapes::StructureShape.new(name: 'GetTemplateInput')
@@ -210,6 +218,9 @@ module Aws::CloudFormation
     HookResultSummary = Shapes::StructureShape.new(name: 'HookResultSummary')
     HookStatus = Shapes::StringShape.new(name: 'HookStatus')
     HookStatusReason = Shapes::StringShape.new(name: 'HookStatusReason')
+    HookTarget = Shapes::StructureShape.new(name: 'HookTarget')
+    HookTargetAction = Shapes::StringShape.new(name: 'HookTargetAction')
+    HookTargetId = Shapes::StringShape.new(name: 'HookTargetId')
     HookTargetType = Shapes::StringShape.new(name: 'HookTargetType')
     HookTargetTypeName = Shapes::StringShape.new(name: 'HookTargetTypeName')
     HookType = Shapes::StringShape.new(name: 'HookType')
@@ -371,6 +382,8 @@ module Aws::CloudFormation
     RegistrationTokenList = Shapes::ListShape.new(name: 'RegistrationTokenList')
     RegistryType = Shapes::StringShape.new(name: 'RegistryType')
     RelatedResources = Shapes::ListShape.new(name: 'RelatedResources')
+    RemediationMessageRemediationMessage = Shapes::StringShape.new(name: 'RemediationMessageRemediationMessage')
+    RemediationMessageStatusMessage = Shapes::StringShape.new(name: 'RemediationMessageStatusMessage')
     Replacement = Shapes::StringShape.new(name: 'Replacement')
     RequestToken = Shapes::StringShape.new(name: 'RequestToken')
     RequiredActivatedType = Shapes::StructureShape.new(name: 'RequiredActivatedType')
@@ -672,6 +685,16 @@ module Aws::CloudFormation
     AllowedValues.member = Shapes::ShapeRef.new(shape: AllowedValue)
 
     AlreadyExistsException.struct_class = Types::AlreadyExistsException
+
+    Annotation.add_member(:annotation_name, Shapes::ShapeRef.new(shape: AnnotationName, location_name: "AnnotationName"))
+    Annotation.add_member(:status, Shapes::ShapeRef.new(shape: AnnotationStatus, location_name: "Status"))
+    Annotation.add_member(:status_message, Shapes::ShapeRef.new(shape: RemediationMessageStatusMessage, location_name: "StatusMessage"))
+    Annotation.add_member(:remediation_message, Shapes::ShapeRef.new(shape: RemediationMessageRemediationMessage, location_name: "RemediationMessage"))
+    Annotation.add_member(:remediation_link, Shapes::ShapeRef.new(shape: AnnotationRemediationLink, location_name: "RemediationLink"))
+    Annotation.add_member(:severity_level, Shapes::ShapeRef.new(shape: AnnotationSeverityLevel, location_name: "SeverityLevel"))
+    Annotation.struct_class = Types::Annotation
+
+    AnnotationList.member = Shapes::ShapeRef.new(shape: Annotation)
 
     AutoDeployment.add_member(:enabled, Shapes::ShapeRef.new(shape: AutoDeploymentNullable, location_name: "Enabled"))
     AutoDeployment.add_member(:retain_stacks_on_account_removal, Shapes::ShapeRef.new(shape: RetainStacksOnAccountRemovalNullable, location_name: "RetainStacksOnAccountRemoval"))
@@ -1026,7 +1049,7 @@ module Aws::CloudFormation
     DescribeStackDriftDetectionStatusOutput.add_member(:timestamp, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "Timestamp"))
     DescribeStackDriftDetectionStatusOutput.struct_class = Types::DescribeStackDriftDetectionStatusOutput
 
-    DescribeStackEventsInput.add_member(:stack_name, Shapes::ShapeRef.new(shape: StackName, location_name: "StackName"))
+    DescribeStackEventsInput.add_member(:stack_name, Shapes::ShapeRef.new(shape: StackName, required: true, location_name: "StackName"))
     DescribeStackEventsInput.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
     DescribeStackEventsInput.struct_class = Types::DescribeStackEventsInput
 
@@ -1209,6 +1232,24 @@ module Aws::CloudFormation
     GetGeneratedTemplateOutput.add_member(:template_body, Shapes::ShapeRef.new(shape: TemplateBody, location_name: "TemplateBody"))
     GetGeneratedTemplateOutput.struct_class = Types::GetGeneratedTemplateOutput
 
+    GetHookResultInput.add_member(:hook_result_id, Shapes::ShapeRef.new(shape: HookInvocationId, location_name: "HookResultId"))
+    GetHookResultInput.struct_class = Types::GetHookResultInput
+
+    GetHookResultOutput.add_member(:hook_result_id, Shapes::ShapeRef.new(shape: HookInvocationId, location_name: "HookResultId"))
+    GetHookResultOutput.add_member(:invocation_point, Shapes::ShapeRef.new(shape: HookInvocationPoint, location_name: "InvocationPoint"))
+    GetHookResultOutput.add_member(:failure_mode, Shapes::ShapeRef.new(shape: HookFailureMode, location_name: "FailureMode"))
+    GetHookResultOutput.add_member(:type_name, Shapes::ShapeRef.new(shape: HookTypeName, location_name: "TypeName"))
+    GetHookResultOutput.add_member(:original_type_name, Shapes::ShapeRef.new(shape: HookTypeName, location_name: "OriginalTypeName"))
+    GetHookResultOutput.add_member(:type_version_id, Shapes::ShapeRef.new(shape: HookTypeVersionId, location_name: "TypeVersionId"))
+    GetHookResultOutput.add_member(:type_configuration_version_id, Shapes::ShapeRef.new(shape: HookTypeConfigurationVersionId, location_name: "TypeConfigurationVersionId"))
+    GetHookResultOutput.add_member(:type_arn, Shapes::ShapeRef.new(shape: HookTypeArn, location_name: "TypeArn"))
+    GetHookResultOutput.add_member(:status, Shapes::ShapeRef.new(shape: HookStatus, location_name: "Status"))
+    GetHookResultOutput.add_member(:hook_status_reason, Shapes::ShapeRef.new(shape: HookStatusReason, location_name: "HookStatusReason"))
+    GetHookResultOutput.add_member(:invoked_at, Shapes::ShapeRef.new(shape: Timestamp, location_name: "InvokedAt"))
+    GetHookResultOutput.add_member(:target, Shapes::ShapeRef.new(shape: HookTarget, location_name: "Target"))
+    GetHookResultOutput.add_member(:annotations, Shapes::ShapeRef.new(shape: AnnotationList, location_name: "Annotations"))
+    GetHookResultOutput.struct_class = Types::GetHookResultOutput
+
     GetStackPolicyInput.add_member(:stack_name, Shapes::ShapeRef.new(shape: StackName, required: true, location_name: "StackName"))
     GetStackPolicyInput.struct_class = Types::GetStackPolicyInput
 
@@ -1262,6 +1303,12 @@ module Aws::CloudFormation
     HookResultSummary.add_member(:type_arn, Shapes::ShapeRef.new(shape: HookTypeArn, location_name: "TypeArn"))
     HookResultSummary.add_member(:hook_execution_target, Shapes::ShapeRef.new(shape: HookResultId, location_name: "HookExecutionTarget"))
     HookResultSummary.struct_class = Types::HookResultSummary
+
+    HookTarget.add_member(:target_type, Shapes::ShapeRef.new(shape: HookTargetType, required: true, location_name: "TargetType"))
+    HookTarget.add_member(:target_type_name, Shapes::ShapeRef.new(shape: HookTargetTypeName, required: true, location_name: "TargetTypeName"))
+    HookTarget.add_member(:target_id, Shapes::ShapeRef.new(shape: HookTargetId, required: true, location_name: "TargetId"))
+    HookTarget.add_member(:action, Shapes::ShapeRef.new(shape: HookTargetAction, required: true, location_name: "Action"))
+    HookTarget.struct_class = Types::HookTarget
 
     ImportStacksToStackSetInput.add_member(:stack_set_name, Shapes::ShapeRef.new(shape: StackSetNameOrId, required: true, location_name: "StackSetName"))
     ImportStacksToStackSetInput.add_member(:stack_ids, Shapes::ShapeRef.new(shape: StackIdList, location_name: "StackIds"))
@@ -2852,6 +2899,15 @@ module Aws::CloudFormation
         o.input = Shapes::ShapeRef.new(shape: GetGeneratedTemplateInput)
         o.output = Shapes::ShapeRef.new(shape: GetGeneratedTemplateOutput)
         o.errors << Shapes::ShapeRef.new(shape: GeneratedTemplateNotFoundException)
+      end)
+
+      api.add_operation(:get_hook_result, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetHookResult"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetHookResultInput)
+        o.output = Shapes::ShapeRef.new(shape: GetHookResultOutput)
+        o.errors << Shapes::ShapeRef.new(shape: HookResultNotFoundException)
       end)
 
       api.add_operation(:get_stack_policy, Seahorse::Model::Operation.new.tap do |o|

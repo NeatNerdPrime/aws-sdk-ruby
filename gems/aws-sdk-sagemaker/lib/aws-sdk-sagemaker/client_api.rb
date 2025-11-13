@@ -94,6 +94,7 @@ module Aws::SageMaker
     ArtifactSummaries = Shapes::ListShape.new(name: 'ArtifactSummaries')
     ArtifactSummary = Shapes::StructureShape.new(name: 'ArtifactSummary')
     AssemblyType = Shapes::StringShape.new(name: 'AssemblyType')
+    AssignedGroupPatternsList = Shapes::ListShape.new(name: 'AssignedGroupPatternsList')
     AssociateTrialComponentRequest = Shapes::StructureShape.new(name: 'AssociateTrialComponentRequest')
     AssociateTrialComponentResponse = Shapes::StructureShape.new(name: 'AssociateTrialComponentResponse')
     AssociationEdgeType = Shapes::StringShape.new(name: 'AssociationEdgeType')
@@ -186,6 +187,7 @@ module Aws::SageMaker
     AvailabilityZone = Shapes::StringShape.new(name: 'AvailabilityZone')
     AvailableInstanceCount = Shapes::IntegerShape.new(name: 'AvailableInstanceCount')
     AvailableSpareInstanceCount = Shapes::IntegerShape.new(name: 'AvailableSpareInstanceCount')
+    AvailableUpgrade = Shapes::StructureShape.new(name: 'AvailableUpgrade')
     AwsManagedHumanLoopRequestSource = Shapes::StringShape.new(name: 'AwsManagedHumanLoopRequestSource')
     BacktestResultsLocation = Shapes::StringShape.new(name: 'BacktestResultsLocation')
     BaseModelName = Shapes::StringShape.new(name: 'BaseModelName')
@@ -1113,6 +1115,8 @@ module Aws::SageMaker
     GitConfigForUpdate = Shapes::StructureShape.new(name: 'GitConfigForUpdate')
     GitConfigUrl = Shapes::StringShape.new(name: 'GitConfigUrl')
     Group = Shapes::StringShape.new(name: 'Group')
+    GroupNamePattern = Shapes::StringShape.new(name: 'GroupNamePattern')
+    GroupPatternsList = Shapes::ListShape.new(name: 'GroupPatternsList')
     GroupingAttributeName = Shapes::StringShape.new(name: 'GroupingAttributeName')
     GroupingAttributeNames = Shapes::ListShape.new(name: 'GroupingAttributeNames')
     Groups = Shapes::ListShape.new(name: 'Groups')
@@ -1565,6 +1569,7 @@ module Aws::SageMaker
     Long = Shapes::IntegerShape.new(name: 'Long')
     LongS3Uri = Shapes::StringShape.new(name: 'LongS3Uri')
     MLFramework = Shapes::StringShape.new(name: 'MLFramework')
+    MajorMinorVersion = Shapes::StringShape.new(name: 'MajorMinorVersion')
     ManagedInstanceScalingMaxInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMaxInstanceCount')
     ManagedInstanceScalingMinInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMinInstanceCount')
     ManagedInstanceScalingStatus = Shapes::StringShape.new(name: 'ManagedInstanceScalingStatus')
@@ -2101,6 +2106,7 @@ module Aws::SageMaker
     RegisterModelStepMetadata = Shapes::StructureShape.new(name: 'RegisterModelStepMetadata')
     Relation = Shapes::StringShape.new(name: 'Relation')
     ReleaseNotes = Shapes::StringShape.new(name: 'ReleaseNotes')
+    ReleaseNotesList = Shapes::ListShape.new(name: 'ReleaseNotesList')
     RemoteDebugConfig = Shapes::StructureShape.new(name: 'RemoteDebugConfig')
     RemoteDebugConfigForUpdate = Shapes::StructureShape.new(name: 'RemoteDebugConfigForUpdate')
     RenderUiTemplateRequest = Shapes::StructureShape.new(name: 'RenderUiTemplateRequest')
@@ -2155,6 +2161,8 @@ module Aws::SageMaker
     RetryPipelineExecutionResponse = Shapes::StructureShape.new(name: 'RetryPipelineExecutionResponse')
     RetryStrategy = Shapes::StructureShape.new(name: 'RetryStrategy')
     RoleArn = Shapes::StringShape.new(name: 'RoleArn')
+    RoleGroupAssignment = Shapes::StructureShape.new(name: 'RoleGroupAssignment')
+    RoleGroupAssignmentsList = Shapes::ListShape.new(name: 'RoleGroupAssignmentsList')
     RollingDeploymentPolicy = Shapes::StructureShape.new(name: 'RollingDeploymentPolicy')
     RollingUpdatePolicy = Shapes::StructureShape.new(name: 'RollingUpdatePolicy')
     RootAccess = Shapes::StringShape.new(name: 'RootAccess')
@@ -2882,6 +2890,8 @@ module Aws::SageMaker
     ArtifactSummary.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
     ArtifactSummary.struct_class = Types::ArtifactSummary
 
+    AssignedGroupPatternsList.member = Shapes::ShapeRef.new(shape: GroupNamePattern)
+
     AssociateTrialComponentRequest.add_member(:trial_component_name, Shapes::ShapeRef.new(shape: ExperimentEntityName, required: true, location_name: "TrialComponentName"))
     AssociateTrialComponentRequest.add_member(:trial_name, Shapes::ShapeRef.new(shape: ExperimentEntityName, required: true, location_name: "TrialName"))
     AssociateTrialComponentRequest.struct_class = Types::AssociateTrialComponentRequest
@@ -3121,6 +3131,10 @@ module Aws::SageMaker
 
     Autotune.add_member(:mode, Shapes::ShapeRef.new(shape: AutotuneMode, required: true, location_name: "Mode"))
     Autotune.struct_class = Types::Autotune
+
+    AvailableUpgrade.add_member(:version, Shapes::ShapeRef.new(shape: MajorMinorVersion, location_name: "Version"))
+    AvailableUpgrade.add_member(:release_notes, Shapes::ShapeRef.new(shape: ReleaseNotesList, location_name: "ReleaseNotes"))
+    AvailableUpgrade.struct_class = Types::AvailableUpgrade
 
     BatchAddClusterNodesError.add_member(:instance_group_name, Shapes::ShapeRef.new(shape: InstanceGroupName, required: true, location_name: "InstanceGroupName"))
     BatchAddClusterNodesError.add_member(:error_code, Shapes::ShapeRef.new(shape: BatchAddClusterNodesErrorCode, required: true, location_name: "ErrorCode"))
@@ -4396,6 +4410,7 @@ module Aws::SageMaker
     CreatePartnerAppRequest.add_member(:application_config, Shapes::ShapeRef.new(shape: PartnerAppConfig, location_name: "ApplicationConfig"))
     CreatePartnerAppRequest.add_member(:auth_type, Shapes::ShapeRef.new(shape: PartnerAppAuthType, required: true, location_name: "AuthType"))
     CreatePartnerAppRequest.add_member(:enable_iam_session_based_identity, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableIamSessionBasedIdentity", metadata: {"box" => true}))
+    CreatePartnerAppRequest.add_member(:enable_auto_minor_version_upgrade, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableAutoMinorVersionUpgrade", metadata: {"box" => true}))
     CreatePartnerAppRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
     CreatePartnerAppRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
     CreatePartnerAppRequest.struct_class = Types::CreatePartnerAppRequest
@@ -5974,6 +5989,7 @@ module Aws::SageMaker
     DescribeOptimizationJobResponse.struct_class = Types::DescribeOptimizationJobResponse
 
     DescribePartnerAppRequest.add_member(:arn, Shapes::ShapeRef.new(shape: PartnerAppArn, required: true, location_name: "Arn"))
+    DescribePartnerAppRequest.add_member(:include_available_upgrade, Shapes::ShapeRef.new(shape: Boolean, location_name: "IncludeAvailableUpgrade", metadata: {"box" => true}))
     DescribePartnerAppRequest.struct_class = Types::DescribePartnerAppRequest
 
     DescribePartnerAppResponse.add_member(:arn, Shapes::ShapeRef.new(shape: PartnerAppArn, location_name: "Arn"))
@@ -5992,6 +6008,9 @@ module Aws::SageMaker
     DescribePartnerAppResponse.add_member(:auth_type, Shapes::ShapeRef.new(shape: PartnerAppAuthType, location_name: "AuthType"))
     DescribePartnerAppResponse.add_member(:enable_iam_session_based_identity, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableIamSessionBasedIdentity", metadata: {"box" => true}))
     DescribePartnerAppResponse.add_member(:error, Shapes::ShapeRef.new(shape: ErrorInfo, location_name: "Error"))
+    DescribePartnerAppResponse.add_member(:enable_auto_minor_version_upgrade, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableAutoMinorVersionUpgrade", metadata: {"box" => true}))
+    DescribePartnerAppResponse.add_member(:current_version_eol_date, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CurrentVersionEolDate"))
+    DescribePartnerAppResponse.add_member(:available_upgrade, Shapes::ShapeRef.new(shape: AvailableUpgrade, location_name: "AvailableUpgrade"))
     DescribePartnerAppResponse.struct_class = Types::DescribePartnerAppResponse
 
     DescribePipelineDefinitionForExecutionRequest.add_member(:pipeline_execution_arn, Shapes::ShapeRef.new(shape: PipelineExecutionArn, required: true, location_name: "PipelineExecutionArn"))
@@ -6942,6 +6961,8 @@ module Aws::SageMaker
 
     GitConfigForUpdate.add_member(:secret_arn, Shapes::ShapeRef.new(shape: SecretArn, location_name: "SecretArn"))
     GitConfigForUpdate.struct_class = Types::GitConfigForUpdate
+
+    GroupPatternsList.member = Shapes::ShapeRef.new(shape: GroupNamePattern)
 
     GroupingAttributeNames.member = Shapes::ShapeRef.new(shape: GroupingAttributeName)
 
@@ -9630,6 +9651,8 @@ module Aws::SageMaker
 
     PartnerAppConfig.add_member(:admin_users, Shapes::ShapeRef.new(shape: PartnerAppAdminUserList, location_name: "AdminUsers"))
     PartnerAppConfig.add_member(:arguments, Shapes::ShapeRef.new(shape: PartnerAppArguments, location_name: "Arguments"))
+    PartnerAppConfig.add_member(:assigned_group_patterns, Shapes::ShapeRef.new(shape: AssignedGroupPatternsList, location_name: "AssignedGroupPatterns"))
+    PartnerAppConfig.add_member(:role_group_assignments, Shapes::ShapeRef.new(shape: RoleGroupAssignmentsList, location_name: "RoleGroupAssignments"))
     PartnerAppConfig.struct_class = Types::PartnerAppConfig
 
     PartnerAppMaintenanceConfig.add_member(:maintenance_window_start, Shapes::ShapeRef.new(shape: WeeklyScheduleTimeFormat, location_name: "MaintenanceWindowStart"))
@@ -10237,6 +10260,8 @@ module Aws::SageMaker
     RegisterModelStepMetadata.add_member(:arn, Shapes::ShapeRef.new(shape: String256, location_name: "Arn"))
     RegisterModelStepMetadata.struct_class = Types::RegisterModelStepMetadata
 
+    ReleaseNotesList.member = Shapes::ShapeRef.new(shape: String1024)
+
     RemoteDebugConfig.add_member(:enable_remote_debug, Shapes::ShapeRef.new(shape: EnableRemoteDebug, location_name: "EnableRemoteDebug"))
     RemoteDebugConfig.struct_class = Types::RemoteDebugConfig
 
@@ -10361,6 +10386,12 @@ module Aws::SageMaker
 
     RetryStrategy.add_member(:maximum_retry_attempts, Shapes::ShapeRef.new(shape: MaximumRetryAttempts, required: true, location_name: "MaximumRetryAttempts", metadata: {"box" => true}))
     RetryStrategy.struct_class = Types::RetryStrategy
+
+    RoleGroupAssignment.add_member(:role_name, Shapes::ShapeRef.new(shape: NonEmptyString256, required: true, location_name: "RoleName"))
+    RoleGroupAssignment.add_member(:group_patterns, Shapes::ShapeRef.new(shape: GroupPatternsList, required: true, location_name: "GroupPatterns"))
+    RoleGroupAssignment.struct_class = Types::RoleGroupAssignment
+
+    RoleGroupAssignmentsList.member = Shapes::ShapeRef.new(shape: RoleGroupAssignment)
 
     RollingDeploymentPolicy.add_member(:maximum_batch_size, Shapes::ShapeRef.new(shape: CapacitySizeConfig, required: true, location_name: "MaximumBatchSize"))
     RollingDeploymentPolicy.add_member(:rollback_maximum_batch_size, Shapes::ShapeRef.new(shape: CapacitySizeConfig, location_name: "RollbackMaximumBatchSize"))
@@ -11642,6 +11673,8 @@ module Aws::SageMaker
     UpdatePartnerAppRequest.add_member(:tier, Shapes::ShapeRef.new(shape: NonEmptyString64, location_name: "Tier"))
     UpdatePartnerAppRequest.add_member(:application_config, Shapes::ShapeRef.new(shape: PartnerAppConfig, location_name: "ApplicationConfig"))
     UpdatePartnerAppRequest.add_member(:enable_iam_session_based_identity, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableIamSessionBasedIdentity", metadata: {"box" => true}))
+    UpdatePartnerAppRequest.add_member(:enable_auto_minor_version_upgrade, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableAutoMinorVersionUpgrade", metadata: {"box" => true}))
+    UpdatePartnerAppRequest.add_member(:app_version, Shapes::ShapeRef.new(shape: MajorMinorVersion, location_name: "AppVersion"))
     UpdatePartnerAppRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
     UpdatePartnerAppRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
     UpdatePartnerAppRequest.struct_class = Types::UpdatePartnerAppRequest

@@ -1009,12 +1009,15 @@ module Aws
                                       audio_group_id: ::String?,
                                       audio_rendition_sets: ::String?,
                                       audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")?,
+                                      c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
+                                      certificate_secret: ::String?,
                                       descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")?,
                                       i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")?,
                                       klv_metadata: ("PASSTHROUGH" | "NONE")?,
                                       manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                       scte_35_esam: ("INSERT" | "NONE")?,
                                       scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                      signing_kms_key: ::String?,
                                       timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                       timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                       timed_metadata_scheme_id_uri: ::String?,
@@ -1127,11 +1130,14 @@ module Aws
                                     mpd_settings: {
                                       accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")?,
                                       audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")?,
+                                      c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
                                       caption_container_type: ("RAW" | "FRAGMENTED_MP4")?,
+                                      certificate_secret: ::String?,
                                       klv_metadata: ("NONE" | "PASSTHROUGH")?,
                                       manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                       scte_35_esam: ("INSERT" | "NONE")?,
                                       scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                      signing_kms_key: ::String?,
                                       timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                       timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                       timed_metadata_scheme_id_uri: ::String?,
@@ -1359,6 +1365,7 @@ module Aws
                                         temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                       }?,
                                       passthrough_settings: {
+                                        frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")?,
                                         video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                       }?,
                                       prores_settings: {
@@ -2511,12 +2518,15 @@ module Aws
                                                audio_group_id: ::String?,
                                                audio_rendition_sets: ::String?,
                                                audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")?,
+                                               c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
+                                               certificate_secret: ::String?,
                                                descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")?,
                                                i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")?,
                                                klv_metadata: ("PASSTHROUGH" | "NONE")?,
                                                manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                                scte_35_esam: ("INSERT" | "NONE")?,
                                                scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                               signing_kms_key: ::String?,
                                                timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                                timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                                timed_metadata_scheme_id_uri: ::String?,
@@ -2629,11 +2639,14 @@ module Aws
                                              mpd_settings: {
                                                accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")?,
                                                audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")?,
+                                               c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
                                                caption_container_type: ("RAW" | "FRAGMENTED_MP4")?,
+                                               certificate_secret: ::String?,
                                                klv_metadata: ("NONE" | "PASSTHROUGH")?,
                                                manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                                scte_35_esam: ("INSERT" | "NONE")?,
                                                scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                               signing_kms_key: ::String?,
                                                timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                                timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                                timed_metadata_scheme_id_uri: ::String?,
@@ -2861,6 +2874,7 @@ module Aws
                                                  temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                                }?,
                                                passthrough_settings: {
+                                                 frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")?,
                                                  video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                                }?,
                                                prores_settings: {
@@ -3386,12 +3400,15 @@ module Aws
                                  audio_group_id: ::String?,
                                  audio_rendition_sets: ::String?,
                                  audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")?,
+                                 c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
+                                 certificate_secret: ::String?,
                                  descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")?,
                                  i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")?,
                                  klv_metadata: ("PASSTHROUGH" | "NONE")?,
                                  manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                  scte_35_esam: ("INSERT" | "NONE")?,
                                  scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                 signing_kms_key: ::String?,
                                  timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                  timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                  timed_metadata_scheme_id_uri: ::String?,
@@ -3504,11 +3521,14 @@ module Aws
                                mpd_settings: {
                                  accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")?,
                                  audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")?,
+                                 c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
                                  caption_container_type: ("RAW" | "FRAGMENTED_MP4")?,
+                                 certificate_secret: ::String?,
                                  klv_metadata: ("NONE" | "PASSTHROUGH")?,
                                  manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                  scte_35_esam: ("INSERT" | "NONE")?,
                                  scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                 signing_kms_key: ::String?,
                                  timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                  timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                  timed_metadata_scheme_id_uri: ::String?,
@@ -3722,6 +3742,7 @@ module Aws
                                    temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                  }?,
                                  passthrough_settings: {
+                                   frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")?,
                                    video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                  }?,
                                  prores_settings: {
@@ -5166,12 +5187,15 @@ module Aws
                                                audio_group_id: ::String?,
                                                audio_rendition_sets: ::String?,
                                                audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")?,
+                                               c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
+                                               certificate_secret: ::String?,
                                                descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")?,
                                                i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")?,
                                                klv_metadata: ("PASSTHROUGH" | "NONE")?,
                                                manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                                scte_35_esam: ("INSERT" | "NONE")?,
                                                scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                               signing_kms_key: ::String?,
                                                timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                                timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                                timed_metadata_scheme_id_uri: ::String?,
@@ -5284,11 +5308,14 @@ module Aws
                                              mpd_settings: {
                                                accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")?,
                                                audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")?,
+                                               c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
                                                caption_container_type: ("RAW" | "FRAGMENTED_MP4")?,
+                                               certificate_secret: ::String?,
                                                klv_metadata: ("NONE" | "PASSTHROUGH")?,
                                                manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                                scte_35_esam: ("INSERT" | "NONE")?,
                                                scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                               signing_kms_key: ::String?,
                                                timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                                timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                                timed_metadata_scheme_id_uri: ::String?,
@@ -5516,6 +5543,7 @@ module Aws
                                                  temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                                }?,
                                                passthrough_settings: {
+                                                 frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")?,
                                                  video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                                }?,
                                                prores_settings: {
@@ -6040,12 +6068,15 @@ module Aws
                                  audio_group_id: ::String?,
                                  audio_rendition_sets: ::String?,
                                  audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")?,
+                                 c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
+                                 certificate_secret: ::String?,
                                  descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")?,
                                  i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")?,
                                  klv_metadata: ("PASSTHROUGH" | "NONE")?,
                                  manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                  scte_35_esam: ("INSERT" | "NONE")?,
                                  scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                 signing_kms_key: ::String?,
                                  timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                  timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                  timed_metadata_scheme_id_uri: ::String?,
@@ -6158,11 +6189,14 @@ module Aws
                                mpd_settings: {
                                  accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")?,
                                  audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")?,
+                                 c2pa_manifest: ("INCLUDE" | "EXCLUDE")?,
                                  caption_container_type: ("RAW" | "FRAGMENTED_MP4")?,
+                                 certificate_secret: ::String?,
                                  klv_metadata: ("NONE" | "PASSTHROUGH")?,
                                  manifest_metadata_signaling: ("ENABLED" | "DISABLED")?,
                                  scte_35_esam: ("INSERT" | "NONE")?,
                                  scte_35_source: ("PASSTHROUGH" | "NONE")?,
+                                 signing_kms_key: ::String?,
                                  timed_metadata: ("PASSTHROUGH" | "NONE")?,
                                  timed_metadata_box_version: ("VERSION_0" | "VERSION_1")?,
                                  timed_metadata_scheme_id_uri: ::String?,
@@ -6376,6 +6410,7 @@ module Aws
                                    temporal_adaptive_quantization: ("DISABLED" | "ENABLED")?
                                  }?,
                                  passthrough_settings: {
+                                   frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")?,
                                    video_selector_mode: ("AUTO" | "REMUX_ALL")?
                                  }?,
                                  prores_settings: {

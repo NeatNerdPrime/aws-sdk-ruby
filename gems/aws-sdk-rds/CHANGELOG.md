@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.298.0 (2025-11-13)
+------------------
+
+* Feature - Updated endpoint and service metadata
+
 1.297.0 (2025-10-21)
 ------------------
 

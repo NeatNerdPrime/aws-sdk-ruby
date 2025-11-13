@@ -134,7 +134,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticLoadBalancingV2/Client.html#create_listener-instance_method
       def create_listener: (
                              load_balancer_arn: ::String,
-                             ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE"),
+                             ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE" | "QUIC" | "TCP_QUIC"),
                              ?port: ::Integer,
                              ?ssl_policy: ::String,
                              ?certificates: Array[
@@ -408,11 +408,11 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticLoadBalancingV2/Client.html#create_target_group-instance_method
       def create_target_group: (
                                  name: ::String,
-                                 ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE"),
+                                 ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE" | "QUIC" | "TCP_QUIC"),
                                  ?protocol_version: ::String,
                                  ?port: ::Integer,
                                  ?vpc_id: ::String,
-                                 ?health_check_protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE"),
+                                 ?health_check_protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE" | "QUIC" | "TCP_QUIC"),
                                  ?health_check_port: ::String,
                                  ?health_check_enabled: bool,
                                  ?health_check_path: ::String,
@@ -519,7 +519,8 @@ module Aws
                                   {
                                     id: ::String,
                                     port: ::Integer?,
-                                    availability_zone: ::String?
+                                    availability_zone: ::String?,
+                                    quic_server_id: ::String?
                                   },
                                 ]
                               ) -> _DeregisterTargetsResponseSuccess
@@ -685,7 +686,8 @@ module Aws
                                       {
                                         id: ::String,
                                         port: ::Integer?,
-                                        availability_zone: ::String?
+                                        availability_zone: ::String?,
+                                        quic_server_id: ::String?
                                       },
                                     ],
                                     ?include: Array[("AnomalyDetection" | "All")]
@@ -803,7 +805,7 @@ module Aws
       def modify_listener: (
                              listener_arn: ::String,
                              ?port: ::Integer,
-                             ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE"),
+                             ?protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE" | "QUIC" | "TCP_QUIC"),
                              ?ssl_policy: ::String,
                              ?certificates: Array[
                                {
@@ -1061,7 +1063,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticLoadBalancingV2/Client.html#modify_target_group-instance_method
       def modify_target_group: (
                                  target_group_arn: ::String,
-                                 ?health_check_protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE"),
+                                 ?health_check_protocol: ("HTTP" | "HTTPS" | "TCP" | "TLS" | "UDP" | "TCP_UDP" | "GENEVE" | "QUIC" | "TCP_QUIC"),
                                  ?health_check_port: ::String,
                                  ?health_check_path: ::String,
                                  ?health_check_enabled: bool,
@@ -1115,7 +1117,8 @@ module Aws
                                 {
                                   id: ::String,
                                   port: ::Integer?,
-                                  availability_zone: ::String?
+                                  availability_zone: ::String?,
+                                  quic_server_id: ::String?
                                 },
                               ]
                             ) -> _RegisterTargetsResponseSuccess
@@ -1247,7 +1250,8 @@ module Aws
                       {
                         id: ::String,
                         port: ::Integer?,
-                        availability_zone: ::String?
+                        availability_zone: ::String?,
+                        quic_server_id: ::String?
                       },
                     ],
                     ?include: Array[("AnomalyDetection" | "All")]
@@ -1259,7 +1263,8 @@ module Aws
                       {
                         id: ::String,
                         port: ::Integer?,
-                        availability_zone: ::String?
+                        availability_zone: ::String?,
+                        quic_server_id: ::String?
                       },
                     ],
                     ?include: Array[("AnomalyDetection" | "All")]

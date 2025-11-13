@@ -279,6 +279,7 @@ module Aws::ElasticLoadBalancingV2
     QueryStringConditionConfig = Shapes::StructureShape.new(name: 'QueryStringConditionConfig')
     QueryStringKeyValuePair = Shapes::StructureShape.new(name: 'QueryStringKeyValuePair')
     QueryStringKeyValuePairList = Shapes::ListShape.new(name: 'QueryStringKeyValuePairList')
+    QuicServerId = Shapes::StringShape.new(name: 'QuicServerId')
     RedirectActionConfig = Shapes::StructureShape.new(name: 'RedirectActionConfig')
     RedirectActionHost = Shapes::StringShape.new(name: 'RedirectActionHost')
     RedirectActionPath = Shapes::StringShape.new(name: 'RedirectActionPath')
@@ -1276,6 +1277,7 @@ module Aws::ElasticLoadBalancingV2
     TargetDescription.add_member(:id, Shapes::ShapeRef.new(shape: TargetId, required: true, location_name: "Id"))
     TargetDescription.add_member(:port, Shapes::ShapeRef.new(shape: Port, location_name: "Port"))
     TargetDescription.add_member(:availability_zone, Shapes::ShapeRef.new(shape: ZoneName, location_name: "AvailabilityZone"))
+    TargetDescription.add_member(:quic_server_id, Shapes::ShapeRef.new(shape: QuicServerId, location_name: "QuicServerId"))
     TargetDescription.struct_class = Types::TargetDescription
 
     TargetDescriptions.member = Shapes::ShapeRef.new(shape: TargetDescription)

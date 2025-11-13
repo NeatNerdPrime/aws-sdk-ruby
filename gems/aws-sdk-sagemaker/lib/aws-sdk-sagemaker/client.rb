@@ -8515,6 +8515,11 @@ module Aws::SageMaker
     #   Services IAM session name or the authenticated IAM user as the
     #   identity of the SageMaker Partner AI App user.
     #
+    # @option params [Boolean] :enable_auto_minor_version_upgrade
+    #   When set to `TRUE`, the SageMaker Partner AI App is automatically
+    #   upgraded to the latest minor version during the next scheduled
+    #   maintenance window, if one is available. Default is `FALSE`.
+    #
     # @option params [String] :client_token
     #   A unique token that guarantees that the call to this API is
     #   idempotent.
@@ -8546,9 +8551,17 @@ module Aws::SageMaker
     #       arguments: {
     #         "NonEmptyString256" => "String1024",
     #       },
+    #       assigned_group_patterns: ["GroupNamePattern"],
+    #       role_group_assignments: [
+    #         {
+    #           role_name: "NonEmptyString256", # required
+    #           group_patterns: ["GroupNamePattern"], # required
+    #         },
+    #       ],
     #     },
     #     auth_type: "IAM", # required, accepts IAM
     #     enable_iam_session_based_identity: false,
+    #     enable_auto_minor_version_upgrade: false,
     #     client_token: "ClientToken",
     #     tags: [
     #       {
@@ -17437,6 +17450,10 @@ module Aws::SageMaker
     # @option params [required, String] :arn
     #   The ARN of the SageMaker Partner AI App to describe.
     #
+    # @option params [Boolean] :include_available_upgrade
+    #   When set to `TRUE`, the response includes available upgrade
+    #   information for the SageMaker Partner AI App. Default is `FALSE`.
+    #
     # @return [Types::DescribePartnerAppResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::DescribePartnerAppResponse#arn #arn} => String
@@ -17455,11 +17472,15 @@ module Aws::SageMaker
     #   * {Types::DescribePartnerAppResponse#auth_type #auth_type} => String
     #   * {Types::DescribePartnerAppResponse#enable_iam_session_based_identity #enable_iam_session_based_identity} => Boolean
     #   * {Types::DescribePartnerAppResponse#error #error} => Types::ErrorInfo
+    #   * {Types::DescribePartnerAppResponse#enable_auto_minor_version_upgrade #enable_auto_minor_version_upgrade} => Boolean
+    #   * {Types::DescribePartnerAppResponse#current_version_eol_date #current_version_eol_date} => Time
+    #   * {Types::DescribePartnerAppResponse#available_upgrade #available_upgrade} => Types::AvailableUpgrade
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.describe_partner_app({
     #     arn: "PartnerAppArn", # required
+    #     include_available_upgrade: false,
     #   })
     #
     # @example Response structure
@@ -17480,10 +17501,21 @@ module Aws::SageMaker
     #   resp.application_config.admin_users[0] #=> String
     #   resp.application_config.arguments #=> Hash
     #   resp.application_config.arguments["NonEmptyString256"] #=> String
+    #   resp.application_config.assigned_group_patterns #=> Array
+    #   resp.application_config.assigned_group_patterns[0] #=> String
+    #   resp.application_config.role_group_assignments #=> Array
+    #   resp.application_config.role_group_assignments[0].role_name #=> String
+    #   resp.application_config.role_group_assignments[0].group_patterns #=> Array
+    #   resp.application_config.role_group_assignments[0].group_patterns[0] #=> String
     #   resp.auth_type #=> String, one of "IAM"
     #   resp.enable_iam_session_based_identity #=> Boolean
     #   resp.error.code #=> String
     #   resp.error.reason #=> String
+    #   resp.enable_auto_minor_version_upgrade #=> Boolean
+    #   resp.current_version_eol_date #=> Time
+    #   resp.available_upgrade.version #=> String
+    #   resp.available_upgrade.release_notes #=> Array
+    #   resp.available_upgrade.release_notes[0] #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribePartnerApp AWS API Documentation
     #
@@ -30134,6 +30166,17 @@ module Aws::SageMaker
     #   Services IAM session name or the authenticated IAM user as the
     #   identity of the SageMaker Partner AI App user.
     #
+    # @option params [Boolean] :enable_auto_minor_version_upgrade
+    #   When set to `TRUE`, the SageMaker Partner AI App is automatically
+    #   upgraded to the latest minor version during the next scheduled
+    #   maintenance window, if one is available.
+    #
+    # @option params [String] :app_version
+    #   The semantic version to upgrade the SageMaker Partner AI App to. Must
+    #   be the same semantic version returned in the `AvailableUpgrade` field
+    #   from `DescribePartnerApp`. Version skipping and downgrades are not
+    #   supported.
+    #
     # @option params [String] :client_token
     #   A unique token that guarantees that the call to this API is
     #   idempotent.
@@ -30162,8 +30205,17 @@ module Aws::SageMaker
     #       arguments: {
     #         "NonEmptyString256" => "String1024",
     #       },
+    #       assigned_group_patterns: ["GroupNamePattern"],
+    #       role_group_assignments: [
+    #         {
+    #           role_name: "NonEmptyString256", # required
+    #           group_patterns: ["GroupNamePattern"], # required
+    #         },
+    #       ],
     #     },
     #     enable_iam_session_based_identity: false,
+    #     enable_auto_minor_version_upgrade: false,
+    #     app_version: "MajorMinorVersion",
     #     client_token: "ClientToken",
     #     tags: [
     #       {
@@ -31294,7 +31346,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.337.0'
+      context[:gem_version] = '1.338.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

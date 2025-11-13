@@ -418,12 +418,15 @@ module Aws::MediaConvert
       attr_accessor audio_group_id: ::String
       attr_accessor audio_rendition_sets: ::String
       attr_accessor audio_track_type: ("ALTERNATE_AUDIO_AUTO_SELECT_DEFAULT" | "ALTERNATE_AUDIO_AUTO_SELECT" | "ALTERNATE_AUDIO_NOT_AUTO_SELECT" | "AUDIO_ONLY_VARIANT_STREAM")
+      attr_accessor c2pa_manifest: ("INCLUDE" | "EXCLUDE")
+      attr_accessor certificate_secret: ::String
       attr_accessor descriptive_video_service_flag: ("DONT_FLAG" | "FLAG")
       attr_accessor i_frame_only_manifest: ("INCLUDE" | "EXCLUDE")
       attr_accessor klv_metadata: ("PASSTHROUGH" | "NONE")
       attr_accessor manifest_metadata_signaling: ("ENABLED" | "DISABLED")
       attr_accessor scte_35_esam: ("INSERT" | "NONE")
       attr_accessor scte_35_source: ("PASSTHROUGH" | "NONE")
+      attr_accessor signing_kms_key: ::String
       attr_accessor timed_metadata: ("PASSTHROUGH" | "NONE")
       attr_accessor timed_metadata_box_version: ("VERSION_0" | "VERSION_1")
       attr_accessor timed_metadata_scheme_id_uri: ::String
@@ -1724,11 +1727,14 @@ module Aws::MediaConvert
     class MpdSettings
       attr_accessor accessibility_caption_hints: ("INCLUDE" | "EXCLUDE")
       attr_accessor audio_duration: ("DEFAULT_CODEC_DURATION" | "MATCH_VIDEO_DURATION")
+      attr_accessor c2pa_manifest: ("INCLUDE" | "EXCLUDE")
       attr_accessor caption_container_type: ("RAW" | "FRAGMENTED_MP4")
+      attr_accessor certificate_secret: ::String
       attr_accessor klv_metadata: ("NONE" | "PASSTHROUGH")
       attr_accessor manifest_metadata_signaling: ("ENABLED" | "DISABLED")
       attr_accessor scte_35_esam: ("INSERT" | "NONE")
       attr_accessor scte_35_source: ("PASSTHROUGH" | "NONE")
+      attr_accessor signing_kms_key: ::String
       attr_accessor timed_metadata: ("PASSTHROUGH" | "NONE")
       attr_accessor timed_metadata_box_version: ("VERSION_0" | "VERSION_1")
       attr_accessor timed_metadata_scheme_id_uri: ::String
@@ -1940,6 +1946,7 @@ module Aws::MediaConvert
     end
 
     class PassthroughSettings
+      attr_accessor frame_control: ("NEAREST_IDRFRAME" | "NEAREST_IFRAME")
       attr_accessor video_selector_mode: ("AUTO" | "REMUX_ALL")
       SENSITIVE: []
     end

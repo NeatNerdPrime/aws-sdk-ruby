@@ -2802,6 +2802,23 @@ module Aws::MediaConvert
     #   output group, you must explicitly choose a value for this setting.
     #   @return [String]
     #
+    # @!attribute [rw] c2pa_manifest
+    #   When enabled, a C2PA compliant manifest will be generated, signed
+    #   and embeded in the output. For more information on C2PA, see
+    #   https://c2pa.org/specifications/specifications/2.1/index.html
+    #   @return [String]
+    #
+    # @!attribute [rw] certificate_secret
+    #   Specify the name or ARN of the AWS Secrets Manager secret that
+    #   contains your C2PA public certificate chain in PEM format. Provide a
+    #   valid secret name or ARN. Note that your MediaConvert service role
+    #   must allow access to this secret. The public certificate chain is
+    #   added to the COSE header (x5chain) for signature validation. Include
+    #   the signer's certificate and all intermediate certificates. Do not
+    #   include the root certificate. For details on COSE, see:
+    #   https://opensource.contentauthenticity.org/docs/manifest/signing-manifests
+    #   @return [String]
+    #
     # @!attribute [rw] descriptive_video_service_flag
     #   Specify whether to flag this audio track as descriptive video
     #   service (DVS) in your HLS parent manifest. When you choose Flag,
@@ -2859,6 +2876,12 @@ module Aws::MediaConvert
     #   you don't want those SCTE-35 markers in this output.
     #   @return [String]
     #
+    # @!attribute [rw] signing_kms_key
+    #   Specify the ID or ARN of the AWS KMS key used to sign the C2PA
+    #   manifest in your MP4 output. Provide a valid KMS key ARN. Note that
+    #   your MediaConvert service role must allow access to this key.
+    #   @return [String]
+    #
     # @!attribute [rw] timed_metadata
     #   To include ID3 metadata in this output: Set ID3 metadata to
     #   Passthrough. Specify this ID3 metadata in Custom ID3 metadata
@@ -2898,12 +2921,15 @@ module Aws::MediaConvert
       :audio_group_id,
       :audio_rendition_sets,
       :audio_track_type,
+      :c2pa_manifest,
+      :certificate_secret,
       :descriptive_video_service_flag,
       :i_frame_only_manifest,
       :klv_metadata,
       :manifest_metadata_signaling,
       :scte_35_esam,
       :scte_35_source,
+      :signing_kms_key,
       :timed_metadata,
       :timed_metadata_box_version,
       :timed_metadata_scheme_id_uri,
@@ -8640,7 +8666,7 @@ module Aws::MediaConvert
     #
     # @!attribute [rw] duration
     #   Specify the duration, in milliseconds, for your video generator
-    #   input. Enter an integer from 50 to 86400000.
+    #   input. Enter an integer from 1 to 86400000.
     #   @return [Integer]
     #
     # @!attribute [rw] framerate_denominator
@@ -10933,6 +10959,12 @@ module Aws::MediaConvert
     #   output audio codec.
     #   @return [String]
     #
+    # @!attribute [rw] c2pa_manifest
+    #   When enabled, a C2PA compliant manifest will be generated, signed
+    #   and embeded in the output. For more information on C2PA, see
+    #   https://c2pa.org/specifications/specifications/2.1/index.html
+    #   @return [String]
+    #
     # @!attribute [rw] caption_container_type
     #   Use this setting only in DASH output groups that include sidecar
     #   TTML, IMSC or WEBVTT captions. You specify sidecar captions in a
@@ -10941,6 +10973,17 @@ module Aws::MediaConvert
     #   for captions in XML format contained within fragmented MP4 files.
     #   This set of fragmented MP4 files is separate from your video and
     #   audio fragmented MP4 files.
+    #   @return [String]
+    #
+    # @!attribute [rw] certificate_secret
+    #   Specify the name or ARN of the AWS Secrets Manager secret that
+    #   contains your C2PA public certificate chain in PEM format. Provide a
+    #   valid secret name or ARN. Note that your MediaConvert service role
+    #   must allow access to this secret. The public certificate chain is
+    #   added to the COSE header (x5chain) for signature validation. Include
+    #   the signer's certificate and all intermediate certificates. Do not
+    #   include the root certificate. For details on COSE, see:
+    #   https://opensource.contentauthenticity.org/docs/manifest/signing-manifests
     #   @return [String]
     #
     # @!attribute [rw] klv_metadata
@@ -10977,6 +11020,12 @@ module Aws::MediaConvert
     #   video file. Choose Passthrough if you want SCTE-35 markers that
     #   appear in your input to also appear in this output. Choose None if
     #   you don't want those SCTE-35 markers in this output.
+    #   @return [String]
+    #
+    # @!attribute [rw] signing_kms_key
+    #   Specify the ID or ARN of the AWS KMS key used to sign the C2PA
+    #   manifest in your MP4 output. Provide a valid KMS key ARN. Note that
+    #   your MediaConvert service role must allow access to this key.
     #   @return [String]
     #
     # @!attribute [rw] timed_metadata
@@ -11016,11 +11065,14 @@ module Aws::MediaConvert
     class MpdSettings < Struct.new(
       :accessibility_caption_hints,
       :audio_duration,
+      :c2pa_manifest,
       :caption_container_type,
+      :certificate_secret,
       :klv_metadata,
       :manifest_metadata_signaling,
       :scte_35_esam,
       :scte_35_source,
+      :signing_kms_key,
       :timed_metadata,
       :timed_metadata_box_version,
       :timed_metadata_scheme_id_uri,
@@ -12241,6 +12293,21 @@ module Aws::MediaConvert
 
     # Optional settings when you set Codec to the value Passthrough.
     #
+    # @!attribute [rw] frame_control
+    #   Choose how MediaConvert handles start and end times for input
+    #   clipping with video passthrough. Your input video codec must be
+    #   H.264 or H.265 to use IFRAME. To clip at the nearest IDR-frame:
+    #   Choose Nearest IDR. If an IDR-frame is not found at the frame that
+    #   you specify, MediaConvert uses the next compatible IDR-frame. Note
+    #   that your output may be shorter than your input clip duration. To
+    #   clip at the nearest I-frame: Choose Nearest I-frame. If an I-frame
+    #   is not found at the frame that you specify, MediaConvert uses the
+    #   next compatible I-frame. Note that your output may be shorter than
+    #   your input clip duration. We only recommend this setting for special
+    #   workflows, and when you choose this setting your output may not be
+    #   compatible with most players.
+    #   @return [String]
+    #
     # @!attribute [rw] video_selector_mode
     #   AUTO will select the highest bitrate input in the video selector
     #   source. REMUX\_ALL will passthrough all the selected streams in the
@@ -12253,6 +12320,7 @@ module Aws::MediaConvert
     # @see http://docs.aws.amazon.com/goto/WebAPI/mediaconvert-2017-08-29/PassthroughSettings AWS API Documentation
     #
     class PassthroughSettings < Struct.new(
+      :frame_control,
       :video_selector_mode)
       SENSITIVE = []
       include Aws::Structure

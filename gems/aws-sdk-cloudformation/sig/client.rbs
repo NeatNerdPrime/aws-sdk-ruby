@@ -624,10 +624,10 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudFormation/Client.html#describe_stack_events-instance_method
       def describe_stack_events: (
-                                   ?stack_name: ::String,
+                                   stack_name: ::String,
                                    ?next_token: ::String
                                  ) -> _DescribeStackEventsResponseSuccess
-                               | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeStackEventsResponseSuccess
+                               | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeStackEventsResponseSuccess
 
       interface _DescribeStackInstanceResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DescribeStackInstanceOutput]
@@ -876,6 +876,28 @@ module Aws
                                     generated_template_name: ::String
                                   ) -> _GetGeneratedTemplateResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetGeneratedTemplateResponseSuccess
+
+      interface _GetHookResultResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetHookResultOutput]
+        def hook_result_id: () -> ::String
+        def invocation_point: () -> ("PRE_PROVISION")
+        def failure_mode: () -> ("FAIL" | "WARN")
+        def type_name: () -> ::String
+        def original_type_name: () -> ::String
+        def type_version_id: () -> ::String
+        def type_configuration_version_id: () -> ::String
+        def type_arn: () -> ::String
+        def status: () -> ("HOOK_IN_PROGRESS" | "HOOK_COMPLETE_SUCCEEDED" | "HOOK_COMPLETE_FAILED" | "HOOK_FAILED")
+        def hook_status_reason: () -> ::String
+        def invoked_at: () -> ::Time
+        def target: () -> Types::HookTarget
+        def annotations: () -> ::Array[Types::Annotation]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudFormation/Client.html#get_hook_result-instance_method
+      def get_hook_result: (
+                             ?hook_result_id: ::String
+                           ) -> _GetHookResultResponseSuccess
+                         | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetHookResultResponseSuccess
 
       interface _GetStackPolicyResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetStackPolicyOutput]

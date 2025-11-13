@@ -896,7 +896,9 @@ module Aws::CloudFormation
     #   CloudFormation generates the change set by comparing this template
     #   with the template of the stack that you specified.
     #
-    #   Conditional: You must specify only `TemplateBody` or `TemplateURL`.
+    #   Conditional: You must specify only one of the following parameters:
+    #   `TemplateBody`, `TemplateURL`, or set the `UsePreviousTemplate` to
+    #   `true`.
     #
     # @option params [String] :template_url
     #   The URL of the file that contains the revised template. The URL must
@@ -906,11 +908,27 @@ module Aws::CloudFormation
     #   specified. The location for an Amazon S3 bucket must start with
     #   `https://`. URLs from S3 static websites are not supported.
     #
-    #   Conditional: You must specify only `TemplateBody` or `TemplateURL`.
+    #   Conditional: You must specify only one of the following parameters:
+    #   `TemplateBody`, `TemplateURL`, or set the `UsePreviousTemplate` to
+    #   `true`.
     #
     # @option params [Boolean] :use_previous_template
     #   Whether to reuse the template that's associated with the stack to
     #   create the change set.
+    #
+    #   When using templates with the `AWS::LanguageExtensions` transform,
+    #   provide the template instead of using `UsePreviousTemplate` to ensure
+    #   new parameter values and Systems Manager parameter updates are applied
+    #   correctly. For more information, see [AWS::LanguageExtensions
+    #   transform][1].
+    #
+    #   Conditional: You must specify only one of the following parameters:
+    #   `TemplateBody`, `TemplateURL`, or set the `UsePreviousTemplate` to
+    #   `true`.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/transform-aws-languageextensions.html
     #
     # @option params [Array<Types::Parameter>] :parameters
     #   A list of `Parameter` structures that specify input parameters for the
@@ -924,7 +942,7 @@ module Aws::CloudFormation
     #   * `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
     #
     #     Some stack templates might include resources that can affect
-    #     permissions in your Amazon Web Services account; for example, by
+    #     permissions in your Amazon Web Services account, for example, by
     #     creating new IAM users. For those stacks, you must explicitly
     #     acknowledge this by specifying one of these capabilities.
     #
@@ -1009,16 +1027,15 @@ module Aws::CloudFormation
     #   [12]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html
     #
     # @option params [Array<String>] :resource_types
-    #   The template resource types that you have permissions to work with if
-    #   you execute this change set, such as `AWS::EC2::Instance`,
-    #   `AWS::EC2::*`, or `Custom::MyCustomInstance`.
+    #   Specifies which resource types you can work with, such as
+    #   `AWS::EC2::Instance` or `Custom::MyCustomInstance`.
     #
     #   If the list of resource types doesn't include a resource type that
     #   you're updating, the stack update fails. By default, CloudFormation
     #   grants permissions to all resource types. IAM uses this parameter for
     #   condition keys in IAM policies for CloudFormation. For more
-    #   information, see [Control access with Identity and Access
-    #   Management][1] in the *CloudFormation User Guide*.
+    #   information, see [Control CloudFormation access with Identity and
+    #   Access Management][1] in the *CloudFormation User Guide*.
     #
     #   <note markdown="1"> Only one of the `Capabilities` and `ResourceType` parameters can be
     #   specified.
@@ -1469,22 +1486,15 @@ module Aws::CloudFormation
     #   [12]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html
     #
     # @option params [Array<String>] :resource_types
-    #   The template resource types that you have permissions to work with for
-    #   this create stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`,
-    #   or `Custom::MyCustomInstance`. Use the following syntax to describe
-    #   template resource types: `AWS::*` (for all Amazon Web Services
-    #   resources), `Custom::*` (for all custom resources),
-    #   `Custom::logical_ID ` (for a specific custom resource),
-    #   `AWS::service_name::*` (for all resources of a particular Amazon Web
-    #   Services service), and `AWS::service_name::resource_logical_ID ` (for
-    #   a specific Amazon Web Services resource).
+    #   Specifies which resource types you can work with, such as
+    #   `AWS::EC2::Instance` or `Custom::MyCustomInstance`.
     #
     #   If the list of resource types doesn't include a resource that you're
     #   creating, the stack creation fails. By default, CloudFormation grants
     #   permissions to all resource types. IAM uses this parameter for
     #   CloudFormation-specific condition keys in IAM policies. For more
-    #   information, see [Control access with Identity and Access
-    #   Management][1].
+    #   information, see [Control CloudFormation access with Identity and
+    #   Access Management][1].
     #
     #   <note markdown="1"> Only one of the `Capabilities` and `ResourceType` parameters can be
     #   specified.
@@ -2645,8 +2655,8 @@ module Aws::CloudFormation
     # [1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of limits that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::DescribeAccountLimitsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -2695,8 +2705,8 @@ module Aws::CloudFormation
     #   ID (ARN) of the change set you want to describe.
     #
     # @option params [String] :next_token
-    #   A string (provided by the DescribeChangeSet response output) that
-    #   identifies the next page of information that you want to retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Boolean] :include_property_values
     #   If `true`, the returned changes include detailed changes in the
@@ -2810,7 +2820,7 @@ module Aws::CloudFormation
       req.send_request(options)
     end
 
-    # Returns hook-related information for the change set and a list of
+    # Returns Hook-related information for the change set and a list of
     # changes that CloudFormation makes when you run the change set.
     #
     # @option params [required, String] :change_set_name
@@ -2822,9 +2832,8 @@ module Aws::CloudFormation
     #   stack ID (ARN) of the change set you want to describe.
     #
     # @option params [String] :next_token
-    #   A string, provided by the `DescribeChangeSetHooks` response output,
-    #   that identifies the next page of information that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [String] :logical_resource_id
     #   If specified, lists only the Hooks related to the specified
@@ -3300,7 +3309,7 @@ module Aws::CloudFormation
     #
     # [1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stack-resource-configuration-complete.html
     #
-    # @option params [String] :stack_name
+    # @option params [required, String] :stack_name
     #   The name or the unique stack ID that's associated with the stack,
     #   which aren't always interchangeable:
     #
@@ -3310,8 +3319,8 @@ module Aws::CloudFormation
     #   * Deleted stacks: You must specify the unique stack ID.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of events that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::DescribeStackEventsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -3323,7 +3332,7 @@ module Aws::CloudFormation
     # @example Request syntax with placeholder values
     #
     #   resp = client.describe_stack_events({
-    #     stack_name: "StackName",
+    #     stack_name: "StackName", # required
     #     next_token: "NextToken",
     #   })
     #
@@ -3584,8 +3593,8 @@ module Aws::CloudFormation
     #     resource.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of stack resource drift
-    #   results.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -3960,8 +3969,8 @@ module Aws::CloudFormation
     #   * Deleted stacks: You must specify the unique stack ID.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of stacks that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::DescribeStacksOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -4714,6 +4723,74 @@ module Aws::CloudFormation
       req.send_request(options)
     end
 
+    # Retrieves detailed information and remediation guidance for a Hook
+    # invocation result.
+    #
+    # @option params [String] :hook_result_id
+    #   The unique identifier (ID) of the Hook invocation result that you want
+    #   details about. You can get the ID from the [ListHookResults][1]
+    #   operation.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_ListHookResults.html
+    #
+    # @return [Types::GetHookResultOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetHookResultOutput#hook_result_id #hook_result_id} => String
+    #   * {Types::GetHookResultOutput#invocation_point #invocation_point} => String
+    #   * {Types::GetHookResultOutput#failure_mode #failure_mode} => String
+    #   * {Types::GetHookResultOutput#type_name #type_name} => String
+    #   * {Types::GetHookResultOutput#original_type_name #original_type_name} => String
+    #   * {Types::GetHookResultOutput#type_version_id #type_version_id} => String
+    #   * {Types::GetHookResultOutput#type_configuration_version_id #type_configuration_version_id} => String
+    #   * {Types::GetHookResultOutput#type_arn #type_arn} => String
+    #   * {Types::GetHookResultOutput#status #status} => String
+    #   * {Types::GetHookResultOutput#hook_status_reason #hook_status_reason} => String
+    #   * {Types::GetHookResultOutput#invoked_at #invoked_at} => Time
+    #   * {Types::GetHookResultOutput#target #target} => Types::HookTarget
+    #   * {Types::GetHookResultOutput#annotations #annotations} => Array&lt;Types::Annotation&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_hook_result({
+    #     hook_result_id: "HookInvocationId",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.hook_result_id #=> String
+    #   resp.invocation_point #=> String, one of "PRE_PROVISION"
+    #   resp.failure_mode #=> String, one of "FAIL", "WARN"
+    #   resp.type_name #=> String
+    #   resp.original_type_name #=> String
+    #   resp.type_version_id #=> String
+    #   resp.type_configuration_version_id #=> String
+    #   resp.type_arn #=> String
+    #   resp.status #=> String, one of "HOOK_IN_PROGRESS", "HOOK_COMPLETE_SUCCEEDED", "HOOK_COMPLETE_FAILED", "HOOK_FAILED"
+    #   resp.hook_status_reason #=> String
+    #   resp.invoked_at #=> Time
+    #   resp.target.target_type #=> String, one of "RESOURCE"
+    #   resp.target.target_type_name #=> String
+    #   resp.target.target_id #=> String
+    #   resp.target.action #=> String, one of "CREATE", "UPDATE", "DELETE", "IMPORT"
+    #   resp.annotations #=> Array
+    #   resp.annotations[0].annotation_name #=> String
+    #   resp.annotations[0].status #=> String, one of "PASSED", "FAILED", "SKIPPED"
+    #   resp.annotations[0].status_message #=> String
+    #   resp.annotations[0].remediation_message #=> String
+    #   resp.annotations[0].remediation_link #=> String
+    #   resp.annotations[0].severity_level #=> String, one of "INFORMATIONAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/GetHookResult AWS API Documentation
+    #
+    # @overload get_hook_result(params = {})
+    # @param [Hash] params ({})
+    def get_hook_result(params = {}, options = {})
+      req = build_request(:get_hook_result, params)
+      req.send_request(options)
+    end
+
     # Returns the stack policy for a specified stack. If a stack doesn't
     # have a policy, a null value is returned.
     #
@@ -5036,8 +5113,8 @@ module Aws::CloudFormation
     #   want to list change sets.
     #
     # @option params [String] :next_token
-    #   A string (provided by the ListChangeSets response output) that
-    #   identifies the next page of change sets that you want to retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListChangeSetsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -5094,8 +5171,8 @@ module Aws::CloudFormation
     # [2]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html
     #
     # @option params [String] :next_token
-    #   A string (provided by the ListExports response output) that identifies
-    #   the next page of exported output values that you asked to retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListExportsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -5130,7 +5207,8 @@ module Aws::CloudFormation
     # Lists your generated templates in this Region.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of resource scan results.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   If the number of available results exceeds this maximum, the response
@@ -5273,8 +5351,8 @@ module Aws::CloudFormation
     #   * `HOOK_FAILED`: The Hook encountered an error during execution.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of events that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListHookResultsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -5339,9 +5417,8 @@ module Aws::CloudFormation
     #   stack names that are importing this value.
     #
     # @option params [String] :next_token
-    #   A string (provided by the ListImports response output) that identifies
-    #   the next page of stacks that are importing the specified exported
-    #   output value.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListImportsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -5384,7 +5461,8 @@ module Aws::CloudFormation
     #   Up to 100 resources can be provided.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of resource scan results.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   If the number of available results exceeds this maximum, the response
@@ -5518,7 +5596,8 @@ module Aws::CloudFormation
     #   If specified, the returned resources will have a matching tag value.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of resource scan results.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   If the number of available results exceeds this maximum, the response
@@ -5629,7 +5708,8 @@ module Aws::CloudFormation
     # return up to 10 resource scans.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of resource scan results.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   If the number of available results exceeds this maximum, the response
@@ -5717,12 +5797,8 @@ module Aws::CloudFormation
     #   resources for.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all of the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call this action again
-    #   and assign that token to the request object's `NextToken` parameter.
-    #   If there are no remaining results, the previous response object's
-    #   `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -5832,12 +5908,8 @@ module Aws::CloudFormation
     #   instances for.
     #
     # @option params [String] :next_token
-    #   If the previous request didn't return all the remaining results, the
-    #   response's `NextToken` parameter value is set to a token. To retrieve
-    #   the next set of results, call `ListStackInstances` again and assign
-    #   that token to the request object's `NextToken` parameter. If there
-    #   are no remaining results, the previous response object's `NextToken`
-    #   parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -5934,11 +6006,8 @@ module Aws::CloudFormation
     #   CreateStackRefactor action.
     #
     # @option params [String] :next_token
-    #   If the request doesn't return all the remaining results, `NextToken`
-    #   is set to a token. To retrieve the next set of results, call this
-    #   action again and assign that token to the request object's
-    #   `NextToken` parameter. If the request returns all results, `NextToken`
-    #   is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -5999,11 +6068,8 @@ module Aws::CloudFormation
     #   status codes.
     #
     # @option params [String] :next_token
-    #   If the request doesn't return all the remaining results, `NextToken`
-    #   is set to a token. To retrieve the next set of results, call this
-    #   action again and assign that token to the request object's
-    #   `NextToken` parameter. If the request returns all results, `NextToken`
-    #   is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -6061,8 +6127,8 @@ module Aws::CloudFormation
     #   * Deleted stacks: You must specify the unique stack ID.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of stack resources that you
-    #   want to retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListStackResourcesOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -6109,8 +6175,8 @@ module Aws::CloudFormation
     #   deployment targets for.
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of deployment targets that you
-    #   want to retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -6186,12 +6252,8 @@ module Aws::CloudFormation
     #   The ID of the StackSet operation.
     #
     # @option params [String] :next_token
-    #   If the previous request didn't return all the remaining results, the
-    #   response object's `NextToken` parameter value is set to a token. To
-    #   retrieve the next set of results, call `ListStackSetOperationResults`
-    #   again and assign that token to the request object's `NextToken`
-    #   parameter. If there are no remaining results, the previous response
-    #   object's `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -6280,13 +6342,8 @@ module Aws::CloudFormation
     #   summaries for.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all of the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call
-    #   `ListStackSetOperations` again and assign that token to the request
-    #   object's `NextToken` parameter. If there are no remaining results,
-    #   the previous response object's `NextToken` parameter is set to
-    #   `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -6384,12 +6441,8 @@ module Aws::CloudFormation
     #   permissions in the management account.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call `ListStackSets`
-    #   again and assign that token to the request object's `NextToken`
-    #   parameter. If there are no remaining results, the previous response
-    #   object's `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Integer] :max_results
     #   The maximum number of results to be returned with a single call. If
@@ -6471,8 +6524,8 @@ module Aws::CloudFormation
     # been deleted).
     #
     # @option params [String] :next_token
-    #   A string that identifies the next page of stacks that you want to
-    #   retrieve.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [Array<String>] :stack_status_filter
     #   Stack status to use as a filter. Specify one or more stack status
@@ -6549,12 +6602,8 @@ module Aws::CloudFormation
     #   request parameter to get the next set of results.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call this action again
-    #   and assign that token to the request object's `NextToken` parameter.
-    #   If there are no remaining results, the previous response object's
-    #   `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListTypeRegistrationsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -6615,12 +6664,8 @@ module Aws::CloudFormation
     #   request parameter to get the next set of results.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all of the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call this action again
-    #   and assign that token to the request object's `NextToken` parameter.
-    #   If there are no remaining results, the previous response object's
-    #   `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @option params [String] :deprecated_status
     #   The deprecation status of the extension versions that you want to get
@@ -6757,12 +6802,8 @@ module Aws::CloudFormation
     #   request parameter to get the next set of results.
     #
     # @option params [String] :next_token
-    #   If the previous paginated request didn't return all the remaining
-    #   results, the response object's `NextToken` parameter value is set to
-    #   a token. To retrieve the next set of results, call this action again
-    #   and assign that token to the request object's `NextToken` parameter.
-    #   If there are no remaining results, the previous response object's
-    #   `NextToken` parameter is set to `null`.
+    #   The token for the next set of items to return. (You received this
+    #   token from a previous call.)
     #
     # @return [Types::ListTypesOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -7882,9 +7923,19 @@ module Aws::CloudFormation
     #   Reuse the existing template that is associated with the stack that you
     #   are updating.
     #
+    #   When using templates with the `AWS::LanguageExtensions` transform,
+    #   provide the template instead of using `UsePreviousTemplate` to ensure
+    #   new parameter values and Systems Manager parameter updates are applied
+    #   correctly. For more information, see [AWS::LanguageExtensions
+    #   transform][1].
+    #
     #   Conditional: You must specify only one of the following parameters:
     #   `TemplateBody`, `TemplateURL`, or set the `UsePreviousTemplate` to
     #   `true`.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/transform-aws-languageextensions.html
     #
     # @option params [String] :stack_policy_during_update_body
     #   Structure that contains the temporary overriding stack policy body.
@@ -8014,16 +8065,15 @@ module Aws::CloudFormation
     #   [12]: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html
     #
     # @option params [Array<String>] :resource_types
-    #   The template resource types that you have permissions to work with for
-    #   this update stack action, such as `AWS::EC2::Instance`, `AWS::EC2::*`,
-    #   or `Custom::MyCustomInstance`.
+    #   Specifies which resource types you can work with, such as
+    #   `AWS::EC2::Instance` or `Custom::MyCustomInstance`.
     #
     #   If the list of resource types doesn't include a resource that you're
     #   updating, the stack update fails. By default, CloudFormation grants
     #   permissions to all resource types. IAM uses this parameter for
     #   CloudFormation-specific condition keys in IAM policies. For more
-    #   information, see [Control access with Identity and Access
-    #   Management][1].
+    #   information, see [Control CloudFormation access with Identity and
+    #   Access Management][1].
     #
     #   <note markdown="1"> Only one of the `Capabilities` and `ResourceType` parameters can be
     #   specified.
@@ -8905,7 +8955,7 @@ module Aws::CloudFormation
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cloudformation'
-      context[:gem_version] = '1.143.0'
+      context[:gem_version] = '1.144.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

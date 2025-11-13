@@ -3852,7 +3852,7 @@ module Aws::RDS
     #     performance_insights_kms_key_id: "String",
     #     performance_insights_retention_period: 1,
     #     enable_limitless_database: false,
-    #     cluster_scalability_type: "standard", # accepts standard, limitless, scaleout
+    #     cluster_scalability_type: "standard", # accepts standard, limitless
     #     db_system_id: "String",
     #     manage_master_user_password: false,
     #     enable_local_write_forwarding: false,
@@ -4003,7 +4003,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -9589,7 +9589,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -13048,7 +13048,7 @@ module Aws::RDS
     #   resp.db_clusters[0].aws_backup_recovery_point_arn #=> String
     #   resp.db_clusters[0].limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_clusters[0].limitless_database.min_required_acu #=> Float
-    #   resp.db_clusters[0].cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_clusters[0].cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_clusters[0].certificate_details.ca_identifier #=> String
     #   resp.db_clusters[0].certificate_details.valid_till #=> Time
     #   resp.db_clusters[0].engine_lifecycle_support #=> String
@@ -18491,7 +18491,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -20237,7 +20237,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -24180,7 +24180,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -24485,7 +24485,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -26089,7 +26089,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -26915,7 +26915,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -27724,7 +27724,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -30903,7 +30903,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -31739,7 +31739,7 @@ module Aws::RDS
     #   resp.db_cluster.aws_backup_recovery_point_arn #=> String
     #   resp.db_cluster.limitless_database.status #=> String, one of "active", "not-in-use", "enabled", "disabled", "enabling", "disabling", "modifying-max-capacity", "error"
     #   resp.db_cluster.limitless_database.min_required_acu #=> Float
-    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless", "scaleout"
+    #   resp.db_cluster.cluster_scalability_type #=> String, one of "standard", "limitless"
     #   resp.db_cluster.certificate_details.ca_identifier #=> String
     #   resp.db_cluster.certificate_details.valid_till #=> Time
     #   resp.db_cluster.engine_lifecycle_support #=> String
@@ -32605,7 +32605,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.297.0'
+      context[:gem_version] = '1.298.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

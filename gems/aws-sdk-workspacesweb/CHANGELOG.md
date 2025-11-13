@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.51.0 (2025-11-13)
+------------------
+
+* Feature - Support for managing web content filtering for defining, tracking and regulating type of content accessed with WorkSpaces Secure Browser as part of browser settings.
+
 1.50.0 (2025-10-21)
 ------------------
 

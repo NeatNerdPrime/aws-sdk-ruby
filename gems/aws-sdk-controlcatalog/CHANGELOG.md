@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.33.0 (2025-11-13)
+------------------
+
+* Feature - Added support for related control mappings with new RELATED_CONTROL mapping type in ListControlMappings API.
+
 1.32.0 (2025-10-21)
 ------------------
 

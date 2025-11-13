@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.173.0 (2025-11-13)
+------------------
+
+* Feature - Lowers minimum duration for black video generator. Adds support for embedding and signing C2PA content credentials in DASH and CMAF HLS outputs.
+
 1.172.0 (2025-10-31)
 ------------------
 

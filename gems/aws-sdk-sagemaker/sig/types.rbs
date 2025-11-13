@@ -506,6 +506,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class AvailableUpgrade
+      attr_accessor version: ::String
+      attr_accessor release_notes: ::Array[::String]
+      SENSITIVE: []
+    end
+
     class BatchAddClusterNodesError
       attr_accessor instance_group_name: ::String
       attr_accessor error_code: ("InstanceGroupNotFound" | "InvalidInstanceGroupStatus")
@@ -2065,6 +2071,7 @@ module Aws::SageMaker
       attr_accessor application_config: Types::PartnerAppConfig
       attr_accessor auth_type: ("IAM")
       attr_accessor enable_iam_session_based_identity: bool
+      attr_accessor enable_auto_minor_version_upgrade: bool
       attr_accessor client_token: ::String
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
@@ -4097,6 +4104,7 @@ module Aws::SageMaker
 
     class DescribePartnerAppRequest
       attr_accessor arn: ::String
+      attr_accessor include_available_upgrade: bool
       SENSITIVE: []
     end
 
@@ -4117,6 +4125,9 @@ module Aws::SageMaker
       attr_accessor auth_type: ("IAM")
       attr_accessor enable_iam_session_based_identity: bool
       attr_accessor error: Types::ErrorInfo
+      attr_accessor enable_auto_minor_version_upgrade: bool
+      attr_accessor current_version_eol_date: ::Time
+      attr_accessor available_upgrade: Types::AvailableUpgrade
       SENSITIVE: []
     end
 
@@ -8532,6 +8543,8 @@ module Aws::SageMaker
     class PartnerAppConfig
       attr_accessor admin_users: ::Array[::String]
       attr_accessor arguments: ::Hash[::String, ::String]
+      attr_accessor assigned_group_patterns: ::Array[::String]
+      attr_accessor role_group_assignments: ::Array[Types::RoleGroupAssignment]
       SENSITIVE: []
     end
 
@@ -9379,6 +9392,12 @@ module Aws::SageMaker
 
     class RetryStrategy
       attr_accessor maximum_retry_attempts: ::Integer
+      SENSITIVE: []
+    end
+
+    class RoleGroupAssignment
+      attr_accessor role_name: ::String
+      attr_accessor group_patterns: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -11000,6 +11019,8 @@ module Aws::SageMaker
       attr_accessor tier: ::String
       attr_accessor application_config: Types::PartnerAppConfig
       attr_accessor enable_iam_session_based_identity: bool
+      attr_accessor enable_auto_minor_version_upgrade: bool
+      attr_accessor app_version: ::String
       attr_accessor client_token: ::String
       attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []

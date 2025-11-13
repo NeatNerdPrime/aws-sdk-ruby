@@ -809,7 +809,7 @@ module Aws::ElasticLoadBalancingV2
     #
     #   resp = client.create_listener({
     #     load_balancer_arn: "LoadBalancerArn", # required
-    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE
+    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE, QUIC, TCP_QUIC
     #     port: 1,
     #     ssl_policy: "SslPolicyName",
     #     certificates: [
@@ -911,7 +911,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].listener_arn #=> String
     #   resp.listeners[0].load_balancer_arn #=> String
     #   resp.listeners[0].port #=> Integer
-    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.listeners[0].certificates #=> Array
     #   resp.listeners[0].certificates[0].certificate_arn #=> String
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
@@ -1787,11 +1787,11 @@ module Aws::ElasticLoadBalancingV2
     #
     #   resp = client.create_target_group({
     #     name: "TargetGroupName", # required
-    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE
+    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE, QUIC, TCP_QUIC
     #     protocol_version: "ProtocolVersion",
     #     port: 1,
     #     vpc_id: "VpcId",
-    #     health_check_protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE
+    #     health_check_protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE, QUIC, TCP_QUIC
     #     health_check_port: "HealthCheckPort",
     #     health_check_enabled: false,
     #     health_check_path: "Path",
@@ -1818,10 +1818,10 @@ module Aws::ElasticLoadBalancingV2
     #   resp.target_groups #=> Array
     #   resp.target_groups[0].target_group_arn #=> String
     #   resp.target_groups[0].target_group_name #=> String
-    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].port #=> Integer
     #   resp.target_groups[0].vpc_id #=> String
-    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].health_check_port #=> String
     #   resp.target_groups[0].health_check_enabled #=> Boolean
     #   resp.target_groups[0].health_check_interval_seconds #=> Integer
@@ -2178,6 +2178,7 @@ module Aws::ElasticLoadBalancingV2
     #         id: "TargetId", # required
     #         port: 1,
     #         availability_zone: "ZoneName",
+    #         quic_server_id: "QuicServerId",
     #       },
     #     ],
     #   })
@@ -2453,7 +2454,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].listener_arn #=> String
     #   resp.listeners[0].load_balancer_arn #=> String
     #   resp.listeners[0].port #=> Integer
-    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.listeners[0].certificates #=> Array
     #   resp.listeners[0].certificates[0].certificate_arn #=> String
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
@@ -3282,10 +3283,10 @@ module Aws::ElasticLoadBalancingV2
     #   resp.target_groups #=> Array
     #   resp.target_groups[0].target_group_arn #=> String
     #   resp.target_groups[0].target_group_name #=> String
-    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].port #=> Integer
     #   resp.target_groups[0].vpc_id #=> String
-    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].health_check_port #=> String
     #   resp.target_groups[0].health_check_enabled #=> Boolean
     #   resp.target_groups[0].health_check_interval_seconds #=> Integer
@@ -3402,6 +3403,7 @@ module Aws::ElasticLoadBalancingV2
     #         id: "TargetId", # required
     #         port: 1,
     #         availability_zone: "ZoneName",
+    #         quic_server_id: "QuicServerId",
     #       },
     #     ],
     #     include: ["AnomalyDetection"], # accepts AnomalyDetection, All
@@ -3413,6 +3415,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.target_health_descriptions[0].target.id #=> String
     #   resp.target_health_descriptions[0].target.port #=> Integer
     #   resp.target_health_descriptions[0].target.availability_zone #=> String
+    #   resp.target_health_descriptions[0].target.quic_server_id #=> String
     #   resp.target_health_descriptions[0].health_check_port #=> String
     #   resp.target_health_descriptions[0].target_health.state #=> String, one of "initial", "healthy", "unhealthy", "unhealthy.draining", "unused", "draining", "unavailable"
     #   resp.target_health_descriptions[0].target_health.reason #=> String, one of "Elb.RegistrationInProgress", "Elb.InitialHealthChecking", "Target.ResponseCodeMismatch", "Target.Timeout", "Target.FailedHealthChecks", "Target.NotRegistered", "Target.NotInUse", "Target.DeregistrationInProgress", "Target.InvalidState", "Target.IpUnusable", "Target.HealthCheckDisabled", "Elb.InternalError"
@@ -3927,7 +3930,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp = client.modify_listener({
     #     listener_arn: "ListenerArn", # required
     #     port: 1,
-    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE
+    #     protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE, QUIC, TCP_QUIC
     #     ssl_policy: "SslPolicyName",
     #     certificates: [
     #       {
@@ -4022,7 +4025,7 @@ module Aws::ElasticLoadBalancingV2
     #   resp.listeners[0].listener_arn #=> String
     #   resp.listeners[0].load_balancer_arn #=> String
     #   resp.listeners[0].port #=> Integer
-    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.listeners[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.listeners[0].certificates #=> Array
     #   resp.listeners[0].certificates[0].certificate_arn #=> String
     #   resp.listeners[0].certificates[0].is_default #=> Boolean
@@ -4710,7 +4713,7 @@ module Aws::ElasticLoadBalancingV2
     #
     #   resp = client.modify_target_group({
     #     target_group_arn: "TargetGroupArn", # required
-    #     health_check_protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE
+    #     health_check_protocol: "HTTP", # accepts HTTP, HTTPS, TCP, TLS, UDP, TCP_UDP, GENEVE, QUIC, TCP_QUIC
     #     health_check_port: "HealthCheckPort",
     #     health_check_path: "Path",
     #     health_check_enabled: false,
@@ -4729,10 +4732,10 @@ module Aws::ElasticLoadBalancingV2
     #   resp.target_groups #=> Array
     #   resp.target_groups[0].target_group_arn #=> String
     #   resp.target_groups[0].target_group_name #=> String
-    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].port #=> Integer
     #   resp.target_groups[0].vpc_id #=> String
-    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE"
+    #   resp.target_groups[0].health_check_protocol #=> String, one of "HTTP", "HTTPS", "TCP", "TLS", "UDP", "TCP_UDP", "GENEVE", "QUIC", "TCP_QUIC"
     #   resp.target_groups[0].health_check_port #=> String
     #   resp.target_groups[0].health_check_enabled #=> Boolean
     #   resp.target_groups[0].health_check_interval_seconds #=> Integer
@@ -4957,6 +4960,7 @@ module Aws::ElasticLoadBalancingV2
     #         id: "TargetId", # required
     #         port: 1,
     #         availability_zone: "ZoneName",
+    #         quic_server_id: "QuicServerId",
     #       },
     #     ],
     #   })
@@ -5515,7 +5519,7 @@ module Aws::ElasticLoadBalancingV2
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-elasticloadbalancingv2'
-      context[:gem_version] = '1.142.0'
+      context[:gem_version] = '1.143.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

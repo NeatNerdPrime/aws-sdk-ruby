@@ -1633,13 +1633,13 @@ module Aws
                                       min: ::Integer?,
                                       max: ::Integer?
                                     }?,
-                                    accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                    accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                     accelerator_count: {
                                       min: ::Integer?,
                                       max: ::Integer?
                                     }?,
                                     accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                    accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                    accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                     accelerator_total_memory_mi_b: {
                                       min: ::Integer?,
                                       max: ::Integer?
@@ -2426,13 +2426,13 @@ module Aws
                                           min: ::Integer?,
                                           max: ::Integer?
                                         }?,
-                                        accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                        accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                         accelerator_count: {
                                           min: ::Integer?,
                                           max: ::Integer?
                                         }?,
                                         accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                        accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                        accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                         accelerator_total_memory_mi_b: {
                                           min: ::Integer?,
                                           max: ::Integer?
@@ -2702,13 +2702,13 @@ module Aws
                                                   min: ::Integer?,
                                                   max: ::Integer?
                                                 }?,
-                                                accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                                accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                                 accelerator_count: {
                                                   min: ::Integer?,
                                                   max: ::Integer?
                                                 }?,
                                                 accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                                accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                                accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                                 accelerator_total_memory_mi_b: {
                                                   min: ::Integer?,
                                                   max: ::Integer?
@@ -10280,13 +10280,13 @@ module Aws
                                                                min: ::Integer?,
                                                                max: ::Integer?
                                                              }?,
-                                                             accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                                             accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                                              accelerator_count: {
                                                                min: ::Integer?,
                                                                max: ::Integer?
                                                              }?,
                                                              accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                                             accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                                             accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                                              accelerator_total_memory_mi_b: {
                                                                min: ::Integer?,
                                                                max: ::Integer?
@@ -10774,13 +10774,13 @@ module Aws
                                              min: ::Integer?,
                                              max: ::Integer?
                                            }?,
-                                           accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                           accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                            accelerator_count: {
                                              min: ::Integer?,
                                              max: ::Integer?
                                            }?,
                                            accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                           accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                           accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                            accelerator_total_memory_mi_b: {
                                              min: ::Integer?,
                                              max: ::Integer?
@@ -11531,13 +11531,13 @@ module Aws
                                       min: ::Integer?,
                                       max: ::Integer?
                                     }?,
-                                    accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                    accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                     accelerator_count: {
                                       min: ::Integer?,
                                       max: ::Integer?
                                     }?,
                                     accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                    accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                    accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                     accelerator_total_memory_mi_b: {
                                       min: ::Integer?,
                                       max: ::Integer?
@@ -12328,13 +12328,13 @@ module Aws
                                                    min: ::Integer?,
                                                    max: ::Integer?
                                                  }?,
-                                                 accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                                 accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                                  accelerator_count: {
                                                    min: ::Integer?,
                                                    max: ::Integer?
                                                  }?,
                                                  accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                                 accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                                 accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                                  accelerator_total_memory_mi_b: {
                                                    min: ::Integer?,
                                                    max: ::Integer?
@@ -13753,13 +13753,13 @@ module Aws
                                           min: ::Integer?,
                                           max: ::Integer?
                                         }?,
-                                        accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                        accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                         accelerator_count: {
                                           min: ::Integer?,
                                           max: ::Integer?
                                         }?,
                                         accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                        accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                        accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                         accelerator_total_memory_mi_b: {
                                           min: ::Integer?,
                                           max: ::Integer?
@@ -13839,13 +13839,13 @@ module Aws
                                               min: ::Integer?,
                                               max: ::Integer?
                                             }?,
-                                            accelerator_types: Array[("gpu" | "fpga" | "inference")]?,
+                                            accelerator_types: Array[("gpu" | "fpga" | "inference" | "media")]?,
                                             accelerator_count: {
                                               min: ::Integer?,
                                               max: ::Integer?
                                             }?,
                                             accelerator_manufacturers: Array[("amazon-web-services" | "amd" | "nvidia" | "xilinx" | "habana")]?,
-                                            accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g")]?,
+                                            accelerator_names: Array[("a100" | "inferentia" | "k520" | "k80" | "m60" | "radeon-pro-v520" | "t4" | "vu9p" | "v100" | "a10g" | "h100" | "t4g" | "l40s" | "l4" | "gaudi-hl-205" | "inferentia2" | "trainium" | "trainium2" | "u30")]?,
                                             accelerator_total_memory_mi_b: {
                                               min: ::Integer?,
                                               max: ::Integer?
