@@ -1128,9 +1128,7 @@ module Aws::Imagebuilder
     #   @return [String]
     #
     # @!attribute [rw] components
-    #   Components for build and test that are included in the container
-    #   recipe. Recipes require a minimum of one build component, and can
-    #   have a maximum of 20 build and test components in any combination.
+    #   The components included in the container recipe.
     #   @return [Array<Types::ComponentConfiguration>]
     #
     # @!attribute [rw] instance_configuration

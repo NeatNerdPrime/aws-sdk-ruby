@@ -136,7 +136,7 @@ module Aws
                                      name: ::String,
                                      ?description: ::String,
                                      semantic_version: ::String,
-                                     components: Array[
+                                     ?components: Array[
                                        {
                                          component_arn: ::String,
                                          parameters: Array[
@@ -375,7 +375,7 @@ module Aws
                                  name: ::String,
                                  ?description: ::String,
                                  semantic_version: ::String,
-                                 components: Array[
+                                 ?components: Array[
                                    {
                                      component_arn: ::String,
                                      parameters: Array[

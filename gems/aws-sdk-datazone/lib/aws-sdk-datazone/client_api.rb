@@ -80,6 +80,8 @@ module Aws::DataZone
     AssetListingItemAdditionalAttributes = Shapes::StructureShape.new(name: 'AssetListingItemAdditionalAttributes')
     AssetListingItemGovernedGlossaryTermsList = Shapes::ListShape.new(name: 'AssetListingItemGovernedGlossaryTermsList')
     AssetName = Shapes::StringShape.new(name: 'AssetName')
+    AssetPermission = Shapes::StructureShape.new(name: 'AssetPermission')
+    AssetPermissions = Shapes::ListShape.new(name: 'AssetPermissions')
     AssetRevision = Shapes::StructureShape.new(name: 'AssetRevision')
     AssetRevisions = Shapes::ListShape.new(name: 'AssetRevisions')
     AssetScope = Shapes::StructureShape.new(name: 'AssetScope')
@@ -766,6 +768,7 @@ module Aws::DataZone
     PaginationToken = Shapes::StringShape.new(name: 'PaginationToken')
     ParameterStorePath = Shapes::StringShape.new(name: 'ParameterStorePath')
     Password = Shapes::StringShape.new(name: 'Password')
+    Permissions = Shapes::UnionShape.new(name: 'Permissions')
     PhysicalConnectionRequirements = Shapes::StructureShape.new(name: 'PhysicalConnectionRequirements')
     PhysicalConnectionRequirementsAvailabilityZoneString = Shapes::StringShape.new(name: 'PhysicalConnectionRequirementsAvailabilityZoneString')
     PhysicalEndpoint = Shapes::StructureShape.new(name: 'PhysicalEndpoint')
@@ -897,6 +900,8 @@ module Aws::DataZone
     S3AccessGrantLocationId = Shapes::StringShape.new(name: 'S3AccessGrantLocationId')
     S3Location = Shapes::StringShape.new(name: 'S3Location')
     S3LocationList = Shapes::ListShape.new(name: 'S3LocationList')
+    S3Permission = Shapes::StringShape.new(name: 'S3Permission')
+    S3Permissions = Shapes::ListShape.new(name: 'S3Permissions')
     S3PropertiesInput = Shapes::StructureShape.new(name: 'S3PropertiesInput')
     S3PropertiesOutput = Shapes::StructureShape.new(name: 'S3PropertiesOutput')
     S3PropertiesPatch = Shapes::StructureShape.new(name: 'S3PropertiesPatch')
@@ -990,6 +995,8 @@ module Aws::DataZone
     SubscribedAsset = Shapes::StructureShape.new(name: 'SubscribedAsset')
     SubscribedAssetListing = Shapes::StructureShape.new(name: 'SubscribedAssetListing')
     SubscribedAssets = Shapes::ListShape.new(name: 'SubscribedAssets')
+    SubscribedGroup = Shapes::StructureShape.new(name: 'SubscribedGroup')
+    SubscribedGroupInput = Shapes::StructureShape.new(name: 'SubscribedGroupInput')
     SubscribedListing = Shapes::StructureShape.new(name: 'SubscribedListing')
     SubscribedListingInput = Shapes::StructureShape.new(name: 'SubscribedListingInput')
     SubscribedListingInputs = Shapes::ListShape.new(name: 'SubscribedListingInputs')
@@ -1000,6 +1007,8 @@ module Aws::DataZone
     SubscribedProductListing = Shapes::StructureShape.new(name: 'SubscribedProductListing')
     SubscribedProject = Shapes::StructureShape.new(name: 'SubscribedProject')
     SubscribedProjectInput = Shapes::StructureShape.new(name: 'SubscribedProjectInput')
+    SubscribedUser = Shapes::StructureShape.new(name: 'SubscribedUser')
+    SubscribedUserInput = Shapes::StructureShape.new(name: 'SubscribedUserInput')
     SubscriptionGrantId = Shapes::StringShape.new(name: 'SubscriptionGrantId')
     SubscriptionGrantOverallStatus = Shapes::StringShape.new(name: 'SubscriptionGrantOverallStatus')
     SubscriptionGrantStatus = Shapes::StringShape.new(name: 'SubscriptionGrantStatus')
@@ -1154,6 +1163,7 @@ module Aws::DataZone
     AcceptRule.add_member(:threshold, Shapes::ShapeRef.new(shape: Float, location_name: "threshold"))
     AcceptRule.struct_class = Types::AcceptRule
 
+    AcceptSubscriptionRequestInput.add_member(:asset_permissions, Shapes::ShapeRef.new(shape: AssetPermissions, location_name: "assetPermissions"))
     AcceptSubscriptionRequestInput.add_member(:asset_scopes, Shapes::ShapeRef.new(shape: AcceptedAssetScopes, location_name: "assetScopes"))
     AcceptSubscriptionRequestInput.add_member(:decision_comment, Shapes::ShapeRef.new(shape: DecisionComment, location_name: "decisionComment"))
     AcceptSubscriptionRequestInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
@@ -1381,6 +1391,12 @@ module Aws::DataZone
     AssetListingItemAdditionalAttributes.struct_class = Types::AssetListingItemAdditionalAttributes
 
     AssetListingItemGovernedGlossaryTermsList.member = Shapes::ShapeRef.new(shape: DetailedGlossaryTerm)
+
+    AssetPermission.add_member(:asset_id, Shapes::ShapeRef.new(shape: AssetId, required: true, location_name: "assetId"))
+    AssetPermission.add_member(:permissions, Shapes::ShapeRef.new(shape: Permissions, required: true, location_name: "permissions"))
+    AssetPermission.struct_class = Types::AssetPermission
+
+    AssetPermissions.member = Shapes::ShapeRef.new(shape: AssetPermission)
 
     AssetRevision.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, location_name: "createdAt"))
     AssetRevision.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, location_name: "createdBy"))
@@ -2226,6 +2242,7 @@ module Aws::DataZone
     CreateSubscriptionGrantOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, required: true, location_name: "createdAt"))
     CreateSubscriptionGrantOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     CreateSubscriptionGrantOutput.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "domainId"))
+    CreateSubscriptionGrantOutput.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location_name: "environmentId"))
     CreateSubscriptionGrantOutput.add_member(:granted_entity, Shapes::ShapeRef.new(shape: GrantedEntity, required: true, location_name: "grantedEntity"))
     CreateSubscriptionGrantOutput.add_member(:id, Shapes::ShapeRef.new(shape: SubscriptionGrantId, required: true, location_name: "id"))
     CreateSubscriptionGrantOutput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantOverallStatus, required: true, location_name: "status"))
@@ -2235,6 +2252,8 @@ module Aws::DataZone
     CreateSubscriptionGrantOutput.add_member(:updated_by, Shapes::ShapeRef.new(shape: UpdatedBy, location_name: "updatedBy"))
     CreateSubscriptionGrantOutput.struct_class = Types::CreateSubscriptionGrantOutput
 
+    CreateSubscriptionRequestInput.add_member(:asset_permissions, Shapes::ShapeRef.new(shape: AssetPermissions, location_name: "assetPermissions"))
+    CreateSubscriptionRequestInput.add_member(:asset_scopes, Shapes::ShapeRef.new(shape: AcceptedAssetScopes, location_name: "assetScopes"))
     CreateSubscriptionRequestInput.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "clientToken", metadata: {"idempotencyToken" => true}))
     CreateSubscriptionRequestInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     CreateSubscriptionRequestInput.add_member(:metadata_forms, Shapes::ShapeRef.new(shape: MetadataFormInputs, location_name: "metadataForms"))
@@ -2623,6 +2642,7 @@ module Aws::DataZone
     DeleteSubscriptionGrantOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, required: true, location_name: "createdAt"))
     DeleteSubscriptionGrantOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     DeleteSubscriptionGrantOutput.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "domainId"))
+    DeleteSubscriptionGrantOutput.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location_name: "environmentId"))
     DeleteSubscriptionGrantOutput.add_member(:granted_entity, Shapes::ShapeRef.new(shape: GrantedEntity, required: true, location_name: "grantedEntity"))
     DeleteSubscriptionGrantOutput.add_member(:id, Shapes::ShapeRef.new(shape: SubscriptionGrantId, required: true, location_name: "id"))
     DeleteSubscriptionGrantOutput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantOverallStatus, required: true, location_name: "status"))
@@ -3498,6 +3518,7 @@ module Aws::DataZone
     GetSubscriptionGrantOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, required: true, location_name: "createdAt"))
     GetSubscriptionGrantOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     GetSubscriptionGrantOutput.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "domainId"))
+    GetSubscriptionGrantOutput.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location_name: "environmentId"))
     GetSubscriptionGrantOutput.add_member(:granted_entity, Shapes::ShapeRef.new(shape: GrantedEntity, required: true, location_name: "grantedEntity"))
     GetSubscriptionGrantOutput.add_member(:id, Shapes::ShapeRef.new(shape: SubscriptionGrantId, required: true, location_name: "id"))
     GetSubscriptionGrantOutput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantOverallStatus, required: true, location_name: "status"))
@@ -4225,8 +4246,10 @@ module Aws::DataZone
     ListSubscriptionGrantsInput.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location: "querystring", location_name: "environmentId"))
     ListSubscriptionGrantsInput.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
     ListSubscriptionGrantsInput.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListSubscriptionGrantsInput.add_member(:owning_group_id, Shapes::ShapeRef.new(shape: GroupProfileId, location: "querystring", location_name: "owningGroupId"))
     ListSubscriptionGrantsInput.add_member(:owning_project_id, Shapes::ShapeRef.new(shape: ProjectId, location: "querystring", location_name: "owningProjectId"))
-    ListSubscriptionGrantsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, location: "querystring", location_name: "sortBy"))
+    ListSubscriptionGrantsInput.add_member(:owning_user_id, Shapes::ShapeRef.new(shape: UserProfileId, location: "querystring", location_name: "owningUserId"))
+    ListSubscriptionGrantsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, deprecated: true, location: "querystring", location_name: "sortBy", metadata: {"deprecatedMessage" => "Results are always sorted by updatedAt"}))
     ListSubscriptionGrantsInput.add_member(:sort_order, Shapes::ShapeRef.new(shape: SortOrder, location: "querystring", location_name: "sortOrder"))
     ListSubscriptionGrantsInput.add_member(:subscribed_listing_id, Shapes::ShapeRef.new(shape: ListingId, location: "querystring", location_name: "subscribedListingId"))
     ListSubscriptionGrantsInput.add_member(:subscription_id, Shapes::ShapeRef.new(shape: SubscriptionId, location: "querystring", location_name: "subscriptionId"))
@@ -4241,8 +4264,10 @@ module Aws::DataZone
     ListSubscriptionRequestsInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     ListSubscriptionRequestsInput.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
     ListSubscriptionRequestsInput.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListSubscriptionRequestsInput.add_member(:owning_group_id, Shapes::ShapeRef.new(shape: GroupProfileId, location: "querystring", location_name: "owningGroupId"))
     ListSubscriptionRequestsInput.add_member(:owning_project_id, Shapes::ShapeRef.new(shape: ProjectId, location: "querystring", location_name: "owningProjectId"))
-    ListSubscriptionRequestsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, location: "querystring", location_name: "sortBy"))
+    ListSubscriptionRequestsInput.add_member(:owning_user_id, Shapes::ShapeRef.new(shape: UserProfileId, location: "querystring", location_name: "owningUserId"))
+    ListSubscriptionRequestsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, deprecated: true, location: "querystring", location_name: "sortBy", metadata: {"deprecatedMessage" => "Results are always sorted by updatedAt"}))
     ListSubscriptionRequestsInput.add_member(:sort_order, Shapes::ShapeRef.new(shape: SortOrder, location: "querystring", location_name: "sortOrder"))
     ListSubscriptionRequestsInput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionRequestStatus, location: "querystring", location_name: "status"))
     ListSubscriptionRequestsInput.add_member(:subscribed_listing_id, Shapes::ShapeRef.new(shape: ListingId, location: "querystring", location_name: "subscribedListingId"))
@@ -4268,8 +4293,10 @@ module Aws::DataZone
     ListSubscriptionsInput.add_member(:domain_identifier, Shapes::ShapeRef.new(shape: DomainId, required: true, location: "uri", location_name: "domainIdentifier"))
     ListSubscriptionsInput.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
     ListSubscriptionsInput.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location: "querystring", location_name: "nextToken"))
+    ListSubscriptionsInput.add_member(:owning_group_id, Shapes::ShapeRef.new(shape: GroupProfileId, location: "querystring", location_name: "owningGroupId"))
     ListSubscriptionsInput.add_member(:owning_project_id, Shapes::ShapeRef.new(shape: ProjectId, location: "querystring", location_name: "owningProjectId"))
-    ListSubscriptionsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, location: "querystring", location_name: "sortBy"))
+    ListSubscriptionsInput.add_member(:owning_user_id, Shapes::ShapeRef.new(shape: UserProfileId, location: "querystring", location_name: "owningUserId"))
+    ListSubscriptionsInput.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortKey, deprecated: true, location: "querystring", location_name: "sortBy", metadata: {"deprecatedMessage" => "Results are always sorted by updatedAt"}))
     ListSubscriptionsInput.add_member(:sort_order, Shapes::ShapeRef.new(shape: SortOrder, location: "querystring", location_name: "sortOrder"))
     ListSubscriptionsInput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionStatus, location: "querystring", location_name: "status"))
     ListSubscriptionsInput.add_member(:subscribed_listing_id, Shapes::ShapeRef.new(shape: ListingId, location: "querystring", location_name: "subscribedListingId"))
@@ -4511,6 +4538,12 @@ module Aws::DataZone
 
     OwnerUserPropertiesOutput.add_member(:user_id, Shapes::ShapeRef.new(shape: String, location_name: "userId"))
     OwnerUserPropertiesOutput.struct_class = Types::OwnerUserPropertiesOutput
+
+    Permissions.add_member(:s3, Shapes::ShapeRef.new(shape: S3Permissions, location_name: "s3"))
+    Permissions.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    Permissions.add_member_subclass(:s3, Types::Permissions::S3)
+    Permissions.add_member_subclass(:unknown, Types::Permissions::Unknown)
+    Permissions.struct_class = Types::Permissions
 
     PhysicalConnectionRequirements.add_member(:availability_zone, Shapes::ShapeRef.new(shape: PhysicalConnectionRequirementsAvailabilityZoneString, location_name: "availabilityZone"))
     PhysicalConnectionRequirements.add_member(:security_group_id_list, Shapes::ShapeRef.new(shape: SecurityGroupIdList, location_name: "securityGroupIdList"))
@@ -5019,6 +5052,8 @@ module Aws::DataZone
 
     S3LocationList.member = Shapes::ShapeRef.new(shape: S3Location)
 
+    S3Permissions.member = Shapes::ShapeRef.new(shape: S3Permission)
+
     S3PropertiesInput.add_member(:s3_access_grant_location_id, Shapes::ShapeRef.new(shape: S3AccessGrantLocationId, location_name: "s3AccessGrantLocationId"))
     S3PropertiesInput.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "s3Uri"))
     S3PropertiesInput.struct_class = Types::S3PropertiesInput
@@ -5300,6 +5335,7 @@ module Aws::DataZone
     SubscribedAsset.add_member(:failure_cause, Shapes::ShapeRef.new(shape: FailureCause, location_name: "failureCause"))
     SubscribedAsset.add_member(:failure_timestamp, Shapes::ShapeRef.new(shape: Timestamp, location_name: "failureTimestamp"))
     SubscribedAsset.add_member(:granted_timestamp, Shapes::ShapeRef.new(shape: Timestamp, location_name: "grantedTimestamp"))
+    SubscribedAsset.add_member(:permissions, Shapes::ShapeRef.new(shape: Permissions, location_name: "permissions"))
     SubscribedAsset.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantStatus, required: true, location_name: "status"))
     SubscribedAsset.add_member(:target_name, Shapes::ShapeRef.new(shape: String, location_name: "targetName"))
     SubscribedAsset.struct_class = Types::SubscribedAsset
@@ -5310,9 +5346,17 @@ module Aws::DataZone
     SubscribedAssetListing.add_member(:entity_type, Shapes::ShapeRef.new(shape: TypeName, location_name: "entityType"))
     SubscribedAssetListing.add_member(:forms, Shapes::ShapeRef.new(shape: Forms, location_name: "forms"))
     SubscribedAssetListing.add_member(:glossary_terms, Shapes::ShapeRef.new(shape: DetailedGlossaryTerms, location_name: "glossaryTerms"))
+    SubscribedAssetListing.add_member(:permissions, Shapes::ShapeRef.new(shape: Permissions, location_name: "permissions"))
     SubscribedAssetListing.struct_class = Types::SubscribedAssetListing
 
     SubscribedAssets.member = Shapes::ShapeRef.new(shape: SubscribedAsset)
+
+    SubscribedGroup.add_member(:id, Shapes::ShapeRef.new(shape: GroupProfileId, location_name: "id"))
+    SubscribedGroup.add_member(:name, Shapes::ShapeRef.new(shape: GroupProfileName, location_name: "name"))
+    SubscribedGroup.struct_class = Types::SubscribedGroup
+
+    SubscribedGroupInput.add_member(:identifier, Shapes::ShapeRef.new(shape: GroupProfileId, location_name: "identifier"))
+    SubscribedGroupInput.struct_class = Types::SubscribedGroupInput
 
     SubscribedListing.add_member(:description, Shapes::ShapeRef.new(shape: Description, required: true, location_name: "description"))
     SubscribedListing.add_member(:id, Shapes::ShapeRef.new(shape: ListingId, required: true, location_name: "id"))
@@ -5336,15 +5380,23 @@ module Aws::DataZone
     SubscribedListingItem.add_member_subclass(:unknown, Types::SubscribedListingItem::Unknown)
     SubscribedListingItem.struct_class = Types::SubscribedListingItem
 
+    SubscribedPrincipal.add_member(:group, Shapes::ShapeRef.new(shape: SubscribedGroup, location_name: "group"))
     SubscribedPrincipal.add_member(:project, Shapes::ShapeRef.new(shape: SubscribedProject, location_name: "project"))
+    SubscribedPrincipal.add_member(:user, Shapes::ShapeRef.new(shape: SubscribedUser, location_name: "user"))
     SubscribedPrincipal.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    SubscribedPrincipal.add_member_subclass(:group, Types::SubscribedPrincipal::Group)
     SubscribedPrincipal.add_member_subclass(:project, Types::SubscribedPrincipal::Project)
+    SubscribedPrincipal.add_member_subclass(:user, Types::SubscribedPrincipal::User)
     SubscribedPrincipal.add_member_subclass(:unknown, Types::SubscribedPrincipal::Unknown)
     SubscribedPrincipal.struct_class = Types::SubscribedPrincipal
 
+    SubscribedPrincipalInput.add_member(:group, Shapes::ShapeRef.new(shape: SubscribedGroupInput, location_name: "group"))
     SubscribedPrincipalInput.add_member(:project, Shapes::ShapeRef.new(shape: SubscribedProjectInput, location_name: "project"))
+    SubscribedPrincipalInput.add_member(:user, Shapes::ShapeRef.new(shape: SubscribedUserInput, location_name: "user"))
     SubscribedPrincipalInput.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    SubscribedPrincipalInput.add_member_subclass(:group, Types::SubscribedPrincipalInput::Group)
     SubscribedPrincipalInput.add_member_subclass(:project, Types::SubscribedPrincipalInput::Project)
+    SubscribedPrincipalInput.add_member_subclass(:user, Types::SubscribedPrincipalInput::User)
     SubscribedPrincipalInput.add_member_subclass(:unknown, Types::SubscribedPrincipalInput::Unknown)
     SubscribedPrincipalInput.struct_class = Types::SubscribedPrincipalInput
 
@@ -5365,10 +5417,18 @@ module Aws::DataZone
     SubscribedProjectInput.add_member(:identifier, Shapes::ShapeRef.new(shape: ProjectId, location_name: "identifier"))
     SubscribedProjectInput.struct_class = Types::SubscribedProjectInput
 
+    SubscribedUser.add_member(:details, Shapes::ShapeRef.new(shape: UserProfileDetails, location_name: "details"))
+    SubscribedUser.add_member(:id, Shapes::ShapeRef.new(shape: UserProfileId, location_name: "id"))
+    SubscribedUser.struct_class = Types::SubscribedUser
+
+    SubscribedUserInput.add_member(:identifier, Shapes::ShapeRef.new(shape: UserProfileId, location_name: "identifier"))
+    SubscribedUserInput.struct_class = Types::SubscribedUserInput
+
     SubscriptionGrantSummary.add_member(:assets, Shapes::ShapeRef.new(shape: SubscribedAssets, location_name: "assets"))
     SubscriptionGrantSummary.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, required: true, location_name: "createdAt"))
     SubscriptionGrantSummary.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     SubscriptionGrantSummary.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "domainId"))
+    SubscriptionGrantSummary.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location_name: "environmentId"))
     SubscriptionGrantSummary.add_member(:granted_entity, Shapes::ShapeRef.new(shape: GrantedEntity, required: true, location_name: "grantedEntity"))
     SubscriptionGrantSummary.add_member(:id, Shapes::ShapeRef.new(shape: SubscriptionGrantId, required: true, location_name: "id"))
     SubscriptionGrantSummary.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantOverallStatus, required: true, location_name: "status"))
@@ -5896,6 +5956,7 @@ module Aws::DataZone
     UpdateSubscriptionGrantStatusOutput.add_member(:created_at, Shapes::ShapeRef.new(shape: CreatedAt, required: true, location_name: "createdAt"))
     UpdateSubscriptionGrantStatusOutput.add_member(:created_by, Shapes::ShapeRef.new(shape: CreatedBy, required: true, location_name: "createdBy"))
     UpdateSubscriptionGrantStatusOutput.add_member(:domain_id, Shapes::ShapeRef.new(shape: DomainId, required: true, location_name: "domainId"))
+    UpdateSubscriptionGrantStatusOutput.add_member(:environment_id, Shapes::ShapeRef.new(shape: EnvironmentId, location_name: "environmentId"))
     UpdateSubscriptionGrantStatusOutput.add_member(:granted_entity, Shapes::ShapeRef.new(shape: GrantedEntity, required: true, location_name: "grantedEntity"))
     UpdateSubscriptionGrantStatusOutput.add_member(:id, Shapes::ShapeRef.new(shape: SubscriptionGrantId, required: true, location_name: "id"))
     UpdateSubscriptionGrantStatusOutput.add_member(:status, Shapes::ShapeRef.new(shape: SubscriptionGrantOverallStatus, required: true, location_name: "status"))
@@ -6054,6 +6115,7 @@ module Aws::DataZone
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: UnauthorizedException)
@@ -6547,6 +6609,7 @@ module Aws::DataZone
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: UnauthorizedException)

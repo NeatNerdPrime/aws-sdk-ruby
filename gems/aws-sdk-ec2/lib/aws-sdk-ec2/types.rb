@@ -36776,6 +36776,11 @@ module Aws::EC2
     #   The public DNS names of the endpoint.
     #   @return [Types::InstanceConnectEndpointPublicDnsNames]
     #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone of the EC2 Instance Connect
+    #   Endpoint.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/Ec2InstanceConnectEndpoint AWS API Documentation
     #
     class Ec2InstanceConnectEndpoint < Struct.new(
@@ -36795,7 +36800,8 @@ module Aws::EC2
       :security_group_ids,
       :tags,
       :ip_address_type,
-      :public_dns_names)
+      :public_dns_names,
+      :availability_zone_id)
       SENSITIVE = []
       include Aws::Structure
     end

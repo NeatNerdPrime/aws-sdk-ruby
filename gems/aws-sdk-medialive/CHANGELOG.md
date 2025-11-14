@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.167.0 (2025-11-14)
+------------------
+
+* Feature - Removed all the value constraint (min/max) for the shape definitions (e.g. integerMin0Max3600) on the C2j models to get rid of the need to request an exemption from the SDK team whenever a shape definition (e.g. integerMin0Max3600) is changed.
+
 1.166.0 (2025-10-22)
 ------------------
 

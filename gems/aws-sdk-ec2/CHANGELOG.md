@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.577.0 (2025-11-14)
+------------------
+
+* Feature - This release adds AvailabilityZoneId support for CreateInstanceConnectEndpoint, DescribeInstanceConnectEndpoints, and DeleteInstanceConnectEndpoint APIs.
+
 1.576.0 (2025-11-13)
 ------------------
 

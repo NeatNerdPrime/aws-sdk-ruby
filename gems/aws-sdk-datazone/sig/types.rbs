@@ -39,6 +39,7 @@ module Aws::DataZone
     end
 
     class AcceptSubscriptionRequestInput
+      attr_accessor asset_permissions: ::Array[Types::AssetPermission]
       attr_accessor asset_scopes: ::Array[Types::AcceptedAssetScope]
       attr_accessor decision_comment: ::String
       attr_accessor domain_identifier: ::String
@@ -301,6 +302,12 @@ module Aws::DataZone
       attr_accessor forms: ::String
       attr_accessor latest_time_series_data_point_forms: ::Array[Types::TimeSeriesDataPointSummaryFormOutput]
       attr_accessor match_rationale: ::Array[Types::MatchRationaleItem]
+      SENSITIVE: []
+    end
+
+    class AssetPermission
+      attr_accessor asset_id: ::String
+      attr_accessor permissions: Types::Permissions
       SENSITIVE: []
     end
 
@@ -1335,6 +1342,7 @@ module Aws::DataZone
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor domain_id: ::String
+      attr_accessor environment_id: ::String
       attr_accessor granted_entity: Types::GrantedEntity
       attr_accessor id: ::String
       attr_accessor status: ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -1346,6 +1354,8 @@ module Aws::DataZone
     end
 
     class CreateSubscriptionRequestInput
+      attr_accessor asset_permissions: ::Array[Types::AssetPermission]
+      attr_accessor asset_scopes: ::Array[Types::AcceptedAssetScope]
       attr_accessor client_token: ::String
       attr_accessor domain_identifier: ::String
       attr_accessor metadata_forms: ::Array[Types::FormInput]
@@ -1835,6 +1845,7 @@ module Aws::DataZone
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor domain_id: ::String
+      attr_accessor environment_id: ::String
       attr_accessor granted_entity: Types::GrantedEntity
       attr_accessor id: ::String
       attr_accessor status: ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -2865,6 +2876,7 @@ module Aws::DataZone
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor domain_id: ::String
+      attr_accessor environment_id: ::String
       attr_accessor granted_entity: Types::GrantedEntity
       attr_accessor id: ::String
       attr_accessor status: ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -3801,7 +3813,9 @@ module Aws::DataZone
       attr_accessor environment_id: ::String
       attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor owning_group_id: ::String
       attr_accessor owning_project_id: ::String
+      attr_accessor owning_user_id: ::String
       attr_accessor sort_by: ("CREATED_AT" | "UPDATED_AT")
       attr_accessor sort_order: ("ASCENDING" | "DESCENDING")
       attr_accessor subscribed_listing_id: ::String
@@ -3821,7 +3835,9 @@ module Aws::DataZone
       attr_accessor domain_identifier: ::String
       attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor owning_group_id: ::String
       attr_accessor owning_project_id: ::String
+      attr_accessor owning_user_id: ::String
       attr_accessor sort_by: ("CREATED_AT" | "UPDATED_AT")
       attr_accessor sort_order: ("ASCENDING" | "DESCENDING")
       attr_accessor status: ("PENDING" | "ACCEPTED" | "REJECTED")
@@ -3856,7 +3872,9 @@ module Aws::DataZone
       attr_accessor domain_identifier: ::String
       attr_accessor max_results: ::Integer
       attr_accessor next_token: ::String
+      attr_accessor owning_group_id: ::String
       attr_accessor owning_project_id: ::String
+      attr_accessor owning_user_id: ::String
       attr_accessor sort_by: ("CREATED_AT" | "UPDATED_AT")
       attr_accessor sort_order: ("ASCENDING" | "DESCENDING")
       attr_accessor status: ("APPROVED" | "REVOKED" | "CANCELLED")
@@ -4180,6 +4198,17 @@ module Aws::DataZone
     class OwnerUserPropertiesOutput
       attr_accessor user_id: ::String
       SENSITIVE: []
+    end
+
+    class Permissions
+      attr_accessor s3: ::Array[("READ" | "WRITE")]
+      attr_accessor unknown: untyped
+      SENSITIVE: []
+
+      class S3 < Permissions
+      end
+      class Unknown < Permissions
+      end
     end
 
     class PhysicalConnectionRequirements
@@ -5183,6 +5212,7 @@ module Aws::DataZone
       attr_accessor failure_cause: Types::FailureCause
       attr_accessor failure_timestamp: ::Time
       attr_accessor granted_timestamp: ::Time
+      attr_accessor permissions: Types::Permissions
       attr_accessor status: ("GRANT_PENDING" | "REVOKE_PENDING" | "GRANT_IN_PROGRESS" | "REVOKE_IN_PROGRESS" | "GRANTED" | "REVOKED" | "GRANT_FAILED" | "REVOKE_FAILED")
       attr_accessor target_name: ::String
       SENSITIVE: []
@@ -5195,6 +5225,18 @@ module Aws::DataZone
       attr_accessor entity_type: ::String
       attr_accessor forms: ::String
       attr_accessor glossary_terms: ::Array[Types::DetailedGlossaryTerm]
+      attr_accessor permissions: Types::Permissions
+      SENSITIVE: []
+    end
+
+    class SubscribedGroup
+      attr_accessor id: ::String
+      attr_accessor name: ::String
+      SENSITIVE: [:name]
+    end
+
+    class SubscribedGroupInput
+      attr_accessor identifier: ::String
       SENSITIVE: []
     end
 
@@ -5229,22 +5271,34 @@ module Aws::DataZone
     end
 
     class SubscribedPrincipal
+      attr_accessor group: Types::SubscribedGroup
       attr_accessor project: Types::SubscribedProject
+      attr_accessor user: Types::SubscribedUser
       attr_accessor unknown: untyped
       SENSITIVE: []
 
+      class Group < SubscribedPrincipal
+      end
       class Project < SubscribedPrincipal
+      end
+      class User < SubscribedPrincipal
       end
       class Unknown < SubscribedPrincipal
       end
     end
 
     class SubscribedPrincipalInput
+      attr_accessor group: Types::SubscribedGroupInput
       attr_accessor project: Types::SubscribedProjectInput
+      attr_accessor user: Types::SubscribedUserInput
       attr_accessor unknown: untyped
       SENSITIVE: []
 
+      class Group < SubscribedPrincipalInput
+      end
       class Project < SubscribedPrincipalInput
+      end
+      class User < SubscribedPrincipalInput
       end
       class Unknown < SubscribedPrincipalInput
       end
@@ -5271,11 +5325,23 @@ module Aws::DataZone
       SENSITIVE: []
     end
 
+    class SubscribedUser
+      attr_accessor details: Types::UserProfileDetails
+      attr_accessor id: ::String
+      SENSITIVE: []
+    end
+
+    class SubscribedUserInput
+      attr_accessor identifier: ::String
+      SENSITIVE: []
+    end
+
     class SubscriptionGrantSummary
       attr_accessor assets: ::Array[Types::SubscribedAsset]
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor domain_id: ::String
+      attr_accessor environment_id: ::String
       attr_accessor granted_entity: Types::GrantedEntity
       attr_accessor id: ::String
       attr_accessor status: ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -5860,6 +5926,7 @@ module Aws::DataZone
       attr_accessor created_at: ::Time
       attr_accessor created_by: ::String
       attr_accessor domain_id: ::String
+      attr_accessor environment_id: ::String
       attr_accessor granted_entity: Types::GrantedEntity
       attr_accessor id: ::String
       attr_accessor status: ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")

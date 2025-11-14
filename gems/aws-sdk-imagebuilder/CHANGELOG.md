@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.92.0 (2025-11-14)
+------------------
+
+* Feature - EC2 Image Builder now supports invoking Lambda functions and executing Step Functions state machine through image workflows.
+
 1.91.0 (2025-10-21)
 ------------------
 

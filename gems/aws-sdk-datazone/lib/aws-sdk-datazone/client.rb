@@ -547,6 +547,9 @@ module Aws::DataZone
 
     # Accepts a subscription request to a specific asset.
     #
+    # @option params [Array<Types::AssetPermission>] :asset_permissions
+    #   The asset permissions of the accept subscription request.
+    #
     # @option params [Array<Types::AcceptedAssetScope>] :asset_scopes
     #   The asset scopes of the accept subscription request.
     #
@@ -582,6 +585,14 @@ module Aws::DataZone
     # @example Request syntax with placeholder values
     #
     #   resp = client.accept_subscription_request({
+    #     asset_permissions: [
+    #       {
+    #         asset_id: "AssetId", # required
+    #         permissions: { # required
+    #           s3: ["READ"], # accepts READ, WRITE
+    #         },
+    #       },
+    #     ],
     #     asset_scopes: [
     #       {
     #         asset_id: "AssetId", # required
@@ -624,6 +635,8 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -640,8 +653,16 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].owner_project_name #=> String
     #   resp.subscribed_listings[0].revision #=> String
     #   resp.subscribed_principals #=> Array
+    #   resp.subscribed_principals[0].group.id #=> String
+    #   resp.subscribed_principals[0].group.name #=> String
     #   resp.subscribed_principals[0].project.id #=> String
     #   resp.subscribed_principals[0].project.name #=> String
+    #   resp.subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.subscribed_principals[0].user.id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
     #
@@ -985,6 +1006,8 @@ module Aws::DataZone
     #   resp.subscribed_listing.item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listing.item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_revision #=> String
@@ -1000,8 +1023,16 @@ module Aws::DataZone
     #   resp.subscribed_listing.owner_project_id #=> String
     #   resp.subscribed_listing.owner_project_name #=> String
     #   resp.subscribed_listing.revision #=> String
+    #   resp.subscribed_principal.group.id #=> String
+    #   resp.subscribed_principal.group.name #=> String
     #   resp.subscribed_principal.project.id #=> String
     #   resp.subscribed_principal.project.name #=> String
+    #   resp.subscribed_principal.user.details.iam.arn #=> String
+    #   resp.subscribed_principal.user.details.iam.principal_id #=> String
+    #   resp.subscribed_principal.user.details.sso.first_name #=> String
+    #   resp.subscribed_principal.user.details.sso.last_name #=> String
+    #   resp.subscribed_principal.user.details.sso.username #=> String
+    #   resp.subscribed_principal.user.id #=> String
     #   resp.subscription_request_id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
@@ -3932,6 +3963,7 @@ module Aws::DataZone
     #   * {Types::CreateSubscriptionGrantOutput#created_at #created_at} => Time
     #   * {Types::CreateSubscriptionGrantOutput#created_by #created_by} => String
     #   * {Types::CreateSubscriptionGrantOutput#domain_id #domain_id} => String
+    #   * {Types::CreateSubscriptionGrantOutput#environment_id #environment_id} => String
     #   * {Types::CreateSubscriptionGrantOutput#granted_entity #granted_entity} => Types::GrantedEntity
     #   * {Types::CreateSubscriptionGrantOutput#id #id} => String
     #   * {Types::CreateSubscriptionGrantOutput#status #status} => String
@@ -3974,11 +4006,14 @@ module Aws::DataZone
     #   resp.assets[0].failure_cause.message #=> String
     #   resp.assets[0].failure_timestamp #=> Time
     #   resp.assets[0].granted_timestamp #=> Time
+    #   resp.assets[0].permissions.s3 #=> Array
+    #   resp.assets[0].permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.assets[0].status #=> String, one of "GRANT_PENDING", "REVOKE_PENDING", "GRANT_IN_PROGRESS", "REVOKE_IN_PROGRESS", "GRANTED", "REVOKED", "GRANT_FAILED", "REVOKE_FAILED"
     #   resp.assets[0].target_name #=> String
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.domain_id #=> String
+    #   resp.environment_id #=> String
     #   resp.granted_entity.listing.id #=> String
     #   resp.granted_entity.listing.revision #=> String
     #   resp.id #=> String
@@ -3998,6 +4033,12 @@ module Aws::DataZone
     end
 
     # Creates a subscription request in Amazon DataZone.
+    #
+    # @option params [Array<Types::AssetPermission>] :asset_permissions
+    #   The asset permissions of the subscription request.
+    #
+    # @option params [Array<Types::AcceptedAssetScope>] :asset_scopes
+    #   The asset scopes of the subscription request.
     #
     # @option params [String] :client_token
     #   A unique, case-sensitive identifier that is provided to ensure the
@@ -4043,6 +4084,20 @@ module Aws::DataZone
     # @example Request syntax with placeholder values
     #
     #   resp = client.create_subscription_request({
+    #     asset_permissions: [
+    #       {
+    #         asset_id: "AssetId", # required
+    #         permissions: { # required
+    #           s3: ["READ"], # accepts READ, WRITE
+    #         },
+    #       },
+    #     ],
+    #     asset_scopes: [
+    #       {
+    #         asset_id: "AssetId", # required
+    #         filter_ids: ["FilterId"], # required
+    #       },
+    #     ],
     #     client_token: "String",
     #     domain_identifier: "DomainId", # required
     #     metadata_forms: [
@@ -4061,8 +4116,14 @@ module Aws::DataZone
     #     ],
     #     subscribed_principals: [ # required
     #       {
+    #         group: {
+    #           identifier: "GroupProfileId",
+    #         },
     #         project: {
     #           identifier: "ProjectId",
+    #         },
+    #         user: {
+    #           identifier: "UserProfileId",
     #         },
     #       },
     #     ],
@@ -4099,6 +4160,8 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -4115,8 +4178,16 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].owner_project_name #=> String
     #   resp.subscribed_listings[0].revision #=> String
     #   resp.subscribed_principals #=> Array
+    #   resp.subscribed_principals[0].group.id #=> String
+    #   resp.subscribed_principals[0].group.name #=> String
     #   resp.subscribed_principals[0].project.id #=> String
     #   resp.subscribed_principals[0].project.name #=> String
+    #   resp.subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.subscribed_principals[0].user.id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
     #
@@ -5124,6 +5195,7 @@ module Aws::DataZone
     #   * {Types::DeleteSubscriptionGrantOutput#created_at #created_at} => Time
     #   * {Types::DeleteSubscriptionGrantOutput#created_by #created_by} => String
     #   * {Types::DeleteSubscriptionGrantOutput#domain_id #domain_id} => String
+    #   * {Types::DeleteSubscriptionGrantOutput#environment_id #environment_id} => String
     #   * {Types::DeleteSubscriptionGrantOutput#granted_entity #granted_entity} => Types::GrantedEntity
     #   * {Types::DeleteSubscriptionGrantOutput#id #id} => String
     #   * {Types::DeleteSubscriptionGrantOutput#status #status} => String
@@ -5152,11 +5224,14 @@ module Aws::DataZone
     #   resp.assets[0].failure_cause.message #=> String
     #   resp.assets[0].failure_timestamp #=> Time
     #   resp.assets[0].granted_timestamp #=> Time
+    #   resp.assets[0].permissions.s3 #=> Array
+    #   resp.assets[0].permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.assets[0].status #=> String, one of "GRANT_PENDING", "REVOKE_PENDING", "GRANT_IN_PROGRESS", "REVOKE_IN_PROGRESS", "GRANTED", "REVOKED", "GRANT_FAILED", "REVOKE_FAILED"
     #   resp.assets[0].target_name #=> String
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.domain_id #=> String
+    #   resp.environment_id #=> String
     #   resp.granted_entity.listing.id #=> String
     #   resp.granted_entity.listing.revision #=> String
     #   resp.id #=> String
@@ -7508,6 +7583,8 @@ module Aws::DataZone
     #   resp.subscribed_listing.item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listing.item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_revision #=> String
@@ -7523,8 +7600,16 @@ module Aws::DataZone
     #   resp.subscribed_listing.owner_project_id #=> String
     #   resp.subscribed_listing.owner_project_name #=> String
     #   resp.subscribed_listing.revision #=> String
+    #   resp.subscribed_principal.group.id #=> String
+    #   resp.subscribed_principal.group.name #=> String
     #   resp.subscribed_principal.project.id #=> String
     #   resp.subscribed_principal.project.name #=> String
+    #   resp.subscribed_principal.user.details.iam.arn #=> String
+    #   resp.subscribed_principal.user.details.iam.principal_id #=> String
+    #   resp.subscribed_principal.user.details.sso.first_name #=> String
+    #   resp.subscribed_principal.user.details.sso.last_name #=> String
+    #   resp.subscribed_principal.user.details.sso.username #=> String
+    #   resp.subscribed_principal.user.id #=> String
     #   resp.subscription_request_id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
@@ -7553,6 +7638,7 @@ module Aws::DataZone
     #   * {Types::GetSubscriptionGrantOutput#created_at #created_at} => Time
     #   * {Types::GetSubscriptionGrantOutput#created_by #created_by} => String
     #   * {Types::GetSubscriptionGrantOutput#domain_id #domain_id} => String
+    #   * {Types::GetSubscriptionGrantOutput#environment_id #environment_id} => String
     #   * {Types::GetSubscriptionGrantOutput#granted_entity #granted_entity} => Types::GrantedEntity
     #   * {Types::GetSubscriptionGrantOutput#id #id} => String
     #   * {Types::GetSubscriptionGrantOutput#status #status} => String
@@ -7581,11 +7667,14 @@ module Aws::DataZone
     #   resp.assets[0].failure_cause.message #=> String
     #   resp.assets[0].failure_timestamp #=> Time
     #   resp.assets[0].granted_timestamp #=> Time
+    #   resp.assets[0].permissions.s3 #=> Array
+    #   resp.assets[0].permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.assets[0].status #=> String, one of "GRANT_PENDING", "REVOKE_PENDING", "GRANT_IN_PROGRESS", "REVOKE_IN_PROGRESS", "GRANTED", "REVOKED", "GRANT_FAILED", "REVOKE_FAILED"
     #   resp.assets[0].target_name #=> String
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.domain_id #=> String
+    #   resp.environment_id #=> String
     #   resp.granted_entity.listing.id #=> String
     #   resp.granted_entity.listing.revision #=> String
     #   resp.id #=> String
@@ -7669,6 +7758,8 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -7685,8 +7776,16 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].owner_project_name #=> String
     #   resp.subscribed_listings[0].revision #=> String
     #   resp.subscribed_principals #=> Array
+    #   resp.subscribed_principals[0].group.id #=> String
+    #   resp.subscribed_principals[0].group.name #=> String
     #   resp.subscribed_principals[0].project.id #=> String
     #   resp.subscribed_principals[0].project.name #=> String
+    #   resp.subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.subscribed_principals[0].user.id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
     #
@@ -10024,8 +10123,14 @@ module Aws::DataZone
     #   You can specify this `NextToken` value in a subsequent call to
     #   `ListSubscriptionGrants` to list the next set of subscription grants.
     #
+    # @option params [String] :owning_group_id
+    #   The ID of the owning group.
+    #
     # @option params [String] :owning_project_id
     #   The ID of the owning project of the subscription grants.
+    #
+    # @option params [String] :owning_user_id
+    #   The ID of the owning user.
     #
     # @option params [String] :sort_by
     #   Specifies the way of sorting the results of this action.
@@ -10056,7 +10161,9 @@ module Aws::DataZone
     #     environment_id: "EnvironmentId",
     #     max_results: 1,
     #     next_token: "PaginationToken",
+    #     owning_group_id: "GroupProfileId",
     #     owning_project_id: "ProjectId",
+    #     owning_user_id: "UserProfileId",
     #     sort_by: "CREATED_AT", # accepts CREATED_AT, UPDATED_AT
     #     sort_order: "ASCENDING", # accepts ASCENDING, DESCENDING
     #     subscribed_listing_id: "ListingId",
@@ -10078,11 +10185,14 @@ module Aws::DataZone
     #   resp.items[0].assets[0].failure_cause.message #=> String
     #   resp.items[0].assets[0].failure_timestamp #=> Time
     #   resp.items[0].assets[0].granted_timestamp #=> Time
+    #   resp.items[0].assets[0].permissions.s3 #=> Array
+    #   resp.items[0].assets[0].permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.items[0].assets[0].status #=> String, one of "GRANT_PENDING", "REVOKE_PENDING", "GRANT_IN_PROGRESS", "REVOKE_IN_PROGRESS", "GRANTED", "REVOKED", "GRANT_FAILED", "REVOKE_FAILED"
     #   resp.items[0].assets[0].target_name #=> String
     #   resp.items[0].created_at #=> Time
     #   resp.items[0].created_by #=> String
     #   resp.items[0].domain_id #=> String
+    #   resp.items[0].environment_id #=> String
     #   resp.items[0].granted_entity.listing.id #=> String
     #   resp.items[0].granted_entity.listing.revision #=> String
     #   resp.items[0].id #=> String
@@ -10127,8 +10237,14 @@ module Aws::DataZone
     #   `ListSubscriptionRequests` to list the next set of subscription
     #   requests.
     #
+    # @option params [String] :owning_group_id
+    #   The ID of the owning group.
+    #
     # @option params [String] :owning_project_id
     #   The identifier of the project for the subscription requests.
+    #
+    # @option params [String] :owning_user_id
+    #   The ID of the owning user.
     #
     # @option params [String] :sort_by
     #   Specifies the way to sort the results of this action.
@@ -10161,7 +10277,9 @@ module Aws::DataZone
     #     domain_identifier: "DomainId", # required
     #     max_results: 1,
     #     next_token: "PaginationToken",
+    #     owning_group_id: "GroupProfileId",
     #     owning_project_id: "ProjectId",
+    #     owning_user_id: "UserProfileId",
     #     sort_by: "CREATED_AT", # accepts CREATED_AT, UPDATED_AT
     #     sort_order: "ASCENDING", # accepts ASCENDING, DESCENDING
     #     status: "PENDING", # accepts PENDING, ACCEPTED, REJECTED
@@ -10199,6 +10317,8 @@ module Aws::DataZone
     #   resp.items[0].subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.items[0].subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.items[0].subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.items[0].subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.items[0].subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.items[0].subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.items[0].subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.items[0].subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -10215,8 +10335,16 @@ module Aws::DataZone
     #   resp.items[0].subscribed_listings[0].owner_project_name #=> String
     #   resp.items[0].subscribed_listings[0].revision #=> String
     #   resp.items[0].subscribed_principals #=> Array
+    #   resp.items[0].subscribed_principals[0].group.id #=> String
+    #   resp.items[0].subscribed_principals[0].group.name #=> String
     #   resp.items[0].subscribed_principals[0].project.id #=> String
     #   resp.items[0].subscribed_principals[0].project.name #=> String
+    #   resp.items[0].subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.items[0].subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.items[0].subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.items[0].subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.items[0].subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.items[0].subscribed_principals[0].user.id #=> String
     #   resp.items[0].updated_at #=> Time
     #   resp.items[0].updated_by #=> String
     #   resp.next_token #=> String
@@ -10338,8 +10466,14 @@ module Aws::DataZone
     #   specify this `NextToken` value in a subsequent call to
     #   `ListSubscriptions` to list the next set of subscriptions.
     #
+    # @option params [String] :owning_group_id
+    #   The ID of the owning group.
+    #
     # @option params [String] :owning_project_id
     #   The identifier of the owning project.
+    #
+    # @option params [String] :owning_user_id
+    #   The ID of the owning user.
     #
     # @option params [String] :sort_by
     #   Specifies the way in which the results of this action are to be
@@ -10378,7 +10512,9 @@ module Aws::DataZone
     #     domain_identifier: "DomainId", # required
     #     max_results: 1,
     #     next_token: "PaginationToken",
+    #     owning_group_id: "GroupProfileId",
     #     owning_project_id: "ProjectId",
+    #     owning_user_id: "UserProfileId",
     #     sort_by: "CREATED_AT", # accepts CREATED_AT, UPDATED_AT
     #     sort_order: "ASCENDING", # accepts ASCENDING, DESCENDING
     #     status: "APPROVED", # accepts APPROVED, REVOKED, CANCELLED
@@ -10409,6 +10545,8 @@ module Aws::DataZone
     #   resp.items[0].subscribed_listing.item.asset_listing.glossary_terms #=> Array
     #   resp.items[0].subscribed_listing.item.asset_listing.glossary_terms[0].name #=> String
     #   resp.items[0].subscribed_listing.item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.items[0].subscribed_listing.item.asset_listing.permissions.s3 #=> Array
+    #   resp.items[0].subscribed_listing.item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.items[0].subscribed_listing.item.product_listing.asset_listings #=> Array
     #   resp.items[0].subscribed_listing.item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.items[0].subscribed_listing.item.product_listing.asset_listings[0].entity_revision #=> String
@@ -10424,8 +10562,16 @@ module Aws::DataZone
     #   resp.items[0].subscribed_listing.owner_project_id #=> String
     #   resp.items[0].subscribed_listing.owner_project_name #=> String
     #   resp.items[0].subscribed_listing.revision #=> String
+    #   resp.items[0].subscribed_principal.group.id #=> String
+    #   resp.items[0].subscribed_principal.group.name #=> String
     #   resp.items[0].subscribed_principal.project.id #=> String
     #   resp.items[0].subscribed_principal.project.name #=> String
+    #   resp.items[0].subscribed_principal.user.details.iam.arn #=> String
+    #   resp.items[0].subscribed_principal.user.details.iam.principal_id #=> String
+    #   resp.items[0].subscribed_principal.user.details.sso.first_name #=> String
+    #   resp.items[0].subscribed_principal.user.details.sso.last_name #=> String
+    #   resp.items[0].subscribed_principal.user.details.sso.username #=> String
+    #   resp.items[0].subscribed_principal.user.id #=> String
     #   resp.items[0].subscription_request_id #=> String
     #   resp.items[0].updated_at #=> Time
     #   resp.items[0].updated_by #=> String
@@ -10893,6 +11039,8 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -10909,8 +11057,16 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].owner_project_name #=> String
     #   resp.subscribed_listings[0].revision #=> String
     #   resp.subscribed_principals #=> Array
+    #   resp.subscribed_principals[0].group.id #=> String
+    #   resp.subscribed_principals[0].group.name #=> String
     #   resp.subscribed_principals[0].project.id #=> String
     #   resp.subscribed_principals[0].project.name #=> String
+    #   resp.subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.subscribed_principals[0].user.id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
     #
@@ -11107,6 +11263,8 @@ module Aws::DataZone
     #   resp.subscribed_listing.item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listing.item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listing.item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listing.item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listing.item.product_listing.asset_listings[0].entity_revision #=> String
@@ -11122,8 +11280,16 @@ module Aws::DataZone
     #   resp.subscribed_listing.owner_project_id #=> String
     #   resp.subscribed_listing.owner_project_name #=> String
     #   resp.subscribed_listing.revision #=> String
+    #   resp.subscribed_principal.group.id #=> String
+    #   resp.subscribed_principal.group.name #=> String
     #   resp.subscribed_principal.project.id #=> String
     #   resp.subscribed_principal.project.name #=> String
+    #   resp.subscribed_principal.user.details.iam.arn #=> String
+    #   resp.subscribed_principal.user.details.iam.principal_id #=> String
+    #   resp.subscribed_principal.user.details.sso.first_name #=> String
+    #   resp.subscribed_principal.user.details.sso.last_name #=> String
+    #   resp.subscribed_principal.user.details.sso.username #=> String
+    #   resp.subscribed_principal.user.id #=> String
     #   resp.subscription_request_id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
@@ -13965,6 +14131,7 @@ module Aws::DataZone
     #   * {Types::UpdateSubscriptionGrantStatusOutput#created_at #created_at} => Time
     #   * {Types::UpdateSubscriptionGrantStatusOutput#created_by #created_by} => String
     #   * {Types::UpdateSubscriptionGrantStatusOutput#domain_id #domain_id} => String
+    #   * {Types::UpdateSubscriptionGrantStatusOutput#environment_id #environment_id} => String
     #   * {Types::UpdateSubscriptionGrantStatusOutput#granted_entity #granted_entity} => Types::GrantedEntity
     #   * {Types::UpdateSubscriptionGrantStatusOutput#id #id} => String
     #   * {Types::UpdateSubscriptionGrantStatusOutput#status #status} => String
@@ -13999,11 +14166,14 @@ module Aws::DataZone
     #   resp.assets[0].failure_cause.message #=> String
     #   resp.assets[0].failure_timestamp #=> Time
     #   resp.assets[0].granted_timestamp #=> Time
+    #   resp.assets[0].permissions.s3 #=> Array
+    #   resp.assets[0].permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.assets[0].status #=> String, one of "GRANT_PENDING", "REVOKE_PENDING", "GRANT_IN_PROGRESS", "REVOKE_IN_PROGRESS", "GRANTED", "REVOKED", "GRANT_FAILED", "REVOKE_FAILED"
     #   resp.assets[0].target_name #=> String
     #   resp.created_at #=> Time
     #   resp.created_by #=> String
     #   resp.domain_id #=> String
+    #   resp.environment_id #=> String
     #   resp.granted_entity.listing.id #=> String
     #   resp.granted_entity.listing.revision #=> String
     #   resp.id #=> String
@@ -14090,6 +14260,8 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms #=> Array
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].name #=> String
     #   resp.subscribed_listings[0].item.asset_listing.glossary_terms[0].short_description #=> String
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3 #=> Array
+    #   resp.subscribed_listings[0].item.asset_listing.permissions.s3[0] #=> String, one of "READ", "WRITE"
     #   resp.subscribed_listings[0].item.product_listing.asset_listings #=> Array
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_id #=> String
     #   resp.subscribed_listings[0].item.product_listing.asset_listings[0].entity_revision #=> String
@@ -14106,8 +14278,16 @@ module Aws::DataZone
     #   resp.subscribed_listings[0].owner_project_name #=> String
     #   resp.subscribed_listings[0].revision #=> String
     #   resp.subscribed_principals #=> Array
+    #   resp.subscribed_principals[0].group.id #=> String
+    #   resp.subscribed_principals[0].group.name #=> String
     #   resp.subscribed_principals[0].project.id #=> String
     #   resp.subscribed_principals[0].project.name #=> String
+    #   resp.subscribed_principals[0].user.details.iam.arn #=> String
+    #   resp.subscribed_principals[0].user.details.iam.principal_id #=> String
+    #   resp.subscribed_principals[0].user.details.sso.first_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.last_name #=> String
+    #   resp.subscribed_principals[0].user.details.sso.username #=> String
+    #   resp.subscribed_principals[0].user.id #=> String
     #   resp.updated_at #=> Time
     #   resp.updated_by #=> String
     #
@@ -14296,7 +14476,7 @@ module Aws::DataZone
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-datazone'
-      context[:gem_version] = '1.58.0'
+      context[:gem_version] = '1.59.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

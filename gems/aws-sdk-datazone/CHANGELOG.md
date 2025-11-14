@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.59.0 (2025-11-14)
+------------------
+
+* Feature - Adds support for granting read and write access to Amazon S3 general purpose buckets using CreateSubscriptionRequest and AcceptSubscriptionRequest APIs. Also adds search filters for SSOUser and SSOGroup to ListSubscriptions APIs and deprecates "sortBy" parameter for ListSubscriptions APIs.
+
 1.58.0 (2025-11-10)
 ------------------
 

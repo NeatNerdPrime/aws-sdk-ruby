@@ -8047,6 +8047,7 @@ module Aws::EC2
       attr_accessor tags: ::Array[Types::Tag]
       attr_accessor ip_address_type: ("ipv4" | "dualstack" | "ipv6")
       attr_accessor public_dns_names: Types::InstanceConnectEndpointPublicDnsNames
+      attr_accessor availability_zone_id: ::String
       SENSITIVE: []
     end
 

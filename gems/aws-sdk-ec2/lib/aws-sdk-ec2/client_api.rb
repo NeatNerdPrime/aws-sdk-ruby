@@ -9881,6 +9881,7 @@ module Aws::EC2
     Ec2InstanceConnectEndpoint.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     Ec2InstanceConnectEndpoint.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "ipAddressType"))
     Ec2InstanceConnectEndpoint.add_member(:public_dns_names, Shapes::ShapeRef.new(shape: InstanceConnectEndpointPublicDnsNames, location_name: "publicDnsNames"))
+    Ec2InstanceConnectEndpoint.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: AvailabilityZoneId, location_name: "availabilityZoneId"))
     Ec2InstanceConnectEndpoint.struct_class = Types::Ec2InstanceConnectEndpoint
 
     EfaInfo.add_member(:maximum_efa_interfaces, Shapes::ShapeRef.new(shape: MaximumEfaInterfaces, location_name: "maximumEfaInterfaces"))

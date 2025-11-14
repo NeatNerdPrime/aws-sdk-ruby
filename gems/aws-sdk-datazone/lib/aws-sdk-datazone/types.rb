@@ -126,6 +126,10 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # @!attribute [rw] asset_permissions
+    #   The asset permissions of the accept subscription request.
+    #   @return [Array<Types::AssetPermission>]
+    #
     # @!attribute [rw] asset_scopes
     #   The asset scopes of the accept subscription request.
     #   @return [Array<Types::AcceptedAssetScope>]
@@ -148,6 +152,7 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/AcceptSubscriptionRequestInput AWS API Documentation
     #
     class AcceptSubscriptionRequestInput < Struct.new(
+      :asset_permissions,
       :asset_scopes,
       :decision_comment,
       :domain_identifier,
@@ -1083,6 +1088,25 @@ module Aws::DataZone
       :forms,
       :latest_time_series_data_point_forms,
       :match_rationale)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The asset permissions.
+    #
+    # @!attribute [rw] asset_id
+    #   The asset ID as part of the asset permissions.
+    #   @return [String]
+    #
+    # @!attribute [rw] permissions
+    #   The details as part of the asset permissions.
+    #   @return [Types::Permissions]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/AssetPermission AWS API Documentation
+    #
+    class AssetPermission < Struct.new(
+      :asset_id,
+      :permissions)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4994,6 +5018,10 @@ module Aws::DataZone
     #   is created.
     #   @return [String]
     #
+    # @!attribute [rw] environment_id
+    #   The environment ID for which subscription grant is created.
+    #   @return [String]
+    #
     # @!attribute [rw] granted_entity
     #   The entity to which the subscription is granted.
     #   @return [Types::GrantedEntity]
@@ -5030,6 +5058,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :domain_id,
+      :environment_id,
       :granted_entity,
       :id,
       :status,
@@ -5041,6 +5070,14 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # @!attribute [rw] asset_permissions
+    #   The asset permissions of the subscription request.
+    #   @return [Array<Types::AssetPermission>]
+    #
+    # @!attribute [rw] asset_scopes
+    #   The asset scopes of the subscription request.
+    #   @return [Array<Types::AcceptedAssetScope>]
+    #
     # @!attribute [rw] client_token
     #   A unique, case-sensitive identifier that is provided to ensure the
     #   idempotency of the request.
@@ -5075,6 +5112,8 @@ module Aws::DataZone
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/CreateSubscriptionRequestInput AWS API Documentation
     #
     class CreateSubscriptionRequestInput < Struct.new(
+      :asset_permissions,
+      :asset_scopes,
       :client_token,
       :domain_identifier,
       :metadata_forms,
@@ -5345,7 +5384,7 @@ module Aws::DataZone
     end
 
     # @!attribute [rw] details
-    #   The details of the user profile in Amazon DataZone.
+    #   The user profile details.
     #   @return [Types::UserProfileDetails]
     #
     # @!attribute [rw] domain_id
@@ -6730,6 +6769,11 @@ module Aws::DataZone
     #   is deleted.
     #   @return [String]
     #
+    # @!attribute [rw] environment_id
+    #   The ID of the environment in which the subscription grant is
+    #   deleted.
+    #   @return [String]
+    #
     # @!attribute [rw] granted_entity
     #   The entity to which the subscription is deleted.
     #   @return [Types::GrantedEntity]
@@ -6769,6 +6813,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :domain_id,
+      :environment_id,
       :granted_entity,
       :id,
       :status,
@@ -10600,6 +10645,10 @@ module Aws::DataZone
     #   exists.
     #   @return [String]
     #
+    # @!attribute [rw] environment_id
+    #   The environment ID of the subscription grant.
+    #   @return [String]
+    #
     # @!attribute [rw] granted_entity
     #   The entity to which the subscription is granted.
     #   @return [Types::GrantedEntity]
@@ -10635,6 +10684,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :domain_id,
+      :environment_id,
       :granted_entity,
       :id,
       :status,
@@ -11027,7 +11077,7 @@ module Aws::DataZone
     end
 
     # @!attribute [rw] details
-    #   The details of the user profile in Amazon DataZone.
+    #   The user profile details.
     #   @return [Types::UserProfileDetails]
     #
     # @!attribute [rw] domain_id
@@ -11845,14 +11895,12 @@ module Aws::DataZone
       include Aws::Structure
     end
 
-    # The details of an IAM user profile in Amazon DataZone.
-    #
     # @!attribute [rw] arn
-    #   The ARN of an IAM user profile in Amazon DataZone.
+    #   The ARN of the IAM user.
     #   @return [String]
     #
     # @!attribute [rw] principal_id
-    #   Principal ID of the IAM user.
+    #   The principal ID as part of the IAM user profile details.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/IamUserProfileDetails AWS API Documentation
@@ -14309,8 +14357,16 @@ module Aws::DataZone
     #   grants.
     #   @return [String]
     #
+    # @!attribute [rw] owning_group_id
+    #   The ID of the owning group.
+    #   @return [String]
+    #
     # @!attribute [rw] owning_project_id
     #   The ID of the owning project of the subscription grants.
+    #   @return [String]
+    #
+    # @!attribute [rw] owning_user_id
+    #   The ID of the owning user.
     #   @return [String]
     #
     # @!attribute [rw] sort_by
@@ -14340,7 +14396,9 @@ module Aws::DataZone
       :environment_id,
       :max_results,
       :next_token,
+      :owning_group_id,
       :owning_project_id,
+      :owning_user_id,
       :sort_by,
       :sort_order,
       :subscribed_listing_id,
@@ -14400,8 +14458,16 @@ module Aws::DataZone
     #   subscription requests.
     #   @return [String]
     #
+    # @!attribute [rw] owning_group_id
+    #   The ID of the owning group.
+    #   @return [String]
+    #
     # @!attribute [rw] owning_project_id
     #   The identifier of the project for the subscription requests.
+    #   @return [String]
+    #
+    # @!attribute [rw] owning_user_id
+    #   The ID of the owning user.
     #   @return [String]
     #
     # @!attribute [rw] sort_by
@@ -14432,7 +14498,9 @@ module Aws::DataZone
       :domain_identifier,
       :max_results,
       :next_token,
+      :owning_group_id,
       :owning_project_id,
+      :owning_user_id,
       :sort_by,
       :sort_order,
       :status,
@@ -14563,8 +14631,16 @@ module Aws::DataZone
     #   `ListSubscriptions` to list the next set of subscriptions.
     #   @return [String]
     #
+    # @!attribute [rw] owning_group_id
+    #   The ID of the owning group.
+    #   @return [String]
+    #
     # @!attribute [rw] owning_project_id
     #   The identifier of the owning project.
+    #   @return [String]
+    #
+    # @!attribute [rw] owning_user_id
+    #   The ID of the owning user.
     #   @return [String]
     #
     # @!attribute [rw] sort_by
@@ -14602,7 +14678,9 @@ module Aws::DataZone
       :domain_identifier,
       :max_results,
       :next_token,
+      :owning_group_id,
       :owning_project_id,
+      :owning_user_id,
       :sort_by,
       :sort_order,
       :status,
@@ -15568,6 +15646,29 @@ module Aws::DataZone
       :user_id)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # The asset permissions.
+    #
+    # @note Permissions is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @note Permissions is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of Permissions corresponding to the set member.
+    #
+    # @!attribute [rw] s3
+    #   The S3 details of the asset permissions.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/Permissions AWS API Documentation
+    #
+    class Permissions < Struct.new(
+      :s3,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class S3 < Permissions; end
+      class Unknown < Permissions; end
     end
 
     # Physical connection requirements of a connection.
@@ -18665,21 +18766,18 @@ module Aws::DataZone
       include Aws::Structure
     end
 
-    # The single sign-on details of the user profile.
+    # The SSO user profile detail.
     #
     # @!attribute [rw] first_name
-    #   The first name included in the single sign-on details of the user
-    #   profile.
+    #   The first name as part of the SSO user profile detail.
     #   @return [String]
     #
     # @!attribute [rw] last_name
-    #   The last name included in the single sign-on details of the user
-    #   profile.
+    #   The last name as part of the SSO user profile detail.
     #   @return [String]
     #
     # @!attribute [rw] username
-    #   The username included in the single sign-on details of the user
-    #   profile.
+    #   The username as part of the SSO user profile detail.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SsoUserProfileDetails AWS API Documentation
@@ -18906,6 +19004,10 @@ module Aws::DataZone
     #   created.
     #   @return [Time]
     #
+    # @!attribute [rw] permissions
+    #   The asset permissions.
+    #   @return [Types::Permissions]
+    #
     # @!attribute [rw] status
     #   The status of the asset for which the subscription grant is created.
     #   @return [String]
@@ -18924,6 +19026,7 @@ module Aws::DataZone
       :failure_cause,
       :failure_timestamp,
       :granted_timestamp,
+      :permissions,
       :status,
       :target_name)
       SENSITIVE = []
@@ -18962,6 +19065,10 @@ module Aws::DataZone
     #   subscription grant is created.
     #   @return [Array<Types::DetailedGlossaryTerm>]
     #
+    # @!attribute [rw] permissions
+    #   The asset permissions.
+    #   @return [Types::Permissions]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedAssetListing AWS API Documentation
     #
     class SubscribedAssetListing < Struct.new(
@@ -18970,7 +19077,41 @@ module Aws::DataZone
       :entity_revision,
       :entity_type,
       :forms,
-      :glossary_terms)
+      :glossary_terms,
+      :permissions)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The group that subscribes to the asset.
+    #
+    # @!attribute [rw] id
+    #   The ID of the subscribed group.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the subscribed group.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedGroup AWS API Documentation
+    #
+    class SubscribedGroup < Struct.new(
+      :id,
+      :name)
+      SENSITIVE = [:name]
+      include Aws::Structure
+    end
+
+    # The details of the subscribed group.
+    #
+    # @!attribute [rw] identifier
+    #   The ID of the subscribed group.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedGroupInput AWS API Documentation
+    #
+    class SubscribedGroupInput < Struct.new(
+      :identifier)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -19072,20 +19213,32 @@ module Aws::DataZone
     #
     # @note SubscribedPrincipal is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of SubscribedPrincipal corresponding to the set member.
     #
+    # @!attribute [rw] group
+    #   The subscribed group.
+    #   @return [Types::SubscribedGroup]
+    #
     # @!attribute [rw] project
     #   The project that has the subscription grant.
     #   @return [Types::SubscribedProject]
     #
+    # @!attribute [rw] user
+    #   The subscribed user.
+    #   @return [Types::SubscribedUser]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedPrincipal AWS API Documentation
     #
     class SubscribedPrincipal < Struct.new(
+      :group,
       :project,
+      :user,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
       include Aws::Structure::Union
 
+      class Group < SubscribedPrincipal; end
       class Project < SubscribedPrincipal; end
+      class User < SubscribedPrincipal; end
       class Unknown < SubscribedPrincipal; end
     end
 
@@ -19093,20 +19246,32 @@ module Aws::DataZone
     #
     # @note SubscribedPrincipalInput is a union - when making an API calls you must set exactly one of the members.
     #
+    # @!attribute [rw] group
+    #   The subscribed group.
+    #   @return [Types::SubscribedGroupInput]
+    #
     # @!attribute [rw] project
     #   The project that is to be given a subscription grant.
     #   @return [Types::SubscribedProjectInput]
     #
+    # @!attribute [rw] user
+    #   The subscribed user.
+    #   @return [Types::SubscribedUserInput]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedPrincipalInput AWS API Documentation
     #
     class SubscribedPrincipalInput < Struct.new(
+      :group,
       :project,
+      :user,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
       include Aws::Structure::Union
 
+      class Group < SubscribedPrincipalInput; end
       class Project < SubscribedPrincipalInput; end
+      class User < SubscribedPrincipalInput; end
       class Unknown < SubscribedPrincipalInput; end
     end
 
@@ -19183,6 +19348,39 @@ module Aws::DataZone
       include Aws::Structure
     end
 
+    # The subscribed user.
+    #
+    # @!attribute [rw] details
+    #   The subscribed user details.
+    #   @return [Types::UserProfileDetails]
+    #
+    # @!attribute [rw] id
+    #   The ID of the subscribed user.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedUser AWS API Documentation
+    #
+    class SubscribedUser < Struct.new(
+      :details,
+      :id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The subscribed user.
+    #
+    # @!attribute [rw] identifier
+    #   The ID of the subscribed user.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/SubscribedUserInput AWS API Documentation
+    #
+    class SubscribedUserInput < Struct.new(
+      :identifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The details of the subscription grant.
     #
     # @!attribute [rw] assets
@@ -19200,6 +19398,10 @@ module Aws::DataZone
     # @!attribute [rw] domain_id
     #   The identifier of the Amazon DataZone domain in which a subscription
     #   grant exists.
+    #   @return [String]
+    #
+    # @!attribute [rw] environment_id
+    #   The environment ID of the subscription grant.
     #   @return [String]
     #
     # @!attribute [rw] granted_entity
@@ -19237,6 +19439,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :domain_id,
+      :environment_id,
       :granted_entity,
       :id,
       :status,
@@ -21603,6 +21806,11 @@ module Aws::DataZone
     #   grant status is to be updated.
     #   @return [String]
     #
+    # @!attribute [rw] environment_id
+    #   The ID of the environment in which the subscription grant is
+    #   updated.
+    #   @return [String]
+    #
     # @!attribute [rw] granted_entity
     #   The granted entity to be updated as part of the
     #   `UpdateSubscriptionGrantStatus` action.
@@ -21642,6 +21850,7 @@ module Aws::DataZone
       :created_at,
       :created_by,
       :domain_id,
+      :environment_id,
       :granted_entity,
       :id,
       :status,
@@ -21937,7 +22146,7 @@ module Aws::DataZone
     end
 
     # @!attribute [rw] details
-    #   The details of the user profile in Amazon DataZone.
+    #   The results of the UpdateUserProfile action.
     #   @return [Types::UserProfileDetails]
     #
     # @!attribute [rw] domain_id
@@ -22027,16 +22236,16 @@ module Aws::DataZone
       class Unknown < UserPolicyGrantPrincipal; end
     end
 
-    # The details of the user profile in Amazon DataZone.
+    # The user profile details.
     #
     # @note UserProfileDetails is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of UserProfileDetails corresponding to the set member.
     #
     # @!attribute [rw] iam
-    #   The IAM details included in the user profile details.
+    #   The IAM details of the user profile.
     #   @return [Types::IamUserProfileDetails]
     #
     # @!attribute [rw] sso
-    #   The single sign-on details included in the user profile details.
+    #   The SSO details of the user profile.
     #   @return [Types::SsoUserProfileDetails]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/datazone-2018-05-10/UserProfileDetails AWS API Documentation

@@ -123,6 +123,14 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#accept_subscription_request-instance_method
       def accept_subscription_request: (
+                                         ?asset_permissions: Array[
+                                           {
+                                             asset_id: ::String,
+                                             permissions: {
+                                               s3: Array[("READ" | "WRITE")]?
+                                             }
+                                           },
+                                         ],
                                          ?asset_scopes: Array[
                                            {
                                              asset_id: ::String,
@@ -1373,6 +1381,7 @@ module Aws
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def domain_id: () -> ::String
+        def environment_id: () -> ::String
         def granted_entity: () -> Types::GrantedEntity
         def id: () -> ::String
         def status: () -> ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -1421,6 +1430,20 @@ module Aws
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/DataZone/Client.html#create_subscription_request-instance_method
       def create_subscription_request: (
+                                         ?asset_permissions: Array[
+                                           {
+                                             asset_id: ::String,
+                                             permissions: {
+                                               s3: Array[("READ" | "WRITE")]?
+                                             }
+                                           },
+                                         ],
+                                         ?asset_scopes: Array[
+                                           {
+                                             asset_id: ::String,
+                                             filter_ids: Array[::String]
+                                           },
+                                         ],
                                          ?client_token: ::String,
                                          domain_identifier: ::String,
                                          ?metadata_forms: Array[
@@ -1439,7 +1462,13 @@ module Aws
                                          ],
                                          subscribed_principals: Array[
                                            {
+                                             group: {
+                                               identifier: ::String?
+                                             }?,
                                              project: {
+                                               identifier: ::String?
+                                             }?,
+                                             user: {
                                                identifier: ::String?
                                              }?
                                            },
@@ -1747,6 +1776,7 @@ module Aws
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def domain_id: () -> ::String
+        def environment_id: () -> ::String
         def granted_entity: () -> Types::GrantedEntity
         def id: () -> ::String
         def status: () -> ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -2480,6 +2510,7 @@ module Aws
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def domain_id: () -> ::String
+        def environment_id: () -> ::String
         def granted_entity: () -> Types::GrantedEntity
         def id: () -> ::String
         def status: () -> ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")
@@ -3024,7 +3055,9 @@ module Aws
                                       ?environment_id: ::String,
                                       ?max_results: ::Integer,
                                       ?next_token: ::String,
+                                      ?owning_group_id: ::String,
                                       ?owning_project_id: ::String,
+                                      ?owning_user_id: ::String,
                                       ?sort_by: ("CREATED_AT" | "UPDATED_AT"),
                                       ?sort_order: ("ASCENDING" | "DESCENDING"),
                                       ?subscribed_listing_id: ::String,
@@ -3044,7 +3077,9 @@ module Aws
                                         domain_identifier: ::String,
                                         ?max_results: ::Integer,
                                         ?next_token: ::String,
+                                        ?owning_group_id: ::String,
                                         ?owning_project_id: ::String,
+                                        ?owning_user_id: ::String,
                                         ?sort_by: ("CREATED_AT" | "UPDATED_AT"),
                                         ?sort_order: ("ASCENDING" | "DESCENDING"),
                                         ?status: ("PENDING" | "ACCEPTED" | "REJECTED"),
@@ -3079,7 +3114,9 @@ module Aws
                                 domain_identifier: ::String,
                                 ?max_results: ::Integer,
                                 ?next_token: ::String,
+                                ?owning_group_id: ::String,
                                 ?owning_project_id: ::String,
+                                ?owning_user_id: ::String,
                                 ?sort_by: ("CREATED_AT" | "UPDATED_AT"),
                                 ?sort_order: ("ASCENDING" | "DESCENDING"),
                                 ?status: ("APPROVED" | "REVOKED" | "CANCELLED"),
@@ -4290,6 +4327,7 @@ module Aws
         def created_at: () -> ::Time
         def created_by: () -> ::String
         def domain_id: () -> ::String
+        def environment_id: () -> ::String
         def granted_entity: () -> Types::GrantedEntity
         def id: () -> ::String
         def status: () -> ("PENDING" | "IN_PROGRESS" | "GRANT_FAILED" | "REVOKE_FAILED" | "GRANT_AND_REVOKE_FAILED" | "COMPLETED" | "INACCESSIBLE")

@@ -723,10 +723,8 @@ module Aws::Imagebuilder
     #
     #    </note>
     #
-    # @option params [required, Array<Types::ComponentConfiguration>] :components
-    #   Components for build and test that are included in the container
-    #   recipe. Recipes require a minimum of one build component, and can have
-    #   a maximum of 20 build and test components in any combination.
+    # @option params [Array<Types::ComponentConfiguration>] :components
+    #   The components included in the container recipe.
     #
     # @option params [Types::InstanceConfiguration] :instance_configuration
     #   A group of options that can be used to configure an instance for
@@ -794,7 +792,7 @@ module Aws::Imagebuilder
     #     name: "ResourceName", # required
     #     description: "NonEmptyString",
     #     semantic_version: "VersionNumber", # required
-    #     components: [ # required
+    #     components: [
     #       {
     #         component_arn: "ComponentVersionArnOrBuildVersionArn", # required
     #         parameters: [
@@ -1275,7 +1273,7 @@ module Aws::Imagebuilder
     #
     #    </note>
     #
-    # @option params [required, Array<Types::ComponentConfiguration>] :components
+    # @option params [Array<Types::ComponentConfiguration>] :components
     #   The components included in the image recipe.
     #
     # @option params [required, String] :parent_image
@@ -1336,7 +1334,7 @@ module Aws::Imagebuilder
     #     name: "ResourceName", # required
     #     description: "NonEmptyString",
     #     semantic_version: "VersionNumber", # required
-    #     components: [ # required
+    #     components: [
     #       {
     #         component_arn: "ComponentVersionArnOrBuildVersionArn", # required
     #         parameters: [
@@ -5925,7 +5923,7 @@ module Aws::Imagebuilder
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-imagebuilder'
-      context[:gem_version] = '1.91.0'
+      context[:gem_version] = '1.92.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
