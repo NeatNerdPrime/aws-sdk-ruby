@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.101.0 (2025-11-17)
+------------------
+
+* Feature - AWS Backup now supports specifying a logically air-gapped backup vault as a primary backup target in backup plans and on-demand backup jobs.
+
 1.100.0 (2025-11-10)
 ------------------
 

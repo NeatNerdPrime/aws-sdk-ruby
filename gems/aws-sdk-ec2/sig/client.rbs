@@ -6798,6 +6798,48 @@ module Aws
                                             ) -> _DescribeInstanceImageMetadataResponseSuccess
                                           | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeInstanceImageMetadataResponseSuccess
 
+      interface _DescribeInstanceSqlHaHistoryStatesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DescribeInstanceSqlHaHistoryStatesResult]
+        def instances: () -> ::Array[Types::RegisteredInstance]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#describe_instance_sql_ha_history_states-instance_method
+      def describe_instance_sql_ha_history_states: (
+                                                     ?instance_ids: Array[::String],
+                                                     ?start_time: ::Time,
+                                                     ?end_time: ::Time,
+                                                     ?next_token: ::String,
+                                                     ?max_results: ::Integer,
+                                                     ?filters: Array[
+                                                       {
+                                                         name: ::String?,
+                                                         values: Array[::String]?
+                                                       },
+                                                     ],
+                                                     ?dry_run: bool
+                                                   ) -> _DescribeInstanceSqlHaHistoryStatesResponseSuccess
+                                                 | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeInstanceSqlHaHistoryStatesResponseSuccess
+
+      interface _DescribeInstanceSqlHaStatesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DescribeInstanceSqlHaStatesResult]
+        def instances: () -> ::Array[Types::RegisteredInstance]
+        def next_token: () -> ::String
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#describe_instance_sql_ha_states-instance_method
+      def describe_instance_sql_ha_states: (
+                                             ?instance_ids: Array[::String],
+                                             ?next_token: ::String,
+                                             ?max_results: ::Integer,
+                                             ?filters: Array[
+                                               {
+                                                 name: ::String?,
+                                                 values: Array[::String]?
+                                               },
+                                             ],
+                                             ?dry_run: bool
+                                           ) -> _DescribeInstanceSqlHaStatesResponseSuccess
+                                         | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DescribeInstanceSqlHaStatesResponseSuccess
+
       interface _DescribeInstanceStatusResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DescribeInstanceStatusResult]
         def instance_statuses: () -> ::Array[Types::InstanceStatus]
@@ -9225,6 +9267,17 @@ module Aws
                                                    ) -> _DisableImageDeregistrationProtectionResponseSuccess
                                                  | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DisableImageDeregistrationProtectionResponseSuccess
 
+      interface _DisableInstanceSqlHaStandbyDetectionsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::DisableInstanceSqlHaStandbyDetectionsResult]
+        def instances: () -> ::Array[Types::RegisteredInstance]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#disable_instance_sql_ha_standby_detections-instance_method
+      def disable_instance_sql_ha_standby_detections: (
+                                                        instance_ids: Array[::String],
+                                                        ?dry_run: bool
+                                                      ) -> _DisableInstanceSqlHaStandbyDetectionsResponseSuccess
+                                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _DisableInstanceSqlHaStandbyDetectionsResponseSuccess
+
       interface _DisableIpamOrganizationAdminAccountResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::DisableIpamOrganizationAdminAccountResult]
         def success: () -> bool
@@ -9675,6 +9728,18 @@ module Aws
                                                     ?dry_run: bool
                                                   ) -> _EnableImageDeregistrationProtectionResponseSuccess
                                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _EnableImageDeregistrationProtectionResponseSuccess
+
+      interface _EnableInstanceSqlHaStandbyDetectionsResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::EnableInstanceSqlHaStandbyDetectionsResult]
+        def instances: () -> ::Array[Types::RegisteredInstance]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Client.html#enable_instance_sql_ha_standby_detections-instance_method
+      def enable_instance_sql_ha_standby_detections: (
+                                                       instance_ids: Array[::String],
+                                                       ?sql_server_credentials: ::String,
+                                                       ?dry_run: bool
+                                                     ) -> _EnableInstanceSqlHaStandbyDetectionsResponseSuccess
+                                                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _EnableInstanceSqlHaStandbyDetectionsResponseSuccess
 
       interface _EnableIpamOrganizationAdminAccountResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::EnableIpamOrganizationAdminAccountResult]

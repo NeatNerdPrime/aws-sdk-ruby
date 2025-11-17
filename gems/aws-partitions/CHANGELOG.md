@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1183.0 (2025-11-17)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::MWAAServerless`.
+
 1.1182.0 (2025-11-14)
 ------------------
 

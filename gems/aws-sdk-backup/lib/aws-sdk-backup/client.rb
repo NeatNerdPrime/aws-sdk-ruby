@@ -582,6 +582,7 @@ module Aws::Backup
     #         {
     #           rule_name: "BackupRuleName", # required
     #           target_backup_vault_name: "BackupVaultName", # required
+    #           target_logically_air_gapped_backup_vault_arn: "ARN",
     #           schedule_expression: "CronExpression",
     #           start_window_minutes: 1,
     #           completion_window_minutes: 1,
@@ -589,6 +590,7 @@ module Aws::Backup
     #             move_to_cold_storage_after_days: 1,
     #             delete_after_days: 1,
     #             opt_in_to_archive_for_supported_resources: false,
+    #             delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #           },
     #           recovery_point_tags: {
     #             "TagKey" => "TagValue",
@@ -599,6 +601,7 @@ module Aws::Backup
     #                 move_to_cold_storage_after_days: 1,
     #                 delete_after_days: 1,
     #                 opt_in_to_archive_for_supported_resources: false,
+    #                 delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #               },
     #               destination_backup_vault_arn: "ARN", # required
     #             },
@@ -1742,6 +1745,7 @@ module Aws::Backup
     #   resp.recovery_point_lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.recovery_point_lifecycle.delete_after_days #=> Integer
     #   resp.recovery_point_lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.recovery_point_lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_vault_arn #=> String
     #   resp.vault_type #=> String
     #   resp.vault_lock_state #=> String
@@ -1888,6 +1892,7 @@ module Aws::Backup
     #   resp.copy_job.destination_recovery_point_lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.copy_job.destination_recovery_point_lifecycle.delete_after_days #=> Integer
     #   resp.copy_job.destination_recovery_point_lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.copy_job.destination_recovery_point_lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.copy_job.resource_arn #=> String
     #   resp.copy_job.creation_date #=> Time
     #   resp.copy_job.completion_date #=> Time
@@ -1903,6 +1908,7 @@ module Aws::Backup
     #   resp.copy_job.created_by.backup_rule_name #=> String
     #   resp.copy_job.created_by.backup_rule_cron #=> String
     #   resp.copy_job.created_by.backup_rule_timezone #=> String
+    #   resp.copy_job.created_by_backup_job_id #=> String
     #   resp.copy_job.resource_type #=> String
     #   resp.copy_job.parent_job_id #=> String
     #   resp.copy_job.is_parent #=> Boolean
@@ -2129,6 +2135,7 @@ module Aws::Backup
     #   resp.lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.lifecycle.delete_after_days #=> Integer
     #   resp.lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.encryption_key_arn #=> String
     #   resp.is_encrypted #=> Boolean
     #   resp.storage_class #=> String, one of "WARM", "COLD", "DELETED"
@@ -2507,12 +2514,14 @@ module Aws::Backup
     #   resp.backup_plan.rules #=> Array
     #   resp.backup_plan.rules[0].rule_name #=> String
     #   resp.backup_plan.rules[0].target_backup_vault_name #=> String
+    #   resp.backup_plan.rules[0].target_logically_air_gapped_backup_vault_arn #=> String
     #   resp.backup_plan.rules[0].schedule_expression #=> String
     #   resp.backup_plan.rules[0].start_window_minutes #=> Integer
     #   resp.backup_plan.rules[0].completion_window_minutes #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan.rules[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan.rules[0].recovery_point_tags #=> Hash
     #   resp.backup_plan.rules[0].recovery_point_tags["TagKey"] #=> String
     #   resp.backup_plan.rules[0].rule_id #=> String
@@ -2520,6 +2529,7 @@ module Aws::Backup
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan.rules[0].copy_actions[0].destination_backup_vault_arn #=> String
     #   resp.backup_plan.rules[0].enable_continuous_backup #=> Boolean
     #   resp.backup_plan.rules[0].schedule_expression_timezone #=> String
@@ -2576,12 +2586,14 @@ module Aws::Backup
     #   resp.backup_plan.rules #=> Array
     #   resp.backup_plan.rules[0].rule_name #=> String
     #   resp.backup_plan.rules[0].target_backup_vault_name #=> String
+    #   resp.backup_plan.rules[0].target_logically_air_gapped_backup_vault_arn #=> String
     #   resp.backup_plan.rules[0].schedule_expression #=> String
     #   resp.backup_plan.rules[0].start_window_minutes #=> Integer
     #   resp.backup_plan.rules[0].completion_window_minutes #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan.rules[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan.rules[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan.rules[0].recovery_point_tags #=> Hash
     #   resp.backup_plan.rules[0].recovery_point_tags["TagKey"] #=> String
     #   resp.backup_plan.rules[0].rule_id #=> String
@@ -2589,6 +2601,7 @@ module Aws::Backup
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan.rules[0].copy_actions[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan.rules[0].copy_actions[0].destination_backup_vault_arn #=> String
     #   resp.backup_plan.rules[0].enable_continuous_backup #=> Boolean
     #   resp.backup_plan.rules[0].schedule_expression_timezone #=> String
@@ -2630,12 +2643,14 @@ module Aws::Backup
     #   resp.backup_plan_document.rules #=> Array
     #   resp.backup_plan_document.rules[0].rule_name #=> String
     #   resp.backup_plan_document.rules[0].target_backup_vault_name #=> String
+    #   resp.backup_plan_document.rules[0].target_logically_air_gapped_backup_vault_arn #=> String
     #   resp.backup_plan_document.rules[0].schedule_expression #=> String
     #   resp.backup_plan_document.rules[0].start_window_minutes #=> Integer
     #   resp.backup_plan_document.rules[0].completion_window_minutes #=> Integer
     #   resp.backup_plan_document.rules[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan_document.rules[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan_document.rules[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan_document.rules[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan_document.rules[0].recovery_point_tags #=> Hash
     #   resp.backup_plan_document.rules[0].recovery_point_tags["TagKey"] #=> String
     #   resp.backup_plan_document.rules[0].rule_id #=> String
@@ -2643,6 +2658,7 @@ module Aws::Backup
     #   resp.backup_plan_document.rules[0].copy_actions[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_plan_document.rules[0].copy_actions[0].lifecycle.delete_after_days #=> Integer
     #   resp.backup_plan_document.rules[0].copy_actions[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_plan_document.rules[0].copy_actions[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_plan_document.rules[0].copy_actions[0].destination_backup_vault_arn #=> String
     #   resp.backup_plan_document.rules[0].enable_continuous_backup #=> Boolean
     #   resp.backup_plan_document.rules[0].schedule_expression_timezone #=> String
@@ -3439,6 +3455,7 @@ module Aws::Backup
     #   resp.backup_jobs[0].recovery_point_lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.backup_jobs[0].recovery_point_lifecycle.delete_after_days #=> Integer
     #   resp.backup_jobs[0].recovery_point_lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.backup_jobs[0].recovery_point_lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.backup_jobs[0].encryption_key_arn #=> String
     #   resp.backup_jobs[0].is_encrypted #=> Boolean
     #   resp.backup_jobs[0].resource_arn #=> String
@@ -3968,6 +3985,9 @@ module Aws::Backup
     #
     #   [1]: https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html
     #
+    # @option params [String] :by_source_recovery_point_arn
+    #   Filters copy jobs by the specified source recovery point ARN.
+    #
     # @return [Types::ListCopyJobsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::ListCopyJobsOutput#copy_jobs #copy_jobs} => Array&lt;Types::CopyJob&gt;
@@ -3991,6 +4011,7 @@ module Aws::Backup
     #     by_complete_after: Time.now,
     #     by_parent_job_id: "string",
     #     by_message_category: "string",
+    #     by_source_recovery_point_arn: "string",
     #   })
     #
     # @example Response structure
@@ -4008,6 +4029,7 @@ module Aws::Backup
     #   resp.copy_jobs[0].destination_recovery_point_lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.copy_jobs[0].destination_recovery_point_lifecycle.delete_after_days #=> Integer
     #   resp.copy_jobs[0].destination_recovery_point_lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.copy_jobs[0].destination_recovery_point_lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.copy_jobs[0].resource_arn #=> String
     #   resp.copy_jobs[0].creation_date #=> Time
     #   resp.copy_jobs[0].completion_date #=> Time
@@ -4023,6 +4045,7 @@ module Aws::Backup
     #   resp.copy_jobs[0].created_by.backup_rule_name #=> String
     #   resp.copy_jobs[0].created_by.backup_rule_cron #=> String
     #   resp.copy_jobs[0].created_by.backup_rule_timezone #=> String
+    #   resp.copy_jobs[0].created_by_backup_job_id #=> String
     #   resp.copy_jobs[0].resource_type #=> String
     #   resp.copy_jobs[0].parent_job_id #=> String
     #   resp.copy_jobs[0].is_parent #=> Boolean
@@ -4460,6 +4483,7 @@ module Aws::Backup
     #   resp.recovery_points[0].lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.recovery_points[0].lifecycle.delete_after_days #=> Integer
     #   resp.recovery_points[0].lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.recovery_points[0].lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.recovery_points[0].encryption_key_arn #=> String
     #   resp.recovery_points[0].is_encrypted #=> Boolean
     #   resp.recovery_points[0].last_restore_time #=> Time
@@ -5547,6 +5571,14 @@ module Aws::Backup
     #   vaults are identified by names that are unique to the account used to
     #   create them and the Amazon Web Services Region where they are created.
     #
+    # @option params [String] :logically_air_gapped_backup_vault_arn
+    #   The ARN of a logically air-gapped vault. ARN must be in the same
+    #   account and Region. If provided, supported fully managed resources
+    #   back up directly to logically air-gapped vault, while other supported
+    #   resources create a temporary (billable) snapshot in backup vault, then
+    #   copy it to logically air-gapped vault. Unsupported resources only back
+    #   up to the specified backup vault.
+    #
     # @option params [required, String] :resource_arn
     #   An Amazon Resource Name (ARN) that uniquely identifies a resource. The
     #   format of the ARN depends on the resource type.
@@ -5652,6 +5684,7 @@ module Aws::Backup
     #
     #   resp = client.start_backup_job({
     #     backup_vault_name: "BackupVaultName", # required
+    #     logically_air_gapped_backup_vault_arn: "ARN",
     #     resource_arn: "ARN", # required
     #     iam_role_arn: "IAMRoleArn", # required
     #     idempotency_token: "string",
@@ -5661,6 +5694,7 @@ module Aws::Backup
     #       move_to_cold_storage_after_days: 1,
     #       delete_after_days: 1,
     #       opt_in_to_archive_for_supported_resources: false,
+    #       delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #     },
     #     recovery_point_tags: {
     #       "TagKey" => "TagValue",
@@ -5767,6 +5801,7 @@ module Aws::Backup
     #       move_to_cold_storage_after_days: 1,
     #       delete_after_days: 1,
     #       opt_in_to_archive_for_supported_resources: false,
+    #       delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #     },
     #   })
     #
@@ -6113,6 +6148,7 @@ module Aws::Backup
     #         {
     #           rule_name: "BackupRuleName", # required
     #           target_backup_vault_name: "BackupVaultName", # required
+    #           target_logically_air_gapped_backup_vault_arn: "ARN",
     #           schedule_expression: "CronExpression",
     #           start_window_minutes: 1,
     #           completion_window_minutes: 1,
@@ -6120,6 +6156,7 @@ module Aws::Backup
     #             move_to_cold_storage_after_days: 1,
     #             delete_after_days: 1,
     #             opt_in_to_archive_for_supported_resources: false,
+    #             delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #           },
     #           recovery_point_tags: {
     #             "TagKey" => "TagValue",
@@ -6130,6 +6167,7 @@ module Aws::Backup
     #                 move_to_cold_storage_after_days: 1,
     #                 delete_after_days: 1,
     #                 opt_in_to_archive_for_supported_resources: false,
+    #                 delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #               },
     #               destination_backup_vault_arn: "ARN", # required
     #             },
@@ -6260,6 +6298,11 @@ module Aws::Backup
     #   A value for Multi-party approval, styled as "Mpa": `isMpaEnabled`.
     #   Values can be true or false. Example: `update-global-settings
     #   --global-settings isMpaEnabled=false --region us-west-2`.
+    #
+    #   A value for Backup Service-Linked Role creation, styled
+    #   as`isDelegatedAdministratorEnabled`. Values can be true or false.
+    #   Example: `update-global-settings --global-settings
+    #   isDelegatedAdministratorEnabled=false --region us-west-2`.
     #
     # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
     #
@@ -6404,6 +6447,7 @@ module Aws::Backup
     #       move_to_cold_storage_after_days: 1,
     #       delete_after_days: 1,
     #       opt_in_to_archive_for_supported_resources: false,
+    #       delete_after_event: "DELETE_AFTER_COPY", # accepts DELETE_AFTER_COPY
     #     },
     #   })
     #
@@ -6414,6 +6458,7 @@ module Aws::Backup
     #   resp.lifecycle.move_to_cold_storage_after_days #=> Integer
     #   resp.lifecycle.delete_after_days #=> Integer
     #   resp.lifecycle.opt_in_to_archive_for_supported_resources #=> Boolean
+    #   resp.lifecycle.delete_after_event #=> String, one of "DELETE_AFTER_COPY"
     #   resp.calculated_lifecycle.move_to_cold_storage_at #=> Time
     #   resp.calculated_lifecycle.delete_at #=> Time
     #
@@ -6710,7 +6755,7 @@ module Aws::Backup
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-backup'
-      context[:gem_version] = '1.100.0'
+      context[:gem_version] = '1.101.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

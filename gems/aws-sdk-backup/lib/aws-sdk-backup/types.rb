@@ -643,6 +643,15 @@ module Aws::Backup
     #   created.
     #   @return [String]
     #
+    # @!attribute [rw] target_logically_air_gapped_backup_vault_arn
+    #   The ARN of a logically air-gapped vault. ARN must be in the same
+    #   account and Region. If provided, supported fully managed resources
+    #   back up directly to logically air-gapped vault, while other
+    #   supported resources create a temporary (billable) snapshot in backup
+    #   vault, then copy it to logically air-gapped vault. Unsupported
+    #   resources only back up to the specified backup vault.
+    #   @return [String]
+    #
     # @!attribute [rw] schedule_expression
     #   A cron expression in UTC specifying when Backup initiates a backup
     #   job. When no CRON expression is provided, Backup will use the
@@ -750,6 +759,7 @@ module Aws::Backup
     class BackupRule < Struct.new(
       :rule_name,
       :target_backup_vault_name,
+      :target_logically_air_gapped_backup_vault_arn,
       :schedule_expression,
       :start_window_minutes,
       :completion_window_minutes,
@@ -776,6 +786,15 @@ module Aws::Backup
     #   vaults are identified by names that are unique to the account used
     #   to create them and the Amazon Web Services Region where they are
     #   created.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_logically_air_gapped_backup_vault_arn
+    #   The ARN of a logically air-gapped vault. ARN must be in the same
+    #   account and Region. If provided, supported fully managed resources
+    #   back up directly to logically air-gapped vault, while other
+    #   supported resources create a temporary (billable) snapshot in backup
+    #   vault, then copy it to logically air-gapped vault. Unsupported
+    #   resources only back up to the specified backup vault.
     #   @return [String]
     #
     # @!attribute [rw] schedule_expression
@@ -870,6 +889,7 @@ module Aws::Backup
     class BackupRuleInput < Struct.new(
       :rule_name,
       :target_backup_vault_name,
+      :target_logically_air_gapped_backup_vault_arn,
       :schedule_expression,
       :start_window_minutes,
       :completion_window_minutes,
@@ -1572,6 +1592,12 @@ module Aws::Backup
     #   to initiate the recovery point backup.
     #   @return [Types::RecoveryPointCreator]
     #
+    # @!attribute [rw] created_by_backup_job_id
+    #   The backup job ID that initiated this copy job. Only applicable to
+    #   scheduled copy jobs and automatic copy jobs to logically air-gapped
+    #   vault.
+    #   @return [String]
+    #
     # @!attribute [rw] resource_type
     #   The type of Amazon Web Services resource to be copied; for example,
     #   an Amazon Elastic Block Store (Amazon EBS) volume or an Amazon
@@ -1651,6 +1677,7 @@ module Aws::Backup
       :backup_size_in_bytes,
       :iam_role_arn,
       :created_by,
+      :created_by_backup_job_id,
       :resource_type,
       :parent_job_id,
       :is_parent,
@@ -3281,8 +3308,9 @@ module Aws::Backup
     class DescribeGlobalSettingsInput < Aws::EmptyStructure; end
 
     # @!attribute [rw] global_settings
-    #   The status of the flags `isCrossAccountBackupEnabled` and
-    #   `isMpaEnabled` ('Mpa' refers to multi-party approval).
+    #   The status of the flags `isCrossAccountBackupEnabled`,
+    #   `isMpaEnabled` ('Mpa' refers to multi-party approval), and
+    #   `isDelegatedAdministratorEnabled`.
     #   @return [Hash<String,String>]
     #
     # @!attribute [rw] last_update_time
@@ -5155,12 +5183,19 @@ module Aws::Backup
     #   lifecycle settings.
     #   @return [Boolean]
     #
+    # @!attribute [rw] delete_after_event
+    #   The event after which a recovery point is deleted. A recovery point
+    #   with both `DeleteAfterDays` and `DeleteAfterEvent` will delete after
+    #   whichever condition is satisfied first. Not valid as an input.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/Lifecycle AWS API Documentation
     #
     class Lifecycle < Struct.new(
       :move_to_cold_storage_after_days,
       :delete_after_days,
-      :opt_in_to_archive_for_supported_resources)
+      :opt_in_to_archive_for_supported_resources,
+      :delete_after_event)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5965,6 +6000,10 @@ module Aws::Backup
     #   [1]: https://docs.aws.amazon.com/aws-backup/latest/devguide/monitoring.html
     #   @return [String]
     #
+    # @!attribute [rw] by_source_recovery_point_arn
+    #   Filters copy jobs by the specified source recovery point ARN.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListCopyJobsInput AWS API Documentation
     #
     class ListCopyJobsInput < Struct.new(
@@ -5980,7 +6019,8 @@ module Aws::Backup
       :by_complete_before,
       :by_complete_after,
       :by_parent_job_id,
-      :by_message_category)
+      :by_message_category,
+      :by_source_recovery_point_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -9067,6 +9107,15 @@ module Aws::Backup
     #   created.
     #   @return [String]
     #
+    # @!attribute [rw] logically_air_gapped_backup_vault_arn
+    #   The ARN of a logically air-gapped vault. ARN must be in the same
+    #   account and Region. If provided, supported fully managed resources
+    #   back up directly to logically air-gapped vault, while other
+    #   supported resources create a temporary (billable) snapshot in backup
+    #   vault, then copy it to logically air-gapped vault. Unsupported
+    #   resources only back up to the specified backup vault.
+    #   @return [String]
+    #
     # @!attribute [rw] resource_arn
     #   An Amazon Resource Name (ARN) that uniquely identifies a resource.
     #   The format of the ARN depends on the resource type.
@@ -9176,6 +9225,7 @@ module Aws::Backup
     #
     class StartBackupJobInput < Struct.new(
       :backup_vault_name,
+      :logically_air_gapped_backup_vault_arn,
       :resource_arn,
       :iam_role_arn,
       :idempotency_token,
@@ -9694,6 +9744,11 @@ module Aws::Backup
     #   A value for Multi-party approval, styled as "Mpa": `isMpaEnabled`.
     #   Values can be true or false. Example: `update-global-settings
     #   --global-settings isMpaEnabled=false --region us-west-2`.
+    #
+    #   A value for Backup Service-Linked Role creation, styled
+    #   as`isDelegatedAdministratorEnabled`. Values can be true or false.
+    #   Example: `update-global-settings --global-settings
+    #   isDelegatedAdministratorEnabled=false --region us-west-2`.
     #   @return [Hash<String,String>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateGlobalSettingsInput AWS API Documentation

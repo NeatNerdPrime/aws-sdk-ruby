@@ -5612,6 +5612,38 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class DescribeInstanceSqlHaHistoryStatesRequest
+      attr_accessor instance_ids: ::Array[::String]
+      attr_accessor start_time: ::Time
+      attr_accessor end_time: ::Time
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor filters: ::Array[Types::Filter]
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class DescribeInstanceSqlHaHistoryStatesResult
+      attr_accessor instances: ::Array[Types::RegisteredInstance]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeInstanceSqlHaStatesRequest
+      attr_accessor instance_ids: ::Array[::String]
+      attr_accessor next_token: ::String
+      attr_accessor max_results: ::Integer
+      attr_accessor filters: ::Array[Types::Filter]
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class DescribeInstanceSqlHaStatesResult
+      attr_accessor instances: ::Array[Types::RegisteredInstance]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
     class DescribeInstanceStatusRequest
       attr_accessor instance_ids: ::Array[::String]
       attr_accessor max_results: ::Integer
@@ -7598,6 +7630,17 @@ module Aws::EC2
       SENSITIVE: []
     end
 
+    class DisableInstanceSqlHaStandbyDetectionsRequest
+      attr_accessor instance_ids: ::Array[::String]
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class DisableInstanceSqlHaStandbyDetectionsResult
+      attr_accessor instances: ::Array[Types::RegisteredInstance]
+      SENSITIVE: []
+    end
+
     class DisableIpamOrganizationAdminAccountRequest
       attr_accessor dry_run: bool
       attr_accessor delegated_admin_account_id: ::String
@@ -8308,6 +8351,18 @@ module Aws::EC2
 
     class EnableImageResult
       attr_accessor return: bool
+      SENSITIVE: []
+    end
+
+    class EnableInstanceSqlHaStandbyDetectionsRequest
+      attr_accessor instance_ids: ::Array[::String]
+      attr_accessor sql_server_credentials: ::String
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class EnableInstanceSqlHaStandbyDetectionsResult
+      attr_accessor instances: ::Array[Types::RegisteredInstance]
       SENSITIVE: []
     end
 
@@ -14457,6 +14512,17 @@ module Aws::EC2
 
     class RegisterTransitGatewayMulticastGroupSourcesResult
       attr_accessor registered_multicast_group_sources: Types::TransitGatewayMulticastRegisteredGroupSources
+      SENSITIVE: []
+    end
+
+    class RegisteredInstance
+      attr_accessor instance_id: ::String
+      attr_accessor sql_server_license_usage: ("full" | "waived")
+      attr_accessor ha_status: ("processing" | "active" | "standby" | "invalid")
+      attr_accessor processing_status: ::String
+      attr_accessor last_updated_time: ::Time
+      attr_accessor sql_server_credentials: ::String
+      attr_accessor tags: ::Array[Types::Tag]
       SENSITIVE: []
     end
 

@@ -199,6 +199,7 @@ module Aws::Backup
     LegalHoldStatus = Shapes::StringShape.new(name: 'LegalHoldStatus')
     LegalHoldsList = Shapes::ListShape.new(name: 'LegalHoldsList')
     Lifecycle = Shapes::StructureShape.new(name: 'Lifecycle')
+    LifecycleDeleteAfterEvent = Shapes::StringShape.new(name: 'LifecycleDeleteAfterEvent')
     LimitExceededException = Shapes::StructureShape.new(name: 'LimitExceededException')
     ListBackupJobSummariesInput = Shapes::StructureShape.new(name: 'ListBackupJobSummariesInput')
     ListBackupJobSummariesOutput = Shapes::StructureShape.new(name: 'ListBackupJobSummariesOutput')
@@ -487,6 +488,7 @@ module Aws::Backup
 
     BackupRule.add_member(:rule_name, Shapes::ShapeRef.new(shape: BackupRuleName, required: true, location_name: "RuleName"))
     BackupRule.add_member(:target_backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultName, required: true, location_name: "TargetBackupVaultName"))
+    BackupRule.add_member(:target_logically_air_gapped_backup_vault_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TargetLogicallyAirGappedBackupVaultArn"))
     BackupRule.add_member(:schedule_expression, Shapes::ShapeRef.new(shape: CronExpression, location_name: "ScheduleExpression"))
     BackupRule.add_member(:start_window_minutes, Shapes::ShapeRef.new(shape: WindowMinutes, location_name: "StartWindowMinutes"))
     BackupRule.add_member(:completion_window_minutes, Shapes::ShapeRef.new(shape: WindowMinutes, location_name: "CompletionWindowMinutes"))
@@ -501,6 +503,7 @@ module Aws::Backup
 
     BackupRuleInput.add_member(:rule_name, Shapes::ShapeRef.new(shape: BackupRuleName, required: true, location_name: "RuleName"))
     BackupRuleInput.add_member(:target_backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultName, required: true, location_name: "TargetBackupVaultName"))
+    BackupRuleInput.add_member(:target_logically_air_gapped_backup_vault_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TargetLogicallyAirGappedBackupVaultArn"))
     BackupRuleInput.add_member(:schedule_expression, Shapes::ShapeRef.new(shape: CronExpression, location_name: "ScheduleExpression"))
     BackupRuleInput.add_member(:start_window_minutes, Shapes::ShapeRef.new(shape: WindowMinutes, location_name: "StartWindowMinutes"))
     BackupRuleInput.add_member(:completion_window_minutes, Shapes::ShapeRef.new(shape: WindowMinutes, location_name: "CompletionWindowMinutes"))
@@ -624,6 +627,7 @@ module Aws::Backup
     CopyJob.add_member(:backup_size_in_bytes, Shapes::ShapeRef.new(shape: Long, location_name: "BackupSizeInBytes"))
     CopyJob.add_member(:iam_role_arn, Shapes::ShapeRef.new(shape: IAMRoleArn, location_name: "IamRoleArn"))
     CopyJob.add_member(:created_by, Shapes::ShapeRef.new(shape: RecoveryPointCreator, location_name: "CreatedBy"))
+    CopyJob.add_member(:created_by_backup_job_id, Shapes::ShapeRef.new(shape: string, location_name: "CreatedByBackupJobId"))
     CopyJob.add_member(:resource_type, Shapes::ShapeRef.new(shape: ResourceType, location_name: "ResourceType"))
     CopyJob.add_member(:parent_job_id, Shapes::ShapeRef.new(shape: string, location_name: "ParentJobId"))
     CopyJob.add_member(:is_parent, Shapes::ShapeRef.new(shape: boolean, location_name: "IsParent"))
@@ -1243,6 +1247,7 @@ module Aws::Backup
     Lifecycle.add_member(:move_to_cold_storage_after_days, Shapes::ShapeRef.new(shape: Long, location_name: "MoveToColdStorageAfterDays"))
     Lifecycle.add_member(:delete_after_days, Shapes::ShapeRef.new(shape: Long, location_name: "DeleteAfterDays"))
     Lifecycle.add_member(:opt_in_to_archive_for_supported_resources, Shapes::ShapeRef.new(shape: Boolean, location_name: "OptInToArchiveForSupportedResources"))
+    Lifecycle.add_member(:delete_after_event, Shapes::ShapeRef.new(shape: LifecycleDeleteAfterEvent, location_name: "DeleteAfterEvent"))
     Lifecycle.struct_class = Types::Lifecycle
 
     LimitExceededException.add_member(:code, Shapes::ShapeRef.new(shape: string, location_name: "Code"))
@@ -1356,6 +1361,7 @@ module Aws::Backup
     ListCopyJobsInput.add_member(:by_complete_after, Shapes::ShapeRef.new(shape: timestamp, location: "querystring", location_name: "completeAfter"))
     ListCopyJobsInput.add_member(:by_parent_job_id, Shapes::ShapeRef.new(shape: string, location: "querystring", location_name: "parentJobId"))
     ListCopyJobsInput.add_member(:by_message_category, Shapes::ShapeRef.new(shape: string, location: "querystring", location_name: "messageCategory"))
+    ListCopyJobsInput.add_member(:by_source_recovery_point_arn, Shapes::ShapeRef.new(shape: string, location: "querystring", location_name: "sourceRecoveryPointArn"))
     ListCopyJobsInput.struct_class = Types::ListCopyJobsInput
 
     ListCopyJobsOutput.add_member(:copy_jobs, Shapes::ShapeRef.new(shape: CopyJobsList, location_name: "CopyJobs"))
@@ -1876,6 +1882,7 @@ module Aws::Backup
     ServiceUnavailableException.struct_class = Types::ServiceUnavailableException
 
     StartBackupJobInput.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultName, required: true, location_name: "BackupVaultName"))
+    StartBackupJobInput.add_member(:logically_air_gapped_backup_vault_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "LogicallyAirGappedBackupVaultArn"))
     StartBackupJobInput.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ARN, required: true, location_name: "ResourceArn"))
     StartBackupJobInput.add_member(:iam_role_arn, Shapes::ShapeRef.new(shape: IAMRoleArn, required: true, location_name: "IamRoleArn"))
     StartBackupJobInput.add_member(:idempotency_token, Shapes::ShapeRef.new(shape: string, location_name: "IdempotencyToken", metadata: {"idempotencyToken" => true}))

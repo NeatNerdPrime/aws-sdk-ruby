@@ -113,13 +113,15 @@ module Aws
                                     {
                                       rule_name: ::String,
                                       target_backup_vault_name: ::String,
+                                      target_logically_air_gapped_backup_vault_arn: ::String?,
                                       schedule_expression: ::String?,
                                       start_window_minutes: ::Integer?,
                                       completion_window_minutes: ::Integer?,
                                       lifecycle: {
                                         move_to_cold_storage_after_days: ::Integer?,
                                         delete_after_days: ::Integer?,
-                                        opt_in_to_archive_for_supported_resources: bool?
+                                        opt_in_to_archive_for_supported_resources: bool?,
+                                        delete_after_event: ("DELETE_AFTER_COPY")?
                                       }?,
                                       recovery_point_tags: Hash[::String, ::String]?,
                                       copy_actions: Array[
@@ -127,7 +129,8 @@ module Aws
                                           lifecycle: {
                                             move_to_cold_storage_after_days: ::Integer?,
                                             delete_after_days: ::Integer?,
-                                            opt_in_to_archive_for_supported_resources: bool?
+                                            opt_in_to_archive_for_supported_resources: bool?,
+                                            delete_after_event: ("DELETE_AFTER_COPY")?
                                           }?,
                                           destination_backup_vault_arn: ::String
                                         },
@@ -1062,7 +1065,8 @@ module Aws
                             ?by_complete_before: ::Time,
                             ?by_complete_after: ::Time,
                             ?by_parent_job_id: ::String,
-                            ?by_message_category: ::String
+                            ?by_message_category: ::String,
+                            ?by_source_recovery_point_arn: ::String
                           ) -> _ListCopyJobsResponseSuccess
                         | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ListCopyJobsResponseSuccess
 
@@ -1363,6 +1367,7 @@ module Aws
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Backup/Client.html#start_backup_job-instance_method
       def start_backup_job: (
                               backup_vault_name: ::String,
+                              ?logically_air_gapped_backup_vault_arn: ::String,
                               resource_arn: ::String,
                               iam_role_arn: ::String,
                               ?idempotency_token: ::String,
@@ -1371,7 +1376,8 @@ module Aws
                               ?lifecycle: {
                                 move_to_cold_storage_after_days: ::Integer?,
                                 delete_after_days: ::Integer?,
-                                opt_in_to_archive_for_supported_resources: bool?
+                                opt_in_to_archive_for_supported_resources: bool?,
+                                delete_after_event: ("DELETE_AFTER_COPY")?
                               },
                               ?recovery_point_tags: Hash[::String, ::String],
                               ?backup_options: Hash[::String, ::String],
@@ -1395,7 +1401,8 @@ module Aws
                             ?lifecycle: {
                               move_to_cold_storage_after_days: ::Integer?,
                               delete_after_days: ::Integer?,
-                              opt_in_to_archive_for_supported_resources: bool?
+                              opt_in_to_archive_for_supported_resources: bool?,
+                              delete_after_event: ("DELETE_AFTER_COPY")?
                             }
                           ) -> _StartCopyJobResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartCopyJobResponseSuccess
@@ -1463,13 +1470,15 @@ module Aws
                                     {
                                       rule_name: ::String,
                                       target_backup_vault_name: ::String,
+                                      target_logically_air_gapped_backup_vault_arn: ::String?,
                                       schedule_expression: ::String?,
                                       start_window_minutes: ::Integer?,
                                       completion_window_minutes: ::Integer?,
                                       lifecycle: {
                                         move_to_cold_storage_after_days: ::Integer?,
                                         delete_after_days: ::Integer?,
-                                        opt_in_to_archive_for_supported_resources: bool?
+                                        opt_in_to_archive_for_supported_resources: bool?,
+                                        delete_after_event: ("DELETE_AFTER_COPY")?
                                       }?,
                                       recovery_point_tags: Hash[::String, ::String]?,
                                       copy_actions: Array[
@@ -1477,7 +1486,8 @@ module Aws
                                           lifecycle: {
                                             move_to_cold_storage_after_days: ::Integer?,
                                             delete_after_days: ::Integer?,
-                                            opt_in_to_archive_for_supported_resources: bool?
+                                            opt_in_to_archive_for_supported_resources: bool?,
+                                            delete_after_event: ("DELETE_AFTER_COPY")?
                                           }?,
                                           destination_backup_vault_arn: ::String
                                         },
@@ -1567,7 +1577,8 @@ module Aws
                                              ?lifecycle: {
                                                move_to_cold_storage_after_days: ::Integer?,
                                                delete_after_days: ::Integer?,
-                                               opt_in_to_archive_for_supported_resources: bool?
+                                               opt_in_to_archive_for_supported_resources: bool?,
+                                               delete_after_event: ("DELETE_AFTER_COPY")?
                                              }
                                            ) -> _UpdateRecoveryPointLifecycleResponseSuccess
                                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateRecoveryPointLifecycleResponseSuccess

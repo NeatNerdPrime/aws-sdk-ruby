@@ -113,6 +113,7 @@ module Aws::Backup
     class BackupRule
       attr_accessor rule_name: ::String
       attr_accessor target_backup_vault_name: ::String
+      attr_accessor target_logically_air_gapped_backup_vault_arn: ::String
       attr_accessor schedule_expression: ::String
       attr_accessor start_window_minutes: ::Integer
       attr_accessor completion_window_minutes: ::Integer
@@ -129,6 +130,7 @@ module Aws::Backup
     class BackupRuleInput
       attr_accessor rule_name: ::String
       attr_accessor target_backup_vault_name: ::String
+      attr_accessor target_logically_air_gapped_backup_vault_arn: ::String
       attr_accessor schedule_expression: ::String
       attr_accessor start_window_minutes: ::Integer
       attr_accessor completion_window_minutes: ::Integer
@@ -261,6 +263,7 @@ module Aws::Backup
       attr_accessor backup_size_in_bytes: ::Integer
       attr_accessor iam_role_arn: ::String
       attr_accessor created_by: Types::RecoveryPointCreator
+      attr_accessor created_by_backup_job_id: ::String
       attr_accessor resource_type: ::String
       attr_accessor parent_job_id: ::String
       attr_accessor is_parent: bool
@@ -1056,6 +1059,7 @@ module Aws::Backup
       attr_accessor move_to_cold_storage_after_days: ::Integer
       attr_accessor delete_after_days: ::Integer
       attr_accessor opt_in_to_archive_for_supported_resources: bool
+      attr_accessor delete_after_event: ("DELETE_AFTER_COPY")
       SENSITIVE: []
     end
 
@@ -1205,6 +1209,7 @@ module Aws::Backup
       attr_accessor by_complete_after: ::Time
       attr_accessor by_parent_job_id: ::String
       attr_accessor by_message_category: ::String
+      attr_accessor by_source_recovery_point_arn: ::String
       SENSITIVE: []
     end
 
@@ -1817,6 +1822,7 @@ module Aws::Backup
 
     class StartBackupJobInput
       attr_accessor backup_vault_name: ::String
+      attr_accessor logically_air_gapped_backup_vault_arn: ::String
       attr_accessor resource_arn: ::String
       attr_accessor iam_role_arn: ::String
       attr_accessor idempotency_token: ::String
