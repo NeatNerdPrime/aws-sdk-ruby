@@ -53,6 +53,7 @@ module Aws::Backup
     BackupVaultList = Shapes::ListShape.new(name: 'BackupVaultList')
     BackupVaultListMember = Shapes::StructureShape.new(name: 'BackupVaultListMember')
     BackupVaultName = Shapes::StringShape.new(name: 'BackupVaultName')
+    BackupVaultNameOrWildcard = Shapes::StringShape.new(name: 'BackupVaultNameOrWildcard')
     Boolean = Shapes::BooleanShape.new(name: 'Boolean')
     CalculatedLifecycle = Shapes::StructureShape.new(name: 'CalculatedLifecycle')
     CancelLegalHoldInput = Shapes::StructureShape.new(name: 'CancelLegalHoldInput')
@@ -99,6 +100,9 @@ module Aws::Backup
     CreateRestoreTestingPlanOutput = Shapes::StructureShape.new(name: 'CreateRestoreTestingPlanOutput')
     CreateRestoreTestingSelectionInput = Shapes::StructureShape.new(name: 'CreateRestoreTestingSelectionInput')
     CreateRestoreTestingSelectionOutput = Shapes::StructureShape.new(name: 'CreateRestoreTestingSelectionOutput')
+    CreateTieringConfigurationInput = Shapes::StructureShape.new(name: 'CreateTieringConfigurationInput')
+    CreateTieringConfigurationOutput = Shapes::StructureShape.new(name: 'CreateTieringConfigurationOutput')
+    CreatorRequestId = Shapes::StringShape.new(name: 'CreatorRequestId')
     CronExpression = Shapes::StringShape.new(name: 'CronExpression')
     DateRange = Shapes::StructureShape.new(name: 'DateRange')
     DeleteBackupPlanInput = Shapes::StructureShape.new(name: 'DeleteBackupPlanInput')
@@ -113,6 +117,8 @@ module Aws::Backup
     DeleteReportPlanInput = Shapes::StructureShape.new(name: 'DeleteReportPlanInput')
     DeleteRestoreTestingPlanInput = Shapes::StructureShape.new(name: 'DeleteRestoreTestingPlanInput')
     DeleteRestoreTestingSelectionInput = Shapes::StructureShape.new(name: 'DeleteRestoreTestingSelectionInput')
+    DeleteTieringConfigurationInput = Shapes::StructureShape.new(name: 'DeleteTieringConfigurationInput')
+    DeleteTieringConfigurationOutput = Shapes::StructureShape.new(name: 'DeleteTieringConfigurationOutput')
     DependencyFailureException = Shapes::StructureShape.new(name: 'DependencyFailureException')
     DescribeBackupJobInput = Shapes::StructureShape.new(name: 'DescribeBackupJobInput')
     DescribeBackupJobOutput = Shapes::StructureShape.new(name: 'DescribeBackupJobOutput')
@@ -176,6 +182,8 @@ module Aws::Backup
     GetRestoreTestingSelectionInput = Shapes::StructureShape.new(name: 'GetRestoreTestingSelectionInput')
     GetRestoreTestingSelectionOutput = Shapes::StructureShape.new(name: 'GetRestoreTestingSelectionOutput')
     GetSupportedResourceTypesOutput = Shapes::StructureShape.new(name: 'GetSupportedResourceTypesOutput')
+    GetTieringConfigurationInput = Shapes::StructureShape.new(name: 'GetTieringConfigurationInput')
+    GetTieringConfigurationOutput = Shapes::StructureShape.new(name: 'GetTieringConfigurationOutput')
     GlobalSettings = Shapes::MapShape.new(name: 'GlobalSettings')
     GlobalSettingsName = Shapes::StringShape.new(name: 'GlobalSettingsName')
     GlobalSettingsValue = Shapes::StringShape.new(name: 'GlobalSettingsValue')
@@ -256,6 +264,8 @@ module Aws::Backup
     ListRestoreTestingSelectionsOutput = Shapes::StructureShape.new(name: 'ListRestoreTestingSelectionsOutput')
     ListTagsInput = Shapes::StructureShape.new(name: 'ListTagsInput')
     ListTagsOutput = Shapes::StructureShape.new(name: 'ListTagsOutput')
+    ListTieringConfigurationsInput = Shapes::StructureShape.new(name: 'ListTieringConfigurationsInput')
+    ListTieringConfigurationsOutput = Shapes::StructureShape.new(name: 'ListTieringConfigurationsOutput')
     Long = Shapes::IntegerShape.new(name: 'Long')
     MaxFrameworkInputs = Shapes::IntegerShape.new(name: 'MaxFrameworkInputs')
     MaxResults = Shapes::IntegerShape.new(name: 'MaxResults')
@@ -300,6 +310,8 @@ module Aws::Backup
     ResourceArns = Shapes::ListShape.new(name: 'ResourceArns')
     ResourceIdentifiers = Shapes::ListShape.new(name: 'ResourceIdentifiers')
     ResourceNotFoundException = Shapes::StructureShape.new(name: 'ResourceNotFoundException')
+    ResourceSelection = Shapes::StructureShape.new(name: 'ResourceSelection')
+    ResourceSelections = Shapes::ListShape.new(name: 'ResourceSelections')
     ResourceType = Shapes::StringShape.new(name: 'ResourceType')
     ResourceTypeList = Shapes::ListShape.new(name: 'ResourceTypeList')
     ResourceTypeManagementPreference = Shapes::MapShape.new(name: 'ResourceTypeManagementPreference')
@@ -353,6 +365,13 @@ module Aws::Backup
     TagResourceInput = Shapes::StructureShape.new(name: 'TagResourceInput')
     TagValue = Shapes::StringShape.new(name: 'TagValue')
     Tags = Shapes::MapShape.new(name: 'Tags')
+    TieringConfiguration = Shapes::StructureShape.new(name: 'TieringConfiguration')
+    TieringConfigurationInputForCreate = Shapes::StructureShape.new(name: 'TieringConfigurationInputForCreate')
+    TieringConfigurationInputForUpdate = Shapes::StructureShape.new(name: 'TieringConfigurationInputForUpdate')
+    TieringConfigurationName = Shapes::StringShape.new(name: 'TieringConfigurationName')
+    TieringConfigurationsList = Shapes::ListShape.new(name: 'TieringConfigurationsList')
+    TieringConfigurationsListMember = Shapes::StructureShape.new(name: 'TieringConfigurationsListMember')
+    TieringDownSettingsInDays = Shapes::IntegerShape.new(name: 'TieringDownSettingsInDays')
     Timestamp = Shapes::TimestampShape.new(name: 'Timestamp')
     Timezone = Shapes::StringShape.new(name: 'Timezone')
     UntagResourceInput = Shapes::StructureShape.new(name: 'UntagResourceInput')
@@ -372,6 +391,8 @@ module Aws::Backup
     UpdateRestoreTestingPlanOutput = Shapes::StructureShape.new(name: 'UpdateRestoreTestingPlanOutput')
     UpdateRestoreTestingSelectionInput = Shapes::StructureShape.new(name: 'UpdateRestoreTestingSelectionInput')
     UpdateRestoreTestingSelectionOutput = Shapes::StructureShape.new(name: 'UpdateRestoreTestingSelectionOutput')
+    UpdateTieringConfigurationInput = Shapes::StructureShape.new(name: 'UpdateTieringConfigurationInput')
+    UpdateTieringConfigurationOutput = Shapes::StructureShape.new(name: 'UpdateTieringConfigurationOutput')
     VaultNames = Shapes::ListShape.new(name: 'VaultNames')
     VaultState = Shapes::StringShape.new(name: 'VaultState')
     VaultType = Shapes::StringShape.new(name: 'VaultType')
@@ -776,6 +797,16 @@ module Aws::Backup
     CreateRestoreTestingSelectionOutput.add_member(:restore_testing_selection_name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "RestoreTestingSelectionName"))
     CreateRestoreTestingSelectionOutput.struct_class = Types::CreateRestoreTestingSelectionOutput
 
+    CreateTieringConfigurationInput.add_member(:tiering_configuration, Shapes::ShapeRef.new(shape: TieringConfigurationInputForCreate, required: true, location_name: "TieringConfiguration"))
+    CreateTieringConfigurationInput.add_member(:tiering_configuration_tags, Shapes::ShapeRef.new(shape: Tags, location_name: "TieringConfigurationTags"))
+    CreateTieringConfigurationInput.add_member(:creator_request_id, Shapes::ShapeRef.new(shape: CreatorRequestId, location_name: "CreatorRequestId", metadata: {"idempotencyToken" => true}))
+    CreateTieringConfigurationInput.struct_class = Types::CreateTieringConfigurationInput
+
+    CreateTieringConfigurationOutput.add_member(:tiering_configuration_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TieringConfigurationArn"))
+    CreateTieringConfigurationOutput.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: string, location_name: "TieringConfigurationName"))
+    CreateTieringConfigurationOutput.add_member(:creation_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "CreationTime"))
+    CreateTieringConfigurationOutput.struct_class = Types::CreateTieringConfigurationOutput
+
     DateRange.add_member(:from_date, Shapes::ShapeRef.new(shape: timestamp, required: true, location_name: "FromDate"))
     DateRange.add_member(:to_date, Shapes::ShapeRef.new(shape: timestamp, required: true, location_name: "ToDate"))
     DateRange.struct_class = Types::DateRange
@@ -821,6 +852,11 @@ module Aws::Backup
     DeleteRestoreTestingSelectionInput.add_member(:restore_testing_plan_name, Shapes::ShapeRef.new(shape: String, required: true, location: "uri", location_name: "RestoreTestingPlanName"))
     DeleteRestoreTestingSelectionInput.add_member(:restore_testing_selection_name, Shapes::ShapeRef.new(shape: String, required: true, location: "uri", location_name: "RestoreTestingSelectionName"))
     DeleteRestoreTestingSelectionInput.struct_class = Types::DeleteRestoreTestingSelectionInput
+
+    DeleteTieringConfigurationInput.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, required: true, location: "uri", location_name: "tieringConfigurationName"))
+    DeleteTieringConfigurationInput.struct_class = Types::DeleteTieringConfigurationInput
+
+    DeleteTieringConfigurationOutput.struct_class = Types::DeleteTieringConfigurationOutput
 
     DependencyFailureException.add_member(:code, Shapes::ShapeRef.new(shape: string, location_name: "Code"))
     DependencyFailureException.add_member(:message, Shapes::ShapeRef.new(shape: string, location_name: "Message"))
@@ -1173,6 +1209,12 @@ module Aws::Backup
 
     GetSupportedResourceTypesOutput.add_member(:resource_types, Shapes::ShapeRef.new(shape: ResourceTypes, location_name: "ResourceTypes"))
     GetSupportedResourceTypesOutput.struct_class = Types::GetSupportedResourceTypesOutput
+
+    GetTieringConfigurationInput.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, required: true, location: "uri", location_name: "tieringConfigurationName"))
+    GetTieringConfigurationInput.struct_class = Types::GetTieringConfigurationInput
+
+    GetTieringConfigurationOutput.add_member(:tiering_configuration, Shapes::ShapeRef.new(shape: TieringConfiguration, location_name: "TieringConfiguration"))
+    GetTieringConfigurationOutput.struct_class = Types::GetTieringConfigurationOutput
 
     GlobalSettings.key = Shapes::ShapeRef.new(shape: GlobalSettingsName)
     GlobalSettings.value = Shapes::ShapeRef.new(shape: GlobalSettingsValue)
@@ -1549,6 +1591,14 @@ module Aws::Backup
     ListTagsOutput.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "Tags"))
     ListTagsOutput.struct_class = Types::ListTagsOutput
 
+    ListTieringConfigurationsInput.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location: "querystring", location_name: "maxResults"))
+    ListTieringConfigurationsInput.add_member(:next_token, Shapes::ShapeRef.new(shape: string, location: "querystring", location_name: "nextToken"))
+    ListTieringConfigurationsInput.struct_class = Types::ListTieringConfigurationsInput
+
+    ListTieringConfigurationsOutput.add_member(:tiering_configurations, Shapes::ShapeRef.new(shape: TieringConfigurationsList, location_name: "TieringConfigurations"))
+    ListTieringConfigurationsOutput.add_member(:next_token, Shapes::ShapeRef.new(shape: string, location_name: "NextToken"))
+    ListTieringConfigurationsOutput.struct_class = Types::ListTieringConfigurationsOutput
+
     Metadata.key = Shapes::ShapeRef.new(shape: MetadataKey)
     Metadata.value = Shapes::ShapeRef.new(shape: MetadataValue)
 
@@ -1715,6 +1765,13 @@ module Aws::Backup
     ResourceNotFoundException.add_member(:type, Shapes::ShapeRef.new(shape: string, location_name: "Type"))
     ResourceNotFoundException.add_member(:context, Shapes::ShapeRef.new(shape: string, location_name: "Context"))
     ResourceNotFoundException.struct_class = Types::ResourceNotFoundException
+
+    ResourceSelection.add_member(:resources, Shapes::ShapeRef.new(shape: ResourceArns, required: true, location_name: "Resources"))
+    ResourceSelection.add_member(:tiering_down_settings_in_days, Shapes::ShapeRef.new(shape: TieringDownSettingsInDays, required: true, location_name: "TieringDownSettingsInDays"))
+    ResourceSelection.add_member(:resource_type, Shapes::ShapeRef.new(shape: ResourceType, required: true, location_name: "ResourceType"))
+    ResourceSelection.struct_class = Types::ResourceSelection
+
+    ResourceSelections.member = Shapes::ShapeRef.new(shape: ResourceSelection)
 
     ResourceTypeList.member = Shapes::ShapeRef.new(shape: ARN)
 
@@ -1943,6 +2000,33 @@ module Aws::Backup
     Tags.key = Shapes::ShapeRef.new(shape: TagKey)
     Tags.value = Shapes::ShapeRef.new(shape: TagValue)
 
+    TieringConfiguration.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, required: true, location_name: "TieringConfigurationName"))
+    TieringConfiguration.add_member(:tiering_configuration_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TieringConfigurationArn"))
+    TieringConfiguration.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultNameOrWildcard, required: true, location_name: "BackupVaultName"))
+    TieringConfiguration.add_member(:resource_selection, Shapes::ShapeRef.new(shape: ResourceSelections, required: true, location_name: "ResourceSelection"))
+    TieringConfiguration.add_member(:creator_request_id, Shapes::ShapeRef.new(shape: CreatorRequestId, location_name: "CreatorRequestId"))
+    TieringConfiguration.add_member(:creation_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "CreationTime"))
+    TieringConfiguration.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "LastUpdatedTime"))
+    TieringConfiguration.struct_class = Types::TieringConfiguration
+
+    TieringConfigurationInputForCreate.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, required: true, location_name: "TieringConfigurationName"))
+    TieringConfigurationInputForCreate.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultNameOrWildcard, required: true, location_name: "BackupVaultName"))
+    TieringConfigurationInputForCreate.add_member(:resource_selection, Shapes::ShapeRef.new(shape: ResourceSelections, required: true, location_name: "ResourceSelection"))
+    TieringConfigurationInputForCreate.struct_class = Types::TieringConfigurationInputForCreate
+
+    TieringConfigurationInputForUpdate.add_member(:resource_selection, Shapes::ShapeRef.new(shape: ResourceSelections, required: true, location_name: "ResourceSelection"))
+    TieringConfigurationInputForUpdate.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultNameOrWildcard, required: true, location_name: "BackupVaultName"))
+    TieringConfigurationInputForUpdate.struct_class = Types::TieringConfigurationInputForUpdate
+
+    TieringConfigurationsList.member = Shapes::ShapeRef.new(shape: TieringConfigurationsListMember)
+
+    TieringConfigurationsListMember.add_member(:tiering_configuration_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TieringConfigurationArn"))
+    TieringConfigurationsListMember.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, location_name: "TieringConfigurationName"))
+    TieringConfigurationsListMember.add_member(:backup_vault_name, Shapes::ShapeRef.new(shape: BackupVaultNameOrWildcard, location_name: "BackupVaultName"))
+    TieringConfigurationsListMember.add_member(:creation_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "CreationTime"))
+    TieringConfigurationsListMember.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "LastUpdatedTime"))
+    TieringConfigurationsListMember.struct_class = Types::TieringConfigurationsListMember
+
     UntagResourceInput.add_member(:resource_arn, Shapes::ShapeRef.new(shape: ARN, required: true, location: "uri", location_name: "resourceArn"))
     UntagResourceInput.add_member(:tag_key_list, Shapes::ShapeRef.new(shape: TagKeyList, required: true, location_name: "TagKeyList"))
     UntagResourceInput.struct_class = Types::UntagResourceInput
@@ -2032,6 +2116,16 @@ module Aws::Backup
     UpdateRestoreTestingSelectionOutput.add_member(:restore_testing_selection_name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "RestoreTestingSelectionName"))
     UpdateRestoreTestingSelectionOutput.add_member(:update_time, Shapes::ShapeRef.new(shape: Timestamp, required: true, location_name: "UpdateTime"))
     UpdateRestoreTestingSelectionOutput.struct_class = Types::UpdateRestoreTestingSelectionOutput
+
+    UpdateTieringConfigurationInput.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, required: true, location: "uri", location_name: "tieringConfigurationName"))
+    UpdateTieringConfigurationInput.add_member(:tiering_configuration, Shapes::ShapeRef.new(shape: TieringConfigurationInputForUpdate, required: true, location_name: "TieringConfiguration"))
+    UpdateTieringConfigurationInput.struct_class = Types::UpdateTieringConfigurationInput
+
+    UpdateTieringConfigurationOutput.add_member(:tiering_configuration_arn, Shapes::ShapeRef.new(shape: ARN, location_name: "TieringConfigurationArn"))
+    UpdateTieringConfigurationOutput.add_member(:tiering_configuration_name, Shapes::ShapeRef.new(shape: TieringConfigurationName, location_name: "TieringConfigurationName"))
+    UpdateTieringConfigurationOutput.add_member(:creation_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "CreationTime"))
+    UpdateTieringConfigurationOutput.add_member(:last_updated_time, Shapes::ShapeRef.new(shape: timestamp, location_name: "LastUpdatedTime"))
+    UpdateTieringConfigurationOutput.struct_class = Types::UpdateTieringConfigurationOutput
 
     VaultNames.member = Shapes::ShapeRef.new(shape: string)
 
@@ -2219,6 +2313,20 @@ module Aws::Backup
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
 
+      api.add_operation(:create_tiering_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateTieringConfiguration"
+        o.http_method = "PUT"
+        o.http_request_uri = "/tiering-configurations"
+        o.input = Shapes::ShapeRef.new(shape: CreateTieringConfigurationInput)
+        o.output = Shapes::ShapeRef.new(shape: CreateTieringConfigurationOutput)
+        o.errors << Shapes::ShapeRef.new(shape: AlreadyExistsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: MissingParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+      end)
+
       api.add_operation(:delete_backup_plan, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DeleteBackupPlan"
         o.http_method = "DELETE"
@@ -2351,6 +2459,18 @@ module Aws::Backup
         o.input = Shapes::ShapeRef.new(shape: DeleteRestoreTestingSelectionInput)
         o.output = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+      end)
+
+      api.add_operation(:delete_tiering_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteTieringConfiguration"
+        o.http_method = "DELETE"
+        o.http_request_uri = "/tiering-configurations/{tieringConfigurationName}"
+        o.input = Shapes::ShapeRef.new(shape: DeleteTieringConfigurationInput)
+        o.output = Shapes::ShapeRef.new(shape: DeleteTieringConfigurationOutput)
+        o.errors << Shapes::ShapeRef.new(shape: MissingParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
 
@@ -2693,6 +2813,18 @@ module Aws::Backup
         o.http_request_uri = "/supported-resource-types"
         o.input = Shapes::ShapeRef.new(shape: Shapes::StructureShape.new(struct_class: Aws::EmptyStructure))
         o.output = Shapes::ShapeRef.new(shape: GetSupportedResourceTypesOutput)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+      end)
+
+      api.add_operation(:get_tiering_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetTieringConfiguration"
+        o.http_method = "GET"
+        o.http_request_uri = "/tiering-configurations/{tieringConfigurationName}"
+        o.input = Shapes::ShapeRef.new(shape: GetTieringConfigurationInput)
+        o.output = Shapes::ShapeRef.new(shape: GetTieringConfigurationOutput)
+        o.errors << Shapes::ShapeRef.new(shape: MissingParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
 
@@ -3139,6 +3271,22 @@ module Aws::Backup
         )
       end)
 
+      api.add_operation(:list_tiering_configurations, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListTieringConfigurations"
+        o.http_method = "GET"
+        o.http_request_uri = "/tiering-configurations/"
+        o.input = Shapes::ShapeRef.new(shape: ListTieringConfigurationsInput)
+        o.output = Shapes::ShapeRef.new(shape: ListTieringConfigurationsOutput)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
       api.add_operation(:put_backup_vault_access_policy, Seahorse::Model::Operation.new.tap do |o|
         o.name = "PutBackupVaultAccessPolicy"
         o.http_method = "PUT"
@@ -3405,6 +3553,21 @@ module Aws::Backup
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
         o.errors << Shapes::ShapeRef.new(shape: MissingParameterValueException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
+      end)
+
+      api.add_operation(:update_tiering_configuration, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateTieringConfiguration"
+        o.http_method = "PUT"
+        o.http_request_uri = "/tiering-configurations/{tieringConfigurationName}"
+        o.input = Shapes::ShapeRef.new(shape: UpdateTieringConfigurationInput)
+        o.output = Shapes::ShapeRef.new(shape: UpdateTieringConfigurationOutput)
+        o.errors << Shapes::ShapeRef.new(shape: AlreadyExistsException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterValueException)
+        o.errors << Shapes::ShapeRef.new(shape: LimitExceededException)
+        o.errors << Shapes::ShapeRef.new(shape: MissingParameterValueException)
         o.errors << Shapes::ShapeRef.new(shape: ServiceUnavailableException)
       end)
     end

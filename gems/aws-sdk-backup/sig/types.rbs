@@ -448,6 +448,20 @@ module Aws::Backup
       SENSITIVE: []
     end
 
+    class CreateTieringConfigurationInput
+      attr_accessor tiering_configuration: Types::TieringConfigurationInputForCreate
+      attr_accessor tiering_configuration_tags: ::Hash[::String, ::String]
+      attr_accessor creator_request_id: ::String
+      SENSITIVE: [:tiering_configuration_tags]
+    end
+
+    class CreateTieringConfigurationOutput
+      attr_accessor tiering_configuration_arn: ::String
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor creation_time: ::Time
+      SENSITIVE: []
+    end
+
     class DateRange
       attr_accessor from_date: ::Time
       attr_accessor to_date: ::Time
@@ -518,6 +532,14 @@ module Aws::Backup
       attr_accessor restore_testing_plan_name: ::String
       attr_accessor restore_testing_selection_name: ::String
       SENSITIVE: []
+    end
+
+    class DeleteTieringConfigurationInput
+      attr_accessor tiering_configuration_name: ::String
+      SENSITIVE: []
+    end
+
+    class DeleteTieringConfigurationOutput < Aws::EmptyStructure
     end
 
     class DependencyFailureException
@@ -975,6 +997,16 @@ module Aws::Backup
 
     class GetSupportedResourceTypesOutput
       attr_accessor resource_types: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class GetTieringConfigurationInput
+      attr_accessor tiering_configuration_name: ::String
+      SENSITIVE: []
+    end
+
+    class GetTieringConfigurationOutput
+      attr_accessor tiering_configuration: Types::TieringConfiguration
       SENSITIVE: []
     end
 
@@ -1466,6 +1498,18 @@ module Aws::Backup
       SENSITIVE: [:tags]
     end
 
+    class ListTieringConfigurationsInput
+      attr_accessor max_results: ::Integer
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class ListTieringConfigurationsOutput
+      attr_accessor tiering_configurations: ::Array[Types::TieringConfigurationsListMember]
+      attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
     class MissingParameterValueException
       attr_accessor code: ::String
       attr_accessor message: ::String
@@ -1647,6 +1691,13 @@ module Aws::Backup
       attr_accessor message: ::String
       attr_accessor type: ::String
       attr_accessor context: ::String
+      SENSITIVE: []
+    end
+
+    class ResourceSelection
+      attr_accessor resources: ::Array[::String]
+      attr_accessor tiering_down_settings_in_days: ::Integer
+      attr_accessor resource_type: ::String
       SENSITIVE: []
     end
 
@@ -1897,6 +1948,39 @@ module Aws::Backup
       SENSITIVE: [:tags]
     end
 
+    class TieringConfiguration
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor tiering_configuration_arn: ::String
+      attr_accessor backup_vault_name: ::String
+      attr_accessor resource_selection: ::Array[Types::ResourceSelection]
+      attr_accessor creator_request_id: ::String
+      attr_accessor creation_time: ::Time
+      attr_accessor last_updated_time: ::Time
+      SENSITIVE: []
+    end
+
+    class TieringConfigurationInputForCreate
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor backup_vault_name: ::String
+      attr_accessor resource_selection: ::Array[Types::ResourceSelection]
+      SENSITIVE: []
+    end
+
+    class TieringConfigurationInputForUpdate
+      attr_accessor resource_selection: ::Array[Types::ResourceSelection]
+      attr_accessor backup_vault_name: ::String
+      SENSITIVE: []
+    end
+
+    class TieringConfigurationsListMember
+      attr_accessor tiering_configuration_arn: ::String
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor backup_vault_name: ::String
+      attr_accessor creation_time: ::Time
+      attr_accessor last_updated_time: ::Time
+      SENSITIVE: []
+    end
+
     class UntagResourceInput
       attr_accessor resource_arn: ::String
       attr_accessor tag_key_list: ::Array[::String]
@@ -2018,6 +2102,20 @@ module Aws::Backup
       attr_accessor restore_testing_plan_name: ::String
       attr_accessor restore_testing_selection_name: ::String
       attr_accessor update_time: ::Time
+      SENSITIVE: []
+    end
+
+    class UpdateTieringConfigurationInput
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor tiering_configuration: Types::TieringConfigurationInputForUpdate
+      SENSITIVE: []
+    end
+
+    class UpdateTieringConfigurationOutput
+      attr_accessor tiering_configuration_arn: ::String
+      attr_accessor tiering_configuration_name: ::String
+      attr_accessor creation_time: ::Time
+      attr_accessor last_updated_time: ::Time
       SENSITIVE: []
     end
   end

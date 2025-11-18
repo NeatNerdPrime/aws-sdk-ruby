@@ -1367,6 +1367,78 @@ module Aws::Backup
       req.send_request(options)
     end
 
+    # Creates a tiering configuration.
+    #
+    # A tiering configuration enables automatic movement of backup data to a
+    # lower-cost storage tier based on the age of backed-up objects in the
+    # backup vault.
+    #
+    # Each vault can only have one vault-specific tiering configuration, in
+    # addition to any global configuration that applies to all vaults.
+    #
+    # @option params [required, Types::TieringConfigurationInputForCreate] :tiering_configuration
+    #   A tiering configuration must contain a unique
+    #   `TieringConfigurationName` string you create and must contain a
+    #   `BackupVaultName` and `ResourceSelection`. You may optionally include
+    #   a `CreatorRequestId` string.
+    #
+    #   The `TieringConfigurationName` is a unique string that is the name of
+    #   the tiering configuration. This cannot be changed after creation, and
+    #   it must consist of only alphanumeric characters and underscores.
+    #
+    # @option params [Hash<String,String>] :tiering_configuration_tags
+    #   The tags to assign to the tiering configuration.
+    #
+    # @option params [String] :creator_request_id
+    #   This is a unique string that identifies the request and allows failed
+    #   requests to be retried without the risk of running the operation
+    #   twice. This parameter is optional. If used, this parameter must
+    #   contain 1 to 50 alphanumeric or '-\_.' characters.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @return [Types::CreateTieringConfigurationOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateTieringConfigurationOutput#tiering_configuration_arn #tiering_configuration_arn} => String
+    #   * {Types::CreateTieringConfigurationOutput#tiering_configuration_name #tiering_configuration_name} => String
+    #   * {Types::CreateTieringConfigurationOutput#creation_time #creation_time} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_tiering_configuration({
+    #     tiering_configuration: { # required
+    #       tiering_configuration_name: "TieringConfigurationName", # required
+    #       backup_vault_name: "BackupVaultNameOrWildcard", # required
+    #       resource_selection: [ # required
+    #         {
+    #           resources: ["ARN"], # required
+    #           tiering_down_settings_in_days: 1, # required
+    #           resource_type: "ResourceType", # required
+    #         },
+    #       ],
+    #     },
+    #     tiering_configuration_tags: {
+    #       "TagKey" => "TagValue",
+    #     },
+    #     creator_request_id: "CreatorRequestId",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.tiering_configuration_arn #=> String
+    #   resp.tiering_configuration_name #=> String
+    #   resp.creation_time #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/CreateTieringConfiguration AWS API Documentation
+    #
+    # @overload create_tiering_configuration(params = {})
+    # @param [Hash] params ({})
+    def create_tiering_configuration(params = {}, options = {})
+      req = build_request(:create_tiering_configuration, params)
+      req.send_request(options)
+    end
+
     # Deletes a backup plan. A backup plan can only be deleted after all
     # associated selections of resources have been deleted. Deleting a
     # backup plan deletes the current version of a backup plan. Previous
@@ -1688,6 +1760,29 @@ module Aws::Backup
     # @param [Hash] params ({})
     def delete_restore_testing_selection(params = {}, options = {})
       req = build_request(:delete_restore_testing_selection, params)
+      req.send_request(options)
+    end
+
+    # Deletes the tiering configuration specified by a tiering configuration
+    # name.
+    #
+    # @option params [required, String] :tiering_configuration_name
+    #   The unique name of a tiering configuration.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_tiering_configuration({
+    #     tiering_configuration_name: "TieringConfigurationName", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/DeleteTieringConfiguration AWS API Documentation
+    #
+    # @overload delete_tiering_configuration(params = {})
+    # @param [Hash] params ({})
+    def delete_tiering_configuration(params = {}, options = {})
+      req = build_request(:delete_tiering_configuration, params)
       req.send_request(options)
     end
 
@@ -3156,6 +3251,46 @@ module Aws::Backup
     # @param [Hash] params ({})
     def get_supported_resource_types(params = {}, options = {})
       req = build_request(:get_supported_resource_types, params)
+      req.send_request(options)
+    end
+
+    # Returns `TieringConfiguration` details for the specified
+    # `TieringConfigurationName`. The details are the body of a tiering
+    # configuration in JSON format, in addition to configuration metadata.
+    #
+    # @option params [required, String] :tiering_configuration_name
+    #   The unique name of a tiering configuration.
+    #
+    # @return [Types::GetTieringConfigurationOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetTieringConfigurationOutput#tiering_configuration #tiering_configuration} => Types::TieringConfiguration
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_tiering_configuration({
+    #     tiering_configuration_name: "TieringConfigurationName", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.tiering_configuration.tiering_configuration_name #=> String
+    #   resp.tiering_configuration.tiering_configuration_arn #=> String
+    #   resp.tiering_configuration.backup_vault_name #=> String
+    #   resp.tiering_configuration.resource_selection #=> Array
+    #   resp.tiering_configuration.resource_selection[0].resources #=> Array
+    #   resp.tiering_configuration.resource_selection[0].resources[0] #=> String
+    #   resp.tiering_configuration.resource_selection[0].tiering_down_settings_in_days #=> Integer
+    #   resp.tiering_configuration.resource_selection[0].resource_type #=> String
+    #   resp.tiering_configuration.creator_request_id #=> String
+    #   resp.tiering_configuration.creation_time #=> Time
+    #   resp.tiering_configuration.last_updated_time #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/GetTieringConfiguration AWS API Documentation
+    #
+    # @overload get_tiering_configuration(params = {})
+    # @param [Hash] params ({})
+    def get_tiering_configuration(params = {}, options = {})
+      req = build_request(:get_tiering_configuration, params)
       req.send_request(options)
     end
 
@@ -5314,6 +5449,50 @@ module Aws::Backup
       req.send_request(options)
     end
 
+    # Returns a list of tiering configurations.
+    #
+    # @option params [Integer] :max_results
+    #   The maximum number of items to be returned.
+    #
+    # @option params [String] :next_token
+    #   The next item following a partial list of returned items. For example,
+    #   if a request is made to return `MaxResults` number of items,
+    #   `NextToken` allows you to return more items in your list starting at
+    #   the location pointed to by the next token.
+    #
+    # @return [Types::ListTieringConfigurationsOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListTieringConfigurationsOutput#tiering_configurations #tiering_configurations} => Array&lt;Types::TieringConfigurationsListMember&gt;
+    #   * {Types::ListTieringConfigurationsOutput#next_token #next_token} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_tiering_configurations({
+    #     max_results: 1,
+    #     next_token: "string",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.tiering_configurations #=> Array
+    #   resp.tiering_configurations[0].tiering_configuration_arn #=> String
+    #   resp.tiering_configurations[0].tiering_configuration_name #=> String
+    #   resp.tiering_configurations[0].backup_vault_name #=> String
+    #   resp.tiering_configurations[0].creation_time #=> Time
+    #   resp.tiering_configurations[0].last_updated_time #=> Time
+    #   resp.next_token #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/ListTieringConfigurations AWS API Documentation
+    #
+    # @overload list_tiering_configurations(params = {})
+    # @param [Hash] params ({})
+    def list_tiering_configurations(params = {}, options = {})
+      req = build_request(:list_tiering_configurations, params)
+      req.send_request(options)
+    end
+
     # Sets a resource-based policy that is used to manage access permissions
     # on the target backup vault. Requires a backup vault name and an access
     # policy document in JSON format.
@@ -6737,6 +6916,63 @@ module Aws::Backup
       req.send_request(options)
     end
 
+    # This request will send changes to your specified tiering
+    # configuration. `TieringConfigurationName` cannot be updated after it
+    # is created.
+    #
+    # `ResourceSelection` can contain:
+    #
+    # * `Resources`
+    #
+    # * `TieringDownSettingsInDays`
+    #
+    # * `ResourceType`
+    #
+    # @option params [required, String] :tiering_configuration_name
+    #   The name of a tiering configuration to update.
+    #
+    # @option params [required, Types::TieringConfigurationInputForUpdate] :tiering_configuration
+    #   Specifies the body of a tiering configuration.
+    #
+    # @return [Types::UpdateTieringConfigurationOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateTieringConfigurationOutput#tiering_configuration_arn #tiering_configuration_arn} => String
+    #   * {Types::UpdateTieringConfigurationOutput#tiering_configuration_name #tiering_configuration_name} => String
+    #   * {Types::UpdateTieringConfigurationOutput#creation_time #creation_time} => Time
+    #   * {Types::UpdateTieringConfigurationOutput#last_updated_time #last_updated_time} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_tiering_configuration({
+    #     tiering_configuration_name: "TieringConfigurationName", # required
+    #     tiering_configuration: { # required
+    #       resource_selection: [ # required
+    #         {
+    #           resources: ["ARN"], # required
+    #           tiering_down_settings_in_days: 1, # required
+    #           resource_type: "ResourceType", # required
+    #         },
+    #       ],
+    #       backup_vault_name: "BackupVaultNameOrWildcard", # required
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.tiering_configuration_arn #=> String
+    #   resp.tiering_configuration_name #=> String
+    #   resp.creation_time #=> Time
+    #   resp.last_updated_time #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/backup-2018-11-15/UpdateTieringConfiguration AWS API Documentation
+    #
+    # @overload update_tiering_configuration(params = {})
+    # @param [Hash] params ({})
+    def update_tiering_configuration(params = {}, options = {})
+      req = build_request(:update_tiering_configuration, params)
+      req.send_request(options)
+    end
+
     # @!endgroup
 
     # @param params ({})
@@ -6755,7 +6991,7 @@ module Aws::Backup
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-backup'
-      context[:gem_version] = '1.101.0'
+      context[:gem_version] = '1.102.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -16293,6 +16293,48 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] type
+    #   The type of VPN concentrator to create.
+    #   @return [String]
+    #
+    # @!attribute [rw] transit_gateway_id
+    #   The ID of the transit gateway to attach the VPN concentrator to.
+    #   @return [String]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the VPN concentrator during creation.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpnConcentratorRequest AWS API Documentation
+    #
+    class CreateVpnConcentratorRequest < Struct.new(
+      :type,
+      :transit_gateway_id,
+      :tag_specifications,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] vpn_concentrator
+    #   Information about the VPN concentrator.
+    #   @return [Types::VpnConcentrator]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateVpnConcentratorResult AWS API Documentation
+    #
+    class CreateVpnConcentratorResult < Struct.new(
+      :vpn_concentrator)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Contains the parameters for CreateVpnConnection.
     #
     # @!attribute [rw] customer_gateway_id
@@ -16311,6 +16353,10 @@ module Aws::EC2
     # @!attribute [rw] transit_gateway_id
     #   The ID of the transit gateway. If you specify a transit gateway, you
     #   cannot specify a virtual private gateway.
+    #   @return [String]
+    #
+    # @!attribute [rw] vpn_concentrator_id
+    #   The ID of the VPN concentrator to associate with the VPN connection.
     #   @return [String]
     #
     # @!attribute [rw] tag_specifications
@@ -16341,6 +16387,7 @@ module Aws::EC2
       :type,
       :vpn_gateway_id,
       :transit_gateway_id,
+      :vpn_concentrator_id,
       :tag_specifications,
       :pre_shared_key_storage,
       :dry_run,
@@ -19645,6 +19692,39 @@ module Aws::EC2
     class DeleteVpcRequest < Struct.new(
       :vpc_id,
       :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] vpn_concentrator_id
+    #   The ID of the VPN concentrator to delete.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpnConcentratorRequest AWS API Documentation
+    #
+    class DeleteVpnConcentratorRequest < Struct.new(
+      :vpn_concentrator_id,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] return
+    #   Returns `true` if the request succeeds; otherwise, it returns an
+    #   error.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteVpnConcentratorResult AWS API Documentation
+    #
+    class DeleteVpnConcentratorResult < Struct.new(
+      :return)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -33942,6 +34022,61 @@ module Aws::EC2
     class DescribeVpcsResult < Struct.new(
       :next_token,
       :vpcs)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] vpn_concentrator_ids
+    #   One or more VPN concentrator IDs.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters to limit the results.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return with a single call. To
+    #   retrieve the remaining results, make another call with the returned
+    #   `nextToken` value.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpnConcentratorsRequest AWS API Documentation
+    #
+    class DescribeVpnConcentratorsRequest < Struct.new(
+      :vpn_concentrator_ids,
+      :filters,
+      :max_results,
+      :next_token,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] vpn_concentrators
+    #   Information about the VPN concentrators.
+    #   @return [Array<Types::VpnConcentrator>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeVpnConcentratorsResult AWS API Documentation
+    #
+    class DescribeVpnConcentratorsResult < Struct.new(
+      :vpn_concentrators,
+      :next_token)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -82353,6 +82488,45 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # Describes a VPN concentrator.
+    #
+    # @!attribute [rw] vpn_concentrator_id
+    #   The ID of the VPN concentrator.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the VPN concentrator.
+    #   @return [String]
+    #
+    # @!attribute [rw] transit_gateway_id
+    #   The ID of the transit gateway associated with the VPN concentrator.
+    #   @return [String]
+    #
+    # @!attribute [rw] transit_gateway_attachment_id
+    #   The ID of the transit gateway attachment for the VPN concentrator.
+    #   @return [String]
+    #
+    # @!attribute [rw] type
+    #   The type of VPN concentrator.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   Any tags assigned to the VPN concentrator.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/VpnConcentrator AWS API Documentation
+    #
+    class VpnConcentrator < Struct.new(
+      :vpn_concentrator_id,
+      :state,
+      :transit_gateway_id,
+      :transit_gateway_attachment_id,
+      :type,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Describes a VPN connection.
     #
     # @!attribute [rw] category
@@ -82363,6 +82537,10 @@ module Aws::EC2
     #
     # @!attribute [rw] transit_gateway_id
     #   The ID of the transit gateway associated with the VPN connection.
+    #   @return [String]
+    #
+    # @!attribute [rw] vpn_concentrator_id
+    #   The ID of the VPN concentrator associated with the VPN connection.
     #   @return [String]
     #
     # @!attribute [rw] core_network_arn
@@ -82432,6 +82610,7 @@ module Aws::EC2
     class VpnConnection < Struct.new(
       :category,
       :transit_gateway_id,
+      :vpn_concentrator_id,
       :core_network_arn,
       :core_network_attachment_arn,
       :gateway_association_state,

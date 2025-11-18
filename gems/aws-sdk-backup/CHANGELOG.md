@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.102.0 (2025-11-18)
+------------------
+
+* Feature - AWS Backup now supports a low-cost warm storage tier for Amazon S3 backup data.
+
 1.101.0 (2025-11-17)
 ------------------
 
