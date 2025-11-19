@@ -112,7 +112,7 @@ module AwsSdkCodeGenerator
 
     # @return Boolean True if the service is inlined in core (ie not a stand alone gem)
     def included_in_core?
-      %w[STS SSO SSOOIDC].include?(name)
+      %w[STS SSO SSOOIDC Signin].include?(name)
     end
 
     # @return [Hash, nil] The service endpoint rules.

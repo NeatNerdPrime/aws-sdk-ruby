@@ -1,6 +1,8 @@
 Unreleased Changes
 ------------------
 
+* Feature - Add `LoginCredentials` which retrieves credentials from AWS Sign-In. Support `aws-sdk-signin` alias gem.
+
 3.237.0 (2025-11-10)
 ------------------
 
