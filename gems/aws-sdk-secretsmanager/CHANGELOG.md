@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.123.0 (2025-11-19)
+------------------
+
+* Feature - Adds support to create, update, retrieve, rotate, and delete managed external secrets.
+
 1.122.0 (2025-10-27)
 ------------------
 

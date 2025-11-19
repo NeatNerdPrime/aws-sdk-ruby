@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.134.0 (2025-11-19)
+------------------
+
+* Feature - Add support for scanning and viewing scan results for backup resource types
+
 1.133.0 (2025-11-17)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.156.0 (2025-11-19)
+------------------
+
+* Feature - Extended Global Secondary Index (GSI) composite keys to support up to 8 attributes.
+
 1.155.0 (2025-10-21)
 ------------------
 

@@ -1344,7 +1344,8 @@ module Aws::CloudWatchLogs
     class ParseToOCSF
       attr_accessor source: ::String
       attr_accessor event_source: ("CloudTrail" | "Route53Resolver" | "VPCFlow" | "EKSAudit" | "AWSWAF")
-      attr_accessor ocsf_version: ("V1.1")
+      attr_accessor ocsf_version: ("V1.1" | "V1.5")
+      attr_accessor mapping_version: ::String
       SENSITIVE: []
     end
 

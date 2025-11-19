@@ -292,6 +292,20 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # The operation did not succeed because the account is managed by a
+    # organization policy.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/BlockedByOrganizationPolicyException AWS API Documentation
+    #
+    class BlockedByOrganizationPolicyException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] registry_id
     #   The Amazon Web Services account ID associated with the registry to
     #   which to upload layers. If you do not specify a registry, the
@@ -523,9 +537,9 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Creates a repository creation template with a list of filters that
-    #   define which image tags can override the default image tag
-    #   mutability setting.
+    #   A list of filters that specify which image tags should be excluded
+    #   from the repository creation template's image tag mutability
+    #   setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @!attribute [rw] repository_policy
@@ -622,11 +636,15 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Creates a repository with a list of filters that define which image
-    #   tags can override the default image tag mutability setting.
+    #   A list of filters that specify which image tags should be excluded
+    #   from the repository's image tag mutability setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @!attribute [rw] image_scanning_configuration
+    #   The `imageScanningConfiguration` parameter is being deprecated, in
+    #   favor of specifying the image scanning configuration at the registry
+    #   level. For more information, see `PutRegistryScanningConfiguration`.
+    #
     #   The image scanning configuration for the repository. This determines
     #   whether images are scanned for known vulnerabilities after being
     #   pushed to the repository.
@@ -991,6 +1009,32 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # @!attribute [rw] principal_arn
+    #   The ARN of the IAM principal to remove from the pull time update
+    #   exclusion list.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeregisterPullTimeUpdateExclusionRequest AWS API Documentation
+    #
+    class DeregisterPullTimeUpdateExclusionRequest < Struct.new(
+      :principal_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] principal_arn
+    #   The ARN of the IAM principal that was removed from the pull time
+    #   update exclusion list.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeregisterPullTimeUpdateExclusionResponse AWS API Documentation
+    #
+    class DeregisterPullTimeUpdateExclusionResponse < Struct.new(
+      :principal_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] repository_name
     #   The name of the repository that the image is in.
     #   @return [String]
@@ -1138,10 +1182,16 @@ module Aws::ECR
     #   can filter results based on whether they are `TAGGED` or `UNTAGGED`.
     #   @return [String]
     #
+    # @!attribute [rw] image_status
+    #   The image status with which to filter your DescribeImages results.
+    #   Valid values are `ACTIVE`, `ARCHIVED`, and `ACTIVATING`.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImagesFilter AWS API Documentation
     #
     class DescribeImagesFilter < Struct.new(
-      :tag_status)
+      :tag_status,
+      :image_status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1681,6 +1731,33 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # The specified pull time update exclusion already exists for the
+    # registry.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ExclusionAlreadyExistsException AWS API Documentation
+    #
+    class ExclusionAlreadyExistsException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The specified pull time update exclusion was not found.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ExclusionNotFoundException AWS API Documentation
+    #
+    class ExclusionNotFoundException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] name
     #   The name of the account setting, such as `BASIC_SCAN_TYPE_VERSION`
     #   or `REGISTRY_POLICY_SCOPE`.
@@ -2075,6 +2152,19 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # The specified image is archived and cannot be scanned.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageArchivedException AWS API Documentation
+    #
+    class ImageArchivedException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An object that describes an image returned by a DescribeImages
     # operation.
     #
@@ -2146,6 +2236,25 @@ module Aws::ECR
     #    </note>
     #   @return [Time]
     #
+    # @!attribute [rw] subject_manifest_digest
+    #   The digest of the subject manifest for images that are referrers.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_status
+    #   The current status of the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_archived_at
+    #   The date and time, expressed in standard JavaScript date format,
+    #   when the image was last transitioned to Amazon ECR archive.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_activated_at
+    #   The date and time, expressed in standard JavaScript date format,
+    #   when the image was last restored from Amazon ECR archive to Amazon
+    #   ECR standard.
+    #   @return [Time]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageDetail AWS API Documentation
     #
     class ImageDetail < Struct.new(
@@ -2159,7 +2268,11 @@ module Aws::ECR
       :image_scan_findings_summary,
       :image_manifest_media_type,
       :artifact_media_type,
-      :last_recorded_pull_time)
+      :last_recorded_pull_time,
+      :subject_manifest_digest,
+      :image_status,
+      :last_archived_at,
+      :last_activated_at)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2231,6 +2344,46 @@ module Aws::ECR
     #
     class ImageNotFoundException < Struct.new(
       :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # An object representing an artifact associated with a subject image.
+    #
+    # @!attribute [rw] digest
+    #   The digest of the artifact manifest.
+    #   @return [String]
+    #
+    # @!attribute [rw] media_type
+    #   The media type of the artifact manifest.
+    #   @return [String]
+    #
+    # @!attribute [rw] artifact_type
+    #   A string identifying the type of artifact.
+    #   @return [String]
+    #
+    # @!attribute [rw] size
+    #   The size, in bytes, of the artifact.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] annotations
+    #   A map of annotations associated with the artifact.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] artifact_status
+    #   The status of the artifact. Valid values are `ACTIVE`, `ARCHIVED`,
+    #   or `ACTIVATING`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageReferrer AWS API Documentation
+    #
+    class ImageReferrer < Struct.new(
+      :digest,
+      :media_type,
+      :artifact_type,
+      :size,
+      :annotations,
+      :artifact_status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2400,6 +2553,19 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # The requested image storage class update is not supported.
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageStorageClassUpdateNotSupportedException AWS API Documentation
+    #
+    class ImageStorageClassUpdateNotSupportedException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The specified image is tagged with a tag that already exists. The
     # repository is configured for tag immutability.
     #
@@ -2414,18 +2580,17 @@ module Aws::ECR
       include Aws::Structure
     end
 
-    # Overrides the default image tag mutability setting of the repository
-    # for image tags that match the specified filters.
+    # A filter that specifies which image tags should be excluded from the
+    # repository's image tag mutability setting.
     #
     # @!attribute [rw] filter_type
-    #   Specifies the type of filter to use for excluding image tags from
-    #   the repository's mutability setting.
+    #   The type of filter to apply for excluding image tags from mutability
+    #   settings.
     #   @return [String]
     #
     # @!attribute [rw] filter
-    #   The value to use when filtering image tags. Must be either a regular
-    #   expression pattern or a tag prefix value based on the specified
-    #   filter type.
+    #   The filter value used to match image tags for exclusion from
+    #   mutability settings.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageTagMutabilityExclusionFilter AWS API Documentation
@@ -2765,6 +2930,10 @@ module Aws::ECR
     #   The priority of the applied rule.
     #   @return [Integer]
     #
+    # @!attribute [rw] storage_class
+    #   The storage class of the image.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewResult AWS API Documentation
     #
     class LifecyclePolicyPreviewResult < Struct.new(
@@ -2772,7 +2941,8 @@ module Aws::ECR
       :image_digest,
       :image_pushed_at,
       :action,
-      :applied_rule_priority)
+      :applied_rule_priority,
+      :storage_class)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2783,10 +2953,17 @@ module Aws::ECR
     #   The number of expiring images.
     #   @return [Integer]
     #
+    # @!attribute [rw] transitioning_image_total_counts
+    #   The total count of images that will be transitioned to each storage
+    #   class. This field is only present if at least one image will be
+    #   transitoned in the summary.
+    #   @return [Array<Types::TransitioningImageTotalCount>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyPreviewSummary AWS API Documentation
     #
     class LifecyclePolicyPreviewSummary < Struct.new(
-      :expiring_image_total_count)
+      :expiring_image_total_count,
+      :transitioning_image_total_counts)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2797,10 +2974,16 @@ module Aws::ECR
     #   The type of action to be taken.
     #   @return [String]
     #
+    # @!attribute [rw] target_storage_class
+    #   The target storage class for the action. This is only present when
+    #   the `type` is `TRANSITION.`
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/LifecyclePolicyRuleAction AWS API Documentation
     #
     class LifecyclePolicyRuleAction < Struct.new(
-      :type)
+      :type,
+      :target_storage_class)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2825,17 +3008,127 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # An object representing a filter on a ListImageReferrers operation.
+    #
+    # @!attribute [rw] artifact_types
+    #   The artifact types with which to filter your ListImageReferrers
+    #   results.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] artifact_status
+    #   The artifact status with which to filter your ListImageReferrers
+    #   results. Valid values are `ACTIVE`, `ARCHIVED`, `ACTIVATING`, or
+    #   `ANY`. If not specified, only artifacts with `ACTIVE` status are
+    #   returned.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListImageReferrersFilter AWS API Documentation
+    #
+    class ListImageReferrersFilter < Struct.new(
+      :artifact_types,
+      :artifact_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry that
+    #   contains the repository in which to list image referrers. If you do
+    #   not specify a registry, the default registry is assumed.
+    #   @return [String]
+    #
+    # @!attribute [rw] repository_name
+    #   The name of the repository that contains the subject image.
+    #   @return [String]
+    #
+    # @!attribute [rw] subject_id
+    #   An object containing the image digest of the subject image for which
+    #   to retrieve associated artifacts.
+    #   @return [Types::SubjectIdentifier]
+    #
+    # @!attribute [rw] filter
+    #   The filter key and value with which to filter your
+    #   `ListImageReferrers` results. If no filter is specified, only
+    #   artifacts with `ACTIVE` status are returned.
+    #   @return [Types::ListImageReferrersFilter]
+    #
+    # @!attribute [rw] next_token
+    #   The `nextToken` value returned from a previous paginated
+    #   `ListImageReferrers` request where `maxResults` was used and the
+    #   results exceeded the value of that parameter. Pagination continues
+    #   from the end of the previous results that returned the `nextToken`
+    #   value. This value is `null` when there are no more results to
+    #   return.
+    #
+    #   <note markdown="1"> This token should be treated as an opaque identifier that is only
+    #   used to retrieve the next items in a list and not for other
+    #   programmatic purposes.
+    #
+    #    </note>
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of image referrer results returned by
+    #   `ListImageReferrers` in paginated output. When this parameter is
+    #   used, `ListImageReferrers` only returns `maxResults` results in a
+    #   single page along with a `nextToken` response element. The remaining
+    #   results of the initial request can be seen by sending another
+    #   `ListImageReferrers` request with the returned `nextToken` value.
+    #   This value can be between 1 and 50. If this parameter is not used,
+    #   then `ListImageReferrers` returns up to 50 results and a `nextToken`
+    #   value, if applicable.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListImageReferrersRequest AWS API Documentation
+    #
+    class ListImageReferrersRequest < Struct.new(
+      :registry_id,
+      :repository_name,
+      :subject_id,
+      :filter,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] referrers
+    #   The list of artifacts associated with the subject image.
+    #   @return [Array<Types::ImageReferrer>]
+    #
+    # @!attribute [rw] next_token
+    #   The `nextToken` value to include in a future `ListImageReferrers`
+    #   request. When the results of a `ListImageReferrers` request exceed
+    #   `maxResults`, this value can be used to retrieve the next page of
+    #   results. This value is `null` when there are no more results to
+    #   return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListImageReferrersResponse AWS API Documentation
+    #
+    class ListImageReferrersResponse < Struct.new(
+      :referrers,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An object representing a filter on a ListImages operation.
     #
     # @!attribute [rw] tag_status
-    #   The tag status with which to filter your ListImages results. You can
-    #   filter results based on whether they are `TAGGED` or `UNTAGGED`.
+    #   The tag status with which to filter your ListImages results.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_status
+    #   The image status with which to filter your ListImages results. Valid
+    #   values are `ACTIVE`, `ARCHIVED`, and `ACTIVATING`.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListImagesFilter AWS API Documentation
     #
     class ListImagesFilter < Struct.new(
-      :tag_status)
+      :tag_status,
+      :image_status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2907,6 +3200,65 @@ module Aws::ECR
     #
     class ListImagesResponse < Struct.new(
       :image_ids,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] max_results
+    #   The maximum number of pull time update exclusion results returned by
+    #   `ListPullTimeUpdateExclusions` in paginated output. When this
+    #   parameter is used, `ListPullTimeUpdateExclusions` only returns
+    #   `maxResults` results in a single page along with a `nextToken`
+    #   response element. The remaining results of the initial request can
+    #   be seen by sending another `ListPullTimeUpdateExclusions` request
+    #   with the returned `nextToken` value. This value can be between 1 and
+    #   1000. If this parameter is not used, then
+    #   `ListPullTimeUpdateExclusions` returns up to 100 results and a
+    #   `nextToken` value, if applicable.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The `nextToken` value returned from a previous paginated
+    #   `ListPullTimeUpdateExclusions` request where `maxResults` was used
+    #   and the results exceeded the value of that parameter. Pagination
+    #   continues from the end of the previous results that returned the
+    #   `nextToken` value. This value is `null` when there are no more
+    #   results to return.
+    #
+    #   <note markdown="1"> This token should be treated as an opaque identifier that is only
+    #   used to retrieve the next items in a list and not for other
+    #   programmatic purposes.
+    #
+    #    </note>
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListPullTimeUpdateExclusionsRequest AWS API Documentation
+    #
+    class ListPullTimeUpdateExclusionsRequest < Struct.new(
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] pull_time_update_exclusions
+    #   The list of IAM principal ARNs that are excluded from having their
+    #   image pull times recorded.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] next_token
+    #   The `nextToken` value to include in a future
+    #   `ListPullTimeUpdateExclusions` request. When the results of a
+    #   `ListPullTimeUpdateExclusions` request exceed `maxResults`, this
+    #   value can be used to retrieve the next page of results. This value
+    #   is `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ListPullTimeUpdateExclusionsResponse AWS API Documentation
+    #
+    class ListPullTimeUpdateExclusionsResponse < Struct.new(
+      :pull_time_update_exclusions,
       :next_token)
       SENSITIVE = []
       include Aws::Structure
@@ -3148,9 +3500,7 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag
-    #   The tag to associate with the image. This parameter is required for
-    #   images that use the Docker Image Manifest V2 Schema 2 or Open
-    #   Container Initiative (OCI) formats.
+    #   The tag to associate with the image. This parameter is optional.
     #   @return [String]
     #
     # @!attribute [rw] image_digest
@@ -3252,8 +3602,8 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Creates or updates a repository with filters that define which image
-    #   tags can override the default image tag mutability setting.
+    #   A list of filters that specify which image tags should be excluded
+    #   from the image tag mutability setting being applied.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImageTagMutabilityRequest AWS API Documentation
@@ -3280,9 +3630,8 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Returns a list of filters that were defined for a repository. These
-    #   filters determine which image tags can override the default image
-    #   tag mutability setting of the repository.
+    #   The list of filters that specify which image tags are excluded from
+    #   the repository's image tag mutability setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutImageTagMutabilityResponse AWS API Documentation
@@ -3478,6 +3827,38 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # @!attribute [rw] principal_arn
+    #   The ARN of the IAM principal to exclude from having image pull times
+    #   recorded.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/RegisterPullTimeUpdateExclusionRequest AWS API Documentation
+    #
+    class RegisterPullTimeUpdateExclusionRequest < Struct.new(
+      :principal_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] principal_arn
+    #   The ARN of the IAM principal that was added to the pull time update
+    #   exclusion list.
+    #   @return [String]
+    #
+    # @!attribute [rw] created_at
+    #   The date and time, expressed in standard JavaScript date format,
+    #   when the exclusion was created.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/RegisterPullTimeUpdateExclusionResponse AWS API Documentation
+    #
+    class RegisterPullTimeUpdateExclusionResponse < Struct.new(
+      :principal_arn,
+      :created_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The registry doesn't have an associated registry policy.
     #
     # @!attribute [rw] message
@@ -3645,9 +4026,8 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   The image tag mutability exclusion filters associated with the
-    #   repository. These filters specify which image tags can override the
-    #   repository's default image tag mutability setting.
+    #   A list of filters that specify which image tags are excluded from
+    #   the repository's image tag mutability setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @!attribute [rw] image_scanning_configuration
@@ -3723,10 +4103,8 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Defines the image tag mutability exclusion filters to apply when
-    #   creating repositories from this template. These filters specify
-    #   which image tags can override the repository's default image tag
-    #   mutability setting.
+    #   A list of filters that specify which image tags are excluded from
+    #   the repository creation template's image tag mutability setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @!attribute [rw] repository_policy
@@ -4208,6 +4586,20 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # An object that identifies an image subject.
+    #
+    # @!attribute [rw] image_digest
+    #   The digest of the image.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SubjectIdentifier AWS API Documentation
+    #
+    class SubjectIdentifier < Struct.new(
+      :image_digest)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The metadata to apply to a resource to help you categorize and
     # organize them. Each tag consists of a key and a value, both of which
     # you define. Tag keys can have a maximum character length of 128
@@ -4297,6 +4689,25 @@ module Aws::ECR
     #
     class TooManyTagsException < Struct.new(
       :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The total count of images transitioning to a storage class.
+    #
+    # @!attribute [rw] target_storage_class
+    #   The target storage class.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_total_count
+    #   The total number of images transitioning to the storage class.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/TransitioningImageTotalCount AWS API Documentation
+    #
+    class TransitioningImageTotalCount < Struct.new(
+      :target_storage_class,
+      :image_total_count)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4407,6 +4818,66 @@ module Aws::ECR
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UntagResourceResponse AWS API Documentation
     #
     class UntagResourceResponse < Aws::EmptyStructure; end
+
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry that
+    #   contains the image to transition. If you do not specify a registry,
+    #   the default registry is assumed.
+    #   @return [String]
+    #
+    # @!attribute [rw] repository_name
+    #   The name of the repository that contains the image to transition.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_id
+    #   An object with identifying information for an image in an Amazon ECR
+    #   repository.
+    #   @return [Types::ImageIdentifier]
+    #
+    # @!attribute [rw] target_storage_class
+    #   The target storage class for the image.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdateImageStorageClassRequest AWS API Documentation
+    #
+    class UpdateImageStorageClassRequest < Struct.new(
+      :registry_id,
+      :repository_name,
+      :image_id,
+      :target_storage_class)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] registry_id
+    #   The registry ID associated with the request.
+    #   @return [String]
+    #
+    # @!attribute [rw] repository_name
+    #   The repository name associated with the request.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_id
+    #   An object with identifying information for an image in an Amazon ECR
+    #   repository.
+    #   @return [Types::ImageIdentifier]
+    #
+    # @!attribute [rw] image_status
+    #   The current status of the image after the call to
+    #   UpdateImageStorageClass is complete. Valid values are `ACTIVE`,
+    #   `ARCHIVED`, and `ACTIVATING`.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/UpdateImageStorageClassResponse AWS API Documentation
+    #
+    class UpdateImageStorageClassResponse < Struct.new(
+      :registry_id,
+      :repository_name,
+      :image_id,
+      :image_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
 
     # @!attribute [rw] registry_id
     #   The Amazon Web Services account ID associated with the registry
@@ -4522,8 +4993,9 @@ module Aws::ECR
     #   @return [String]
     #
     # @!attribute [rw] image_tag_mutability_exclusion_filters
-    #   Updates a repository with filters that define which image tags can
-    #   override the default image tag mutability setting.
+    #   A list of filters that specify which image tags should be excluded
+    #   from the repository creation template's image tag mutability
+    #   setting.
     #   @return [Array<Types::ImageTagMutabilityExclusionFilter>]
     #
     # @!attribute [rw] repository_policy

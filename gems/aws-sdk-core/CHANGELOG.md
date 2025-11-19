@@ -1,6 +1,15 @@
 Unreleased Changes
 ------------------
 
+3.238.0 (2025-11-19)
+------------------
+
+* Feature - Updated Aws::Signin::Client with the latest API changes.
+
+* Feature - Updated Aws::STS::Client with the latest API changes.
+
+* Feature - IAM now supports outbound identity federation via the STS GetWebIdentityToken API, enabling AWS workloads to securely authenticate with external services using short-lived JSON Web Tokens.
+
 * Feature - Add `LoginCredentials` which retrieves credentials from AWS Sign-In. Support `aws-sdk-signin` alias gem.
 
 3.237.0 (2025-11-10)

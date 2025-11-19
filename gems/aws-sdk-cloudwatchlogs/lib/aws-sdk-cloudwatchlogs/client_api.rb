@@ -344,6 +344,7 @@ module Aws::CloudWatchLogs
     LowerCaseString = Shapes::StructureShape.new(name: 'LowerCaseString')
     LowerCaseStringWithKeys = Shapes::ListShape.new(name: 'LowerCaseStringWithKeys')
     MalformedQueryException = Shapes::StructureShape.new(name: 'MalformedQueryException')
+    MappingVersion = Shapes::StringShape.new(name: 'MappingVersion')
     MatchPattern = Shapes::StringShape.new(name: 'MatchPattern')
     MatchPatterns = Shapes::ListShape.new(name: 'MatchPatterns')
     Message = Shapes::StringShape.new(name: 'Message')
@@ -1665,6 +1666,7 @@ module Aws::CloudWatchLogs
     ParseToOCSF.add_member(:source, Shapes::ShapeRef.new(shape: Source, location_name: "source"))
     ParseToOCSF.add_member(:event_source, Shapes::ShapeRef.new(shape: EventSource, required: true, location_name: "eventSource"))
     ParseToOCSF.add_member(:ocsf_version, Shapes::ShapeRef.new(shape: OCSFVersion, required: true, location_name: "ocsfVersion"))
+    ParseToOCSF.add_member(:mapping_version, Shapes::ShapeRef.new(shape: MappingVersion, location_name: "mappingVersion"))
     ParseToOCSF.struct_class = Types::ParseToOCSF
 
     ParseVPC.add_member(:source, Shapes::ShapeRef.new(shape: Source, location_name: "source"))

@@ -1470,7 +1470,10 @@ module Aws
                                            sse_algorithm: ("AES256" | "aws:fsx" | "aws:kms" | "aws:kms:dsse"),
                                            kms_master_key_id: ::String?
                                          }?,
-                                         bucket_key_enabled: bool?
+                                         bucket_key_enabled: bool?,
+                                         blocked_encryption_types: {
+                                           encryption_type: Array[("NONE" | "SSE-C")]?
+                                         }?
                                        },
                                      ]
                                    },

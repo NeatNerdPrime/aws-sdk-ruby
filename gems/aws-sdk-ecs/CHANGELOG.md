@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.212.0 (2025-11-19)
+------------------
+
+* Feature - Added support for Amazon ECS Managed Instances infrastructure optimization configuration.
+
 1.211.0 (2025-11-03)
 ------------------
 

@@ -88,6 +88,7 @@ module Aws::BedrockRuntime
 
     class Citation
       attr_accessor title: ::String
+      attr_accessor source: ::String
       attr_accessor source_content: ::Array[Types::CitationSourceContent]
       attr_accessor location: Types::CitationLocation
       SENSITIVE: []
@@ -109,6 +110,7 @@ module Aws::BedrockRuntime
       attr_accessor document_char: Types::DocumentCharLocation
       attr_accessor document_page: Types::DocumentPageLocation
       attr_accessor document_chunk: Types::DocumentChunkLocation
+      attr_accessor search_result_location: Types::SearchResultLocation
       attr_accessor unknown: untyped
       SENSITIVE: []
 
@@ -119,6 +121,8 @@ module Aws::BedrockRuntime
       class DocumentPage < CitationLocation
       end
       class DocumentChunk < CitationLocation
+      end
+      class SearchResultLocation < CitationLocation
       end
       class Unknown < CitationLocation
       end
@@ -153,6 +157,7 @@ module Aws::BedrockRuntime
 
     class CitationsDelta
       attr_accessor title: ::String
+      attr_accessor source: ::String
       attr_accessor source_content: ::Array[Types::CitationSourceContentDelta]
       attr_accessor location: Types::CitationLocation
       SENSITIVE: []
@@ -174,6 +179,7 @@ module Aws::BedrockRuntime
       attr_accessor cache_point: Types::CachePointBlock
       attr_accessor reasoning_content: Types::ReasoningContentBlock
       attr_accessor citations_content: Types::CitationsContentBlock
+      attr_accessor search_result: Types::SearchResultBlock
       attr_accessor unknown: untyped
       SENSITIVE: [:reasoning_content]
 
@@ -196,6 +202,8 @@ module Aws::BedrockRuntime
       class ReasoningContent < ContentBlock
       end
       class CitationsContent < ContentBlock
+      end
+      class SearchResult < ContentBlock
       end
       class Unknown < ContentBlock
       end
@@ -1046,6 +1054,26 @@ module Aws::BedrockRuntime
       SENSITIVE: []
     end
 
+    class SearchResultBlock
+      attr_accessor source: ::String
+      attr_accessor title: ::String
+      attr_accessor content: ::Array[Types::SearchResultContentBlock]
+      attr_accessor citations: Types::CitationsConfig
+      SENSITIVE: []
+    end
+
+    class SearchResultContentBlock
+      attr_accessor text: ::String
+      SENSITIVE: []
+    end
+
+    class SearchResultLocation
+      attr_accessor search_result_index: ::Integer
+      attr_accessor start: ::Integer
+      attr_accessor end: ::Integer
+      SENSITIVE: []
+    end
+
     class ServiceQuotaExceededException
       attr_accessor message: ::String
       SENSITIVE: []
@@ -1207,6 +1235,7 @@ module Aws::BedrockRuntime
       attr_accessor image: Types::ImageBlock
       attr_accessor document: Types::DocumentBlock
       attr_accessor video: Types::VideoBlock
+      attr_accessor search_result: Types::SearchResultBlock
       attr_accessor unknown: untyped
       SENSITIVE: []
 
@@ -1219,6 +1248,8 @@ module Aws::BedrockRuntime
       class Document < ToolResultContentBlock
       end
       class Video < ToolResultContentBlock
+      end
+      class SearchResult < ToolResultContentBlock
       end
       class Unknown < ToolResultContentBlock
       end

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.125.0 (2025-11-19)
+------------------
+
+* Feature - Add dual-stack endpoint support for Route53
+
 1.124.0 (2025-10-22)
 ------------------
 

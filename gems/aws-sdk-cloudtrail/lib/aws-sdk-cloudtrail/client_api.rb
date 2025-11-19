@@ -217,6 +217,13 @@ module Aws::CloudTrail
     ListImportsMaxResultsCount = Shapes::IntegerShape.new(name: 'ListImportsMaxResultsCount')
     ListImportsRequest = Shapes::StructureShape.new(name: 'ListImportsRequest')
     ListImportsResponse = Shapes::StructureShape.new(name: 'ListImportsResponse')
+    ListInsightsDataDimensionKey = Shapes::StringShape.new(name: 'ListInsightsDataDimensionKey')
+    ListInsightsDataDimensionValue = Shapes::StringShape.new(name: 'ListInsightsDataDimensionValue')
+    ListInsightsDataDimensions = Shapes::MapShape.new(name: 'ListInsightsDataDimensions')
+    ListInsightsDataMaxResultsCount = Shapes::IntegerShape.new(name: 'ListInsightsDataMaxResultsCount')
+    ListInsightsDataRequest = Shapes::StructureShape.new(name: 'ListInsightsDataRequest')
+    ListInsightsDataResponse = Shapes::StructureShape.new(name: 'ListInsightsDataResponse')
+    ListInsightsDataType = Shapes::StringShape.new(name: 'ListInsightsDataType')
     ListInsightsMetricDataRequest = Shapes::StructureShape.new(name: 'ListInsightsMetricDataRequest')
     ListInsightsMetricDataResponse = Shapes::StructureShape.new(name: 'ListInsightsMetricDataResponse')
     ListPublicKeysRequest = Shapes::StructureShape.new(name: 'ListPublicKeysRequest')
@@ -331,6 +338,8 @@ module Aws::CloudTrail
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     Source = Shapes::StringShape.new(name: 'Source')
     SourceConfig = Shapes::StructureShape.new(name: 'SourceConfig')
+    SourceEventCategories = Shapes::ListShape.new(name: 'SourceEventCategories')
+    SourceEventCategory = Shapes::StringShape.new(name: 'SourceEventCategory')
     StartDashboardRefreshRequest = Shapes::StructureShape.new(name: 'StartDashboardRefreshRequest')
     StartDashboardRefreshResponse = Shapes::StructureShape.new(name: 'StartDashboardRefreshResponse')
     StartEventDataStoreIngestionRequest = Shapes::StructureShape.new(name: 'StartEventDataStoreIngestionRequest')
@@ -885,6 +894,7 @@ module Aws::CloudTrail
     InsightNotEnabledException.struct_class = Types::InsightNotEnabledException
 
     InsightSelector.add_member(:insight_type, Shapes::ShapeRef.new(shape: InsightType, location_name: "InsightType"))
+    InsightSelector.add_member(:event_categories, Shapes::ShapeRef.new(shape: SourceEventCategories, location_name: "EventCategories"))
     InsightSelector.struct_class = Types::InsightSelector
 
     InsightSelectors.member = Shapes::ShapeRef.new(shape: InsightSelector)
@@ -1004,6 +1014,23 @@ module Aws::CloudTrail
     ListImportsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "NextToken"))
     ListImportsResponse.struct_class = Types::ListImportsResponse
 
+    ListInsightsDataDimensions.key = Shapes::ShapeRef.new(shape: ListInsightsDataDimensionKey)
+    ListInsightsDataDimensions.value = Shapes::ShapeRef.new(shape: ListInsightsDataDimensionValue)
+
+    ListInsightsDataRequest.add_member(:insight_source, Shapes::ShapeRef.new(shape: ResourceArn, required: true, location_name: "InsightSource"))
+    ListInsightsDataRequest.add_member(:data_type, Shapes::ShapeRef.new(shape: ListInsightsDataType, required: true, location_name: "DataType"))
+    ListInsightsDataRequest.add_member(:dimensions, Shapes::ShapeRef.new(shape: ListInsightsDataDimensions, location_name: "Dimensions"))
+    ListInsightsDataRequest.add_member(:start_time, Shapes::ShapeRef.new(shape: Date, location_name: "StartTime"))
+    ListInsightsDataRequest.add_member(:end_time, Shapes::ShapeRef.new(shape: Date, location_name: "EndTime"))
+    ListInsightsDataRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: ListInsightsDataMaxResultsCount, location_name: "MaxResults"))
+    ListInsightsDataRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "NextToken"))
+    ListInsightsDataRequest.struct_class = Types::ListInsightsDataRequest
+
+    ListInsightsDataResponse.add_member(:events, Shapes::ShapeRef.new(shape: EventsList, location_name: "Events"))
+    ListInsightsDataResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: PaginationToken, location_name: "NextToken"))
+    ListInsightsDataResponse.struct_class = Types::ListInsightsDataResponse
+
+    ListInsightsMetricDataRequest.add_member(:trail_name, Shapes::ShapeRef.new(shape: String, location_name: "TrailName"))
     ListInsightsMetricDataRequest.add_member(:event_source, Shapes::ShapeRef.new(shape: EventSource, required: true, location_name: "EventSource"))
     ListInsightsMetricDataRequest.add_member(:event_name, Shapes::ShapeRef.new(shape: EventName, required: true, location_name: "EventName"))
     ListInsightsMetricDataRequest.add_member(:insight_type, Shapes::ShapeRef.new(shape: InsightType, required: true, location_name: "InsightType"))
@@ -1016,6 +1043,7 @@ module Aws::CloudTrail
     ListInsightsMetricDataRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: InsightsMetricNextToken, location_name: "NextToken"))
     ListInsightsMetricDataRequest.struct_class = Types::ListInsightsMetricDataRequest
 
+    ListInsightsMetricDataResponse.add_member(:trail_arn, Shapes::ShapeRef.new(shape: String, location_name: "TrailARN"))
     ListInsightsMetricDataResponse.add_member(:event_source, Shapes::ShapeRef.new(shape: EventSource, location_name: "EventSource"))
     ListInsightsMetricDataResponse.add_member(:event_name, Shapes::ShapeRef.new(shape: EventName, location_name: "EventName"))
     ListInsightsMetricDataResponse.add_member(:insight_type, Shapes::ShapeRef.new(shape: InsightType, location_name: "InsightType"))
@@ -1284,6 +1312,8 @@ module Aws::CloudTrail
     SourceConfig.add_member(:apply_to_all_regions, Shapes::ShapeRef.new(shape: Boolean, location_name: "ApplyToAllRegions"))
     SourceConfig.add_member(:advanced_event_selectors, Shapes::ShapeRef.new(shape: AdvancedEventSelectors, location_name: "AdvancedEventSelectors"))
     SourceConfig.struct_class = Types::SourceConfig
+
+    SourceEventCategories.member = Shapes::ShapeRef.new(shape: SourceEventCategory)
 
     StartDashboardRefreshRequest.add_member(:dashboard_id, Shapes::ShapeRef.new(shape: DashboardArn, required: true, location_name: "DashboardId"))
     StartDashboardRefreshRequest.add_member(:query_parameter_values, Shapes::ShapeRef.new(shape: QueryParameterValues, location_name: "QueryParameterValues"))
@@ -1619,6 +1649,7 @@ module Aws::CloudTrail
         o.errors << Shapes::ShapeRef.new(shape: OrganizationsNotInUseException)
         o.errors << Shapes::ShapeRef.new(shape: OrganizationNotInAllFeaturesModeException)
         o.errors << Shapes::ShapeRef.new(shape: NoManagementAccountSLRExistsException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 
       api.add_operation(:create_trail, Seahorse::Model::Operation.new.tap do |o|
@@ -2094,6 +2125,23 @@ module Aws::CloudTrail
         )
       end)
 
+      api.add_operation(:list_insights_data, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListInsightsData"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ListInsightsDataRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListInsightsDataResponse)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: OperationNotPermittedException)
+        o.errors << Shapes::ShapeRef.new(shape: UnsupportedOperationException)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
       api.add_operation(:list_insights_metric_data, Seahorse::Model::Operation.new.tap do |o|
         o.name = "ListInsightsMetricData"
         o.http_method = "POST"
@@ -2101,6 +2149,7 @@ module Aws::CloudTrail
         o.input = Shapes::ShapeRef.new(shape: ListInsightsMetricDataRequest)
         o.output = Shapes::ShapeRef.new(shape: ListInsightsMetricDataResponse)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidTrailNameException)
         o.errors << Shapes::ShapeRef.new(shape: OperationNotPermittedException)
         o.errors << Shapes::ShapeRef.new(shape: UnsupportedOperationException)
         o[:pager] = Aws::Pager.new(
@@ -2579,6 +2628,8 @@ module Aws::CloudTrail
         o.errors << Shapes::ShapeRef.new(shape: NotOrganizationMasterAccountException)
         o.errors << Shapes::ShapeRef.new(shape: NoManagementAccountSLRExistsException)
         o.errors << Shapes::ShapeRef.new(shape: OrganizationNotInAllFeaturesModeException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
       end)
 
       api.add_operation(:update_trail, Seahorse::Model::Operation.new.tap do |o|

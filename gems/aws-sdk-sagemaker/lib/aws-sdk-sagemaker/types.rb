@@ -8318,6 +8318,10 @@ module Aws::SageMaker
     #   made to or from the model containers.
     #   @return [Boolean]
     #
+    # @!attribute [rw] metrics_config
+    #   The configuration parameters for utilization metrics.
+    #   @return [Types::MetricsConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateEndpointConfigInput AWS API Documentation
     #
     class CreateEndpointConfigInput < Struct.new(
@@ -8331,7 +8335,8 @@ module Aws::SageMaker
       :shadow_production_variants,
       :execution_role_arn,
       :vpc_config,
-      :enable_network_isolation)
+      :enable_network_isolation,
+      :metrics_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -16368,6 +16373,10 @@ module Aws::SageMaker
     #   made to or from the model containers.
     #   @return [Boolean]
     #
+    # @!attribute [rw] metrics_config
+    #   The configuration parameters for utilization metrics.
+    #   @return [Types::MetricsConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointConfigOutput AWS API Documentation
     #
     class DescribeEndpointConfigOutput < Struct.new(
@@ -16382,7 +16391,8 @@ module Aws::SageMaker
       :shadow_production_variants,
       :execution_role_arn,
       :vpc_config,
-      :enable_network_isolation)
+      :enable_network_isolation,
+      :metrics_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -16524,6 +16534,10 @@ module Aws::SageMaker
     #   [1]: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_ProductionVariantSummary.html
     #   @return [Array<Types::ProductionVariantSummary>]
     #
+    # @!attribute [rw] metrics_config
+    #   The configuration parameters for utilization metrics.
+    #   @return [Types::MetricsConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeEndpointOutput AWS API Documentation
     #
     class DescribeEndpointOutput < Struct.new(
@@ -16540,7 +16554,8 @@ module Aws::SageMaker
       :async_inference_config,
       :pending_deployment_summary,
       :explainer_config,
-      :shadow_production_variants)
+      :shadow_production_variants,
+      :metrics_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -35960,6 +35975,29 @@ module Aws::SageMaker
       class Unknown < MetricSpecification; end
     end
 
+    # The configuration for Utilization metrics.
+    #
+    # @!attribute [rw] enable_enhanced_metrics
+    #   Specifies whether to enable enhanced metrics for the endpoint.
+    #   Enhanced metrics provide utilization data at instance and container
+    #   granularity. Container granularity is supported for Inference
+    #   Components. The default is `False`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] metric_publish_frequency_in_seconds
+    #   The frequency, in seconds, at which utilization metrics are
+    #   published to Amazon CloudWatch. The default is `60` seconds.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/MetricsConfig AWS API Documentation
+    #
+    class MetricsConfig < Struct.new(
+      :enable_enhanced_metrics,
+      :metric_publish_frequency_in_seconds)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Details about the metrics source.
     #
     # @!attribute [rw] content_type
@@ -44653,9 +44691,9 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
-    # Defines the mapping between an in-app role and the AWS IAM Identity
-    # Center group patterns that should be assigned to that role within the
-    # SageMaker Partner AI App.
+    # Defines the mapping between an in-app role and the Amazon Web Services
+    # IAM Identity Center group patterns that should be assigned to that
+    # role within the SageMaker Partner AI App.
     #
     # @!attribute [rw] role_name
     #   The name of the in-app role within the SageMaker Partner AI App. The
@@ -44663,9 +44701,9 @@ module Aws::SageMaker
     #   @return [String]
     #
     # @!attribute [rw] group_patterns
-    #   A list of AWS IAM Identity Center group patterns that should be
-    #   assigned to the specified role. Group patterns support wildcard
-    #   matching using `*`.
+    #   A list of Amazon Web Services IAM Identity Center group patterns
+    #   that should be assigned to the specified role. Group patterns
+    #   support wildcard matching using `*`.
     #   @return [Array<String>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/RoleGroupAssignment AWS API Documentation

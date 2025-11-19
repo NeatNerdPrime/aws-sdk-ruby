@@ -957,6 +957,7 @@ module Aws::SageMaker
     EmrSettings = Shapes::StructureShape.new(name: 'EmrSettings')
     EnableCaching = Shapes::BooleanShape.new(name: 'EnableCaching')
     EnableCapture = Shapes::BooleanShape.new(name: 'EnableCapture')
+    EnableEnhancedMetrics = Shapes::BooleanShape.new(name: 'EnableEnhancedMetrics')
     EnableInfraCheck = Shapes::BooleanShape.new(name: 'EnableInfraCheck')
     EnableIotRoleAlias = Shapes::BooleanShape.new(name: 'EnableIotRoleAlias')
     EnableRemoteDebug = Shapes::BooleanShape.new(name: 'EnableRemoteDebug')
@@ -1607,10 +1608,12 @@ module Aws::SageMaker
     MetricDefinition = Shapes::StructureShape.new(name: 'MetricDefinition')
     MetricDefinitionList = Shapes::ListShape.new(name: 'MetricDefinitionList')
     MetricName = Shapes::StringShape.new(name: 'MetricName')
+    MetricPublishFrequencyInSeconds = Shapes::IntegerShape.new(name: 'MetricPublishFrequencyInSeconds')
     MetricRegex = Shapes::StringShape.new(name: 'MetricRegex')
     MetricSetSource = Shapes::StringShape.new(name: 'MetricSetSource')
     MetricSpecification = Shapes::UnionShape.new(name: 'MetricSpecification')
     MetricValue = Shapes::FloatShape.new(name: 'MetricValue')
+    MetricsConfig = Shapes::StructureShape.new(name: 'MetricsConfig')
     MetricsSource = Shapes::StructureShape.new(name: 'MetricsSource')
     MinimumInstanceMetadataServiceVersion = Shapes::StringShape.new(name: 'MinimumInstanceMetadataServiceVersion')
     MlReservationArn = Shapes::StringShape.new(name: 'MlReservationArn')
@@ -4027,6 +4030,7 @@ module Aws::SageMaker
     CreateEndpointConfigInput.add_member(:execution_role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "ExecutionRoleArn"))
     CreateEndpointConfigInput.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "VpcConfig"))
     CreateEndpointConfigInput.add_member(:enable_network_isolation, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableNetworkIsolation", metadata: {"box" => true}))
+    CreateEndpointConfigInput.add_member(:metrics_config, Shapes::ShapeRef.new(shape: MetricsConfig, location_name: "MetricsConfig"))
     CreateEndpointConfigInput.struct_class = Types::CreateEndpointConfigInput
 
     CreateEndpointConfigOutput.add_member(:endpoint_config_arn, Shapes::ShapeRef.new(shape: EndpointConfigArn, required: true, location_name: "EndpointConfigArn"))
@@ -5456,6 +5460,7 @@ module Aws::SageMaker
     DescribeEndpointConfigOutput.add_member(:execution_role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "ExecutionRoleArn"))
     DescribeEndpointConfigOutput.add_member(:vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "VpcConfig"))
     DescribeEndpointConfigOutput.add_member(:enable_network_isolation, Shapes::ShapeRef.new(shape: Boolean, location_name: "EnableNetworkIsolation", metadata: {"box" => true}))
+    DescribeEndpointConfigOutput.add_member(:metrics_config, Shapes::ShapeRef.new(shape: MetricsConfig, location_name: "MetricsConfig"))
     DescribeEndpointConfigOutput.struct_class = Types::DescribeEndpointConfigOutput
 
     DescribeEndpointInput.add_member(:endpoint_name, Shapes::ShapeRef.new(shape: EndpointName, required: true, location_name: "EndpointName"))
@@ -5475,6 +5480,7 @@ module Aws::SageMaker
     DescribeEndpointOutput.add_member(:pending_deployment_summary, Shapes::ShapeRef.new(shape: PendingDeploymentSummary, location_name: "PendingDeploymentSummary"))
     DescribeEndpointOutput.add_member(:explainer_config, Shapes::ShapeRef.new(shape: ExplainerConfig, location_name: "ExplainerConfig"))
     DescribeEndpointOutput.add_member(:shadow_production_variants, Shapes::ShapeRef.new(shape: ProductionVariantSummaryList, location_name: "ShadowProductionVariants"))
+    DescribeEndpointOutput.add_member(:metrics_config, Shapes::ShapeRef.new(shape: MetricsConfig, location_name: "MetricsConfig"))
     DescribeEndpointOutput.struct_class = Types::DescribeEndpointOutput
 
     DescribeExperimentRequest.add_member(:experiment_name, Shapes::ShapeRef.new(shape: ExperimentEntityName, required: true, location_name: "ExperimentName"))
@@ -8849,6 +8855,10 @@ module Aws::SageMaker
     MetricSpecification.add_member_subclass(:unknown, Types::MetricSpecification::Unknown)
     MetricSpecification.struct_class = Types::MetricSpecification
 
+    MetricsConfig.add_member(:enable_enhanced_metrics, Shapes::ShapeRef.new(shape: EnableEnhancedMetrics, location_name: "EnableEnhancedMetrics"))
+    MetricsConfig.add_member(:metric_publish_frequency_in_seconds, Shapes::ShapeRef.new(shape: MetricPublishFrequencyInSeconds, location_name: "MetricPublishFrequencyInSeconds"))
+    MetricsConfig.struct_class = Types::MetricsConfig
+
     MetricsSource.add_member(:content_type, Shapes::ShapeRef.new(shape: ContentType, required: true, location_name: "ContentType"))
     MetricsSource.add_member(:content_digest, Shapes::ShapeRef.new(shape: ContentDigest, location_name: "ContentDigest"))
     MetricsSource.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "S3Uri"))
@@ -10335,7 +10345,7 @@ module Aws::SageMaker
 
     ResourceConfig.add_member(:instance_type, Shapes::ShapeRef.new(shape: TrainingInstanceType, location_name: "InstanceType"))
     ResourceConfig.add_member(:instance_count, Shapes::ShapeRef.new(shape: TrainingInstanceCount, location_name: "InstanceCount", metadata: {"box" => true}))
-    ResourceConfig.add_member(:volume_size_in_gb, Shapes::ShapeRef.new(shape: VolumeSizeInGB, required: true, location_name: "VolumeSizeInGB", metadata: {"box" => true}))
+    ResourceConfig.add_member(:volume_size_in_gb, Shapes::ShapeRef.new(shape: OptionalVolumeSizeInGB, location_name: "VolumeSizeInGB", metadata: {"box" => true}))
     ResourceConfig.add_member(:volume_kms_key_id, Shapes::ShapeRef.new(shape: KmsKeyId, location_name: "VolumeKmsKeyId"))
     ResourceConfig.add_member(:keep_alive_period_in_seconds, Shapes::ShapeRef.new(shape: KeepAlivePeriodInSeconds, location_name: "KeepAlivePeriodInSeconds"))
     ResourceConfig.add_member(:instance_groups, Shapes::ShapeRef.new(shape: InstanceGroups, location_name: "InstanceGroups"))

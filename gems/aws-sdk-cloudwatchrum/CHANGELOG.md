@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.50.0 (2025-11-19)
+------------------
+
+* Feature - CloudWatch RUM now supports mobile application monitoring for Android and iOS platforms
+
 1.49.0 (2025-10-23)
 ------------------
 

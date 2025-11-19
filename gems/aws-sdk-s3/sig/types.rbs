@@ -77,6 +77,11 @@ module Aws::S3
       SENSITIVE: []
     end
 
+    class BlockedEncryptionTypes
+      attr_accessor encryption_type: ::Array[("NONE" | "SSE-C")]
+      SENSITIVE: []
+    end
+
     class Bucket
       attr_accessor name: ::String
       attr_accessor creation_date: ::Time
@@ -2607,6 +2612,7 @@ module Aws::S3
     class ServerSideEncryptionRule
       attr_accessor apply_server_side_encryption_by_default: Types::ServerSideEncryptionByDefault
       attr_accessor bucket_key_enabled: bool
+      attr_accessor blocked_encryption_types: Types::BlockedEncryptionTypes
       SENSITIVE: []
     end
 

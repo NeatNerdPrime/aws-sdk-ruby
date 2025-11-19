@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.114.0 (2025-11-19)
+------------------
+
+* Feature - Add support for ECR archival storage class and Inspector org policy for scanning
+
 1.113.0 (2025-11-13)
 ------------------
 

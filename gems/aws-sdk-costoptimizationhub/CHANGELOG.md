@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.35.0 (2025-11-19)
+------------------
+
+* Feature - Release ListEfficiencyMetrics API
+
 1.34.0 (2025-10-27)
 ------------------
 

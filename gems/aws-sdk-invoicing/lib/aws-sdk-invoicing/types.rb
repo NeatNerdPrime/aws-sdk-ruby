@@ -365,12 +365,20 @@ module Aws::Invoicing
     #   accounts in the rules.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] bill_source_accounts
+    #   A list of Amazon Web Services account account IDs used to filter
+    #   invoice units. These are payer accounts from other Organizations
+    #   that have delegated their billing responsibility to the receiver
+    #   account through the billing transfer feature.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/Filters AWS API Documentation
     #
     class Filters < Struct.new(
       :names,
       :invoice_receivers,
-      :accounts)
+      :accounts,
+      :bill_source_accounts)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -766,10 +774,19 @@ module Aws::Invoicing
     #   the invoice unit.
     #   @return [Array<String>]
     #
+    # @!attribute [rw] bill_source_accounts
+    #   A list of Amazon Web Services account account IDs that have
+    #   delegated their billing responsibility to the receiver account
+    #   through transfer billing. Unlike linked accounts, these bill source
+    #   accounts can be payer accounts from other organizations that have
+    #   authorized billing transfer to this account.
+    #   @return [Array<String>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/InvoiceUnitRule AWS API Documentation
     #
     class InvoiceUnitRule < Struct.new(
-      :linked_accounts)
+      :linked_accounts,
+      :bill_source_accounts)
       SENSITIVE = []
       include Aws::Structure
     end

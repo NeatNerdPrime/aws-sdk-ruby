@@ -49,6 +49,7 @@ module Aws::EMR
     CancelStepsOutput = Shapes::StructureShape.new(name: 'CancelStepsOutput')
     CancelStepsRequestStatus = Shapes::StringShape.new(name: 'CancelStepsRequestStatus')
     CloudWatchAlarmDefinition = Shapes::StructureShape.new(name: 'CloudWatchAlarmDefinition')
+    CloudWatchLogConfiguration = Shapes::StructureShape.new(name: 'CloudWatchLogConfiguration')
     Cluster = Shapes::StructureShape.new(name: 'Cluster')
     ClusterId = Shapes::StringShape.new(name: 'ClusterId')
     ClusterState = Shapes::StringShape.new(name: 'ClusterState')
@@ -221,6 +222,7 @@ module Aws::EMR
     ListStudiosOutput = Shapes::StructureShape.new(name: 'ListStudiosOutput')
     ListSupportedInstanceTypesInput = Shapes::StructureShape.new(name: 'ListSupportedInstanceTypesInput')
     ListSupportedInstanceTypesOutput = Shapes::StructureShape.new(name: 'ListSupportedInstanceTypesOutput')
+    LogTypesMap = Shapes::MapShape.new(name: 'LogTypesMap')
     Long = Shapes::IntegerShape.new(name: 'Long')
     ManagedScalingPolicy = Shapes::StructureShape.new(name: 'ManagedScalingPolicy')
     Marker = Shapes::StringShape.new(name: 'Marker')
@@ -232,6 +234,7 @@ module Aws::EMR
     ModifyClusterOutput = Shapes::StructureShape.new(name: 'ModifyClusterOutput')
     ModifyInstanceFleetInput = Shapes::StructureShape.new(name: 'ModifyInstanceFleetInput')
     ModifyInstanceGroupsInput = Shapes::StructureShape.new(name: 'ModifyInstanceGroupsInput')
+    MonitoringConfiguration = Shapes::StructureShape.new(name: 'MonitoringConfiguration')
     NewSupportedProductsList = Shapes::ListShape.new(name: 'NewSupportedProductsList')
     NonNegativeDouble = Shapes::FloatShape.new(name: 'NonNegativeDouble')
     NotebookExecution = Shapes::StructureShape.new(name: 'NotebookExecution')
@@ -467,6 +470,13 @@ module Aws::EMR
     CloudWatchAlarmDefinition.add_member(:dimensions, Shapes::ShapeRef.new(shape: MetricDimensionList, location_name: "Dimensions"))
     CloudWatchAlarmDefinition.struct_class = Types::CloudWatchAlarmDefinition
 
+    CloudWatchLogConfiguration.add_member(:enabled, Shapes::ShapeRef.new(shape: Boolean, required: true, location_name: "Enabled"))
+    CloudWatchLogConfiguration.add_member(:log_group_name, Shapes::ShapeRef.new(shape: XmlString, location_name: "LogGroupName"))
+    CloudWatchLogConfiguration.add_member(:log_stream_name_prefix, Shapes::ShapeRef.new(shape: XmlString, location_name: "LogStreamNamePrefix"))
+    CloudWatchLogConfiguration.add_member(:encryption_key_arn, Shapes::ShapeRef.new(shape: XmlString, location_name: "EncryptionKeyArn"))
+    CloudWatchLogConfiguration.add_member(:log_types, Shapes::ShapeRef.new(shape: LogTypesMap, location_name: "LogTypes"))
+    CloudWatchLogConfiguration.struct_class = Types::CloudWatchLogConfiguration
+
     Cluster.add_member(:id, Shapes::ShapeRef.new(shape: ClusterId, location_name: "Id"))
     Cluster.add_member(:name, Shapes::ShapeRef.new(shape: String, location_name: "Name"))
     Cluster.add_member(:status, Shapes::ShapeRef.new(shape: ClusterStatus, location_name: "Status"))
@@ -502,6 +512,7 @@ module Aws::EMR
     Cluster.add_member(:ebs_root_volume_iops, Shapes::ShapeRef.new(shape: Integer, location_name: "EbsRootVolumeIops"))
     Cluster.add_member(:ebs_root_volume_throughput, Shapes::ShapeRef.new(shape: Integer, location_name: "EbsRootVolumeThroughput"))
     Cluster.add_member(:extended_support, Shapes::ShapeRef.new(shape: BooleanObject, location_name: "ExtendedSupport"))
+    Cluster.add_member(:monitoring_configuration, Shapes::ShapeRef.new(shape: MonitoringConfiguration, location_name: "MonitoringConfiguration"))
     Cluster.struct_class = Types::Cluster
 
     ClusterStateChangeReason.add_member(:code, Shapes::ShapeRef.new(shape: ClusterStateChangeReasonCode, location_name: "Code"))
@@ -1213,6 +1224,9 @@ module Aws::EMR
     ListSupportedInstanceTypesOutput.add_member(:marker, Shapes::ShapeRef.new(shape: String, location_name: "Marker"))
     ListSupportedInstanceTypesOutput.struct_class = Types::ListSupportedInstanceTypesOutput
 
+    LogTypesMap.key = Shapes::ShapeRef.new(shape: XmlString)
+    LogTypesMap.value = Shapes::ShapeRef.new(shape: XmlStringList)
+
     ManagedScalingPolicy.add_member(:compute_limits, Shapes::ShapeRef.new(shape: ComputeLimits, location_name: "ComputeLimits"))
     ManagedScalingPolicy.add_member(:utilization_performance_index, Shapes::ShapeRef.new(shape: UtilizationPerformanceIndexInteger, location_name: "UtilizationPerformanceIndex"))
     ManagedScalingPolicy.add_member(:scaling_strategy, Shapes::ShapeRef.new(shape: ScalingStrategy, location_name: "ScalingStrategy"))
@@ -1240,6 +1254,9 @@ module Aws::EMR
     ModifyInstanceGroupsInput.add_member(:cluster_id, Shapes::ShapeRef.new(shape: ClusterId, location_name: "ClusterId"))
     ModifyInstanceGroupsInput.add_member(:instance_groups, Shapes::ShapeRef.new(shape: InstanceGroupModifyConfigList, location_name: "InstanceGroups"))
     ModifyInstanceGroupsInput.struct_class = Types::ModifyInstanceGroupsInput
+
+    MonitoringConfiguration.add_member(:cloud_watch_log_configuration, Shapes::ShapeRef.new(shape: CloudWatchLogConfiguration, location_name: "CloudWatchLogConfiguration"))
+    MonitoringConfiguration.struct_class = Types::MonitoringConfiguration
 
     NewSupportedProductsList.member = Shapes::ShapeRef.new(shape: SupportedProductConfig)
 
@@ -1423,6 +1440,7 @@ module Aws::EMR
     RunJobFlowInput.add_member(:ebs_root_volume_iops, Shapes::ShapeRef.new(shape: Integer, location_name: "EbsRootVolumeIops"))
     RunJobFlowInput.add_member(:ebs_root_volume_throughput, Shapes::ShapeRef.new(shape: Integer, location_name: "EbsRootVolumeThroughput"))
     RunJobFlowInput.add_member(:extended_support, Shapes::ShapeRef.new(shape: BooleanObject, location_name: "ExtendedSupport"))
+    RunJobFlowInput.add_member(:monitoring_configuration, Shapes::ShapeRef.new(shape: MonitoringConfiguration, location_name: "MonitoringConfiguration"))
     RunJobFlowInput.struct_class = Types::RunJobFlowInput
 
     RunJobFlowOutput.add_member(:job_flow_id, Shapes::ShapeRef.new(shape: XmlStringMaxLen256, location_name: "JobFlowId"))

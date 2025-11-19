@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.86.0 (2025-11-19)
+------------------
+
+* Feature - Support for API Gateway portals and portal products.
+
 1.85.0 (2025-10-28)
 ------------------
 

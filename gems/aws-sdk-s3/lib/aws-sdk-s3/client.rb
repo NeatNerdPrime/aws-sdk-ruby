@@ -5405,7 +5405,7 @@ module Aws::S3
     #
     #  </note>
     #
-    # Deletes the tags from the bucket.
+    # Deletes tags from the bucket.
     #
     # To use this operation, you must have permission to perform the
     # `s3:PutBucketTagging` action. By default, the bucket owner has this
@@ -5613,6 +5613,12 @@ module Aws::S3
     #     * <b> <code>s3:DeleteObjectVersion</code> </b> - To delete a
     #       specific version of an object from a versioning-enabled bucket,
     #       you must have the `s3:DeleteObjectVersion` permission.
+    #
+    #       <note markdown="1"> If the `s3:DeleteObject` or `s3:DeleteObjectVersion` permissions
+    #       are explicitly denied in your bucket policy, attempts to delete
+    #       any unversioned objects result in a `403 Access Denied` error.
+    #
+    #        </note>
     #   * **Directory bucket permissions** - To grant access to this API
     #     operation on a directory bucket, we recommend that you use the [
     #     `CreateSession` ][8] API operation for session-based
@@ -6052,6 +6058,12 @@ module Aws::S3
     #     * <b> <code>s3:DeleteObjectVersion</code> </b> - To delete a
     #       specific version of an object from a versioning-enabled bucket,
     #       you must specify the `s3:DeleteObjectVersion` permission.
+    #
+    #       <note markdown="1"> If the `s3:DeleteObject` or `s3:DeleteObjectVersion` permissions
+    #       are explicitly denied in your bucket policy, attempts to delete
+    #       any unversioned objects result in a `403 Access Denied` error.
+    #
+    #        </note>
     #   * **Directory bucket permissions** - To grant access to this API
     #     operation on a directory bucket, we recommend that you use the [
     #     `CreateSession` ][4] API operation for session-based
@@ -6865,7 +6877,9 @@ module Aws::S3
 
     # Returns the default encryption configuration for an Amazon S3 bucket.
     # By default, all buckets have a default encryption configuration that
-    # uses server-side encryption with Amazon S3 managed keys (SSE-S3).
+    # uses server-side encryption with Amazon S3 managed keys (SSE-S3). This
+    # operation also returns the `BucketKeyEnabled` and
+    # `BlockedEncryptionTypes` statuses.
     #
     # <note markdown="1"> * **General purpose buckets** - For information about the bucket
     #   default encryption feature, see [Amazon S3 Bucket Default
@@ -6916,7 +6930,7 @@ module Aws::S3
     #
     #
     #
-    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-encryption.html
     # [2]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-express-bucket-encryption.html
     # [3]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources
     # [4]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/s3-access-control.html
@@ -6971,6 +6985,8 @@ module Aws::S3
     #   resp.server_side_encryption_configuration.rules[0].apply_server_side_encryption_by_default.sse_algorithm #=> String, one of "AES256", "aws:fsx", "aws:kms", "aws:kms:dsse"
     #   resp.server_side_encryption_configuration.rules[0].apply_server_side_encryption_by_default.kms_master_key_id #=> String
     #   resp.server_side_encryption_configuration.rules[0].bucket_key_enabled #=> Boolean
+    #   resp.server_side_encryption_configuration.rules[0].blocked_encryption_types.encryption_type #=> Array
+    #   resp.server_side_encryption_configuration.rules[0].blocked_encryption_types.encryption_type[0] #=> String, one of "NONE", "SSE-C"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketEncryption AWS API Documentation
     #
@@ -8411,7 +8427,7 @@ module Aws::S3
     #
     #   resp.to_h outputs the following:
     #   {
-    #     policy: "{\"Version\":\"2008-10-17\",\"Id\":\"LogPolicy\",\"Statement\":[{\"Sid\":\"Enables the log delivery group to publish logs to your bucket \",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"111122223333\"},\"Action\":[\"s3:GetBucketAcl\",\"s3:GetObjectAcl\",\"s3:PutObject\"],\"Resource\":[\"arn:aws:s3:::policytest1/*\",\"arn:aws:s3:::policytest1\"]}]}", 
+    #     policy: "{\"Version\":\"2008-10-17\",&TCX5-2025-waiver;\"Id\":\"LogPolicy\",\"Statement\":[{\"Sid\":\"Enables the log delivery group to publish logs to your bucket \",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"111122223333\"},\"Action\":[\"s3:GetBucketAcl\",\"s3:GetObjectAcl\",\"s3:PutObject\"],\"Resource\":[\"arn:aws:s3:::policytest1/*\",\"arn:aws:s3:::policytest1\"]}]}", 
     #   }
     #
     # @example Request syntax with placeholder values
@@ -8704,7 +8720,7 @@ module Aws::S3
     #
     #  </note>
     #
-    # Returns the tag set associated with the bucket.
+    # Returns the tag set associated with the general purpose bucket.
     #
     # To use this operation, you must have permission to perform the
     # `s3:GetBucketTagging` action. By default, the bucket owner has this
@@ -14712,7 +14728,8 @@ module Aws::S3
     end
 
     # This operation configures default encryption and Amazon S3 Bucket Keys
-    # for an existing bucket.
+    # for an existing bucket. You can also block encryption types using this
+    # operation.
     #
     # <note markdown="1"> <b>Directory buckets </b> - For directory buckets, you must make
     # requests for this API operation to the Regional endpoint. These
@@ -14934,6 +14951,9 @@ module Aws::S3
     #             kms_master_key_id: "SSEKMSKeyId",
     #           },
     #           bucket_key_enabled: false,
+    #           blocked_encryption_types: {
+    #             encryption_type: ["NONE"], # accepts NONE, SSE-C
+    #           },
     #         },
     #       ],
     #     },
@@ -16930,7 +16950,7 @@ module Aws::S3
     #
     #  </note>
     #
-    # Sets the tags for a bucket.
+    # Sets the tags for a general purpose bucket.
     #
     # Use tags to organize your Amazon Web Services bill to reflect your own
     # cost structure. To do this, sign up to get your Amazon Web Services
@@ -22224,7 +22244,7 @@ module Aws::S3
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-s3'
-      context[:gem_version] = '1.203.1'
+      context[:gem_version] = '1.204.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

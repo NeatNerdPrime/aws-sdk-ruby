@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.18.0 (2025-11-19)
+------------------
+
+* Feature - Added new enum value (AWS::EKS::Cluster) for type field under MonitorLocalResource
+
 1.17.0 (2025-10-21)
 ------------------
 

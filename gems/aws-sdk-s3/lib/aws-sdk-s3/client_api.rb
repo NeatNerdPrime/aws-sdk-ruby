@@ -43,6 +43,7 @@ module Aws::S3
     AnalyticsS3BucketDestination = Shapes::StructureShape.new(name: 'AnalyticsS3BucketDestination')
     AnalyticsS3ExportFileFormat = Shapes::StringShape.new(name: 'AnalyticsS3ExportFileFormat')
     ArchiveStatus = Shapes::StringShape.new(name: 'ArchiveStatus')
+    BlockedEncryptionTypes = Shapes::StructureShape.new(name: 'BlockedEncryptionTypes')
     Body = Shapes::BlobShape.new(name: 'Body')
     Bucket = Shapes::StructureShape.new(name: 'Bucket')
     BucketAccelerateStatus = Shapes::StringShape.new(name: 'BucketAccelerateStatus')
@@ -177,6 +178,8 @@ module Aws::S3
     EncodingType = Shapes::StringShape.new(name: 'EncodingType')
     Encryption = Shapes::StructureShape.new(name: 'Encryption')
     EncryptionConfiguration = Shapes::StructureShape.new(name: 'EncryptionConfiguration')
+    EncryptionType = Shapes::StringShape.new(name: 'EncryptionType')
+    EncryptionTypeList = Shapes::ListShape.new(name: 'EncryptionTypeList', flattened: true)
     EncryptionTypeMismatch = Shapes::StructureShape.new(name: 'EncryptionTypeMismatch')
     End = Shapes::IntegerShape.new(name: 'End')
     EndEvent = Shapes::StructureShape.new(name: 'EndEvent')
@@ -741,6 +744,9 @@ module Aws::S3
     AnalyticsS3BucketDestination.add_member(:prefix, Shapes::ShapeRef.new(shape: Prefix, location_name: "Prefix"))
     AnalyticsS3BucketDestination.struct_class = Types::AnalyticsS3BucketDestination
 
+    BlockedEncryptionTypes.add_member(:encryption_type, Shapes::ShapeRef.new(shape: EncryptionTypeList, location_name: "EncryptionType"))
+    BlockedEncryptionTypes.struct_class = Types::BlockedEncryptionTypes
+
     Bucket.add_member(:name, Shapes::ShapeRef.new(shape: BucketName, location_name: "Name"))
     Bucket.add_member(:creation_date, Shapes::ShapeRef.new(shape: CreationDate, location_name: "CreationDate"))
     Bucket.add_member(:bucket_region, Shapes::ShapeRef.new(shape: BucketRegion, location_name: "BucketRegion"))
@@ -1219,6 +1225,8 @@ module Aws::S3
 
     EncryptionConfiguration.add_member(:replica_kms_key_id, Shapes::ShapeRef.new(shape: ReplicaKmsKeyID, location_name: "ReplicaKmsKeyID"))
     EncryptionConfiguration.struct_class = Types::EncryptionConfiguration
+
+    EncryptionTypeList.member = Shapes::ShapeRef.new(shape: EncryptionType, location_name: "EncryptionType")
 
     EncryptionTypeMismatch.struct_class = Types::EncryptionTypeMismatch
 
@@ -2843,6 +2851,7 @@ module Aws::S3
 
     ServerSideEncryptionRule.add_member(:apply_server_side_encryption_by_default, Shapes::ShapeRef.new(shape: ServerSideEncryptionByDefault, location_name: "ApplyServerSideEncryptionByDefault"))
     ServerSideEncryptionRule.add_member(:bucket_key_enabled, Shapes::ShapeRef.new(shape: BucketKeyEnabled, location_name: "BucketKeyEnabled"))
+    ServerSideEncryptionRule.add_member(:blocked_encryption_types, Shapes::ShapeRef.new(shape: BlockedEncryptionTypes, location_name: "BlockedEncryptionTypes"))
     ServerSideEncryptionRule.struct_class = Types::ServerSideEncryptionRule
 
     ServerSideEncryptionRules.member = Shapes::ShapeRef.new(shape: ServerSideEncryptionRule)

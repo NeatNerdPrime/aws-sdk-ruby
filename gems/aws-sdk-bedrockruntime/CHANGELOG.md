@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.65.0 (2025-11-19)
+------------------
+
+* Feature - This release includes support for Search Results.
+
 1.64.0 (2025-11-18)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.580.0 (2025-11-19)
+------------------
+
+* Feature - This launch adds support for two new features: Regional NAT Gateway and IPAM Policies. IPAM policies offers customers central control for public IPv4 assignments across AWS services. Regional NAT is a single NAT Gateway that automatically expands across AZs in a VPC to maintain high availability.
+
 1.579.0 (2025-11-18)
 ------------------
 

@@ -226,7 +226,7 @@ module Aws::Lambda
     #
     # @!attribute [rw] invoked_via_function_url
     #   Restricts the `lambda:InvokeFunction` action to function URL calls.
-    #   When set to `true`, this prevents the principal from invoking the
+    #   When specified, this option prevents the principal from invoking the
     #   function by any means other than the function URL. For more
     #   information, see [Control access to Lambda function URLs][1].
     #
@@ -891,9 +891,9 @@ module Aws::Lambda
     #   @return [Types::EventSourceMappingMetricsConfig]
     #
     # @!attribute [rw] provisioned_poller_config
-    #   (Amazon MSK and self-managed Apache Kafka only) The provisioned mode
-    #   configuration for the event source. For more information, see
-    #   [provisioned mode][1].
+    #   (Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The
+    #   provisioned mode configuration for the event source. For more
+    #   information, see [provisioned mode][1].
     #
     #
     #
@@ -1161,6 +1161,12 @@ module Aws::Lambda
     #   The function's Amazon CloudWatch Logs configuration settings.
     #   @return [Types::LoggingConfig]
     #
+    # @!attribute [rw] tenancy_config
+    #   Configuration for multi-tenant applications that use Lambda
+    #   functions. Defines tenant isolation settings and resource
+    #   allocations. Required for functions supporting multiple tenants.
+    #   @return [Types::TenancyConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunctionRequest AWS API Documentation
     #
     class CreateFunctionRequest < Struct.new(
@@ -1187,7 +1193,8 @@ module Aws::Lambda
       :architectures,
       :ephemeral_storage,
       :snap_start,
-      :logging_config)
+      :logging_config,
+      :tenancy_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2093,9 +2100,9 @@ module Aws::Lambda
     #   @return [Types::EventSourceMappingMetricsConfig]
     #
     # @!attribute [rw] provisioned_poller_config
-    #   (Amazon MSK and self-managed Apache Kafka only) The provisioned mode
-    #   configuration for the event source. For more information, see
-    #   [provisioned mode][1].
+    #   (Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The
+    #   provisioned mode configuration for the event source. For more
+    #   information, see [provisioned mode][1].
     #
     #
     #
@@ -2575,6 +2582,12 @@ module Aws::Lambda
     #   The function's Amazon CloudWatch Logs configuration settings.
     #   @return [Types::LoggingConfig]
     #
+    # @!attribute [rw] tenancy_config
+    #   The function's tenant isolation configuration settings. Determines
+    #   whether the Lambda function runs on a shared or dedicated
+    #   infrastructure per unique tenant.
+    #   @return [Types::TenancyConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionConfiguration AWS API Documentation
     #
     class FunctionConfiguration < Struct.new(
@@ -2613,7 +2626,8 @@ module Aws::Lambda
       :ephemeral_storage,
       :snap_start,
       :runtime_version_config,
-      :logging_config)
+      :logging_config,
+      :tenancy_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3775,6 +3789,10 @@ module Aws::Lambda
     #   function.
     #   @return [String]
     #
+    # @!attribute [rw] tenant_id
+    #   The identifier of the tenant in a multi-tenant Lambda function.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvocationRequest AWS API Documentation
     #
     class InvocationRequest < Struct.new(
@@ -3783,7 +3801,8 @@ module Aws::Lambda
       :log_type,
       :client_context,
       :payload,
-      :qualifier)
+      :qualifier,
+      :tenant_id)
       SENSITIVE = [:payload]
       include Aws::Structure
     end
@@ -3961,6 +3980,10 @@ module Aws::Lambda
     #   `--payload file://payload.json`.
     #   @return [String]
     #
+    # @!attribute [rw] tenant_id
+    #   The identifier of the tenant in a multi-tenant Lambda function.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InvokeWithResponseStreamRequest AWS API Documentation
     #
     class InvokeWithResponseStreamRequest < Struct.new(
@@ -3969,7 +3992,8 @@ module Aws::Lambda
       :log_type,
       :client_context,
       :qualifier,
-      :payload)
+      :payload,
+      :tenant_id)
       SENSITIVE = [:payload]
       include Aws::Structure
     end
@@ -5251,8 +5275,7 @@ module Aws::Lambda
 
     # The [ provisioned mode][1] configuration for the event source. Use
     # Provisioned Mode to customize the minimum and maximum number of event
-    # pollers for your event source. An event poller is a compute unit that
-    # provides approximately 5 MBps of throughput.
+    # pollers for your event source.
     #
     #
     #
@@ -5260,12 +5283,17 @@ module Aws::Lambda
     #
     # @!attribute [rw] minimum_pollers
     #   The minimum number of event pollers this event source can scale down
-    #   to.
+    #   to. For Amazon SQS events source mappings, default is 2, and minimum
+    #   2 required. For Amazon MSK and self-managed Apache Kafka event
+    #   source mappings, default is 1.
     #   @return [Integer]
     #
     # @!attribute [rw] maximum_pollers
     #   The maximum number of event pollers this event source can scale up
-    #   to.
+    #   to. For Amazon SQS events source mappings, default is 200, and
+    #   minimum value allowed is 2. For Amazon MSK and self-managed Apache
+    #   Kafka event source mappings, default is 200, and minimum value
+    #   allowed is 1.
     #   @return [Integer]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ProvisionedPollerConfig AWS API Documentation
@@ -6423,6 +6451,25 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # Specifies the tenant isolation mode configuration for a Lambda
+    # function. This allows you to configure specific tenant isolation
+    # strategies for your function invocations. Tenant isolation
+    # configuration cannot be modified after function creation.
+    #
+    # @!attribute [rw] tenant_isolation_mode
+    #   Tenant isolation mode allows for invocation to be sent to a
+    #   corresponding execution environment dedicated to a specific tenant
+    #   ID.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TenancyConfig AWS API Documentation
+    #
+    class TenancyConfig < Struct.new(
+      :tenant_isolation_mode)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The request throughput limit was exceeded. For more information, see
     # [Lambda quotas][1].
     #
@@ -6789,9 +6836,9 @@ module Aws::Lambda
     #   @return [Types::EventSourceMappingMetricsConfig]
     #
     # @!attribute [rw] provisioned_poller_config
-    #   (Amazon MSK and self-managed Apache Kafka only) The provisioned mode
-    #   configuration for the event source. For more information, see
-    #   [provisioned mode][1].
+    #   (Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The
+    #   provisioned mode configuration for the event source. For more
+    #   information, see [provisioned mode][1].
     #
     #
     #

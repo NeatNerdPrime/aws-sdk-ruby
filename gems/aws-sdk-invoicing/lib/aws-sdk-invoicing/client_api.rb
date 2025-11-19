@@ -80,6 +80,7 @@ module Aws::Invoicing
     ResourceTagKeyList = Shapes::ListShape.new(name: 'ResourceTagKeyList')
     ResourceTagList = Shapes::ListShape.new(name: 'ResourceTagList')
     ResourceTagValue = Shapes::StringShape.new(name: 'ResourceTagValue')
+    RuleAccountIdList = Shapes::ListShape.new(name: 'RuleAccountIdList')
     SensitiveBasicStringWithoutSpace = Shapes::StringShape.new(name: 'SensitiveBasicStringWithoutSpace')
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     StringWithoutNewLine = Shapes::StringShape.new(name: 'StringWithoutNewLine')
@@ -180,6 +181,7 @@ module Aws::Invoicing
     Filters.add_member(:names, Shapes::ShapeRef.new(shape: InvoiceUnitNames, location_name: "Names"))
     Filters.add_member(:invoice_receivers, Shapes::ShapeRef.new(shape: AccountIdList, location_name: "InvoiceReceivers"))
     Filters.add_member(:accounts, Shapes::ShapeRef.new(shape: AccountIdList, location_name: "Accounts"))
+    Filters.add_member(:bill_source_accounts, Shapes::ShapeRef.new(shape: AccountIdList, location_name: "BillSourceAccounts"))
     Filters.struct_class = Types::Filters
 
     GetInvoicePDFRequest.add_member(:invoice_id, Shapes::ShapeRef.new(shape: StringWithoutNewLine, required: true, location_name: "InvoiceId"))
@@ -262,7 +264,8 @@ module Aws::Invoicing
 
     InvoiceUnitNames.member = Shapes::ShapeRef.new(shape: InvoiceUnitName)
 
-    InvoiceUnitRule.add_member(:linked_accounts, Shapes::ShapeRef.new(shape: AccountIdList, location_name: "LinkedAccounts"))
+    InvoiceUnitRule.add_member(:linked_accounts, Shapes::ShapeRef.new(shape: RuleAccountIdList, location_name: "LinkedAccounts"))
+    InvoiceUnitRule.add_member(:bill_source_accounts, Shapes::ShapeRef.new(shape: RuleAccountIdList, location_name: "BillSourceAccounts"))
     InvoiceUnitRule.struct_class = Types::InvoiceUnitRule
 
     InvoiceUnits.member = Shapes::ShapeRef.new(shape: InvoiceUnit)
@@ -317,6 +320,8 @@ module Aws::Invoicing
     ResourceTagKeyList.member = Shapes::ShapeRef.new(shape: ResourceTagKey)
 
     ResourceTagList.member = Shapes::ShapeRef.new(shape: ResourceTag)
+
+    RuleAccountIdList.member = Shapes::ShapeRef.new(shape: AccountIdString)
 
     ServiceQuotaExceededException.add_member(:message, Shapes::ShapeRef.new(shape: BasicString, required: true, location_name: "message"))
     ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException

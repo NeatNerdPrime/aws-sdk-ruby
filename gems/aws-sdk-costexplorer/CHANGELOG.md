@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.139.0 (2025-11-19)
+------------------
+
+* Feature - Add support for COST_CATEGORY, TAG, and LINKED_ACCOUNT AWS managed cost anomaly detection monitors
+
 1.138.0 (2025-10-27)
 ------------------
 

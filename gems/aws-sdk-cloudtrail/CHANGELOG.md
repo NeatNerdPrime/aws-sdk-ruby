@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.114.0 (2025-11-19)
+------------------
+
+* Feature - AWS CloudTrail now supports Insights for data events, expanding beyond management events to automatically detect unusual activity on data plane operations.
+
 1.113.0 (2025-10-24)
 ------------------
 

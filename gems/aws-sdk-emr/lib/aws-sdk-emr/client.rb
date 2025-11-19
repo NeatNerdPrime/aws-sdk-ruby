@@ -1375,6 +1375,13 @@ module Aws::EMR
     #   resp.cluster.ebs_root_volume_iops #=> Integer
     #   resp.cluster.ebs_root_volume_throughput #=> Integer
     #   resp.cluster.extended_support #=> Boolean
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.enabled #=> Boolean
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.log_group_name #=> String
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.log_stream_name_prefix #=> String
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.encryption_key_arn #=> String
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.log_types #=> Hash
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.log_types["XmlString"] #=> Array
+    #   resp.cluster.monitoring_configuration.cloud_watch_log_configuration.log_types["XmlString"][0] #=> String
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -3729,6 +3736,9 @@ module Aws::EMR
     # @option params [Boolean] :extended_support
     #   Reserved.
     #
+    # @option params [Types::MonitoringConfiguration] :monitoring_configuration
+    #   Contains CloudWatch log configuration metadata and settings.
+    #
     # @return [Types::RunJobFlowOutput] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::RunJobFlowOutput#job_flow_id #job_flow_id} => String
@@ -4014,6 +4024,17 @@ module Aws::EMR
     #     ebs_root_volume_iops: 1,
     #     ebs_root_volume_throughput: 1,
     #     extended_support: false,
+    #     monitoring_configuration: {
+    #       cloud_watch_log_configuration: {
+    #         enabled: false, # required
+    #         log_group_name: "XmlString",
+    #         log_stream_name_prefix: "XmlString",
+    #         encryption_key_arn: "XmlString",
+    #         log_types: {
+    #           "XmlString" => ["XmlString"],
+    #         },
+    #       },
+    #     },
     #   })
     #
     # @example Response structure
@@ -4514,7 +4535,7 @@ module Aws::EMR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-emr'
-      context[:gem_version] = '1.119.0'
+      context[:gem_version] = '1.120.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

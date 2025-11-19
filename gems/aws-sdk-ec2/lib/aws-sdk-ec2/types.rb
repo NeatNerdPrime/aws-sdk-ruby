@@ -2441,13 +2441,39 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] availability_zone
+    #   For regional NAT gateways only: The Availability Zone where you want
+    #   to associate an Elastic IP address (EIP). The regional NAT gateway
+    #   uses a separate EIP in each AZ to handle outbound NAT traffic from
+    #   that AZ.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   For regional NAT gateways only: The ID of the Availability Zone
+    #   where you want to associate an Elastic IP address (EIP). The
+    #   regional NAT gateway uses a separate EIP in each AZ to handle
+    #   outbound NAT traffic from that AZ. Use this instead of
+    #   AvailabilityZone for consistent identification of AZs across Amazon
+    #   Web Services Regions.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AssociateNatGatewayAddressRequest AWS API Documentation
     #
     class AssociateNatGatewayAddressRequest < Struct.new(
       :nat_gateway_id,
       :allocation_ids,
       :private_ip_addresses,
-      :dry_run)
+      :dry_run,
+      :availability_zone,
+      :availability_zone_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3857,6 +3883,60 @@ module Aws::EC2
       :parent_zone_id,
       :group_long_name,
       :state)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # For regional NAT gateways only: The configuration specifying which
+    # Elastic IP address (EIP) to use for handling outbound NAT traffic from
+    # a specific Availability Zone.
+    #
+    # A regional NAT gateway is a single NAT Gateway that works across
+    # multiple availability zones (AZs) in your VPC, providing redundancy,
+    # scalability and availability across all the AZs in a Region.
+    #
+    # For more information, see [Regional NAT gateways for automatic
+    # multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #
+    # @!attribute [rw] availability_zone
+    #   For regional NAT gateways only: The Availability Zone where this
+    #   specific NAT gateway configuration will be active. Each AZ in a
+    #   regional NAT gateway has its own configuration to handle outbound
+    #   NAT traffic from that AZ.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   For regional NAT gateways only: The ID of the Availability Zone
+    #   where this specific NAT gateway configuration will be active. Each
+    #   AZ in a regional NAT gateway has its own configuration to handle
+    #   outbound NAT traffic from that AZ. Use this instead of
+    #   AvailabilityZone for consistent identification of AZs across Amazon
+    #   Web Services Regions.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #   @return [String]
+    #
+    # @!attribute [rw] allocation_ids
+    #   The allocation IDs of the Elastic IP addresses (EIPs) to be used for
+    #   handling outbound NAT traffic in this specific Availability Zone.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/AvailabilityZoneAddress AWS API Documentation
+    #
+    class AvailabilityZoneAddress < Struct.new(
+      :availability_zone,
+      :availability_zone_id,
+      :allocation_ids)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -10684,6 +10764,62 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] tag_specifications
+    #   The tags to assign to the IPAM policy.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier to ensure the idempotency of the
+    #   request.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_id
+    #   The ID of the IPAM for which you're creating the policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPolicyRequest AWS API Documentation
+    #
+    class CreateIpamPolicyRequest < Struct.new(
+      :dry_run,
+      :tag_specifications,
+      :client_token,
+      :ipam_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy
+    #   Information about the created IPAM policy.
+    #
+    #   An IPAM policy is a set of rules that define how public IPv4
+    #   addresses from IPAM pools are allocated to Amazon Web Services
+    #   resources. Each rule maps an Amazon Web Services service to IPAM
+    #   pools that the service will use to get IP addresses. A single policy
+    #   can have multiple rules and be applied to multiple Amazon Web
+    #   Services Regions. If the IPAM pool run out of addresses then the
+    #   services fallback to Amazon-provided IP addresses. A policy can be
+    #   applied to an individual Amazon Web Services account or an entity
+    #   within Amazon Web Services Organizations.
+    #   @return [Types::IpamPolicy]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateIpamPolicyResult AWS API Documentation
+    #
+    class CreateIpamPolicyResult < Struct.new(
+      :ipam_policy)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] ipam_scope_id
     #   The ID of the scope in which you would like to create the IPAM pool.
     #   @return [String]
@@ -11977,6 +12113,24 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] availability_mode
+    #   Specifies whether to create a zonal (single-AZ) or regional
+    #   (multi-AZ) NAT gateway. Defaults to `zonal`.
+    #
+    #   A zonal NAT gateway is a NAT Gateway that provides redundancy and
+    #   scalability within a single availability zone. A regional NAT
+    #   gateway is a single NAT Gateway that works across multiple
+    #   availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #
+    #   For more information, see [Regional NAT gateways for automatic
+    #   multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #   @return [String]
+    #
     # @!attribute [rw] allocation_id
     #   \[Public NAT gateways only\] The allocation ID of an Elastic IP
     #   address to associate with the NAT gateway. You cannot specify an
@@ -12010,6 +12164,32 @@ module Aws::EC2
     # @!attribute [rw] subnet_id
     #   The ID of the subnet in which to create the NAT gateway.
     #   @return [String]
+    #
+    # @!attribute [rw] vpc_id
+    #   The ID of the VPC where you want to create a regional NAT gateway.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_addresses
+    #   For regional NAT gateways only: Specifies which Availability Zones
+    #   you want the NAT gateway to support and the Elastic IP addresses
+    #   (EIPs) to use in each AZ. The regional NAT gateway uses these EIPs
+    #   to handle outbound NAT traffic from their respective AZs. If not
+    #   specified, the NAT gateway will automatically expand to new AZs and
+    #   associate EIPs upon detection of an elastic network interface. If
+    #   you specify this parameter, auto-expansion is disabled and you must
+    #   manually manage AZ coverage.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #
+    #   For more information, see [Regional NAT gateways for automatic
+    #   multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #   @return [Array<Types::AvailabilityZoneAddress>]
     #
     # @!attribute [rw] tag_specifications
     #   The tags to assign to the NAT gateway.
@@ -12059,10 +12239,13 @@ module Aws::EC2
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateNatGatewayRequest AWS API Documentation
     #
     class CreateNatGatewayRequest < Struct.new(
+      :availability_mode,
       :allocation_id,
       :client_token,
       :dry_run,
       :subnet_id,
+      :vpc_id,
+      :availability_zone_addresses,
       :tag_specifications,
       :connectivity_type,
       :private_ip_address,
@@ -17386,6 +17569,48 @@ module Aws::EC2
     #
     class DeleteIpamExternalResourceVerificationTokenResult < Struct.new(
       :ipam_external_resource_verification_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPolicyRequest AWS API Documentation
+    #
+    class DeleteIpamPolicyRequest < Struct.new(
+      :dry_run,
+      :ipam_policy_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy
+    #   Information about the deleted IPAM policy.
+    #
+    #   An IPAM policy is a set of rules that define how public IPv4
+    #   addresses from IPAM pools are allocated to Amazon Web Services
+    #   resources. Each rule maps an Amazon Web Services service to IPAM
+    #   pools that the service will use to get IP addresses. A single policy
+    #   can have multiple rules and be applied to multiple Amazon Web
+    #   Services Regions. If the IPAM pool run out of addresses then the
+    #   services fallback to Amazon-provided IP addresses. A policy can be
+    #   applied to an individual Amazon Web Services account or an entity
+    #   within Amazon Web Services Organizations.
+    #   @return [Types::IpamPolicy]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DeleteIpamPolicyResult AWS API Documentation
+    #
+    class DeleteIpamPolicyResult < Struct.new(
+      :ipam_policy)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -26135,6 +26360,69 @@ module Aws::EC2
     #   @return [Boolean]
     #
     # @!attribute [rw] filters
+    #   One or more filters for the IPAM policy description.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return in a single call.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policy_ids
+    #   The IDs of the IPAM policies to describe.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPoliciesRequest AWS API Documentation
+    #
+    class DescribeIpamPoliciesRequest < Struct.new(
+      :dry_run,
+      :filters,
+      :max_results,
+      :next_token,
+      :ipam_policy_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policies
+    #   Information about the IPAM policies.
+    #
+    #   An IPAM policy is a set of rules that define how public IPv4
+    #   addresses from IPAM pools are allocated to Amazon Web Services
+    #   resources. Each rule maps an Amazon Web Services service to IPAM
+    #   pools that the service will use to get IP addresses. A single policy
+    #   can have multiple rules and be applied to multiple Amazon Web
+    #   Services Regions. If the IPAM pool run out of addresses then the
+    #   services fallback to Amazon-provided IP addresses. A policy can be
+    #   applied to an individual Amazon Web Services account or an entity
+    #   within Amazon Web Services Organizations.
+    #   @return [Array<Types::IpamPolicy>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamPoliciesResult AWS API Documentation
+    #
+    class DescribeIpamPoliciesResult < Struct.new(
+      :next_token,
+      :ipam_policies)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] filters
     #   One or more filters for the request. For more information about
     #   filtering, see [Filtering CLI output][1].
     #
@@ -26323,8 +26611,7 @@ module Aws::EC2
     #   @return [Array<String>]
     #
     # @!attribute [rw] next_token
-    #   Specify the pagination token from a previous request to retrieve the
-    #   next page of results.
+    #   The token for the next page of results.
     #   @return [String]
     #
     # @!attribute [rw] max_results
@@ -26353,8 +26640,8 @@ module Aws::EC2
     #   @return [Array<Types::IpamResourceDiscovery>]
     #
     # @!attribute [rw] next_token
-    #   Specify the pagination token from a previous request to retrieve the
-    #   next page of results.
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamResourceDiscoveriesResult AWS API Documentation
@@ -26408,8 +26695,8 @@ module Aws::EC2
     #   @return [Array<Types::IpamResourceDiscoveryAssociation>]
     #
     # @!attribute [rw] next_token
-    #   Specify the pagination token from a previous request to retrieve the
-    #   next page of results.
+    #   The token to use to retrieve the next page of results. This value is
+    #   `null` when there are no more results to return.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DescribeIpamResourceDiscoveryAssociationsResult AWS API Documentation
@@ -35318,6 +35605,51 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy to disable.
+    #   @return [String]
+    #
+    # @!attribute [rw] organization_target_id
+    #   The ID of the Amazon Web Services Organizations target for which to
+    #   disable the IPAM policy. This parameter is required only when IPAM
+    #   is integrated with Amazon Web Services Organizations. When IPAM is
+    #   not integrated with Amazon Web Services Organizations, omit this
+    #   parameter and the policy will be disabled for the current account.
+    #
+    #   A target can be an individual Amazon Web Services account or an
+    #   entity within an Amazon Web Services Organization to which an IPAM
+    #   policy can be applied.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DisableIpamPolicyRequest AWS API Documentation
+    #
+    class DisableIpamPolicyRequest < Struct.new(
+      :dry_run,
+      :ipam_policy_id,
+      :organization_target_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] return
+    #   Returns true if the IPAM policy was successfully disabled.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/DisableIpamPolicyResult AWS API Documentation
+    #
+    class DisableIpamPolicyResult < Struct.new(
+      :return)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] route_server_id
     #   The ID of the route server for which to disable propagation.
     #   @return [String]
@@ -38225,6 +38557,51 @@ module Aws::EC2
     end
 
     # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy to enable.
+    #   @return [String]
+    #
+    # @!attribute [rw] organization_target_id
+    #   The ID of the Amazon Web Services Organizations target for which to
+    #   enable the IPAM policy. This parameter is required only when IPAM is
+    #   integrated with Amazon Web Services Organizations. When IPAM is not
+    #   integrated with Amazon Web Services Organizations, omit this
+    #   parameter and the policy will apply to the current account.
+    #
+    #   A target can be an individual Amazon Web Services account or an
+    #   entity within an Amazon Web Services Organization to which an IPAM
+    #   policy can be applied.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EnableIpamPolicyRequest AWS API Documentation
+    #
+    class EnableIpamPolicyRequest < Struct.new(
+      :dry_run,
+      :ipam_policy_id,
+      :organization_target_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy that was enabled.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/EnableIpamPolicyResult AWS API Documentation
+    #
+    class EnableIpamPolicyResult < Struct.new(
+      :ipam_policy_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
     #   If you have the required permissions, the error response is
@@ -39491,7 +39868,7 @@ module Aws::EC2
     # in that system.
     #
     # For more information, see [Integrate VPC IPAM with Infoblox
-    # infrastructure][1] in the *Amazon VPC IPAM User Guide*..
+    # infrastructure][1] in the *Amazon VPC IPAM User Guide*.
     #
     #
     #
@@ -42180,6 +42557,43 @@ module Aws::EC2
     end
 
     # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetEnabledIpamPolicyRequest AWS API Documentation
+    #
+    class GetEnabledIpamPolicyRequest < Struct.new(
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy_enabled
+    #   Indicates whether the IPAM policy is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the enabled IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] managed_by
+    #   The entity that manages the IPAM policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetEnabledIpamPolicyResult AWS API Documentation
+    #
+    class GetEnabledIpamPolicyResult < Struct.new(
+      :ipam_policy_enabled,
+      :ipam_policy_id,
+      :managed_by)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
     #   Checks whether you have the required permissions for the action,
     #   without actually making the request, and provides an error response.
     #   If you have the required permissions, the error response is
@@ -42858,6 +43272,135 @@ module Aws::EC2
     #
     class GetIpamDiscoveredResourceCidrsResult < Struct.new(
       :ipam_discovered_resource_cidrs,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy for which to get allocation rules.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters for the allocation rules.
+    #   @return [Array<Types::Filter>]
+    #
+    # @!attribute [rw] locale
+    #   The locale for which to get the allocation rules.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type for which to get the allocation rules.
+    #
+    #   The Amazon Web Services service or resource type that can use IP
+    #   addresses through IPAM policies. Supported services and resource
+    #   types include:
+    #
+    #   * Elastic IP addresses
+    #
+    #   ^
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return in a single call.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPolicyAllocationRulesRequest AWS API Documentation
+    #
+    class GetIpamPolicyAllocationRulesRequest < Struct.new(
+      :dry_run,
+      :ipam_policy_id,
+      :filters,
+      :locale,
+      :resource_type,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy_documents
+    #   The IPAM policy documents containing the allocation rules.
+    #
+    #   Allocation rules are optional configurations within an IPAM policy
+    #   that map Amazon Web Services resource types to specific IPAM pools.
+    #   If no rules are defined, the resource types default to using
+    #   Amazon-provided IP addresses.
+    #   @return [Array<Types::IpamPolicyDocument>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPolicyAllocationRulesResult AWS API Documentation
+    #
+    class GetIpamPolicyAllocationRulesResult < Struct.new(
+      :ipam_policy_documents,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of results to return in a single call.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token for the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy for which to get Amazon Web Services
+    #   Organizations targets.
+    #   @return [String]
+    #
+    # @!attribute [rw] filters
+    #   One or more filters for the Amazon Web Services Organizations
+    #   targets.
+    #   @return [Array<Types::Filter>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPolicyOrganizationTargetsRequest AWS API Documentation
+    #
+    class GetIpamPolicyOrganizationTargetsRequest < Struct.new(
+      :dry_run,
+      :max_results,
+      :next_token,
+      :ipam_policy_id,
+      :filters)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] organization_targets
+    #   The Amazon Web Services Organizations targets for an IPAM policy.
+    #   @return [Array<Types::IpamPolicyOrganizationTarget>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetIpamPolicyOrganizationTargetsResult AWS API Documentation
+    #
+    class GetIpamPolicyOrganizationTargetsResult < Struct.new(
+      :organization_targets,
       :next_token)
       SENSITIVE = []
       include Aws::Structure
@@ -52031,6 +52574,166 @@ module Aws::EC2
       include Aws::Structure
     end
 
+    # Information about an IPAM policy.
+    #
+    # An IPAM policy is a set of rules that define how public IPv4 addresses
+    # from IPAM pools are allocated to Amazon Web Services resources. Each
+    # rule maps an Amazon Web Services service to IPAM pools that the
+    # service will use to get IP addresses. A single policy can have
+    # multiple rules and be applied to multiple Amazon Web Services Regions.
+    # If the IPAM pool run out of addresses then the services fallback to
+    # Amazon-provided IP addresses. A policy can be applied to an individual
+    # Amazon Web Services account or an entity within Amazon Web Services
+    # Organizations.
+    #
+    # @!attribute [rw] owner_id
+    #   The account ID that owns the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policy_arn
+    #   The Amazon Resource Name (ARN) of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_policy_region
+    #   The Region of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The state of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] state_message
+    #   A message about the state of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   The tags assigned to the IPAM policy.
+    #   @return [Array<Types::Tag>]
+    #
+    # @!attribute [rw] ipam_id
+    #   The ID of the IPAM this policy belongs to.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPolicy AWS API Documentation
+    #
+    class IpamPolicy < Struct.new(
+      :owner_id,
+      :ipam_policy_id,
+      :ipam_policy_arn,
+      :ipam_policy_region,
+      :state,
+      :state_message,
+      :tags,
+      :ipam_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about an IPAM policy allocation rule.
+    #
+    # Allocation rules are optional configurations within an IPAM policy
+    # that map Amazon Web Services resource types to specific IPAM pools. If
+    # no rules are defined, the resource types default to using
+    # Amazon-provided IP addresses.
+    #
+    # @!attribute [rw] source_ipam_pool_id
+    #   The ID of the source IPAM pool for the allocation rule.
+    #
+    #   An IPAM pool is a collection of IP addresses in IPAM that can be
+    #   allocated to Amazon Web Services resources.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPolicyAllocationRule AWS API Documentation
+    #
+    class IpamPolicyAllocationRule < Struct.new(
+      :source_ipam_pool_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about a requested IPAM policy allocation rule.
+    #
+    # Allocation rules are optional configurations within an IPAM policy
+    # that map Amazon Web Services resource types to specific IPAM pools. If
+    # no rules are defined, the resource types default to using
+    # Amazon-provided IP addresses.
+    #
+    # @!attribute [rw] source_ipam_pool_id
+    #   The ID of the source IPAM pool for the requested allocation rule.
+    #
+    #   An IPAM pool is a collection of IP addresses in IPAM that can be
+    #   allocated to Amazon Web Services resources.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPolicyAllocationRuleRequest AWS API Documentation
+    #
+    class IpamPolicyAllocationRuleRequest < Struct.new(
+      :source_ipam_pool_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Information about an IPAM policy.
+    #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy.
+    #   @return [String]
+    #
+    # @!attribute [rw] locale
+    #   The locale of the IPAM policy document.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type of the IPAM policy document.
+    #
+    #   The Amazon Web Services service or resource type that can use IP
+    #   addresses through IPAM policies. Supported services and resource
+    #   types include:
+    #
+    #   * Elastic IP addresses
+    #
+    #   ^
+    #   @return [String]
+    #
+    # @!attribute [rw] allocation_rules
+    #   The allocation rules in the IPAM policy document.
+    #
+    #   Allocation rules are optional configurations within an IPAM policy
+    #   that map Amazon Web Services resource types to specific IPAM pools.
+    #   If no rules are defined, the resource types default to using
+    #   Amazon-provided IP addresses.
+    #   @return [Array<Types::IpamPolicyAllocationRule>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPolicyDocument AWS API Documentation
+    #
+    class IpamPolicyDocument < Struct.new(
+      :ipam_policy_id,
+      :locale,
+      :resource_type,
+      :allocation_rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The Amazon Web Services Organizations target for an IPAM policy.
+    #
+    # @!attribute [rw] organization_target_id
+    #   The ID of a Amazon Web Services Organizations target for an IPAM
+    #   policy.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/IpamPolicyOrganizationTarget AWS API Documentation
+    #
+    class IpamPolicyOrganizationTarget < Struct.new(
+      :organization_target_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # In IPAM, a pool is a collection of contiguous IP addresses CIDRs.
     # Pools enable you to organize your IP addresses according to your
     # routing and security needs. For example, if you have separate routing
@@ -59130,6 +59833,66 @@ module Aws::EC2
     #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
     #   @return [Boolean]
     #
+    # @!attribute [rw] ipam_policy_id
+    #   The ID of the IPAM policy whose allocation rules you want to modify.
+    #   @return [String]
+    #
+    # @!attribute [rw] locale
+    #   The locale for which to modify the allocation rules.
+    #   @return [String]
+    #
+    # @!attribute [rw] resource_type
+    #   The resource type for which to modify the allocation rules.
+    #
+    #   The Amazon Web Services service or resource type that can use IP
+    #   addresses through IPAM policies. Supported services and resource
+    #   types include:
+    #
+    #   * Elastic IP addresses
+    #
+    #   ^
+    #   @return [String]
+    #
+    # @!attribute [rw] allocation_rules
+    #   The new allocation rules to apply to the IPAM policy.
+    #
+    #   Allocation rules are optional configurations within an IPAM policy
+    #   that map Amazon Web Services resource types to specific IPAM pools.
+    #   If no rules are defined, the resource types default to using
+    #   Amazon-provided IP addresses.
+    #   @return [Array<Types::IpamPolicyAllocationRuleRequest>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPolicyAllocationRulesRequest AWS API Documentation
+    #
+    class ModifyIpamPolicyAllocationRulesRequest < Struct.new(
+      :dry_run,
+      :ipam_policy_id,
+      :locale,
+      :resource_type,
+      :allocation_rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] ipam_policy_document
+    #   The modified IPAM policy containing the updated allocation rules.
+    #   @return [Types::IpamPolicyDocument]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/ModifyIpamPolicyAllocationRulesResult AWS API Documentation
+    #
+    class ModifyIpamPolicyAllocationRulesResult < Struct.new(
+      :ipam_policy_document)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] dry_run
+    #   A check for whether you have the required permissions for the action
+    #   without actually making the request and provides an error response.
+    #   If you have the required permissions, the error response is
+    #   `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+    #   @return [Boolean]
+    #
     # @!attribute [rw] ipam_pool_id
     #   The ID of the IPAM pool you want to modify.
     #   @return [String]
@@ -63054,6 +63817,64 @@ module Aws::EC2
     #   connectivity.
     #   @return [String]
     #
+    # @!attribute [rw] availability_mode
+    #   Indicates whether this is a zonal (single-AZ) or regional (multi-AZ)
+    #   NAT gateway.
+    #
+    #   A zonal NAT gateway is a NAT Gateway that provides redundancy and
+    #   scalability within a single availability zone. A regional NAT
+    #   gateway is a single NAT Gateway that works across multiple
+    #   availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #
+    #   For more information, see [Regional NAT gateways for automatic
+    #   multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #   @return [String]
+    #
+    # @!attribute [rw] auto_scaling_ips
+    #   For regional NAT gateways only: Indicates whether Amazon Web
+    #   Services automatically allocates additional Elastic IP addresses
+    #   (EIPs) in an AZ when the NAT gateway needs more ports due to
+    #   increased concurrent connections to a single destination from that
+    #   AZ.
+    #
+    #   For more information, see [Regional NAT gateways for automatic
+    #   multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #   @return [String]
+    #
+    # @!attribute [rw] auto_provision_zones
+    #   For regional NAT gateways only: Indicates whether Amazon Web
+    #   Services automatically manages AZ coverage. When enabled, the NAT
+    #   gateway associates EIPs in all AZs where your VPC has subnets to
+    #   handle outbound NAT traffic, expands to new AZs when you create
+    #   subnets there, and retracts from AZs where you've removed all
+    #   subnets. When disabled, you must manually manage which AZs the NAT
+    #   gateway supports and their corresponding EIPs.
+    #
+    #   A regional NAT gateway is a single NAT Gateway that works across
+    #   multiple availability zones (AZs) in your VPC, providing redundancy,
+    #   scalability and availability across all the AZs in a Region.
+    #
+    #   For more information, see [Regional NAT gateways for automatic
+    #   multi-AZ expansion][1] in the *Amazon VPC User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html
+    #   @return [String]
+    #
+    # @!attribute [rw] route_table_id
+    #   For regional NAT gateways only, this is the ID of the NAT gateway.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/NatGateway AWS API Documentation
     #
     class NatGateway < Struct.new(
@@ -63068,7 +63889,11 @@ module Aws::EC2
       :subnet_id,
       :vpc_id,
       :tags,
-      :connectivity_type)
+      :connectivity_type,
+      :availability_mode,
+      :auto_scaling_ips,
+      :auto_provision_zones,
+      :route_table_id)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -63111,6 +63936,18 @@ module Aws::EC2
     #   The address status.
     #   @return [String]
     #
+    # @!attribute [rw] availability_zone
+    #   The Availability Zone where this Elastic IP address (EIP) is being
+    #   used to handle outbound NAT traffic.
+    #   @return [String]
+    #
+    # @!attribute [rw] availability_zone_id
+    #   The ID of the Availability Zone where this Elastic IP address (EIP)
+    #   is being used to handle outbound NAT traffic. Use this instead of
+    #   AvailabilityZone for consistent identification of AZs across Amazon
+    #   Web Services Regions.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/NatGatewayAddress AWS API Documentation
     #
     class NatGatewayAddress < Struct.new(
@@ -63121,7 +63958,9 @@ module Aws::EC2
       :association_id,
       :is_primary,
       :failure_message,
-      :status)
+      :status,
+      :availability_zone,
+      :availability_zone_id)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.120.0 (2025-11-19)
+------------------
+
+* Feature - Add CloudWatch Logs integration for Spark driver, executor and step logs
+
 1.119.0 (2025-10-31)
 ------------------
 

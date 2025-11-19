@@ -292,6 +292,11 @@ module Aws::BedrockRuntime
     #   The title or identifier of the source document being cited.
     #   @return [String]
     #
+    # @!attribute [rw] source
+    #   The source from the original search result that provided the cited
+    #   content.
+    #   @return [String]
+    #
     # @!attribute [rw] source_content
     #   The specific content from the source document that was referenced or
     #   cited in the generated response.
@@ -307,6 +312,7 @@ module Aws::BedrockRuntime
     #
     class Citation < Struct.new(
       :title,
+      :source,
       :source_content,
       :location)
       SENSITIVE = []
@@ -367,6 +373,12 @@ module Aws::BedrockRuntime
     #   logical chunks.
     #   @return [Types::DocumentChunkLocation]
     #
+    # @!attribute [rw] search_result_location
+    #   The search result location where the cited content is found,
+    #   including the search result index and block positions within the
+    #   content array.
+    #   @return [Types::SearchResultLocation]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/CitationLocation AWS API Documentation
     #
     class CitationLocation < Struct.new(
@@ -374,6 +386,7 @@ module Aws::BedrockRuntime
       :document_char,
       :document_page,
       :document_chunk,
+      :search_result_location,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
@@ -383,6 +396,7 @@ module Aws::BedrockRuntime
       class DocumentChar < CitationLocation; end
       class DocumentPage < CitationLocation; end
       class DocumentChunk < CitationLocation; end
+      class SearchResultLocation < CitationLocation; end
       class Unknown < CitationLocation; end
     end
 
@@ -478,6 +492,11 @@ module Aws::BedrockRuntime
     #   The title or identifier of the source document being cited.
     #   @return [String]
     #
+    # @!attribute [rw] source
+    #   The source from the original search result that provided the cited
+    #   content.
+    #   @return [String]
+    #
     # @!attribute [rw] source_content
     #   The specific content from the source document that was referenced or
     #   cited in the generated response.
@@ -494,6 +513,7 @@ module Aws::BedrockRuntime
     #
     class CitationsDelta < Struct.new(
       :title,
+      :source,
       :source_content,
       :location)
       SENSITIVE = []
@@ -578,6 +598,10 @@ module Aws::BedrockRuntime
     #   and source documents.
     #   @return [Types::CitationsContentBlock]
     #
+    # @!attribute [rw] search_result
+    #   Search result to include in the message.
+    #   @return [Types::SearchResultBlock]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/ContentBlock AWS API Documentation
     #
     class ContentBlock < Struct.new(
@@ -591,6 +615,7 @@ module Aws::BedrockRuntime
       :cache_point,
       :reasoning_content,
       :citations_content,
+      :search_result,
       :unknown)
       SENSITIVE = [:reasoning_content]
       include Aws::Structure
@@ -606,6 +631,7 @@ module Aws::BedrockRuntime
       class CachePoint < ContentBlock; end
       class ReasoningContent < ContentBlock; end
       class CitationsContent < ContentBlock; end
+      class SearchResult < ContentBlock; end
       class Unknown < ContentBlock; end
     end
 
@@ -3766,6 +3792,84 @@ module Aws::BedrockRuntime
       include Aws::Structure
     end
 
+    # A search result block that enables natural citations with proper
+    # source attribution for retrieved content.
+    #
+    # <note markdown="1"> This field is only supported by Anthropic Claude Opus 4.1, Opus 4,
+    # Sonnet 4.5, Sonnet 4, Sonnet 3.7, and 3.5 Haiku models.
+    #
+    #  </note>
+    #
+    # @!attribute [rw] source
+    #   The source URL or identifier for the content.
+    #   @return [String]
+    #
+    # @!attribute [rw] title
+    #   A descriptive title for the search result.
+    #   @return [String]
+    #
+    # @!attribute [rw] content
+    #   An array of search result content block.
+    #   @return [Array<Types::SearchResultContentBlock>]
+    #
+    # @!attribute [rw] citations
+    #   Configuration setting for citations
+    #   @return [Types::CitationsConfig]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/SearchResultBlock AWS API Documentation
+    #
+    class SearchResultBlock < Struct.new(
+      :source,
+      :title,
+      :content,
+      :citations)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A block within a search result that contains the content.
+    #
+    # @!attribute [rw] text
+    #   The actual text content
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/SearchResultContentBlock AWS API Documentation
+    #
+    class SearchResultContentBlock < Struct.new(
+      :text)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Specifies a search result location within the content array, providing
+    # positioning information for cited content using search result index
+    # and block positions.
+    #
+    # @!attribute [rw] search_result_index
+    #   The index of the search result content block where the cited content
+    #   is found.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] start
+    #   The starting position in the content array where the cited content
+    #   begins.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] end
+    #   The ending position in the content array where the cited content
+    #   ends.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/SearchResultLocation AWS API Documentation
+    #
+    class SearchResultLocation < Struct.new(
+      :search_result_index,
+      :start,
+      :end)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Your request exceeds the service quota for your account. You can view
     # your quotas at [Viewing service quotas][1]. You can resubmit your
     # request later.
@@ -4292,6 +4396,10 @@ module Aws::BedrockRuntime
     #   A tool result that is video.
     #   @return [Types::VideoBlock]
     #
+    # @!attribute [rw] search_result
+    #   A tool result that is a search result.
+    #   @return [Types::SearchResultBlock]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/ToolResultContentBlock AWS API Documentation
     #
     class ToolResultContentBlock < Struct.new(
@@ -4300,6 +4408,7 @@ module Aws::BedrockRuntime
       :image,
       :document,
       :video,
+      :search_result,
       :unknown)
       SENSITIVE = []
       include Aws::Structure
@@ -4310,6 +4419,7 @@ module Aws::BedrockRuntime
       class Image < ToolResultContentBlock; end
       class Document < ToolResultContentBlock; end
       class Video < ToolResultContentBlock; end
+      class SearchResult < ToolResultContentBlock; end
       class Unknown < ToolResultContentBlock; end
     end
 

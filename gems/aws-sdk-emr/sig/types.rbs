@@ -148,6 +148,15 @@ module Aws::EMR
       SENSITIVE: []
     end
 
+    class CloudWatchLogConfiguration
+      attr_accessor enabled: bool
+      attr_accessor log_group_name: ::String
+      attr_accessor log_stream_name_prefix: ::String
+      attr_accessor encryption_key_arn: ::String
+      attr_accessor log_types: ::Hash[::String, ::Array[::String]]
+      SENSITIVE: []
+    end
+
     class Cluster
       attr_accessor id: ::String
       attr_accessor name: ::String
@@ -184,6 +193,7 @@ module Aws::EMR
       attr_accessor ebs_root_volume_iops: ::Integer
       attr_accessor ebs_root_volume_throughput: ::Integer
       attr_accessor extended_support: bool
+      attr_accessor monitoring_configuration: Types::MonitoringConfiguration
       SENSITIVE: []
     end
 
@@ -1109,6 +1119,11 @@ module Aws::EMR
       SENSITIVE: []
     end
 
+    class MonitoringConfiguration
+      attr_accessor cloud_watch_log_configuration: Types::CloudWatchLogConfiguration
+      SENSITIVE: []
+    end
+
     class NotebookExecution
       attr_accessor notebook_execution_id: ::String
       attr_accessor editor_id: ::String
@@ -1335,6 +1350,7 @@ module Aws::EMR
       attr_accessor ebs_root_volume_iops: ::Integer
       attr_accessor ebs_root_volume_throughput: ::Integer
       attr_accessor extended_support: bool
+      attr_accessor monitoring_configuration: Types::MonitoringConfiguration
       SENSITIVE: []
     end
 

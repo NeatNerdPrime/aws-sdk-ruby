@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+1.1185.0 (2025-11-19)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::Signin`.
+
+* Feature - Added support for enumerating regions for  `Aws::PartnerCentralChannel`.
+
 1.1184.0 (2025-11-18)
 ------------------
 

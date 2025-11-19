@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.127.0 (2025-11-19)
+------------------
+
+* Feature - Adding File Server Resource Manager configuration to FSx Windows
+
 1.126.0 (2025-11-05)
 ------------------
 

@@ -212,8 +212,13 @@ module Aws::EC2
     AutoAcceptSharedAssociationsValue = Shapes::StringShape.new(name: 'AutoAcceptSharedAssociationsValue')
     AutoAcceptSharedAttachmentsValue = Shapes::StringShape.new(name: 'AutoAcceptSharedAttachmentsValue')
     AutoPlacement = Shapes::StringShape.new(name: 'AutoPlacement')
+    AutoProvisionZonesState = Shapes::StringShape.new(name: 'AutoProvisionZonesState')
     AutoRecoveryFlag = Shapes::BooleanShape.new(name: 'AutoRecoveryFlag')
+    AutoScalingIpsState = Shapes::StringShape.new(name: 'AutoScalingIpsState')
+    AvailabilityMode = Shapes::StringShape.new(name: 'AvailabilityMode')
     AvailabilityZone = Shapes::StructureShape.new(name: 'AvailabilityZone')
+    AvailabilityZoneAddress = Shapes::StructureShape.new(name: 'AvailabilityZoneAddress')
+    AvailabilityZoneAddresses = Shapes::ListShape.new(name: 'AvailabilityZoneAddresses')
     AvailabilityZoneId = Shapes::StringShape.new(name: 'AvailabilityZoneId')
     AvailabilityZoneIdStringList = Shapes::ListShape.new(name: 'AvailabilityZoneIdStringList')
     AvailabilityZoneList = Shapes::ListShape.new(name: 'AvailabilityZoneList')
@@ -531,6 +536,8 @@ module Aws::EC2
     CreateInternetGatewayResult = Shapes::StructureShape.new(name: 'CreateInternetGatewayResult')
     CreateIpamExternalResourceVerificationTokenRequest = Shapes::StructureShape.new(name: 'CreateIpamExternalResourceVerificationTokenRequest')
     CreateIpamExternalResourceVerificationTokenResult = Shapes::StructureShape.new(name: 'CreateIpamExternalResourceVerificationTokenResult')
+    CreateIpamPolicyRequest = Shapes::StructureShape.new(name: 'CreateIpamPolicyRequest')
+    CreateIpamPolicyResult = Shapes::StructureShape.new(name: 'CreateIpamPolicyResult')
     CreateIpamPoolRequest = Shapes::StructureShape.new(name: 'CreateIpamPoolRequest')
     CreateIpamPoolResult = Shapes::StructureShape.new(name: 'CreateIpamPoolResult')
     CreateIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'CreateIpamPrefixListResolverRequest')
@@ -756,6 +763,8 @@ module Aws::EC2
     DeleteInternetGatewayRequest = Shapes::StructureShape.new(name: 'DeleteInternetGatewayRequest')
     DeleteIpamExternalResourceVerificationTokenRequest = Shapes::StructureShape.new(name: 'DeleteIpamExternalResourceVerificationTokenRequest')
     DeleteIpamExternalResourceVerificationTokenResult = Shapes::StructureShape.new(name: 'DeleteIpamExternalResourceVerificationTokenResult')
+    DeleteIpamPolicyRequest = Shapes::StructureShape.new(name: 'DeleteIpamPolicyRequest')
+    DeleteIpamPolicyResult = Shapes::StructureShape.new(name: 'DeleteIpamPolicyResult')
     DeleteIpamPoolRequest = Shapes::StructureShape.new(name: 'DeleteIpamPoolRequest')
     DeleteIpamPoolResult = Shapes::StructureShape.new(name: 'DeleteIpamPoolResult')
     DeleteIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'DeleteIpamPrefixListResolverRequest')
@@ -1099,6 +1108,8 @@ module Aws::EC2
     DescribeIpamByoasnResult = Shapes::StructureShape.new(name: 'DescribeIpamByoasnResult')
     DescribeIpamExternalResourceVerificationTokensRequest = Shapes::StructureShape.new(name: 'DescribeIpamExternalResourceVerificationTokensRequest')
     DescribeIpamExternalResourceVerificationTokensResult = Shapes::StructureShape.new(name: 'DescribeIpamExternalResourceVerificationTokensResult')
+    DescribeIpamPoliciesRequest = Shapes::StructureShape.new(name: 'DescribeIpamPoliciesRequest')
+    DescribeIpamPoliciesResult = Shapes::StructureShape.new(name: 'DescribeIpamPoliciesResult')
     DescribeIpamPoolsRequest = Shapes::StructureShape.new(name: 'DescribeIpamPoolsRequest')
     DescribeIpamPoolsResult = Shapes::StructureShape.new(name: 'DescribeIpamPoolsResult')
     DescribeIpamPrefixListResolverTargetsRequest = Shapes::StructureShape.new(name: 'DescribeIpamPrefixListResolverTargetsRequest')
@@ -1405,6 +1416,8 @@ module Aws::EC2
     DisableInstanceSqlHaStandbyDetectionsResult = Shapes::StructureShape.new(name: 'DisableInstanceSqlHaStandbyDetectionsResult')
     DisableIpamOrganizationAdminAccountRequest = Shapes::StructureShape.new(name: 'DisableIpamOrganizationAdminAccountRequest')
     DisableIpamOrganizationAdminAccountResult = Shapes::StructureShape.new(name: 'DisableIpamOrganizationAdminAccountResult')
+    DisableIpamPolicyRequest = Shapes::StructureShape.new(name: 'DisableIpamPolicyRequest')
+    DisableIpamPolicyResult = Shapes::StructureShape.new(name: 'DisableIpamPolicyResult')
     DisableRouteServerPropagationRequest = Shapes::StructureShape.new(name: 'DisableRouteServerPropagationRequest')
     DisableRouteServerPropagationResult = Shapes::StructureShape.new(name: 'DisableRouteServerPropagationResult')
     DisableSerialConsoleAccessRequest = Shapes::StructureShape.new(name: 'DisableSerialConsoleAccessRequest')
@@ -1561,6 +1574,8 @@ module Aws::EC2
     EnableInstanceSqlHaStandbyDetectionsResult = Shapes::StructureShape.new(name: 'EnableInstanceSqlHaStandbyDetectionsResult')
     EnableIpamOrganizationAdminAccountRequest = Shapes::StructureShape.new(name: 'EnableIpamOrganizationAdminAccountRequest')
     EnableIpamOrganizationAdminAccountResult = Shapes::StructureShape.new(name: 'EnableIpamOrganizationAdminAccountResult')
+    EnableIpamPolicyRequest = Shapes::StructureShape.new(name: 'EnableIpamPolicyRequest')
+    EnableIpamPolicyResult = Shapes::StructureShape.new(name: 'EnableIpamPolicyResult')
     EnableReachabilityAnalyzerOrganizationSharingRequest = Shapes::StructureShape.new(name: 'EnableReachabilityAnalyzerOrganizationSharingRequest')
     EnableReachabilityAnalyzerOrganizationSharingResult = Shapes::StructureShape.new(name: 'EnableReachabilityAnalyzerOrganizationSharingResult')
     EnableRouteServerPropagationRequest = Shapes::StructureShape.new(name: 'EnableRouteServerPropagationRequest')
@@ -1735,6 +1750,8 @@ module Aws::EC2
     GetEbsDefaultKmsKeyIdResult = Shapes::StructureShape.new(name: 'GetEbsDefaultKmsKeyIdResult')
     GetEbsEncryptionByDefaultRequest = Shapes::StructureShape.new(name: 'GetEbsEncryptionByDefaultRequest')
     GetEbsEncryptionByDefaultResult = Shapes::StructureShape.new(name: 'GetEbsEncryptionByDefaultResult')
+    GetEnabledIpamPolicyRequest = Shapes::StructureShape.new(name: 'GetEnabledIpamPolicyRequest')
+    GetEnabledIpamPolicyResult = Shapes::StructureShape.new(name: 'GetEnabledIpamPolicyResult')
     GetFlowLogsIntegrationTemplateRequest = Shapes::StructureShape.new(name: 'GetFlowLogsIntegrationTemplateRequest')
     GetFlowLogsIntegrationTemplateResult = Shapes::StructureShape.new(name: 'GetFlowLogsIntegrationTemplateResult')
     GetGroupsForCapacityReservationRequest = Shapes::StructureShape.new(name: 'GetGroupsForCapacityReservationRequest')
@@ -1762,6 +1779,10 @@ module Aws::EC2
     GetIpamDiscoveredPublicAddressesResult = Shapes::StructureShape.new(name: 'GetIpamDiscoveredPublicAddressesResult')
     GetIpamDiscoveredResourceCidrsRequest = Shapes::StructureShape.new(name: 'GetIpamDiscoveredResourceCidrsRequest')
     GetIpamDiscoveredResourceCidrsResult = Shapes::StructureShape.new(name: 'GetIpamDiscoveredResourceCidrsResult')
+    GetIpamPolicyAllocationRulesRequest = Shapes::StructureShape.new(name: 'GetIpamPolicyAllocationRulesRequest')
+    GetIpamPolicyAllocationRulesResult = Shapes::StructureShape.new(name: 'GetIpamPolicyAllocationRulesResult')
+    GetIpamPolicyOrganizationTargetsRequest = Shapes::StructureShape.new(name: 'GetIpamPolicyOrganizationTargetsRequest')
+    GetIpamPolicyOrganizationTargetsResult = Shapes::StructureShape.new(name: 'GetIpamPolicyOrganizationTargetsResult')
     GetIpamPoolAllocationsMaxResults = Shapes::IntegerShape.new(name: 'GetIpamPoolAllocationsMaxResults')
     GetIpamPoolAllocationsRequest = Shapes::StructureShape.new(name: 'GetIpamPoolAllocationsRequest')
     GetIpamPoolAllocationsResult = Shapes::StructureShape.new(name: 'GetIpamPoolAllocationsResult')
@@ -2170,6 +2191,20 @@ module Aws::EC2
     IpamOrganizationalUnitExclusion = Shapes::StructureShape.new(name: 'IpamOrganizationalUnitExclusion')
     IpamOrganizationalUnitExclusionSet = Shapes::ListShape.new(name: 'IpamOrganizationalUnitExclusionSet')
     IpamOverlapStatus = Shapes::StringShape.new(name: 'IpamOverlapStatus')
+    IpamPolicy = Shapes::StructureShape.new(name: 'IpamPolicy')
+    IpamPolicyAllocationRule = Shapes::StructureShape.new(name: 'IpamPolicyAllocationRule')
+    IpamPolicyAllocationRuleList = Shapes::ListShape.new(name: 'IpamPolicyAllocationRuleList')
+    IpamPolicyAllocationRuleListRequest = Shapes::ListShape.new(name: 'IpamPolicyAllocationRuleListRequest')
+    IpamPolicyAllocationRuleRequest = Shapes::StructureShape.new(name: 'IpamPolicyAllocationRuleRequest')
+    IpamPolicyDocument = Shapes::StructureShape.new(name: 'IpamPolicyDocument')
+    IpamPolicyDocumentSet = Shapes::ListShape.new(name: 'IpamPolicyDocumentSet')
+    IpamPolicyId = Shapes::StringShape.new(name: 'IpamPolicyId')
+    IpamPolicyManagedBy = Shapes::StringShape.new(name: 'IpamPolicyManagedBy')
+    IpamPolicyOrganizationTarget = Shapes::StructureShape.new(name: 'IpamPolicyOrganizationTarget')
+    IpamPolicyOrganizationTargetSet = Shapes::ListShape.new(name: 'IpamPolicyOrganizationTargetSet')
+    IpamPolicyResourceType = Shapes::StringShape.new(name: 'IpamPolicyResourceType')
+    IpamPolicySet = Shapes::ListShape.new(name: 'IpamPolicySet')
+    IpamPolicyState = Shapes::StringShape.new(name: 'IpamPolicyState')
     IpamPool = Shapes::StructureShape.new(name: 'IpamPool')
     IpamPoolAllocation = Shapes::StructureShape.new(name: 'IpamPoolAllocation')
     IpamPoolAllocationAllowedCidrs = Shapes::ListShape.new(name: 'IpamPoolAllocationAllowedCidrs')
@@ -2542,6 +2577,8 @@ module Aws::EC2
     ModifyInstanceNetworkPerformanceResult = Shapes::StructureShape.new(name: 'ModifyInstanceNetworkPerformanceResult')
     ModifyInstancePlacementRequest = Shapes::StructureShape.new(name: 'ModifyInstancePlacementRequest')
     ModifyInstancePlacementResult = Shapes::StructureShape.new(name: 'ModifyInstancePlacementResult')
+    ModifyIpamPolicyAllocationRulesRequest = Shapes::StructureShape.new(name: 'ModifyIpamPolicyAllocationRulesRequest')
+    ModifyIpamPolicyAllocationRulesResult = Shapes::StructureShape.new(name: 'ModifyIpamPolicyAllocationRulesResult')
     ModifyIpamPoolRequest = Shapes::StructureShape.new(name: 'ModifyIpamPoolRequest')
     ModifyIpamPoolResult = Shapes::StructureShape.new(name: 'ModifyIpamPoolResult')
     ModifyIpamPrefixListResolverRequest = Shapes::StructureShape.new(name: 'ModifyIpamPrefixListResolverRequest')
@@ -4293,6 +4330,8 @@ module Aws::EC2
     AssociateNatGatewayAddressRequest.add_member(:allocation_ids, Shapes::ShapeRef.new(shape: AllocationIdList, required: true, location_name: "AllocationId"))
     AssociateNatGatewayAddressRequest.add_member(:private_ip_addresses, Shapes::ShapeRef.new(shape: IpList, location_name: "PrivateIpAddress"))
     AssociateNatGatewayAddressRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    AssociateNatGatewayAddressRequest.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZoneName, location_name: "AvailabilityZone"))
+    AssociateNatGatewayAddressRequest.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: AvailabilityZoneId, location_name: "AvailabilityZoneId"))
     AssociateNatGatewayAddressRequest.struct_class = Types::AssociateNatGatewayAddressRequest
 
     AssociateNatGatewayAddressResult.add_member(:nat_gateway_id, Shapes::ShapeRef.new(shape: NatGatewayId, location_name: "natGatewayId"))
@@ -4561,6 +4600,13 @@ module Aws::EC2
     AvailabilityZone.add_member(:group_long_name, Shapes::ShapeRef.new(shape: String, location_name: "groupLongName"))
     AvailabilityZone.add_member(:state, Shapes::ShapeRef.new(shape: AvailabilityZoneState, location_name: "zoneState"))
     AvailabilityZone.struct_class = Types::AvailabilityZone
+
+    AvailabilityZoneAddress.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZoneName, location_name: "AvailabilityZone"))
+    AvailabilityZoneAddress.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: AvailabilityZoneId, location_name: "AvailabilityZoneId"))
+    AvailabilityZoneAddress.add_member(:allocation_ids, Shapes::ShapeRef.new(shape: AllocationIdList, location_name: "AllocationId"))
+    AvailabilityZoneAddress.struct_class = Types::AvailabilityZoneAddress
+
+    AvailabilityZoneAddresses.member = Shapes::ShapeRef.new(shape: AvailabilityZoneAddress, location_name: "AvailabilityZoneAddress")
 
     AvailabilityZoneIdStringList.member = Shapes::ShapeRef.new(shape: String, location_name: "AvailabilityZoneId")
 
@@ -5722,6 +5768,15 @@ module Aws::EC2
     CreateIpamExternalResourceVerificationTokenResult.add_member(:ipam_external_resource_verification_token, Shapes::ShapeRef.new(shape: IpamExternalResourceVerificationToken, location_name: "ipamExternalResourceVerificationToken"))
     CreateIpamExternalResourceVerificationTokenResult.struct_class = Types::CreateIpamExternalResourceVerificationTokenResult
 
+    CreateIpamPolicyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    CreateIpamPolicyRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
+    CreateIpamPolicyRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    CreateIpamPolicyRequest.add_member(:ipam_id, Shapes::ShapeRef.new(shape: IpamId, required: true, location_name: "IpamId"))
+    CreateIpamPolicyRequest.struct_class = Types::CreateIpamPolicyRequest
+
+    CreateIpamPolicyResult.add_member(:ipam_policy, Shapes::ShapeRef.new(shape: IpamPolicy, location_name: "ipamPolicy"))
+    CreateIpamPolicyResult.struct_class = Types::CreateIpamPolicyResult
+
     CreateIpamPoolRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     CreateIpamPoolRequest.add_member(:ipam_scope_id, Shapes::ShapeRef.new(shape: IpamScopeId, required: true, location_name: "IpamScopeId"))
     CreateIpamPoolRequest.add_member(:locale, Shapes::ShapeRef.new(shape: String, location_name: "Locale"))
@@ -5923,10 +5978,13 @@ module Aws::EC2
     CreateManagedPrefixListResult.add_member(:prefix_list, Shapes::ShapeRef.new(shape: ManagedPrefixList, location_name: "prefixList"))
     CreateManagedPrefixListResult.struct_class = Types::CreateManagedPrefixListResult
 
+    CreateNatGatewayRequest.add_member(:availability_mode, Shapes::ShapeRef.new(shape: AvailabilityMode, location_name: "AvailabilityMode"))
     CreateNatGatewayRequest.add_member(:allocation_id, Shapes::ShapeRef.new(shape: AllocationId, location_name: "AllocationId"))
     CreateNatGatewayRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: String, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
     CreateNatGatewayRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
-    CreateNatGatewayRequest.add_member(:subnet_id, Shapes::ShapeRef.new(shape: SubnetId, required: true, location_name: "SubnetId"))
+    CreateNatGatewayRequest.add_member(:subnet_id, Shapes::ShapeRef.new(shape: SubnetId, location_name: "SubnetId"))
+    CreateNatGatewayRequest.add_member(:vpc_id, Shapes::ShapeRef.new(shape: VpcId, location_name: "VpcId"))
+    CreateNatGatewayRequest.add_member(:availability_zone_addresses, Shapes::ShapeRef.new(shape: AvailabilityZoneAddresses, location_name: "AvailabilityZoneAddress"))
     CreateNatGatewayRequest.add_member(:tag_specifications, Shapes::ShapeRef.new(shape: TagSpecificationList, location_name: "TagSpecification"))
     CreateNatGatewayRequest.add_member(:connectivity_type, Shapes::ShapeRef.new(shape: ConnectivityType, location_name: "ConnectivityType"))
     CreateNatGatewayRequest.add_member(:private_ip_address, Shapes::ShapeRef.new(shape: String, location_name: "PrivateIpAddress"))
@@ -6871,6 +6929,13 @@ module Aws::EC2
 
     DeleteIpamExternalResourceVerificationTokenResult.add_member(:ipam_external_resource_verification_token, Shapes::ShapeRef.new(shape: IpamExternalResourceVerificationToken, location_name: "ipamExternalResourceVerificationToken"))
     DeleteIpamExternalResourceVerificationTokenResult.struct_class = Types::DeleteIpamExternalResourceVerificationTokenResult
+
+    DeleteIpamPolicyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DeleteIpamPolicyRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    DeleteIpamPolicyRequest.struct_class = Types::DeleteIpamPolicyRequest
+
+    DeleteIpamPolicyResult.add_member(:ipam_policy, Shapes::ShapeRef.new(shape: IpamPolicy, location_name: "ipamPolicy"))
+    DeleteIpamPolicyResult.struct_class = Types::DeleteIpamPolicyResult
 
     DeleteIpamPoolRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DeleteIpamPoolRequest.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, required: true, location_name: "IpamPoolId"))
@@ -8249,6 +8314,17 @@ module Aws::EC2
     DescribeIpamExternalResourceVerificationTokensResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
     DescribeIpamExternalResourceVerificationTokensResult.add_member(:ipam_external_resource_verification_tokens, Shapes::ShapeRef.new(shape: IpamExternalResourceVerificationTokenSet, location_name: "ipamExternalResourceVerificationTokenSet"))
     DescribeIpamExternalResourceVerificationTokensResult.struct_class = Types::DescribeIpamExternalResourceVerificationTokensResult
+
+    DescribeIpamPoliciesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DescribeIpamPoliciesRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    DescribeIpamPoliciesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    DescribeIpamPoliciesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    DescribeIpamPoliciesRequest.add_member(:ipam_policy_ids, Shapes::ShapeRef.new(shape: ValueStringList, location_name: "IpamPolicyId"))
+    DescribeIpamPoliciesRequest.struct_class = Types::DescribeIpamPoliciesRequest
+
+    DescribeIpamPoliciesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    DescribeIpamPoliciesResult.add_member(:ipam_policies, Shapes::ShapeRef.new(shape: IpamPolicySet, location_name: "ipamPolicySet"))
+    DescribeIpamPoliciesResult.struct_class = Types::DescribeIpamPoliciesResult
 
     DescribeIpamPoolsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     DescribeIpamPoolsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
@@ -9649,6 +9725,14 @@ module Aws::EC2
     DisableIpamOrganizationAdminAccountResult.add_member(:success, Shapes::ShapeRef.new(shape: Boolean, location_name: "success"))
     DisableIpamOrganizationAdminAccountResult.struct_class = Types::DisableIpamOrganizationAdminAccountResult
 
+    DisableIpamPolicyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    DisableIpamPolicyRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    DisableIpamPolicyRequest.add_member(:organization_target_id, Shapes::ShapeRef.new(shape: String, location_name: "OrganizationTargetId"))
+    DisableIpamPolicyRequest.struct_class = Types::DisableIpamPolicyRequest
+
+    DisableIpamPolicyResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
+    DisableIpamPolicyResult.struct_class = Types::DisableIpamPolicyResult
+
     DisableRouteServerPropagationRequest.add_member(:route_server_id, Shapes::ShapeRef.new(shape: RouteServerId, required: true, location_name: "RouteServerId"))
     DisableRouteServerPropagationRequest.add_member(:route_table_id, Shapes::ShapeRef.new(shape: RouteTableId, required: true, location_name: "RouteTableId"))
     DisableRouteServerPropagationRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
@@ -10193,6 +10277,14 @@ module Aws::EC2
 
     EnableIpamOrganizationAdminAccountResult.add_member(:success, Shapes::ShapeRef.new(shape: Boolean, location_name: "success"))
     EnableIpamOrganizationAdminAccountResult.struct_class = Types::EnableIpamOrganizationAdminAccountResult
+
+    EnableIpamPolicyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    EnableIpamPolicyRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    EnableIpamPolicyRequest.add_member(:organization_target_id, Shapes::ShapeRef.new(shape: String, location_name: "OrganizationTargetId"))
+    EnableIpamPolicyRequest.struct_class = Types::EnableIpamPolicyRequest
+
+    EnableIpamPolicyResult.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, location_name: "ipamPolicyId"))
+    EnableIpamPolicyResult.struct_class = Types::EnableIpamPolicyResult
 
     EnableReachabilityAnalyzerOrganizationSharingRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     EnableReachabilityAnalyzerOrganizationSharingRequest.struct_class = Types::EnableReachabilityAnalyzerOrganizationSharingRequest
@@ -10870,6 +10962,14 @@ module Aws::EC2
     GetEbsEncryptionByDefaultResult.add_member(:sse_type, Shapes::ShapeRef.new(shape: SSEType, location_name: "sseType"))
     GetEbsEncryptionByDefaultResult.struct_class = Types::GetEbsEncryptionByDefaultResult
 
+    GetEnabledIpamPolicyRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetEnabledIpamPolicyRequest.struct_class = Types::GetEnabledIpamPolicyRequest
+
+    GetEnabledIpamPolicyResult.add_member(:ipam_policy_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "ipamPolicyEnabled"))
+    GetEnabledIpamPolicyResult.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, location_name: "ipamPolicyId"))
+    GetEnabledIpamPolicyResult.add_member(:managed_by, Shapes::ShapeRef.new(shape: IpamPolicyManagedBy, location_name: "managedBy"))
+    GetEnabledIpamPolicyResult.struct_class = Types::GetEnabledIpamPolicyResult
+
     GetFlowLogsIntegrationTemplateRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     GetFlowLogsIntegrationTemplateRequest.add_member(:flow_log_id, Shapes::ShapeRef.new(shape: VpcFlowLogId, required: true, location_name: "FlowLogId"))
     GetFlowLogsIntegrationTemplateRequest.add_member(:config_delivery_s3_destination_arn, Shapes::ShapeRef.new(shape: String, required: true, location_name: "ConfigDeliveryS3DestinationArn"))
@@ -11002,6 +11102,30 @@ module Aws::EC2
     GetIpamDiscoveredResourceCidrsResult.add_member(:ipam_discovered_resource_cidrs, Shapes::ShapeRef.new(shape: IpamDiscoveredResourceCidrSet, location_name: "ipamDiscoveredResourceCidrSet"))
     GetIpamDiscoveredResourceCidrsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
     GetIpamDiscoveredResourceCidrsResult.struct_class = Types::GetIpamDiscoveredResourceCidrsResult
+
+    GetIpamPolicyAllocationRulesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:locale, Shapes::ShapeRef.new(shape: String, location_name: "Locale"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:resource_type, Shapes::ShapeRef.new(shape: IpamPolicyResourceType, location_name: "ResourceType"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    GetIpamPolicyAllocationRulesRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    GetIpamPolicyAllocationRulesRequest.struct_class = Types::GetIpamPolicyAllocationRulesRequest
+
+    GetIpamPolicyAllocationRulesResult.add_member(:ipam_policy_documents, Shapes::ShapeRef.new(shape: IpamPolicyDocumentSet, location_name: "ipamPolicyDocumentSet"))
+    GetIpamPolicyAllocationRulesResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    GetIpamPolicyAllocationRulesResult.struct_class = Types::GetIpamPolicyAllocationRulesResult
+
+    GetIpamPolicyOrganizationTargetsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    GetIpamPolicyOrganizationTargetsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: IpamMaxResults, location_name: "MaxResults"))
+    GetIpamPolicyOrganizationTargetsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    GetIpamPolicyOrganizationTargetsRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    GetIpamPolicyOrganizationTargetsRequest.add_member(:filters, Shapes::ShapeRef.new(shape: FilterList, location_name: "Filter"))
+    GetIpamPolicyOrganizationTargetsRequest.struct_class = Types::GetIpamPolicyOrganizationTargetsRequest
+
+    GetIpamPolicyOrganizationTargetsResult.add_member(:organization_targets, Shapes::ShapeRef.new(shape: IpamPolicyOrganizationTargetSet, location_name: "organizationTargetSet"))
+    GetIpamPolicyOrganizationTargetsResult.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "nextToken"))
+    GetIpamPolicyOrganizationTargetsResult.struct_class = Types::GetIpamPolicyOrganizationTargetsResult
 
     GetIpamPoolAllocationsRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     GetIpamPoolAllocationsRequest.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, required: true, location_name: "IpamPoolId"))
@@ -12622,6 +12746,41 @@ module Aws::EC2
 
     IpamOrganizationalUnitExclusionSet.member = Shapes::ShapeRef.new(shape: IpamOrganizationalUnitExclusion, location_name: "item")
 
+    IpamPolicy.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
+    IpamPolicy.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, location_name: "ipamPolicyId"))
+    IpamPolicy.add_member(:ipam_policy_arn, Shapes::ShapeRef.new(shape: ResourceArn, location_name: "ipamPolicyArn"))
+    IpamPolicy.add_member(:ipam_policy_region, Shapes::ShapeRef.new(shape: String, location_name: "ipamPolicyRegion"))
+    IpamPolicy.add_member(:state, Shapes::ShapeRef.new(shape: IpamPolicyState, location_name: "state"))
+    IpamPolicy.add_member(:state_message, Shapes::ShapeRef.new(shape: String, location_name: "stateMessage"))
+    IpamPolicy.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
+    IpamPolicy.add_member(:ipam_id, Shapes::ShapeRef.new(shape: IpamId, location_name: "ipamId"))
+    IpamPolicy.struct_class = Types::IpamPolicy
+
+    IpamPolicyAllocationRule.add_member(:source_ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, location_name: "sourceIpamPoolId"))
+    IpamPolicyAllocationRule.struct_class = Types::IpamPolicyAllocationRule
+
+    IpamPolicyAllocationRuleList.member = Shapes::ShapeRef.new(shape: IpamPolicyAllocationRule, location_name: "item")
+
+    IpamPolicyAllocationRuleListRequest.member = Shapes::ShapeRef.new(shape: IpamPolicyAllocationRuleRequest, location_name: "item")
+
+    IpamPolicyAllocationRuleRequest.add_member(:source_ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, location_name: "SourceIpamPoolId"))
+    IpamPolicyAllocationRuleRequest.struct_class = Types::IpamPolicyAllocationRuleRequest
+
+    IpamPolicyDocument.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, location_name: "ipamPolicyId"))
+    IpamPolicyDocument.add_member(:locale, Shapes::ShapeRef.new(shape: String, location_name: "locale"))
+    IpamPolicyDocument.add_member(:resource_type, Shapes::ShapeRef.new(shape: IpamPolicyResourceType, location_name: "resourceType"))
+    IpamPolicyDocument.add_member(:allocation_rules, Shapes::ShapeRef.new(shape: IpamPolicyAllocationRuleList, location_name: "allocationRuleSet"))
+    IpamPolicyDocument.struct_class = Types::IpamPolicyDocument
+
+    IpamPolicyDocumentSet.member = Shapes::ShapeRef.new(shape: IpamPolicyDocument, location_name: "item")
+
+    IpamPolicyOrganizationTarget.add_member(:organization_target_id, Shapes::ShapeRef.new(shape: String, location_name: "organizationTargetId"))
+    IpamPolicyOrganizationTarget.struct_class = Types::IpamPolicyOrganizationTarget
+
+    IpamPolicyOrganizationTargetSet.member = Shapes::ShapeRef.new(shape: IpamPolicyOrganizationTarget, location_name: "item")
+
+    IpamPolicySet.member = Shapes::ShapeRef.new(shape: IpamPolicy, location_name: "item")
+
     IpamPool.add_member(:owner_id, Shapes::ShapeRef.new(shape: String, location_name: "ownerId"))
     IpamPool.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, location_name: "ipamPoolId"))
     IpamPool.add_member(:source_ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, location_name: "sourceIpamPoolId"))
@@ -13876,6 +14035,16 @@ module Aws::EC2
     ModifyInstancePlacementResult.add_member(:return, Shapes::ShapeRef.new(shape: Boolean, location_name: "return"))
     ModifyInstancePlacementResult.struct_class = Types::ModifyInstancePlacementResult
 
+    ModifyIpamPolicyAllocationRulesRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
+    ModifyIpamPolicyAllocationRulesRequest.add_member(:ipam_policy_id, Shapes::ShapeRef.new(shape: IpamPolicyId, required: true, location_name: "IpamPolicyId"))
+    ModifyIpamPolicyAllocationRulesRequest.add_member(:locale, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Locale"))
+    ModifyIpamPolicyAllocationRulesRequest.add_member(:resource_type, Shapes::ShapeRef.new(shape: IpamPolicyResourceType, required: true, location_name: "ResourceType"))
+    ModifyIpamPolicyAllocationRulesRequest.add_member(:allocation_rules, Shapes::ShapeRef.new(shape: IpamPolicyAllocationRuleListRequest, location_name: "AllocationRule"))
+    ModifyIpamPolicyAllocationRulesRequest.struct_class = Types::ModifyIpamPolicyAllocationRulesRequest
+
+    ModifyIpamPolicyAllocationRulesResult.add_member(:ipam_policy_document, Shapes::ShapeRef.new(shape: IpamPolicyDocument, location_name: "ipamPolicyDocument"))
+    ModifyIpamPolicyAllocationRulesResult.struct_class = Types::ModifyIpamPolicyAllocationRulesResult
+
     ModifyIpamPoolRequest.add_member(:dry_run, Shapes::ShapeRef.new(shape: Boolean, location_name: "DryRun"))
     ModifyIpamPoolRequest.add_member(:ipam_pool_id, Shapes::ShapeRef.new(shape: IpamPoolId, required: true, location_name: "IpamPoolId"))
     ModifyIpamPoolRequest.add_member(:description, Shapes::ShapeRef.new(shape: String, location_name: "Description"))
@@ -14548,6 +14717,10 @@ module Aws::EC2
     NatGateway.add_member(:vpc_id, Shapes::ShapeRef.new(shape: String, location_name: "vpcId"))
     NatGateway.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "tagSet"))
     NatGateway.add_member(:connectivity_type, Shapes::ShapeRef.new(shape: ConnectivityType, location_name: "connectivityType"))
+    NatGateway.add_member(:availability_mode, Shapes::ShapeRef.new(shape: AvailabilityMode, location_name: "availabilityMode"))
+    NatGateway.add_member(:auto_scaling_ips, Shapes::ShapeRef.new(shape: AutoScalingIpsState, location_name: "autoScalingIps"))
+    NatGateway.add_member(:auto_provision_zones, Shapes::ShapeRef.new(shape: AutoProvisionZonesState, location_name: "autoProvisionZones"))
+    NatGateway.add_member(:route_table_id, Shapes::ShapeRef.new(shape: String, location_name: "routeTableId"))
     NatGateway.struct_class = Types::NatGateway
 
     NatGatewayAddress.add_member(:allocation_id, Shapes::ShapeRef.new(shape: String, location_name: "allocationId"))
@@ -14558,6 +14731,8 @@ module Aws::EC2
     NatGatewayAddress.add_member(:is_primary, Shapes::ShapeRef.new(shape: Boolean, location_name: "isPrimary"))
     NatGatewayAddress.add_member(:failure_message, Shapes::ShapeRef.new(shape: String, location_name: "failureMessage"))
     NatGatewayAddress.add_member(:status, Shapes::ShapeRef.new(shape: NatGatewayAddressStatus, location_name: "status"))
+    NatGatewayAddress.add_member(:availability_zone, Shapes::ShapeRef.new(shape: AvailabilityZoneName, location_name: "availabilityZone"))
+    NatGatewayAddress.add_member(:availability_zone_id, Shapes::ShapeRef.new(shape: AvailabilityZoneId, location_name: "availabilityZoneId"))
     NatGatewayAddress.struct_class = Types::NatGatewayAddress
 
     NatGatewayAddressList.member = Shapes::ShapeRef.new(shape: NatGatewayAddress, location_name: "item")
@@ -19319,6 +19494,14 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: CreateIpamExternalResourceVerificationTokenResult)
       end)
 
+      api.add_operation(:create_ipam_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateIpamPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateIpamPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateIpamPolicyResult)
+      end)
+
       api.add_operation(:create_ipam_pool, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateIpamPool"
         o.http_method = "POST"
@@ -20029,6 +20212,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DeleteIpamExternalResourceVerificationTokenRequest)
         o.output = Shapes::ShapeRef.new(shape: DeleteIpamExternalResourceVerificationTokenResult)
+      end)
+
+      api.add_operation(:delete_ipam_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteIpamPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteIpamPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteIpamPolicyResult)
       end)
 
       api.add_operation(:delete_ipam_pool, Seahorse::Model::Operation.new.tap do |o|
@@ -21507,6 +21698,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DescribeIpamExternalResourceVerificationTokensRequest)
         o.output = Shapes::ShapeRef.new(shape: DescribeIpamExternalResourceVerificationTokensResult)
+      end)
+
+      api.add_operation(:describe_ipam_policies, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeIpamPolicies"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeIpamPoliciesRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeIpamPoliciesResult)
       end)
 
       api.add_operation(:describe_ipam_pools, Seahorse::Model::Operation.new.tap do |o|
@@ -23014,6 +23213,14 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: DisableIpamOrganizationAdminAccountResult)
       end)
 
+      api.add_operation(:disable_ipam_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DisableIpamPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DisableIpamPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: DisableIpamPolicyResult)
+      end)
+
       api.add_operation(:disable_route_server_propagation, Seahorse::Model::Operation.new.tap do |o|
         o.name = "DisableRouteServerPropagation"
         o.http_method = "POST"
@@ -23318,6 +23525,14 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: EnableIpamOrganizationAdminAccountResult)
       end)
 
+      api.add_operation(:enable_ipam_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "EnableIpamPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: EnableIpamPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: EnableIpamPolicyResult)
+      end)
+
       api.add_operation(:enable_reachability_analyzer_organization_sharing, Seahorse::Model::Operation.new.tap do |o|
         o.name = "EnableReachabilityAnalyzerOrganizationSharing"
         o.http_method = "POST"
@@ -23582,6 +23797,14 @@ module Aws::EC2
         o.output = Shapes::ShapeRef.new(shape: GetEbsEncryptionByDefaultResult)
       end)
 
+      api.add_operation(:get_enabled_ipam_policy, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetEnabledIpamPolicy"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetEnabledIpamPolicyRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetEnabledIpamPolicyResult)
+      end)
+
       api.add_operation(:get_flow_logs_integration_template, Seahorse::Model::Operation.new.tap do |o|
         o.name = "GetFlowLogsIntegrationTemplate"
         o.http_method = "POST"
@@ -23714,6 +23937,22 @@ module Aws::EC2
             "next_token" => "next_token"
           }
         )
+      end)
+
+      api.add_operation(:get_ipam_policy_allocation_rules, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIpamPolicyAllocationRules"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIpamPolicyAllocationRulesRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIpamPolicyAllocationRulesResult)
+      end)
+
+      api.add_operation(:get_ipam_policy_organization_targets, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetIpamPolicyOrganizationTargets"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetIpamPolicyOrganizationTargetsRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetIpamPolicyOrganizationTargetsResult)
       end)
 
       api.add_operation(:get_ipam_pool_allocations, Seahorse::Model::Operation.new.tap do |o|
@@ -24386,6 +24625,14 @@ module Aws::EC2
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: ModifyIpamRequest)
         o.output = Shapes::ShapeRef.new(shape: ModifyIpamResult)
+      end)
+
+      api.add_operation(:modify_ipam_policy_allocation_rules, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ModifyIpamPolicyAllocationRules"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ModifyIpamPolicyAllocationRulesRequest)
+        o.output = Shapes::ShapeRef.new(shape: ModifyIpamPolicyAllocationRulesResult)
       end)
 
       api.add_operation(:modify_ipam_pool, Seahorse::Model::Operation.new.tap do |o|

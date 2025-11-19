@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.339.0 (2025-11-19)
+------------------
+
+* Feature - Added support for enhanced metrics for SageMaker AI Endpoints. This features provides Utilization Metrics at instance and container granularity and also provides easy configuration of metric publish frequency from 10 sec -> 5 mins
+
 1.338.0 (2025-11-13)
 ------------------
 

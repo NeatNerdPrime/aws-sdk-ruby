@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.80.0 (2025-11-19)
+------------------
+
+* Feature - Partner Managed Rulegroup feature support
+
 1.79.0 (2025-10-21)
 ------------------
 

@@ -4303,7 +4303,8 @@ module Aws::CloudWatchLogs
     #   resp.transformer_config[0].parse_route_53.source #=> String
     #   resp.transformer_config[0].parse_to_ocsf.source #=> String
     #   resp.transformer_config[0].parse_to_ocsf.event_source #=> String, one of "CloudTrail", "Route53Resolver", "VPCFlow", "EKSAudit", "AWSWAF"
-    #   resp.transformer_config[0].parse_to_ocsf.ocsf_version #=> String, one of "V1.1"
+    #   resp.transformer_config[0].parse_to_ocsf.ocsf_version #=> String, one of "V1.1", "V1.5"
+    #   resp.transformer_config[0].parse_to_ocsf.mapping_version #=> String
     #   resp.transformer_config[0].parse_postgres.source #=> String
     #   resp.transformer_config[0].parse_vpc.source #=> String
     #   resp.transformer_config[0].parse_waf.source #=> String
@@ -5665,8 +5666,13 @@ module Aws::CloudWatchLogs
     #
     #   * For IAM Identity Center, the valid value is `ERROR_LOGS`.
     #
+    #   * For Network Load Balancer, the valid value is `NLB_ACCESS_LOGS`.
+    #
     #   * For PCS, the valid values are `PCS_SCHEDULER_LOGS` and
     #     `PCS_JOBCOMP_LOGS`.
+    #
+    #   * For Amazon Web Services RTB Fabric, the valid values is
+    #     `APPLICATION_LOGS`.
     #
     #   * For Amazon Q, the valid values are `EVENT_LOGS` and `SYNC_JOB_LOGS`.
     #
@@ -6822,7 +6828,8 @@ module Aws::CloudWatchLogs
     #         parse_to_ocsf: {
     #           source: "Source",
     #           event_source: "CloudTrail", # required, accepts CloudTrail, Route53Resolver, VPCFlow, EKSAudit, AWSWAF
-    #           ocsf_version: "V1.1", # required, accepts V1.1
+    #           ocsf_version: "V1.1", # required, accepts V1.1, V1.5
+    #           mapping_version: "MappingVersion",
     #         },
     #         parse_postgres: {
     #           source: "Source",
@@ -7627,7 +7634,8 @@ module Aws::CloudWatchLogs
     #         parse_to_ocsf: {
     #           source: "Source",
     #           event_source: "CloudTrail", # required, accepts CloudTrail, Route53Resolver, VPCFlow, EKSAudit, AWSWAF
-    #           ocsf_version: "V1.1", # required, accepts V1.1
+    #           ocsf_version: "V1.1", # required, accepts V1.1, V1.5
+    #           mapping_version: "MappingVersion",
     #         },
     #         parse_postgres: {
     #           source: "Source",
@@ -8099,7 +8107,7 @@ module Aws::CloudWatchLogs
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cloudwatchlogs'
-      context[:gem_version] = '1.130.0'
+      context[:gem_version] = '1.131.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

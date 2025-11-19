@@ -219,6 +219,7 @@ module Aws::ECS
     InferenceAcceleratorOverride = Shapes::StructureShape.new(name: 'InferenceAcceleratorOverride')
     InferenceAcceleratorOverrides = Shapes::ListShape.new(name: 'InferenceAcceleratorOverrides')
     InferenceAccelerators = Shapes::ListShape.new(name: 'InferenceAccelerators')
+    InfrastructureOptimization = Shapes::StructureShape.new(name: 'InfrastructureOptimization')
     InstanceGeneration = Shapes::StringShape.new(name: 'InstanceGeneration')
     InstanceGenerationSet = Shapes::ListShape.new(name: 'InstanceGenerationSet')
     InstanceHealthCheckResult = Shapes::StructureShape.new(name: 'InstanceHealthCheckResult')
@@ -827,6 +828,7 @@ module Aws::ECS
     CreateManagedInstancesProviderConfiguration.add_member(:infrastructure_role_arn, Shapes::ShapeRef.new(shape: String, required: true, location_name: "infrastructureRoleArn"))
     CreateManagedInstancesProviderConfiguration.add_member(:instance_launch_template, Shapes::ShapeRef.new(shape: InstanceLaunchTemplate, required: true, location_name: "instanceLaunchTemplate"))
     CreateManagedInstancesProviderConfiguration.add_member(:propagate_tags, Shapes::ShapeRef.new(shape: PropagateMITags, location_name: "propagateTags"))
+    CreateManagedInstancesProviderConfiguration.add_member(:infrastructure_optimization, Shapes::ShapeRef.new(shape: InfrastructureOptimization, location_name: "infrastructureOptimization"))
     CreateManagedInstancesProviderConfiguration.struct_class = Types::CreateManagedInstancesProviderConfiguration
 
     CreateServiceRequest.add_member(:cluster, Shapes::ShapeRef.new(shape: String, location_name: "cluster"))
@@ -1234,6 +1236,9 @@ module Aws::ECS
 
     InferenceAccelerators.member = Shapes::ShapeRef.new(shape: InferenceAccelerator)
 
+    InfrastructureOptimization.add_member(:scale_in_after, Shapes::ShapeRef.new(shape: BoxedInteger, location_name: "scaleInAfter"))
+    InfrastructureOptimization.struct_class = Types::InfrastructureOptimization
+
     InstanceGenerationSet.member = Shapes::ShapeRef.new(shape: InstanceGeneration)
 
     InstanceHealthCheckResult.add_member(:type, Shapes::ShapeRef.new(shape: InstanceHealthCheckType, location_name: "type"))
@@ -1470,6 +1475,7 @@ module Aws::ECS
     ManagedInstancesProvider.add_member(:infrastructure_role_arn, Shapes::ShapeRef.new(shape: String, location_name: "infrastructureRoleArn"))
     ManagedInstancesProvider.add_member(:instance_launch_template, Shapes::ShapeRef.new(shape: InstanceLaunchTemplate, location_name: "instanceLaunchTemplate"))
     ManagedInstancesProvider.add_member(:propagate_tags, Shapes::ShapeRef.new(shape: PropagateMITags, location_name: "propagateTags"))
+    ManagedInstancesProvider.add_member(:infrastructure_optimization, Shapes::ShapeRef.new(shape: InfrastructureOptimization, location_name: "infrastructureOptimization"))
     ManagedInstancesProvider.struct_class = Types::ManagedInstancesProvider
 
     ManagedInstancesStorageConfiguration.add_member(:storage_size_gi_b, Shapes::ShapeRef.new(shape: TaskVolumeStorageGiB, location_name: "storageSizeGiB"))
@@ -2279,6 +2285,7 @@ module Aws::ECS
     UpdateManagedInstancesProviderConfiguration.add_member(:infrastructure_role_arn, Shapes::ShapeRef.new(shape: String, required: true, location_name: "infrastructureRoleArn"))
     UpdateManagedInstancesProviderConfiguration.add_member(:instance_launch_template, Shapes::ShapeRef.new(shape: InstanceLaunchTemplateUpdate, required: true, location_name: "instanceLaunchTemplate"))
     UpdateManagedInstancesProviderConfiguration.add_member(:propagate_tags, Shapes::ShapeRef.new(shape: PropagateMITags, location_name: "propagateTags"))
+    UpdateManagedInstancesProviderConfiguration.add_member(:infrastructure_optimization, Shapes::ShapeRef.new(shape: InfrastructureOptimization, location_name: "infrastructureOptimization"))
     UpdateManagedInstancesProviderConfiguration.struct_class = Types::UpdateManagedInstancesProviderConfiguration
 
     UpdateServicePrimaryTaskSetRequest.add_member(:cluster, Shapes::ShapeRef.new(shape: String, required: true, location_name: "cluster"))

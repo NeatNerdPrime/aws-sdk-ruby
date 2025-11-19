@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.17.0 (2025-11-19)
+------------------
+
+* Feature - Added name filtering support to ListBillingViews API through the new names parameter to efficiently filter billing views by name.
+
 1.16.0 (2025-10-24)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.16.0 (2025-11-19)
+------------------
+
+* Feature - This release added support for ring timer configuration for campaign calls.
+
 1.15.0 (2025-10-22)
 ------------------
 

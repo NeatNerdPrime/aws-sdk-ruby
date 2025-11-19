@@ -620,6 +620,7 @@ module Aws::Invoicing
     #     tax_inheritance_disabled: false,
     #     rule: { # required
     #       linked_accounts: ["AccountIdString"],
+    #       bill_source_accounts: ["AccountIdString"],
     #     },
     #     resource_tags: [
     #       {
@@ -844,6 +845,8 @@ module Aws::Invoicing
     #   resp.tax_inheritance_disabled #=> Boolean
     #   resp.rule.linked_accounts #=> Array
     #   resp.rule.linked_accounts[0] #=> String
+    #   resp.rule.bill_source_accounts #=> Array
+    #   resp.rule.bill_source_accounts[0] #=> String
     #   resp.last_modified #=> Time
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/invoicing-2024-12-01/GetInvoiceUnit AWS API Documentation
@@ -1653,6 +1656,7 @@ module Aws::Invoicing
     #       names: ["InvoiceUnitName"],
     #       invoice_receivers: ["AccountIdString"],
     #       accounts: ["AccountIdString"],
+    #       bill_source_accounts: ["AccountIdString"],
     #     },
     #     next_token: "NextTokenString",
     #     max_results: 1,
@@ -1669,6 +1673,8 @@ module Aws::Invoicing
     #   resp.invoice_units[0].tax_inheritance_disabled #=> Boolean
     #   resp.invoice_units[0].rule.linked_accounts #=> Array
     #   resp.invoice_units[0].rule.linked_accounts[0] #=> String
+    #   resp.invoice_units[0].rule.bill_source_accounts #=> Array
+    #   resp.invoice_units[0].rule.bill_source_accounts[0] #=> String
     #   resp.invoice_units[0].last_modified #=> Time
     #   resp.next_token #=> String
     #
@@ -1879,6 +1885,7 @@ module Aws::Invoicing
     #     tax_inheritance_disabled: false,
     #     rule: {
     #       linked_accounts: ["AccountIdString"],
+    #       bill_source_accounts: ["AccountIdString"],
     #     },
     #   })
     #
@@ -1913,7 +1920,7 @@ module Aws::Invoicing
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-invoicing'
-      context[:gem_version] = '1.15.0'
+      context[:gem_version] = '1.16.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

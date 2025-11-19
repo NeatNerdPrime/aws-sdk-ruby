@@ -2877,12 +2877,20 @@ module Aws::ECS
     #   launched by this provider.
     #   @return [String]
     #
+    # @!attribute [rw] infrastructure_optimization
+    #   Defines how Amazon ECS Managed Instances optimizes the
+    #   infrastastructure in your capacity provider. Provides control over
+    #   the delay between when EC2 instances become idle or underutilized
+    #   and when Amazon ECS optimizes them.
+    #   @return [Types::InfrastructureOptimization]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/CreateManagedInstancesProviderConfiguration AWS API Documentation
     #
     class CreateManagedInstancesProviderConfiguration < Struct.new(
       :infrastructure_role_arn,
       :instance_launch_template,
-      :propagate_tags)
+      :propagate_tags,
+      :infrastructure_optimization)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6171,6 +6179,36 @@ module Aws::ECS
       include Aws::Structure
     end
 
+    # The configuration that controls how Amazon ECS optimizes your
+    # infrastructure.
+    #
+    # @!attribute [rw] scale_in_after
+    #   This parameter defines the number of seconds Amazon ECS Managed
+    #   Instances waits before optimizing EC2 instances that have become
+    #   idle or underutilized. A longer delay increases the likelihood of
+    #   placing new tasks on idle or underutilized instances instances,
+    #   reducing startup time. A shorter delay helps reduce infrastructure
+    #   costs by optimizing idle or underutilized instances,instances more
+    #   quickly.
+    #
+    #   Valid values are:
+    #
+    #   * `null` - Uses the default optimization behavior.
+    #
+    #   * `-1` - Disables automatic infrastructure optimization.
+    #
+    #   * A value between `0` and `3600` (inclusive) - Specifies the number
+    #     of seconds to wait before optimizing instances.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/InfrastructureOptimization AWS API Documentation
+    #
+    class InfrastructureOptimization < Struct.new(
+      :scale_in_after)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An object representing the result of a container instance health
     # status check.
     #
@@ -8191,12 +8229,21 @@ module Aws::ECS
     #   across your infrastructure.
     #   @return [String]
     #
+    # @!attribute [rw] infrastructure_optimization
+    #   Defines how Amazon ECS Managed Instances optimizes the
+    #   infrastastructure in your capacity provider. Configure it to turn on
+    #   or off the infrastructure optimization in your capacity provider,
+    #   and to control the idle or underutilized EC2 instances optimization
+    #   delay.
+    #   @return [Types::InfrastructureOptimization]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/ManagedInstancesProvider AWS API Documentation
     #
     class ManagedInstancesProvider < Struct.new(
       :infrastructure_role_arn,
       :instance_launch_template,
-      :propagate_tags)
+      :propagate_tags,
+      :infrastructure_optimization)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -14797,12 +14844,19 @@ module Aws::ECS
     #   new instances launched after the update.
     #   @return [String]
     #
+    # @!attribute [rw] infrastructure_optimization
+    #   The updated infrastructure optimization configuration. Changes to
+    #   this setting affect how Amazon ECS optimizes instances going
+    #   forward.
+    #   @return [Types::InfrastructureOptimization]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ecs-2014-11-13/UpdateManagedInstancesProviderConfiguration AWS API Documentation
     #
     class UpdateManagedInstancesProviderConfiguration < Struct.new(
       :infrastructure_role_arn,
       :instance_launch_template,
-      :propagate_tags)
+      :propagate_tags,
+      :infrastructure_optimization)
       SENSITIVE = []
       include Aws::Structure
     end

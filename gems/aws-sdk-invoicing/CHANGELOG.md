@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.16.0 (2025-11-19)
+------------------
+
+* Feature - Add support for adding Billing transfers in Invoice configuration
+
 1.15.0 (2025-11-10)
 ------------------
 

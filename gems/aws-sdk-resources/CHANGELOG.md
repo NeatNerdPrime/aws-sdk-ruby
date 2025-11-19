@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.245.0 (2025-11-19)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-signin` gem.
+
+* Feature - Added a dependency on the new `aws-sdk-partnercentralchannel` gem.
+
 3.244.0 (2025-11-17)
 ------------------
 

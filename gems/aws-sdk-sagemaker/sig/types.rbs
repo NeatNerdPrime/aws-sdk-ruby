@@ -1568,6 +1568,7 @@ module Aws::SageMaker
       attr_accessor execution_role_arn: ::String
       attr_accessor vpc_config: Types::VpcConfig
       attr_accessor enable_network_isolation: bool
+      attr_accessor metrics_config: Types::MetricsConfig
       SENSITIVE: []
     end
 
@@ -3453,6 +3454,7 @@ module Aws::SageMaker
       attr_accessor execution_role_arn: ::String
       attr_accessor vpc_config: Types::VpcConfig
       attr_accessor enable_network_isolation: bool
+      attr_accessor metrics_config: Types::MetricsConfig
       SENSITIVE: []
     end
 
@@ -3476,6 +3478,7 @@ module Aws::SageMaker
       attr_accessor pending_deployment_summary: Types::PendingDeploymentSummary
       attr_accessor explainer_config: Types::ExplainerConfig
       attr_accessor shadow_production_variants: ::Array[Types::ProductionVariantSummary]
+      attr_accessor metrics_config: Types::MetricsConfig
       SENSITIVE: []
     end
 
@@ -7595,6 +7598,12 @@ module Aws::SageMaker
       end
       class Unknown < MetricSpecification
       end
+    end
+
+    class MetricsConfig
+      attr_accessor enable_enhanced_metrics: bool
+      attr_accessor metric_publish_frequency_in_seconds: ::Integer
+      SENSITIVE: []
     end
 
     class MetricsSource

@@ -111,6 +111,7 @@ module Aws::Invoicing
       attr_accessor names: ::Array[::String]
       attr_accessor invoice_receivers: ::Array[::String]
       attr_accessor accounts: ::Array[::String]
+      attr_accessor bill_source_accounts: ::Array[::String]
       SENSITIVE: []
     end
 
@@ -216,6 +217,7 @@ module Aws::Invoicing
 
     class InvoiceUnitRule
       attr_accessor linked_accounts: ::Array[::String]
+      attr_accessor bill_source_accounts: ::Array[::String]
       SENSITIVE: []
     end
 

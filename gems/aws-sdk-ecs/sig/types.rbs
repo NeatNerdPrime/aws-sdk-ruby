@@ -353,6 +353,7 @@ module Aws::ECS
       attr_accessor infrastructure_role_arn: ::String
       attr_accessor instance_launch_template: Types::InstanceLaunchTemplate
       attr_accessor propagate_tags: ("CAPACITY_PROVIDER" | "NONE")
+      attr_accessor infrastructure_optimization: Types::InfrastructureOptimization
       SENSITIVE: []
     end
 
@@ -871,6 +872,11 @@ module Aws::ECS
       SENSITIVE: []
     end
 
+    class InfrastructureOptimization
+      attr_accessor scale_in_after: ::Integer
+      SENSITIVE: []
+    end
+
     class InstanceHealthCheckResult
       attr_accessor type: ("CONTAINER_RUNTIME")
       attr_accessor status: ("OK" | "IMPAIRED" | "INSUFFICIENT_DATA" | "INITIALIZING")
@@ -1163,6 +1169,7 @@ module Aws::ECS
       attr_accessor infrastructure_role_arn: ::String
       attr_accessor instance_launch_template: Types::InstanceLaunchTemplate
       attr_accessor propagate_tags: ("CAPACITY_PROVIDER" | "NONE")
+      attr_accessor infrastructure_optimization: Types::InfrastructureOptimization
       SENSITIVE: []
     end
 
@@ -2106,6 +2113,7 @@ module Aws::ECS
       attr_accessor infrastructure_role_arn: ::String
       attr_accessor instance_launch_template: Types::InstanceLaunchTemplateUpdate
       attr_accessor propagate_tags: ("CAPACITY_PROVIDER" | "NONE")
+      attr_accessor infrastructure_optimization: Types::InfrastructureOptimization
       SENSITIVE: []
     end
 

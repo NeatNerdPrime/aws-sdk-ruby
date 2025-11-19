@@ -884,10 +884,10 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] kms_key_id
-    #   Specifies the KMS key ID to use to encrypt the logs delivered by
-    #   CloudTrail. The value can be an alias name prefixed by `alias/`, a
-    #   fully specified ARN to an alias, a fully specified ARN to a key, or
-    #   a globally unique identifier.
+    #   Specifies the KMS key ID to use to encrypt the logs and digest files
+    #   delivered by CloudTrail. The value can be an alias name prefixed by
+    #   `alias/`, a fully specified ARN to an alias, a fully specified ARN
+    #   to a key, or a globally unique identifier.
     #
     #   CloudTrail also supports KMS multi-Region keys. For more information
     #   about multi-Region keys, see [Using multi-Region keys][1] in the
@@ -2378,9 +2378,12 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] insight_selectors
-    #   A JSON string that contains the Insight types you want to log on a
-    #   trail or event data store. `ApiErrorRateInsight` and
-    #   `ApiCallRateInsight` are supported as Insights types.
+    #   Contains the Insights types that are enabled on a trail or event
+    #   data store. It also specifies the event categories on which a
+    #   particular Insight type is enabled. `ApiCallRateInsight` and
+    #   `ApiErrorRateInsight` are valid Insight types.The EventCategory
+    #   field can specify `Management` or `Data` events or both. For event
+    #   data store, you can log Insights for management events only.
     #   @return [Array<Types::InsightSelector>]
     #
     # @!attribute [rw] event_data_store_arn
@@ -2919,18 +2922,33 @@ module Aws::CloudTrail
     #   types.
     #
     #   The `ApiCallRateInsight` Insights type analyzes write-only
-    #   management API calls that are aggregated per minute against a
-    #   baseline API call volume.
+    #   management API calls or read and write data API calls that are
+    #   aggregated per minute against a baseline API call volume.
     #
-    #   The `ApiErrorRateInsight` Insights type analyzes management API
-    #   calls that result in error codes. The error is shown if the API call
-    #   is unsuccessful.
+    #   The `ApiErrorRateInsight` Insights type analyzes management and data
+    #   API calls that result in error codes. The error is shown if the API
+    #   call is unsuccessful.
     #   @return [String]
+    #
+    # @!attribute [rw] event_categories
+    #   Select the event category on which Insights should be enabled.
+    #
+    #   * If EventCategories is not provided, the specified Insights types
+    #     are enabled on management API calls by default.
+    #
+    #   * If EventCategories is provided, the given event categories will
+    #     overwrite the existing ones. For example, if a trail already has
+    #     Insights enabled on management events, and then a
+    #     PutInsightSelectors request is made with only data events
+    #     specified in EventCategories, Insights on management events will
+    #     be disabled.
+    #   @return [Array<String>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/InsightSelector AWS API Documentation
     #
     class InsightSelector < Struct.new(
-      :insight_type)
+      :insight_type,
+      :event_categories)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3443,6 +3461,92 @@ module Aws::CloudTrail
       include Aws::Structure
     end
 
+    # @!attribute [rw] insight_source
+    #   The Amazon Resource Name(ARN) of the trail for which you want to
+    #   retrieve Insights events.
+    #   @return [String]
+    #
+    # @!attribute [rw] data_type
+    #   Specifies the category of events returned. To fetch Insights events,
+    #   specify `InsightsEvents` as the value of `DataType`
+    #   @return [String]
+    #
+    # @!attribute [rw] dimensions
+    #   Contains a map of dimensions. Currently the map can contain only one
+    #   item.
+    #   @return [Hash<String,String>]
+    #
+    # @!attribute [rw] start_time
+    #   Specifies that only events that occur after or at the specified time
+    #   are returned. If the specified start time is after the specified end
+    #   time, an error is returned.
+    #   @return [Time]
+    #
+    # @!attribute [rw] end_time
+    #   Specifies that only events that occur before or at the specified
+    #   time are returned. If the specified end time is before the specified
+    #   start time, an error is returned.
+    #   @return [Time]
+    #
+    # @!attribute [rw] max_results
+    #   The number of events to return. Possible values are 1 through 50.
+    #   The default is 50.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to get the next page of results after a previous
+    #   API call. This token must be passed in with the same parameters that
+    #   were specified in the original call. For example, if the original
+    #   call specified a EventName as a dimension with `PutObject` as a
+    #   value, the call with NextToken should include those same parameters.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/ListInsightsDataRequest AWS API Documentation
+    #
+    class ListInsightsDataRequest < Struct.new(
+      :insight_source,
+      :data_type,
+      :dimensions,
+      :start_time,
+      :end_time,
+      :max_results,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] events
+    #   A list of events returned based on the InsightSource, DataType or
+    #   Dimensions specified. The events list is sorted by time. The most
+    #   recent event is listed first.
+    #   @return [Array<Types::Event>]
+    #
+    # @!attribute [rw] next_token
+    #   The token to use to get the next page of results after a previous
+    #   API call. If the token does not appear, there are no more results to
+    #   return. The token must be passed in with the same parameters as the
+    #   previous call. For example, if the original call specified a
+    #   EventName as a dimension with `PutObject` as a value, the call with
+    #   NextToken should include those same parameters.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/ListInsightsDataResponse AWS API Documentation
+    #
+    class ListInsightsDataResponse < Struct.new(
+      :events,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] trail_name
+    #   The Amazon Resource Name(ARN) or name of the trail for which you
+    #   want to retrieve Insights metrics data. This parameter should only
+    #   be provided to fetch Insights metrics data generated on trails
+    #   logging data events. This parameter is not required for Insights
+    #   metric data generated on trails logging management events.
+    #   @return [String]
+    #
     # @!attribute [rw] event_source
     #   The Amazon Web Services service to which the request was made, such
     #   as `iam.amazonaws.com` or `s3.amazonaws.com`.
@@ -3513,6 +3617,7 @@ module Aws::CloudTrail
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/ListInsightsMetricDataRequest AWS API Documentation
     #
     class ListInsightsMetricDataRequest < Struct.new(
+      :trail_name,
       :event_source,
       :event_name,
       :insight_type,
@@ -3527,6 +3632,11 @@ module Aws::CloudTrail
       include Aws::Structure
     end
 
+    # @!attribute [rw] trail_arn
+    #   Specifies the ARN of the trail. This is only returned when Insights
+    #   is enabled on a trail logging data events.
+    #   @return [String]
+    #
     # @!attribute [rw] event_source
     #   The Amazon Web Services service to which the request was made, such
     #   as `iam.amazonaws.com` or `s3.amazonaws.com`.
@@ -3574,6 +3684,7 @@ module Aws::CloudTrail
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/ListInsightsMetricDataResponse AWS API Documentation
     #
     class ListInsightsMetricDataResponse < Struct.new(
+      :trail_arn,
       :event_source,
       :event_name,
       :insight_type,
@@ -4164,17 +4275,19 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] insight_selectors
-    #   A JSON string that contains the Insights types you want to log on a
-    #   trail or event data store. `ApiCallRateInsight` and
-    #   `ApiErrorRateInsight` are valid Insight types.
+    #   Contains the Insights types you want to log on a specific category
+    #   of events on a trail or event data store. `ApiCallRateInsight` and
+    #   `ApiErrorRateInsight` are valid Insight types.The EventCategory
+    #   field can specify `Management` or `Data` events or both. For event
+    #   data store, you can log Insights for management events only.
     #
     #   The `ApiCallRateInsight` Insights type analyzes write-only
-    #   management API calls that are aggregated per minute against a
-    #   baseline API call volume.
+    #   management API calls or read and write data API calls that are
+    #   aggregated per minute against a baseline API call volume.
     #
-    #   The `ApiErrorRateInsight` Insights type analyzes management API
-    #   calls that result in error codes. The error is shown if the API call
-    #   is unsuccessful.
+    #   The `ApiErrorRateInsight` Insights type analyzes management and data
+    #   API calls that result in error codes. The error is shown if the API
+    #   call is unsuccessful.
     #   @return [Array<Types::InsightSelector>]
     #
     # @!attribute [rw] event_data_store
@@ -4212,9 +4325,11 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] insight_selectors
-    #   A JSON string that contains the Insights event types that you want
-    #   to log on a trail or event data store. The valid Insights types are
-    #   `ApiErrorRateInsight` and `ApiCallRateInsight`.
+    #   Contains the Insights types you want to log on a specific category
+    #   of events in a trail or event data store. `ApiCallRateInsight` and
+    #   `ApiErrorRateInsight` are valid Insight types.The EventCategory
+    #   field can specify `Management` or `Data` events or both. For event
+    #   data store, you can only log Insights for management events only.
     #   @return [Array<Types::InsightSelector>]
     #
     # @!attribute [rw] event_data_store_arn
@@ -5342,9 +5457,9 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] kms_key_id
-    #   Specifies the KMS key ID that encrypts the logs delivered by
-    #   CloudTrail. The value is a fully specified ARN to a KMS key in the
-    #   following format.
+    #   Specifies the KMS key ID that encrypts the logs and digest files
+    #   delivered by CloudTrail. The value is a fully specified ARN to a KMS
+    #   key in the following format.
     #
     #   `arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012`
     #   @return [String]
@@ -5910,10 +6025,10 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] kms_key_id
-    #   Specifies the KMS key ID to use to encrypt the logs delivered by
-    #   CloudTrail. The value can be an alias name prefixed by "alias/", a
-    #   fully specified ARN to an alias, a fully specified ARN to a key, or
-    #   a globally unique identifier.
+    #   Specifies the KMS key ID to use to encrypt the logs and digest files
+    #   delivered by CloudTrail. The value can be an alias name prefixed by
+    #   "alias/", a fully specified ARN to an alias, a fully specified ARN
+    #   to a key, or a globally unique identifier.
     #
     #   CloudTrail also supports KMS multi-Region keys. For more information
     #   about multi-Region keys, see [Using multi-Region keys][1] in the
@@ -6037,9 +6152,9 @@ module Aws::CloudTrail
     #   @return [String]
     #
     # @!attribute [rw] kms_key_id
-    #   Specifies the KMS key ID that encrypts the logs delivered by
-    #   CloudTrail. The value is a fully specified ARN to a KMS key in the
-    #   following format.
+    #   Specifies the KMS key ID that encrypts the logs and digest files
+    #   delivered by CloudTrail. The value is a fully specified ARN to a KMS
+    #   key in the following format.
     #
     #   `arn:aws:kms:us-east-2:123456789012:key/12345678-1234-1234-1234-123456789012`
     #   @return [String]

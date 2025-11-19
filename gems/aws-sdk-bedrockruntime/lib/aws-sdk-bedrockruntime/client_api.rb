@@ -273,6 +273,13 @@ module Aws::BedrockRuntime
     ResponseStream = Shapes::StructureShape.new(name: 'ResponseStream')
     S3Location = Shapes::StructureShape.new(name: 'S3Location')
     S3Uri = Shapes::StringShape.new(name: 'S3Uri')
+    SearchResultBlock = Shapes::StructureShape.new(name: 'SearchResultBlock')
+    SearchResultContentBlock = Shapes::StructureShape.new(name: 'SearchResultContentBlock')
+    SearchResultContentBlocks = Shapes::ListShape.new(name: 'SearchResultContentBlocks')
+    SearchResultLocation = Shapes::StructureShape.new(name: 'SearchResultLocation')
+    SearchResultLocationEndInteger = Shapes::IntegerShape.new(name: 'SearchResultLocationEndInteger')
+    SearchResultLocationSearchResultIndexInteger = Shapes::IntegerShape.new(name: 'SearchResultLocationSearchResultIndexInteger')
+    SearchResultLocationStartInteger = Shapes::IntegerShape.new(name: 'SearchResultLocationStartInteger')
     ServiceQuotaExceededException = Shapes::StructureShape.new(name: 'ServiceQuotaExceededException')
     ServiceTier = Shapes::StructureShape.new(name: 'ServiceTier')
     ServiceTierType = Shapes::StringShape.new(name: 'ServiceTierType')
@@ -385,6 +392,7 @@ module Aws::BedrockRuntime
     CachePointBlock.struct_class = Types::CachePointBlock
 
     Citation.add_member(:title, Shapes::ShapeRef.new(shape: String, location_name: "title"))
+    Citation.add_member(:source, Shapes::ShapeRef.new(shape: String, location_name: "source"))
     Citation.add_member(:source_content, Shapes::ShapeRef.new(shape: CitationSourceContentList, location_name: "sourceContent"))
     Citation.add_member(:location, Shapes::ShapeRef.new(shape: CitationLocation, location_name: "location"))
     Citation.struct_class = Types::Citation
@@ -401,11 +409,13 @@ module Aws::BedrockRuntime
     CitationLocation.add_member(:document_char, Shapes::ShapeRef.new(shape: DocumentCharLocation, location_name: "documentChar"))
     CitationLocation.add_member(:document_page, Shapes::ShapeRef.new(shape: DocumentPageLocation, location_name: "documentPage"))
     CitationLocation.add_member(:document_chunk, Shapes::ShapeRef.new(shape: DocumentChunkLocation, location_name: "documentChunk"))
+    CitationLocation.add_member(:search_result_location, Shapes::ShapeRef.new(shape: SearchResultLocation, location_name: "searchResultLocation"))
     CitationLocation.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     CitationLocation.add_member_subclass(:web, Types::CitationLocation::Web)
     CitationLocation.add_member_subclass(:document_char, Types::CitationLocation::DocumentChar)
     CitationLocation.add_member_subclass(:document_page, Types::CitationLocation::DocumentPage)
     CitationLocation.add_member_subclass(:document_chunk, Types::CitationLocation::DocumentChunk)
+    CitationLocation.add_member_subclass(:search_result_location, Types::CitationLocation::SearchResultLocation)
     CitationLocation.add_member_subclass(:unknown, Types::CitationLocation::Unknown)
     CitationLocation.struct_class = Types::CitationLocation
 
@@ -432,6 +442,7 @@ module Aws::BedrockRuntime
     CitationsContentBlock.struct_class = Types::CitationsContentBlock
 
     CitationsDelta.add_member(:title, Shapes::ShapeRef.new(shape: String, location_name: "title"))
+    CitationsDelta.add_member(:source, Shapes::ShapeRef.new(shape: String, location_name: "source"))
     CitationsDelta.add_member(:source_content, Shapes::ShapeRef.new(shape: CitationSourceContentListDelta, location_name: "sourceContent"))
     CitationsDelta.add_member(:location, Shapes::ShapeRef.new(shape: CitationLocation, location_name: "location"))
     CitationsDelta.struct_class = Types::CitationsDelta
@@ -449,6 +460,7 @@ module Aws::BedrockRuntime
     ContentBlock.add_member(:cache_point, Shapes::ShapeRef.new(shape: CachePointBlock, location_name: "cachePoint"))
     ContentBlock.add_member(:reasoning_content, Shapes::ShapeRef.new(shape: ReasoningContentBlock, location_name: "reasoningContent"))
     ContentBlock.add_member(:citations_content, Shapes::ShapeRef.new(shape: CitationsContentBlock, location_name: "citationsContent"))
+    ContentBlock.add_member(:search_result, Shapes::ShapeRef.new(shape: SearchResultBlock, location_name: "searchResult"))
     ContentBlock.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     ContentBlock.add_member_subclass(:text, Types::ContentBlock::Text)
     ContentBlock.add_member_subclass(:image, Types::ContentBlock::Image)
@@ -460,6 +472,7 @@ module Aws::BedrockRuntime
     ContentBlock.add_member_subclass(:cache_point, Types::ContentBlock::CachePoint)
     ContentBlock.add_member_subclass(:reasoning_content, Types::ContentBlock::ReasoningContent)
     ContentBlock.add_member_subclass(:citations_content, Types::ContentBlock::CitationsContent)
+    ContentBlock.add_member_subclass(:search_result, Types::ContentBlock::SearchResult)
     ContentBlock.add_member_subclass(:unknown, Types::ContentBlock::Unknown)
     ContentBlock.struct_class = Types::ContentBlock
 
@@ -1142,6 +1155,22 @@ module Aws::BedrockRuntime
     S3Location.add_member(:bucket_owner, Shapes::ShapeRef.new(shape: AccountId, location_name: "bucketOwner"))
     S3Location.struct_class = Types::S3Location
 
+    SearchResultBlock.add_member(:source, Shapes::ShapeRef.new(shape: String, required: true, location_name: "source"))
+    SearchResultBlock.add_member(:title, Shapes::ShapeRef.new(shape: String, required: true, location_name: "title"))
+    SearchResultBlock.add_member(:content, Shapes::ShapeRef.new(shape: SearchResultContentBlocks, required: true, location_name: "content"))
+    SearchResultBlock.add_member(:citations, Shapes::ShapeRef.new(shape: CitationsConfig, location_name: "citations"))
+    SearchResultBlock.struct_class = Types::SearchResultBlock
+
+    SearchResultContentBlock.add_member(:text, Shapes::ShapeRef.new(shape: String, required: true, location_name: "text"))
+    SearchResultContentBlock.struct_class = Types::SearchResultContentBlock
+
+    SearchResultContentBlocks.member = Shapes::ShapeRef.new(shape: SearchResultContentBlock)
+
+    SearchResultLocation.add_member(:search_result_index, Shapes::ShapeRef.new(shape: SearchResultLocationSearchResultIndexInteger, location_name: "searchResultIndex"))
+    SearchResultLocation.add_member(:start, Shapes::ShapeRef.new(shape: SearchResultLocationStartInteger, location_name: "start"))
+    SearchResultLocation.add_member(:end, Shapes::ShapeRef.new(shape: SearchResultLocationEndInteger, location_name: "end"))
+    SearchResultLocation.struct_class = Types::SearchResultLocation
+
     ServiceQuotaExceededException.add_member(:message, Shapes::ShapeRef.new(shape: NonBlankString, location_name: "message"))
     ServiceQuotaExceededException.struct_class = Types::ServiceQuotaExceededException
 
@@ -1251,12 +1280,14 @@ module Aws::BedrockRuntime
     ToolResultContentBlock.add_member(:image, Shapes::ShapeRef.new(shape: ImageBlock, location_name: "image"))
     ToolResultContentBlock.add_member(:document, Shapes::ShapeRef.new(shape: DocumentBlock, location_name: "document"))
     ToolResultContentBlock.add_member(:video, Shapes::ShapeRef.new(shape: VideoBlock, location_name: "video"))
+    ToolResultContentBlock.add_member(:search_result, Shapes::ShapeRef.new(shape: SearchResultBlock, location_name: "searchResult"))
     ToolResultContentBlock.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     ToolResultContentBlock.add_member_subclass(:json, Types::ToolResultContentBlock::Json)
     ToolResultContentBlock.add_member_subclass(:text, Types::ToolResultContentBlock::Text)
     ToolResultContentBlock.add_member_subclass(:image, Types::ToolResultContentBlock::Image)
     ToolResultContentBlock.add_member_subclass(:document, Types::ToolResultContentBlock::Document)
     ToolResultContentBlock.add_member_subclass(:video, Types::ToolResultContentBlock::Video)
+    ToolResultContentBlock.add_member_subclass(:search_result, Types::ToolResultContentBlock::SearchResult)
     ToolResultContentBlock.add_member_subclass(:unknown, Types::ToolResultContentBlock::Unknown)
     ToolResultContentBlock.struct_class = Types::ToolResultContentBlock
 

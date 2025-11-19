@@ -565,6 +565,44 @@ module Aws::EMR
       include Aws::Structure
     end
 
+    # Holds CloudWatch log configuration settings and metadata that specify
+    # settings like log files to monitor and where to send them.
+    #
+    # @!attribute [rw] enabled
+    #   Specifies if CloudWatch logging is enabled.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] log_group_name
+    #   The name of the CloudWatch log group where logs are published.
+    #   @return [String]
+    #
+    # @!attribute [rw] log_stream_name_prefix
+    #   The prefix of the log stream name.
+    #   @return [String]
+    #
+    # @!attribute [rw] encryption_key_arn
+    #   The ARN of the encryption key used to encrypt the logs.
+    #   @return [String]
+    #
+    # @!attribute [rw] log_types
+    #   A map of log types to file names for publishing logs to the standard
+    #   output or standard error streams for CloudWatch. Valid log types
+    #   include STEP\_LOGS, SPARK\_DRIVER, and SPARK\_EXECUTOR. Valid file
+    #   names for each type include STDOUT and STDERR.
+    #   @return [Hash<String,Array<String>>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/CloudWatchLogConfiguration AWS API Documentation
+    #
+    class CloudWatchLogConfiguration < Struct.new(
+      :enabled,
+      :log_group_name,
+      :log_stream_name_prefix,
+      :encryption_key_arn,
+      :log_types)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The detailed description of the cluster.
     #
     # @!attribute [rw] id
@@ -798,6 +836,10 @@ module Aws::EMR
     #   Reserved.
     #   @return [Boolean]
     #
+    # @!attribute [rw] monitoring_configuration
+    #   Contains Cloudwatch log configuration metadata and settings.
+    #   @return [Types::MonitoringConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Cluster AWS API Documentation
     #
     class Cluster < Struct.new(
@@ -835,7 +877,8 @@ module Aws::EMR
       :os_release_label,
       :ebs_root_volume_iops,
       :ebs_root_volume_throughput,
-      :extended_support)
+      :extended_support,
+      :monitoring_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2939,10 +2982,10 @@ module Aws::EMR
     #   @return [String]
     #
     # @!attribute [rw] bid_price
-    #   If specified, indicates that the instance group uses Spot Instances.
-    #   This is the maximum price you are willing to pay for Spot Instances.
-    #   Specify `OnDemandPrice` to set the amount equal to the On-Demand
-    #   price, or specify an amount in USD.
+    #   The bid price for each Amazon EC2 Spot Instance type as defined by
+    #   `InstanceType`. Expressed in USD. If neither `BidPrice` nor
+    #   `BidPriceAsPercentageOfOnDemandPrice` is provided,
+    #   `BidPriceAsPercentageOfOnDemandPrice` defaults to 100%.
     #   @return [String]
     #
     # @!attribute [rw] instance_type
@@ -3054,10 +3097,10 @@ module Aws::EMR
     #   @return [String]
     #
     # @!attribute [rw] bid_price
-    #   If specified, indicates that the instance group uses Spot Instances.
-    #   This is the maximum price you are willing to pay for Spot Instances.
-    #   Specify `OnDemandPrice` to set the amount equal to the On-Demand
-    #   price, or specify an amount in USD.
+    #   The bid price for each Amazon EC2 Spot Instance type as defined by
+    #   `InstanceType`. Expressed in USD. If neither `BidPrice` nor
+    #   `BidPriceAsPercentageOfOnDemandPrice` is provided,
+    #   `BidPriceAsPercentageOfOnDemandPrice` defaults to 100%.
     #   @return [String]
     #
     # @!attribute [rw] instance_type
@@ -3133,10 +3176,10 @@ module Aws::EMR
     #   @return [String]
     #
     # @!attribute [rw] bid_price
-    #   If specified, indicates that the instance group uses Spot Instances.
-    #   This is the maximum price you are willing to pay for Spot Instances.
-    #   Specify `OnDemandPrice` to set the amount equal to the On-Demand
-    #   price, or specify an amount in USD.
+    #   The bid price for each Amazon EC2 Spot Instance type as defined by
+    #   `InstanceType`. Expressed in USD. If neither `BidPrice` nor
+    #   `BidPriceAsPercentageOfOnDemandPrice` is provided,
+    #   `BidPriceAsPercentageOfOnDemandPrice` defaults to 100%.
     #   @return [String]
     #
     # @!attribute [rw] instance_type
@@ -3511,7 +3554,9 @@ module Aws::EMR
     #
     # @!attribute [rw] bid_price
     #   The bid price for each Amazon EC2 Spot Instance type as defined by
-    #   `InstanceType`. Expressed in USD.
+    #   `InstanceType`. Expressed in USD. If neither `BidPrice` nor
+    #   `BidPriceAsPercentageOfOnDemandPrice` is provided,
+    #   `BidPriceAsPercentageOfOnDemandPrice` defaults to 100%.
     #   @return [String]
     #
     # @!attribute [rw] bid_price_as_percentage_of_on_demand_price
@@ -4800,6 +4845,21 @@ module Aws::EMR
       include Aws::Structure
     end
 
+    # Contains CloudWatch log configuration metadata and settings.
+    #
+    # @!attribute [rw] cloud_watch_log_configuration
+    #   CloudWatch log configuration settings and metadata that specify
+    #   settings like log files to monitor and where to send them.
+    #   @return [Types::CloudWatchLogConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/MonitoringConfiguration AWS API Documentation
+    #
+    class MonitoringConfiguration < Struct.new(
+      :cloud_watch_log_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A notebook execution. An execution is a specific instance that an
     # Amazon EMR Notebook is run using the `StartNotebookExecution` action.
     #
@@ -5906,6 +5966,10 @@ module Aws::EMR
     #   Reserved.
     #   @return [Boolean]
     #
+    # @!attribute [rw] monitoring_configuration
+    #   Contains CloudWatch log configuration metadata and settings.
+    #   @return [Types::MonitoringConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/RunJobFlowInput AWS API Documentation
     #
     class RunJobFlowInput < Struct.new(
@@ -5940,7 +6004,8 @@ module Aws::EMR
       :os_release_label,
       :ebs_root_volume_iops,
       :ebs_root_volume_throughput,
-      :extended_support)
+      :extended_support,
+      :monitoring_configuration)
       SENSITIVE = []
       include Aws::Structure
     end

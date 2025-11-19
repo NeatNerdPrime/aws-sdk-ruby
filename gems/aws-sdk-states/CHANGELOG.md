@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.100.0 (2025-11-19)
+------------------
+
+* Feature - Adds support to TestState for mocked results and exceptions, along with additional inspection data.
+
 1.99.0 (2025-10-27)
 ------------------
 
