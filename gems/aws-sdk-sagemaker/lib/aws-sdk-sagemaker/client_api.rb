@@ -14,6 +14,8 @@ module Aws::SageMaker
 
     include Seahorse::Model
 
+    AcceleratorPartitionConfig = Shapes::StructureShape.new(name: 'AcceleratorPartitionConfig')
+    AcceleratorPartitionConfigCountInteger = Shapes::IntegerShape.new(name: 'AcceleratorPartitionConfigCountInteger')
     AcceleratorsAmount = Shapes::IntegerShape.new(name: 'AcceleratorsAmount')
     Accept = Shapes::StringShape.new(name: 'Accept')
     AcceptEula = Shapes::BooleanShape.new(name: 'AcceptEula')
@@ -211,6 +213,24 @@ module Aws::SageMaker
     BatchDescribeModelPackageInput = Shapes::StructureShape.new(name: 'BatchDescribeModelPackageInput')
     BatchDescribeModelPackageOutput = Shapes::StructureShape.new(name: 'BatchDescribeModelPackageOutput')
     BatchDescribeModelPackageSummary = Shapes::StructureShape.new(name: 'BatchDescribeModelPackageSummary')
+    BatchRebootClusterNodeLogicalIdsError = Shapes::StructureShape.new(name: 'BatchRebootClusterNodeLogicalIdsError')
+    BatchRebootClusterNodeLogicalIdsErrors = Shapes::ListShape.new(name: 'BatchRebootClusterNodeLogicalIdsErrors')
+    BatchRebootClusterNodesError = Shapes::StructureShape.new(name: 'BatchRebootClusterNodesError')
+    BatchRebootClusterNodesErrorCode = Shapes::StringShape.new(name: 'BatchRebootClusterNodesErrorCode')
+    BatchRebootClusterNodesErrors = Shapes::ListShape.new(name: 'BatchRebootClusterNodesErrors')
+    BatchRebootClusterNodesRequest = Shapes::StructureShape.new(name: 'BatchRebootClusterNodesRequest')
+    BatchRebootClusterNodesRequestNodeIdsList = Shapes::ListShape.new(name: 'BatchRebootClusterNodesRequestNodeIdsList')
+    BatchRebootClusterNodesRequestNodeLogicalIdsList = Shapes::ListShape.new(name: 'BatchRebootClusterNodesRequestNodeLogicalIdsList')
+    BatchRebootClusterNodesResponse = Shapes::StructureShape.new(name: 'BatchRebootClusterNodesResponse')
+    BatchReplaceClusterNodeLogicalIdsError = Shapes::StructureShape.new(name: 'BatchReplaceClusterNodeLogicalIdsError')
+    BatchReplaceClusterNodeLogicalIdsErrors = Shapes::ListShape.new(name: 'BatchReplaceClusterNodeLogicalIdsErrors')
+    BatchReplaceClusterNodesError = Shapes::StructureShape.new(name: 'BatchReplaceClusterNodesError')
+    BatchReplaceClusterNodesErrorCode = Shapes::StringShape.new(name: 'BatchReplaceClusterNodesErrorCode')
+    BatchReplaceClusterNodesErrors = Shapes::ListShape.new(name: 'BatchReplaceClusterNodesErrors')
+    BatchReplaceClusterNodesRequest = Shapes::StructureShape.new(name: 'BatchReplaceClusterNodesRequest')
+    BatchReplaceClusterNodesRequestNodeIdsList = Shapes::ListShape.new(name: 'BatchReplaceClusterNodesRequestNodeIdsList')
+    BatchReplaceClusterNodesRequestNodeLogicalIdsList = Shapes::ListShape.new(name: 'BatchReplaceClusterNodesRequestNodeLogicalIdsList')
+    BatchReplaceClusterNodesResponse = Shapes::StructureShape.new(name: 'BatchReplaceClusterNodesResponse')
     BatchStrategy = Shapes::StringShape.new(name: 'BatchStrategy')
     BatchTransformInput = Shapes::StructureShape.new(name: 'BatchTransformInput')
     BestObjectiveNotImproving = Shapes::StructureShape.new(name: 'BestObjectiveNotImproving')
@@ -1569,6 +1589,7 @@ module Aws::SageMaker
     LocalPath = Shapes::StringShape.new(name: 'LocalPath')
     Long = Shapes::IntegerShape.new(name: 'Long')
     LongS3Uri = Shapes::StringShape.new(name: 'LongS3Uri')
+    MIGProfileType = Shapes::StringShape.new(name: 'MIGProfileType')
     MLFramework = Shapes::StringShape.new(name: 'MLFramework')
     MajorMinorVersion = Shapes::StringShape.new(name: 'MajorMinorVersion')
     ManagedInstanceScalingMaxInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMaxInstanceCount')
@@ -2708,6 +2729,10 @@ module Aws::SageMaker
     WorkteamName = Shapes::StringShape.new(name: 'WorkteamName')
     Workteams = Shapes::ListShape.new(name: 'Workteams')
 
+    AcceleratorPartitionConfig.add_member(:type, Shapes::ShapeRef.new(shape: MIGProfileType, required: true, location_name: "Type"))
+    AcceleratorPartitionConfig.add_member(:count, Shapes::ShapeRef.new(shape: AcceleratorPartitionConfigCountInteger, required: true, location_name: "Count", metadata: {"box" => true}))
+    AcceleratorPartitionConfig.struct_class = Types::AcceleratorPartitionConfig
+
     ActionSource.add_member(:source_uri, Shapes::ShapeRef.new(shape: SourceUri, required: true, location_name: "SourceUri"))
     ActionSource.add_member(:source_type, Shapes::ShapeRef.new(shape: String256, location_name: "SourceType"))
     ActionSource.add_member(:source_id, Shapes::ShapeRef.new(shape: String256, location_name: "SourceId"))
@@ -3210,6 +3235,64 @@ module Aws::SageMaker
     BatchDescribeModelPackageSummary.add_member(:model_approval_status, Shapes::ShapeRef.new(shape: ModelApprovalStatus, location_name: "ModelApprovalStatus"))
     BatchDescribeModelPackageSummary.struct_class = Types::BatchDescribeModelPackageSummary
 
+    BatchRebootClusterNodeLogicalIdsError.add_member(:node_logical_id, Shapes::ShapeRef.new(shape: ClusterNodeLogicalId, required: true, location_name: "NodeLogicalId"))
+    BatchRebootClusterNodeLogicalIdsError.add_member(:error_code, Shapes::ShapeRef.new(shape: BatchRebootClusterNodesErrorCode, required: true, location_name: "ErrorCode"))
+    BatchRebootClusterNodeLogicalIdsError.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
+    BatchRebootClusterNodeLogicalIdsError.struct_class = Types::BatchRebootClusterNodeLogicalIdsError
+
+    BatchRebootClusterNodeLogicalIdsErrors.member = Shapes::ShapeRef.new(shape: BatchRebootClusterNodeLogicalIdsError)
+
+    BatchRebootClusterNodesError.add_member(:node_id, Shapes::ShapeRef.new(shape: ClusterNodeId, required: true, location_name: "NodeId"))
+    BatchRebootClusterNodesError.add_member(:error_code, Shapes::ShapeRef.new(shape: BatchRebootClusterNodesErrorCode, required: true, location_name: "ErrorCode"))
+    BatchRebootClusterNodesError.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
+    BatchRebootClusterNodesError.struct_class = Types::BatchRebootClusterNodesError
+
+    BatchRebootClusterNodesErrors.member = Shapes::ShapeRef.new(shape: BatchRebootClusterNodesError)
+
+    BatchRebootClusterNodesRequest.add_member(:cluster_name, Shapes::ShapeRef.new(shape: ClusterNameOrArn, required: true, location_name: "ClusterName"))
+    BatchRebootClusterNodesRequest.add_member(:node_ids, Shapes::ShapeRef.new(shape: BatchRebootClusterNodesRequestNodeIdsList, location_name: "NodeIds"))
+    BatchRebootClusterNodesRequest.add_member(:node_logical_ids, Shapes::ShapeRef.new(shape: BatchRebootClusterNodesRequestNodeLogicalIdsList, location_name: "NodeLogicalIds"))
+    BatchRebootClusterNodesRequest.struct_class = Types::BatchRebootClusterNodesRequest
+
+    BatchRebootClusterNodesRequestNodeIdsList.member = Shapes::ShapeRef.new(shape: ClusterNodeId)
+
+    BatchRebootClusterNodesRequestNodeLogicalIdsList.member = Shapes::ShapeRef.new(shape: ClusterNodeLogicalId)
+
+    BatchRebootClusterNodesResponse.add_member(:successful, Shapes::ShapeRef.new(shape: ClusterNodeIds, location_name: "Successful"))
+    BatchRebootClusterNodesResponse.add_member(:failed, Shapes::ShapeRef.new(shape: BatchRebootClusterNodesErrors, location_name: "Failed"))
+    BatchRebootClusterNodesResponse.add_member(:failed_node_logical_ids, Shapes::ShapeRef.new(shape: BatchRebootClusterNodeLogicalIdsErrors, location_name: "FailedNodeLogicalIds"))
+    BatchRebootClusterNodesResponse.add_member(:successful_node_logical_ids, Shapes::ShapeRef.new(shape: ClusterNodeLogicalIdList, location_name: "SuccessfulNodeLogicalIds"))
+    BatchRebootClusterNodesResponse.struct_class = Types::BatchRebootClusterNodesResponse
+
+    BatchReplaceClusterNodeLogicalIdsError.add_member(:node_logical_id, Shapes::ShapeRef.new(shape: ClusterNodeLogicalId, required: true, location_name: "NodeLogicalId"))
+    BatchReplaceClusterNodeLogicalIdsError.add_member(:error_code, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesErrorCode, required: true, location_name: "ErrorCode"))
+    BatchReplaceClusterNodeLogicalIdsError.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
+    BatchReplaceClusterNodeLogicalIdsError.struct_class = Types::BatchReplaceClusterNodeLogicalIdsError
+
+    BatchReplaceClusterNodeLogicalIdsErrors.member = Shapes::ShapeRef.new(shape: BatchReplaceClusterNodeLogicalIdsError)
+
+    BatchReplaceClusterNodesError.add_member(:node_id, Shapes::ShapeRef.new(shape: ClusterNodeId, required: true, location_name: "NodeId"))
+    BatchReplaceClusterNodesError.add_member(:error_code, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesErrorCode, required: true, location_name: "ErrorCode"))
+    BatchReplaceClusterNodesError.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
+    BatchReplaceClusterNodesError.struct_class = Types::BatchReplaceClusterNodesError
+
+    BatchReplaceClusterNodesErrors.member = Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesError)
+
+    BatchReplaceClusterNodesRequest.add_member(:cluster_name, Shapes::ShapeRef.new(shape: ClusterNameOrArn, required: true, location_name: "ClusterName"))
+    BatchReplaceClusterNodesRequest.add_member(:node_ids, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesRequestNodeIdsList, location_name: "NodeIds"))
+    BatchReplaceClusterNodesRequest.add_member(:node_logical_ids, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesRequestNodeLogicalIdsList, location_name: "NodeLogicalIds"))
+    BatchReplaceClusterNodesRequest.struct_class = Types::BatchReplaceClusterNodesRequest
+
+    BatchReplaceClusterNodesRequestNodeIdsList.member = Shapes::ShapeRef.new(shape: ClusterNodeId)
+
+    BatchReplaceClusterNodesRequestNodeLogicalIdsList.member = Shapes::ShapeRef.new(shape: ClusterNodeLogicalId)
+
+    BatchReplaceClusterNodesResponse.add_member(:successful, Shapes::ShapeRef.new(shape: ClusterNodeIds, location_name: "Successful"))
+    BatchReplaceClusterNodesResponse.add_member(:failed, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesErrors, location_name: "Failed"))
+    BatchReplaceClusterNodesResponse.add_member(:failed_node_logical_ids, Shapes::ShapeRef.new(shape: BatchReplaceClusterNodeLogicalIdsErrors, location_name: "FailedNodeLogicalIds"))
+    BatchReplaceClusterNodesResponse.add_member(:successful_node_logical_ids, Shapes::ShapeRef.new(shape: ClusterNodeLogicalIdList, location_name: "SuccessfulNodeLogicalIds"))
+    BatchReplaceClusterNodesResponse.struct_class = Types::BatchReplaceClusterNodesResponse
+
     BatchTransformInput.add_member(:data_captured_destination_s3_uri, Shapes::ShapeRef.new(shape: DestinationS3Uri, required: true, location_name: "DataCapturedDestinationS3Uri"))
     BatchTransformInput.add_member(:dataset_format, Shapes::ShapeRef.new(shape: MonitoringDatasetFormat, required: true, location_name: "DatasetFormat"))
     BatchTransformInput.add_member(:local_path, Shapes::ShapeRef.new(shape: ProcessingLocalPath, required: true, location_name: "LocalPath"))
@@ -3561,6 +3644,7 @@ module Aws::SageMaker
     ClusterNodeSummary.add_member(:last_software_update_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastSoftwareUpdateTime"))
     ClusterNodeSummary.add_member(:instance_status, Shapes::ShapeRef.new(shape: ClusterInstanceStatusDetails, required: true, location_name: "InstanceStatus"))
     ClusterNodeSummary.add_member(:ultra_server_info, Shapes::ShapeRef.new(shape: UltraServerInfo, location_name: "UltraServerInfo"))
+    ClusterNodeSummary.add_member(:private_dns_hostname, Shapes::ShapeRef.new(shape: ClusterPrivateDnsHostname, location_name: "PrivateDnsHostname"))
     ClusterNodeSummary.struct_class = Types::ClusterNodeSummary
 
     ClusterOrchestrator.add_member(:eks, Shapes::ShapeRef.new(shape: ClusterOrchestratorEksConfig, required: true, location_name: "Eks"))
@@ -3703,6 +3787,7 @@ module Aws::SageMaker
     ComputeQuotaResourceConfig.add_member(:accelerators, Shapes::ShapeRef.new(shape: AcceleratorsAmount, location_name: "Accelerators"))
     ComputeQuotaResourceConfig.add_member(:v_cpu, Shapes::ShapeRef.new(shape: VCpuAmount, location_name: "VCpu"))
     ComputeQuotaResourceConfig.add_member(:memory_in_gi_b, Shapes::ShapeRef.new(shape: MemoryInGiBAmount, location_name: "MemoryInGiB"))
+    ComputeQuotaResourceConfig.add_member(:accelerator_partition, Shapes::ShapeRef.new(shape: AcceleratorPartitionConfig, location_name: "AcceleratorPartition"))
     ComputeQuotaResourceConfig.struct_class = Types::ComputeQuotaResourceConfig
 
     ComputeQuotaResourceConfigList.member = Shapes::ShapeRef.new(shape: ComputeQuotaResourceConfig)
@@ -12017,6 +12102,24 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: BatchDescribeModelPackageInput)
         o.output = Shapes::ShapeRef.new(shape: BatchDescribeModelPackageOutput)
+      end)
+
+      api.add_operation(:batch_reboot_cluster_nodes, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "BatchRebootClusterNodes"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: BatchRebootClusterNodesRequest)
+        o.output = Shapes::ShapeRef.new(shape: BatchRebootClusterNodesResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
+      api.add_operation(:batch_replace_cluster_nodes, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "BatchReplaceClusterNodes"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesRequest)
+        o.output = Shapes::ShapeRef.new(shape: BatchReplaceClusterNodesResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)
 
       api.add_operation(:create_action, Seahorse::Model::Operation.new.tap do |o|

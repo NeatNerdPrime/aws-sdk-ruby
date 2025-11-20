@@ -517,6 +517,72 @@ module Aws::BedrockDataAutomationRuntime
       req.send_request(options)
     end
 
+    # Sync API: Invoke data automation.
+    #
+    # @option params [required, Types::SyncInputConfiguration] :input_configuration
+    #   Input configuration.
+    #
+    # @option params [Types::DataAutomationConfiguration] :data_automation_configuration
+    #   Data automation configuration.
+    #
+    # @option params [Array<Types::Blueprint>] :blueprints
+    #   Blueprint list.
+    #
+    # @option params [required, String] :data_automation_profile_arn
+    #   Data automation profile ARN
+    #
+    # @option params [Types::EncryptionConfiguration] :encryption_configuration
+    #   Encryption configuration.
+    #
+    # @return [Types::InvokeDataAutomationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::InvokeDataAutomationResponse#semantic_modality #semantic_modality} => String
+    #   * {Types::InvokeDataAutomationResponse#output_segments #output_segments} => Array&lt;Types::OutputSegment&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.invoke_data_automation({
+    #     input_configuration: { # required
+    #       bytes: "data",
+    #       s3_uri: "S3Uri",
+    #     },
+    #     data_automation_configuration: {
+    #       data_automation_project_arn: "DataAutomationArn", # required
+    #       stage: "LIVE", # accepts LIVE, DEVELOPMENT
+    #     },
+    #     blueprints: [
+    #       {
+    #         blueprint_arn: "BlueprintArn", # required
+    #         version: "BlueprintVersion",
+    #         stage: "DEVELOPMENT", # accepts DEVELOPMENT, LIVE
+    #       },
+    #     ],
+    #     data_automation_profile_arn: "DataAutomationProfileArn", # required
+    #     encryption_configuration: {
+    #       kms_key_id: "KMSKeyId", # required
+    #       kms_encryption_context: {
+    #         "EncryptionContextKey" => "EncryptionContextValue",
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.semantic_modality #=> String, one of "DOCUMENT", "IMAGE", "AUDIO", "VIDEO"
+    #   resp.output_segments #=> Array
+    #   resp.output_segments[0].custom_output_status #=> String, one of "MATCH", "NO_MATCH"
+    #   resp.output_segments[0].custom_output #=> String
+    #   resp.output_segments[0].standard_output #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-data-automation-runtime-2024-06-13/InvokeDataAutomation AWS API Documentation
+    #
+    # @overload invoke_data_automation(params = {})
+    # @param [Hash] params ({})
+    def invoke_data_automation(params = {}, options = {})
+      req = build_request(:invoke_data_automation, params)
+      req.send_request(options)
+    end
+
     # Async API: Invoke data automation.
     #
     # @option params [String] :client_token
@@ -722,7 +788,7 @@ module Aws::BedrockDataAutomationRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockdataautomationruntime'
-      context[:gem_version] = '1.16.0'
+      context[:gem_version] = '1.17.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

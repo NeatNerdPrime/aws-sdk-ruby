@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.121.0 (2025-11-20)
+------------------
+
+* Feature - Add support for configuring S3 destination for step logs on a per-step basis.
+
 1.120.0 (2025-11-19)
 ------------------
 

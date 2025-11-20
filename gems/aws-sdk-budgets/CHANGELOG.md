@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.99.0 (2025-11-20)
+------------------
+
+* Feature - Add BillingViewHealthStatusException to DescribeBudgetPerformanceHistory and ServiceQuotaExceededException to UpdateBudget for improved error handling with Billing Views.
+
 1.98.0 (2025-11-03)
 ------------------
 

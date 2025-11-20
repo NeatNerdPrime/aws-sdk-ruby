@@ -774,6 +774,12 @@ module Aws::EMR
     #           main_class: "XmlString",
     #           args: ["XmlString"],
     #         },
+    #         step_monitoring_configuration: {
+    #           s3_monitoring_configuration: {
+    #             log_uri: "XmlString",
+    #             encryption_key_arn: "XmlString",
+    #           },
+    #         },
     #       },
     #     ],
     #     execution_role_arn: "ArnType",
@@ -1500,6 +1506,8 @@ module Aws::EMR
     #   resp.job_flows[0].steps[0].step_config.hadoop_jar_step.main_class #=> String
     #   resp.job_flows[0].steps[0].step_config.hadoop_jar_step.args #=> Array
     #   resp.job_flows[0].steps[0].step_config.hadoop_jar_step.args[0] #=> String
+    #   resp.job_flows[0].steps[0].step_config.step_monitoring_configuration.s3_monitoring_configuration.log_uri #=> String
+    #   resp.job_flows[0].steps[0].step_config.step_monitoring_configuration.s3_monitoring_configuration.encryption_key_arn #=> String
     #   resp.job_flows[0].steps[0].execution_status_detail.state #=> String, one of "PENDING", "RUNNING", "CONTINUE", "COMPLETED", "CANCELLED", "FAILED", "INTERRUPTED"
     #   resp.job_flows[0].steps[0].execution_status_detail.creation_date_time #=> Time
     #   resp.job_flows[0].steps[0].execution_status_detail.start_date_time #=> Time
@@ -1738,6 +1746,8 @@ module Aws::EMR
     #   resp.step.status.timeline.start_date_time #=> Time
     #   resp.step.status.timeline.end_date_time #=> Time
     #   resp.step.execution_role_arn #=> String
+    #   resp.step.log_uri #=> String
+    #   resp.step.encryption_key_arn #=> String
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -2740,6 +2750,8 @@ module Aws::EMR
     #   resp.steps[0].status.timeline.creation_date_time #=> Time
     #   resp.steps[0].status.timeline.start_date_time #=> Time
     #   resp.steps[0].status.timeline.end_date_time #=> Time
+    #   resp.steps[0].log_uri #=> String
+    #   resp.steps[0].encryption_key_arn #=> String
     #   resp.marker #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/ListSteps AWS API Documentation
@@ -3938,6 +3950,12 @@ module Aws::EMR
     #           main_class: "XmlString",
     #           args: ["XmlString"],
     #         },
+    #         step_monitoring_configuration: {
+    #           s3_monitoring_configuration: {
+    #             log_uri: "XmlString",
+    #             encryption_key_arn: "XmlString",
+    #           },
+    #         },
     #       },
     #     ],
     #     bootstrap_actions: [
@@ -4535,7 +4553,7 @@ module Aws::EMR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-emr'
-      context[:gem_version] = '1.120.0'
+      context[:gem_version] = '1.121.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

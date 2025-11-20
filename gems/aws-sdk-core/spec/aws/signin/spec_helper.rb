@@ -15,4 +15,4 @@ $:.unshift(File.expand_path('../../../aws-sigv4/lib', __FILE__))
 
 require 'rspec'
 require 'webmock/rspec'
-require 'aws-sdk-signin'
+require 'aws-sdk-core'

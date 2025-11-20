@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.239.0 (2025-11-20)
+------------------
+
+* Feature - Updated Aws::Signin::Client with the latest API changes.
+
 * Issue - Fix region configuration for LoginCredential's Signin client.
 
 3.238.0 (2025-11-19)

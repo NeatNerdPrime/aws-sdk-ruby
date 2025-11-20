@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.63.0 (2025-11-20)
+------------------
+
+* Feature - Add support for Braket spending limits.
+
 1.62.0 (2025-11-10)
 ------------------
 

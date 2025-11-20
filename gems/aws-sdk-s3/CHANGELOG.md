@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.205.0 (2025-11-20)
+------------------
+
+* Feature - Enable / Disable ABAC on a general purpose bucket.
+
 1.204.0 (2025-11-19)
 ------------------
 

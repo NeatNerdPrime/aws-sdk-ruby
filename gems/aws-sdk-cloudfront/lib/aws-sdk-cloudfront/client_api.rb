@@ -387,6 +387,10 @@ module Aws::CloudFront
     InvalidationSummary = Shapes::StructureShape.new(name: 'InvalidationSummary')
     InvalidationSummaryList = Shapes::ListShape.new(name: 'InvalidationSummaryList')
     IpAddressType = Shapes::StringShape.new(name: 'IpAddressType')
+    IpamCidrConfig = Shapes::StructureShape.new(name: 'IpamCidrConfig')
+    IpamCidrConfigList = Shapes::ListShape.new(name: 'IpamCidrConfigList')
+    IpamCidrStatus = Shapes::StringShape.new(name: 'IpamCidrStatus')
+    IpamConfig = Shapes::StructureShape.new(name: 'IpamConfig')
     ItemSelection = Shapes::StringShape.new(name: 'ItemSelection')
     KGKeyPairIds = Shapes::StructureShape.new(name: 'KGKeyPairIds')
     KGKeyPairIdsList = Shapes::ListShape.new(name: 'KGKeyPairIdsList')
@@ -833,6 +837,7 @@ module Aws::CloudFront
     AnycastIpList.add_member(:status, Shapes::ShapeRef.new(shape: string, required: true, location_name: "Status"))
     AnycastIpList.add_member(:arn, Shapes::ShapeRef.new(shape: string, required: true, location_name: "Arn"))
     AnycastIpList.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "IpAddressType"))
+    AnycastIpList.add_member(:ipam_config, Shapes::ShapeRef.new(shape: IpamConfig, location_name: "IpamConfig"))
     AnycastIpList.add_member(:anycast_ips, Shapes::ShapeRef.new(shape: AnycastIps, required: true, location_name: "AnycastIps"))
     AnycastIpList.add_member(:ip_count, Shapes::ShapeRef.new(shape: integer, required: true, location_name: "IpCount"))
     AnycastIpList.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: timestamp, required: true, location_name: "LastModifiedTime"))
@@ -856,6 +861,7 @@ module Aws::CloudFront
     AnycastIpListSummary.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: timestamp, required: true, location_name: "LastModifiedTime"))
     AnycastIpListSummary.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "IpAddressType"))
     AnycastIpListSummary.add_member(:etag, Shapes::ShapeRef.new(shape: string, location_name: "ETag"))
+    AnycastIpListSummary.add_member(:ipam_config, Shapes::ShapeRef.new(shape: IpamConfig, location_name: "IpamConfig"))
     AnycastIpListSummary.struct_class = Types::AnycastIpListSummary
 
     AnycastIps.member = Shapes::ShapeRef.new(shape: string, location_name: "AnycastIp")
@@ -1132,6 +1138,7 @@ module Aws::CloudFront
     CreateAnycastIpListRequest.add_member(:ip_count, Shapes::ShapeRef.new(shape: integer, required: true, location_name: "IpCount"))
     CreateAnycastIpListRequest.add_member(:tags, Shapes::ShapeRef.new(shape: Tags, location_name: "Tags"))
     CreateAnycastIpListRequest.add_member(:ip_address_type, Shapes::ShapeRef.new(shape: IpAddressType, location_name: "IpAddressType"))
+    CreateAnycastIpListRequest.add_member(:ipam_cidr_configs, Shapes::ShapeRef.new(shape: IpamCidrConfigList, location_name: "IpamCidrConfigs"))
     CreateAnycastIpListRequest.struct_class = Types::CreateAnycastIpListRequest
 
     CreateAnycastIpListResult.add_member(:anycast_ip_list, Shapes::ShapeRef.new(shape: AnycastIpList, location_name: "AnycastIpList"))
@@ -2391,6 +2398,18 @@ module Aws::CloudFront
     InvalidationSummary.struct_class = Types::InvalidationSummary
 
     InvalidationSummaryList.member = Shapes::ShapeRef.new(shape: InvalidationSummary, location_name: "InvalidationSummary")
+
+    IpamCidrConfig.add_member(:cidr, Shapes::ShapeRef.new(shape: string, required: true, location_name: "Cidr"))
+    IpamCidrConfig.add_member(:ipam_pool_arn, Shapes::ShapeRef.new(shape: string, required: true, location_name: "IpamPoolArn"))
+    IpamCidrConfig.add_member(:anycast_ip, Shapes::ShapeRef.new(shape: string, location_name: "AnycastIp"))
+    IpamCidrConfig.add_member(:status, Shapes::ShapeRef.new(shape: IpamCidrStatus, location_name: "Status"))
+    IpamCidrConfig.struct_class = Types::IpamCidrConfig
+
+    IpamCidrConfigList.member = Shapes::ShapeRef.new(shape: IpamCidrConfig, location_name: "IpamCidrConfig")
+
+    IpamConfig.add_member(:quantity, Shapes::ShapeRef.new(shape: integer, required: true, location_name: "Quantity"))
+    IpamConfig.add_member(:ipam_cidr_configs, Shapes::ShapeRef.new(shape: IpamCidrConfigList, required: true, location_name: "IpamCidrConfigs"))
+    IpamConfig.struct_class = Types::IpamConfig
 
     KGKeyPairIds.add_member(:key_group_id, Shapes::ShapeRef.new(shape: string, location_name: "KeyGroupId"))
     KGKeyPairIds.add_member(:key_pair_ids, Shapes::ShapeRef.new(shape: KeyPairIds, location_name: "KeyPairIds"))

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.340.0 (2025-11-20)
+------------------
+
+* Feature - Added training plan support for inference endpoints. Added HyperPod task governance with accelerator partition-based quota allocation. Added BatchRebootClusterNodes and BatchReplaceClusterNodes APIs. Updated ListClusterNodes to include privateDnsHostName.
+
 1.339.0 (2025-11-19)
 ------------------
 

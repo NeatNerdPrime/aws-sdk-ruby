@@ -16,7 +16,7 @@ end
 Aws::Plugins::GlobalConfiguration.add_identifier(:signin)
 
 # This module provides support for AWS Sign-In Service. This module is available in the
-# `aws-sdk-signin` gem.
+# `aws-sdk-core` gem.
 #
 # # Client
 #
@@ -56,7 +56,7 @@ module Aws::Signin
   autoload :EndpointProvider, 'aws-sdk-signin/endpoint_provider'
   autoload :Endpoints, 'aws-sdk-signin/endpoints'
 
-  GEM_VERSION = '1.0.0'
+  GEM_VERSION = '3.239.0'
 
 end
 

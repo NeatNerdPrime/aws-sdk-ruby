@@ -193,6 +193,27 @@ module Aws::CloudTrail
       include Aws::Structure
     end
 
+    # An object that contains configuration settings for aggregating events.
+    #
+    # @!attribute [rw] templates
+    #   A list of aggregation templates that can be used to configure event
+    #   aggregation.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] event_category
+    #   Specifies the event category for which aggregation should be
+    #   performed.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/AggregationConfiguration AWS API Documentation
+    #
+    class AggregationConfiguration < Struct.new(
+      :templates,
+      :event_category)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] event_data_store
     #   The ARN (or the ID suffix of the ARN) of an event data store on
     #   which the specified query is running.
@@ -2056,6 +2077,11 @@ module Aws::CloudTrail
       include Aws::Structure
     end
 
+    # @!attribute [rw] trail_name
+    #   The name of the trail for which you want to retrieve event
+    #   configuration settings.
+    #   @return [String]
+    #
     # @!attribute [rw] event_data_store
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
     #   data store for which you want to retrieve event configuration
@@ -2065,11 +2091,17 @@ module Aws::CloudTrail
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/GetEventConfigurationRequest AWS API Documentation
     #
     class GetEventConfigurationRequest < Struct.new(
+      :trail_name,
       :event_data_store)
       SENSITIVE = []
       include Aws::Structure
     end
 
+    # @!attribute [rw] trail_arn
+    #   The Amazon Resource Name (ARN) of the trail for which the event
+    #   configuration settings are returned.
+    #   @return [String]
+    #
     # @!attribute [rw] event_data_store_arn
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
     #   data store for which the event configuration settings are returned.
@@ -2085,12 +2117,19 @@ module Aws::CloudTrail
     #   data store.
     #   @return [Array<Types::ContextKeySelector>]
     #
+    # @!attribute [rw] aggregation_configurations
+    #   The list of aggregation configurations that are configured for the
+    #   trail.
+    #   @return [Array<Types::AggregationConfiguration>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/GetEventConfigurationResponse AWS API Documentation
     #
     class GetEventConfigurationResponse < Struct.new(
+      :trail_arn,
       :event_data_store_arn,
       :max_event_size,
-      :context_key_selectors)
+      :context_key_selectors,
+      :aggregation_configurations)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4118,10 +4157,14 @@ module Aws::CloudTrail
       include Aws::Structure
     end
 
+    # @!attribute [rw] trail_name
+    #   The name of the trail for which you want to update event
+    #   configuration settings.
+    #   @return [String]
+    #
     # @!attribute [rw] event_data_store
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
-    #   data store for which you want to update event configuration
-    #   settings.
+    #   data store for which event configuration settings are updated.
     #   @return [String]
     #
     # @!attribute [rw] max_event_size
@@ -4135,16 +4178,28 @@ module Aws::CloudTrail
     #   enriched event data.
     #   @return [Array<Types::ContextKeySelector>]
     #
+    # @!attribute [rw] aggregation_configurations
+    #   The list of aggregation configurations that you want to configure
+    #   for the trail.
+    #   @return [Array<Types::AggregationConfiguration>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/PutEventConfigurationRequest AWS API Documentation
     #
     class PutEventConfigurationRequest < Struct.new(
+      :trail_name,
       :event_data_store,
       :max_event_size,
-      :context_key_selectors)
+      :context_key_selectors,
+      :aggregation_configurations)
       SENSITIVE = []
       include Aws::Structure
     end
 
+    # @!attribute [rw] trail_arn
+    #   The Amazon Resource Name (ARN) of the trail that has aggregation
+    #   enabled.
+    #   @return [String]
+    #
     # @!attribute [rw] event_data_store_arn
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
     #   data store for which the event configuration settings were updated.
@@ -4160,12 +4215,19 @@ module Aws::CloudTrail
     #   data store.
     #   @return [Array<Types::ContextKeySelector>]
     #
+    # @!attribute [rw] aggregation_configurations
+    #   A list of aggregation configurations that are configured for the
+    #   trail.
+    #   @return [Array<Types::AggregationConfiguration>]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/PutEventConfigurationResponse AWS API Documentation
     #
     class PutEventConfigurationResponse < Struct.new(
+      :trail_arn,
       :event_data_store_arn,
       :max_event_size,
-      :context_key_selectors)
+      :context_key_selectors,
+      :aggregation_configurations)
       SENSITIVE = []
       include Aws::Structure
     end

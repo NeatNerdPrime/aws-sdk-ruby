@@ -10,6 +10,29 @@
 module Aws::S3
   module Types
 
+    # The ABAC status of the general purpose bucket. When ABAC is enabled
+    # for the general purpose bucket, you can use tags to manage access to
+    # the general purpose buckets as well as for cost tracking purposes.
+    # When ABAC is disabled for the general purpose buckets, you can only
+    # use tags for cost tracking purposes. For more information, see [Using
+    # tags with S3 general purpose buckets][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging.html
+    #
+    # @!attribute [rw] status
+    #   The ABAC status of the general purpose bucket.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/AbacStatus AWS API Documentation
+    #
+    class AbacStatus < Struct.new(
+      :status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Specifies the days since the initiation of an incomplete multipart
     # upload that Amazon S3 will wait before permanently removing all parts
     # of the upload. For more information, see [ Aborting Incomplete
@@ -6418,6 +6441,36 @@ module Aws::S3
     class FilterRule < Struct.new(
       :name,
       :value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] abac_status
+    #   The ABAC status of the general purpose bucket.
+    #   @return [Types::AbacStatus]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketAbacOutput AWS API Documentation
+    #
+    class GetBucketAbacOutput < Struct.new(
+      :abac_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] bucket
+    #   The name of the general purpose bucket.
+    #   @return [String]
+    #
+    # @!attribute [rw] expected_bucket_owner
+    #   The Amazon Web Services account ID of the general purpose bucket's
+    #   owner.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/GetBucketAbacRequest AWS API Documentation
+    #
+    class GetBucketAbacRequest < Struct.new(
+      :bucket,
+      :expected_bucket_owner)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -14292,6 +14345,58 @@ module Aws::S3
       :ignore_public_acls,
       :block_public_policy,
       :restrict_public_buckets)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] bucket
+    #   The name of the general purpose bucket.
+    #   @return [String]
+    #
+    # @!attribute [rw] content_md5
+    #   The MD5 hash of the `PutBucketAbac` request body.
+    #
+    #   For requests made using the Amazon Web Services Command Line
+    #   Interface (CLI) or Amazon Web Services SDKs, this field is
+    #   calculated automatically.
+    #   @return [String]
+    #
+    # @!attribute [rw] checksum_algorithm
+    #   Indicates the algorithm that you want Amazon S3 to use to create the
+    #   checksum. For more information, see [ Checking object integrity][1]
+    #   in the *Amazon S3 User Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html
+    #   @return [String]
+    #
+    # @!attribute [rw] expected_bucket_owner
+    #   The Amazon Web Services account ID of the general purpose bucket's
+    #   owner.
+    #   @return [String]
+    #
+    # @!attribute [rw] abac_status
+    #   The ABAC status of the general purpose bucket. When ABAC is enabled
+    #   for the general purpose bucket, you can use tags to manage access to
+    #   the general purpose buckets as well as for cost tracking purposes.
+    #   When ABAC is disabled for the general purpose buckets, you can only
+    #   use tags for cost tracking purposes. For more information, see
+    #   [Using tags with S3 general purpose buckets][1].
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/AmazonS3/latest/userguide/buckets-tagging.html
+    #   @return [Types::AbacStatus]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/s3-2006-03-01/PutBucketAbacRequest AWS API Documentation
+    #
+    class PutBucketAbacRequest < Struct.new(
+      :bucket,
+      :content_md5,
+      :checksum_algorithm,
+      :expected_bucket_owner,
+      :abac_status)
       SENSITIVE = []
       include Aws::Structure
     end

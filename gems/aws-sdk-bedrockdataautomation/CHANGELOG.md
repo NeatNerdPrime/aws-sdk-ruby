@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.21.0 (2025-11-20)
+------------------
+
+* Feature - Added support for Synchronous project type and PII Detection and Redaction
+
 1.20.0 (2025-11-11)
 ------------------
 

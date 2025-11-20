@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.148.0 (2025-11-20)
+------------------
+
+* Feature - This release adds support for three new features: 1) Image ID overrides in mixed instances policy, 2) Replace Root Volume - a new strategy for Instance Refresh, and 3) Instance Lifecycle Policy for enhanced instance lifecycle management.
+
 1.147.0 (2025-11-18)
 ------------------
 

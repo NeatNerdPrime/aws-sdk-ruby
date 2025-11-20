@@ -1814,8 +1814,13 @@ module Aws::CloudTrail
     end
 
     # Retrieves the current event configuration settings for the specified
-    # event data store, including details about maximum event size and
-    # context key selectors configured for the event data store.
+    # event data store or trail. The response includes maximum event size
+    # configuration, the context key selectors configured for the event data
+    # store, and any aggregation settings configured for the trail.
+    #
+    # @option params [String] :trail_name
+    #   The name of the trail for which you want to retrieve event
+    #   configuration settings.
     #
     # @option params [String] :event_data_store
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
@@ -1824,24 +1829,32 @@ module Aws::CloudTrail
     #
     # @return [Types::GetEventConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::GetEventConfigurationResponse#trail_arn #trail_arn} => String
     #   * {Types::GetEventConfigurationResponse#event_data_store_arn #event_data_store_arn} => String
     #   * {Types::GetEventConfigurationResponse#max_event_size #max_event_size} => String
     #   * {Types::GetEventConfigurationResponse#context_key_selectors #context_key_selectors} => Array&lt;Types::ContextKeySelector&gt;
+    #   * {Types::GetEventConfigurationResponse#aggregation_configurations #aggregation_configurations} => Array&lt;Types::AggregationConfiguration&gt;
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_event_configuration({
+    #     trail_name: "String",
     #     event_data_store: "String",
     #   })
     #
     # @example Response structure
     #
+    #   resp.trail_arn #=> String
     #   resp.event_data_store_arn #=> String
     #   resp.max_event_size #=> String, one of "Standard", "Large"
     #   resp.context_key_selectors #=> Array
     #   resp.context_key_selectors[0].type #=> String, one of "TagContext", "RequestContext"
     #   resp.context_key_selectors[0].equals #=> Array
     #   resp.context_key_selectors[0].equals[0] #=> String
+    #   resp.aggregation_configurations #=> Array
+    #   resp.aggregation_configurations[0].templates #=> Array
+    #   resp.aggregation_configurations[0].templates[0] #=> String, one of "API_ACTIVITY", "RESOURCE_ACCESS", "USER_ACTIONS"
+    #   resp.aggregation_configurations[0].event_category #=> String, one of "Data"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/GetEventConfiguration AWS API Documentation
     #
@@ -3225,49 +3238,72 @@ module Aws::CloudTrail
     end
 
     # Updates the event configuration settings for the specified event data
-    # store. You can update the maximum event size and context key
-    # selectors.
+    # store or trail. This operation supports updating the maximum event
+    # size, adding or modifying context key selectors for event data store,
+    # and configuring aggregation settings for the trail.
+    #
+    # @option params [String] :trail_name
+    #   The name of the trail for which you want to update event configuration
+    #   settings.
     #
     # @option params [String] :event_data_store
     #   The Amazon Resource Name (ARN) or ID suffix of the ARN of the event
-    #   data store for which you want to update event configuration settings.
+    #   data store for which event configuration settings are updated.
     #
-    # @option params [required, String] :max_event_size
+    # @option params [String] :max_event_size
     #   The maximum allowed size for events to be stored in the specified
     #   event data store. If you are using context key selectors, MaxEventSize
     #   must be set to Large.
     #
-    # @option params [required, Array<Types::ContextKeySelector>] :context_key_selectors
+    # @option params [Array<Types::ContextKeySelector>] :context_key_selectors
     #   A list of context key selectors that will be included to provide
     #   enriched event data.
     #
+    # @option params [Array<Types::AggregationConfiguration>] :aggregation_configurations
+    #   The list of aggregation configurations that you want to configure for
+    #   the trail.
+    #
     # @return [Types::PutEventConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
+    #   * {Types::PutEventConfigurationResponse#trail_arn #trail_arn} => String
     #   * {Types::PutEventConfigurationResponse#event_data_store_arn #event_data_store_arn} => String
     #   * {Types::PutEventConfigurationResponse#max_event_size #max_event_size} => String
     #   * {Types::PutEventConfigurationResponse#context_key_selectors #context_key_selectors} => Array&lt;Types::ContextKeySelector&gt;
+    #   * {Types::PutEventConfigurationResponse#aggregation_configurations #aggregation_configurations} => Array&lt;Types::AggregationConfiguration&gt;
     #
     # @example Request syntax with placeholder values
     #
     #   resp = client.put_event_configuration({
+    #     trail_name: "String",
     #     event_data_store: "String",
-    #     max_event_size: "Standard", # required, accepts Standard, Large
-    #     context_key_selectors: [ # required
+    #     max_event_size: "Standard", # accepts Standard, Large
+    #     context_key_selectors: [
     #       {
     #         type: "TagContext", # required, accepts TagContext, RequestContext
     #         equals: ["OperatorTargetListMember"], # required
+    #       },
+    #     ],
+    #     aggregation_configurations: [
+    #       {
+    #         templates: ["API_ACTIVITY"], # required, accepts API_ACTIVITY, RESOURCE_ACCESS, USER_ACTIONS
+    #         event_category: "Data", # required, accepts Data
     #       },
     #     ],
     #   })
     #
     # @example Response structure
     #
+    #   resp.trail_arn #=> String
     #   resp.event_data_store_arn #=> String
     #   resp.max_event_size #=> String, one of "Standard", "Large"
     #   resp.context_key_selectors #=> Array
     #   resp.context_key_selectors[0].type #=> String, one of "TagContext", "RequestContext"
     #   resp.context_key_selectors[0].equals #=> Array
     #   resp.context_key_selectors[0].equals[0] #=> String
+    #   resp.aggregation_configurations #=> Array
+    #   resp.aggregation_configurations[0].templates #=> Array
+    #   resp.aggregation_configurations[0].templates[0] #=> String, one of "API_ACTIVITY", "RESOURCE_ACCESS", "USER_ACTIONS"
+    #   resp.aggregation_configurations[0].event_category #=> String, one of "Data"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudtrail-2013-11-01/PutEventConfiguration AWS API Documentation
     #
@@ -4848,7 +4884,7 @@ module Aws::CloudTrail
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cloudtrail'
-      context[:gem_version] = '1.114.0'
+      context[:gem_version] = '1.115.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

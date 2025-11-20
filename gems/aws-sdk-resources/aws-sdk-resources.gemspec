@@ -384,7 +384,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency('aws-sdk-servicequotas', '~> 1')
   spec.add_dependency('aws-sdk-shield', '~> 1')
   spec.add_dependency('aws-sdk-signer', '~> 1')
-  spec.add_dependency('aws-sdk-signin', '~> 1')
   spec.add_dependency('aws-sdk-simspaceweaver', '~> 1')
   spec.add_dependency('aws-sdk-simpledb', '~> 1')
   spec.add_dependency('aws-sdk-snowdevicemanagement', '~> 1')

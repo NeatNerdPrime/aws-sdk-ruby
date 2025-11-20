@@ -10,6 +10,33 @@
 module Aws::SageMaker
   module Types
 
+    # Configuration for allocating accelerator partitions.
+    #
+    # @!attribute [rw] type
+    #   The Multi-Instance GPU (MIG) profile type that defines the partition
+    #   configuration. The profile specifies the compute and memory
+    #   allocation for each partition instance. The available profile types
+    #   depend on the instance type specified in the compute quota
+    #   configuration.
+    #   @return [String]
+    #
+    # @!attribute [rw] count
+    #   The number of accelerator partitions to allocate with the specified
+    #   partition type. If you don't specify a value for vCPU and
+    #   MemoryInGiB, SageMaker AI automatically allocates ratio-based values
+    #   for those parameters based on the accelerator partition count you
+    #   provide.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/AcceleratorPartitionConfig AWS API Documentation
+    #
+    class AcceleratorPartitionConfig < Struct.new(
+      :type,
+      :count)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A structure describing the source of an action.
     #
     # @!attribute [rw] source_uri
@@ -3452,6 +3479,348 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # Represents an error encountered when rebooting a node (identified by
+    # its logical node ID) from a SageMaker HyperPod cluster.
+    #
+    # @!attribute [rw] node_logical_id
+    #   The logical node ID of the node that encountered an error during the
+    #   reboot operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] error_code
+    #   The error code associated with the error encountered when rebooting
+    #   a node by logical node ID.
+    #
+    #   Possible values:
+    #
+    #   * `InstanceIdNotFound`: The node does not exist in the specified
+    #     cluster.
+    #
+    #   * `InvalidInstanceStatus`: The node is in a state that does not
+    #     allow rebooting. Wait for the node to finish any ongoing changes
+    #     before retrying.
+    #
+    #   * `InstanceIdInUse`: Another operation is already in progress for
+    #     this node. Wait for the operation to complete before retrying.
+    #
+    #   * `InternalServerError`: An internal error occurred while processing
+    #     this node.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   A human-readable message describing the error encountered when
+    #   rebooting a node by logical node ID.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchRebootClusterNodeLogicalIdsError AWS API Documentation
+    #
+    class BatchRebootClusterNodeLogicalIdsError < Struct.new(
+      :node_logical_id,
+      :error_code,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents an error encountered when rebooting a node from a SageMaker
+    # HyperPod cluster.
+    #
+    # @!attribute [rw] node_id
+    #   The EC2 instance ID of the node that encountered an error during the
+    #   reboot operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] error_code
+    #   The error code associated with the error encountered when rebooting
+    #   a node.
+    #
+    #   Possible values:
+    #
+    #   * `InstanceIdNotFound`: The instance does not exist in the specified
+    #     cluster.
+    #
+    #   * `InvalidInstanceStatus`: The instance is in a state that does not
+    #     allow rebooting. Wait for the instance to finish any ongoing
+    #     changes before retrying.
+    #
+    #   * `InstanceIdInUse`: Another operation is already in progress for
+    #     this node. Wait for the operation to complete before retrying.
+    #
+    #   * `InternalServerError`: An internal error occurred while processing
+    #     this node.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   A human-readable message describing the error encountered when
+    #   rebooting a node.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchRebootClusterNodesError AWS API Documentation
+    #
+    class BatchRebootClusterNodesError < Struct.new(
+      :node_id,
+      :error_code,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] cluster_name
+    #   The name or Amazon Resource Name (ARN) of the SageMaker HyperPod
+    #   cluster containing the nodes to reboot.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_ids
+    #   A list of EC2 instance IDs to reboot using soft recovery. You can
+    #   specify between 1 and 25 instance IDs.
+    #
+    #   <note markdown="1"> * Either `NodeIds` or `NodeLogicalIds` must be provided (or both),
+    #     but at least one is required.
+    #
+    #   * Each instance ID must follow the pattern `i-` followed by 17
+    #     hexadecimal characters (for example, `i-0123456789abcdef0`).
+    #
+    #    </note>
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] node_logical_ids
+    #   A list of logical node IDs to reboot using soft recovery. You can
+    #   specify between 1 and 25 logical node IDs.
+    #
+    #   The `NodeLogicalId` is a unique identifier that persists throughout
+    #   the node's lifecycle and can be used to track nodes that are still
+    #   being provisioned and don't yet have an EC2 instance ID assigned.
+    #
+    #   * This parameter is only supported for clusters using `Continuous`
+    #     as the `NodeProvisioningMode`. For clusters using the default
+    #     provisioning mode, use `NodeIds` instead.
+    #
+    #   * Either `NodeIds` or `NodeLogicalIds` must be provided (or both),
+    #     but at least one is required.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchRebootClusterNodesRequest AWS API Documentation
+    #
+    class BatchRebootClusterNodesRequest < Struct.new(
+      :cluster_name,
+      :node_ids,
+      :node_logical_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] successful
+    #   A list of EC2 instance IDs for which the reboot operation was
+    #   successfully initiated.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] failed
+    #   A list of errors encountered for EC2 instance IDs that could not be
+    #   rebooted. Each error includes the instance ID, an error code, and a
+    #   descriptive message.
+    #   @return [Array<Types::BatchRebootClusterNodesError>]
+    #
+    # @!attribute [rw] failed_node_logical_ids
+    #   A list of errors encountered for logical node IDs that could not be
+    #   rebooted. Each error includes the logical node ID, an error code,
+    #   and a descriptive message. This field is only present when
+    #   `NodeLogicalIds` were provided in the request.
+    #   @return [Array<Types::BatchRebootClusterNodeLogicalIdsError>]
+    #
+    # @!attribute [rw] successful_node_logical_ids
+    #   A list of logical node IDs for which the reboot operation was
+    #   successfully initiated. This field is only present when
+    #   `NodeLogicalIds` were provided in the request.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchRebootClusterNodesResponse AWS API Documentation
+    #
+    class BatchRebootClusterNodesResponse < Struct.new(
+      :successful,
+      :failed,
+      :failed_node_logical_ids,
+      :successful_node_logical_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents an error encountered when replacing a node (identified by
+    # its logical node ID) in a SageMaker HyperPod cluster.
+    #
+    # @!attribute [rw] node_logical_id
+    #   The logical node ID of the node that encountered an error during the
+    #   replacement operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] error_code
+    #   The error code associated with the error encountered when replacing
+    #   a node by logical node ID.
+    #
+    #   Possible values:
+    #
+    #   * `InstanceIdNotFound`: The node does not exist in the specified
+    #     cluster.
+    #
+    #   * `InvalidInstanceStatus`: The node is in a state that does not
+    #     allow replacement. Wait for the node to finish any ongoing changes
+    #     before retrying.
+    #
+    #   * `InstanceIdInUse`: Another operation is already in progress for
+    #     this node. Wait for the operation to complete before retrying.
+    #
+    #   * `InternalServerError`: An internal error occurred while processing
+    #     this node.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   A human-readable message describing the error encountered when
+    #   replacing a node by logical node ID.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchReplaceClusterNodeLogicalIdsError AWS API Documentation
+    #
+    class BatchReplaceClusterNodeLogicalIdsError < Struct.new(
+      :node_logical_id,
+      :error_code,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents an error encountered when replacing a node in a SageMaker
+    # HyperPod cluster.
+    #
+    # @!attribute [rw] node_id
+    #   The EC2 instance ID of the node that encountered an error during the
+    #   replacement operation.
+    #   @return [String]
+    #
+    # @!attribute [rw] error_code
+    #   The error code associated with the error encountered when replacing
+    #   a node.
+    #
+    #   Possible values:
+    #
+    #   * `InstanceIdNotFound`: The instance does not exist in the specified
+    #     cluster.
+    #
+    #   * `InvalidInstanceStatus`: The instance is in a state that does not
+    #     allow replacement. Wait for the instance to finish any ongoing
+    #     changes before retrying.
+    #
+    #   * `InstanceIdInUse`: Another operation is already in progress for
+    #     this node. Wait for the operation to complete before retrying.
+    #
+    #   * `InternalServerError`: An internal error occurred while processing
+    #     this node.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   A human-readable message describing the error encountered when
+    #   replacing a node.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchReplaceClusterNodesError AWS API Documentation
+    #
+    class BatchReplaceClusterNodesError < Struct.new(
+      :node_id,
+      :error_code,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] cluster_name
+    #   The name or Amazon Resource Name (ARN) of the SageMaker HyperPod
+    #   cluster containing the nodes to replace.
+    #   @return [String]
+    #
+    # @!attribute [rw] node_ids
+    #   A list of EC2 instance IDs to replace with new hardware. You can
+    #   specify between 1 and 25 instance IDs.
+    #
+    #   Replace operations destroy all instance volumes (root and
+    #   secondary). Ensure you have backed up any important data before
+    #   proceeding.
+    #
+    #   <note markdown="1"> * Either `NodeIds` or `NodeLogicalIds` must be provided (or both),
+    #     but at least one is required.
+    #
+    #   * Each instance ID must follow the pattern `i-` followed by 17
+    #     hexadecimal characters (for example, `i-0123456789abcdef0`).
+    #
+    #   * For SageMaker HyperPod clusters using the Slurm workload manager,
+    #     you cannot replace instances that are configured as Slurm
+    #     controller nodes.
+    #
+    #    </note>
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] node_logical_ids
+    #   A list of logical node IDs to replace with new hardware. You can
+    #   specify between 1 and 25 logical node IDs.
+    #
+    #   The `NodeLogicalId` is a unique identifier that persists throughout
+    #   the node's lifecycle and can be used to track nodes that are still
+    #   being provisioned and don't yet have an EC2 instance ID assigned.
+    #
+    #   * Replace operations destroy all instance volumes (root and
+    #     secondary). Ensure you have backed up any important data before
+    #     proceeding.
+    #
+    #   * This parameter is only supported for clusters using `Continuous`
+    #     as the `NodeProvisioningMode`. For clusters using the default
+    #     provisioning mode, use `NodeIds` instead.
+    #
+    #   * Either `NodeIds` or `NodeLogicalIds` must be provided (or both),
+    #     but at least one is required.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchReplaceClusterNodesRequest AWS API Documentation
+    #
+    class BatchReplaceClusterNodesRequest < Struct.new(
+      :cluster_name,
+      :node_ids,
+      :node_logical_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] successful
+    #   A list of EC2 instance IDs for which the replacement operation was
+    #   successfully initiated.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] failed
+    #   A list of errors encountered for EC2 instance IDs that could not be
+    #   replaced. Each error includes the instance ID, an error code, and a
+    #   descriptive message.
+    #   @return [Array<Types::BatchReplaceClusterNodesError>]
+    #
+    # @!attribute [rw] failed_node_logical_ids
+    #   A list of errors encountered for logical node IDs that could not be
+    #   replaced. Each error includes the logical node ID, an error code,
+    #   and a descriptive message. This field is only present when
+    #   `NodeLogicalIds` were provided in the request.
+    #   @return [Array<Types::BatchReplaceClusterNodeLogicalIdsError>]
+    #
+    # @!attribute [rw] successful_node_logical_ids
+    #   A list of logical node IDs for which the replacement operation was
+    #   successfully initiated. This field is only present when
+    #   `NodeLogicalIds` were provided in the request.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchReplaceClusterNodesResponse AWS API Documentation
+    #
+    class BatchReplaceClusterNodesResponse < Struct.new(
+      :successful,
+      :failed,
+      :failed_node_logical_ids,
+      :successful_node_logical_ids)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Input object for the batch transform job.
     #
     # @!attribute [rw] data_captured_destination_s3_uri
@@ -5536,6 +5905,10 @@ module Aws::SageMaker
     #   Contains information about the UltraServer.
     #   @return [Types::UltraServerInfo]
     #
+    # @!attribute [rw] private_dns_hostname
+    #   The private DNS hostname of the SageMaker HyperPod cluster node.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ClusterNodeSummary AWS API Documentation
     #
     class ClusterNodeSummary < Struct.new(
@@ -5546,7 +5919,8 @@ module Aws::SageMaker
       :launch_time,
       :last_software_update_time,
       :instance_status,
-      :ultra_server_info)
+      :ultra_server_info,
+      :private_dns_hostname)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6294,6 +6668,11 @@ module Aws::SageMaker
     #   Accelerators are set to 0.
     #   @return [Float]
     #
+    # @!attribute [rw] accelerator_partition
+    #   The accelerator partition configuration for fractional GPU
+    #   allocation.
+    #   @return [Types::AcceleratorPartitionConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ComputeQuotaResourceConfig AWS API Documentation
     #
     class ComputeQuotaResourceConfig < Struct.new(
@@ -6301,7 +6680,8 @@ module Aws::SageMaker
       :count,
       :accelerators,
       :v_cpu,
-      :memory_in_gi_b)
+      :memory_in_gi_b,
+      :accelerator_partition)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -20816,7 +21196,7 @@ module Aws::SageMaker
     #
     # @!attribute [rw] target_resources
     #   The target resources (e.g., SageMaker Training Jobs, SageMaker
-    #   HyperPod) that can use this training plan.
+    #   HyperPod, SageMaker Endpoints) that can use this training plan.
     #
     #   Training plans are specific to their target resource.
     #
@@ -20825,6 +21205,10 @@ module Aws::SageMaker
     #
     #   * A training plan for HyperPod clusters can be used exclusively to
     #     provide compute resources to a cluster's instance group.
+    #
+    #   * A training plan for SageMaker endpoints can be used exclusively to
+    #     provide compute resources to SageMaker endpoints for model
+    #     deployment.
     #   @return [Array<String>]
     #
     # @!attribute [rw] reserved_capacity_summaries
@@ -45661,7 +46045,7 @@ module Aws::SageMaker
     #
     # @!attribute [rw] target_resources
     #   The target resources (e.g., SageMaker Training Jobs, SageMaker
-    #   HyperPod) to search for in the offerings.
+    #   HyperPod, SageMaker Endpoints) to search for in the offerings.
     #
     #   Training plans are specific to their target resource.
     #
@@ -45670,6 +46054,10 @@ module Aws::SageMaker
     #
     #   * A training plan for HyperPod clusters can be used exclusively to
     #     provide compute resources to a cluster's instance group.
+    #
+    #   * A training plan for SageMaker endpoints can be used exclusively to
+    #     provide compute resources to SageMaker endpoints for model
+    #     deployment.
     #   @return [Array<String>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/SearchTrainingPlanOfferingsRequest AWS API Documentation
@@ -48905,7 +49293,7 @@ module Aws::SageMaker
     #
     # @!attribute [rw] target_resources
     #   The target resources (e.g., SageMaker Training Jobs, SageMaker
-    #   HyperPod) for this training plan offering.
+    #   HyperPod, SageMaker Endpoints) for this training plan offering.
     #
     #   Training plans are specific to their target resource.
     #
@@ -48914,6 +49302,10 @@ module Aws::SageMaker
     #
     #   * A training plan for HyperPod clusters can be used exclusively to
     #     provide compute resources to a cluster's instance group.
+    #
+    #   * A training plan for SageMaker endpoints can be used exclusively to
+    #     provide compute resources to SageMaker endpoints for model
+    #     deployment.
     #   @return [Array<String>]
     #
     # @!attribute [rw] requested_start_time_after
@@ -49035,8 +49427,8 @@ module Aws::SageMaker
     #   @return [Integer]
     #
     # @!attribute [rw] target_resources
-    #   The target resources (e.g., training jobs, HyperPod clusters) that
-    #   can use this training plan.
+    #   The target resources (e.g., training jobs, HyperPod clusters,
+    #   Endpoints) that can use this training plan.
     #
     #   Training plans are specific to their target resource.
     #
@@ -49045,6 +49437,10 @@ module Aws::SageMaker
     #
     #   * A training plan for HyperPod clusters can be used exclusively to
     #     provide compute resources to a cluster's instance group.
+    #
+    #   * A training plan for SageMaker endpoints can be used exclusively to
+    #     provide compute resources to SageMaker endpoints for model
+    #     deployment.
     #   @return [Array<String>]
     #
     # @!attribute [rw] reserved_capacity_summaries

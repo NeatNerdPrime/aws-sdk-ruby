@@ -6029,6 +6029,31 @@ module Aws::EMR
       include Aws::Structure
     end
 
+    # The Amazon S3 configuration for monitoring log publishing. You can
+    # configure your step to send log information to Amazon S3. When it's
+    # specified, it takes precedence over the cluster's logging
+    # configuration. If you don't specify this configuration entirely, or
+    # omit individual fields, EMR falls back to cluster-level logging
+    # behavior.
+    #
+    # @!attribute [rw] log_uri
+    #   The Amazon S3 destination URI for log publishing.
+    #   @return [String]
+    #
+    # @!attribute [rw] encryption_key_arn
+    #   The KMS key ARN to encrypt the logs published to the given Amazon S3
+    #   destination.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/S3MonitoringConfiguration AWS API Documentation
+    #
+    class S3MonitoringConfiguration < Struct.new(
+      :log_uri,
+      :encryption_key_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # The type of adjustment the automatic scaling activity makes when
     # triggered, and the periodicity of the adjustment.
     #
@@ -6716,6 +6741,15 @@ module Aws::EMR
     #   formatted runtime role ARN.
     #   @return [String]
     #
+    # @!attribute [rw] log_uri
+    #   The Amazon S3 destination URI for log publishing.
+    #   @return [String]
+    #
+    # @!attribute [rw] encryption_key_arn
+    #   The KMS key ARN to encrypt the logs published to the given Amazon S3
+    #   destination.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/Step AWS API Documentation
     #
     class Step < Struct.new(
@@ -6724,7 +6758,9 @@ module Aws::EMR
       :config,
       :action_on_failure,
       :status,
-      :execution_role_arn)
+      :execution_role_arn,
+      :log_uri,
+      :encryption_key_arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6768,12 +6804,17 @@ module Aws::EMR
     #   The JAR file used for the step.
     #   @return [Types::HadoopJarStepConfig]
     #
+    # @!attribute [rw] step_monitoring_configuration
+    #   Object that holds configuration properties for logging.
+    #   @return [Types::StepMonitoringConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StepConfig AWS API Documentation
     #
     class StepConfig < Struct.new(
       :name,
       :action_on_failure,
-      :hadoop_jar_step)
+      :hadoop_jar_step,
+      :step_monitoring_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6827,6 +6868,25 @@ module Aws::EMR
       :start_date_time,
       :end_date_time,
       :last_state_change_reason)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Object that holds configuration properties for logging.
+    #
+    # @!attribute [rw] s3_monitoring_configuration
+    #   The Amazon S3 configuration for monitoring log publishing. You can
+    #   configure your step to send log information to Amazon S3. When it's
+    #   specified, it takes precedence over the cluster's logging
+    #   configuration. If you don't specify this configuration entirely, or
+    #   omit individual fields, EMR falls back to cluster-level logging
+    #   behavior.
+    #   @return [Types::S3MonitoringConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StepMonitoringConfiguration AWS API Documentation
+    #
+    class StepMonitoringConfiguration < Struct.new(
+      :s3_monitoring_configuration)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6905,6 +6965,15 @@ module Aws::EMR
     #   The current execution status details of the cluster step.
     #   @return [Types::StepStatus]
     #
+    # @!attribute [rw] log_uri
+    #   The Amazon S3 destination URI for log publishing.
+    #   @return [String]
+    #
+    # @!attribute [rw] encryption_key_arn
+    #   The KMS key ARN to encrypt the logs published to the given Amazon S3
+    #   destination.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/elasticmapreduce-2009-03-31/StepSummary AWS API Documentation
     #
     class StepSummary < Struct.new(
@@ -6912,7 +6981,9 @@ module Aws::EMR
       :name,
       :config,
       :action_on_failure,
-      :status)
+      :status,
+      :log_uri,
+      :encryption_key_arn)
       SENSITIVE = []
       include Aws::Structure
     end

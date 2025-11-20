@@ -6132,6 +6132,7 @@ module Aws::Connect
     SendNotificationActionDefinition.add_member(:content, Shapes::ShapeRef.new(shape: Content, required: true, location_name: "Content"))
     SendNotificationActionDefinition.add_member(:content_type, Shapes::ShapeRef.new(shape: NotificationContentType, required: true, location_name: "ContentType"))
     SendNotificationActionDefinition.add_member(:recipient, Shapes::ShapeRef.new(shape: NotificationRecipientType, required: true, location_name: "Recipient"))
+    SendNotificationActionDefinition.add_member(:exclusion, Shapes::ShapeRef.new(shape: NotificationRecipientType, location_name: "Exclusion"))
     SendNotificationActionDefinition.struct_class = Types::SendNotificationActionDefinition
 
     SendOutboundEmailRequest.add_member(:instance_id, Shapes::ShapeRef.new(shape: InstanceId, required: true, location: "uri", location_name: "InstanceId"))

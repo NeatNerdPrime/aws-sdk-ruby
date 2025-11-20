@@ -240,6 +240,11 @@ module Aws::CloudFront
     #   The IP address type for the Anycast static IP list.
     #   @return [String]
     #
+    # @!attribute [rw] ipam_config
+    #   The IPAM configuration for the Anycast static IP list, that contains
+    #   the quantity and list of IPAM CIDR configurations.
+    #   @return [Types::IpamConfig]
+    #
     # @!attribute [rw] anycast_ips
     #   The static IP addresses that are allocated to the Anycast static IP
     #   list.
@@ -261,6 +266,7 @@ module Aws::CloudFront
       :status,
       :arn,
       :ip_address_type,
+      :ipam_config,
       :anycast_ips,
       :ip_count,
       :last_modified_time)
@@ -352,6 +358,11 @@ module Aws::CloudFront
     #   The current version (ETag value) of the Anycast static IP list.
     #   @return [String]
     #
+    # @!attribute [rw] ipam_config
+    #   The IPAM configuration for the Anycast static IP list, that contains
+    #   the quantity and list of IPAM CIDR configurations.
+    #   @return [Types::IpamConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/AnycastIpListSummary AWS API Documentation
     #
     class AnycastIpListSummary < Struct.new(
@@ -362,7 +373,8 @@ module Aws::CloudFront
       :ip_count,
       :last_modified_time,
       :ip_address_type,
-      :etag)
+      :etag,
+      :ipam_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2235,12 +2247,18 @@ module Aws::CloudFront
     #   The IP address type for the Anycast static IP list. You can specify
     #   one of the following options:
     #
-    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #   * `ipv4` only
     #
-    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #   * `ipv6` only
     #
     #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
     #   @return [String]
+    #
+    # @!attribute [rw] ipam_cidr_configs
+    #   A list of IPAM CIDR configurations that specify the IP address
+    #   ranges and IPAM pool settings for creating the Anycast static IP
+    #   list.
+    #   @return [Array<Types::IpamCidrConfig>]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/CreateAnycastIpListRequest AWS API Documentation
     #
@@ -2248,7 +2266,8 @@ module Aws::CloudFront
       :name,
       :ip_count,
       :tags,
-      :ip_address_type)
+      :ip_address_type,
+      :ipam_cidr_configs)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8372,6 +8391,61 @@ module Aws::CloudFront
       :id,
       :create_time,
       :status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for an IPAM CIDR that defines a specific IP address
+    # range, IPAM pool, and associated Anycast IP address.
+    #
+    # @!attribute [rw] cidr
+    #   The CIDR that specifies the IP address range for this IPAM
+    #   configuration.
+    #   @return [String]
+    #
+    # @!attribute [rw] ipam_pool_arn
+    #   The Amazon Resource Name (ARN) of the IPAM pool that the CIDR block
+    #   is assigned to.
+    #   @return [String]
+    #
+    # @!attribute [rw] anycast_ip
+    #   The specified Anycast IP address allocated from the IPAM pool for
+    #   this CIDR configuration.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current status of the IPAM CIDR configuration.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/IpamCidrConfig AWS API Documentation
+    #
+    class IpamCidrConfig < Struct.new(
+      :cidr,
+      :ipam_pool_arn,
+      :anycast_ip,
+      :status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The configuration IPAM settings that includes the quantity of CIDR
+    # configurations and the list of IPAM CIDR configurations.
+    #
+    # @!attribute [rw] quantity
+    #   The number of IPAM CIDR configurations in the `IpamCidrConfigs`
+    #   list.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] ipam_cidr_configs
+    #   A list of IPAM CIDR configurations that define the IP address
+    #   ranges, IPAM pools, and associated Anycast IP addresses.
+    #   @return [Array<Types::IpamCidrConfig>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/cloudfront-2020-05-31/IpamConfig AWS API Documentation
+    #
+    class IpamConfig < Struct.new(
+      :quantity,
+      :ipam_cidr_configs)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -15035,9 +15109,9 @@ module Aws::CloudFront
     #   The IP address type for the Anycast static IP list. You can specify
     #   one of the following options:
     #
-    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #   * `ipv4` only
     #
-    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #   * `ipv6` only
     #
     #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
     #   @return [String]

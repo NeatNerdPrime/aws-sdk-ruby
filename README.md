@@ -451,7 +451,7 @@ RubyGems.org page under "LINKS" section.
 | AWS Service Catalog                                   | Aws::ServiceCatalog                      | aws-sdk-servicecatalog                      | 2015-12-10  |
 | AWS Service Catalog App Registry                      | Aws::AppRegistry                         | aws-sdk-appregistry                         | 2020-06-24  |
 | AWS Shield                                            | Aws::Shield                              | aws-sdk-shield                              | 2016-06-02  |
-| AWS Sign-In Service                                   | Aws::Signin                              | aws-sdk-signin                              | 2023-01-01  |
+| AWS Sign-In Service                                   | Aws::Signin                              | aws-sdk-core                                | 2023-01-01  |
 | AWS Signer                                            | Aws::Signer                              | aws-sdk-signer                              | 2017-08-25  |
 | AWS SimSpace Weaver                                   | Aws::SimSpaceWeaver                      | aws-sdk-simspaceweaver                      | 2022-10-28  |
 | AWS Single Sign-On                                    | Aws::SSO                                 | aws-sdk-core                                | 2019-06-10  |

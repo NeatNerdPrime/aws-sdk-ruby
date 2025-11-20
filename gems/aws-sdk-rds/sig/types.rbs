@@ -4404,6 +4404,9 @@ module Aws::RDS
       SENSITIVE: []
     end
 
+    class VpcEncryptionControlViolationException < Aws::EmptyStructure
+    end
+
     class VpcSecurityGroupMembership
       attr_accessor vpc_security_group_id: ::String
       attr_accessor status: ::String

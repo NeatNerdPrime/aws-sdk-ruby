@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.93.0 (2025-11-20)
+------------------
+
+* Feature - EC2 Image Builder now enables the distribution of existing AMIs, retry distribution, and define distribution workflows. It also supports automatic versioning for recipes and components, allowing automatic version increments and dynamic referencing in pipelines.
+
 1.92.0 (2025-11-14)
 ------------------
 

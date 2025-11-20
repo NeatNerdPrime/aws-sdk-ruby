@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.246.0 (2025-11-20)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-core` gem.
+
+* Feature - Removed a dependency on the deprecated `aws-sdk-signin` gem.
+
 3.245.0 (2025-11-19)
 ------------------
 

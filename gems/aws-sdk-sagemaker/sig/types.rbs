@@ -8,6 +8,12 @@
 module Aws::SageMaker
   module Types
 
+    class AcceleratorPartitionConfig
+      attr_accessor type: ("mig-1g.5gb" | "mig-1g.10gb" | "mig-1g.18gb" | "mig-1g.20gb" | "mig-1g.23gb" | "mig-1g.35gb" | "mig-1g.45gb" | "mig-1g.47gb" | "mig-2g.10gb" | "mig-2g.20gb" | "mig-2g.35gb" | "mig-2g.45gb" | "mig-2g.47gb" | "mig-3g.20gb" | "mig-3g.40gb" | "mig-3g.71gb" | "mig-3g.90gb" | "mig-3g.93gb" | "mig-4g.20gb" | "mig-4g.40gb" | "mig-4g.71gb" | "mig-4g.90gb" | "mig-4g.93gb" | "mig-7g.40gb" | "mig-7g.80gb" | "mig-7g.141gb" | "mig-7g.180gb" | "mig-7g.186gb")
+      attr_accessor count: ::Integer
+      SENSITIVE: []
+    end
+
     class ActionSource
       attr_accessor source_uri: ::String
       attr_accessor source_type: ::String
@@ -598,6 +604,64 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class BatchRebootClusterNodeLogicalIdsError
+      attr_accessor node_logical_id: ::String
+      attr_accessor error_code: ("InstanceIdNotFound" | "InvalidInstanceStatus" | "InstanceIdInUse" | "InternalServerError")
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class BatchRebootClusterNodesError
+      attr_accessor node_id: ::String
+      attr_accessor error_code: ("InstanceIdNotFound" | "InvalidInstanceStatus" | "InstanceIdInUse" | "InternalServerError")
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class BatchRebootClusterNodesRequest
+      attr_accessor cluster_name: ::String
+      attr_accessor node_ids: ::Array[::String]
+      attr_accessor node_logical_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class BatchRebootClusterNodesResponse
+      attr_accessor successful: ::Array[::String]
+      attr_accessor failed: ::Array[Types::BatchRebootClusterNodesError]
+      attr_accessor failed_node_logical_ids: ::Array[Types::BatchRebootClusterNodeLogicalIdsError]
+      attr_accessor successful_node_logical_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class BatchReplaceClusterNodeLogicalIdsError
+      attr_accessor node_logical_id: ::String
+      attr_accessor error_code: ("InstanceIdNotFound" | "InvalidInstanceStatus" | "InstanceIdInUse" | "InternalServerError")
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class BatchReplaceClusterNodesError
+      attr_accessor node_id: ::String
+      attr_accessor error_code: ("InstanceIdNotFound" | "InvalidInstanceStatus" | "InstanceIdInUse" | "InternalServerError")
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class BatchReplaceClusterNodesRequest
+      attr_accessor cluster_name: ::String
+      attr_accessor node_ids: ::Array[::String]
+      attr_accessor node_logical_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
+    class BatchReplaceClusterNodesResponse
+      attr_accessor successful: ::Array[::String]
+      attr_accessor failed: ::Array[Types::BatchReplaceClusterNodesError]
+      attr_accessor failed_node_logical_ids: ::Array[Types::BatchReplaceClusterNodeLogicalIdsError]
+      attr_accessor successful_node_logical_ids: ::Array[::String]
+      SENSITIVE: []
+    end
+
     class BatchTransformInput
       attr_accessor data_captured_destination_s3_uri: ::String
       attr_accessor dataset_format: Types::MonitoringDatasetFormat
@@ -1005,6 +1069,7 @@ module Aws::SageMaker
       attr_accessor last_software_update_time: ::Time
       attr_accessor instance_status: Types::ClusterInstanceStatusDetails
       attr_accessor ultra_server_info: Types::UltraServerInfo
+      attr_accessor private_dns_hostname: ::String
       SENSITIVE: []
     end
 
@@ -1165,6 +1230,7 @@ module Aws::SageMaker
       attr_accessor accelerators: ::Integer
       attr_accessor v_cpu: ::Float
       attr_accessor memory_in_gi_b: ::Float
+      attr_accessor accelerator_partition: Types::AcceleratorPartitionConfig
       SENSITIVE: []
     end
 
@@ -4388,7 +4454,7 @@ module Aws::SageMaker
       attr_accessor unhealthy_instance_count: ::Integer
       attr_accessor available_spare_instance_count: ::Integer
       attr_accessor total_ultra_server_count: ::Integer
-      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster")]
+      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
       attr_accessor reserved_capacity_summaries: ::Array[Types::ReservedCapacitySummary]
       SENSITIVE: []
     end
@@ -9567,7 +9633,7 @@ module Aws::SageMaker
       attr_accessor start_time_after: ::Time
       attr_accessor end_time_before: ::Time
       attr_accessor duration_hours: ::Integer
-      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster")]
+      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
       SENSITIVE: []
     end
 
@@ -10224,7 +10290,7 @@ module Aws::SageMaker
 
     class TrainingPlanOffering
       attr_accessor training_plan_offering_id: ::String
-      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster")]
+      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
       attr_accessor requested_start_time_after: ::Time
       attr_accessor requested_end_time_before: ::Time
       attr_accessor duration_hours: ::Integer
@@ -10250,7 +10316,7 @@ module Aws::SageMaker
       attr_accessor available_instance_count: ::Integer
       attr_accessor in_use_instance_count: ::Integer
       attr_accessor total_ultra_server_count: ::Integer
-      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster")]
+      attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
       attr_accessor reserved_capacity_summaries: ::Array[Types::ReservedCapacitySummary]
       SENSITIVE: []
     end

@@ -263,7 +263,13 @@ module Aws
                                       jar: ::String,
                                       main_class: ::String?,
                                       args: Array[::String]?
-                                    }
+                                    },
+                                    step_monitoring_configuration: {
+                                      s3_monitoring_configuration: {
+                                        log_uri: ::String?,
+                                        encryption_key_arn: ::String?
+                                      }?
+                                    }?
                                   },
                                 ],
                                 ?execution_role_arn: ::String
@@ -1161,7 +1167,13 @@ module Aws
                                 jar: ::String,
                                 main_class: ::String?,
                                 args: Array[::String]?
-                              }
+                              },
+                              step_monitoring_configuration: {
+                                s3_monitoring_configuration: {
+                                  log_uri: ::String?,
+                                  encryption_key_arn: ::String?
+                                }?
+                              }?
                             },
                           ],
                           ?bootstrap_actions: Array[

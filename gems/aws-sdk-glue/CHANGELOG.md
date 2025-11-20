@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.242.0 (2025-11-20)
+------------------
+
+* Feature - Added FunctionType parameter to Glue GetuserDefinedFunctions.
+
 1.241.0 (2025-11-17)
 ------------------
 

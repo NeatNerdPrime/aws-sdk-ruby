@@ -181,6 +181,36 @@ module Aws
                                         ) -> _BatchDescribeModelPackageResponseSuccess
                                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchDescribeModelPackageResponseSuccess
 
+      interface _BatchRebootClusterNodesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::BatchRebootClusterNodesResponse]
+        def successful: () -> ::Array[::String]
+        def failed: () -> ::Array[Types::BatchRebootClusterNodesError]
+        def failed_node_logical_ids: () -> ::Array[Types::BatchRebootClusterNodeLogicalIdsError]
+        def successful_node_logical_ids: () -> ::Array[::String]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#batch_reboot_cluster_nodes-instance_method
+      def batch_reboot_cluster_nodes: (
+                                        cluster_name: ::String,
+                                        ?node_ids: Array[::String],
+                                        ?node_logical_ids: Array[::String]
+                                      ) -> _BatchRebootClusterNodesResponseSuccess
+                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchRebootClusterNodesResponseSuccess
+
+      interface _BatchReplaceClusterNodesResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::BatchReplaceClusterNodesResponse]
+        def successful: () -> ::Array[::String]
+        def failed: () -> ::Array[Types::BatchReplaceClusterNodesError]
+        def failed_node_logical_ids: () -> ::Array[Types::BatchReplaceClusterNodeLogicalIdsError]
+        def successful_node_logical_ids: () -> ::Array[::String]
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#batch_replace_cluster_nodes-instance_method
+      def batch_replace_cluster_nodes: (
+                                         cluster_name: ::String,
+                                         ?node_ids: Array[::String],
+                                         ?node_logical_ids: Array[::String]
+                                       ) -> _BatchReplaceClusterNodesResponseSuccess
+                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _BatchReplaceClusterNodesResponseSuccess
+
       interface _CreateActionResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::CreateActionResponse]
         def action_arn: () -> ::String
@@ -1013,7 +1043,11 @@ module Aws
                                         count: ::Integer?,
                                         accelerators: ::Integer?,
                                         v_cpu: ::Float?,
-                                        memory_in_gi_b: ::Float?
+                                        memory_in_gi_b: ::Float?,
+                                        accelerator_partition: {
+                                          type: ("mig-1g.5gb" | "mig-1g.10gb" | "mig-1g.18gb" | "mig-1g.20gb" | "mig-1g.23gb" | "mig-1g.35gb" | "mig-1g.45gb" | "mig-1g.47gb" | "mig-2g.10gb" | "mig-2g.20gb" | "mig-2g.35gb" | "mig-2g.45gb" | "mig-2g.47gb" | "mig-3g.20gb" | "mig-3g.40gb" | "mig-3g.71gb" | "mig-3g.90gb" | "mig-3g.93gb" | "mig-4g.20gb" | "mig-4g.40gb" | "mig-4g.71gb" | "mig-4g.90gb" | "mig-4g.93gb" | "mig-7g.40gb" | "mig-7g.80gb" | "mig-7g.141gb" | "mig-7g.180gb" | "mig-7g.186gb"),
+                                          count: ::Integer
+                                        }?
                                       },
                                     ]?,
                                     resource_sharing_config: {
@@ -6680,7 +6714,7 @@ module Aws
         def unhealthy_instance_count: () -> ::Integer
         def available_spare_instance_count: () -> ::Integer
         def total_ultra_server_count: () -> ::Integer
-        def target_resources: () -> ::Array[("training-job" | "hyperpod-cluster")]
+        def target_resources: () -> ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
         def reserved_capacity_summaries: () -> ::Array[Types::ReservedCapacitySummary]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/SageMaker/Client.html#describe_training_plan-instance_method
@@ -8627,7 +8661,7 @@ module Aws
                                             ?start_time_after: ::Time,
                                             ?end_time_before: ::Time,
                                             duration_hours: ::Integer,
-                                            target_resources: Array[("training-job" | "hyperpod-cluster")]
+                                            target_resources: Array[("training-job" | "hyperpod-cluster" | "endpoint")]
                                           ) -> _SearchTrainingPlanOfferingsResponseSuccess
                                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _SearchTrainingPlanOfferingsResponseSuccess
 
@@ -9150,7 +9184,11 @@ module Aws
                                         count: ::Integer?,
                                         accelerators: ::Integer?,
                                         v_cpu: ::Float?,
-                                        memory_in_gi_b: ::Float?
+                                        memory_in_gi_b: ::Float?,
+                                        accelerator_partition: {
+                                          type: ("mig-1g.5gb" | "mig-1g.10gb" | "mig-1g.18gb" | "mig-1g.20gb" | "mig-1g.23gb" | "mig-1g.35gb" | "mig-1g.45gb" | "mig-1g.47gb" | "mig-2g.10gb" | "mig-2g.20gb" | "mig-2g.35gb" | "mig-2g.45gb" | "mig-2g.47gb" | "mig-3g.20gb" | "mig-3g.40gb" | "mig-3g.71gb" | "mig-3g.90gb" | "mig-3g.93gb" | "mig-4g.20gb" | "mig-4g.40gb" | "mig-4g.71gb" | "mig-4g.90gb" | "mig-4g.93gb" | "mig-7g.40gb" | "mig-7g.80gb" | "mig-7g.141gb" | "mig-7g.180gb" | "mig-7g.186gb"),
+                                          count: ::Integer
+                                        }?
                                       },
                                     ]?,
                                     resource_sharing_config: {

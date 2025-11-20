@@ -950,6 +950,209 @@ module Aws::SageMaker
       req.send_request(options)
     end
 
+    # Reboots specific nodes within a SageMaker HyperPod cluster using a
+    # soft recovery mechanism. `BatchRebootClusterNodes` performs a graceful
+    # reboot of the specified nodes by calling the Amazon Elastic Compute
+    # Cloud `RebootInstances` API, which attempts to cleanly shut down the
+    # operating system before restarting the instance.
+    #
+    # This operation is useful for recovering from transient issues or
+    # applying certain configuration changes that require a restart.
+    #
+    # <note markdown="1"> * Rebooting a node may cause temporary service interruption for
+    #   workloads running on that node. Ensure your workloads can handle
+    #   node restarts or use appropriate scheduling to minimize impact.
+    #
+    # * You can reboot up to 25 nodes in a single request.
+    #
+    # * For SageMaker HyperPod clusters using the Slurm workload manager,
+    #   ensure rebooting nodes will not disrupt critical cluster operations.
+    #
+    #  </note>
+    #
+    # @option params [required, String] :cluster_name
+    #   The name or Amazon Resource Name (ARN) of the SageMaker HyperPod
+    #   cluster containing the nodes to reboot.
+    #
+    # @option params [Array<String>] :node_ids
+    #   A list of EC2 instance IDs to reboot using soft recovery. You can
+    #   specify between 1 and 25 instance IDs.
+    #
+    #   <note markdown="1"> * Either `NodeIds` or `NodeLogicalIds` must be provided (or both), but
+    #     at least one is required.
+    #
+    #   * Each instance ID must follow the pattern `i-` followed by 17
+    #     hexadecimal characters (for example, `i-0123456789abcdef0`).
+    #
+    #    </note>
+    #
+    # @option params [Array<String>] :node_logical_ids
+    #   A list of logical node IDs to reboot using soft recovery. You can
+    #   specify between 1 and 25 logical node IDs.
+    #
+    #   The `NodeLogicalId` is a unique identifier that persists throughout
+    #   the node's lifecycle and can be used to track nodes that are still
+    #   being provisioned and don't yet have an EC2 instance ID assigned.
+    #
+    #   * This parameter is only supported for clusters using `Continuous` as
+    #     the `NodeProvisioningMode`. For clusters using the default
+    #     provisioning mode, use `NodeIds` instead.
+    #
+    #   * Either `NodeIds` or `NodeLogicalIds` must be provided (or both), but
+    #     at least one is required.
+    #
+    # @return [Types::BatchRebootClusterNodesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::BatchRebootClusterNodesResponse#successful #successful} => Array&lt;String&gt;
+    #   * {Types::BatchRebootClusterNodesResponse#failed #failed} => Array&lt;Types::BatchRebootClusterNodesError&gt;
+    #   * {Types::BatchRebootClusterNodesResponse#failed_node_logical_ids #failed_node_logical_ids} => Array&lt;Types::BatchRebootClusterNodeLogicalIdsError&gt;
+    #   * {Types::BatchRebootClusterNodesResponse#successful_node_logical_ids #successful_node_logical_ids} => Array&lt;String&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.batch_reboot_cluster_nodes({
+    #     cluster_name: "ClusterNameOrArn", # required
+    #     node_ids: ["ClusterNodeId"],
+    #     node_logical_ids: ["ClusterNodeLogicalId"],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.successful #=> Array
+    #   resp.successful[0] #=> String
+    #   resp.failed #=> Array
+    #   resp.failed[0].node_id #=> String
+    #   resp.failed[0].error_code #=> String, one of "InstanceIdNotFound", "InvalidInstanceStatus", "InstanceIdInUse", "InternalServerError"
+    #   resp.failed[0].message #=> String
+    #   resp.failed_node_logical_ids #=> Array
+    #   resp.failed_node_logical_ids[0].node_logical_id #=> String
+    #   resp.failed_node_logical_ids[0].error_code #=> String, one of "InstanceIdNotFound", "InvalidInstanceStatus", "InstanceIdInUse", "InternalServerError"
+    #   resp.failed_node_logical_ids[0].message #=> String
+    #   resp.successful_node_logical_ids #=> Array
+    #   resp.successful_node_logical_ids[0] #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchRebootClusterNodes AWS API Documentation
+    #
+    # @overload batch_reboot_cluster_nodes(params = {})
+    # @param [Hash] params ({})
+    def batch_reboot_cluster_nodes(params = {}, options = {})
+      req = build_request(:batch_reboot_cluster_nodes, params)
+      req.send_request(options)
+    end
+
+    # Replaces specific nodes within a SageMaker HyperPod cluster with new
+    # hardware. `BatchReplaceClusterNodes` terminates the specified
+    # instances and provisions new replacement instances with the same
+    # configuration but fresh hardware. The Amazon Machine Image (AMI) and
+    # instance configuration remain the same.
+    #
+    # This operation is useful for recovering from hardware failures or
+    # persistent issues that cannot be resolved through a reboot.
+    #
+    # * **Data Loss Warning:** Replacing nodes destroys all instance
+    #   volumes, including both root and secondary volumes. All data stored
+    #   on these volumes will be permanently lost and cannot be recovered.
+    #
+    # * To safeguard your work, back up your data to Amazon S3 or an FSx for
+    #   Lustre file system before invoking the API on a worker node group.
+    #   This will help prevent any potential data loss from the instance
+    #   root volume. For more information about backup, see [Use the backup
+    #   script provided by SageMaker HyperPod][1].
+    #
+    # * If you want to invoke this API on an existing cluster, you'll first
+    #   need to patch the cluster by running the [UpdateClusterSoftware
+    #   API][2]. For more information about patching a cluster, see [Update
+    #   the SageMaker HyperPod platform software of a cluster][3].
+    #
+    # * You can replace up to 25 nodes in a single request.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-operate-cli-command.html#sagemaker-hyperpod-operate-cli-command-update-cluster-software-backup
+    # [2]: https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_UpdateClusterSoftware.html
+    # [3]: https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-hyperpod-operate-cli-command.html#sagemaker-hyperpod-operate-cli-command-update-cluster-software
+    #
+    # @option params [required, String] :cluster_name
+    #   The name or Amazon Resource Name (ARN) of the SageMaker HyperPod
+    #   cluster containing the nodes to replace.
+    #
+    # @option params [Array<String>] :node_ids
+    #   A list of EC2 instance IDs to replace with new hardware. You can
+    #   specify between 1 and 25 instance IDs.
+    #
+    #   Replace operations destroy all instance volumes (root and secondary).
+    #   Ensure you have backed up any important data before proceeding.
+    #
+    #   <note markdown="1"> * Either `NodeIds` or `NodeLogicalIds` must be provided (or both), but
+    #     at least one is required.
+    #
+    #   * Each instance ID must follow the pattern `i-` followed by 17
+    #     hexadecimal characters (for example, `i-0123456789abcdef0`).
+    #
+    #   * For SageMaker HyperPod clusters using the Slurm workload manager,
+    #     you cannot replace instances that are configured as Slurm controller
+    #     nodes.
+    #
+    #    </note>
+    #
+    # @option params [Array<String>] :node_logical_ids
+    #   A list of logical node IDs to replace with new hardware. You can
+    #   specify between 1 and 25 logical node IDs.
+    #
+    #   The `NodeLogicalId` is a unique identifier that persists throughout
+    #   the node's lifecycle and can be used to track nodes that are still
+    #   being provisioned and don't yet have an EC2 instance ID assigned.
+    #
+    #   * Replace operations destroy all instance volumes (root and
+    #     secondary). Ensure you have backed up any important data before
+    #     proceeding.
+    #
+    #   * This parameter is only supported for clusters using `Continuous` as
+    #     the `NodeProvisioningMode`. For clusters using the default
+    #     provisioning mode, use `NodeIds` instead.
+    #
+    #   * Either `NodeIds` or `NodeLogicalIds` must be provided (or both), but
+    #     at least one is required.
+    #
+    # @return [Types::BatchReplaceClusterNodesResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::BatchReplaceClusterNodesResponse#successful #successful} => Array&lt;String&gt;
+    #   * {Types::BatchReplaceClusterNodesResponse#failed #failed} => Array&lt;Types::BatchReplaceClusterNodesError&gt;
+    #   * {Types::BatchReplaceClusterNodesResponse#failed_node_logical_ids #failed_node_logical_ids} => Array&lt;Types::BatchReplaceClusterNodeLogicalIdsError&gt;
+    #   * {Types::BatchReplaceClusterNodesResponse#successful_node_logical_ids #successful_node_logical_ids} => Array&lt;String&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.batch_replace_cluster_nodes({
+    #     cluster_name: "ClusterNameOrArn", # required
+    #     node_ids: ["ClusterNodeId"],
+    #     node_logical_ids: ["ClusterNodeLogicalId"],
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.successful #=> Array
+    #   resp.successful[0] #=> String
+    #   resp.failed #=> Array
+    #   resp.failed[0].node_id #=> String
+    #   resp.failed[0].error_code #=> String, one of "InstanceIdNotFound", "InvalidInstanceStatus", "InstanceIdInUse", "InternalServerError"
+    #   resp.failed[0].message #=> String
+    #   resp.failed_node_logical_ids #=> Array
+    #   resp.failed_node_logical_ids[0].node_logical_id #=> String
+    #   resp.failed_node_logical_ids[0].error_code #=> String, one of "InstanceIdNotFound", "InvalidInstanceStatus", "InstanceIdInUse", "InternalServerError"
+    #   resp.failed_node_logical_ids[0].message #=> String
+    #   resp.successful_node_logical_ids #=> Array
+    #   resp.successful_node_logical_ids[0] #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/BatchReplaceClusterNodes AWS API Documentation
+    #
+    # @overload batch_replace_cluster_nodes(params = {})
+    # @param [Hash] params ({})
+    def batch_replace_cluster_nodes(params = {}, options = {})
+      req = build_request(:batch_replace_cluster_nodes, params)
+      req.send_request(options)
+    end
+
     # Creates an *action*. An action is a lineage tracking entity that
     # represents an action or activity. For example, a model deployment or
     # an HPO job. Generally, an action involves at least one input or output
@@ -2725,6 +2928,10 @@ module Aws::SageMaker
     #           accelerators: 1,
     #           v_cpu: 1.0,
     #           memory_in_gi_b: 1.0,
+    #           accelerator_partition: {
+    #             type: "mig-1g.5gb", # required, accepts mig-1g.5gb, mig-1g.10gb, mig-1g.18gb, mig-1g.20gb, mig-1g.23gb, mig-1g.35gb, mig-1g.45gb, mig-1g.47gb, mig-2g.10gb, mig-2g.20gb, mig-2g.35gb, mig-2g.45gb, mig-2g.47gb, mig-3g.20gb, mig-3g.40gb, mig-3g.71gb, mig-3g.90gb, mig-3g.93gb, mig-4g.20gb, mig-4g.40gb, mig-4g.71gb, mig-4g.90gb, mig-4g.93gb, mig-7g.40gb, mig-7g.80gb, mig-7g.141gb, mig-7g.180gb, mig-7g.186gb
+    #             count: 1, # required
+    #           },
     #         },
     #       ],
     #       resource_sharing_config: {
@@ -13912,6 +14119,8 @@ module Aws::SageMaker
     #   resp.compute_quota_config.compute_quota_resources[0].accelerators #=> Integer
     #   resp.compute_quota_config.compute_quota_resources[0].v_cpu #=> Float
     #   resp.compute_quota_config.compute_quota_resources[0].memory_in_gi_b #=> Float
+    #   resp.compute_quota_config.compute_quota_resources[0].accelerator_partition.type #=> String, one of "mig-1g.5gb", "mig-1g.10gb", "mig-1g.18gb", "mig-1g.20gb", "mig-1g.23gb", "mig-1g.35gb", "mig-1g.45gb", "mig-1g.47gb", "mig-2g.10gb", "mig-2g.20gb", "mig-2g.35gb", "mig-2g.45gb", "mig-2g.47gb", "mig-3g.20gb", "mig-3g.40gb", "mig-3g.71gb", "mig-3g.90gb", "mig-3g.93gb", "mig-4g.20gb", "mig-4g.40gb", "mig-4g.71gb", "mig-4g.90gb", "mig-4g.93gb", "mig-7g.40gb", "mig-7g.80gb", "mig-7g.141gb", "mig-7g.180gb", "mig-7g.186gb"
+    #   resp.compute_quota_config.compute_quota_resources[0].accelerator_partition.count #=> Integer
     #   resp.compute_quota_config.resource_sharing_config.strategy #=> String, one of "Lend", "DontLend", "LendAndBorrow"
     #   resp.compute_quota_config.resource_sharing_config.borrow_limit #=> Integer
     #   resp.compute_quota_config.preempt_team_tasks #=> String, one of "Never", "LowerPriority"
@@ -18411,7 +18620,7 @@ module Aws::SageMaker
     #   resp.available_spare_instance_count #=> Integer
     #   resp.total_ultra_server_count #=> Integer
     #   resp.target_resources #=> Array
-    #   resp.target_resources[0] #=> String, one of "training-job", "hyperpod-cluster"
+    #   resp.target_resources[0] #=> String, one of "training-job", "hyperpod-cluster", "endpoint"
     #   resp.reserved_capacity_summaries #=> Array
     #   resp.reserved_capacity_summaries[0].reserved_capacity_arn #=> String
     #   resp.reserved_capacity_summaries[0].reserved_capacity_type #=> String, one of "UltraServer", "Instance"
@@ -20350,6 +20559,7 @@ module Aws::SageMaker
     #   resp.cluster_node_summaries[0].instance_status.status #=> String, one of "Running", "Failure", "Pending", "ShuttingDown", "SystemUpdating", "DeepHealthCheckInProgress", "NotFound"
     #   resp.cluster_node_summaries[0].instance_status.message #=> String
     #   resp.cluster_node_summaries[0].ultra_server_info.id #=> String
+    #   resp.cluster_node_summaries[0].private_dns_hostname #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListClusterNodes AWS API Documentation
     #
@@ -20813,6 +21023,8 @@ module Aws::SageMaker
     #   resp.compute_quota_summaries[0].compute_quota_config.compute_quota_resources[0].accelerators #=> Integer
     #   resp.compute_quota_summaries[0].compute_quota_config.compute_quota_resources[0].v_cpu #=> Float
     #   resp.compute_quota_summaries[0].compute_quota_config.compute_quota_resources[0].memory_in_gi_b #=> Float
+    #   resp.compute_quota_summaries[0].compute_quota_config.compute_quota_resources[0].accelerator_partition.type #=> String, one of "mig-1g.5gb", "mig-1g.10gb", "mig-1g.18gb", "mig-1g.20gb", "mig-1g.23gb", "mig-1g.35gb", "mig-1g.45gb", "mig-1g.47gb", "mig-2g.10gb", "mig-2g.20gb", "mig-2g.35gb", "mig-2g.45gb", "mig-2g.47gb", "mig-3g.20gb", "mig-3g.40gb", "mig-3g.71gb", "mig-3g.90gb", "mig-3g.93gb", "mig-4g.20gb", "mig-4g.40gb", "mig-4g.71gb", "mig-4g.90gb", "mig-4g.93gb", "mig-7g.40gb", "mig-7g.80gb", "mig-7g.141gb", "mig-7g.180gb", "mig-7g.186gb"
+    #   resp.compute_quota_summaries[0].compute_quota_config.compute_quota_resources[0].accelerator_partition.count #=> Integer
     #   resp.compute_quota_summaries[0].compute_quota_config.resource_sharing_config.strategy #=> String, one of "Lend", "DontLend", "LendAndBorrow"
     #   resp.compute_quota_summaries[0].compute_quota_config.resource_sharing_config.borrow_limit #=> Integer
     #   resp.compute_quota_summaries[0].compute_quota_config.preempt_team_tasks #=> String, one of "Never", "LowerPriority"
@@ -25460,7 +25672,7 @@ module Aws::SageMaker
     #   resp.training_plan_summaries[0].in_use_instance_count #=> Integer
     #   resp.training_plan_summaries[0].total_ultra_server_count #=> Integer
     #   resp.training_plan_summaries[0].target_resources #=> Array
-    #   resp.training_plan_summaries[0].target_resources[0] #=> String, one of "training-job", "hyperpod-cluster"
+    #   resp.training_plan_summaries[0].target_resources[0] #=> String, one of "training-job", "hyperpod-cluster", "endpoint"
     #   resp.training_plan_summaries[0].reserved_capacity_summaries #=> Array
     #   resp.training_plan_summaries[0].reserved_capacity_summaries[0].reserved_capacity_arn #=> String
     #   resp.training_plan_summaries[0].reserved_capacity_summaries[0].reserved_capacity_type #=> String, one of "UltraServer", "Instance"
@@ -26481,7 +26693,7 @@ module Aws::SageMaker
     #
     # @option params [required, Array<String>] :target_resources
     #   The target resources (e.g., SageMaker Training Jobs, SageMaker
-    #   HyperPod) to search for in the offerings.
+    #   HyperPod, SageMaker Endpoints) to search for in the offerings.
     #
     #   Training plans are specific to their target resource.
     #
@@ -26490,6 +26702,10 @@ module Aws::SageMaker
     #
     #   * A training plan for HyperPod clusters can be used exclusively to
     #     provide compute resources to a cluster's instance group.
+    #
+    #   * A training plan for SageMaker endpoints can be used exclusively to
+    #     provide compute resources to SageMaker endpoints for model
+    #     deployment.
     #
     # @return [Types::SearchTrainingPlanOfferingsResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -26505,7 +26721,7 @@ module Aws::SageMaker
     #     start_time_after: Time.now,
     #     end_time_before: Time.now,
     #     duration_hours: 1, # required
-    #     target_resources: ["training-job"], # required, accepts training-job, hyperpod-cluster
+    #     target_resources: ["training-job"], # required, accepts training-job, hyperpod-cluster, endpoint
     #   })
     #
     # @example Response structure
@@ -26513,7 +26729,7 @@ module Aws::SageMaker
     #   resp.training_plan_offerings #=> Array
     #   resp.training_plan_offerings[0].training_plan_offering_id #=> String
     #   resp.training_plan_offerings[0].target_resources #=> Array
-    #   resp.training_plan_offerings[0].target_resources[0] #=> String, one of "training-job", "hyperpod-cluster"
+    #   resp.training_plan_offerings[0].target_resources[0] #=> String, one of "training-job", "hyperpod-cluster", "endpoint"
     #   resp.training_plan_offerings[0].requested_start_time_after #=> Time
     #   resp.training_plan_offerings[0].requested_end_time_before #=> Time
     #   resp.training_plan_offerings[0].duration_hours #=> Integer
@@ -27951,6 +28167,10 @@ module Aws::SageMaker
     #           accelerators: 1,
     #           v_cpu: 1.0,
     #           memory_in_gi_b: 1.0,
+    #           accelerator_partition: {
+    #             type: "mig-1g.5gb", # required, accepts mig-1g.5gb, mig-1g.10gb, mig-1g.18gb, mig-1g.20gb, mig-1g.23gb, mig-1g.35gb, mig-1g.45gb, mig-1g.47gb, mig-2g.10gb, mig-2g.20gb, mig-2g.35gb, mig-2g.45gb, mig-2g.47gb, mig-3g.20gb, mig-3g.40gb, mig-3g.71gb, mig-3g.90gb, mig-3g.93gb, mig-4g.20gb, mig-4g.40gb, mig-4g.71gb, mig-4g.90gb, mig-4g.93gb, mig-7g.40gb, mig-7g.80gb, mig-7g.141gb, mig-7g.180gb, mig-7g.186gb
+    #             count: 1, # required
+    #           },
     #         },
     #       ],
     #       resource_sharing_config: {
@@ -31359,7 +31579,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.339.0'
+      context[:gem_version] = '1.340.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

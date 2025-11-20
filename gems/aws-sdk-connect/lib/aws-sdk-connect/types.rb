@@ -24443,6 +24443,10 @@ module Aws::Connect
     #   Notification recipient.
     #   @return [Types::NotificationRecipientType]
     #
+    # @!attribute [rw] exclusion
+    #   Recipients to exclude from notification.
+    #   @return [Types::NotificationRecipientType]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/connect-2017-08-08/SendNotificationActionDefinition AWS API Documentation
     #
     class SendNotificationActionDefinition < Struct.new(
@@ -24450,7 +24454,8 @@ module Aws::Connect
       :subject,
       :content,
       :content_type,
-      :recipient)
+      :recipient,
+      :exclusion)
       SENSITIVE = []
       include Aws::Structure
     end

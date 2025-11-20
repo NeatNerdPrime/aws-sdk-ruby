@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.114.0 (2025-11-20)
+------------------
+
+* Feature - The partition value "aws-eusc" is now permitted for ARN (Amazon Resource Name) fields.
+
 1.113.0 (2025-10-21)
 ------------------
 

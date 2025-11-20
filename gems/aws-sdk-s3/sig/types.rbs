@@ -8,6 +8,11 @@
 module Aws::S3
   module Types
 
+    class AbacStatus
+      attr_accessor status: ("Enabled" | "Disabled")
+      SENSITIVE: []
+    end
+
     class AbortIncompleteMultipartUpload
       attr_accessor days_after_initiation: ::Integer
       SENSITIVE: []
@@ -698,6 +703,17 @@ module Aws::S3
     class FilterRule
       attr_accessor name: ("prefix" | "suffix")
       attr_accessor value: ::String
+      SENSITIVE: []
+    end
+
+    class GetBucketAbacOutput
+      attr_accessor abac_status: Types::AbacStatus
+      SENSITIVE: []
+    end
+
+    class GetBucketAbacRequest
+      attr_accessor bucket: ::String
+      attr_accessor expected_bucket_owner: ::String
       SENSITIVE: []
     end
 
@@ -1995,6 +2011,15 @@ module Aws::S3
       attr_accessor ignore_public_acls: bool
       attr_accessor block_public_policy: bool
       attr_accessor restrict_public_buckets: bool
+      SENSITIVE: []
+    end
+
+    class PutBucketAbacRequest
+      attr_accessor bucket: ::String
+      attr_accessor content_md5: ::String
+      attr_accessor checksum_algorithm: ("CRC32" | "CRC32C" | "SHA1" | "SHA256" | "CRC64NVME")
+      attr_accessor expected_bucket_owner: ::String
+      attr_accessor abac_status: Types::AbacStatus
       SENSITIVE: []
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.17.0 (2025-11-20)
+------------------
+
+* Feature - Bedrock Data Automation Runtime Sync API
+
 1.16.0 (2025-10-21)
 ------------------
 

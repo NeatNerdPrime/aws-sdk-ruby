@@ -146,7 +146,15 @@ module Aws
                                         },
                                       ]?
                                     },
-                                    ?ip_address_type: ("ipv4" | "ipv6" | "dualstack")
+                                    ?ip_address_type: ("ipv4" | "ipv6" | "dualstack"),
+                                    ?ipam_cidr_configs: Array[
+                                      {
+                                        cidr: ::String,
+                                        ipam_pool_arn: ::String,
+                                        anycast_ip: ::String?,
+                                        status: ("provisioned" | "failed-provision" | "provisioning" | "deprovisioned" | "failed-deprovision" | "deprovisioning" | "advertised" | "failed-advertise" | "advertising" | "withdrawn" | "failed-withdraw" | "withdrawing")?
+                                      },
+                                    ]
                                   ) -> _CreateAnycastIpListResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateAnycastIpListResponseSuccess
 

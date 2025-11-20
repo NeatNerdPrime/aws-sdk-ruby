@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.47.0 (2025-11-20)
+------------------
+
+* Feature - Add support for EBS volume in Recycle Bin
+
 1.46.0 (2025-10-27)
 ------------------
 

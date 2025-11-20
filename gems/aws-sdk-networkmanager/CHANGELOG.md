@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.73.0 (2025-11-20)
+------------------
+
+* Feature - This release adds support for Cloud WAN Routing Policy providing customers sophisticated routing controls to better manage their global networks
+
 1.72.0 (2025-10-21)
 ------------------
 

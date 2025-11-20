@@ -289,6 +289,7 @@ module Aws::EMR
     ResourceId = Shapes::StringShape.new(name: 'ResourceId')
     RunJobFlowInput = Shapes::StructureShape.new(name: 'RunJobFlowInput')
     RunJobFlowOutput = Shapes::StructureShape.new(name: 'RunJobFlowOutput')
+    S3MonitoringConfiguration = Shapes::StructureShape.new(name: 'S3MonitoringConfiguration')
     ScaleDownBehavior = Shapes::StringShape.new(name: 'ScaleDownBehavior')
     ScalingAction = Shapes::StructureShape.new(name: 'ScalingAction')
     ScalingConstraints = Shapes::StructureShape.new(name: 'ScalingConstraints')
@@ -328,6 +329,7 @@ module Aws::EMR
     StepExecutionStatusDetail = Shapes::StructureShape.new(name: 'StepExecutionStatusDetail')
     StepId = Shapes::StringShape.new(name: 'StepId')
     StepIdsList = Shapes::ListShape.new(name: 'StepIdsList')
+    StepMonitoringConfiguration = Shapes::StructureShape.new(name: 'StepMonitoringConfiguration')
     StepState = Shapes::StringShape.new(name: 'StepState')
     StepStateChangeReason = Shapes::StructureShape.new(name: 'StepStateChangeReason')
     StepStateChangeReasonCode = Shapes::StringShape.new(name: 'StepStateChangeReasonCode')
@@ -1447,6 +1449,10 @@ module Aws::EMR
     RunJobFlowOutput.add_member(:cluster_arn, Shapes::ShapeRef.new(shape: ArnType, location_name: "ClusterArn"))
     RunJobFlowOutput.struct_class = Types::RunJobFlowOutput
 
+    S3MonitoringConfiguration.add_member(:log_uri, Shapes::ShapeRef.new(shape: XmlString, location_name: "LogUri"))
+    S3MonitoringConfiguration.add_member(:encryption_key_arn, Shapes::ShapeRef.new(shape: XmlString, location_name: "EncryptionKeyArn"))
+    S3MonitoringConfiguration.struct_class = Types::S3MonitoringConfiguration
+
     ScalingAction.add_member(:market, Shapes::ShapeRef.new(shape: MarketType, location_name: "Market"))
     ScalingAction.add_member(:simple_scaling_policy_configuration, Shapes::ShapeRef.new(shape: SimpleScalingPolicyConfiguration, required: true, location_name: "SimpleScalingPolicyConfiguration"))
     ScalingAction.struct_class = Types::ScalingAction
@@ -1561,11 +1567,14 @@ module Aws::EMR
     Step.add_member(:action_on_failure, Shapes::ShapeRef.new(shape: ActionOnFailure, location_name: "ActionOnFailure"))
     Step.add_member(:status, Shapes::ShapeRef.new(shape: StepStatus, location_name: "Status"))
     Step.add_member(:execution_role_arn, Shapes::ShapeRef.new(shape: OptionalArnType, location_name: "ExecutionRoleArn"))
+    Step.add_member(:log_uri, Shapes::ShapeRef.new(shape: String, location_name: "LogUri"))
+    Step.add_member(:encryption_key_arn, Shapes::ShapeRef.new(shape: String, location_name: "EncryptionKeyArn"))
     Step.struct_class = Types::Step
 
     StepConfig.add_member(:name, Shapes::ShapeRef.new(shape: XmlStringMaxLen256, required: true, location_name: "Name"))
     StepConfig.add_member(:action_on_failure, Shapes::ShapeRef.new(shape: ActionOnFailure, location_name: "ActionOnFailure"))
     StepConfig.add_member(:hadoop_jar_step, Shapes::ShapeRef.new(shape: HadoopJarStepConfig, required: true, location_name: "HadoopJarStep"))
+    StepConfig.add_member(:step_monitoring_configuration, Shapes::ShapeRef.new(shape: StepMonitoringConfiguration, location_name: "StepMonitoringConfiguration"))
     StepConfig.struct_class = Types::StepConfig
 
     StepConfigList.member = Shapes::ShapeRef.new(shape: StepConfig)
@@ -1585,6 +1594,9 @@ module Aws::EMR
 
     StepIdsList.member = Shapes::ShapeRef.new(shape: XmlStringMaxLen256)
 
+    StepMonitoringConfiguration.add_member(:s3_monitoring_configuration, Shapes::ShapeRef.new(shape: S3MonitoringConfiguration, location_name: "S3MonitoringConfiguration"))
+    StepMonitoringConfiguration.struct_class = Types::StepMonitoringConfiguration
+
     StepStateChangeReason.add_member(:code, Shapes::ShapeRef.new(shape: StepStateChangeReasonCode, location_name: "Code"))
     StepStateChangeReason.add_member(:message, Shapes::ShapeRef.new(shape: String, location_name: "Message"))
     StepStateChangeReason.struct_class = Types::StepStateChangeReason
@@ -1602,6 +1614,8 @@ module Aws::EMR
     StepSummary.add_member(:config, Shapes::ShapeRef.new(shape: HadoopStepConfig, location_name: "Config"))
     StepSummary.add_member(:action_on_failure, Shapes::ShapeRef.new(shape: ActionOnFailure, location_name: "ActionOnFailure"))
     StepSummary.add_member(:status, Shapes::ShapeRef.new(shape: StepStatus, location_name: "Status"))
+    StepSummary.add_member(:log_uri, Shapes::ShapeRef.new(shape: String, location_name: "LogUri"))
+    StepSummary.add_member(:encryption_key_arn, Shapes::ShapeRef.new(shape: String, location_name: "EncryptionKeyArn"))
     StepSummary.struct_class = Types::StepSummary
 
     StepSummaryList.member = Shapes::ShapeRef.new(shape: StepSummary)

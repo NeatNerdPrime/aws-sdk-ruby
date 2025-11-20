@@ -26,6 +26,8 @@ module Aws::CloudTrail
     AdvancedEventSelectors = Shapes::ListShape.new(name: 'AdvancedEventSelectors')
     AdvancedFieldSelector = Shapes::StructureShape.new(name: 'AdvancedFieldSelector')
     AdvancedFieldSelectors = Shapes::ListShape.new(name: 'AdvancedFieldSelectors')
+    AggregationConfiguration = Shapes::StructureShape.new(name: 'AggregationConfiguration')
+    AggregationConfigurations = Shapes::ListShape.new(name: 'AggregationConfigurations')
     BillingMode = Shapes::StringShape.new(name: 'BillingMode')
     Boolean = Shapes::BooleanShape.new(name: 'Boolean')
     ByteBuffer = Shapes::BlobShape.new(name: 'ByteBuffer')
@@ -98,6 +100,7 @@ module Aws::CloudTrail
     ErrorMessage = Shapes::StringShape.new(name: 'ErrorMessage')
     Event = Shapes::StructureShape.new(name: 'Event')
     EventCategory = Shapes::StringShape.new(name: 'EventCategory')
+    EventCategoryAggregation = Shapes::StringShape.new(name: 'EventCategoryAggregation')
     EventDataStore = Shapes::StructureShape.new(name: 'EventDataStore')
     EventDataStoreARNInvalidException = Shapes::StructureShape.new(name: 'EventDataStoreARNInvalidException')
     EventDataStoreAlreadyExistsException = Shapes::StructureShape.new(name: 'EventDataStoreAlreadyExistsException')
@@ -362,6 +365,8 @@ module Aws::CloudTrail
     TagValue = Shapes::StringShape.new(name: 'TagValue')
     TagsLimitExceededException = Shapes::StructureShape.new(name: 'TagsLimitExceededException')
     TagsList = Shapes::ListShape.new(name: 'TagsList')
+    Template = Shapes::StringShape.new(name: 'Template')
+    Templates = Shapes::ListShape.new(name: 'Templates')
     TerminationProtectionEnabled = Shapes::BooleanShape.new(name: 'TerminationProtectionEnabled')
     ThrottlingException = Shapes::StructureShape.new(name: 'ThrottlingException')
     TimeOfDay = Shapes::StringShape.new(name: 'TimeOfDay')
@@ -423,6 +428,12 @@ module Aws::CloudTrail
     AdvancedFieldSelector.struct_class = Types::AdvancedFieldSelector
 
     AdvancedFieldSelectors.member = Shapes::ShapeRef.new(shape: AdvancedFieldSelector)
+
+    AggregationConfiguration.add_member(:templates, Shapes::ShapeRef.new(shape: Templates, required: true, location_name: "Templates"))
+    AggregationConfiguration.add_member(:event_category, Shapes::ShapeRef.new(shape: EventCategoryAggregation, required: true, location_name: "EventCategory"))
+    AggregationConfiguration.struct_class = Types::AggregationConfiguration
+
+    AggregationConfigurations.member = Shapes::ShapeRef.new(shape: AggregationConfiguration)
 
     CancelQueryRequest.add_member(:event_data_store, Shapes::ShapeRef.new(shape: EventDataStoreArn, deprecated: true, location_name: "EventDataStore", metadata: {"deprecatedMessage" => "EventDataStore is no longer required by CancelQueryRequest"}))
     CancelQueryRequest.add_member(:query_id, Shapes::ShapeRef.new(shape: UUID, required: true, location_name: "QueryId"))
@@ -738,12 +749,15 @@ module Aws::CloudTrail
     GetDashboardResponse.add_member(:termination_protection_enabled, Shapes::ShapeRef.new(shape: TerminationProtectionEnabled, location_name: "TerminationProtectionEnabled"))
     GetDashboardResponse.struct_class = Types::GetDashboardResponse
 
+    GetEventConfigurationRequest.add_member(:trail_name, Shapes::ShapeRef.new(shape: String, location_name: "TrailName"))
     GetEventConfigurationRequest.add_member(:event_data_store, Shapes::ShapeRef.new(shape: String, location_name: "EventDataStore"))
     GetEventConfigurationRequest.struct_class = Types::GetEventConfigurationRequest
 
+    GetEventConfigurationResponse.add_member(:trail_arn, Shapes::ShapeRef.new(shape: String, location_name: "TrailARN"))
     GetEventConfigurationResponse.add_member(:event_data_store_arn, Shapes::ShapeRef.new(shape: EventDataStoreArn, location_name: "EventDataStoreArn"))
     GetEventConfigurationResponse.add_member(:max_event_size, Shapes::ShapeRef.new(shape: MaxEventSize, location_name: "MaxEventSize"))
     GetEventConfigurationResponse.add_member(:context_key_selectors, Shapes::ShapeRef.new(shape: ContextKeySelectors, location_name: "ContextKeySelectors"))
+    GetEventConfigurationResponse.add_member(:aggregation_configurations, Shapes::ShapeRef.new(shape: AggregationConfigurations, location_name: "AggregationConfigurations"))
     GetEventConfigurationResponse.struct_class = Types::GetEventConfigurationResponse
 
     GetEventDataStoreRequest.add_member(:event_data_store, Shapes::ShapeRef.new(shape: EventDataStoreArn, required: true, location_name: "EventDataStore"))
@@ -1141,14 +1155,18 @@ module Aws::CloudTrail
 
     PublicKeyList.member = Shapes::ShapeRef.new(shape: PublicKey)
 
+    PutEventConfigurationRequest.add_member(:trail_name, Shapes::ShapeRef.new(shape: String, location_name: "TrailName"))
     PutEventConfigurationRequest.add_member(:event_data_store, Shapes::ShapeRef.new(shape: String, location_name: "EventDataStore"))
-    PutEventConfigurationRequest.add_member(:max_event_size, Shapes::ShapeRef.new(shape: MaxEventSize, required: true, location_name: "MaxEventSize"))
-    PutEventConfigurationRequest.add_member(:context_key_selectors, Shapes::ShapeRef.new(shape: ContextKeySelectors, required: true, location_name: "ContextKeySelectors"))
+    PutEventConfigurationRequest.add_member(:max_event_size, Shapes::ShapeRef.new(shape: MaxEventSize, location_name: "MaxEventSize"))
+    PutEventConfigurationRequest.add_member(:context_key_selectors, Shapes::ShapeRef.new(shape: ContextKeySelectors, location_name: "ContextKeySelectors"))
+    PutEventConfigurationRequest.add_member(:aggregation_configurations, Shapes::ShapeRef.new(shape: AggregationConfigurations, location_name: "AggregationConfigurations"))
     PutEventConfigurationRequest.struct_class = Types::PutEventConfigurationRequest
 
+    PutEventConfigurationResponse.add_member(:trail_arn, Shapes::ShapeRef.new(shape: String, location_name: "TrailARN"))
     PutEventConfigurationResponse.add_member(:event_data_store_arn, Shapes::ShapeRef.new(shape: EventDataStoreArn, location_name: "EventDataStoreArn"))
     PutEventConfigurationResponse.add_member(:max_event_size, Shapes::ShapeRef.new(shape: MaxEventSize, location_name: "MaxEventSize"))
     PutEventConfigurationResponse.add_member(:context_key_selectors, Shapes::ShapeRef.new(shape: ContextKeySelectors, location_name: "ContextKeySelectors"))
+    PutEventConfigurationResponse.add_member(:aggregation_configurations, Shapes::ShapeRef.new(shape: AggregationConfigurations, location_name: "AggregationConfigurations"))
     PutEventConfigurationResponse.struct_class = Types::PutEventConfigurationResponse
 
     PutEventSelectorsRequest.add_member(:trail_name, Shapes::ShapeRef.new(shape: String, required: true, location_name: "TrailName"))
@@ -1391,6 +1409,8 @@ module Aws::CloudTrail
     TagsLimitExceededException.struct_class = Types::TagsLimitExceededException
 
     TagsList.member = Shapes::ShapeRef.new(shape: Tag)
+
+    Templates.member = Shapes::ShapeRef.new(shape: Template)
 
     ThrottlingException.struct_class = Types::ThrottlingException
 
@@ -1909,6 +1929,8 @@ module Aws::CloudTrail
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: GetEventConfigurationRequest)
         o.output = Shapes::ShapeRef.new(shape: GetEventConfigurationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: TrailNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidTrailNameException)
         o.errors << Shapes::ShapeRef.new(shape: CloudTrailARNInvalidException)
         o.errors << Shapes::ShapeRef.new(shape: UnsupportedOperationException)
         o.errors << Shapes::ShapeRef.new(shape: OperationNotPermittedException)
@@ -2269,6 +2291,11 @@ module Aws::CloudTrail
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: PutEventConfigurationRequest)
         o.output = Shapes::ShapeRef.new(shape: PutEventConfigurationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: TrailNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidTrailNameException)
+        o.errors << Shapes::ShapeRef.new(shape: CloudTrailARNInvalidException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterCombinationException)
+        o.errors << Shapes::ShapeRef.new(shape: InvalidHomeRegionException)
         o.errors << Shapes::ShapeRef.new(shape: EventDataStoreARNInvalidException)
         o.errors << Shapes::ShapeRef.new(shape: EventDataStoreNotFoundException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidEventDataStoreStatusException)
@@ -2278,8 +2305,6 @@ module Aws::CloudTrail
         o.errors << Shapes::ShapeRef.new(shape: OperationNotPermittedException)
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
         o.errors << Shapes::ShapeRef.new(shape: InvalidParameterException)
-        o.errors << Shapes::ShapeRef.new(shape: InvalidParameterCombinationException)
-        o.errors << Shapes::ShapeRef.new(shape: CloudTrailARNInvalidException)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: NotOrganizationMasterAccountException)
         o.errors << Shapes::ShapeRef.new(shape: NoManagementAccountSLRExistsException)

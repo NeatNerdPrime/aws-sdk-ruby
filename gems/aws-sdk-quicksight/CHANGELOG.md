@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.164.0 (2025-11-20)
+------------------
+
+* Feature - Introducing comprehensive theme styling controls. New features include border customization (radius, width, color), flexible padding controls, background styling for cards and sheets, centralized typography management, and visual-level override support across layouts.
+
 1.163.0 (2025-11-06)
 ------------------
 

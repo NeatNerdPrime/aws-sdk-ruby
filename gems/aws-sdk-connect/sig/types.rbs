@@ -5612,6 +5612,7 @@ module Aws::Connect
       attr_accessor content: ::String
       attr_accessor content_type: ("PLAIN_TEXT")
       attr_accessor recipient: Types::NotificationRecipientType
+      attr_accessor exclusion: Types::NotificationRecipientType
       SENSITIVE: []
     end
 

@@ -52,6 +52,7 @@ module Aws::CloudFront
       attr_accessor status: ::String
       attr_accessor arn: ::String
       attr_accessor ip_address_type: ("ipv4" | "ipv6" | "dualstack")
+      attr_accessor ipam_config: Types::IpamConfig
       attr_accessor anycast_ips: ::Array[::String]
       attr_accessor ip_count: ::Integer
       attr_accessor last_modified_time: ::Time
@@ -77,6 +78,7 @@ module Aws::CloudFront
       attr_accessor last_modified_time: ::Time
       attr_accessor ip_address_type: ("ipv4" | "ipv6" | "dualstack")
       attr_accessor etag: ::String
+      attr_accessor ipam_config: Types::IpamConfig
       SENSITIVE: []
     end
 
@@ -431,6 +433,7 @@ module Aws::CloudFront
       attr_accessor ip_count: ::Integer
       attr_accessor tags: Types::Tags
       attr_accessor ip_address_type: ("ipv4" | "ipv6" | "dualstack")
+      attr_accessor ipam_cidr_configs: ::Array[Types::IpamCidrConfig]
       SENSITIVE: []
     end
 
@@ -1988,6 +1991,20 @@ module Aws::CloudFront
       attr_accessor id: ::String
       attr_accessor create_time: ::Time
       attr_accessor status: ::String
+      SENSITIVE: []
+    end
+
+    class IpamCidrConfig
+      attr_accessor cidr: ::String
+      attr_accessor ipam_pool_arn: ::String
+      attr_accessor anycast_ip: ::String
+      attr_accessor status: ("provisioned" | "failed-provision" | "provisioning" | "deprovisioned" | "failed-deprovision" | "deprovisioning" | "advertised" | "failed-advertise" | "advertising" | "withdrawn" | "failed-withdraw" | "withdrawing")
+      SENSITIVE: []
+    end
+
+    class IpamConfig
+      attr_accessor quantity: ::Integer
+      attr_accessor ipam_cidr_configs: ::Array[Types::IpamCidrConfig]
       SENSITIVE: []
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.98.0 (2025-11-20)
+------------------
+
+* Feature - Add support for environment variables and an IAM execution role.
+
 1.97.0 (2025-11-17)
 ------------------
 

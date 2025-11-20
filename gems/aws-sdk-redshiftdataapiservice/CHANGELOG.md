@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.65.0 (2025-11-20)
+------------------
+
+* Feature - Increasing the length limit of Statement Name from 500 to 2048.
+
 1.64.0 (2025-10-22)
 ------------------
 

@@ -3761,6 +3761,12 @@ module Aws::Connect
     #             },
     #             user_ids: ["UserId"],
     #           },
+    #           exclusion: {
+    #             user_tags: {
+    #               "String" => "String",
+    #             },
+    #             user_ids: ["UserId"],
+    #           },
     #         },
     #         create_case_action: {
     #           fields: [ # required
@@ -7023,6 +7029,10 @@ module Aws::Connect
     #   resp.rule.actions[0].send_notification_action.recipient.user_tags["String"] #=> String
     #   resp.rule.actions[0].send_notification_action.recipient.user_ids #=> Array
     #   resp.rule.actions[0].send_notification_action.recipient.user_ids[0] #=> String
+    #   resp.rule.actions[0].send_notification_action.exclusion.user_tags #=> Hash
+    #   resp.rule.actions[0].send_notification_action.exclusion.user_tags["String"] #=> String
+    #   resp.rule.actions[0].send_notification_action.exclusion.user_ids #=> Array
+    #   resp.rule.actions[0].send_notification_action.exclusion.user_ids[0] #=> String
     #   resp.rule.actions[0].create_case_action.fields #=> Array
     #   resp.rule.actions[0].create_case_action.fields[0].id #=> String
     #   resp.rule.actions[0].create_case_action.fields[0].value.boolean_value #=> Boolean
@@ -18622,8 +18632,10 @@ module Aws::Connect
     # and then puts the contact in queue, the call is then routed to the
     # agent, like any other inbound case.
     #
-    # There is a 60-second dialing timeout for this operation. If the call
-    # is not connected after 60 seconds, it fails.
+    # Dialing timeout for this operation can be configured with the
+    # “RingTimeoutInSeconds” parameter. If not specified, the default
+    # dialing timeout will be 60 seconds which means if the call is not
+    # connected within 60 seconds, it fails.
     #
     # <note markdown="1"> UK numbers with a 447 prefix are not allowed by default. Before you
     # can dial these UK mobile numbers, you must submit a service quota
@@ -22106,6 +22118,12 @@ module Aws::Connect
     #             },
     #             user_ids: ["UserId"],
     #           },
+    #           exclusion: {
+    #             user_tags: {
+    #               "String" => "String",
+    #             },
+    #             user_ids: ["UserId"],
+    #           },
     #         },
     #         create_case_action: {
     #           fields: [ # required
@@ -22942,7 +22960,7 @@ module Aws::Connect
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-connect'
-      context[:gem_version] = '1.224.0'
+      context[:gem_version] = '1.225.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

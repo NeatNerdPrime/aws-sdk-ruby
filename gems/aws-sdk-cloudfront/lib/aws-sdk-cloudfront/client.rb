@@ -914,11 +914,15 @@ module Aws::CloudFront
     #   The IP address type for the Anycast static IP list. You can specify
     #   one of the following options:
     #
-    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #   * `ipv4` only
     #
-    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #   * `ipv6` only
     #
     #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
+    #
+    # @option params [Array<Types::IpamCidrConfig>] :ipam_cidr_configs
+    #   A list of IPAM CIDR configurations that specify the IP address ranges
+    #   and IPAM pool settings for creating the Anycast static IP list.
     #
     # @return [Types::CreateAnycastIpListResult] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -939,6 +943,14 @@ module Aws::CloudFront
     #       ],
     #     },
     #     ip_address_type: "ipv4", # accepts ipv4, ipv6, dualstack
+    #     ipam_cidr_configs: [
+    #       {
+    #         cidr: "string", # required
+    #         ipam_pool_arn: "string", # required
+    #         anycast_ip: "string",
+    #         status: "provisioned", # accepts provisioned, failed-provision, provisioning, deprovisioned, failed-deprovision, deprovisioning, advertised, failed-advertise, advertising, withdrawn, failed-withdraw, withdrawing
+    #       },
+    #     ],
     #   })
     #
     # @example Response structure
@@ -948,6 +960,12 @@ module Aws::CloudFront
     #   resp.anycast_ip_list.status #=> String
     #   resp.anycast_ip_list.arn #=> String
     #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
+    #   resp.anycast_ip_list.ipam_config.quantity #=> Integer
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs #=> Array
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].cidr #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].ipam_pool_arn #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].anycast_ip #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].status #=> String, one of "provisioned", "failed-provision", "provisioning", "deprovisioned", "failed-deprovision", "deprovisioning", "advertised", "failed-advertise", "advertising", "withdrawn", "failed-withdraw", "withdrawing"
     #   resp.anycast_ip_list.anycast_ips #=> Array
     #   resp.anycast_ip_list.anycast_ips[0] #=> String
     #   resp.anycast_ip_list.ip_count #=> Integer
@@ -4726,6 +4744,12 @@ module Aws::CloudFront
     #   resp.anycast_ip_list.status #=> String
     #   resp.anycast_ip_list.arn #=> String
     #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
+    #   resp.anycast_ip_list.ipam_config.quantity #=> Integer
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs #=> Array
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].cidr #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].ipam_pool_arn #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].anycast_ip #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].status #=> String, one of "provisioned", "failed-provision", "provisioning", "deprovisioned", "failed-deprovision", "deprovisioning", "advertised", "failed-advertise", "advertising", "withdrawn", "failed-withdraw", "withdrawing"
     #   resp.anycast_ip_list.anycast_ips #=> Array
     #   resp.anycast_ip_list.anycast_ips[0] #=> String
     #   resp.anycast_ip_list.ip_count #=> Integer
@@ -6819,6 +6843,12 @@ module Aws::CloudFront
     #   resp.anycast_ip_lists.items[0].last_modified_time #=> Time
     #   resp.anycast_ip_lists.items[0].ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
     #   resp.anycast_ip_lists.items[0].etag #=> String
+    #   resp.anycast_ip_lists.items[0].ipam_config.quantity #=> Integer
+    #   resp.anycast_ip_lists.items[0].ipam_config.ipam_cidr_configs #=> Array
+    #   resp.anycast_ip_lists.items[0].ipam_config.ipam_cidr_configs[0].cidr #=> String
+    #   resp.anycast_ip_lists.items[0].ipam_config.ipam_cidr_configs[0].ipam_pool_arn #=> String
+    #   resp.anycast_ip_lists.items[0].ipam_config.ipam_cidr_configs[0].anycast_ip #=> String
+    #   resp.anycast_ip_lists.items[0].ipam_config.ipam_cidr_configs[0].status #=> String, one of "provisioned", "failed-provision", "provisioning", "deprovisioned", "failed-deprovision", "deprovisioning", "advertised", "failed-advertise", "advertising", "withdrawn", "failed-withdraw", "withdrawing"
     #   resp.anycast_ip_lists.marker #=> String
     #   resp.anycast_ip_lists.next_marker #=> String
     #   resp.anycast_ip_lists.max_items #=> Integer
@@ -10035,9 +10065,9 @@ module Aws::CloudFront
     #   The IP address type for the Anycast static IP list. You can specify
     #   one of the following options:
     #
-    #   * `ipv4` - Allocate a list of only IPv4 addresses
+    #   * `ipv4` only
     #
-    #   * `ipv6` - Allocate a list of only IPv4 addresses
+    #   * `ipv6` only
     #
     #   * `dualstack` - Allocate a list of both IPv4 and IPv6 addresses
     #
@@ -10065,6 +10095,12 @@ module Aws::CloudFront
     #   resp.anycast_ip_list.status #=> String
     #   resp.anycast_ip_list.arn #=> String
     #   resp.anycast_ip_list.ip_address_type #=> String, one of "ipv4", "ipv6", "dualstack"
+    #   resp.anycast_ip_list.ipam_config.quantity #=> Integer
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs #=> Array
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].cidr #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].ipam_pool_arn #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].anycast_ip #=> String
+    #   resp.anycast_ip_list.ipam_config.ipam_cidr_configs[0].status #=> String, one of "provisioned", "failed-provision", "provisioning", "deprovisioned", "failed-deprovision", "deprovisioning", "advertised", "failed-advertise", "advertising", "withdrawn", "failed-withdraw", "withdrawing"
     #   resp.anycast_ip_list.anycast_ips #=> Array
     #   resp.anycast_ip_list.anycast_ips[0] #=> String
     #   resp.anycast_ip_list.ip_count #=> Integer
@@ -12526,7 +12562,7 @@ module Aws::CloudFront
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-cloudfront'
-      context[:gem_version] = '1.133.0'
+      context[:gem_version] = '1.134.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

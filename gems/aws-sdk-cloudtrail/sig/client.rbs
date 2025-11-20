@@ -422,12 +422,15 @@ module Aws
 
       interface _GetEventConfigurationResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::GetEventConfigurationResponse]
+        def trail_arn: () -> ::String
         def event_data_store_arn: () -> ::String
         def max_event_size: () -> ("Standard" | "Large")
         def context_key_selectors: () -> ::Array[Types::ContextKeySelector]
+        def aggregation_configurations: () -> ::Array[Types::AggregationConfiguration]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudTrail/Client.html#get_event_configuration-instance_method
       def get_event_configuration: (
+                                     ?trail_name: ::String,
                                      ?event_data_store: ::String
                                    ) -> _GetEventConfigurationResponseSuccess
                                  | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetEventConfigurationResponseSuccess
@@ -750,22 +753,31 @@ module Aws
 
       interface _PutEventConfigurationResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::PutEventConfigurationResponse]
+        def trail_arn: () -> ::String
         def event_data_store_arn: () -> ::String
         def max_event_size: () -> ("Standard" | "Large")
         def context_key_selectors: () -> ::Array[Types::ContextKeySelector]
+        def aggregation_configurations: () -> ::Array[Types::AggregationConfiguration]
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudTrail/Client.html#put_event_configuration-instance_method
       def put_event_configuration: (
+                                     ?trail_name: ::String,
                                      ?event_data_store: ::String,
-                                     max_event_size: ("Standard" | "Large"),
-                                     context_key_selectors: Array[
+                                     ?max_event_size: ("Standard" | "Large"),
+                                     ?context_key_selectors: Array[
                                        {
                                          type: ("TagContext" | "RequestContext"),
                                          equals: Array[::String]
                                        },
+                                     ],
+                                     ?aggregation_configurations: Array[
+                                       {
+                                         templates: Array[("API_ACTIVITY" | "RESOURCE_ACCESS" | "USER_ACTIONS")],
+                                         event_category: ("Data")
+                                       },
                                      ]
                                    ) -> _PutEventConfigurationResponseSuccess
-                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutEventConfigurationResponseSuccess
+                                 | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutEventConfigurationResponseSuccess
 
       interface _PutEventSelectorsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::PutEventSelectorsResponse]

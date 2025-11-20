@@ -49,6 +49,12 @@ module Aws::CloudTrail
       SENSITIVE: []
     end
 
+    class AggregationConfiguration
+      attr_accessor templates: ::Array[("API_ACTIVITY" | "RESOURCE_ACCESS" | "USER_ACTIONS")]
+      attr_accessor event_category: ("Data")
+      SENSITIVE: []
+    end
+
     class CancelQueryRequest
       attr_accessor event_data_store: ::String
       attr_accessor query_id: ::String
@@ -445,14 +451,17 @@ module Aws::CloudTrail
     end
 
     class GetEventConfigurationRequest
+      attr_accessor trail_name: ::String
       attr_accessor event_data_store: ::String
       SENSITIVE: []
     end
 
     class GetEventConfigurationResponse
+      attr_accessor trail_arn: ::String
       attr_accessor event_data_store_arn: ::String
       attr_accessor max_event_size: ("Standard" | "Large")
       attr_accessor context_key_selectors: ::Array[Types::ContextKeySelector]
+      attr_accessor aggregation_configurations: ::Array[Types::AggregationConfiguration]
       SENSITIVE: []
     end
 
@@ -973,16 +982,20 @@ module Aws::CloudTrail
     end
 
     class PutEventConfigurationRequest
+      attr_accessor trail_name: ::String
       attr_accessor event_data_store: ::String
       attr_accessor max_event_size: ("Standard" | "Large")
       attr_accessor context_key_selectors: ::Array[Types::ContextKeySelector]
+      attr_accessor aggregation_configurations: ::Array[Types::AggregationConfiguration]
       SENSITIVE: []
     end
 
     class PutEventConfigurationResponse
+      attr_accessor trail_arn: ::String
       attr_accessor event_data_store_arn: ::String
       attr_accessor max_event_size: ("Standard" | "Large")
       attr_accessor context_key_selectors: ::Array[Types::ContextKeySelector]
+      attr_accessor aggregation_configurations: ::Array[Types::AggregationConfiguration]
       SENSITIVE: []
     end
 
