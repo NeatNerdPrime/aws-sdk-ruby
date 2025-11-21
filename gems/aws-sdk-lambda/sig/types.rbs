@@ -1128,6 +1128,7 @@ module Aws::Lambda
     class ProvisionedPollerConfig
       attr_accessor minimum_pollers: ::Integer
       attr_accessor maximum_pollers: ::Integer
+      attr_accessor poller_group_name: ::String
       SENSITIVE: []
     end
 

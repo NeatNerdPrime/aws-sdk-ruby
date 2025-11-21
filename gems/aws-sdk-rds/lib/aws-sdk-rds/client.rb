@@ -3883,6 +3883,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -6004,6 +6005,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -7016,6 +7018,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -9460,6 +9463,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -10053,6 +10057,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -12919,6 +12924,7 @@ module Aws::RDS
     #   resp.db_clusters[0].db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_clusters[0].preferred_backup_window #=> String
     #   resp.db_clusters[0].preferred_maintenance_window #=> String
+    #   resp.db_clusters[0].upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_clusters[0].replication_source_identifier #=> String
     #   resp.db_clusters[0].read_replica_identifiers #=> Array
     #   resp.db_clusters[0].read_replica_identifiers[0] #=> String
@@ -13653,6 +13659,7 @@ module Aws::RDS
     #   resp.db_instances[0].db_subnet_group.supported_network_types #=> Array
     #   resp.db_instances[0].db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instances[0].preferred_maintenance_window #=> String
+    #   resp.db_instances[0].upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instances[0].pending_modified_values.db_instance_class #=> String
     #   resp.db_instances[0].pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instances[0].pending_modified_values.master_user_password #=> String
@@ -18362,6 +18369,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -20108,6 +20116,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -21913,6 +21922,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -23862,6 +23872,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -24051,6 +24062,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -24356,6 +24368,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -24592,6 +24605,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -25960,6 +25974,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -26786,6 +26801,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -27595,6 +27611,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -28528,6 +28545,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -29346,6 +29364,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -30357,6 +30376,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -30774,6 +30794,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -30982,6 +31003,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -31610,6 +31632,7 @@ module Aws::RDS
     #   resp.db_cluster.db_cluster_option_group_memberships[0].status #=> String
     #   resp.db_cluster.preferred_backup_window #=> String
     #   resp.db_cluster.preferred_maintenance_window #=> String
+    #   resp.db_cluster.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_cluster.replication_source_identifier #=> String
     #   resp.db_cluster.read_replica_identifiers #=> Array
     #   resp.db_cluster.read_replica_identifiers[0] #=> String
@@ -31826,6 +31849,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -32433,6 +32457,7 @@ module Aws::RDS
     #   resp.db_instance.db_subnet_group.supported_network_types #=> Array
     #   resp.db_instance.db_subnet_group.supported_network_types[0] #=> String
     #   resp.db_instance.preferred_maintenance_window #=> String
+    #   resp.db_instance.upgrade_rollout_order #=> String, one of "first", "second", "last"
     #   resp.db_instance.pending_modified_values.db_instance_class #=> String
     #   resp.db_instance.pending_modified_values.allocated_storage #=> Integer
     #   resp.db_instance.pending_modified_values.master_user_password #=> String
@@ -32587,7 +32612,7 @@ module Aws::RDS
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-rds'
-      context[:gem_version] = '1.299.0'
+      context[:gem_version] = '1.300.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

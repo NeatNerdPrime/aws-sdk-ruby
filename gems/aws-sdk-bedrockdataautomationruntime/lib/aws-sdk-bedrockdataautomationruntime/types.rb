@@ -146,13 +146,28 @@ module Aws::BedrockDataAutomationRuntime
     #   Output configuration.
     #   @return [Types::OutputConfiguration]
     #
+    # @!attribute [rw] job_submission_time
+    #   Job Submission time.
+    #   @return [Time]
+    #
+    # @!attribute [rw] job_completion_time
+    #   Job completion time.
+    #   @return [Time]
+    #
+    # @!attribute [rw] job_duration_in_seconds
+    #   Job duration in seconds.
+    #   @return [Integer]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-data-automation-runtime-2024-06-13/GetDataAutomationStatusResponse AWS API Documentation
     #
     class GetDataAutomationStatusResponse < Struct.new(
       :status,
       :error_type,
       :error_message,
-      :output_configuration)
+      :output_configuration,
+      :job_submission_time,
+      :job_completion_time,
+      :job_duration_in_seconds)
       SENSITIVE = []
       include Aws::Structure
     end

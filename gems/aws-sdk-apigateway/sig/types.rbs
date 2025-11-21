@@ -941,6 +941,7 @@ module Aws::APIGateway
       attr_accessor integration_responses: ::Hash[::String, Types::IntegrationResponse]
       attr_accessor tls_config: Types::TlsConfig
       attr_accessor response_transfer_mode: ("BUFFERED" | "STREAM")
+      attr_accessor integration_target: ::String
       SENSITIVE: []
     end
 
@@ -1070,6 +1071,7 @@ module Aws::APIGateway
       attr_accessor timeout_in_millis: ::Integer
       attr_accessor tls_config: Types::TlsConfig
       attr_accessor response_transfer_mode: ("BUFFERED" | "STREAM")
+      attr_accessor integration_target: ::String
       SENSITIVE: []
     end
 

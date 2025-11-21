@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.341.0 (2025-11-21)
+------------------
+
+* Feature - Enhanced SageMaker HyperPod instance groups with support for MinInstanceCount, CapacityRequirements (Spot/On-Demand), and KubernetesConfig (labels and taints). Also Added speculative decoding and MaxInstanceCount for model optimization jobs.
+
 1.340.0 (2025-11-20)
 ------------------
 

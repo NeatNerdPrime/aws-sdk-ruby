@@ -728,6 +728,12 @@ module Aws::BedrockRuntime
     #   resp.assessments[0].invocation_metrics.guardrail_coverage.text_characters.total #=> Integer
     #   resp.assessments[0].invocation_metrics.guardrail_coverage.images.guarded #=> Integer
     #   resp.assessments[0].invocation_metrics.guardrail_coverage.images.total #=> Integer
+    #   resp.assessments[0].applied_guardrail_details.guardrail_id #=> String
+    #   resp.assessments[0].applied_guardrail_details.guardrail_version #=> String
+    #   resp.assessments[0].applied_guardrail_details.guardrail_arn #=> String
+    #   resp.assessments[0].applied_guardrail_details.guardrail_origin #=> Array
+    #   resp.assessments[0].applied_guardrail_details.guardrail_origin[0] #=> String, one of "REQUEST", "ACCOUNT_ENFORCED", "ORGANIZATION_ENFORCED"
+    #   resp.assessments[0].applied_guardrail_details.guardrail_ownership #=> String, one of "SELF", "CROSS_ACCOUNT"
     #   resp.guardrail_coverage.text_characters.guarded #=> Integer
     #   resp.guardrail_coverage.text_characters.total #=> Integer
     #   resp.guardrail_coverage.images.guarded #=> Integer
@@ -1190,8 +1196,8 @@ module Aws::BedrockRuntime
     #       },
     #     },
     #     guardrail_config: {
-    #       guardrail_identifier: "GuardrailIdentifier", # required
-    #       guardrail_version: "GuardrailVersion", # required
+    #       guardrail_identifier: "GuardrailIdentifier",
+    #       guardrail_version: "GuardrailVersion",
     #       trace: "enabled", # accepts enabled, disabled, enabled_full
     #     },
     #     additional_model_request_fields: {
@@ -1471,6 +1477,12 @@ module Aws::BedrockRuntime
     #   resp.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.text_characters.total #=> Integer
     #   resp.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.images.guarded #=> Integer
     #   resp.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.images.total #=> Integer
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_id #=> String
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_version #=> String
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_arn #=> String
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_origin #=> Array
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_origin[0] #=> String, one of "REQUEST", "ACCOUNT_ENFORCED", "ORGANIZATION_ENFORCED"
+    #   resp.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_ownership #=> String, one of "SELF", "CROSS_ACCOUNT"
     #   resp.trace.guardrail.output_assessments #=> Hash
     #   resp.trace.guardrail.output_assessments["String"] #=> Array
     #   resp.trace.guardrail.output_assessments["String"][0].topic_policy.topics #=> Array
@@ -1632,6 +1644,12 @@ module Aws::BedrockRuntime
     #   resp.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.text_characters.total #=> Integer
     #   resp.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.images.guarded #=> Integer
     #   resp.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.images.total #=> Integer
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_id #=> String
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_version #=> String
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_arn #=> String
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_origin #=> Array
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_origin[0] #=> String, one of "REQUEST", "ACCOUNT_ENFORCED", "ORGANIZATION_ENFORCED"
+    #   resp.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_ownership #=> String, one of "SELF", "CROSS_ACCOUNT"
     #   resp.trace.guardrail.action_reason #=> String
     #   resp.trace.prompt_router.invoked_model_id #=> String
     #   resp.performance_config.latency #=> String, one of "standard", "optimized"
@@ -2277,8 +2295,8 @@ module Aws::BedrockRuntime
     #       },
     #     },
     #     guardrail_config: {
-    #       guardrail_identifier: "GuardrailIdentifier", # required
-    #       guardrail_version: "GuardrailVersion", # required
+    #       guardrail_identifier: "GuardrailIdentifier",
+    #       guardrail_version: "GuardrailVersion",
     #       trace: "enabled", # accepts enabled, disabled, enabled_full
     #       stream_processing_mode: "sync", # accepts sync, async
     #     },
@@ -2522,6 +2540,12 @@ module Aws::BedrockRuntime
     #   event.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.text_characters.total #=> Integer
     #   event.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.images.guarded #=> Integer
     #   event.trace.guardrail.input_assessment["String"].invocation_metrics.guardrail_coverage.images.total #=> Integer
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_id #=> String
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_version #=> String
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_arn #=> String
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_origin #=> Array
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_origin[0] #=> String, one of "REQUEST", "ACCOUNT_ENFORCED", "ORGANIZATION_ENFORCED"
+    #   event.trace.guardrail.input_assessment["String"].applied_guardrail_details.guardrail_ownership #=> String, one of "SELF", "CROSS_ACCOUNT"
     #   event.trace.guardrail.output_assessments #=> Hash
     #   event.trace.guardrail.output_assessments["String"] #=> Array
     #   event.trace.guardrail.output_assessments["String"][0].topic_policy.topics #=> Array
@@ -2683,6 +2707,12 @@ module Aws::BedrockRuntime
     #   event.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.text_characters.total #=> Integer
     #   event.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.images.guarded #=> Integer
     #   event.trace.guardrail.output_assessments["String"][0].invocation_metrics.guardrail_coverage.images.total #=> Integer
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_id #=> String
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_version #=> String
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_arn #=> String
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_origin #=> Array
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_origin[0] #=> String, one of "REQUEST", "ACCOUNT_ENFORCED", "ORGANIZATION_ENFORCED"
+    #   event.trace.guardrail.output_assessments["String"][0].applied_guardrail_details.guardrail_ownership #=> String, one of "SELF", "CROSS_ACCOUNT"
     #   event.trace.guardrail.action_reason #=> String
     #   event.trace.prompt_router.invoked_model_id #=> String
     #   event.performance_config.latency #=> String, one of "standard", "optimized"
@@ -3778,7 +3808,7 @@ module Aws::BedrockRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockruntime'
-      context[:gem_version] = '1.65.0'
+      context[:gem_version] = '1.66.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

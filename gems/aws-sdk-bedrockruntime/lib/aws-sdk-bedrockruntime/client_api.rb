@@ -17,6 +17,7 @@ module Aws::BedrockRuntime
     AccessDeniedException = Shapes::StructureShape.new(name: 'AccessDeniedException')
     AccountId = Shapes::StringShape.new(name: 'AccountId')
     AnyToolChoice = Shapes::StructureShape.new(name: 'AnyToolChoice')
+    AppliedGuardrailDetails = Shapes::StructureShape.new(name: 'AppliedGuardrailDetails')
     ApplyGuardrailRequest = Shapes::StructureShape.new(name: 'ApplyGuardrailRequest')
     ApplyGuardrailResponse = Shapes::StructureShape.new(name: 'ApplyGuardrailResponse')
     AsyncInvokeArn = Shapes::StringShape.new(name: 'AsyncInvokeArn')
@@ -102,6 +103,7 @@ module Aws::BedrockRuntime
     GetAsyncInvokeRequest = Shapes::StructureShape.new(name: 'GetAsyncInvokeRequest')
     GetAsyncInvokeResponse = Shapes::StructureShape.new(name: 'GetAsyncInvokeResponse')
     GuardrailAction = Shapes::StringShape.new(name: 'GuardrailAction')
+    GuardrailArn = Shapes::StringShape.new(name: 'GuardrailArn')
     GuardrailAssessment = Shapes::StructureShape.new(name: 'GuardrailAssessment')
     GuardrailAssessmentList = Shapes::ListShape.new(name: 'GuardrailAssessmentList')
     GuardrailAssessmentListMap = Shapes::MapShape.new(name: 'GuardrailAssessmentListMap')
@@ -170,6 +172,7 @@ module Aws::BedrockRuntime
     GuardrailCoverage = Shapes::StructureShape.new(name: 'GuardrailCoverage')
     GuardrailCustomWord = Shapes::StructureShape.new(name: 'GuardrailCustomWord')
     GuardrailCustomWordList = Shapes::ListShape.new(name: 'GuardrailCustomWordList')
+    GuardrailId = Shapes::StringShape.new(name: 'GuardrailId')
     GuardrailIdentifier = Shapes::StringShape.new(name: 'GuardrailIdentifier')
     GuardrailImageBlock = Shapes::StructureShape.new(name: 'GuardrailImageBlock')
     GuardrailImageCoverage = Shapes::StructureShape.new(name: 'GuardrailImageCoverage')
@@ -180,10 +183,13 @@ module Aws::BedrockRuntime
     GuardrailManagedWord = Shapes::StructureShape.new(name: 'GuardrailManagedWord')
     GuardrailManagedWordList = Shapes::ListShape.new(name: 'GuardrailManagedWordList')
     GuardrailManagedWordType = Shapes::StringShape.new(name: 'GuardrailManagedWordType')
+    GuardrailOrigin = Shapes::StringShape.new(name: 'GuardrailOrigin')
+    GuardrailOriginList = Shapes::ListShape.new(name: 'GuardrailOriginList')
     GuardrailOutputContent = Shapes::StructureShape.new(name: 'GuardrailOutputContent')
     GuardrailOutputContentList = Shapes::ListShape.new(name: 'GuardrailOutputContentList')
     GuardrailOutputScope = Shapes::StringShape.new(name: 'GuardrailOutputScope')
     GuardrailOutputText = Shapes::StringShape.new(name: 'GuardrailOutputText')
+    GuardrailOwnership = Shapes::StringShape.new(name: 'GuardrailOwnership')
     GuardrailPiiEntityFilter = Shapes::StructureShape.new(name: 'GuardrailPiiEntityFilter')
     GuardrailPiiEntityFilterList = Shapes::ListShape.new(name: 'GuardrailPiiEntityFilterList')
     GuardrailPiiEntityType = Shapes::StringShape.new(name: 'GuardrailPiiEntityType')
@@ -340,6 +346,13 @@ module Aws::BedrockRuntime
     AccessDeniedException.struct_class = Types::AccessDeniedException
 
     AnyToolChoice.struct_class = Types::AnyToolChoice
+
+    AppliedGuardrailDetails.add_member(:guardrail_id, Shapes::ShapeRef.new(shape: GuardrailId, location_name: "guardrailId"))
+    AppliedGuardrailDetails.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, location_name: "guardrailVersion"))
+    AppliedGuardrailDetails.add_member(:guardrail_arn, Shapes::ShapeRef.new(shape: GuardrailArn, location_name: "guardrailArn"))
+    AppliedGuardrailDetails.add_member(:guardrail_origin, Shapes::ShapeRef.new(shape: GuardrailOriginList, location_name: "guardrailOrigin"))
+    AppliedGuardrailDetails.add_member(:guardrail_ownership, Shapes::ShapeRef.new(shape: GuardrailOwnership, location_name: "guardrailOwnership"))
+    AppliedGuardrailDetails.struct_class = Types::AppliedGuardrailDetails
 
     ApplyGuardrailRequest.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, required: true, location: "uri", location_name: "guardrailIdentifier"))
     ApplyGuardrailRequest.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, required: true, location: "uri", location_name: "guardrailVersion"))
@@ -682,6 +695,7 @@ module Aws::BedrockRuntime
     GuardrailAssessment.add_member(:contextual_grounding_policy, Shapes::ShapeRef.new(shape: GuardrailContextualGroundingPolicyAssessment, location_name: "contextualGroundingPolicy"))
     GuardrailAssessment.add_member(:automated_reasoning_policy, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningPolicyAssessment, location_name: "automatedReasoningPolicy"))
     GuardrailAssessment.add_member(:invocation_metrics, Shapes::ShapeRef.new(shape: GuardrailInvocationMetrics, location_name: "invocationMetrics"))
+    GuardrailAssessment.add_member(:applied_guardrail_details, Shapes::ShapeRef.new(shape: AppliedGuardrailDetails, location_name: "appliedGuardrailDetails"))
     GuardrailAssessment.struct_class = Types::GuardrailAssessment
 
     GuardrailAssessmentList.member = Shapes::ShapeRef.new(shape: GuardrailAssessment)
@@ -786,8 +800,8 @@ module Aws::BedrockRuntime
     GuardrailAutomatedReasoningValidFinding.add_member(:logic_warning, Shapes::ShapeRef.new(shape: GuardrailAutomatedReasoningLogicWarning, location_name: "logicWarning"))
     GuardrailAutomatedReasoningValidFinding.struct_class = Types::GuardrailAutomatedReasoningValidFinding
 
-    GuardrailConfiguration.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, required: true, location_name: "guardrailIdentifier"))
-    GuardrailConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, required: true, location_name: "guardrailVersion"))
+    GuardrailConfiguration.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, location_name: "guardrailIdentifier"))
+    GuardrailConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, location_name: "guardrailVersion"))
     GuardrailConfiguration.add_member(:trace, Shapes::ShapeRef.new(shape: GuardrailTrace, location_name: "trace"))
     GuardrailConfiguration.struct_class = Types::GuardrailConfiguration
 
@@ -889,6 +903,8 @@ module Aws::BedrockRuntime
 
     GuardrailManagedWordList.member = Shapes::ShapeRef.new(shape: GuardrailManagedWord)
 
+    GuardrailOriginList.member = Shapes::ShapeRef.new(shape: GuardrailOrigin)
+
     GuardrailOutputContent.add_member(:text, Shapes::ShapeRef.new(shape: GuardrailOutputText, location_name: "text"))
     GuardrailOutputContent.struct_class = Types::GuardrailOutputContent
 
@@ -915,8 +931,8 @@ module Aws::BedrockRuntime
     GuardrailSensitiveInformationPolicyAssessment.add_member(:regexes, Shapes::ShapeRef.new(shape: GuardrailRegexFilterList, required: true, location_name: "regexes"))
     GuardrailSensitiveInformationPolicyAssessment.struct_class = Types::GuardrailSensitiveInformationPolicyAssessment
 
-    GuardrailStreamConfiguration.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, required: true, location_name: "guardrailIdentifier"))
-    GuardrailStreamConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, required: true, location_name: "guardrailVersion"))
+    GuardrailStreamConfiguration.add_member(:guardrail_identifier, Shapes::ShapeRef.new(shape: GuardrailIdentifier, location_name: "guardrailIdentifier"))
+    GuardrailStreamConfiguration.add_member(:guardrail_version, Shapes::ShapeRef.new(shape: GuardrailVersion, location_name: "guardrailVersion"))
     GuardrailStreamConfiguration.add_member(:trace, Shapes::ShapeRef.new(shape: GuardrailTrace, location_name: "trace"))
     GuardrailStreamConfiguration.add_member(:stream_processing_mode, Shapes::ShapeRef.new(shape: GuardrailStreamProcessingMode, location_name: "streamProcessingMode"))
     GuardrailStreamConfiguration.struct_class = Types::GuardrailStreamConfiguration

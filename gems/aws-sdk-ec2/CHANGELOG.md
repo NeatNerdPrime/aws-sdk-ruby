@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.582.0 (2025-11-21)
+------------------
+
+* Feature - This release adds a new capability to create and manage interruptible EC2 Capacity Reservations.
+
 1.581.0 (2025-11-20)
 ------------------
 

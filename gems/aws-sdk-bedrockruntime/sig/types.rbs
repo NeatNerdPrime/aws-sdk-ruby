@@ -16,6 +16,15 @@ module Aws::BedrockRuntime
     class AnyToolChoice < Aws::EmptyStructure
     end
 
+    class AppliedGuardrailDetails
+      attr_accessor guardrail_id: ::String
+      attr_accessor guardrail_version: ::String
+      attr_accessor guardrail_arn: ::String
+      attr_accessor guardrail_origin: ::Array[("REQUEST" | "ACCOUNT_ENFORCED" | "ORGANIZATION_ENFORCED")]
+      attr_accessor guardrail_ownership: ("SELF" | "CROSS_ACCOUNT")
+      SENSITIVE: []
+    end
+
     class ApplyGuardrailRequest
       attr_accessor guardrail_identifier: ::String
       attr_accessor guardrail_version: ::String
@@ -478,6 +487,7 @@ module Aws::BedrockRuntime
       attr_accessor contextual_grounding_policy: Types::GuardrailContextualGroundingPolicyAssessment
       attr_accessor automated_reasoning_policy: Types::GuardrailAutomatedReasoningPolicyAssessment
       attr_accessor invocation_metrics: Types::GuardrailInvocationMetrics
+      attr_accessor applied_guardrail_details: Types::AppliedGuardrailDetails
       SENSITIVE: []
     end
 

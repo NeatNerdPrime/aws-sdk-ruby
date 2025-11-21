@@ -1371,6 +1371,9 @@ module Aws::EC2
       attr_accessor commitment_info: Types::CapacityReservationCommitmentInfo
       attr_accessor delivery_preference: ("fixed" | "incremental")
       attr_accessor capacity_block_id: ::String
+      attr_accessor interruptible: bool
+      attr_accessor interruptible_capacity_allocation: Types::InterruptibleCapacityAllocation
+      attr_accessor interruption_info: Types::InterruptionInfo
       SENSITIVE: []
     end
 
@@ -2339,6 +2342,23 @@ module Aws::EC2
 
     class CreateInternetGatewayResult
       attr_accessor internet_gateway: Types::InternetGateway
+      SENSITIVE: []
+    end
+
+    class CreateInterruptibleCapacityReservationAllocationRequest
+      attr_accessor capacity_reservation_id: ::String
+      attr_accessor instance_count: ::Integer
+      attr_accessor client_token: ::String
+      attr_accessor dry_run: bool
+      attr_accessor tag_specifications: ::Array[Types::TagSpecification]
+      SENSITIVE: []
+    end
+
+    class CreateInterruptibleCapacityReservationAllocationResult
+      attr_accessor source_capacity_reservation_id: ::String
+      attr_accessor target_instance_count: ::Integer
+      attr_accessor status: ("pending" | "active" | "updating" | "canceling" | "canceled" | "failed")
+      attr_accessor interruption_type: ("adhoc")
       SENSITIVE: []
     end
 
@@ -9346,6 +9366,9 @@ module Aws::EC2
       attr_accessor available_instance_count: ::Integer
       attr_accessor state: ("active" | "expired" | "cancelled" | "pending" | "failed" | "scheduled" | "payment-pending" | "payment-failed" | "assessing" | "delayed" | "unsupported" | "unavailable")
       attr_accessor instance_usages: ::Array[Types::InstanceUsage]
+      attr_accessor interruptible: bool
+      attr_accessor interruptible_capacity_allocation: Types::InterruptibleCapacityAllocation
+      attr_accessor interruption_info: Types::InterruptionInfo
       SENSITIVE: []
     end
 
@@ -10766,7 +10789,7 @@ module Aws::EC2
       attr_accessor ena_support: bool
       attr_accessor hypervisor: ("ovm" | "xen")
       attr_accessor iam_instance_profile: Types::IamInstanceProfile
-      attr_accessor instance_lifecycle: ("spot" | "scheduled" | "capacity-block")
+      attr_accessor instance_lifecycle: ("spot" | "scheduled" | "capacity-block" | "interruptible-capacity-reservation")
       attr_accessor elastic_gpu_associations: ::Array[Types::ElasticGpuAssociation]
       attr_accessor elastic_inference_accelerator_associations: ::Array[Types::ElasticInferenceAcceleratorAssociation]
       attr_accessor network_interfaces: ::Array[Types::InstanceNetworkInterface]
@@ -11018,7 +11041,7 @@ module Aws::EC2
     end
 
     class InstanceMarketOptionsRequest
-      attr_accessor market_type: ("spot" | "capacity-block")
+      attr_accessor market_type: ("spot" | "capacity-block" | "interruptible-capacity-reservation")
       attr_accessor spot_options: Types::SpotMarketOptions
       SENSITIVE: []
     end
@@ -11366,6 +11389,21 @@ module Aws::EC2
     class InternetGatewayAttachment
       attr_accessor state: ("attaching" | "attached" | "detaching" | "detached")
       attr_accessor vpc_id: ::String
+      SENSITIVE: []
+    end
+
+    class InterruptibleCapacityAllocation
+      attr_accessor instance_count: ::Integer
+      attr_accessor target_instance_count: ::Integer
+      attr_accessor status: ("pending" | "active" | "updating" | "canceling" | "canceled" | "failed")
+      attr_accessor interruptible_capacity_reservation_id: ::String
+      attr_accessor interruption_type: ("adhoc")
+      SENSITIVE: []
+    end
+
+    class InterruptionInfo
+      attr_accessor source_capacity_reservation_id: ::String
+      attr_accessor interruption_type: ("adhoc")
       SENSITIVE: []
     end
 
@@ -12063,13 +12101,13 @@ module Aws::EC2
     end
 
     class LaunchTemplateInstanceMarketOptions
-      attr_accessor market_type: ("spot" | "capacity-block")
+      attr_accessor market_type: ("spot" | "capacity-block" | "interruptible-capacity-reservation")
       attr_accessor spot_options: Types::LaunchTemplateSpotMarketOptions
       SENSITIVE: []
     end
 
     class LaunchTemplateInstanceMarketOptionsRequest
-      attr_accessor market_type: ("spot" | "capacity-block")
+      attr_accessor market_type: ("spot" | "capacity-block" | "interruptible-capacity-reservation")
       attr_accessor spot_options: Types::LaunchTemplateSpotMarketOptionsRequest
       SENSITIVE: []
     end
@@ -17566,6 +17604,23 @@ module Aws::EC2
     class UpdateCapacityManagerOrganizationsAccessResult
       attr_accessor capacity_manager_status: ("enabled" | "disabled")
       attr_accessor organizations_access: bool
+      SENSITIVE: []
+    end
+
+    class UpdateInterruptibleCapacityReservationAllocationRequest
+      attr_accessor capacity_reservation_id: ::String
+      attr_accessor target_instance_count: ::Integer
+      attr_accessor dry_run: bool
+      SENSITIVE: []
+    end
+
+    class UpdateInterruptibleCapacityReservationAllocationResult
+      attr_accessor interruptible_capacity_reservation_id: ::String
+      attr_accessor source_capacity_reservation_id: ::String
+      attr_accessor instance_count: ::Integer
+      attr_accessor target_instance_count: ::Integer
+      attr_accessor status: ("pending" | "active" | "updating" | "canceling" | "canceled" | "failed")
+      attr_accessor interruption_type: ("adhoc")
       SENSITIVE: []
     end
 

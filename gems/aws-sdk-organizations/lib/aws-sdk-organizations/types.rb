@@ -1284,7 +1284,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][8]
     #
-    #   * [INSPECTOR\_POLICY][9]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][9]
+    #
+    #   * [INSPECTOR\_POLICY][10]
     #
     #
     #
@@ -1296,7 +1298,8 @@ module Aws::Organizations
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [10]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] tags
@@ -1627,7 +1630,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][6]
     #
-    #   * [INSPECTOR\_POLICY][7]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][7]
+    #
+    #   * [INSPECTOR\_POLICY][8]
     #
     #
     #
@@ -1637,7 +1642,8 @@ module Aws::Organizations
     #   [4]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [5]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] target_id
@@ -1928,7 +1934,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][8]
     #
-    #   * [INSPECTOR\_POLICY][9]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][9]
+    #
+    #   * [INSPECTOR\_POLICY][10]
     #
     #
     #
@@ -1940,7 +1948,8 @@ module Aws::Organizations
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [10]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/DisablePolicyTypeRequest AWS API Documentation
@@ -2192,7 +2201,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][8]
     #
-    #   * [INSPECTOR\_POLICY][9]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][9]
+    #
+    #   * [INSPECTOR\_POLICY][10]
     #
     #
     #
@@ -2204,7 +2215,8 @@ module Aws::Organizations
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [10]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/organizations-2016-11-28/EnablePolicyTypeRequest AWS API Documentation
@@ -3078,7 +3090,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][6]
     #
-    #   * [INSPECTOR\_POLICY][7]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][7]
+    #
+    #   * [INSPECTOR\_POLICY][8]
     #
     #
     #
@@ -3088,7 +3102,8 @@ module Aws::Organizations
     #   [4]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [5]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -3136,7 +3151,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][6]
     #
-    #   * [INSPECTOR\_POLICY][7]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][7]
+    #
+    #   * [INSPECTOR\_POLICY][8]
     #
     #
     #
@@ -3146,7 +3163,8 @@ module Aws::Organizations
     #   [4]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [5]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -3420,7 +3438,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][6]
     #
-    #   * [INSPECTOR\_POLICY][7]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][7]
+    #
+    #   * [INSPECTOR\_POLICY][8]
     #
     #
     #
@@ -3430,7 +3450,8 @@ module Aws::Organizations
     #   [4]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [5]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -3478,7 +3499,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][6]
     #
-    #   * [INSPECTOR\_POLICY][7]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][7]
+    #
+    #   * [INSPECTOR\_POLICY][8]
     #
     #
     #
@@ -3488,7 +3511,8 @@ module Aws::Organizations
     #   [4]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [5]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] path
@@ -3911,7 +3935,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][8]
     #
-    #   * [INSPECTOR\_POLICY][9]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][9]
+    #
+    #   * [INSPECTOR\_POLICY][10]
     #
     #
     #
@@ -3923,7 +3949,8 @@ module Aws::Organizations
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [10]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] next_token
@@ -3993,7 +4020,9 @@ module Aws::Organizations
     #
     #   * [SECURITYHUB\_POLICY][8]
     #
-    #   * [INSPECTOR\_POLICY][9]
+    #   * [UPGRADE\_ROLLOUT\_POLICY][9]
+    #
+    #   * [INSPECTOR\_POLICY][10]
     #
     #
     #
@@ -4005,7 +4034,8 @@ module Aws::Organizations
     #   [6]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_chatbot.html
     #   [7]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html
     #   [8]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_security_hub.html
-    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
+    #   [9]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_upgrade_rollout.html
+    #   [10]: https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_inspector.html
     #   @return [String]
     #
     # @!attribute [rw] next_token

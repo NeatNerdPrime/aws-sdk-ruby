@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.66.0 (2025-11-21)
+------------------
+
+* Feature - Add support to automatically enforce safeguards across accounts within an AWS Organization.
+
 1.65.0 (2025-11-19)
 ------------------
 

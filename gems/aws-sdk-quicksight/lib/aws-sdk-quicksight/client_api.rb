@@ -1678,6 +1678,7 @@ module Aws::QuickSight
     RegisteredUserEmbeddingExperienceConfiguration = Shapes::StructureShape.new(name: 'RegisteredUserEmbeddingExperienceConfiguration')
     RegisteredUserGenerativeQnAEmbeddingConfiguration = Shapes::StructureShape.new(name: 'RegisteredUserGenerativeQnAEmbeddingConfiguration')
     RegisteredUserQSearchBarEmbeddingConfiguration = Shapes::StructureShape.new(name: 'RegisteredUserQSearchBarEmbeddingConfiguration')
+    RegisteredUserQuickChatEmbeddingConfiguration = Shapes::StructureShape.new(name: 'RegisteredUserQuickChatEmbeddingConfiguration')
     RegisteredUserQuickSightConsoleEmbeddingConfiguration = Shapes::StructureShape.new(name: 'RegisteredUserQuickSightConsoleEmbeddingConfiguration')
     RelationalTable = Shapes::StructureShape.new(name: 'RelationalTable')
     RelationalTableCatalog = Shapes::StringShape.new(name: 'RelationalTableCatalog')
@@ -8736,6 +8737,7 @@ module Aws::QuickSight
     RegisteredUserEmbeddingExperienceConfiguration.add_member(:q_search_bar, Shapes::ShapeRef.new(shape: RegisteredUserQSearchBarEmbeddingConfiguration, location_name: "QSearchBar"))
     RegisteredUserEmbeddingExperienceConfiguration.add_member(:dashboard_visual, Shapes::ShapeRef.new(shape: RegisteredUserDashboardVisualEmbeddingConfiguration, location_name: "DashboardVisual"))
     RegisteredUserEmbeddingExperienceConfiguration.add_member(:generative_qn_a, Shapes::ShapeRef.new(shape: RegisteredUserGenerativeQnAEmbeddingConfiguration, location_name: "GenerativeQnA"))
+    RegisteredUserEmbeddingExperienceConfiguration.add_member(:quick_chat, Shapes::ShapeRef.new(shape: RegisteredUserQuickChatEmbeddingConfiguration, location_name: "QuickChat"))
     RegisteredUserEmbeddingExperienceConfiguration.struct_class = Types::RegisteredUserEmbeddingExperienceConfiguration
 
     RegisteredUserGenerativeQnAEmbeddingConfiguration.add_member(:initial_topic_id, Shapes::ShapeRef.new(shape: RestrictiveResourceId, location_name: "InitialTopicId"))
@@ -8743,6 +8745,8 @@ module Aws::QuickSight
 
     RegisteredUserQSearchBarEmbeddingConfiguration.add_member(:initial_topic_id, Shapes::ShapeRef.new(shape: RestrictiveResourceId, location_name: "InitialTopicId"))
     RegisteredUserQSearchBarEmbeddingConfiguration.struct_class = Types::RegisteredUserQSearchBarEmbeddingConfiguration
+
+    RegisteredUserQuickChatEmbeddingConfiguration.struct_class = Types::RegisteredUserQuickChatEmbeddingConfiguration
 
     RegisteredUserQuickSightConsoleEmbeddingConfiguration.add_member(:initial_path, Shapes::ShapeRef.new(shape: EntryPath, location_name: "InitialPath"))
     RegisteredUserQuickSightConsoleEmbeddingConfiguration.add_member(:feature_configurations, Shapes::ShapeRef.new(shape: RegisteredUserConsoleFeatureConfigurations, location_name: "FeatureConfigurations"))

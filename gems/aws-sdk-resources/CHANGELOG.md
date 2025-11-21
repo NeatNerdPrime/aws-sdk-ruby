@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+3.247.0 (2025-11-21)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-sagemakerruntimehttp2` gem.
+
+* Feature - Added a dependency on the new `aws-sdk-computeoptimizerautomation` gem.
+
 3.246.0 (2025-11-20)
 ------------------
 

@@ -284,7 +284,8 @@ module Aws
                                          },
                                          ?provisioned_poller_config: {
                                            minimum_pollers: ::Integer?,
-                                           maximum_pollers: ::Integer?
+                                           maximum_pollers: ::Integer?,
+                                           poller_group_name: ::String?
                                          }
                                        ) -> _CreateEventSourceMappingResponseSuccess
                                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _CreateEventSourceMappingResponseSuccess
@@ -1384,7 +1385,8 @@ module Aws
                                          },
                                          ?provisioned_poller_config: {
                                            minimum_pollers: ::Integer?,
-                                           maximum_pollers: ::Integer?
+                                           maximum_pollers: ::Integer?,
+                                           poller_group_name: ::String?
                                          }
                                        ) -> _UpdateEventSourceMappingResponseSuccess
                                      | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _UpdateEventSourceMappingResponseSuccess

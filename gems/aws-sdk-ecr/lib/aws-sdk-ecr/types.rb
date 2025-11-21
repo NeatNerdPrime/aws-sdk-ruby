@@ -1009,6 +1009,29 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # @api private
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteSigningConfigurationRequest AWS API Documentation
+    #
+    class DeleteSigningConfigurationRequest < Aws::EmptyStructure; end
+
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry.
+    #   @return [String]
+    #
+    # @!attribute [rw] signing_configuration
+    #   The registry's deleted signing configuration.
+    #   @return [Types::SigningConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteSigningConfigurationResponse AWS API Documentation
+    #
+    class DeleteSigningConfigurationResponse < Struct.new(
+      :registry_id,
+      :signing_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] principal_arn
     #   The ARN of the IAM principal to remove from the pull time update
     #   exclusion list.
@@ -1171,6 +1194,58 @@ module Aws::ECR
       :image_scan_status,
       :image_scan_findings,
       :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] repository_name
+    #   The name of the repository that contains the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_id
+    #   An object containing identifying information for an image.
+    #   @return [Types::ImageIdentifier]
+    #
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry that
+    #   contains the repository. If you do not specify a registry, the
+    #   default registry is assumed.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageSigningStatusRequest AWS API Documentation
+    #
+    class DescribeImageSigningStatusRequest < Struct.new(
+      :repository_name,
+      :image_id,
+      :registry_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] repository_name
+    #   The name of the repository.
+    #   @return [String]
+    #
+    # @!attribute [rw] image_id
+    #   An object with identifying information for the image.
+    #   @return [Types::ImageIdentifier]
+    #
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry.
+    #   @return [String]
+    #
+    # @!attribute [rw] signing_statuses
+    #   A list of signing statuses for the specified image. Each status
+    #   corresponds to a signing profile.
+    #   @return [Array<Types::ImageSigningStatus>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageSigningStatusResponse AWS API Documentation
+    #
+    class DescribeImageSigningStatusResponse < Struct.new(
+      :repository_name,
+      :image_id,
+      :registry_id,
+      :signing_statuses)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2101,6 +2176,29 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # @api private
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetSigningConfigurationRequest AWS API Documentation
+    #
+    class GetSigningConfigurationRequest < Aws::EmptyStructure; end
+
+    # @!attribute [rw] registry_id
+    #   The Amazon Web Services account ID associated with the registry.
+    #   @return [String]
+    #
+    # @!attribute [rw] signing_configuration
+    #   The registry's signing configuration.
+    #   @return [Types::SigningConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetSigningConfigurationResponse AWS API Documentation
+    #
+    class GetSigningConfigurationResponse < Struct.new(
+      :registry_id,
+      :signing_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An object representing an Amazon ECR image.
     #
     # @!attribute [rw] registry_id
@@ -2549,6 +2647,45 @@ module Aws::ECR
     #
     class ImageScanningConfiguration < Struct.new(
       :scan_on_push)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The signing status for an image. Each status corresponds to a signing
+    # profile.
+    #
+    # @!attribute [rw] signing_profile_arn
+    #   The ARN of the Amazon Web Services Signer signing profile used to
+    #   sign the image.
+    #   @return [String]
+    #
+    # @!attribute [rw] failure_code
+    #   The failure code, which is only present if `status` is `FAILED`.
+    #   @return [String]
+    #
+    # @!attribute [rw] failure_reason
+    #   A description of why signing the image failed. This field is only
+    #   present if `status` is `FAILED`.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The image's signing status. Possible values are:
+    #
+    #   * `IN_PROGRESS` - Signing is currently in progress.
+    #
+    #   * `COMPLETE` - The signature was successfully generated.
+    #
+    #   * `FAILED` - Signing failed. See `failureCode` and `failureReason`
+    #     for details.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/ImageSigningStatus AWS API Documentation
+    #
+    class ImageSigningStatus < Struct.new(
+      :signing_profile_arn,
+      :failure_code,
+      :failure_reason,
+      :status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3794,6 +3931,30 @@ module Aws::ECR
       include Aws::Structure
     end
 
+    # @!attribute [rw] signing_configuration
+    #   The signing configuration to assign to the registry.
+    #   @return [Types::SigningConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutSigningConfigurationRequest AWS API Documentation
+    #
+    class PutSigningConfigurationRequest < Struct.new(
+      :signing_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] signing_configuration
+    #   The registry's updated signing configuration.
+    #   @return [Types::SigningConfiguration]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutSigningConfigurationResponse AWS API Documentation
+    #
+    class PutSigningConfigurationResponse < Struct.new(
+      :signing_configuration)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Details about the recommended course of action to remediate the
     # finding.
     #
@@ -4477,6 +4638,103 @@ module Aws::ECR
       :registry_id,
       :repository_name,
       :policy_text)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The signing configuration for a registry, which specifies rules for
+    # automatically signing images when pushed.
+    #
+    # @!attribute [rw] rules
+    #   A list of signing rules. Each rule defines a signing profile and
+    #   optional repository filters that determine which images are
+    #   automatically signed. Maximum of 10 rules.
+    #   @return [Array<Types::SigningRule>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SigningConfiguration AWS API Documentation
+    #
+    class SigningConfiguration < Struct.new(
+      :rules)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The specified signing configuration was not found. This occurs when
+    # attempting to retrieve or delete a signing configuration that does not
+    # exist.
+    #
+    # @!attribute [rw] message
+    #   The error message associated with the exception.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SigningConfigurationNotFoundException AWS API Documentation
+    #
+    class SigningConfigurationNotFoundException < Struct.new(
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A repository filter used to determine which repositories have their
+    # images automatically signed on push. Each filter consists of a filter
+    # type and filter value.
+    #
+    # @!attribute [rw] filter
+    #   The filter value used to match repository names. When using
+    #   `WILDCARD_MATCH`, the `*` character matches any sequence of
+    #   characters.
+    #
+    #   Examples:
+    #
+    #   * `myapp/*` - Matches all repositories starting with `myapp/`
+    #
+    #   * `*/production` - Matches all repositories ending with
+    #     `/production`
+    #
+    #   * `*prod*` - Matches all repositories containing `prod`
+    #   @return [String]
+    #
+    # @!attribute [rw] filter_type
+    #   The type of filter to apply. Currently, only `WILDCARD_MATCH` is
+    #   supported, which uses wildcard patterns to match repository names.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SigningRepositoryFilter AWS API Documentation
+    #
+    class SigningRepositoryFilter < Struct.new(
+      :filter,
+      :filter_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A signing rule that specifies a signing profile and optional
+    # repository filters. When an image is pushed to a matching repository,
+    # a signing job is created using the specified profile.
+    #
+    # @!attribute [rw] signing_profile_arn
+    #   The ARN of the Amazon Web Services Signer signing profile to use for
+    #   signing images that match this rule. For more information about
+    #   signing profiles, see [Signing profiles][1] in the *Amazon Web
+    #   Services Signer Developer Guide*.
+    #
+    #
+    #
+    #   [1]: https://docs.aws.amazon.com/signer/latest/developerguide/signing-profiles.html
+    #   @return [String]
+    #
+    # @!attribute [rw] repository_filters
+    #   A list of repository filters that determine which repositories have
+    #   their images signed on push. If no filters are specified, all images
+    #   pushed to the registry are signed using the rule's signing profile.
+    #   Maximum of 100 filters per rule.
+    #   @return [Array<Types::SigningRepositoryFilter>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/SigningRule AWS API Documentation
+    #
+    class SigningRule < Struct.new(
+      :signing_profile_arn,
+      :repository_filters)
       SENSITIVE = []
       include Aws::Structure
     end

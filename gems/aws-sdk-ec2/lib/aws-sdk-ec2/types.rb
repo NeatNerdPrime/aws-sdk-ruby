@@ -5748,6 +5748,23 @@ module Aws::EC2
     #   The ID of the Capacity Block.
     #   @return [String]
     #
+    # @!attribute [rw] interruptible
+    #   Indicates whether this Capacity Reservation is interruptible,
+    #   meaning instances may be terminated when the owner reclaims
+    #   capacity.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] interruptible_capacity_allocation
+    #   Contains allocation details for interruptible reservations,
+    #   including current allocated instances and target instance counts
+    #   within the interruptibleCapacityAllocation object.
+    #   @return [Types::InterruptibleCapacityAllocation]
+    #
+    # @!attribute [rw] interruption_info
+    #   Information about the interruption configuration and association
+    #   with the source reservation for interruptible Capacity Reservations.
+    #   @return [Types::InterruptionInfo]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CapacityReservation AWS API Documentation
     #
     class CapacityReservation < Struct.new(
@@ -5778,7 +5795,10 @@ module Aws::EC2
       :unused_reservation_billing_owner_id,
       :commitment_info,
       :delivery_preference,
-      :capacity_block_id)
+      :capacity_block_id,
+      :interruptible,
+      :interruptible_capacity_allocation,
+      :interruption_info)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -8862,9 +8882,9 @@ module Aws::EC2
     #   The number of instances for which to reserve capacity.
     #
     #   <note markdown="1"> You can request future-dated Capacity Reservations for an instance
-    #   count with a minimum of 64 vCPUs. For example, if you request a
+    #   count with a minimum of 32 vCPUs. For example, if you request a
     #   future-dated Capacity Reservation for `m5.xlarge` instances, you
-    #   must request at least 25 instances (*16 * m5.xlarge = 64 vCPUs*).
+    #   must request at least 8 instances (*8 * m5.xlarge = 32 vCPUs*).
     #
     #    </note>
     #
@@ -10765,6 +10785,78 @@ module Aws::EC2
     #
     class CreateInternetGatewayResult < Struct.new(
       :internet_gateway)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_reservation_id
+    #   The ID of the source Capacity Reservation from which to create the
+    #   interruptible Capacity Reservation. Your Capacity Reservation must
+    #   be in active state with no end date set and have available capacity
+    #   for allocation.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_count
+    #   The number of instances to allocate from your source reservation.
+    #   You can only allocate available instances (also called unused
+    #   capacity).
+    #   @return [Integer]
+    #
+    # @!attribute [rw] client_token
+    #   Unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] tag_specifications
+    #   The tags to apply to the interruptible Capacity Reservation during
+    #   creation.
+    #   @return [Array<Types::TagSpecification>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateInterruptibleCapacityReservationAllocationRequest AWS API Documentation
+    #
+    class CreateInterruptibleCapacityReservationAllocationRequest < Struct.new(
+      :capacity_reservation_id,
+      :instance_count,
+      :client_token,
+      :dry_run,
+      :tag_specifications)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] source_capacity_reservation_id
+    #   The ID of the source Capacity Reservation from which the
+    #   interruptible Capacity Reservation was created.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_instance_count
+    #   The number of instances allocated to the interruptible reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] status
+    #   The current status of the allocation request (creating, active,
+    #   updating).
+    #   @return [String]
+    #
+    # @!attribute [rw] interruption_type
+    #   The type of interruption applied to the interruptible reservation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/CreateInterruptibleCapacityReservationAllocationResult AWS API Documentation
+    #
+    class CreateInterruptibleCapacityReservationAllocationResult < Struct.new(
+      :source_capacity_reservation_id,
+      :target_instance_count,
+      :status,
+      :interruption_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -42700,6 +42792,22 @@ module Aws::EC2
     #   Information about the Capacity Reservation usage.
     #   @return [Array<Types::InstanceUsage>]
     #
+    # @!attribute [rw] interruptible
+    #   Indicates whether the Capacity Reservation is interruptible, meaning
+    #   instances may be terminated when the owner reclaims capacity.
+    #   @return [Boolean]
+    #
+    # @!attribute [rw] interruptible_capacity_allocation
+    #   Information about the capacity allocated to the interruptible
+    #   Capacity Reservation, including instance counts and allocation
+    #   status.
+    #   @return [Types::InterruptibleCapacityAllocation]
+    #
+    # @!attribute [rw] interruption_info
+    #   Details about the interruption configuration and source reservation
+    #   for interruptible Capacity Reservations.
+    #   @return [Types::InterruptionInfo]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/GetCapacityReservationUsageResult AWS API Documentation
     #
     class GetCapacityReservationUsageResult < Struct.new(
@@ -42709,7 +42817,10 @@ module Aws::EC2
       :total_instance_count,
       :available_instance_count,
       :state,
-      :instance_usages)
+      :instance_usages,
+      :interruptible,
+      :interruptible_capacity_allocation,
+      :interruption_info)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -52405,6 +52516,69 @@ module Aws::EC2
     class InternetGatewayAttachment < Struct.new(
       :state,
       :vpc_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Represents the allocation of capacity from a source reservation to an
+    # interruptible reservation, tracking current and target instance counts
+    # for allocation management.
+    #
+    # @!attribute [rw] instance_count
+    #   The current number of instances allocated to the interruptible
+    #   reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] target_instance_count
+    #   After your modify request, the requested number of instances
+    #   allocated to interruptible reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] status
+    #   The current status of the allocation (updating during reclamation,
+    #   active when complete).
+    #   @return [String]
+    #
+    # @!attribute [rw] interruptible_capacity_reservation_id
+    #   The ID of the interruptible Capacity Reservation created from the
+    #   allocation.
+    #   @return [String]
+    #
+    # @!attribute [rw] interruption_type
+    #   The type of interruption policy applied to the interruptible
+    #   reservation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InterruptibleCapacityAllocation AWS API Documentation
+    #
+    class InterruptibleCapacityAllocation < Struct.new(
+      :instance_count,
+      :target_instance_count,
+      :status,
+      :interruptible_capacity_reservation_id,
+      :interruption_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Contains information about how and when instances in an interruptible
+    # reservation can be terminated when capacity is reclaimed.
+    #
+    # @!attribute [rw] source_capacity_reservation_id
+    #   The ID of the source Capacity Reservation from which the
+    #   interruptible reservation was created.
+    #   @return [String]
+    #
+    # @!attribute [rw] interruption_type
+    #   The interruption type that determines how instances are terminated
+    #   when capacity is reclaimed.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/InterruptionInfo AWS API Documentation
+    #
+    class InterruptionInfo < Struct.new(
+      :source_capacity_reservation_id,
+      :interruption_type)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -81587,6 +81761,73 @@ module Aws::EC2
     class UpdateCapacityManagerOrganizationsAccessResult < Struct.new(
       :capacity_manager_status,
       :organizations_access)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_reservation_id
+    #   The ID of the source Capacity Reservation containing the
+    #   interruptible allocation to modify.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_instance_count
+    #   The new number of instances to allocate. Enter a higher number to
+    #   add more capacity to share, or a lower number to reclaim capacity to
+    #   your source Capacity Reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] dry_run
+    #   Checks whether you have the required permissions for the action,
+    #   without actually making the request, and provides an error response.
+    #   @return [Boolean]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateInterruptibleCapacityReservationAllocationRequest AWS API Documentation
+    #
+    class UpdateInterruptibleCapacityReservationAllocationRequest < Struct.new(
+      :capacity_reservation_id,
+      :target_instance_count,
+      :dry_run)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] interruptible_capacity_reservation_id
+    #   The ID of the interruptible Capacity Reservation that was modified.
+    #   @return [String]
+    #
+    # @!attribute [rw] source_capacity_reservation_id
+    #   The ID of the source Capacity Reservation to which capacity was
+    #   reclaimed or from which capacity was allocated.
+    #   @return [String]
+    #
+    # @!attribute [rw] instance_count
+    #   The current number of instances allocated to the interruptible
+    #   reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] target_instance_count
+    #   The requested number of instances for the interruptible Capacity
+    #   Reservation.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] status
+    #   The current status of the allocation (updating during reclamation,
+    #   active when complete).
+    #   @return [String]
+    #
+    # @!attribute [rw] interruption_type
+    #   The interruption type for the interruptible reservation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ec2-2016-11-15/UpdateInterruptibleCapacityReservationAllocationResult AWS API Documentation
+    #
+    class UpdateInterruptibleCapacityReservationAllocationResult < Struct.new(
+      :interruptible_capacity_reservation_id,
+      :source_capacity_reservation_id,
+      :instance_count,
+      :target_instance_count,
+      :status,
+      :interruption_type)
       SENSITIVE = []
       include Aws::Structure
     end

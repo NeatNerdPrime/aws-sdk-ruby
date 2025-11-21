@@ -630,6 +630,7 @@ RubyGems.org page under "LINKS" section.
 | Amazon SageMaker Feature Store Runtime                | Aws::SageMakerFeatureStoreRuntime        | aws-sdk-sagemakerfeaturestoreruntime        | 2020-07-01  |
 | Amazon SageMaker Metrics Service                      | Aws::SageMakerMetrics                    | aws-sdk-sagemakermetrics                    | 2022-09-30  |
 | Amazon SageMaker Runtime                              | Aws::SageMakerRuntime                    | aws-sdk-sagemakerruntime                    | 2017-05-13  |
+| Amazon SageMaker Runtime HTTP2                        | Aws::SageMakerRuntimeHTTP2               | aws-sdk-sagemakerruntimehttp2               | 2025-10-01  |
 | Amazon SageMaker Service                              | Aws::SageMaker                           | aws-sdk-sagemaker                           | 2017-07-24  |
 | Amazon SageMaker geospatial capabilities              | Aws::SageMakerGeospatial                 | aws-sdk-sagemakergeospatial                 | 2020-05-27  |
 | Amazon Sagemaker Edge Manager                         | Aws::SagemakerEdgeManager                | aws-sdk-sagemakeredgemanager                | 2020-09-23  |
@@ -675,6 +676,7 @@ RubyGems.org page under "LINKS" section.
 | CloudWatch Observability Admin Service                | Aws::ObservabilityAdmin                  | aws-sdk-observabilityadmin                  | 2018-05-10  |
 | CloudWatch RUM                                        | Aws::CloudWatchRUM                       | aws-sdk-cloudwatchrum                       | 2018-05-10  |
 | CodeArtifact                                          | Aws::CodeArtifact                        | aws-sdk-codeartifact                        | 2018-09-22  |
+| Compute Optimizer Automation                          | Aws::ComputeOptimizerAutomation          | aws-sdk-computeoptimizerautomation          | 2025-09-22  |
 | Cost Optimization Hub                                 | Aws::CostOptimizationHub                 | aws-sdk-costoptimizationhub                 | 2022-07-26  |
 | Data Automation for Amazon Bedrock                    | Aws::BedrockDataAutomation               | aws-sdk-bedrockdataautomation               | 2023-07-26  |
 | EC2 Image Builder                                     | Aws::Imagebuilder                        | aws-sdk-imagebuilder                        | 2019-12-02  |

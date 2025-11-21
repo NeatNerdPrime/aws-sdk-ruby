@@ -85,6 +85,9 @@ module Aws
         def error_type: () -> ::String
         def error_message: () -> ::String
         def output_configuration: () -> Types::OutputConfiguration
+        def job_submission_time: () -> ::Time
+        def job_completion_time: () -> ::Time
+        def job_duration_in_seconds: () -> ::Integer
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/BedrockDataAutomationRuntime/Client.html#get_data_automation_status-instance_method
       def get_data_automation_status: (

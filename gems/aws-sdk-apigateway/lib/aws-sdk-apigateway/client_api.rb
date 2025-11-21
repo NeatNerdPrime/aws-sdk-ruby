@@ -986,6 +986,7 @@ module Aws::APIGateway
     Integration.add_member(:integration_responses, Shapes::ShapeRef.new(shape: MapOfIntegrationResponse, location_name: "integrationResponses"))
     Integration.add_member(:tls_config, Shapes::ShapeRef.new(shape: TlsConfig, location_name: "tlsConfig"))
     Integration.add_member(:response_transfer_mode, Shapes::ShapeRef.new(shape: ResponseTransferMode, location_name: "responseTransferMode"))
+    Integration.add_member(:integration_target, Shapes::ShapeRef.new(shape: String, location_name: "integrationTarget"))
     Integration.struct_class = Types::Integration
 
     IntegrationResponse.add_member(:status_code, Shapes::ShapeRef.new(shape: StatusCode, location_name: "statusCode"))
@@ -1176,6 +1177,7 @@ module Aws::APIGateway
     PutIntegrationRequest.add_member(:timeout_in_millis, Shapes::ShapeRef.new(shape: NullableInteger, location_name: "timeoutInMillis"))
     PutIntegrationRequest.add_member(:tls_config, Shapes::ShapeRef.new(shape: TlsConfig, location_name: "tlsConfig"))
     PutIntegrationRequest.add_member(:response_transfer_mode, Shapes::ShapeRef.new(shape: ResponseTransferMode, location_name: "responseTransferMode"))
+    PutIntegrationRequest.add_member(:integration_target, Shapes::ShapeRef.new(shape: String, location_name: "integrationTarget"))
     PutIntegrationRequest.struct_class = Types::PutIntegrationRequest
 
     PutIntegrationResponseRequest.add_member(:rest_api_id, Shapes::ShapeRef.new(shape: String, required: true, location: "uri", location_name: "restapi_id"))

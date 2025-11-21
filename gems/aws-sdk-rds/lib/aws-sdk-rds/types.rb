@@ -7179,6 +7179,19 @@ module Aws::RDS
     #   Universal Coordinated Time (UTC).
     #   @return [String]
     #
+    # @!attribute [rw] upgrade_rollout_order
+    #   This data type represents the order in which the clusters are
+    #   upgraded.
+    #
+    #   * \[first\] - Typically used for development or testing
+    #     environments.
+    #
+    #   * \[second\] - Default order for resources not specifically
+    #     configured.
+    #
+    #   * \[last\] - Usually reserved for production environments.
+    #   @return [String]
+    #
     # @!attribute [rw] replication_source_identifier
     #   The identifier of the source DB cluster if this DB cluster is a read
     #   replica.
@@ -7680,6 +7693,7 @@ module Aws::RDS
       :db_cluster_option_group_memberships,
       :preferred_backup_window,
       :preferred_maintenance_window,
+      :upgrade_rollout_order,
       :replication_source_identifier,
       :read_replica_identifiers,
       :status_infos,
@@ -9148,6 +9162,19 @@ module Aws::RDS
     #   Universal Coordinated Time (UTC).
     #   @return [String]
     #
+    # @!attribute [rw] upgrade_rollout_order
+    #   This data type represents the order in which the instances are
+    #   upgraded.
+    #
+    #   * \[first\] - Typically used for development or testing
+    #     environments.
+    #
+    #   * \[second\] - Default order for resources not specifically
+    #     configured.
+    #
+    #   * \[last\] - Usually reserved for production environments.
+    #   @return [String]
+    #
     # @!attribute [rw] pending_modified_values
     #   Information about pending changes to the DB instance. This
     #   information is returned only when there are pending changes.
@@ -9695,6 +9722,7 @@ module Aws::RDS
       :availability_zone,
       :db_subnet_group,
       :preferred_maintenance_window,
+      :upgrade_rollout_order,
       :pending_modified_values,
       :latest_restorable_time,
       :multi_az,

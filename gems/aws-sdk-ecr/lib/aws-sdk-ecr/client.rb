@@ -1564,6 +1564,45 @@ module Aws::ECR
       req.send_request(options)
     end
 
+    # Deletes the registry's signing configuration. Images pushed after
+    # deletion of the signing configuration will no longer be automatically
+    # signed.
+    #
+    # For more information, see [Managed signing][1] in the *Amazon Elastic
+    # Container Registry User Guide*.
+    #
+    # <note markdown="1"> Deleting the signing configuration does not affect existing image
+    # signatures.
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html
+    #
+    # @return [Types::DeleteSigningConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DeleteSigningConfigurationResponse#registry_id #registry_id} => String
+    #   * {Types::DeleteSigningConfigurationResponse#signing_configuration #signing_configuration} => Types::SigningConfiguration
+    #
+    # @example Response structure
+    #
+    #   resp.registry_id #=> String
+    #   resp.signing_configuration.rules #=> Array
+    #   resp.signing_configuration.rules[0].signing_profile_arn #=> String
+    #   resp.signing_configuration.rules[0].repository_filters #=> Array
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter #=> String
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter_type #=> String, one of "WILDCARD_MATCH"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DeleteSigningConfiguration AWS API Documentation
+    #
+    # @overload delete_signing_configuration(params = {})
+    # @param [Hash] params ({})
+    def delete_signing_configuration(params = {}, options = {})
+      req = build_request(:delete_signing_configuration, params)
+      req.send_request(options)
+    end
+
     # Removes a principal from the pull time update exclusion list for a
     # registry. Once removed, Amazon ECR will resume updating the pull time
     # if the specified principal pulls an image.
@@ -1814,6 +1853,67 @@ module Aws::ECR
     # @param [Hash] params ({})
     def describe_image_scan_findings(params = {}, options = {})
       req = build_request(:describe_image_scan_findings, params)
+      req.send_request(options)
+    end
+
+    # Returns the signing status for a specified image. If the image matched
+    # signing rules that reference different signing profiles, a status is
+    # returned for each profile.
+    #
+    # For more information, see [Managed signing][1] in the *Amazon Elastic
+    # Container Registry User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html
+    #
+    # @option params [required, String] :repository_name
+    #   The name of the repository that contains the image.
+    #
+    # @option params [required, Types::ImageIdentifier] :image_id
+    #   An object containing identifying information for an image.
+    #
+    # @option params [String] :registry_id
+    #   The Amazon Web Services account ID associated with the registry that
+    #   contains the repository. If you do not specify a registry, the default
+    #   registry is assumed.
+    #
+    # @return [Types::DescribeImageSigningStatusResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DescribeImageSigningStatusResponse#repository_name #repository_name} => String
+    #   * {Types::DescribeImageSigningStatusResponse#image_id #image_id} => Types::ImageIdentifier
+    #   * {Types::DescribeImageSigningStatusResponse#registry_id #registry_id} => String
+    #   * {Types::DescribeImageSigningStatusResponse#signing_statuses #signing_statuses} => Array&lt;Types::ImageSigningStatus&gt;
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.describe_image_signing_status({
+    #     repository_name: "RepositoryName", # required
+    #     image_id: { # required
+    #       image_digest: "ImageDigest",
+    #       image_tag: "ImageTag",
+    #     },
+    #     registry_id: "RegistryId",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.repository_name #=> String
+    #   resp.image_id.image_digest #=> String
+    #   resp.image_id.image_tag #=> String
+    #   resp.registry_id #=> String
+    #   resp.signing_statuses #=> Array
+    #   resp.signing_statuses[0].signing_profile_arn #=> String
+    #   resp.signing_statuses[0].failure_code #=> String
+    #   resp.signing_statuses[0].failure_reason #=> String
+    #   resp.signing_statuses[0].status #=> String, one of "IN_PROGRESS", "COMPLETE", "FAILED"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/DescribeImageSigningStatus AWS API Documentation
+    #
+    # @overload describe_image_signing_status(params = {})
+    # @param [Hash] params ({})
+    def describe_image_signing_status(params = {}, options = {})
+      req = build_request(:describe_image_signing_status, params)
       req.send_request(options)
     end
 
@@ -2660,6 +2760,39 @@ module Aws::ECR
     # @param [Hash] params ({})
     def get_repository_policy(params = {}, options = {})
       req = build_request(:get_repository_policy, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the registry's signing configuration, which defines rules
+    # for automatically signing images using Amazon Web Services Signer.
+    #
+    # For more information, see [Managed signing][1] in the *Amazon Elastic
+    # Container Registry User Guide*.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html
+    #
+    # @return [Types::GetSigningConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetSigningConfigurationResponse#registry_id #registry_id} => String
+    #   * {Types::GetSigningConfigurationResponse#signing_configuration #signing_configuration} => Types::SigningConfiguration
+    #
+    # @example Response structure
+    #
+    #   resp.registry_id #=> String
+    #   resp.signing_configuration.rules #=> Array
+    #   resp.signing_configuration.rules[0].signing_profile_arn #=> String
+    #   resp.signing_configuration.rules[0].repository_filters #=> Array
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter #=> String
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter_type #=> String, one of "WILDCARD_MATCH"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/GetSigningConfiguration AWS API Documentation
+    #
+    # @overload get_signing_configuration(params = {})
+    # @param [Hash] params ({})
+    def get_signing_configuration(params = {}, options = {})
+      req = build_request(:get_signing_configuration, params)
       req.send_request(options)
     end
 
@@ -3574,6 +3707,65 @@ module Aws::ECR
       req.send_request(options)
     end
 
+    # Creates or updates the registry's signing configuration, which
+    # defines rules for automatically signing images with Amazon Web
+    # Services Signer.
+    #
+    # For more information, see [Managed signing][1] in the *Amazon Elastic
+    # Container Registry User Guide*.
+    #
+    # <note markdown="1"> To successfully generate a signature, the IAM principal pushing images
+    # must have permission to sign payloads with the Amazon Web Services
+    # Signer signing profile referenced in the signing configuration.
+    #
+    #  </note>
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/AmazonECR/latest/userguide/managed-signing.html
+    #
+    # @option params [required, Types::SigningConfiguration] :signing_configuration
+    #   The signing configuration to assign to the registry.
+    #
+    # @return [Types::PutSigningConfigurationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::PutSigningConfigurationResponse#signing_configuration #signing_configuration} => Types::SigningConfiguration
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.put_signing_configuration({
+    #     signing_configuration: { # required
+    #       rules: [ # required
+    #         {
+    #           signing_profile_arn: "SigningProfileArn", # required
+    #           repository_filters: [
+    #             {
+    #               filter: "SigningRepositoryFilterValue", # required
+    #               filter_type: "WILDCARD_MATCH", # required, accepts WILDCARD_MATCH
+    #             },
+    #           ],
+    #         },
+    #       ],
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.signing_configuration.rules #=> Array
+    #   resp.signing_configuration.rules[0].signing_profile_arn #=> String
+    #   resp.signing_configuration.rules[0].repository_filters #=> Array
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter #=> String
+    #   resp.signing_configuration.rules[0].repository_filters[0].filter_type #=> String, one of "WILDCARD_MATCH"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/ecr-2015-09-21/PutSigningConfiguration AWS API Documentation
+    #
+    # @overload put_signing_configuration(params = {})
+    # @param [Hash] params ({})
+    def put_signing_configuration(params = {}, options = {})
+      req = build_request(:put_signing_configuration, params)
+      req.send_request(options)
+    end
+
     # Adds an IAM principal to the pull time update exclusion list for a
     # registry. Amazon ECR will not record the pull time if an excluded
     # principal pulls an image.
@@ -4326,7 +4518,7 @@ module Aws::ECR
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-ecr'
-      context[:gem_version] = '1.114.0'
+      context[:gem_version] = '1.115.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.165.0 (2025-11-21)
+------------------
+
+* Feature - Amazon Quick Suite now supports QuickChat as an embedding type when calling the GenerateEmbedUrlForRegisteredUser API, enabling developers to embed conversational AI agents directly into their applications.
+
 1.164.0 (2025-11-20)
 ------------------
 

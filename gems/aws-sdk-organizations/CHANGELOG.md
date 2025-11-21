@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.129.0 (2025-11-21)
+------------------
+
+* Feature - Add support for policy operations on the UPGRADE_ROLLOUT_POLICY policy type.
+
 1.128.0 (2025-11-20)
 ------------------
 

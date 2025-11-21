@@ -38,6 +38,7 @@ module Aws::BedrockDataAutomationRuntime
     GetDataAutomationStatusResponse = Shapes::StructureShape.new(name: 'GetDataAutomationStatusResponse')
     IdempotencyToken = Shapes::StringShape.new(name: 'IdempotencyToken')
     InputConfiguration = Shapes::StructureShape.new(name: 'InputConfiguration')
+    Integer = Shapes::IntegerShape.new(name: 'Integer')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     InvocationArn = Shapes::StringShape.new(name: 'InvocationArn')
     InvokeDataAutomationAsyncRequest = Shapes::StructureShape.new(name: 'InvokeDataAutomationAsyncRequest')
@@ -59,6 +60,7 @@ module Aws::BedrockDataAutomationRuntime
     ServiceUnavailableException = Shapes::StructureShape.new(name: 'ServiceUnavailableException')
     String = Shapes::StringShape.new(name: 'String')
     SyncInputConfiguration = Shapes::StructureShape.new(name: 'SyncInputConfiguration')
+    SyntheticTimestamp_date_time = Shapes::TimestampShape.new(name: 'SyntheticTimestamp_date_time', timestampFormat: "iso8601")
     Tag = Shapes::StructureShape.new(name: 'Tag')
     TagKey = Shapes::StringShape.new(name: 'TagKey')
     TagKeyList = Shapes::ListShape.new(name: 'TagKeyList')
@@ -111,6 +113,9 @@ module Aws::BedrockDataAutomationRuntime
     GetDataAutomationStatusResponse.add_member(:error_type, Shapes::ShapeRef.new(shape: String, location_name: "errorType"))
     GetDataAutomationStatusResponse.add_member(:error_message, Shapes::ShapeRef.new(shape: String, location_name: "errorMessage"))
     GetDataAutomationStatusResponse.add_member(:output_configuration, Shapes::ShapeRef.new(shape: OutputConfiguration, location_name: "outputConfiguration"))
+    GetDataAutomationStatusResponse.add_member(:job_submission_time, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "jobSubmissionTime"))
+    GetDataAutomationStatusResponse.add_member(:job_completion_time, Shapes::ShapeRef.new(shape: SyntheticTimestamp_date_time, location_name: "jobCompletionTime"))
+    GetDataAutomationStatusResponse.add_member(:job_duration_in_seconds, Shapes::ShapeRef.new(shape: Integer, location_name: "jobDurationInSeconds"))
     GetDataAutomationStatusResponse.struct_class = Types::GetDataAutomationStatusResponse
 
     InputConfiguration.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "s3Uri"))

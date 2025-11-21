@@ -946,8 +946,8 @@ module Aws::Lambda
     #
     # * [ Amazon DocumentDB][7]
     #
-    # The following error handling options are available only for DynamoDB
-    # and Kinesis event sources:
+    # The following error handling options are available for stream sources
+    # (DynamoDB, Kinesis, Amazon MSK, and self-managed Apache Kafka):
     #
     # * `BisectBatchOnFunctionError` – If the function returns an error,
     #   split the batch in two and retry.
@@ -960,15 +960,15 @@ module Aws::Lambda
     #   of retries. The default value is infinite (-1). When set to infinite
     #   (-1), failed records are retried until the record expires.
     #
+    # * `OnFailure` – Send discarded records to an Amazon SQS queue, Amazon
+    #   SNS topic, Kafka topic, or Amazon S3 bucket. For more information,
+    #   see [Adding a destination][8].
+    #
+    # The following option is available only for DynamoDB and Kinesis event
+    # sources:
+    #
     # * `ParallelizationFactor` – Process multiple batches from each shard
     #   concurrently.
-    #
-    # For stream sources (DynamoDB, Kinesis, Amazon MSK, and self-managed
-    # Apache Kafka), the following option is also available:
-    #
-    # * `OnFailure` – Send discarded records to an Amazon SQS queue, Amazon
-    #   SNS topic, or Amazon S3 bucket. For more information, see [Adding a
-    #   destination][8].
     #
     # ^
     #
@@ -1118,23 +1118,24 @@ module Aws::Lambda
     #   start reading. `StartingPositionTimestamp` cannot be in the future.
     #
     # @option params [Types::DestinationConfig] :destination_config
-    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Kafka only) A
-    #   configuration object that specifies the destination of an event after
-    #   Lambda processes it.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   A configuration object that specifies the destination of an event
+    #   after Lambda processes it.
     #
     # @option params [Integer] :maximum_record_age_in_seconds
-    #   (Kinesis and DynamoDB Streams only) Discard records older than the
-    #   specified age. The default value is infinite (-1).
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   Discard records older than the specified age. The default value is
+    #   infinite (-1).
     #
     # @option params [Boolean] :bisect_batch_on_function_error
-    #   (Kinesis and DynamoDB Streams only) If the function returns an error,
-    #   split the batch in two and retry.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   If the function returns an error, split the batch in two and retry.
     #
     # @option params [Integer] :maximum_retry_attempts
-    #   (Kinesis and DynamoDB Streams only) Discard records after the
-    #   specified number of retries. The default value is infinite (-1). When
-    #   set to infinite (-1), failed records are retried until the record
-    #   expires.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   Discard records after the specified number of retries. The default
+    #   value is infinite (-1). When set to infinite (-1), failed records are
+    #   retried until the record expires.
     #
     # @option params [Hash<String,String>] :tags
     #   A list of tags to apply to the event source mapping.
@@ -1158,8 +1159,9 @@ module Aws::Lambda
     #   The self-managed Apache Kafka cluster to receive records from.
     #
     # @option params [Array<String>] :function_response_types
-    #   (Kinesis, DynamoDB Streams, and Amazon SQS) A list of current response
-    #   type enums applied to the event source mapping.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, self-managed Apache Kafka, and
+    #   Amazon SQS) A list of current response type enums applied to the event
+    #   source mapping.
     #
     # @option params [Types::AmazonManagedKafkaEventSourceConfig] :amazon_managed_kafka_event_source_config
     #   Specific configuration settings for an Amazon Managed Streaming for
@@ -1363,6 +1365,7 @@ module Aws::Lambda
     #     provisioned_poller_config: {
     #       minimum_pollers: 1,
     #       maximum_pollers: 1,
+    #       poller_group_name: "ProvisionedPollerGroupName",
     #     },
     #   })
     #
@@ -1428,6 +1431,7 @@ module Aws::Lambda
     #   resp.metrics_config.metrics[0] #=> String, one of "EventCount"
     #   resp.provisioned_poller_config.minimum_pollers #=> Integer
     #   resp.provisioned_poller_config.maximum_pollers #=> Integer
+    #   resp.provisioned_poller_config.poller_group_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateEventSourceMapping AWS API Documentation
     #
@@ -2283,6 +2287,7 @@ module Aws::Lambda
     #   resp.metrics_config.metrics[0] #=> String, one of "EventCount"
     #   resp.provisioned_poller_config.minimum_pollers #=> Integer
     #   resp.provisioned_poller_config.maximum_pollers #=> Integer
+    #   resp.provisioned_poller_config.poller_group_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteEventSourceMapping AWS API Documentation
     #
@@ -2922,6 +2927,7 @@ module Aws::Lambda
     #   resp.metrics_config.metrics[0] #=> String, one of "EventCount"
     #   resp.provisioned_poller_config.minimum_pollers #=> Integer
     #   resp.provisioned_poller_config.maximum_pollers #=> Integer
+    #   resp.provisioned_poller_config.poller_group_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetEventSourceMapping AWS API Documentation
     #
@@ -4815,6 +4821,7 @@ module Aws::Lambda
     #   resp.event_source_mappings[0].metrics_config.metrics[0] #=> String, one of "EventCount"
     #   resp.event_source_mappings[0].provisioned_poller_config.minimum_pollers #=> Integer
     #   resp.event_source_mappings[0].provisioned_poller_config.maximum_pollers #=> Integer
+    #   resp.event_source_mappings[0].provisioned_poller_config.poller_group_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListEventSourceMappings AWS API Documentation
     #
@@ -7055,8 +7062,8 @@ module Aws::Lambda
     #
     # * [ Amazon DocumentDB][7]
     #
-    # The following error handling options are available only for DynamoDB
-    # and Kinesis event sources:
+    # The following error handling options are available for stream sources
+    # (DynamoDB, Kinesis, Amazon MSK, and self-managed Apache Kafka):
     #
     # * `BisectBatchOnFunctionError` – If the function returns an error,
     #   split the batch in two and retry.
@@ -7069,15 +7076,15 @@ module Aws::Lambda
     #   of retries. The default value is infinite (-1). When set to infinite
     #   (-1), failed records are retried until the record expires.
     #
+    # * `OnFailure` – Send discarded records to an Amazon SQS queue, Amazon
+    #   SNS topic, Kafka topic, or Amazon S3 bucket. For more information,
+    #   see [Adding a destination][8].
+    #
+    # The following option is available only for DynamoDB and Kinesis event
+    # sources:
+    #
     # * `ParallelizationFactor` – Process multiple batches from each shard
     #   concurrently.
-    #
-    # For stream sources (DynamoDB, Kinesis, Amazon MSK, and self-managed
-    # Apache Kafka), the following option is also available:
-    #
-    # * `OnFailure` – Send discarded records to an Amazon SQS queue, Amazon
-    #   SNS topic, or Amazon S3 bucket. For more information, see [Adding a
-    #   destination][8].
     #
     # ^
     #
@@ -7194,23 +7201,24 @@ module Aws::Lambda
     #   `MaximumBatchingWindowInSeconds` to at least 1.
     #
     # @option params [Types::DestinationConfig] :destination_config
-    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Kafka only) A
-    #   configuration object that specifies the destination of an event after
-    #   Lambda processes it.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   A configuration object that specifies the destination of an event
+    #   after Lambda processes it.
     #
     # @option params [Integer] :maximum_record_age_in_seconds
-    #   (Kinesis and DynamoDB Streams only) Discard records older than the
-    #   specified age. The default value is infinite (-1).
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   Discard records older than the specified age. The default value is
+    #   infinite (-1).
     #
     # @option params [Boolean] :bisect_batch_on_function_error
-    #   (Kinesis and DynamoDB Streams only) If the function returns an error,
-    #   split the batch in two and retry.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   If the function returns an error, split the batch in two and retry.
     #
     # @option params [Integer] :maximum_retry_attempts
-    #   (Kinesis and DynamoDB Streams only) Discard records after the
-    #   specified number of retries. The default value is infinite (-1). When
-    #   set to infinite (-1), failed records are retried until the record
-    #   expires.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka)
+    #   Discard records after the specified number of retries. The default
+    #   value is infinite (-1). When set to infinite (-1), failed records are
+    #   retried until the record expires.
     #
     # @option params [Integer] :parallelization_factor
     #   (Kinesis and DynamoDB Streams only) The number of batches to process
@@ -7226,8 +7234,9 @@ module Aws::Lambda
     #   value of 0 seconds indicates no tumbling window.
     #
     # @option params [Array<String>] :function_response_types
-    #   (Kinesis, DynamoDB Streams, and Amazon SQS) A list of current response
-    #   type enums applied to the event source mapping.
+    #   (Kinesis, DynamoDB Streams, Amazon MSK, self-managed Apache Kafka, and
+    #   Amazon SQS) A list of current response type enums applied to the event
+    #   source mapping.
     #
     # @option params [Types::ScalingConfig] :scaling_config
     #   (Amazon SQS only) The scaling configuration for the event source. For
@@ -7421,6 +7430,7 @@ module Aws::Lambda
     #     provisioned_poller_config: {
     #       minimum_pollers: 1,
     #       maximum_pollers: 1,
+    #       poller_group_name: "ProvisionedPollerGroupName",
     #     },
     #   })
     #
@@ -7486,6 +7496,7 @@ module Aws::Lambda
     #   resp.metrics_config.metrics[0] #=> String, one of "EventCount"
     #   resp.provisioned_poller_config.minimum_pollers #=> Integer
     #   resp.provisioned_poller_config.maximum_pollers #=> Integer
+    #   resp.provisioned_poller_config.poller_group_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateEventSourceMapping AWS API Documentation
     #
@@ -8408,7 +8419,7 @@ module Aws::Lambda
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lambda'
-      context[:gem_version] = '1.166.0'
+      context[:gem_version] = '1.167.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

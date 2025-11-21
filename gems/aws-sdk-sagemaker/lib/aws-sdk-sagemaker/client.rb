@@ -2446,6 +2446,7 @@ module Aws::SageMaker
     #     instance_groups: [
     #       {
     #         instance_count: 1, # required
+    #         min_instance_count: 1,
     #         instance_group_name: "ClusterInstanceGroupName", # required
     #         instance_type: "ml.p4d.24xlarge", # required, accepts ml.p4d.24xlarge, ml.p4de.24xlarge, ml.p5.48xlarge, ml.p6e-gb200.36xlarge, ml.trn1.32xlarge, ml.trn1n.32xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.c5.large, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.12xlarge, ml.c5.18xlarge, ml.c5.24xlarge, ml.c5n.large, ml.c5n.2xlarge, ml.c5n.4xlarge, ml.c5n.9xlarge, ml.c5n.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.8xlarge, ml.m5.12xlarge, ml.m5.16xlarge, ml.m5.24xlarge, ml.t3.medium, ml.t3.large, ml.t3.xlarge, ml.t3.2xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.16xlarge, ml.g6.12xlarge, ml.g6.24xlarge, ml.g6.48xlarge, ml.gr6.4xlarge, ml.gr6.8xlarge, ml.g6e.xlarge, ml.g6e.2xlarge, ml.g6e.4xlarge, ml.g6e.8xlarge, ml.g6e.16xlarge, ml.g6e.12xlarge, ml.g6e.24xlarge, ml.g6e.48xlarge, ml.p5e.48xlarge, ml.p5en.48xlarge, ml.p6-b200.48xlarge, ml.trn2.3xlarge, ml.trn2.48xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.i3en.large, ml.i3en.xlarge, ml.i3en.2xlarge, ml.i3en.3xlarge, ml.i3en.6xlarge, ml.i3en.12xlarge, ml.i3en.24xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge
     #         life_cycle_config: { # required
@@ -2491,6 +2492,24 @@ module Aws::SageMaker
     #           },
     #         },
     #         image_id: "ImageId",
+    #         kubernetes_config: {
+    #           labels: {
+    #             "ClusterKubernetesLabelKey" => "ClusterKubernetesLabelValue",
+    #           },
+    #           taints: [
+    #             {
+    #               key: "ClusterKubernetesTaintKey", # required
+    #               value: "ClusterKubernetesTaintValue",
+    #               effect: "NoSchedule", # required, accepts NoSchedule, PreferNoSchedule, NoExecute
+    #             },
+    #           ],
+    #         },
+    #         capacity_requirements: {
+    #           spot: {
+    #           },
+    #           on_demand: {
+    #           },
+    #         },
     #       },
     #     ],
     #     restricted_instance_groups: [
@@ -8570,6 +8589,9 @@ module Aws::SageMaker
     #   The type of instance that hosts the optimized model that you create
     #   with the optimization job.
     #
+    # @option params [Integer] :max_instance_count
+    #   The maximum number of instances to use for the optimization job.
+    #
     # @option params [Hash<String,String>] :optimization_environment
     #   The environment variables to set in the model container.
     #
@@ -8631,8 +8653,12 @@ module Aws::SageMaker
     #           accept_eula: false, # required
     #         },
     #       },
+    #       sage_maker_model: {
+    #         model_name: "ModelName",
+    #       },
     #     },
-    #     deployment_instance_type: "ml.p4d.24xlarge", # required, accepts ml.p4d.24xlarge, ml.p4de.24xlarge, ml.p5.48xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge, ml.g6e.xlarge, ml.g6e.2xlarge, ml.g6e.4xlarge, ml.g6e.8xlarge, ml.g6e.12xlarge, ml.g6e.16xlarge, ml.g6e.24xlarge, ml.g6e.48xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.trn1n.32xlarge
+    #     deployment_instance_type: "ml.p4d.24xlarge", # required, accepts ml.p4d.24xlarge, ml.p4de.24xlarge, ml.p5.48xlarge, ml.p5e.48xlarge, ml.p5en.48xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge, ml.g6e.xlarge, ml.g6e.2xlarge, ml.g6e.4xlarge, ml.g6e.8xlarge, ml.g6e.12xlarge, ml.g6e.16xlarge, ml.g6e.24xlarge, ml.g6e.48xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.trn1n.32xlarge
+    #     max_instance_count: 1,
     #     optimization_environment: {
     #       "NonEmptyString256" => "String256",
     #     },
@@ -8656,11 +8682,21 @@ module Aws::SageMaker
     #             "NonEmptyString256" => "String256",
     #           },
     #         },
+    #         model_speculative_decoding_config: {
+    #           technique: "EAGLE", # required, accepts EAGLE
+    #           training_data_source: {
+    #             s3_uri: "S3Uri", # required
+    #             s3_data_type: "S3Prefix", # required, accepts S3Prefix, ManifestFile
+    #           },
+    #         },
     #       },
     #     ],
     #     output_config: { # required
     #       kms_key_id: "KmsKeyId",
     #       s3_output_location: "S3Uri", # required
+    #       sage_maker_model: {
+    #         model_name: "ModelName",
+    #       },
     #     },
     #     stopping_condition: { # required
     #       max_runtime_in_seconds: 1,
@@ -13650,6 +13686,7 @@ module Aws::SageMaker
     #   resp.instance_groups #=> Array
     #   resp.instance_groups[0].current_count #=> Integer
     #   resp.instance_groups[0].target_count #=> Integer
+    #   resp.instance_groups[0].min_count #=> Integer
     #   resp.instance_groups[0].instance_group_name #=> String
     #   resp.instance_groups[0].instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.p6e-gb200.36xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.c5.large", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.12xlarge", "ml.c5.18xlarge", "ml.c5.24xlarge", "ml.c5n.large", "ml.c5n.2xlarge", "ml.c5n.4xlarge", "ml.c5n.9xlarge", "ml.c5n.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.8xlarge", "ml.m5.12xlarge", "ml.m5.16xlarge", "ml.m5.24xlarge", "ml.t3.medium", "ml.t3.large", "ml.t3.xlarge", "ml.t3.2xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.16xlarge", "ml.g6.12xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.gr6.4xlarge", "ml.gr6.8xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.16xlarge", "ml.g6e.12xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.p5e.48xlarge", "ml.p5en.48xlarge", "ml.p6-b200.48xlarge", "ml.trn2.3xlarge", "ml.trn2.48xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.i3en.large", "ml.i3en.xlarge", "ml.i3en.2xlarge", "ml.i3en.3xlarge", "ml.i3en.6xlarge", "ml.i3en.12xlarge", "ml.i3en.24xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge"
     #   resp.instance_groups[0].life_cycle_config.source_s3_uri #=> String
@@ -13679,6 +13716,20 @@ module Aws::SageMaker
     #   resp.instance_groups[0].scheduled_update_config.deployment_config.auto_rollback_configuration[0].alarm_name #=> String
     #   resp.instance_groups[0].current_image_id #=> String
     #   resp.instance_groups[0].desired_image_id #=> String
+    #   resp.instance_groups[0].active_operations #=> Hash
+    #   resp.instance_groups[0].active_operations["ActiveClusterOperationName"] #=> Integer
+    #   resp.instance_groups[0].kubernetes_config.current_labels #=> Hash
+    #   resp.instance_groups[0].kubernetes_config.current_labels["ClusterKubernetesLabelKey"] #=> String
+    #   resp.instance_groups[0].kubernetes_config.desired_labels #=> Hash
+    #   resp.instance_groups[0].kubernetes_config.desired_labels["ClusterKubernetesLabelKey"] #=> String
+    #   resp.instance_groups[0].kubernetes_config.current_taints #=> Array
+    #   resp.instance_groups[0].kubernetes_config.current_taints[0].key #=> String
+    #   resp.instance_groups[0].kubernetes_config.current_taints[0].value #=> String
+    #   resp.instance_groups[0].kubernetes_config.current_taints[0].effect #=> String, one of "NoSchedule", "PreferNoSchedule", "NoExecute"
+    #   resp.instance_groups[0].kubernetes_config.desired_taints #=> Array
+    #   resp.instance_groups[0].kubernetes_config.desired_taints[0].key #=> String
+    #   resp.instance_groups[0].kubernetes_config.desired_taints[0].value #=> String
+    #   resp.instance_groups[0].kubernetes_config.desired_taints[0].effect #=> String, one of "NoSchedule", "PreferNoSchedule", "NoExecute"
     #   resp.instance_groups[0].target_state_count #=> Integer
     #   resp.instance_groups[0].software_update_status #=> String, one of "Pending", "InProgress", "Succeeded", "Failed", "RollbackInProgress", "RollbackComplete"
     #   resp.instance_groups[0].active_software_update_config.rolling_update_policy.maximum_batch_size.type #=> String, one of "INSTANCE_COUNT", "CAPACITY_PERCENTAGE"
@@ -13789,6 +13840,7 @@ module Aws::SageMaker
     #   resp.event_details.event_details.event_metadata.instance_group.ami_override #=> String
     #   resp.event_details.event_details.event_metadata.instance_group_scaling.instance_count #=> Integer
     #   resp.event_details.event_details.event_metadata.instance_group_scaling.target_count #=> Integer
+    #   resp.event_details.event_details.event_metadata.instance_group_scaling.min_count #=> Integer
     #   resp.event_details.event_details.event_metadata.instance_group_scaling.failure_message #=> String
     #   resp.event_details.event_details.event_metadata.instance.customer_eni #=> String
     #   resp.event_details.event_details.event_metadata.instance.additional_enis.efa_enis #=> Array
@@ -13866,6 +13918,19 @@ module Aws::SageMaker
     #   resp.node_details.current_image_id #=> String
     #   resp.node_details.desired_image_id #=> String
     #   resp.node_details.ultra_server_info.id #=> String
+    #   resp.node_details.kubernetes_config.current_labels #=> Hash
+    #   resp.node_details.kubernetes_config.current_labels["ClusterKubernetesLabelKey"] #=> String
+    #   resp.node_details.kubernetes_config.desired_labels #=> Hash
+    #   resp.node_details.kubernetes_config.desired_labels["ClusterKubernetesLabelKey"] #=> String
+    #   resp.node_details.kubernetes_config.current_taints #=> Array
+    #   resp.node_details.kubernetes_config.current_taints[0].key #=> String
+    #   resp.node_details.kubernetes_config.current_taints[0].value #=> String
+    #   resp.node_details.kubernetes_config.current_taints[0].effect #=> String, one of "NoSchedule", "PreferNoSchedule", "NoExecute"
+    #   resp.node_details.kubernetes_config.desired_taints #=> Array
+    #   resp.node_details.kubernetes_config.desired_taints[0].key #=> String
+    #   resp.node_details.kubernetes_config.desired_taints[0].value #=> String
+    #   resp.node_details.kubernetes_config.desired_taints[0].effect #=> String, one of "NoSchedule", "PreferNoSchedule", "NoExecute"
+    #   resp.node_details.capacity_type #=> String, one of "Spot", "OnDemand"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeClusterNode AWS API Documentation
     #
@@ -17608,6 +17673,7 @@ module Aws::SageMaker
     #   * {Types::DescribeOptimizationJobResponse#model_source #model_source} => Types::OptimizationJobModelSource
     #   * {Types::DescribeOptimizationJobResponse#optimization_environment #optimization_environment} => Hash&lt;String,String&gt;
     #   * {Types::DescribeOptimizationJobResponse#deployment_instance_type #deployment_instance_type} => String
+    #   * {Types::DescribeOptimizationJobResponse#max_instance_count #max_instance_count} => Integer
     #   * {Types::DescribeOptimizationJobResponse#optimization_configs #optimization_configs} => Array&lt;Types::OptimizationConfig&gt;
     #   * {Types::DescribeOptimizationJobResponse#output_config #output_config} => Types::OptimizationJobOutputConfig
     #   * {Types::DescribeOptimizationJobResponse#optimization_output #optimization_output} => Types::OptimizationOutput
@@ -17633,9 +17699,11 @@ module Aws::SageMaker
     #   resp.optimization_job_name #=> String
     #   resp.model_source.s3.s3_uri #=> String
     #   resp.model_source.s3.model_access_config.accept_eula #=> Boolean
+    #   resp.model_source.sage_maker_model.model_name #=> String
     #   resp.optimization_environment #=> Hash
     #   resp.optimization_environment["NonEmptyString256"] #=> String
-    #   resp.deployment_instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.12xlarge", "ml.g6e.16xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge"
+    #   resp.deployment_instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.p5e.48xlarge", "ml.p5en.48xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.12xlarge", "ml.g6e.16xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge"
+    #   resp.max_instance_count #=> Integer
     #   resp.optimization_configs #=> Array
     #   resp.optimization_configs[0].model_quantization_config.image #=> String
     #   resp.optimization_configs[0].model_quantization_config.override_environment #=> Hash
@@ -17646,8 +17714,12 @@ module Aws::SageMaker
     #   resp.optimization_configs[0].model_sharding_config.image #=> String
     #   resp.optimization_configs[0].model_sharding_config.override_environment #=> Hash
     #   resp.optimization_configs[0].model_sharding_config.override_environment["NonEmptyString256"] #=> String
+    #   resp.optimization_configs[0].model_speculative_decoding_config.technique #=> String, one of "EAGLE"
+    #   resp.optimization_configs[0].model_speculative_decoding_config.training_data_source.s3_uri #=> String
+    #   resp.optimization_configs[0].model_speculative_decoding_config.training_data_source.s3_data_type #=> String, one of "S3Prefix", "ManifestFile"
     #   resp.output_config.kms_key_id #=> String
     #   resp.output_config.s3_output_location #=> String
+    #   resp.output_config.sage_maker_model.model_name #=> String
     #   resp.optimization_output.recommended_inference_image #=> String
     #   resp.role_arn #=> String
     #   resp.stopping_condition.max_runtime_in_seconds #=> Integer
@@ -24473,7 +24545,8 @@ module Aws::SageMaker
     #   resp.optimization_job_summaries[0].optimization_start_time #=> Time
     #   resp.optimization_job_summaries[0].optimization_end_time #=> Time
     #   resp.optimization_job_summaries[0].last_modified_time #=> Time
-    #   resp.optimization_job_summaries[0].deployment_instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.12xlarge", "ml.g6e.16xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge"
+    #   resp.optimization_job_summaries[0].deployment_instance_type #=> String, one of "ml.p4d.24xlarge", "ml.p4de.24xlarge", "ml.p5.48xlarge", "ml.p5e.48xlarge", "ml.p5en.48xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge", "ml.g6e.xlarge", "ml.g6e.2xlarge", "ml.g6e.4xlarge", "ml.g6e.8xlarge", "ml.g6e.12xlarge", "ml.g6e.16xlarge", "ml.g6e.24xlarge", "ml.g6e.48xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.trn1n.32xlarge"
+    #   resp.optimization_job_summaries[0].max_instance_count #=> Integer
     #   resp.optimization_job_summaries[0].optimization_types #=> Array
     #   resp.optimization_job_summaries[0].optimization_types[0] #=> String
     #   resp.next_token #=> String
@@ -27812,6 +27885,7 @@ module Aws::SageMaker
     #     instance_groups: [
     #       {
     #         instance_count: 1, # required
+    #         min_instance_count: 1,
     #         instance_group_name: "ClusterInstanceGroupName", # required
     #         instance_type: "ml.p4d.24xlarge", # required, accepts ml.p4d.24xlarge, ml.p4de.24xlarge, ml.p5.48xlarge, ml.p6e-gb200.36xlarge, ml.trn1.32xlarge, ml.trn1n.32xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.c5.large, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.12xlarge, ml.c5.18xlarge, ml.c5.24xlarge, ml.c5n.large, ml.c5n.2xlarge, ml.c5n.4xlarge, ml.c5n.9xlarge, ml.c5n.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.8xlarge, ml.m5.12xlarge, ml.m5.16xlarge, ml.m5.24xlarge, ml.t3.medium, ml.t3.large, ml.t3.xlarge, ml.t3.2xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.16xlarge, ml.g6.12xlarge, ml.g6.24xlarge, ml.g6.48xlarge, ml.gr6.4xlarge, ml.gr6.8xlarge, ml.g6e.xlarge, ml.g6e.2xlarge, ml.g6e.4xlarge, ml.g6e.8xlarge, ml.g6e.16xlarge, ml.g6e.12xlarge, ml.g6e.24xlarge, ml.g6e.48xlarge, ml.p5e.48xlarge, ml.p5en.48xlarge, ml.p6-b200.48xlarge, ml.trn2.3xlarge, ml.trn2.48xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.i3en.large, ml.i3en.xlarge, ml.i3en.2xlarge, ml.i3en.3xlarge, ml.i3en.6xlarge, ml.i3en.12xlarge, ml.i3en.24xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge
     #         life_cycle_config: { # required
@@ -27857,6 +27931,24 @@ module Aws::SageMaker
     #           },
     #         },
     #         image_id: "ImageId",
+    #         kubernetes_config: {
+    #           labels: {
+    #             "ClusterKubernetesLabelKey" => "ClusterKubernetesLabelValue",
+    #           },
+    #           taints: [
+    #             {
+    #               key: "ClusterKubernetesTaintKey", # required
+    #               value: "ClusterKubernetesTaintValue",
+    #               effect: "NoSchedule", # required, accepts NoSchedule, PreferNoSchedule, NoExecute
+    #             },
+    #           ],
+    #         },
+    #         capacity_requirements: {
+    #           spot: {
+    #           },
+    #           on_demand: {
+    #           },
+    #         },
     #       },
     #     ],
     #     restricted_instance_groups: [
@@ -31579,7 +31671,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.340.0'
+      context[:gem_version] = '1.341.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -26,6 +26,9 @@ module Aws::SageMaker
     ActionSummaries = Shapes::ListShape.new(name: 'ActionSummaries')
     ActionSummary = Shapes::StructureShape.new(name: 'ActionSummary')
     ActivationState = Shapes::StringShape.new(name: 'ActivationState')
+    ActiveClusterOperationCount = Shapes::IntegerShape.new(name: 'ActiveClusterOperationCount')
+    ActiveClusterOperationName = Shapes::StringShape.new(name: 'ActiveClusterOperationName')
+    ActiveOperations = Shapes::MapShape.new(name: 'ActiveOperations')
     AddAssociationRequest = Shapes::StructureShape.new(name: 'AddAssociationRequest')
     AddAssociationResponse = Shapes::StructureShape.new(name: 'AddAssociationResponse')
     AddClusterNodeSpecification = Shapes::StructureShape.new(name: 'AddClusterNodeSpecification')
@@ -342,6 +345,8 @@ module Aws::SageMaker
     ClusterAutoScalingStatus = Shapes::StringShape.new(name: 'ClusterAutoScalingStatus')
     ClusterAvailabilityZone = Shapes::StringShape.new(name: 'ClusterAvailabilityZone')
     ClusterAvailabilityZoneId = Shapes::StringShape.new(name: 'ClusterAvailabilityZoneId')
+    ClusterCapacityRequirements = Shapes::StructureShape.new(name: 'ClusterCapacityRequirements')
+    ClusterCapacityType = Shapes::StringShape.new(name: 'ClusterCapacityType')
     ClusterConfigMode = Shapes::StringShape.new(name: 'ClusterConfigMode')
     ClusterEbsVolumeConfig = Shapes::StructureShape.new(name: 'ClusterEbsVolumeConfig')
     ClusterEbsVolumeSizeInGB = Shapes::IntegerShape.new(name: 'ClusterEbsVolumeSizeInGB')
@@ -364,6 +369,17 @@ module Aws::SageMaker
     ClusterInstanceStorageConfig = Shapes::UnionShape.new(name: 'ClusterInstanceStorageConfig')
     ClusterInstanceStorageConfigs = Shapes::ListShape.new(name: 'ClusterInstanceStorageConfigs')
     ClusterInstanceType = Shapes::StringShape.new(name: 'ClusterInstanceType')
+    ClusterKubernetesConfig = Shapes::StructureShape.new(name: 'ClusterKubernetesConfig')
+    ClusterKubernetesConfigDetails = Shapes::StructureShape.new(name: 'ClusterKubernetesConfigDetails')
+    ClusterKubernetesConfigNodeDetails = Shapes::StructureShape.new(name: 'ClusterKubernetesConfigNodeDetails')
+    ClusterKubernetesLabelKey = Shapes::StringShape.new(name: 'ClusterKubernetesLabelKey')
+    ClusterKubernetesLabelValue = Shapes::StringShape.new(name: 'ClusterKubernetesLabelValue')
+    ClusterKubernetesLabels = Shapes::MapShape.new(name: 'ClusterKubernetesLabels')
+    ClusterKubernetesTaint = Shapes::StructureShape.new(name: 'ClusterKubernetesTaint')
+    ClusterKubernetesTaintEffect = Shapes::StringShape.new(name: 'ClusterKubernetesTaintEffect')
+    ClusterKubernetesTaintKey = Shapes::StringShape.new(name: 'ClusterKubernetesTaintKey')
+    ClusterKubernetesTaintValue = Shapes::StringShape.new(name: 'ClusterKubernetesTaintValue')
+    ClusterKubernetesTaints = Shapes::ListShape.new(name: 'ClusterKubernetesTaints')
     ClusterLifeCycleConfig = Shapes::StructureShape.new(name: 'ClusterLifeCycleConfig')
     ClusterLifeCycleConfigFileName = Shapes::StringShape.new(name: 'ClusterLifeCycleConfigFileName')
     ClusterMetadata = Shapes::StructureShape.new(name: 'ClusterMetadata')
@@ -379,6 +395,7 @@ module Aws::SageMaker
     ClusterNodeSummaries = Shapes::ListShape.new(name: 'ClusterNodeSummaries')
     ClusterNodeSummary = Shapes::StructureShape.new(name: 'ClusterNodeSummary')
     ClusterNonNegativeInstanceCount = Shapes::IntegerShape.new(name: 'ClusterNonNegativeInstanceCount')
+    ClusterOnDemandOptions = Shapes::StructureShape.new(name: 'ClusterOnDemandOptions')
     ClusterOrchestrator = Shapes::StructureShape.new(name: 'ClusterOrchestrator')
     ClusterOrchestratorEksConfig = Shapes::StructureShape.new(name: 'ClusterOrchestratorEksConfig')
     ClusterPrivateDnsHostname = Shapes::StringShape.new(name: 'ClusterPrivateDnsHostname')
@@ -394,6 +411,7 @@ module Aws::SageMaker
     ClusterSchedulerConfigSummaryList = Shapes::ListShape.new(name: 'ClusterSchedulerConfigSummaryList')
     ClusterSchedulerPriorityClassName = Shapes::StringShape.new(name: 'ClusterSchedulerPriorityClassName')
     ClusterSortBy = Shapes::StringShape.new(name: 'ClusterSortBy')
+    ClusterSpotOptions = Shapes::StructureShape.new(name: 'ClusterSpotOptions')
     ClusterStatus = Shapes::StringShape.new(name: 'ClusterStatus')
     ClusterSummaries = Shapes::ListShape.new(name: 'ClusterSummaries')
     ClusterSummary = Shapes::StructureShape.new(name: 'ClusterSummary')
@@ -1743,6 +1761,10 @@ module Aws::SageMaker
     ModelSetupTime = Shapes::IntegerShape.new(name: 'ModelSetupTime')
     ModelShardingConfig = Shapes::StructureShape.new(name: 'ModelShardingConfig')
     ModelSortKey = Shapes::StringShape.new(name: 'ModelSortKey')
+    ModelSpeculativeDecodingConfig = Shapes::StructureShape.new(name: 'ModelSpeculativeDecodingConfig')
+    ModelSpeculativeDecodingS3DataType = Shapes::StringShape.new(name: 'ModelSpeculativeDecodingS3DataType')
+    ModelSpeculativeDecodingTechnique = Shapes::StringShape.new(name: 'ModelSpeculativeDecodingTechnique')
+    ModelSpeculativeDecodingTrainingDataSource = Shapes::StructureShape.new(name: 'ModelSpeculativeDecodingTrainingDataSource')
     ModelStepMetadata = Shapes::StructureShape.new(name: 'ModelStepMetadata')
     ModelSummary = Shapes::StructureShape.new(name: 'ModelSummary')
     ModelSummaryList = Shapes::ListShape.new(name: 'ModelSummaryList')
@@ -1877,6 +1899,7 @@ module Aws::SageMaker
     OptimizationJobArn = Shapes::StringShape.new(name: 'OptimizationJobArn')
     OptimizationJobDeploymentInstanceType = Shapes::StringShape.new(name: 'OptimizationJobDeploymentInstanceType')
     OptimizationJobEnvironmentVariables = Shapes::MapShape.new(name: 'OptimizationJobEnvironmentVariables')
+    OptimizationJobMaxInstanceCount = Shapes::IntegerShape.new(name: 'OptimizationJobMaxInstanceCount')
     OptimizationJobModelSource = Shapes::StructureShape.new(name: 'OptimizationJobModelSource')
     OptimizationJobModelSourceS3 = Shapes::StructureShape.new(name: 'OptimizationJobModelSourceS3')
     OptimizationJobOutputConfig = Shapes::StructureShape.new(name: 'OptimizationJobOutputConfig')
@@ -1886,6 +1909,7 @@ module Aws::SageMaker
     OptimizationModelAcceptEula = Shapes::BooleanShape.new(name: 'OptimizationModelAcceptEula')
     OptimizationModelAccessConfig = Shapes::StructureShape.new(name: 'OptimizationModelAccessConfig')
     OptimizationOutput = Shapes::StructureShape.new(name: 'OptimizationOutput')
+    OptimizationSageMakerModel = Shapes::StructureShape.new(name: 'OptimizationSageMakerModel')
     OptimizationType = Shapes::StringShape.new(name: 'OptimizationType')
     OptimizationTypes = Shapes::ListShape.new(name: 'OptimizationTypes')
     OptimizationVpcConfig = Shapes::StructureShape.new(name: 'OptimizationVpcConfig')
@@ -2749,6 +2773,9 @@ module Aws::SageMaker
     ActionSummary.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
     ActionSummary.struct_class = Types::ActionSummary
 
+    ActiveOperations.key = Shapes::ShapeRef.new(shape: ActiveClusterOperationName)
+    ActiveOperations.value = Shapes::ShapeRef.new(shape: ActiveClusterOperationCount)
+
     AddAssociationRequest.add_member(:source_arn, Shapes::ShapeRef.new(shape: AssociationEntityArn, required: true, location_name: "SourceArn"))
     AddAssociationRequest.add_member(:destination_arn, Shapes::ShapeRef.new(shape: AssociationEntityArn, required: true, location_name: "DestinationArn"))
     AddAssociationRequest.add_member(:association_type, Shapes::ShapeRef.new(shape: AssociationEdgeType, location_name: "AssociationType"))
@@ -3516,6 +3543,10 @@ module Aws::SageMaker
     ClusterAutoScalingConfigOutput.add_member(:failure_message, Shapes::ShapeRef.new(shape: String, location_name: "FailureMessage"))
     ClusterAutoScalingConfigOutput.struct_class = Types::ClusterAutoScalingConfigOutput
 
+    ClusterCapacityRequirements.add_member(:spot, Shapes::ShapeRef.new(shape: ClusterSpotOptions, location_name: "Spot"))
+    ClusterCapacityRequirements.add_member(:on_demand, Shapes::ShapeRef.new(shape: ClusterOnDemandOptions, location_name: "OnDemand"))
+    ClusterCapacityRequirements.struct_class = Types::ClusterCapacityRequirements
+
     ClusterEbsVolumeConfig.add_member(:volume_size_in_gb, Shapes::ShapeRef.new(shape: ClusterEbsVolumeSizeInGB, location_name: "VolumeSizeInGB"))
     ClusterEbsVolumeConfig.add_member(:volume_kms_key_id, Shapes::ShapeRef.new(shape: KmsKeyId, location_name: "VolumeKmsKeyId"))
     ClusterEbsVolumeConfig.add_member(:root_volume, Shapes::ShapeRef.new(shape: Boolean, location_name: "RootVolume", metadata: {"box" => true}))
@@ -3546,6 +3577,7 @@ module Aws::SageMaker
 
     ClusterInstanceGroupDetails.add_member(:current_count, Shapes::ShapeRef.new(shape: ClusterNonNegativeInstanceCount, location_name: "CurrentCount"))
     ClusterInstanceGroupDetails.add_member(:target_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, location_name: "TargetCount"))
+    ClusterInstanceGroupDetails.add_member(:min_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, location_name: "MinCount"))
     ClusterInstanceGroupDetails.add_member(:instance_group_name, Shapes::ShapeRef.new(shape: ClusterInstanceGroupName, location_name: "InstanceGroupName"))
     ClusterInstanceGroupDetails.add_member(:instance_type, Shapes::ShapeRef.new(shape: ClusterInstanceType, location_name: "InstanceType"))
     ClusterInstanceGroupDetails.add_member(:life_cycle_config, Shapes::ShapeRef.new(shape: ClusterLifeCycleConfig, location_name: "LifeCycleConfig"))
@@ -3560,6 +3592,9 @@ module Aws::SageMaker
     ClusterInstanceGroupDetails.add_member(:scheduled_update_config, Shapes::ShapeRef.new(shape: ScheduledUpdateConfig, location_name: "ScheduledUpdateConfig"))
     ClusterInstanceGroupDetails.add_member(:current_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "CurrentImageId"))
     ClusterInstanceGroupDetails.add_member(:desired_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "DesiredImageId"))
+    ClusterInstanceGroupDetails.add_member(:active_operations, Shapes::ShapeRef.new(shape: ActiveOperations, location_name: "ActiveOperations"))
+    ClusterInstanceGroupDetails.add_member(:kubernetes_config, Shapes::ShapeRef.new(shape: ClusterKubernetesConfigDetails, location_name: "KubernetesConfig"))
+    ClusterInstanceGroupDetails.add_member(:capacity_requirements, Shapes::ShapeRef.new(shape: ClusterCapacityRequirements, location_name: "CapacityRequirements"))
     ClusterInstanceGroupDetails.add_member(:target_state_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, location_name: "TargetStateCount"))
     ClusterInstanceGroupDetails.add_member(:software_update_status, Shapes::ShapeRef.new(shape: SoftwareUpdateStatus, location_name: "SoftwareUpdateStatus"))
     ClusterInstanceGroupDetails.add_member(:active_software_update_config, Shapes::ShapeRef.new(shape: DeploymentConfiguration, location_name: "ActiveSoftwareUpdateConfig"))
@@ -3568,6 +3603,7 @@ module Aws::SageMaker
     ClusterInstanceGroupDetailsList.member = Shapes::ShapeRef.new(shape: ClusterInstanceGroupDetails)
 
     ClusterInstanceGroupSpecification.add_member(:instance_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, required: true, location_name: "InstanceCount"))
+    ClusterInstanceGroupSpecification.add_member(:min_instance_count, Shapes::ShapeRef.new(shape: ClusterInstanceCount, location_name: "MinInstanceCount"))
     ClusterInstanceGroupSpecification.add_member(:instance_group_name, Shapes::ShapeRef.new(shape: ClusterInstanceGroupName, required: true, location_name: "InstanceGroupName"))
     ClusterInstanceGroupSpecification.add_member(:instance_type, Shapes::ShapeRef.new(shape: ClusterInstanceType, required: true, location_name: "InstanceType"))
     ClusterInstanceGroupSpecification.add_member(:life_cycle_config, Shapes::ShapeRef.new(shape: ClusterLifeCycleConfig, required: true, location_name: "LifeCycleConfig"))
@@ -3579,6 +3615,8 @@ module Aws::SageMaker
     ClusterInstanceGroupSpecification.add_member(:override_vpc_config, Shapes::ShapeRef.new(shape: VpcConfig, location_name: "OverrideVpcConfig"))
     ClusterInstanceGroupSpecification.add_member(:scheduled_update_config, Shapes::ShapeRef.new(shape: ScheduledUpdateConfig, location_name: "ScheduledUpdateConfig"))
     ClusterInstanceGroupSpecification.add_member(:image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "ImageId"))
+    ClusterInstanceGroupSpecification.add_member(:kubernetes_config, Shapes::ShapeRef.new(shape: ClusterKubernetesConfig, location_name: "KubernetesConfig"))
+    ClusterInstanceGroupSpecification.add_member(:capacity_requirements, Shapes::ShapeRef.new(shape: ClusterCapacityRequirements, location_name: "CapacityRequirements"))
     ClusterInstanceGroupSpecification.struct_class = Types::ClusterInstanceGroupSpecification
 
     ClusterInstanceGroupSpecifications.member = Shapes::ShapeRef.new(shape: ClusterInstanceGroupSpecification)
@@ -3600,6 +3638,32 @@ module Aws::SageMaker
     ClusterInstanceStorageConfig.struct_class = Types::ClusterInstanceStorageConfig
 
     ClusterInstanceStorageConfigs.member = Shapes::ShapeRef.new(shape: ClusterInstanceStorageConfig)
+
+    ClusterKubernetesConfig.add_member(:labels, Shapes::ShapeRef.new(shape: ClusterKubernetesLabels, location_name: "Labels"))
+    ClusterKubernetesConfig.add_member(:taints, Shapes::ShapeRef.new(shape: ClusterKubernetesTaints, location_name: "Taints"))
+    ClusterKubernetesConfig.struct_class = Types::ClusterKubernetesConfig
+
+    ClusterKubernetesConfigDetails.add_member(:current_labels, Shapes::ShapeRef.new(shape: ClusterKubernetesLabels, location_name: "CurrentLabels"))
+    ClusterKubernetesConfigDetails.add_member(:desired_labels, Shapes::ShapeRef.new(shape: ClusterKubernetesLabels, location_name: "DesiredLabels"))
+    ClusterKubernetesConfigDetails.add_member(:current_taints, Shapes::ShapeRef.new(shape: ClusterKubernetesTaints, location_name: "CurrentTaints"))
+    ClusterKubernetesConfigDetails.add_member(:desired_taints, Shapes::ShapeRef.new(shape: ClusterKubernetesTaints, location_name: "DesiredTaints"))
+    ClusterKubernetesConfigDetails.struct_class = Types::ClusterKubernetesConfigDetails
+
+    ClusterKubernetesConfigNodeDetails.add_member(:current_labels, Shapes::ShapeRef.new(shape: ClusterKubernetesLabels, location_name: "CurrentLabels"))
+    ClusterKubernetesConfigNodeDetails.add_member(:desired_labels, Shapes::ShapeRef.new(shape: ClusterKubernetesLabels, location_name: "DesiredLabels"))
+    ClusterKubernetesConfigNodeDetails.add_member(:current_taints, Shapes::ShapeRef.new(shape: ClusterKubernetesTaints, location_name: "CurrentTaints"))
+    ClusterKubernetesConfigNodeDetails.add_member(:desired_taints, Shapes::ShapeRef.new(shape: ClusterKubernetesTaints, location_name: "DesiredTaints"))
+    ClusterKubernetesConfigNodeDetails.struct_class = Types::ClusterKubernetesConfigNodeDetails
+
+    ClusterKubernetesLabels.key = Shapes::ShapeRef.new(shape: ClusterKubernetesLabelKey)
+    ClusterKubernetesLabels.value = Shapes::ShapeRef.new(shape: ClusterKubernetesLabelValue)
+
+    ClusterKubernetesTaint.add_member(:key, Shapes::ShapeRef.new(shape: ClusterKubernetesTaintKey, required: true, location_name: "Key"))
+    ClusterKubernetesTaint.add_member(:value, Shapes::ShapeRef.new(shape: ClusterKubernetesTaintValue, location_name: "Value"))
+    ClusterKubernetesTaint.add_member(:effect, Shapes::ShapeRef.new(shape: ClusterKubernetesTaintEffect, required: true, location_name: "Effect"))
+    ClusterKubernetesTaint.struct_class = Types::ClusterKubernetesTaint
+
+    ClusterKubernetesTaints.member = Shapes::ShapeRef.new(shape: ClusterKubernetesTaint)
 
     ClusterLifeCycleConfig.add_member(:source_s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "SourceS3Uri"))
     ClusterLifeCycleConfig.add_member(:on_create, Shapes::ShapeRef.new(shape: ClusterLifeCycleConfigFileName, required: true, location_name: "OnCreate"))
@@ -3628,6 +3692,8 @@ module Aws::SageMaker
     ClusterNodeDetails.add_member(:current_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "CurrentImageId"))
     ClusterNodeDetails.add_member(:desired_image_id, Shapes::ShapeRef.new(shape: ImageId, location_name: "DesiredImageId"))
     ClusterNodeDetails.add_member(:ultra_server_info, Shapes::ShapeRef.new(shape: UltraServerInfo, location_name: "UltraServerInfo"))
+    ClusterNodeDetails.add_member(:kubernetes_config, Shapes::ShapeRef.new(shape: ClusterKubernetesConfigNodeDetails, location_name: "KubernetesConfig"))
+    ClusterNodeDetails.add_member(:capacity_type, Shapes::ShapeRef.new(shape: ClusterCapacityType, location_name: "CapacityType"))
     ClusterNodeDetails.struct_class = Types::ClusterNodeDetails
 
     ClusterNodeIds.member = Shapes::ShapeRef.new(shape: ClusterNodeId)
@@ -3646,6 +3712,8 @@ module Aws::SageMaker
     ClusterNodeSummary.add_member(:ultra_server_info, Shapes::ShapeRef.new(shape: UltraServerInfo, location_name: "UltraServerInfo"))
     ClusterNodeSummary.add_member(:private_dns_hostname, Shapes::ShapeRef.new(shape: ClusterPrivateDnsHostname, location_name: "PrivateDnsHostname"))
     ClusterNodeSummary.struct_class = Types::ClusterNodeSummary
+
+    ClusterOnDemandOptions.struct_class = Types::ClusterOnDemandOptions
 
     ClusterOrchestrator.add_member(:eks, Shapes::ShapeRef.new(shape: ClusterOrchestratorEksConfig, required: true, location_name: "Eks"))
     ClusterOrchestrator.struct_class = Types::ClusterOrchestrator
@@ -3697,6 +3765,8 @@ module Aws::SageMaker
     ClusterSchedulerConfigSummary.struct_class = Types::ClusterSchedulerConfigSummary
 
     ClusterSchedulerConfigSummaryList.member = Shapes::ShapeRef.new(shape: ClusterSchedulerConfigSummary)
+
+    ClusterSpotOptions.struct_class = Types::ClusterSpotOptions
 
     ClusterSummaries.member = Shapes::ShapeRef.new(shape: ClusterSummary)
 
@@ -4471,6 +4541,7 @@ module Aws::SageMaker
     CreateOptimizationJobRequest.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, required: true, location_name: "RoleArn"))
     CreateOptimizationJobRequest.add_member(:model_source, Shapes::ShapeRef.new(shape: OptimizationJobModelSource, required: true, location_name: "ModelSource"))
     CreateOptimizationJobRequest.add_member(:deployment_instance_type, Shapes::ShapeRef.new(shape: OptimizationJobDeploymentInstanceType, required: true, location_name: "DeploymentInstanceType"))
+    CreateOptimizationJobRequest.add_member(:max_instance_count, Shapes::ShapeRef.new(shape: OptimizationJobMaxInstanceCount, location_name: "MaxInstanceCount"))
     CreateOptimizationJobRequest.add_member(:optimization_environment, Shapes::ShapeRef.new(shape: OptimizationJobEnvironmentVariables, location_name: "OptimizationEnvironment"))
     CreateOptimizationJobRequest.add_member(:optimization_configs, Shapes::ShapeRef.new(shape: OptimizationConfigs, required: true, location_name: "OptimizationConfigs"))
     CreateOptimizationJobRequest.add_member(:output_config, Shapes::ShapeRef.new(shape: OptimizationJobOutputConfig, required: true, location_name: "OutputConfig"))
@@ -6071,6 +6142,7 @@ module Aws::SageMaker
     DescribeOptimizationJobResponse.add_member(:model_source, Shapes::ShapeRef.new(shape: OptimizationJobModelSource, required: true, location_name: "ModelSource"))
     DescribeOptimizationJobResponse.add_member(:optimization_environment, Shapes::ShapeRef.new(shape: OptimizationJobEnvironmentVariables, location_name: "OptimizationEnvironment"))
     DescribeOptimizationJobResponse.add_member(:deployment_instance_type, Shapes::ShapeRef.new(shape: OptimizationJobDeploymentInstanceType, required: true, location_name: "DeploymentInstanceType"))
+    DescribeOptimizationJobResponse.add_member(:max_instance_count, Shapes::ShapeRef.new(shape: OptimizationJobMaxInstanceCount, location_name: "MaxInstanceCount"))
     DescribeOptimizationJobResponse.add_member(:optimization_configs, Shapes::ShapeRef.new(shape: OptimizationConfigs, required: true, location_name: "OptimizationConfigs"))
     DescribeOptimizationJobResponse.add_member(:output_config, Shapes::ShapeRef.new(shape: OptimizationJobOutputConfig, required: true, location_name: "OutputConfig"))
     DescribeOptimizationJobResponse.add_member(:optimization_output, Shapes::ShapeRef.new(shape: OptimizationOutput, location_name: "OptimizationOutput"))
@@ -7561,6 +7633,7 @@ module Aws::SageMaker
 
     InstanceGroupScalingMetadata.add_member(:instance_count, Shapes::ShapeRef.new(shape: InstanceCount, location_name: "InstanceCount"))
     InstanceGroupScalingMetadata.add_member(:target_count, Shapes::ShapeRef.new(shape: TargetCount, location_name: "TargetCount"))
+    InstanceGroupScalingMetadata.add_member(:min_count, Shapes::ShapeRef.new(shape: InstanceCount, location_name: "MinCount"))
     InstanceGroupScalingMetadata.add_member(:failure_message, Shapes::ShapeRef.new(shape: String, location_name: "FailureMessage"))
     InstanceGroupScalingMetadata.struct_class = Types::InstanceGroupScalingMetadata
 
@@ -9319,6 +9392,14 @@ module Aws::SageMaker
     ModelShardingConfig.add_member(:override_environment, Shapes::ShapeRef.new(shape: OptimizationJobEnvironmentVariables, location_name: "OverrideEnvironment"))
     ModelShardingConfig.struct_class = Types::ModelShardingConfig
 
+    ModelSpeculativeDecodingConfig.add_member(:technique, Shapes::ShapeRef.new(shape: ModelSpeculativeDecodingTechnique, required: true, location_name: "Technique"))
+    ModelSpeculativeDecodingConfig.add_member(:training_data_source, Shapes::ShapeRef.new(shape: ModelSpeculativeDecodingTrainingDataSource, location_name: "TrainingDataSource"))
+    ModelSpeculativeDecodingConfig.struct_class = Types::ModelSpeculativeDecodingConfig
+
+    ModelSpeculativeDecodingTrainingDataSource.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "S3Uri"))
+    ModelSpeculativeDecodingTrainingDataSource.add_member(:s3_data_type, Shapes::ShapeRef.new(shape: ModelSpeculativeDecodingS3DataType, required: true, location_name: "S3DataType"))
+    ModelSpeculativeDecodingTrainingDataSource.struct_class = Types::ModelSpeculativeDecodingTrainingDataSource
+
     ModelStepMetadata.add_member(:arn, Shapes::ShapeRef.new(shape: String256, location_name: "Arn"))
     ModelStepMetadata.struct_class = Types::ModelStepMetadata
 
@@ -9630,10 +9711,12 @@ module Aws::SageMaker
     OptimizationConfig.add_member(:model_quantization_config, Shapes::ShapeRef.new(shape: ModelQuantizationConfig, location_name: "ModelQuantizationConfig"))
     OptimizationConfig.add_member(:model_compilation_config, Shapes::ShapeRef.new(shape: ModelCompilationConfig, location_name: "ModelCompilationConfig"))
     OptimizationConfig.add_member(:model_sharding_config, Shapes::ShapeRef.new(shape: ModelShardingConfig, location_name: "ModelShardingConfig"))
+    OptimizationConfig.add_member(:model_speculative_decoding_config, Shapes::ShapeRef.new(shape: ModelSpeculativeDecodingConfig, location_name: "ModelSpeculativeDecodingConfig"))
     OptimizationConfig.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
     OptimizationConfig.add_member_subclass(:model_quantization_config, Types::OptimizationConfig::ModelQuantizationConfig)
     OptimizationConfig.add_member_subclass(:model_compilation_config, Types::OptimizationConfig::ModelCompilationConfig)
     OptimizationConfig.add_member_subclass(:model_sharding_config, Types::OptimizationConfig::ModelShardingConfig)
+    OptimizationConfig.add_member_subclass(:model_speculative_decoding_config, Types::OptimizationConfig::ModelSpeculativeDecodingConfig)
     OptimizationConfig.add_member_subclass(:unknown, Types::OptimizationConfig::Unknown)
     OptimizationConfig.struct_class = Types::OptimizationConfig
 
@@ -9643,6 +9726,7 @@ module Aws::SageMaker
     OptimizationJobEnvironmentVariables.value = Shapes::ShapeRef.new(shape: String256)
 
     OptimizationJobModelSource.add_member(:s3, Shapes::ShapeRef.new(shape: OptimizationJobModelSourceS3, location_name: "S3"))
+    OptimizationJobModelSource.add_member(:sage_maker_model, Shapes::ShapeRef.new(shape: OptimizationSageMakerModel, location_name: "SageMakerModel"))
     OptimizationJobModelSource.struct_class = Types::OptimizationJobModelSource
 
     OptimizationJobModelSourceS3.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, location_name: "S3Uri"))
@@ -9651,6 +9735,7 @@ module Aws::SageMaker
 
     OptimizationJobOutputConfig.add_member(:kms_key_id, Shapes::ShapeRef.new(shape: KmsKeyId, location_name: "KmsKeyId"))
     OptimizationJobOutputConfig.add_member(:s3_output_location, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "S3OutputLocation"))
+    OptimizationJobOutputConfig.add_member(:sage_maker_model, Shapes::ShapeRef.new(shape: OptimizationSageMakerModel, location_name: "SageMakerModel"))
     OptimizationJobOutputConfig.struct_class = Types::OptimizationJobOutputConfig
 
     OptimizationJobSummaries.member = Shapes::ShapeRef.new(shape: OptimizationJobSummary)
@@ -9663,6 +9748,7 @@ module Aws::SageMaker
     OptimizationJobSummary.add_member(:optimization_end_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "OptimizationEndTime"))
     OptimizationJobSummary.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: LastModifiedTime, location_name: "LastModifiedTime"))
     OptimizationJobSummary.add_member(:deployment_instance_type, Shapes::ShapeRef.new(shape: OptimizationJobDeploymentInstanceType, required: true, location_name: "DeploymentInstanceType"))
+    OptimizationJobSummary.add_member(:max_instance_count, Shapes::ShapeRef.new(shape: OptimizationJobMaxInstanceCount, location_name: "MaxInstanceCount"))
     OptimizationJobSummary.add_member(:optimization_types, Shapes::ShapeRef.new(shape: OptimizationTypes, required: true, location_name: "OptimizationTypes"))
     OptimizationJobSummary.struct_class = Types::OptimizationJobSummary
 
@@ -9671,6 +9757,9 @@ module Aws::SageMaker
 
     OptimizationOutput.add_member(:recommended_inference_image, Shapes::ShapeRef.new(shape: OptimizationContainerImage, location_name: "RecommendedInferenceImage"))
     OptimizationOutput.struct_class = Types::OptimizationOutput
+
+    OptimizationSageMakerModel.add_member(:model_name, Shapes::ShapeRef.new(shape: ModelName, location_name: "ModelName"))
+    OptimizationSageMakerModel.struct_class = Types::OptimizationSageMakerModel
 
     OptimizationTypes.member = Shapes::ShapeRef.new(shape: OptimizationType)
 

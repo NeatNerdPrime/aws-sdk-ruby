@@ -494,6 +494,9 @@ module Aws::BedrockDataAutomationRuntime
     #   * {Types::GetDataAutomationStatusResponse#error_type #error_type} => String
     #   * {Types::GetDataAutomationStatusResponse#error_message #error_message} => String
     #   * {Types::GetDataAutomationStatusResponse#output_configuration #output_configuration} => Types::OutputConfiguration
+    #   * {Types::GetDataAutomationStatusResponse#job_submission_time #job_submission_time} => Time
+    #   * {Types::GetDataAutomationStatusResponse#job_completion_time #job_completion_time} => Time
+    #   * {Types::GetDataAutomationStatusResponse#job_duration_in_seconds #job_duration_in_seconds} => Integer
     #
     # @example Request syntax with placeholder values
     #
@@ -507,6 +510,9 @@ module Aws::BedrockDataAutomationRuntime
     #   resp.error_type #=> String
     #   resp.error_message #=> String
     #   resp.output_configuration.s3_uri #=> String
+    #   resp.job_submission_time #=> Time
+    #   resp.job_completion_time #=> Time
+    #   resp.job_duration_in_seconds #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-data-automation-runtime-2024-06-13/GetDataAutomationStatus AWS API Documentation
     #
@@ -788,7 +794,7 @@ module Aws::BedrockDataAutomationRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockdataautomationruntime'
-      context[:gem_version] = '1.17.0'
+      context[:gem_version] = '1.18.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

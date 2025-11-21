@@ -40,7 +40,7 @@ module Aws
       def iam_instance_profile: () -> Types::IamInstanceProfile
 
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Instance.html#instance_lifecycle-instance_method
-      def instance_lifecycle: () -> ("spot" | "scheduled" | "capacity-block")
+      def instance_lifecycle: () -> ("spot" | "scheduled" | "capacity-block" | "interruptible-capacity-reservation")
 
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2/Instance.html#elastic_gpu_associations-instance_method
       def elastic_gpu_associations: () -> ::Array[Types::ElasticGpuAssociation]

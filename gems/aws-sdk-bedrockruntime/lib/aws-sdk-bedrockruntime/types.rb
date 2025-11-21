@@ -43,6 +43,46 @@ module Aws::BedrockRuntime
     #
     class AnyToolChoice < Aws::EmptyStructure; end
 
+    # Details about the specific guardrail that was applied during this
+    # assessment, including its identifier, version, ARN, origin, and
+    # ownership information.
+    #
+    # @!attribute [rw] guardrail_id
+    #   The unique ID of the guardrail that was applied.
+    #   @return [String]
+    #
+    # @!attribute [rw] guardrail_version
+    #   The version of the guardrail that was applied.
+    #   @return [String]
+    #
+    # @!attribute [rw] guardrail_arn
+    #   The ARN of the guardrail that was applied.
+    #   @return [String]
+    #
+    # @!attribute [rw] guardrail_origin
+    #   The origin of how the guardrail was applied. This can be either
+    #   requested at the API level or enforced at the account or
+    #   organization level as a default guardrail.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] guardrail_ownership
+    #   The ownership type of the guardrail, indicating whether it is owned
+    #   by the requesting account or is a cross-account guardrail shared
+    #   from another AWS account.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/AppliedGuardrailDetails AWS API Documentation
+    #
+    class AppliedGuardrailDetails < Struct.new(
+      :guardrail_id,
+      :guardrail_version,
+      :guardrail_arn,
+      :guardrail_origin,
+      :guardrail_ownership)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] guardrail_identifier
     #   The guardrail identifier used in the request to apply the guardrail.
     #   @return [String]
@@ -1695,6 +1735,12 @@ module Aws::BedrockRuntime
     #   The invocation metrics for the guardrail assessment.
     #   @return [Types::GuardrailInvocationMetrics]
     #
+    # @!attribute [rw] applied_guardrail_details
+    #   Details about the specific guardrail that was applied during this
+    #   assessment, including its identifier, version, ARN, origin, and
+    #   ownership information.
+    #   @return [Types::AppliedGuardrailDetails]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/GuardrailAssessment AWS API Documentation
     #
     class GuardrailAssessment < Struct.new(
@@ -1704,7 +1750,8 @@ module Aws::BedrockRuntime
       :sensitive_information_policy,
       :contextual_grounding_policy,
       :automated_reasoning_policy,
-      :invocation_metrics)
+      :invocation_metrics,
+      :applied_guardrail_details)
       SENSITIVE = []
       include Aws::Structure
     end

@@ -3654,6 +3654,10 @@ module Aws::APIGateway
     #   The response transfer mode of the integration.
     #   @return [String]
     #
+    # @!attribute [rw] integration_target
+    #   The ALB or NLB listener to send the request to.
+    #   @return [String]
+    #
     class Integration < Struct.new(
       :type,
       :http_method,
@@ -3670,7 +3674,8 @@ module Aws::APIGateway
       :cache_key_parameters,
       :integration_responses,
       :tls_config,
-      :response_transfer_mode)
+      :response_transfer_mode,
+      :integration_target)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4339,6 +4344,10 @@ module Aws::APIGateway
     #   The response transfer mode of the integration.
     #   @return [String]
     #
+    # @!attribute [rw] integration_target
+    #   The ALB or NLB listener to send the request to.
+    #   @return [String]
+    #
     class PutIntegrationRequest < Struct.new(
       :rest_api_id,
       :resource_id,
@@ -4357,7 +4366,8 @@ module Aws::APIGateway
       :content_handling,
       :timeout_in_millis,
       :tls_config,
-      :response_transfer_mode)
+      :response_transfer_mode,
+      :integration_target)
       SENSITIVE = []
       include Aws::Structure
     end

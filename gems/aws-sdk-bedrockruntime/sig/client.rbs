@@ -384,8 +384,8 @@ module Aws
                         }?
                       },
                       ?guardrail_config: {
-                        guardrail_identifier: ::String,
-                        guardrail_version: ::String,
+                        guardrail_identifier: ::String?,
+                        guardrail_version: ::String?,
                         trace: ("enabled" | "disabled" | "enabled_full")?
                       },
                       ?additional_model_request_fields: {
@@ -668,8 +668,8 @@ module Aws
                                }?
                              },
                              ?guardrail_config: {
-                               guardrail_identifier: ::String,
-                               guardrail_version: ::String,
+                               guardrail_identifier: ::String?,
+                               guardrail_version: ::String?,
                                trace: ("enabled" | "disabled" | "enabled_full")?,
                                stream_processing_mode: ("sync" | "async")?
                              },

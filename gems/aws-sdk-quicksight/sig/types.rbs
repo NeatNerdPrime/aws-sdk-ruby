@@ -8041,6 +8041,7 @@ module Aws::QuickSight
       attr_accessor q_search_bar: Types::RegisteredUserQSearchBarEmbeddingConfiguration
       attr_accessor dashboard_visual: Types::RegisteredUserDashboardVisualEmbeddingConfiguration
       attr_accessor generative_qn_a: Types::RegisteredUserGenerativeQnAEmbeddingConfiguration
+      attr_accessor quick_chat: Types::RegisteredUserQuickChatEmbeddingConfiguration
       SENSITIVE: []
     end
 
@@ -8052,6 +8053,9 @@ module Aws::QuickSight
     class RegisteredUserQSearchBarEmbeddingConfiguration
       attr_accessor initial_topic_id: ::String
       SENSITIVE: []
+    end
+
+    class RegisteredUserQuickChatEmbeddingConfiguration < Aws::EmptyStructure
     end
 
     class RegisteredUserQuickSightConsoleEmbeddingConfiguration

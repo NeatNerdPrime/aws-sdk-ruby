@@ -190,6 +190,20 @@ module Aws::RDS
       data[:preferred_maintenance_window]
     end
 
+    # This data type represents the order in which the clusters are
+    # upgraded.
+    #
+    # * \[first\] - Typically used for development or testing environments.
+    #
+    # * \[second\] - Default order for resources not specifically
+    #   configured.
+    #
+    # * \[last\] - Usually reserved for production environments.
+    # @return [String]
+    def upgrade_rollout_order
+      data[:upgrade_rollout_order]
+    end
+
     # The identifier of the source DB cluster if this DB cluster is a read
     # replica.
     # @return [String]

@@ -30939,6 +30939,10 @@ module Aws::QuickSight
     #   [1]: https://docs.aws.amazon.com/quicksight/latest/user/embedding-overview.html
     #   @return [Types::RegisteredUserGenerativeQnAEmbeddingConfiguration]
     #
+    # @!attribute [rw] quick_chat
+    #   The configuration details for embedding the Quick chat agent.
+    #   @return [Types::RegisteredUserQuickChatEmbeddingConfiguration]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/RegisteredUserEmbeddingExperienceConfiguration AWS API Documentation
     #
     class RegisteredUserEmbeddingExperienceConfiguration < Struct.new(
@@ -30946,7 +30950,8 @@ module Aws::QuickSight
       :quick_sight_console,
       :q_search_bar,
       :dashboard_visual,
-      :generative_qn_a)
+      :generative_qn_a,
+      :quick_chat)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -31004,6 +31009,15 @@ module Aws::QuickSight
       SENSITIVE = []
       include Aws::Structure
     end
+
+    # An object that provides information about the configuration of a chat
+    # agent.
+    #
+    # @api private
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/quicksight-2018-04-01/RegisteredUserQuickChatEmbeddingConfiguration AWS API Documentation
+    #
+    class RegisteredUserQuickChatEmbeddingConfiguration < Aws::EmptyStructure; end
 
     # Information about the Amazon Quick Sight console that you want to
     # embed.

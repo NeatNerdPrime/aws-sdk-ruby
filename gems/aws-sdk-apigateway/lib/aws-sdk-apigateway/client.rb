@@ -1331,6 +1331,7 @@ module Aws::APIGateway
     #   resp.resource_methods["String"].method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.resource_methods["String"].method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.resource_methods["String"].method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.resource_methods["String"].method_integration.integration_target #=> String
     #   resp.resource_methods["String"].authorization_scopes #=> Array
     #   resp.resource_methods["String"].authorization_scopes[0] #=> String
     #
@@ -3514,6 +3515,7 @@ module Aws::APIGateway
     #   * {Types::Integration#integration_responses #integration_responses} => Hash&lt;String,Types::IntegrationResponse&gt;
     #   * {Types::Integration#tls_config #tls_config} => Types::TlsConfig
     #   * {Types::Integration#response_transfer_mode #response_transfer_mode} => String
+    #   * {Types::Integration#integration_target #integration_target} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -3551,6 +3553,7 @@ module Aws::APIGateway
     #   resp.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.tls_config.insecure_skip_verification #=> Boolean
     #   resp.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.integration_target #=> String
     #
     # @overload get_integration(params = {})
     # @param [Hash] params ({})
@@ -3684,6 +3687,7 @@ module Aws::APIGateway
     #   resp.method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.method_integration.integration_target #=> String
     #   resp.authorization_scopes #=> Array
     #   resp.authorization_scopes[0] #=> String
     #
@@ -4016,6 +4020,7 @@ module Aws::APIGateway
     #   resp.resource_methods["String"].method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.resource_methods["String"].method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.resource_methods["String"].method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.resource_methods["String"].method_integration.integration_target #=> String
     #   resp.resource_methods["String"].authorization_scopes #=> Array
     #   resp.resource_methods["String"].authorization_scopes[0] #=> String
     #
@@ -4114,6 +4119,7 @@ module Aws::APIGateway
     #   resp.items[0].resource_methods["String"].method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.items[0].resource_methods["String"].method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.items[0].resource_methods["String"].method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.items[0].resource_methods["String"].method_integration.integration_target #=> String
     #   resp.items[0].resource_methods["String"].authorization_scopes #=> Array
     #   resp.items[0].resource_methods["String"].authorization_scopes[0] #=> String
     #
@@ -5256,6 +5262,9 @@ module Aws::APIGateway
     # @option params [String] :response_transfer_mode
     #   The response transfer mode of the integration.
     #
+    # @option params [String] :integration_target
+    #   The ALB or NLB listener to send the request to.
+    #
     # @return [Types::Integration] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::Integration#type #type} => String
@@ -5274,6 +5283,7 @@ module Aws::APIGateway
     #   * {Types::Integration#integration_responses #integration_responses} => Hash&lt;String,Types::IntegrationResponse&gt;
     #   * {Types::Integration#tls_config #tls_config} => Types::TlsConfig
     #   * {Types::Integration#response_transfer_mode #response_transfer_mode} => String
+    #   * {Types::Integration#integration_target #integration_target} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -5302,6 +5312,7 @@ module Aws::APIGateway
     #       insecure_skip_verification: false,
     #     },
     #     response_transfer_mode: "BUFFERED", # accepts BUFFERED, STREAM
+    #     integration_target: "String",
     #   })
     #
     # @example Response structure
@@ -5332,6 +5343,7 @@ module Aws::APIGateway
     #   resp.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.tls_config.insecure_skip_verification #=> Boolean
     #   resp.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.integration_target #=> String
     #
     # @overload put_integration(params = {})
     # @param [Hash] params ({})
@@ -5564,6 +5576,7 @@ module Aws::APIGateway
     #   resp.method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.method_integration.integration_target #=> String
     #   resp.authorization_scopes #=> Array
     #   resp.authorization_scopes[0] #=> String
     #
@@ -6630,6 +6643,7 @@ module Aws::APIGateway
     #   * {Types::Integration#integration_responses #integration_responses} => Hash&lt;String,Types::IntegrationResponse&gt;
     #   * {Types::Integration#tls_config #tls_config} => Types::TlsConfig
     #   * {Types::Integration#response_transfer_mode #response_transfer_mode} => String
+    #   * {Types::Integration#integration_target #integration_target} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -6675,6 +6689,7 @@ module Aws::APIGateway
     #   resp.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.tls_config.insecure_skip_verification #=> Boolean
     #   resp.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.integration_target #=> String
     #
     # @overload update_integration(params = {})
     # @param [Hash] params ({})
@@ -6841,6 +6856,7 @@ module Aws::APIGateway
     #   resp.method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.method_integration.integration_target #=> String
     #   resp.authorization_scopes #=> Array
     #   resp.authorization_scopes[0] #=> String
     #
@@ -7106,6 +7122,7 @@ module Aws::APIGateway
     #   resp.resource_methods["String"].method_integration.integration_responses["String"].content_handling #=> String, one of "CONVERT_TO_BINARY", "CONVERT_TO_TEXT"
     #   resp.resource_methods["String"].method_integration.tls_config.insecure_skip_verification #=> Boolean
     #   resp.resource_methods["String"].method_integration.response_transfer_mode #=> String, one of "BUFFERED", "STREAM"
+    #   resp.resource_methods["String"].method_integration.integration_target #=> String
     #   resp.resource_methods["String"].authorization_scopes #=> Array
     #   resp.resource_methods["String"].authorization_scopes[0] #=> String
     #
@@ -7493,7 +7510,7 @@ module Aws::APIGateway
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-apigateway'
-      context[:gem_version] = '1.127.0'
+      context[:gem_version] = '1.128.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

@@ -153,6 +153,20 @@ module Aws::RDS
       data[:preferred_maintenance_window]
     end
 
+    # This data type represents the order in which the instances are
+    # upgraded.
+    #
+    # * \[first\] - Typically used for development or testing environments.
+    #
+    # * \[second\] - Default order for resources not specifically
+    #   configured.
+    #
+    # * \[last\] - Usually reserved for production environments.
+    # @return [String]
+    def upgrade_rollout_order
+      data[:upgrade_rollout_order]
+    end
+
     # Information about pending changes to the DB instance. This information
     # is returned only when there are pending changes. Specific changes are
     # identified by subelements.

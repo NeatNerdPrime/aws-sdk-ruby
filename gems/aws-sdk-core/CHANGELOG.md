@@ -1,6 +1,9 @@
 Unreleased Changes
 ------------------
 
+3.239.1 (2025-11-21)
+------------------
+
 * Issue - Fixed HTTP/2 connection issues when using custom ports.
 
 3.239.0 (2025-11-20)

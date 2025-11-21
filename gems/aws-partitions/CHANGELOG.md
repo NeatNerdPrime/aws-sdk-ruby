@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+1.1187.0 (2025-11-21)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::SageMakerRuntimeHTTP2`.
+
+* Feature - Added support for enumerating regions for  `Aws::ComputeOptimizerAutomation`.
+
 1.1186.0 (2025-11-20)
 ------------------
 

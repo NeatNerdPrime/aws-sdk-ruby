@@ -292,6 +292,7 @@ module Aws::Lambda
     ProvisionedConcurrencyConfigNotFoundException = Shapes::StructureShape.new(name: 'ProvisionedConcurrencyConfigNotFoundException')
     ProvisionedConcurrencyStatusEnum = Shapes::StringShape.new(name: 'ProvisionedConcurrencyStatusEnum')
     ProvisionedPollerConfig = Shapes::StructureShape.new(name: 'ProvisionedPollerConfig')
+    ProvisionedPollerGroupName = Shapes::StringShape.new(name: 'ProvisionedPollerGroupName')
     PublishLayerVersionRequest = Shapes::StructureShape.new(name: 'PublishLayerVersionRequest')
     PublishLayerVersionResponse = Shapes::StructureShape.new(name: 'PublishLayerVersionResponse')
     PublishVersionRequest = Shapes::StructureShape.new(name: 'PublishVersionRequest')
@@ -1294,6 +1295,7 @@ module Aws::Lambda
 
     ProvisionedPollerConfig.add_member(:minimum_pollers, Shapes::ShapeRef.new(shape: MinimumNumberOfPollers, location_name: "MinimumPollers"))
     ProvisionedPollerConfig.add_member(:maximum_pollers, Shapes::ShapeRef.new(shape: MaximumNumberOfPollers, location_name: "MaximumPollers"))
+    ProvisionedPollerConfig.add_member(:poller_group_name, Shapes::ShapeRef.new(shape: ProvisionedPollerGroupName, location_name: "PollerGroupName"))
     ProvisionedPollerConfig.struct_class = Types::ProvisionedPollerConfig
 
     PublishLayerVersionRequest.add_member(:layer_name, Shapes::ShapeRef.new(shape: LayerName, required: true, location: "uri", location_name: "LayerName"))

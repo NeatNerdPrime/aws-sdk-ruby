@@ -1016,6 +1016,7 @@ module Aws
         def integration_responses: () -> ::Hash[::String, Types::IntegrationResponse]
         def tls_config: () -> Types::TlsConfig
         def response_transfer_mode: () -> ("BUFFERED" | "STREAM")
+        def integration_target: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/APIGateway/Client.html#get_integration-instance_method
       def get_integration: (
@@ -1502,6 +1503,7 @@ module Aws
         def integration_responses: () -> ::Hash[::String, Types::IntegrationResponse]
         def tls_config: () -> Types::TlsConfig
         def response_transfer_mode: () -> ("BUFFERED" | "STREAM")
+        def integration_target: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/APIGateway/Client.html#put_integration-instance_method
       def put_integration: (
@@ -1524,7 +1526,8 @@ module Aws
                              ?tls_config: {
                                insecure_skip_verification: bool?
                              },
-                             ?response_transfer_mode: ("BUFFERED" | "STREAM")
+                             ?response_transfer_mode: ("BUFFERED" | "STREAM"),
+                             ?integration_target: ::String
                            ) -> _PutIntegrationResponseSuccess
                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutIntegrationResponseSuccess
 
@@ -1960,6 +1963,7 @@ module Aws
         def integration_responses: () -> ::Hash[::String, Types::IntegrationResponse]
         def tls_config: () -> Types::TlsConfig
         def response_transfer_mode: () -> ("BUFFERED" | "STREAM")
+        def integration_target: () -> ::String
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/APIGateway/Client.html#update_integration-instance_method
       def update_integration: (

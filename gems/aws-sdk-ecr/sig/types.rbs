@@ -265,6 +265,15 @@ module Aws::ECR
       SENSITIVE: []
     end
 
+    class DeleteSigningConfigurationRequest < Aws::EmptyStructure
+    end
+
+    class DeleteSigningConfigurationResponse
+      attr_accessor registry_id: ::String
+      attr_accessor signing_configuration: Types::SigningConfiguration
+      SENSITIVE: []
+    end
+
     class DeregisterPullTimeUpdateExclusionRequest
       attr_accessor principal_arn: ::String
       SENSITIVE: []
@@ -305,6 +314,21 @@ module Aws::ECR
       attr_accessor image_scan_status: Types::ImageScanStatus
       attr_accessor image_scan_findings: Types::ImageScanFindings
       attr_accessor next_token: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeImageSigningStatusRequest
+      attr_accessor repository_name: ::String
+      attr_accessor image_id: Types::ImageIdentifier
+      attr_accessor registry_id: ::String
+      SENSITIVE: []
+    end
+
+    class DescribeImageSigningStatusResponse
+      attr_accessor repository_name: ::String
+      attr_accessor image_id: Types::ImageIdentifier
+      attr_accessor registry_id: ::String
+      attr_accessor signing_statuses: ::Array[Types::ImageSigningStatus]
       SENSITIVE: []
     end
 
@@ -529,6 +553,15 @@ module Aws::ECR
       SENSITIVE: []
     end
 
+    class GetSigningConfigurationRequest < Aws::EmptyStructure
+    end
+
+    class GetSigningConfigurationResponse
+      attr_accessor registry_id: ::String
+      attr_accessor signing_configuration: Types::SigningConfiguration
+      SENSITIVE: []
+    end
+
     class Image
       attr_accessor registry_id: ::String
       attr_accessor repository_name: ::String
@@ -641,6 +674,14 @@ module Aws::ECR
 
     class ImageScanningConfiguration
       attr_accessor scan_on_push: bool
+      SENSITIVE: []
+    end
+
+    class ImageSigningStatus
+      attr_accessor signing_profile_arn: ::String
+      attr_accessor failure_code: ::String
+      attr_accessor failure_reason: ::String
+      attr_accessor status: ("IN_PROGRESS" | "COMPLETE" | "FAILED")
       SENSITIVE: []
     end
 
@@ -989,6 +1030,16 @@ module Aws::ECR
       SENSITIVE: []
     end
 
+    class PutSigningConfigurationRequest
+      attr_accessor signing_configuration: Types::SigningConfiguration
+      SENSITIVE: []
+    end
+
+    class PutSigningConfigurationResponse
+      attr_accessor signing_configuration: Types::SigningConfiguration
+      SENSITIVE: []
+    end
+
     class Recommendation
       attr_accessor url: ::String
       attr_accessor text: ::String
@@ -1172,6 +1223,28 @@ module Aws::ECR
       attr_accessor registry_id: ::String
       attr_accessor repository_name: ::String
       attr_accessor policy_text: ::String
+      SENSITIVE: []
+    end
+
+    class SigningConfiguration
+      attr_accessor rules: ::Array[Types::SigningRule]
+      SENSITIVE: []
+    end
+
+    class SigningConfigurationNotFoundException
+      attr_accessor message: ::String
+      SENSITIVE: []
+    end
+
+    class SigningRepositoryFilter
+      attr_accessor filter: ::String
+      attr_accessor filter_type: ("WILDCARD_MATCH")
+      SENSITIVE: []
+    end
+
+    class SigningRule
+      attr_accessor signing_profile_arn: ::String
+      attr_accessor repository_filters: ::Array[Types::SigningRepositoryFilter]
       SENSITIVE: []
     end
 

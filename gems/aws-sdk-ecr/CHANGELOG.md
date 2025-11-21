@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.115.0 (2025-11-21)
+------------------
+
+* Feature - Add support for ECR managed signing
+
 1.114.0 (2025-11-19)
 ------------------
 
