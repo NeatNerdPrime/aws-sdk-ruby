@@ -198,6 +198,14 @@ module AwsSdkCodeGenerator
       "#<#{self.class.name}>"
     end
 
+    def h2_setting?
+      @protocol_settings['h2']
+    end
+
+    def h2_required_setting?
+      @protocol_settings['h2'] == 'required'
+    end
+
     private
 
     def select_protocol(metadata)
