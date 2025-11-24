@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.136.0 (2025-11-24)
+------------------
+
+* Feature - Add TrustStore, ConnectionFunction APIs to CloudFront SDK
+
 1.135.0 (2025-11-21)
 ------------------
 

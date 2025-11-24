@@ -151,7 +151,8 @@ module Aws
                               log_group_name: ::String,
                               ?kms_key_id: ::String,
                               ?tags: Hash[::String, ::String],
-                              ?log_group_class: ("STANDARD" | "INFREQUENT_ACCESS" | "DELIVERY")
+                              ?log_group_class: ("STANDARD" | "INFREQUENT_ACCESS" | "DELIVERY"),
+                              ?deletion_protection_enabled: bool
                             ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
@@ -1032,6 +1033,13 @@ module Aws
                             }
                           ) -> _PutLogEventsResponseSuccess
                         | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutLogEventsResponseSuccess
+
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudWatchLogs/Client.html#put_log_group_deletion_protection-instance_method
+      def put_log_group_deletion_protection: (
+                                               log_group_identifier: ::String,
+                                               deletion_protection_enabled: bool
+                                             ) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
+                                           | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> ::Seahorse::Client::_ResponseSuccess[::Aws::EmptyStructure]
 
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudWatchLogs/Client.html#put_metric_filter-instance_method
       def put_metric_filter: (
