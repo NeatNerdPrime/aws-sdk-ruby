@@ -1215,7 +1215,7 @@ module Aws::BedrockRuntime
     #       latency: "standard", # accepts standard, optimized
     #     },
     #     service_tier: {
-    #       type: "priority", # required, accepts priority, default, flex
+    #       type: "priority", # required, accepts priority, default, flex, reserved
     #     },
     #   })
     #
@@ -1653,7 +1653,7 @@ module Aws::BedrockRuntime
     #   resp.trace.guardrail.action_reason #=> String
     #   resp.trace.prompt_router.invoked_model_id #=> String
     #   resp.performance_config.latency #=> String, one of "standard", "optimized"
-    #   resp.service_tier.type #=> String, one of "priority", "default", "flex"
+    #   resp.service_tier.type #=> String, one of "priority", "default", "flex", "reserved"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/Converse AWS API Documentation
     #
@@ -2315,7 +2315,7 @@ module Aws::BedrockRuntime
     #       latency: "standard", # accepts standard, optimized
     #     },
     #     service_tier: {
-    #       type: "priority", # required, accepts priority, default, flex
+    #       type: "priority", # required, accepts priority, default, flex, reserved
     #     },
     #   })
     #
@@ -2716,7 +2716,7 @@ module Aws::BedrockRuntime
     #   event.trace.guardrail.action_reason #=> String
     #   event.trace.prompt_router.invoked_model_id #=> String
     #   event.performance_config.latency #=> String, one of "standard", "optimized"
-    #   event.service_tier.type #=> String, one of "priority", "default", "flex"
+    #   event.service_tier.type #=> String, one of "priority", "default", "flex", "reserved"
     #
     #   # For :internal_server_exception event available at #on_internal_server_exception_event callback and response eventstream enumerator:
     #   event.message #=> String
@@ -3276,7 +3276,7 @@ module Aws::BedrockRuntime
     #     guardrail_identifier: "GuardrailIdentifier",
     #     guardrail_version: "GuardrailVersion",
     #     performance_config_latency: "standard", # accepts standard, optimized
-    #     service_tier: "priority", # accepts priority, default, flex
+    #     service_tier: "priority", # accepts priority, default, flex, reserved
     #   })
     #
     # @example Response structure
@@ -3284,7 +3284,7 @@ module Aws::BedrockRuntime
     #   resp.body #=> String
     #   resp.content_type #=> String
     #   resp.performance_config_latency #=> String, one of "standard", "optimized"
-    #   resp.service_tier #=> String, one of "priority", "default", "flex"
+    #   resp.service_tier #=> String, one of "priority", "default", "flex", "reserved"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/InvokeModel AWS API Documentation
     #
@@ -3579,7 +3579,7 @@ module Aws::BedrockRuntime
     #     guardrail_identifier: "GuardrailIdentifier",
     #     guardrail_version: "GuardrailVersion",
     #     performance_config_latency: "standard", # accepts standard, optimized
-    #     service_tier: "priority", # accepts priority, default, flex
+    #     service_tier: "priority", # accepts priority, default, flex, reserved
     #   })
     #
     # @example Response structure
@@ -3613,7 +3613,7 @@ module Aws::BedrockRuntime
     #
     #   resp.content_type #=> String
     #   resp.performance_config_latency #=> String, one of "standard", "optimized"
-    #   resp.service_tier #=> String, one of "priority", "default", "flex"
+    #   resp.service_tier #=> String, one of "priority", "default", "flex", "reserved"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-runtime-2023-09-30/InvokeModelWithResponseStream AWS API Documentation
     #
@@ -3808,7 +3808,7 @@ module Aws::BedrockRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockruntime'
-      context[:gem_version] = '1.66.0'
+      context[:gem_version] = '1.67.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

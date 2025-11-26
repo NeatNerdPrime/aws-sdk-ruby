@@ -399,7 +399,7 @@ module Aws
                         latency: ("standard" | "optimized")?
                       },
                       ?service_tier: {
-                        type: ("priority" | "default" | "flex")
+                        type: ("priority" | "default" | "flex" | "reserved")
                       }
                     ) -> _ConverseResponseSuccess
                   | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _ConverseResponseSuccess
@@ -684,7 +684,7 @@ module Aws
                                latency: ("standard" | "optimized")?
                              },
                              ?service_tier: {
-                               type: ("priority" | "default" | "flex")
+                               type: ("priority" | "default" | "flex" | "reserved")
                              }
                            ) ?{ (*untyped) -> void } -> _ConverseStreamResponseSuccess
                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) ?{ (*untyped) -> void } -> _ConverseStreamResponseSuccess
@@ -981,7 +981,7 @@ module Aws
         def body: () -> ::String
         def content_type: () -> ::String
         def performance_config_latency: () -> ("standard" | "optimized")
-        def service_tier: () -> ("priority" | "default" | "flex")
+        def service_tier: () -> ("priority" | "default" | "flex" | "reserved")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/BedrockRuntime/Client.html#invoke_model-instance_method
       def invoke_model: (
@@ -993,7 +993,7 @@ module Aws
                           ?guardrail_identifier: ::String,
                           ?guardrail_version: ::String,
                           ?performance_config_latency: ("standard" | "optimized"),
-                          ?service_tier: ("priority" | "default" | "flex")
+                          ?service_tier: ("priority" | "default" | "flex" | "reserved")
                         ) -> _InvokeModelResponseSuccess
                       | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _InvokeModelResponseSuccess
 
@@ -1002,7 +1002,7 @@ module Aws
         def body: () -> Types::ResponseStream
         def content_type: () -> ::String
         def performance_config_latency: () -> ("standard" | "optimized")
-        def service_tier: () -> ("priority" | "default" | "flex")
+        def service_tier: () -> ("priority" | "default" | "flex" | "reserved")
       end
       # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/BedrockRuntime/Client.html#invoke_model_with_response_stream-instance_method
       def invoke_model_with_response_stream: (
@@ -1014,7 +1014,7 @@ module Aws
                                                ?guardrail_identifier: ::String,
                                                ?guardrail_version: ::String,
                                                ?performance_config_latency: ("standard" | "optimized"),
-                                               ?service_tier: ("priority" | "default" | "flex")
+                                               ?service_tier: ("priority" | "default" | "flex" | "reserved")
                                              ) ?{ (*untyped) -> void } -> _InvokeModelWithResponseStreamResponseSuccess
                                            | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) ?{ (*untyped) -> void } -> _InvokeModelWithResponseStreamResponseSuccess
 

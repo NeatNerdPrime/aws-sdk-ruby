@@ -878,7 +878,7 @@ module Aws::BedrockRuntime
       attr_accessor guardrail_identifier: ::String
       attr_accessor guardrail_version: ::String
       attr_accessor performance_config_latency: ("standard" | "optimized")
-      attr_accessor service_tier: ("priority" | "default" | "flex")
+      attr_accessor service_tier: ("priority" | "default" | "flex" | "reserved")
       SENSITIVE: [:body]
     end
 
@@ -886,7 +886,7 @@ module Aws::BedrockRuntime
       attr_accessor body: ::String
       attr_accessor content_type: ::String
       attr_accessor performance_config_latency: ("standard" | "optimized")
-      attr_accessor service_tier: ("priority" | "default" | "flex")
+      attr_accessor service_tier: ("priority" | "default" | "flex" | "reserved")
       SENSITIVE: [:body]
     end
 
@@ -915,7 +915,7 @@ module Aws::BedrockRuntime
       attr_accessor guardrail_identifier: ::String
       attr_accessor guardrail_version: ::String
       attr_accessor performance_config_latency: ("standard" | "optimized")
-      attr_accessor service_tier: ("priority" | "default" | "flex")
+      attr_accessor service_tier: ("priority" | "default" | "flex" | "reserved")
       SENSITIVE: [:body]
     end
 
@@ -923,7 +923,7 @@ module Aws::BedrockRuntime
       attr_accessor body: Types::ResponseStream
       attr_accessor content_type: ::String
       attr_accessor performance_config_latency: ("standard" | "optimized")
-      attr_accessor service_tier: ("priority" | "default" | "flex")
+      attr_accessor service_tier: ("priority" | "default" | "flex" | "reserved")
       SENSITIVE: []
     end
 
@@ -1090,7 +1090,7 @@ module Aws::BedrockRuntime
     end
 
     class ServiceTier
-      attr_accessor type: ("priority" | "default" | "flex")
+      attr_accessor type: ("priority" | "default" | "flex" | "reserved")
       SENSITIVE: []
     end
 

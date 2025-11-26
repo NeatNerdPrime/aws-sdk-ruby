@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.67.0 (2025-11-26)
+------------------
+
+* Feature - Bedrock Runtime Reserved Service Support
+
 1.66.0 (2025-11-21)
 ------------------
 
