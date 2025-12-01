@@ -1,6 +1,15 @@
 Unreleased Changes
 ------------------
 
+1.1189.0 (2025-12-01)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::Route53GlobalResolver`.
+
+* Feature - Added support for enumerating regions for  `Aws::PartnerCentralBenefits`.
+
+* Feature - Added support for enumerating regions for  `Aws::PartnerCentralAccount`.
+
 1.1188.0 (2025-11-25)
 ------------------
 

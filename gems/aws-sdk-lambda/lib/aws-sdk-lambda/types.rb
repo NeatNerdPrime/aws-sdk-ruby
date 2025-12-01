@@ -225,14 +225,8 @@ module Aws::Lambda
     #   @return [String]
     #
     # @!attribute [rw] invoked_via_function_url
-    #   Restricts the `lambda:InvokeFunction` action to function URL calls.
-    #   When specified, this option prevents the principal from invoking the
-    #   function by any means other than the function URL. For more
-    #   information, see [Control access to Lambda function URLs][1].
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html
+    #   Indicates whether the permission applies when the function is
+    #   invoked through a function URL.
     #   @return [Boolean]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/AddPermissionRequest AWS API Documentation
@@ -371,6 +365,162 @@ module Aws::Lambda
     class AmazonManagedKafkaEventSourceConfig < Struct.new(
       :consumer_group_id,
       :schema_registry_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # A capacity provider manages compute resources for Lambda functions.
+    #
+    # @!attribute [rw] capacity_provider_arn
+    #   The Amazon Resource Name (ARN) of the capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] vpc_config
+    #   The VPC configuration for the capacity provider.
+    #   @return [Types::CapacityProviderVpcConfig]
+    #
+    # @!attribute [rw] permissions_config
+    #   The permissions configuration for the capacity provider.
+    #   @return [Types::CapacityProviderPermissionsConfig]
+    #
+    # @!attribute [rw] instance_requirements
+    #   The instance requirements for compute resources managed by the
+    #   capacity provider.
+    #   @return [Types::InstanceRequirements]
+    #
+    # @!attribute [rw] capacity_provider_scaling_config
+    #   The scaling configuration for the capacity provider.
+    #   @return [Types::CapacityProviderScalingConfig]
+    #
+    # @!attribute [rw] kms_key_arn
+    #   The ARN of the KMS key used to encrypt the capacity provider's
+    #   resources.
+    #   @return [String]
+    #
+    # @!attribute [rw] last_modified
+    #   The date and time when the capacity provider was last modified.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProvider AWS API Documentation
+    #
+    class CapacityProvider < Struct.new(
+      :capacity_provider_arn,
+      :state,
+      :vpc_config,
+      :permissions_config,
+      :instance_requirements,
+      :capacity_provider_scaling_config,
+      :kms_key_arn,
+      :last_modified)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration for the capacity provider that manages compute resources
+    # for Lambda functions.
+    #
+    # @!attribute [rw] lambda_managed_instances_capacity_provider_config
+    #   Configuration for Lambda-managed instances used by the capacity
+    #   provider.
+    #   @return [Types::LambdaManagedInstancesCapacityProviderConfig]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProviderConfig AWS API Documentation
+    #
+    class CapacityProviderConfig < Struct.new(
+      :lambda_managed_instances_capacity_provider_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The maximum number of capacity providers for your account has been
+    # exceeded. For more information, see [Lambda quotas][1]
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+    #
+    # @!attribute [rw] type
+    #   The exception type.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProviderLimitExceededException AWS API Documentation
+    #
+    class CapacityProviderLimitExceededException < Struct.new(
+      :type,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration that specifies the permissions required for the capacity
+    # provider to manage compute resources.
+    #
+    # @!attribute [rw] capacity_provider_operator_role_arn
+    #   The ARN of the IAM role that the capacity provider uses to manage
+    #   compute instances and other Amazon Web Services resources.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProviderPermissionsConfig AWS API Documentation
+    #
+    class CapacityProviderPermissionsConfig < Struct.new(
+      :capacity_provider_operator_role_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration that defines how the capacity provider scales compute
+    # instances based on demand and policies.
+    #
+    # @!attribute [rw] max_v_cpu_count
+    #   The maximum number of vCPUs that the capacity provider can provision
+    #   across all compute instances.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] scaling_mode
+    #   The scaling mode that determines how the capacity provider responds
+    #   to changes in demand.
+    #   @return [String]
+    #
+    # @!attribute [rw] scaling_policies
+    #   A list of scaling policies that define how the capacity provider
+    #   scales compute instances based on metrics and thresholds.
+    #   @return [Array<Types::TargetTrackingScalingPolicy>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProviderScalingConfig AWS API Documentation
+    #
+    class CapacityProviderScalingConfig < Struct.new(
+      :max_v_cpu_count,
+      :scaling_mode,
+      :scaling_policies)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # VPC configuration that specifies the network settings for compute
+    # instances managed by the capacity provider.
+    #
+    # @!attribute [rw] subnet_ids
+    #   A list of subnet IDs where the capacity provider launches compute
+    #   instances.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] security_group_ids
+    #   A list of security group IDs that control network access for compute
+    #   instances managed by the capacity provider.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CapacityProviderVpcConfig AWS API Documentation
+    #
+    class CapacityProviderVpcConfig < Struct.new(
+      :subnet_ids,
+      :security_group_ids)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -626,6 +776,67 @@ module Aws::Lambda
       :function_version,
       :description,
       :routing_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider_name
+    #   The name of the capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] vpc_config
+    #   The VPC configuration for the capacity provider, including subnet
+    #   IDs and security group IDs where compute instances will be launched.
+    #   @return [Types::CapacityProviderVpcConfig]
+    #
+    # @!attribute [rw] permissions_config
+    #   The permissions configuration that specifies the IAM role ARN used
+    #   by the capacity provider to manage compute resources.
+    #   @return [Types::CapacityProviderPermissionsConfig]
+    #
+    # @!attribute [rw] instance_requirements
+    #   The instance requirements that specify the compute instance
+    #   characteristics, including architectures and allowed or excluded
+    #   instance types.
+    #   @return [Types::InstanceRequirements]
+    #
+    # @!attribute [rw] capacity_provider_scaling_config
+    #   The scaling configuration that defines how the capacity provider
+    #   scales compute instances, including maximum vCPU count and scaling
+    #   policies.
+    #   @return [Types::CapacityProviderScalingConfig]
+    #
+    # @!attribute [rw] kms_key_arn
+    #   The ARN of the KMS key used to encrypt data associated with the
+    #   capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] tags
+    #   A list of tags to associate with the capacity provider.
+    #   @return [Hash<String,String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateCapacityProviderRequest AWS API Documentation
+    #
+    class CreateCapacityProviderRequest < Struct.new(
+      :capacity_provider_name,
+      :vpc_config,
+      :permissions_config,
+      :instance_requirements,
+      :capacity_provider_scaling_config,
+      :kms_key_arn,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider
+    #   Information about the capacity provider that was created.
+    #   @return [Types::CapacityProvider]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateCapacityProviderResponse AWS API Documentation
+    #
+    class CreateCapacityProviderResponse < Struct.new(
+      :capacity_provider)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -1164,6 +1375,15 @@ module Aws::Lambda
     #   The function's Amazon CloudWatch Logs configuration settings.
     #   @return [Types::LoggingConfig]
     #
+    # @!attribute [rw] capacity_provider_config
+    #   Configuration for the capacity provider that manages compute
+    #   resources for Lambda functions.
+    #   @return [Types::CapacityProviderConfig]
+    #
+    # @!attribute [rw] publish_to
+    #   Specifies where to publish the function version or configuration.
+    #   @return [String]
+    #
     # @!attribute [rw] tenancy_config
     #   Configuration for multi-tenant applications that use Lambda
     #   functions. Defines tenant isolation settings and resource
@@ -1197,6 +1417,8 @@ module Aws::Lambda
       :ephemeral_storage,
       :snap_start,
       :logging_config,
+      :capacity_provider_config,
+      :publish_to,
       :tenancy_config)
       SENSITIVE = []
       include Aws::Structure
@@ -1382,6 +1604,30 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # @!attribute [rw] capacity_provider_name
+    #   The name of the capacity provider to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteCapacityProviderRequest AWS API Documentation
+    #
+    class DeleteCapacityProviderRequest < Struct.new(
+      :capacity_provider_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider
+    #   Information about the deleted capacity provider.
+    #   @return [Types::CapacityProvider]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteCapacityProviderResponse AWS API Documentation
+    #
+    class DeleteCapacityProviderResponse < Struct.new(
+      :capacity_provider)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] code_signing_config_arn
     #   The The Amazon Resource Name (ARN) of the code signing
     #   configuration.
@@ -1518,6 +1764,18 @@ module Aws::Lambda
     class DeleteFunctionRequest < Struct.new(
       :function_name,
       :qualifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] status_code
+    #   The HTTP status code returned by the operation.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionResponse AWS API Documentation
+    #
+    class DeleteFunctionResponse < Struct.new(
+      :status_code)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2587,6 +2845,15 @@ module Aws::Lambda
     #   The function's Amazon CloudWatch Logs configuration settings.
     #   @return [Types::LoggingConfig]
     #
+    # @!attribute [rw] capacity_provider_config
+    #   Configuration for the capacity provider that manages compute
+    #   resources for Lambda functions.
+    #   @return [Types::CapacityProviderConfig]
+    #
+    # @!attribute [rw] config_sha_256
+    #   The SHA256 hash of the function configuration.
+    #   @return [String]
+    #
     # @!attribute [rw] tenancy_config
     #   The function's tenant isolation configuration settings. Determines
     #   whether the Lambda function runs on a shared or dedicated
@@ -2632,6 +2899,8 @@ module Aws::Lambda
       :snap_start,
       :runtime_version_config,
       :logging_config,
+      :capacity_provider_config,
+      :config_sha_256,
       :tenancy_config)
       SENSITIVE = []
       include Aws::Structure
@@ -2686,6 +2955,29 @@ module Aws::Lambda
       :maximum_retry_attempts,
       :maximum_event_age_in_seconds,
       :destination_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Configuration that defines the scaling behavior for a Lambda Managed
+    # Instances function, including the minimum and maximum number of
+    # execution environments that can be provisioned.
+    #
+    # @!attribute [rw] min_execution_environments
+    #   The minimum number of execution environments to maintain for the
+    #   function.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] max_execution_environments
+    #   The maximum number of execution environments that can be provisioned
+    #   for the function.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionScalingConfig AWS API Documentation
+    #
+    class FunctionScalingConfig < Struct.new(
+      :min_execution_environments,
+      :max_execution_environments)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -2767,6 +3059,50 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # Information about a function version that uses a specific capacity
+    # provider, including its ARN and current state.
+    #
+    # @!attribute [rw] function_arn
+    #   The Amazon Resource Name (ARN) of the function version.
+    #   @return [String]
+    #
+    # @!attribute [rw] state
+    #   The current state of the function version.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionVersionsByCapacityProviderListItem AWS API Documentation
+    #
+    class FunctionVersionsByCapacityProviderListItem < Struct.new(
+      :function_arn,
+      :state)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The maximum number of function versions that can be associated with a
+    # single capacity provider has been exceeded. For more information, see
+    # [Lambda quotas][1].
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html
+    #
+    # @!attribute [rw] type
+    #   The exception type.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/FunctionVersionsPerCapacityProviderLimitExceededException AWS API Documentation
+    #
+    class FunctionVersionsPerCapacityProviderLimitExceededException < Struct.new(
+      :type,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @api private
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetAccountSettingsRequest AWS API Documentation
@@ -2815,6 +3151,31 @@ module Aws::Lambda
     class GetAliasRequest < Struct.new(
       :function_name,
       :name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider_name
+    #   The name of the capacity provider to retrieve.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetCapacityProviderRequest AWS API Documentation
+    #
+    class GetCapacityProviderRequest < Struct.new(
+      :capacity_provider_name)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider
+    #   Information about the capacity provider, including its configuration
+    #   and current state.
+    #   @return [Types::CapacityProvider]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetCapacityProviderResponse AWS API Documentation
+    #
+    class GetCapacityProviderResponse < Struct.new(
+      :capacity_provider)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3011,6 +3372,7 @@ module Aws::Lambda
     end
 
     # @!attribute [rw] function_name
+    #   The name of the function.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionRecursionConfigRequest AWS API Documentation
@@ -3115,6 +3477,47 @@ module Aws::Lambda
       :tags,
       :tags_error,
       :concurrency)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] function_name
+    #   The name or ARN of the Lambda function.
+    #   @return [String]
+    #
+    # @!attribute [rw] qualifier
+    #   Specify a version or alias to get the scaling configuration for a
+    #   published version of the function.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionScalingConfigRequest AWS API Documentation
+    #
+    class GetFunctionScalingConfigRequest < Struct.new(
+      :function_name,
+      :qualifier)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] function_arn
+    #   The Amazon Resource Name (ARN) of the function.
+    #   @return [String]
+    #
+    # @!attribute [rw] applied_function_scaling_config
+    #   The scaling configuration that is currently applied to the function.
+    #   This represents the actual scaling settings in effect.
+    #   @return [Types::FunctionScalingConfig]
+    #
+    # @!attribute [rw] requested_function_scaling_config
+    #   The scaling configuration that was requested for the function.
+    #   @return [Types::FunctionScalingConfig]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionScalingConfigResponse AWS API Documentation
+    #
+    class GetFunctionScalingConfigResponse < Struct.new(
+      :function_arn,
+      :applied_function_scaling_config,
+      :requested_function_scaling_config)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -3600,6 +4003,34 @@ module Aws::Lambda
     class ImageConfigResponse < Struct.new(
       :image_config,
       :error)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # Specifications that define the characteristics and constraints for
+    # compute instances used by the capacity provider.
+    #
+    # @!attribute [rw] architectures
+    #   A list of supported CPU architectures for compute instances. Valid
+    #   values include `x86_64` and `arm64`.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] allowed_instance_types
+    #   A list of EC2 instance types that the capacity provider is allowed
+    #   to use. If not specified, all compatible instance types are allowed.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] excluded_instance_types
+    #   A list of EC2 instance types that the capacity provider should not
+    #   use, even if they meet other requirements.
+    #   @return [Array<String>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/InstanceRequirements AWS API Documentation
+    #
+    class InstanceRequirements < Struct.new(
+      :architectures,
+      :allowed_instance_types,
+      :excluded_instance_types)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -4201,6 +4632,33 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # Configuration for Lambda-managed instances used by the capacity
+    # provider.
+    #
+    # @!attribute [rw] capacity_provider_arn
+    #   The Amazon Resource Name (ARN) of the capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] per_execution_environment_max_concurrency
+    #   The maximum number of concurrent execution environments that can run
+    #   on each compute instance.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] execution_environment_memory_gi_b_per_v_cpu
+    #   The amount of memory in GiB allocated per vCPU for execution
+    #   environments.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/LambdaManagedInstancesCapacityProviderConfig AWS API Documentation
+    #
+    class LambdaManagedInstancesCapacityProviderConfig < Struct.new(
+      :capacity_provider_arn,
+      :per_execution_environment_max_concurrency,
+      :execution_environment_memory_gi_b_per_v_cpu)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An [Lambda layer][1].
     #
     #
@@ -4461,6 +4919,46 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # @!attribute [rw] state
+    #   Filter capacity providers by their current state.
+    #   @return [String]
+    #
+    # @!attribute [rw] marker
+    #   Specify the pagination token that's returned by a previous request
+    #   to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_items
+    #   The maximum number of capacity providers to return.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListCapacityProvidersRequest AWS API Documentation
+    #
+    class ListCapacityProvidersRequest < Struct.new(
+      :state,
+      :marker,
+      :max_items)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_providers
+    #   A list of capacity providers in your account.
+    #   @return [Array<Types::CapacityProvider>]
+    #
+    # @!attribute [rw] next_marker
+    #   The pagination token that's included if more results are available.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListCapacityProvidersResponse AWS API Documentation
+    #
+    class ListCapacityProvidersResponse < Struct.new(
+      :capacity_providers,
+      :next_marker)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] marker
     #   Specify the pagination token that's returned by a previous request
     #   to retrieve the next page of results.
@@ -4678,6 +5176,52 @@ module Aws::Lambda
     #
     class ListFunctionUrlConfigsResponse < Struct.new(
       :function_url_configs,
+      :next_marker)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider_name
+    #   The name of the capacity provider to list function versions for.
+    #   @return [String]
+    #
+    # @!attribute [rw] marker
+    #   Specify the pagination token that's returned by a previous request
+    #   to retrieve the next page of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_items
+    #   The maximum number of function versions to return in the response.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionVersionsByCapacityProviderRequest AWS API Documentation
+    #
+    class ListFunctionVersionsByCapacityProviderRequest < Struct.new(
+      :capacity_provider_name,
+      :marker,
+      :max_items)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider_arn
+    #   The Amazon Resource Name (ARN) of the capacity provider.
+    #   @return [String]
+    #
+    # @!attribute [rw] function_versions
+    #   A list of function versions that use the specified capacity
+    #   provider.
+    #   @return [Array<Types::FunctionVersionsByCapacityProviderListItem>]
+    #
+    # @!attribute [rw] next_marker
+    #   The pagination token that's included if more results are available.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionVersionsByCapacityProviderResponse AWS API Documentation
+    #
+    class ListFunctionVersionsByCapacityProviderResponse < Struct.new(
+      :capacity_provider_arn,
+      :function_versions,
       :next_marker)
       SENSITIVE = []
       include Aws::Structure
@@ -5074,6 +5618,24 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # The function has no published versions available.
+    #
+    # @!attribute [rw] type
+    #   The exception type.
+    #   @return [String]
+    #
+    # @!attribute [rw] message
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/NoPublishedVersionException AWS API Documentation
+    #
+    class NoPublishedVersionException < Struct.new(
+      :type,
+      :message)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A destination for events that failed processing. For more information,
     # see [Adding a destination][1].
     #
@@ -5304,10 +5866,11 @@ module Aws::Lambda
     # @!attribute [rw] poller_group_name
     #   (Amazon MSK and self-managed Apache Kafka) The name of the
     #   provisioned poller group. Use this option to group multiple ESMs
-    #   within the VPC to share Event Poller Unit (EPU) capacity. This
-    #   option is used to optimize Provisioned mode costs for your ESMs. You
-    #   can group up to 100 ESMs per poller group and aggregate maximum
-    #   pollers across all ESMs in a group cannot exceed 2000.
+    #   within the event source's VPC to share Event Poller Unit (EPU)
+    #   capacity. You can use this option to optimize Provisioned mode costs
+    #   for your ESMs. You can group up to 100 ESMs per poller group and
+    #   aggregate maximum pollers across all ESMs in a group cannot exceed
+    #   2000.
     #   @return [String]
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ProvisionedPollerConfig AWS API Documentation
@@ -5488,13 +6051,18 @@ module Aws::Lambda
     #   function configuration has changed since you last updated it.
     #   @return [String]
     #
+    # @!attribute [rw] publish_to
+    #   Specifies where to publish the function version or configuration.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersionRequest AWS API Documentation
     #
     class PublishVersionRequest < Struct.new(
       :function_name,
       :code_sha_256,
       :description,
-      :revision_id)
+      :revision_id,
+      :publish_to)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -5726,6 +6294,43 @@ module Aws::Lambda
     #
     class PutFunctionRecursionConfigResponse < Struct.new(
       :recursive_loop)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] function_name
+    #   The name or ARN of the Lambda function.
+    #   @return [String]
+    #
+    # @!attribute [rw] qualifier
+    #   Specify a version or alias to set the scaling configuration for a
+    #   published version of the function.
+    #   @return [String]
+    #
+    # @!attribute [rw] function_scaling_config
+    #   The scaling configuration to apply to the function, including
+    #   minimum and maximum execution environment limits.
+    #   @return [Types::FunctionScalingConfig]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionScalingConfigRequest AWS API Documentation
+    #
+    class PutFunctionScalingConfigRequest < Struct.new(
+      :function_name,
+      :qualifier,
+      :function_scaling_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] function_state
+    #   The current state of the function after applying the scaling
+    #   configuration.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionScalingConfigResponse AWS API Documentation
+    #
+    class PutFunctionScalingConfigResponse < Struct.new(
+      :function_state)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6199,10 +6804,8 @@ module Aws::Lambda
       include Aws::Structure
     end
 
-    # The processed request payload exceeded the `Invoke` request body size
-    # limit for asynchronous invocations. While the event payload may be
-    # under 1 MB, the size after internal serialization exceeds the maximum
-    # allowed size for asynchronous invocations.
+    # The request payload exceeded the maximum allowed size for serialized
+    # request entities.
     #
     # @!attribute [rw] type
     #   The error type.
@@ -6466,6 +7069,27 @@ module Aws::Lambda
       include Aws::Structure
     end
 
+    # A scaling policy for the capacity provider that automatically adjusts
+    # capacity to maintain a target value for a specific metric.
+    #
+    # @!attribute [rw] predefined_metric_type
+    #   The predefined metric type to track for scaling decisions.
+    #   @return [String]
+    #
+    # @!attribute [rw] target_value
+    #   The target value for the metric that the scaling policy attempts to
+    #   maintain through scaling actions.
+    #   @return [Float]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/TargetTrackingScalingPolicy AWS API Documentation
+    #
+    class TargetTrackingScalingPolicy < Struct.new(
+      :predefined_metric_type,
+      :target_value)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # Specifies the tenant isolation mode configuration for a Lambda
     # function. This allows you to configure specific tenant isolation
     # strategies for your function invocations. Tenant isolation
@@ -6634,6 +7258,35 @@ module Aws::Lambda
       :description,
       :routing_config,
       :revision_id)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider_name
+    #   The name of the capacity provider to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] capacity_provider_scaling_config
+    #   The updated scaling configuration for the capacity provider.
+    #   @return [Types::CapacityProviderScalingConfig]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateCapacityProviderRequest AWS API Documentation
+    #
+    class UpdateCapacityProviderRequest < Struct.new(
+      :capacity_provider_name,
+      :capacity_provider_scaling_config)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] capacity_provider
+    #   Information about the updated capacity provider.
+    #   @return [Types::CapacityProvider]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateCapacityProviderResponse AWS API Documentation
+    #
+    class UpdateCapacityProviderResponse < Struct.new(
+      :capacity_provider)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -6965,6 +7618,10 @@ module Aws::Lambda
     #   Services managed key.
     #   @return [String]
     #
+    # @!attribute [rw] publish_to
+    #   Specifies where to publish the function version or configuration.
+    #   @return [String]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCodeRequest AWS API Documentation
     #
     class UpdateFunctionCodeRequest < Struct.new(
@@ -6978,7 +7635,8 @@ module Aws::Lambda
       :dry_run,
       :revision_id,
       :architectures,
-      :source_kms_key_arn)
+      :source_kms_key_arn,
+      :publish_to)
       SENSITIVE = [:zip_file]
       include Aws::Structure
     end
@@ -7181,6 +7839,11 @@ module Aws::Lambda
     #   The function's Amazon CloudWatch Logs configuration settings.
     #   @return [Types::LoggingConfig]
     #
+    # @!attribute [rw] capacity_provider_config
+    #   Configuration for the capacity provider that manages compute
+    #   resources for Lambda functions.
+    #   @return [Types::CapacityProviderConfig]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfigurationRequest AWS API Documentation
     #
     class UpdateFunctionConfigurationRequest < Struct.new(
@@ -7202,7 +7865,8 @@ module Aws::Lambda
       :image_config,
       :ephemeral_storage,
       :snap_start,
-      :logging_config)
+      :logging_config,
+      :capacity_provider_config)
       SENSITIVE = []
       include Aws::Structure
     end

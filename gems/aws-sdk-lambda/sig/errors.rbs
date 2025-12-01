@@ -11,6 +11,10 @@ module Aws
       class ServiceError < ::Aws::Errors::ServiceError
       end
 
+      class CapacityProviderLimitExceededException < ::Aws::Errors::ServiceError
+        def type: () -> ::String
+        def message: () -> ::String
+      end
       class CodeSigningConfigNotFoundException < ::Aws::Errors::ServiceError
         def type: () -> ::String
         def message: () -> ::String
@@ -56,6 +60,10 @@ module Aws
         def type: () -> ::String
         def message: () -> ::String
       end
+      class FunctionVersionsPerCapacityProviderLimitExceededException < ::Aws::Errors::ServiceError
+        def type: () -> ::String
+        def message: () -> ::String
+      end
       class InvalidCodeSignatureException < ::Aws::Errors::ServiceError
         def type: () -> ::String
         def message: () -> ::String
@@ -97,6 +105,10 @@ module Aws
         def message: () -> ::String
       end
       class KMSNotFoundException < ::Aws::Errors::ServiceError
+        def type: () -> ::String
+        def message: () -> ::String
+      end
+      class NoPublishedVersionException < ::Aws::Errors::ServiceError
         def type: () -> ::String
         def message: () -> ::String
       end

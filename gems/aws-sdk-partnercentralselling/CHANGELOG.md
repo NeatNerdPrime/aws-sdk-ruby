@@ -1,6 +1,15 @@
 Unreleased Changes
 ------------------
 
+1.20.0 (2025-12-01)
+------------------
+
+* Feature - New Features:
+  Lead Management APIs for capturing and nurturing leads
+  Lead invitation support for partner collaboration
+  Lead-to-opportunity conversion operations
+  AWS Marketplace OfferSets support for opportunities
+
 1.19.0 (2025-11-21)
 ------------------
 

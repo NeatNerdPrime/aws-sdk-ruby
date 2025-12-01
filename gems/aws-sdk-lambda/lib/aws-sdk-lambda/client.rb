@@ -681,14 +681,8 @@ module Aws::Lambda
     #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html
     #
     # @option params [Boolean] :invoked_via_function_url
-    #   Restricts the `lambda:InvokeFunction` action to function URL calls.
-    #   When specified, this option prevents the principal from invoking the
-    #   function by any means other than the function URL. For more
-    #   information, see [Control access to Lambda function URLs][1].
-    #
-    #
-    #
-    #   [1]: https://docs.aws.amazon.com/lambda/latest/dg/urls-auth.html
+    #   Indicates whether the permission applies when the function is invoked
+    #   through a function URL.
     #
     # @return [Types::AddPermissionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -733,14 +727,14 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.add_permission({
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #     statement_id: "StatementId", # required
     #     action: "Action", # required
     #     principal: "Principal", # required
     #     source_arn: "Arn",
     #     source_account: "SourceOwner",
     #     event_source_token: "EventSourceToken",
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     revision_id: "String",
     #     principal_org_id: "PrincipalOrgID",
     #     function_url_auth_type: "NONE", # accepts NONE, AWS_IAM
@@ -838,7 +832,7 @@ module Aws::Lambda
     #   resp = client.create_alias({
     #     function_name: "FunctionName", # required
     #     name: "Alias", # required
-    #     function_version: "Version", # required
+    #     function_version: "VersionWithLatestPublished", # required
     #     description: "Description",
     #     routing_config: {
     #       additional_version_weights: {
@@ -863,6 +857,105 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def create_alias(params = {}, options = {})
       req = build_request(:create_alias, params)
+      req.send_request(options)
+    end
+
+    # Creates a capacity provider that manages compute resources for Lambda
+    # functions
+    #
+    # @option params [required, String] :capacity_provider_name
+    #   The name of the capacity provider.
+    #
+    # @option params [required, Types::CapacityProviderVpcConfig] :vpc_config
+    #   The VPC configuration for the capacity provider, including subnet IDs
+    #   and security group IDs where compute instances will be launched.
+    #
+    # @option params [required, Types::CapacityProviderPermissionsConfig] :permissions_config
+    #   The permissions configuration that specifies the IAM role ARN used by
+    #   the capacity provider to manage compute resources.
+    #
+    # @option params [Types::InstanceRequirements] :instance_requirements
+    #   The instance requirements that specify the compute instance
+    #   characteristics, including architectures and allowed or excluded
+    #   instance types.
+    #
+    # @option params [Types::CapacityProviderScalingConfig] :capacity_provider_scaling_config
+    #   The scaling configuration that defines how the capacity provider
+    #   scales compute instances, including maximum vCPU count and scaling
+    #   policies.
+    #
+    # @option params [String] :kms_key_arn
+    #   The ARN of the KMS key used to encrypt data associated with the
+    #   capacity provider.
+    #
+    # @option params [Hash<String,String>] :tags
+    #   A list of tags to associate with the capacity provider.
+    #
+    # @return [Types::CreateCapacityProviderResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CreateCapacityProviderResponse#capacity_provider #capacity_provider} => Types::CapacityProvider
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.create_capacity_provider({
+    #     capacity_provider_name: "CapacityProviderName", # required
+    #     vpc_config: { # required
+    #       subnet_ids: ["SubnetId"], # required
+    #       security_group_ids: ["SecurityGroupId"], # required
+    #     },
+    #     permissions_config: { # required
+    #       capacity_provider_operator_role_arn: "RoleArn", # required
+    #     },
+    #     instance_requirements: {
+    #       architectures: ["x86_64"], # accepts x86_64, arm64
+    #       allowed_instance_types: ["InstanceType"],
+    #       excluded_instance_types: ["InstanceType"],
+    #     },
+    #     capacity_provider_scaling_config: {
+    #       max_v_cpu_count: 1,
+    #       scaling_mode: "Auto", # accepts Auto, Manual
+    #       scaling_policies: [
+    #         {
+    #           predefined_metric_type: "LambdaCapacityProviderAverageCPUUtilization", # required, accepts LambdaCapacityProviderAverageCPUUtilization
+    #           target_value: 1.0, # required
+    #         },
+    #       ],
+    #     },
+    #     kms_key_arn: "KMSKeyArnNonEmpty",
+    #     tags: {
+    #       "TagKey" => "TagValue",
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_provider.capacity_provider_arn #=> String
+    #   resp.capacity_provider.state #=> String, one of "Pending", "Active", "Failed", "Deleting"
+    #   resp.capacity_provider.vpc_config.subnet_ids #=> Array
+    #   resp.capacity_provider.vpc_config.subnet_ids[0] #=> String
+    #   resp.capacity_provider.vpc_config.security_group_ids #=> Array
+    #   resp.capacity_provider.vpc_config.security_group_ids[0] #=> String
+    #   resp.capacity_provider.permissions_config.capacity_provider_operator_role_arn #=> String
+    #   resp.capacity_provider.instance_requirements.architectures #=> Array
+    #   resp.capacity_provider.instance_requirements.architectures[0] #=> String, one of "x86_64", "arm64"
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types[0] #=> String
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types[0] #=> String
+    #   resp.capacity_provider.capacity_provider_scaling_config.max_v_cpu_count #=> Integer
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_mode #=> String, one of "Auto", "Manual"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies #=> Array
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].predefined_metric_type #=> String, one of "LambdaCapacityProviderAverageCPUUtilization"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].target_value #=> Float
+    #   resp.capacity_provider.kms_key_arn #=> String
+    #   resp.capacity_provider.last_modified #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateCapacityProvider AWS API Documentation
+    #
+    # @overload create_capacity_provider(params = {})
+    # @param [Hash] params ({})
+    def create_capacity_provider(params = {}, options = {})
+      req = build_request(:create_capacity_provider, params)
       req.send_request(options)
     end
 
@@ -1271,7 +1364,7 @@ module Aws::Lambda
     #
     #   resp = client.create_event_source_mapping({
     #     event_source_arn: "Arn",
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #     enabled: false,
     #     batch_size: 1,
     #     filter_criteria: {
@@ -1714,6 +1807,13 @@ module Aws::Lambda
     # @option params [Types::LoggingConfig] :logging_config
     #   The function's Amazon CloudWatch Logs configuration settings.
     #
+    # @option params [Types::CapacityProviderConfig] :capacity_provider_config
+    #   Configuration for the capacity provider that manages compute resources
+    #   for Lambda functions.
+    #
+    # @option params [String] :publish_to
+    #   Specifies where to publish the function version or configuration.
+    #
     # @option params [Types::TenancyConfig] :tenancy_config
     #   Configuration for multi-tenant applications that use Lambda functions.
     #   Defines tenant isolation settings and resource allocations. Required
@@ -1757,6 +1857,8 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#snap_start #snap_start} => Types::SnapStartResponse
     #   * {Types::FunctionConfiguration#runtime_version_config #runtime_version_config} => Types::RuntimeVersionConfig
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
+    #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
+    #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -1888,6 +1990,14 @@ module Aws::Lambda
     #       system_log_level: "DEBUG", # accepts DEBUG, INFO, WARN
     #       log_group: "LogGroup",
     #     },
+    #     capacity_provider_config: {
+    #       lambda_managed_instances_capacity_provider_config: { # required
+    #         capacity_provider_arn: "CapacityProviderArn", # required
+    #         per_execution_environment_max_concurrency: 1,
+    #         execution_environment_memory_gi_b_per_v_cpu: 1.0,
+    #       },
+    #     },
+    #     publish_to: "LATEST_PUBLISHED", # accepts LATEST_PUBLISHED
     #     tenancy_config: {
     #       tenant_isolation_mode: "PER_TENANT", # required, accepts PER_TENANT
     #     },
@@ -1927,12 +2037,12 @@ module Aws::Lambda
     #   resp.layers[0].code_size #=> Integer
     #   resp.layers[0].signing_profile_version_arn #=> String
     #   resp.layers[0].signing_job_arn #=> String
-    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
-    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.file_system_configs #=> Array
     #   resp.file_system_configs[0].arn #=> String
     #   resp.file_system_configs[0].local_mount_path #=> String
@@ -1958,6 +2068,10 @@ module Aws::Lambda
     #   resp.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.logging_config.log_group #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.config_sha_256 #=> String
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction AWS API Documentation
@@ -2125,6 +2239,54 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def delete_alias(params = {}, options = {})
       req = build_request(:delete_alias, params)
+      req.send_request(options)
+    end
+
+    # Deletes a capacity provider. You cannot delete a capacity provider
+    # that is currently being used by Lambda functions.
+    #
+    # @option params [required, String] :capacity_provider_name
+    #   The name of the capacity provider to delete.
+    #
+    # @return [Types::DeleteCapacityProviderResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DeleteCapacityProviderResponse#capacity_provider #capacity_provider} => Types::CapacityProvider
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.delete_capacity_provider({
+    #     capacity_provider_name: "CapacityProviderName", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_provider.capacity_provider_arn #=> String
+    #   resp.capacity_provider.state #=> String, one of "Pending", "Active", "Failed", "Deleting"
+    #   resp.capacity_provider.vpc_config.subnet_ids #=> Array
+    #   resp.capacity_provider.vpc_config.subnet_ids[0] #=> String
+    #   resp.capacity_provider.vpc_config.security_group_ids #=> Array
+    #   resp.capacity_provider.vpc_config.security_group_ids[0] #=> String
+    #   resp.capacity_provider.permissions_config.capacity_provider_operator_role_arn #=> String
+    #   resp.capacity_provider.instance_requirements.architectures #=> Array
+    #   resp.capacity_provider.instance_requirements.architectures[0] #=> String, one of "x86_64", "arm64"
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types[0] #=> String
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types[0] #=> String
+    #   resp.capacity_provider.capacity_provider_scaling_config.max_v_cpu_count #=> Integer
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_mode #=> String, one of "Auto", "Manual"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies #=> Array
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].predefined_metric_type #=> String, one of "LambdaCapacityProviderAverageCPUUtilization"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].target_value #=> Float
+    #   resp.capacity_provider.kms_key_arn #=> String
+    #   resp.capacity_provider.last_modified #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteCapacityProvider AWS API Documentation
+    #
+    # @overload delete_capacity_provider(params = {})
+    # @param [Hash] params ({})
+    def delete_capacity_provider(params = {}, options = {})
+      req = build_request(:delete_capacity_provider, params)
       req.send_request(options)
     end
 
@@ -2334,7 +2496,9 @@ module Aws::Lambda
     #   Specify a version to delete. You can't delete a version that an alias
     #   references.
     #
-    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    # @return [Types::DeleteFunctionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::DeleteFunctionResponse#status_code #status_code} => Integer
     #
     #
     # @example Example: To delete a version of a Lambda function
@@ -2349,9 +2513,13 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_function({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
+    #
+    # @example Response structure
+    #
+    #   resp.status_code #=> Integer
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunction AWS API Documentation
     #
@@ -2384,7 +2552,7 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_function_code_signing_config({
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionCodeSigningConfig AWS API Documentation
@@ -2481,8 +2649,8 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.delete_function_event_invoke_config({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/DeleteFunctionEventInvokeConfig AWS API Documentation
@@ -2757,6 +2925,54 @@ module Aws::Lambda
       req.send_request(options)
     end
 
+    # Retrieves information about a specific capacity provider, including
+    # its configuration, state, and associated resources.
+    #
+    # @option params [required, String] :capacity_provider_name
+    #   The name of the capacity provider to retrieve.
+    #
+    # @return [Types::GetCapacityProviderResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetCapacityProviderResponse#capacity_provider #capacity_provider} => Types::CapacityProvider
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_capacity_provider({
+    #     capacity_provider_name: "CapacityProviderName", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_provider.capacity_provider_arn #=> String
+    #   resp.capacity_provider.state #=> String, one of "Pending", "Active", "Failed", "Deleting"
+    #   resp.capacity_provider.vpc_config.subnet_ids #=> Array
+    #   resp.capacity_provider.vpc_config.subnet_ids[0] #=> String
+    #   resp.capacity_provider.vpc_config.security_group_ids #=> Array
+    #   resp.capacity_provider.vpc_config.security_group_ids[0] #=> String
+    #   resp.capacity_provider.permissions_config.capacity_provider_operator_role_arn #=> String
+    #   resp.capacity_provider.instance_requirements.architectures #=> Array
+    #   resp.capacity_provider.instance_requirements.architectures[0] #=> String, one of "x86_64", "arm64"
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types[0] #=> String
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types[0] #=> String
+    #   resp.capacity_provider.capacity_provider_scaling_config.max_v_cpu_count #=> Integer
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_mode #=> String, one of "Auto", "Manual"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies #=> Array
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].predefined_metric_type #=> String, one of "LambdaCapacityProviderAverageCPUUtilization"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].target_value #=> Float
+    #   resp.capacity_provider.kms_key_arn #=> String
+    #   resp.capacity_provider.last_modified #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetCapacityProvider AWS API Documentation
+    #
+    # @overload get_capacity_provider(params = {})
+    # @param [Hash] params ({})
+    def get_capacity_provider(params = {}, options = {})
+      req = build_request(:get_capacity_provider, params)
+      req.send_request(options)
+    end
+
     # Returns information about the specified code signing configuration.
     #
     # @option params [required, String] :code_signing_config_arn
@@ -3024,7 +3240,7 @@ module Aws::Lambda
     #
     #   resp = client.get_function({
     #     function_name: "NamespacedFunctionName", # required
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @example Response structure
@@ -3061,12 +3277,12 @@ module Aws::Lambda
     #   resp.configuration.layers[0].code_size #=> Integer
     #   resp.configuration.layers[0].signing_profile_version_arn #=> String
     #   resp.configuration.layers[0].signing_job_arn #=> String
-    #   resp.configuration.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.configuration.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.configuration.state_reason #=> String
-    #   resp.configuration.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.configuration.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.configuration.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.configuration.last_update_status_reason #=> String
-    #   resp.configuration.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.configuration.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.configuration.file_system_configs #=> Array
     #   resp.configuration.file_system_configs[0].arn #=> String
     #   resp.configuration.file_system_configs[0].local_mount_path #=> String
@@ -3092,6 +3308,10 @@ module Aws::Lambda
     #   resp.configuration.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.configuration.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.configuration.logging_config.log_group #=> String
+    #   resp.configuration.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.configuration.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.configuration.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.configuration.config_sha_256 #=> String
     #   resp.configuration.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #   resp.code.repository_type #=> String
     #   resp.code.location #=> String
@@ -3145,7 +3365,7 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_function_code_signing_config({
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #   })
     #
     # @example Response structure
@@ -3284,6 +3504,8 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#snap_start #snap_start} => Types::SnapStartResponse
     #   * {Types::FunctionConfiguration#runtime_version_config #runtime_version_config} => Types::RuntimeVersionConfig
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
+    #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
+    #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -3329,7 +3551,7 @@ module Aws::Lambda
     #
     #   resp = client.get_function_configuration({
     #     function_name: "NamespacedFunctionName", # required
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @example Response structure
@@ -3366,12 +3588,12 @@ module Aws::Lambda
     #   resp.layers[0].code_size #=> Integer
     #   resp.layers[0].signing_profile_version_arn #=> String
     #   resp.layers[0].signing_job_arn #=> String
-    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
-    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.file_system_configs #=> Array
     #   resp.file_system_configs[0].arn #=> String
     #   resp.file_system_configs[0].local_mount_path #=> String
@@ -3397,6 +3619,10 @@ module Aws::Lambda
     #   resp.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.logging_config.log_group #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.config_sha_256 #=> String
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     #
@@ -3478,8 +3704,8 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.get_function_event_invoke_config({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @example Response structure
@@ -3507,6 +3733,7 @@ module Aws::Lambda
     # [1]: https://docs.aws.amazon.com/lambda/latest/dg/invocation-recursion.html
     #
     # @option params [required, String] :function_name
+    #   The name of the function.
     #
     # @return [Types::GetFunctionRecursionConfigResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
@@ -3528,6 +3755,46 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def get_function_recursion_config(params = {}, options = {})
       req = build_request(:get_function_recursion_config, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the scaling configuration for a Lambda Managed Instances
+    # function.
+    #
+    # @option params [required, String] :function_name
+    #   The name or ARN of the Lambda function.
+    #
+    # @option params [required, String] :qualifier
+    #   Specify a version or alias to get the scaling configuration for a
+    #   published version of the function.
+    #
+    # @return [Types::GetFunctionScalingConfigResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetFunctionScalingConfigResponse#function_arn #function_arn} => String
+    #   * {Types::GetFunctionScalingConfigResponse#applied_function_scaling_config #applied_function_scaling_config} => Types::FunctionScalingConfig
+    #   * {Types::GetFunctionScalingConfigResponse#requested_function_scaling_config #requested_function_scaling_config} => Types::FunctionScalingConfig
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_function_scaling_config({
+    #     function_name: "UnqualifiedFunctionName", # required
+    #     qualifier: "PublishedFunctionQualifier", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.function_arn #=> String
+    #   resp.applied_function_scaling_config.min_execution_environments #=> Integer
+    #   resp.applied_function_scaling_config.max_execution_environments #=> Integer
+    #   resp.requested_function_scaling_config.min_execution_environments #=> Integer
+    #   resp.requested_function_scaling_config.max_execution_environments #=> Integer
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetFunctionScalingConfig AWS API Documentation
+    #
+    # @overload get_function_scaling_config(params = {})
+    # @param [Hash] params ({})
+    def get_function_scaling_config(params = {}, options = {})
+      req = build_request(:get_function_scaling_config, params)
       req.send_request(options)
     end
 
@@ -3856,7 +4123,7 @@ module Aws::Lambda
     #
     #   resp = client.get_policy({
     #     function_name: "NamespacedFunctionName", # required
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @example Response structure
@@ -3904,9 +4171,9 @@ module Aws::Lambda
     #   * {Types::GetProvisionedConcurrencyConfigResponse#last_modified #last_modified} => Time
     #
     #
-    # @example Example: To get a provisioned concurrency configuration
+    # @example Example: To view a provisioned concurrency configuration
     #
-    #   # The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified
+    #   # The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified
     #   # function.
     #
     #   resp = client.get_provisioned_concurrency_config({
@@ -3923,9 +4190,9 @@ module Aws::Lambda
     #     status: "READY", 
     #   }
     #
-    # @example Example: To view a provisioned concurrency configuration
+    # @example Example: To get a provisioned concurrency configuration
     #
-    #   # The following example displays details for the provisioned concurrency configuration for the BLUE alias of the specified
+    #   # The following example returns details for the provisioned concurrency configuration for the BLUE alias of the specified
     #   # function.
     #
     #   resp = client.get_provisioned_concurrency_config({
@@ -4008,7 +4275,7 @@ module Aws::Lambda
     #
     #   resp = client.get_runtime_management_config({
     #     function_name: "NamespacedFunctionName", # required
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #   })
     #
     # @example Response structure
@@ -4193,7 +4460,7 @@ module Aws::Lambda
     #     log_type: "None", # accepts None, Tail
     #     client_context: "String",
     #     payload: "data",
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     tenant_id: "TenantId",
     #   })
     #
@@ -4463,7 +4730,7 @@ module Aws::Lambda
     #     invocation_type: "RequestResponse", # accepts RequestResponse, DryRun
     #     log_type: "None", # accepts None, Tail
     #     client_context: "String",
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     payload: "data",
     #     tenant_id: "TenantId",
     #   })
@@ -4590,7 +4857,7 @@ module Aws::Lambda
     #
     #   resp = client.list_aliases({
     #     function_name: "FunctionName", # required
-    #     function_version: "Version",
+    #     function_version: "VersionWithLatestPublished",
     #     marker: "String",
     #     max_items: 1,
     #   })
@@ -4613,6 +4880,67 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def list_aliases(params = {}, options = {})
       req = build_request(:list_aliases, params)
+      req.send_request(options)
+    end
+
+    # Returns a list of capacity providers in your account.
+    #
+    # @option params [String] :state
+    #   Filter capacity providers by their current state.
+    #
+    # @option params [String] :marker
+    #   Specify the pagination token that's returned by a previous request to
+    #   retrieve the next page of results.
+    #
+    # @option params [Integer] :max_items
+    #   The maximum number of capacity providers to return.
+    #
+    # @return [Types::ListCapacityProvidersResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListCapacityProvidersResponse#capacity_providers #capacity_providers} => Array&lt;Types::CapacityProvider&gt;
+    #   * {Types::ListCapacityProvidersResponse#next_marker #next_marker} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_capacity_providers({
+    #     state: "Pending", # accepts Pending, Active, Failed, Deleting
+    #     marker: "String",
+    #     max_items: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_providers #=> Array
+    #   resp.capacity_providers[0].capacity_provider_arn #=> String
+    #   resp.capacity_providers[0].state #=> String, one of "Pending", "Active", "Failed", "Deleting"
+    #   resp.capacity_providers[0].vpc_config.subnet_ids #=> Array
+    #   resp.capacity_providers[0].vpc_config.subnet_ids[0] #=> String
+    #   resp.capacity_providers[0].vpc_config.security_group_ids #=> Array
+    #   resp.capacity_providers[0].vpc_config.security_group_ids[0] #=> String
+    #   resp.capacity_providers[0].permissions_config.capacity_provider_operator_role_arn #=> String
+    #   resp.capacity_providers[0].instance_requirements.architectures #=> Array
+    #   resp.capacity_providers[0].instance_requirements.architectures[0] #=> String, one of "x86_64", "arm64"
+    #   resp.capacity_providers[0].instance_requirements.allowed_instance_types #=> Array
+    #   resp.capacity_providers[0].instance_requirements.allowed_instance_types[0] #=> String
+    #   resp.capacity_providers[0].instance_requirements.excluded_instance_types #=> Array
+    #   resp.capacity_providers[0].instance_requirements.excluded_instance_types[0] #=> String
+    #   resp.capacity_providers[0].capacity_provider_scaling_config.max_v_cpu_count #=> Integer
+    #   resp.capacity_providers[0].capacity_provider_scaling_config.scaling_mode #=> String, one of "Auto", "Manual"
+    #   resp.capacity_providers[0].capacity_provider_scaling_config.scaling_policies #=> Array
+    #   resp.capacity_providers[0].capacity_provider_scaling_config.scaling_policies[0].predefined_metric_type #=> String, one of "LambdaCapacityProviderAverageCPUUtilization"
+    #   resp.capacity_providers[0].capacity_provider_scaling_config.scaling_policies[0].target_value #=> Float
+    #   resp.capacity_providers[0].kms_key_arn #=> String
+    #   resp.capacity_providers[0].last_modified #=> Time
+    #   resp.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListCapacityProviders AWS API Documentation
+    #
+    # @overload list_capacity_providers(params = {})
+    # @param [Hash] params ({})
+    def list_capacity_providers(params = {}, options = {})
+      req = build_request(:list_capacity_providers, params)
       req.send_request(options)
     end
 
@@ -4752,7 +5080,7 @@ module Aws::Lambda
     #
     #   resp = client.list_event_source_mappings({
     #     event_source_arn: "Arn",
-    #     function_name: "FunctionName",
+    #     function_name: "NamespacedFunctionName",
     #     marker: "String",
     #     max_items: 1,
     #   })
@@ -4897,7 +5225,7 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.list_function_event_invoke_configs({
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #     marker: "String",
     #     max_items: 1,
     #   })
@@ -4990,6 +5318,52 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def list_function_url_configs(params = {}, options = {})
       req = build_request(:list_function_url_configs, params)
+      req.send_request(options)
+    end
+
+    # Returns a list of function versions that are configured to use a
+    # specific capacity provider.
+    #
+    # @option params [required, String] :capacity_provider_name
+    #   The name of the capacity provider to list function versions for.
+    #
+    # @option params [String] :marker
+    #   Specify the pagination token that's returned by a previous request to
+    #   retrieve the next page of results.
+    #
+    # @option params [Integer] :max_items
+    #   The maximum number of function versions to return in the response.
+    #
+    # @return [Types::ListFunctionVersionsByCapacityProviderResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListFunctionVersionsByCapacityProviderResponse#capacity_provider_arn #capacity_provider_arn} => String
+    #   * {Types::ListFunctionVersionsByCapacityProviderResponse#function_versions #function_versions} => Array&lt;Types::FunctionVersionsByCapacityProviderListItem&gt;
+    #   * {Types::ListFunctionVersionsByCapacityProviderResponse#next_marker #next_marker} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_function_versions_by_capacity_provider({
+    #     capacity_provider_name: "CapacityProviderName", # required
+    #     marker: "String",
+    #     max_items: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_provider_arn #=> String
+    #   resp.function_versions #=> Array
+    #   resp.function_versions[0].function_arn #=> String
+    #   resp.function_versions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
+    #   resp.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctionVersionsByCapacityProvider AWS API Documentation
+    #
+    # @overload list_function_versions_by_capacity_provider(params = {})
+    # @param [Hash] params ({})
+    def list_function_versions_by_capacity_provider(params = {}, options = {})
+      req = build_request(:list_function_versions_by_capacity_provider, params)
       req.send_request(options)
     end
 
@@ -5137,12 +5511,12 @@ module Aws::Lambda
     #   resp.functions[0].layers[0].code_size #=> Integer
     #   resp.functions[0].layers[0].signing_profile_version_arn #=> String
     #   resp.functions[0].layers[0].signing_job_arn #=> String
-    #   resp.functions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.functions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.functions[0].state_reason #=> String
-    #   resp.functions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.functions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.functions[0].last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.functions[0].last_update_status_reason #=> String
-    #   resp.functions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.functions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.functions[0].file_system_configs #=> Array
     #   resp.functions[0].file_system_configs[0].arn #=> String
     #   resp.functions[0].file_system_configs[0].local_mount_path #=> String
@@ -5168,6 +5542,10 @@ module Aws::Lambda
     #   resp.functions[0].logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.functions[0].logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.functions[0].logging_config.log_group #=> String
+    #   resp.functions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.functions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.functions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.functions[0].config_sha_256 #=> String
     #   resp.functions[0].tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions AWS API Documentation
@@ -5738,12 +6116,12 @@ module Aws::Lambda
     #   resp.versions[0].layers[0].code_size #=> Integer
     #   resp.versions[0].layers[0].signing_profile_version_arn #=> String
     #   resp.versions[0].layers[0].signing_job_arn #=> String
-    #   resp.versions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.versions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.versions[0].state_reason #=> String
-    #   resp.versions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.versions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.versions[0].last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.versions[0].last_update_status_reason #=> String
-    #   resp.versions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.versions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.versions[0].file_system_configs #=> Array
     #   resp.versions[0].file_system_configs[0].arn #=> String
     #   resp.versions[0].file_system_configs[0].local_mount_path #=> String
@@ -5769,6 +6147,10 @@ module Aws::Lambda
     #   resp.versions[0].logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.versions[0].logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.versions[0].logging_config.log_group #=> String
+    #   resp.versions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.versions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.versions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.versions[0].config_sha_256 #=> String
     #   resp.versions[0].tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction AWS API Documentation
@@ -5974,6 +6356,9 @@ module Aws::Lambda
     #   specified. Use this option to avoid publishing a version if the
     #   function configuration has changed since you last updated it.
     #
+    # @option params [String] :publish_to
+    #   Specifies where to publish the function version or configuration.
+    #
     # @return [Types::FunctionConfiguration] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::FunctionConfiguration#function_name #function_name} => String
@@ -6012,6 +6397,8 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#snap_start #snap_start} => Types::SnapStartResponse
     #   * {Types::FunctionConfiguration#runtime_version_config #runtime_version_config} => Types::RuntimeVersionConfig
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
+    #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
+    #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -6061,6 +6448,7 @@ module Aws::Lambda
     #     code_sha_256: "String",
     #     description: "Description",
     #     revision_id: "String",
+    #     publish_to: "LATEST_PUBLISHED", # accepts LATEST_PUBLISHED
     #   })
     #
     # @example Response structure
@@ -6097,12 +6485,12 @@ module Aws::Lambda
     #   resp.layers[0].code_size #=> Integer
     #   resp.layers[0].signing_profile_version_arn #=> String
     #   resp.layers[0].signing_job_arn #=> String
-    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
-    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.file_system_configs #=> Array
     #   resp.file_system_configs[0].arn #=> String
     #   resp.file_system_configs[0].local_mount_path #=> String
@@ -6128,6 +6516,10 @@ module Aws::Lambda
     #   resp.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.logging_config.log_group #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.config_sha_256 #=> String
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion AWS API Documentation
@@ -6170,7 +6562,7 @@ module Aws::Lambda
     #
     #   resp = client.put_function_code_signing_config({
     #     code_signing_config_arn: "CodeSigningConfigArn", # required
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #   })
     #
     # @example Response structure
@@ -6378,8 +6770,8 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.put_function_event_invoke_config({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     maximum_retry_attempts: 1,
     #     maximum_event_age_in_seconds: 1,
     #     destination_config: {
@@ -6492,6 +6884,51 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def put_function_recursion_config(params = {}, options = {})
       req = build_request(:put_function_recursion_config, params)
+      req.send_request(options)
+    end
+
+    # Sets the scaling configuration for a Lambda Managed Instances
+    # function. The scaling configuration defines the minimum and maximum
+    # number of execution environments that can be provisioned for the
+    # function, allowing you to control scaling behavior and resource
+    # allocation.
+    #
+    # @option params [required, String] :function_name
+    #   The name or ARN of the Lambda function.
+    #
+    # @option params [required, String] :qualifier
+    #   Specify a version or alias to set the scaling configuration for a
+    #   published version of the function.
+    #
+    # @option params [Types::FunctionScalingConfig] :function_scaling_config
+    #   The scaling configuration to apply to the function, including minimum
+    #   and maximum execution environment limits.
+    #
+    # @return [Types::PutFunctionScalingConfigResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::PutFunctionScalingConfigResponse#function_state #function_state} => String
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.put_function_scaling_config({
+    #     function_name: "UnqualifiedFunctionName", # required
+    #     qualifier: "PublishedFunctionQualifier", # required
+    #     function_scaling_config: {
+    #       min_execution_environments: 1,
+    #       max_execution_environments: 1,
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.function_state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PutFunctionScalingConfig AWS API Documentation
+    #
+    # @overload put_function_scaling_config(params = {})
+    # @param [Hash] params ({})
+    def put_function_scaling_config(params = {}, options = {})
+      req = build_request(:put_function_scaling_config, params)
       req.send_request(options)
     end
 
@@ -6646,8 +7083,8 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.put_runtime_management_config({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     update_runtime_on: "Auto", # required, accepts Auto, Manual, FunctionUpdate
     #     runtime_version_arn: "RuntimeVersionArn",
     #   })
@@ -6770,9 +7207,9 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.remove_permission({
-    #     function_name: "FunctionName", # required
+    #     function_name: "NamespacedFunctionName", # required
     #     statement_id: "NamespacedStatementId", # required
-    #     qualifier: "Qualifier",
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     revision_id: "String",
     #   })
     #
@@ -6960,7 +7397,7 @@ module Aws::Lambda
     #   resp = client.update_alias({
     #     function_name: "FunctionName", # required
     #     name: "Alias", # required
-    #     function_version: "Version",
+    #     function_version: "VersionWithLatestPublished",
     #     description: "Description",
     #     routing_config: {
     #       additional_version_weights: {
@@ -6986,6 +7423,66 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def update_alias(params = {}, options = {})
       req = build_request(:update_alias, params)
+      req.send_request(options)
+    end
+
+    # Updates the configuration of an existing capacity provider.
+    #
+    # @option params [required, String] :capacity_provider_name
+    #   The name of the capacity provider to update.
+    #
+    # @option params [Types::CapacityProviderScalingConfig] :capacity_provider_scaling_config
+    #   The updated scaling configuration for the capacity provider.
+    #
+    # @return [Types::UpdateCapacityProviderResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::UpdateCapacityProviderResponse#capacity_provider #capacity_provider} => Types::CapacityProvider
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.update_capacity_provider({
+    #     capacity_provider_name: "CapacityProviderName", # required
+    #     capacity_provider_scaling_config: {
+    #       max_v_cpu_count: 1,
+    #       scaling_mode: "Auto", # accepts Auto, Manual
+    #       scaling_policies: [
+    #         {
+    #           predefined_metric_type: "LambdaCapacityProviderAverageCPUUtilization", # required, accepts LambdaCapacityProviderAverageCPUUtilization
+    #           target_value: 1.0, # required
+    #         },
+    #       ],
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.capacity_provider.capacity_provider_arn #=> String
+    #   resp.capacity_provider.state #=> String, one of "Pending", "Active", "Failed", "Deleting"
+    #   resp.capacity_provider.vpc_config.subnet_ids #=> Array
+    #   resp.capacity_provider.vpc_config.subnet_ids[0] #=> String
+    #   resp.capacity_provider.vpc_config.security_group_ids #=> Array
+    #   resp.capacity_provider.vpc_config.security_group_ids[0] #=> String
+    #   resp.capacity_provider.permissions_config.capacity_provider_operator_role_arn #=> String
+    #   resp.capacity_provider.instance_requirements.architectures #=> Array
+    #   resp.capacity_provider.instance_requirements.architectures[0] #=> String, one of "x86_64", "arm64"
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.allowed_instance_types[0] #=> String
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types #=> Array
+    #   resp.capacity_provider.instance_requirements.excluded_instance_types[0] #=> String
+    #   resp.capacity_provider.capacity_provider_scaling_config.max_v_cpu_count #=> Integer
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_mode #=> String, one of "Auto", "Manual"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies #=> Array
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].predefined_metric_type #=> String, one of "LambdaCapacityProviderAverageCPUUtilization"
+    #   resp.capacity_provider.capacity_provider_scaling_config.scaling_policies[0].target_value #=> Float
+    #   resp.capacity_provider.kms_key_arn #=> String
+    #   resp.capacity_provider.last_modified #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateCapacityProvider AWS API Documentation
+    #
+    # @overload update_capacity_provider(params = {})
+    # @param [Hash] params ({})
+    def update_capacity_provider(params = {}, options = {})
+      req = build_request(:update_capacity_provider, params)
       req.send_request(options)
     end
 
@@ -7348,7 +7845,7 @@ module Aws::Lambda
     #
     #   resp = client.update_event_source_mapping({
     #     uuid: "String", # required
-    #     function_name: "FunctionName",
+    #     function_name: "NamespacedFunctionName",
     #     enabled: false,
     #     batch_size: 1,
     #     filter_criteria: {
@@ -7601,6 +8098,9 @@ module Aws::Lambda
     #   you don't provide a customer managed key, Lambda uses an Amazon Web
     #   Services managed key.
     #
+    # @option params [String] :publish_to
+    #   Specifies where to publish the function version or configuration.
+    #
     # @return [Types::FunctionConfiguration] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::FunctionConfiguration#function_name #function_name} => String
@@ -7639,6 +8139,8 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#snap_start #snap_start} => Types::SnapStartResponse
     #   * {Types::FunctionConfiguration#runtime_version_config #runtime_version_config} => Types::RuntimeVersionConfig
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
+    #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
+    #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -7687,6 +8189,7 @@ module Aws::Lambda
     #     revision_id: "String",
     #     architectures: ["x86_64"], # accepts x86_64, arm64
     #     source_kms_key_arn: "KMSKeyArn",
+    #     publish_to: "LATEST_PUBLISHED", # accepts LATEST_PUBLISHED
     #   })
     #
     # @example Response structure
@@ -7723,12 +8226,12 @@ module Aws::Lambda
     #   resp.layers[0].code_size #=> Integer
     #   resp.layers[0].signing_profile_version_arn #=> String
     #   resp.layers[0].signing_job_arn #=> String
-    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
-    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.file_system_configs #=> Array
     #   resp.file_system_configs[0].arn #=> String
     #   resp.file_system_configs[0].local_mount_path #=> String
@@ -7754,6 +8257,10 @@ module Aws::Lambda
     #   resp.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.logging_config.log_group #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.config_sha_256 #=> String
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode AWS API Documentation
@@ -7965,6 +8472,10 @@ module Aws::Lambda
     # @option params [Types::LoggingConfig] :logging_config
     #   The function's Amazon CloudWatch Logs configuration settings.
     #
+    # @option params [Types::CapacityProviderConfig] :capacity_provider_config
+    #   Configuration for the capacity provider that manages compute resources
+    #   for Lambda functions.
+    #
     # @return [Types::FunctionConfiguration] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::FunctionConfiguration#function_name #function_name} => String
@@ -8003,6 +8514,8 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#snap_start #snap_start} => Types::SnapStartResponse
     #   * {Types::FunctionConfiguration#runtime_version_config #runtime_version_config} => Types::RuntimeVersionConfig
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
+    #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
+    #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -8088,6 +8601,13 @@ module Aws::Lambda
     #       system_log_level: "DEBUG", # accepts DEBUG, INFO, WARN
     #       log_group: "LogGroup",
     #     },
+    #     capacity_provider_config: {
+    #       lambda_managed_instances_capacity_provider_config: { # required
+    #         capacity_provider_arn: "CapacityProviderArn", # required
+    #         per_execution_environment_max_concurrency: 1,
+    #         execution_environment_memory_gi_b_per_v_cpu: 1.0,
+    #       },
+    #     },
     #   })
     #
     # @example Response structure
@@ -8124,12 +8644,12 @@ module Aws::Lambda
     #   resp.layers[0].code_size #=> Integer
     #   resp.layers[0].signing_profile_version_arn #=> String
     #   resp.layers[0].signing_job_arn #=> String
-    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed"
+    #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
-    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError"
+    #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.file_system_configs #=> Array
     #   resp.file_system_configs[0].arn #=> String
     #   resp.file_system_configs[0].local_mount_path #=> String
@@ -8155,6 +8675,10 @@ module Aws::Lambda
     #   resp.logging_config.application_log_level #=> String, one of "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"
     #   resp.logging_config.system_log_level #=> String, one of "DEBUG", "INFO", "WARN"
     #   resp.logging_config.log_group #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.capacity_provider_arn #=> String
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
+    #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
+    #   resp.config_sha_256 #=> String
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration AWS API Documentation
@@ -8262,8 +8786,8 @@ module Aws::Lambda
     # @example Request syntax with placeholder values
     #
     #   resp = client.update_function_event_invoke_config({
-    #     function_name: "FunctionName", # required
-    #     qualifier: "Qualifier",
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     maximum_retry_attempts: 1,
     #     maximum_event_age_in_seconds: 1,
     #     destination_config: {
@@ -8419,7 +8943,7 @@ module Aws::Lambda
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lambda'
-      context[:gem_version] = '1.167.0'
+      context[:gem_version] = '1.168.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

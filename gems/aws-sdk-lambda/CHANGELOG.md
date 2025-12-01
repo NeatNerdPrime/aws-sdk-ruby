@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.168.0 (2025-12-01)
+------------------
+
+* Feature - Launching Lambda Managed Instances - a new feature to run Lambda on EC2.
+
 1.167.0 (2025-11-21)
 ------------------
 

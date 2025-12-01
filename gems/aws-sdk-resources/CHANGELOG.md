@@ -1,6 +1,15 @@
 Unreleased Changes
 ------------------
 
+3.248.0 (2025-12-01)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-route53globalresolver` gem.
+
+* Feature - Added a dependency on the new `aws-sdk-partnercentralbenefits` gem.
+
+* Feature - Added a dependency on the new `aws-sdk-partnercentralaccount` gem.
+
 3.247.0 (2025-11-21)
 ------------------
 
