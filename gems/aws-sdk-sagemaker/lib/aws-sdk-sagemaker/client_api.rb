@@ -19,6 +19,7 @@ module Aws::SageMaker
     AcceleratorsAmount = Shapes::IntegerShape.new(name: 'AcceleratorsAmount')
     Accept = Shapes::StringShape.new(name: 'Accept')
     AcceptEula = Shapes::BooleanShape.new(name: 'AcceptEula')
+    AccountDefaultStatus = Shapes::StringShape.new(name: 'AccountDefaultStatus')
     AccountId = Shapes::StringShape.new(name: 'AccountId')
     ActionArn = Shapes::StringShape.new(name: 'ActionArn')
     ActionSource = Shapes::StructureShape.new(name: 'ActionSource')
@@ -556,6 +557,8 @@ module Aws::SageMaker
     CreateInferenceRecommendationsJobResponse = Shapes::StructureShape.new(name: 'CreateInferenceRecommendationsJobResponse')
     CreateLabelingJobRequest = Shapes::StructureShape.new(name: 'CreateLabelingJobRequest')
     CreateLabelingJobResponse = Shapes::StructureShape.new(name: 'CreateLabelingJobResponse')
+    CreateMlflowAppRequest = Shapes::StructureShape.new(name: 'CreateMlflowAppRequest')
+    CreateMlflowAppResponse = Shapes::StructureShape.new(name: 'CreateMlflowAppResponse')
     CreateMlflowTrackingServerRequest = Shapes::StructureShape.new(name: 'CreateMlflowTrackingServerRequest')
     CreateMlflowTrackingServerResponse = Shapes::StructureShape.new(name: 'CreateMlflowTrackingServerResponse')
     CreateModelBiasJobDefinitionRequest = Shapes::StructureShape.new(name: 'CreateModelBiasJobDefinitionRequest')
@@ -590,6 +593,8 @@ module Aws::SageMaker
     CreatePipelineResponse = Shapes::StructureShape.new(name: 'CreatePipelineResponse')
     CreatePresignedDomainUrlRequest = Shapes::StructureShape.new(name: 'CreatePresignedDomainUrlRequest')
     CreatePresignedDomainUrlResponse = Shapes::StructureShape.new(name: 'CreatePresignedDomainUrlResponse')
+    CreatePresignedMlflowAppUrlRequest = Shapes::StructureShape.new(name: 'CreatePresignedMlflowAppUrlRequest')
+    CreatePresignedMlflowAppUrlResponse = Shapes::StructureShape.new(name: 'CreatePresignedMlflowAppUrlResponse')
     CreatePresignedMlflowTrackingServerUrlRequest = Shapes::StructureShape.new(name: 'CreatePresignedMlflowTrackingServerUrlRequest')
     CreatePresignedMlflowTrackingServerUrlResponse = Shapes::StructureShape.new(name: 'CreatePresignedMlflowTrackingServerUrlResponse')
     CreatePresignedNotebookInstanceUrlInput = Shapes::StructureShape.new(name: 'CreatePresignedNotebookInstanceUrlInput')
@@ -661,6 +666,7 @@ module Aws::SageMaker
     DebugRuleEvaluationStatus = Shapes::StructureShape.new(name: 'DebugRuleEvaluationStatus')
     DebugRuleEvaluationStatuses = Shapes::ListShape.new(name: 'DebugRuleEvaluationStatuses')
     DeepHealthCheckType = Shapes::StringShape.new(name: 'DeepHealthCheckType')
+    DefaultDomainIdList = Shapes::ListShape.new(name: 'DefaultDomainIdList')
     DefaultEbsStorageSettings = Shapes::StructureShape.new(name: 'DefaultEbsStorageSettings')
     DefaultGid = Shapes::IntegerShape.new(name: 'DefaultGid')
     DefaultSpaceSettings = Shapes::StructureShape.new(name: 'DefaultSpaceSettings')
@@ -708,6 +714,8 @@ module Aws::SageMaker
     DeleteInferenceComponentInput = Shapes::StructureShape.new(name: 'DeleteInferenceComponentInput')
     DeleteInferenceExperimentRequest = Shapes::StructureShape.new(name: 'DeleteInferenceExperimentRequest')
     DeleteInferenceExperimentResponse = Shapes::StructureShape.new(name: 'DeleteInferenceExperimentResponse')
+    DeleteMlflowAppRequest = Shapes::StructureShape.new(name: 'DeleteMlflowAppRequest')
+    DeleteMlflowAppResponse = Shapes::StructureShape.new(name: 'DeleteMlflowAppResponse')
     DeleteMlflowTrackingServerRequest = Shapes::StructureShape.new(name: 'DeleteMlflowTrackingServerRequest')
     DeleteMlflowTrackingServerResponse = Shapes::StructureShape.new(name: 'DeleteMlflowTrackingServerResponse')
     DeleteModelBiasJobDefinitionRequest = Shapes::StructureShape.new(name: 'DeleteModelBiasJobDefinitionRequest')
@@ -832,6 +840,8 @@ module Aws::SageMaker
     DescribeLabelingJobResponse = Shapes::StructureShape.new(name: 'DescribeLabelingJobResponse')
     DescribeLineageGroupRequest = Shapes::StructureShape.new(name: 'DescribeLineageGroupRequest')
     DescribeLineageGroupResponse = Shapes::StructureShape.new(name: 'DescribeLineageGroupResponse')
+    DescribeMlflowAppRequest = Shapes::StructureShape.new(name: 'DescribeMlflowAppRequest')
+    DescribeMlflowAppResponse = Shapes::StructureShape.new(name: 'DescribeMlflowAppResponse')
     DescribeMlflowTrackingServerRequest = Shapes::StructureShape.new(name: 'DescribeMlflowTrackingServerRequest')
     DescribeMlflowTrackingServerResponse = Shapes::StructureShape.new(name: 'DescribeMlflowTrackingServerResponse')
     DescribeModelBiasJobDefinitionRequest = Shapes::StructureShape.new(name: 'DescribeModelBiasJobDefinitionRequest')
@@ -1180,6 +1190,7 @@ module Aws::SageMaker
     HubContentInfoList = Shapes::ListShape.new(name: 'HubContentInfoList')
     HubContentMarkdown = Shapes::StringShape.new(name: 'HubContentMarkdown')
     HubContentName = Shapes::StringShape.new(name: 'HubContentName')
+    HubContentSearchKeyword = Shapes::StringShape.new(name: 'HubContentSearchKeyword')
     HubContentSearchKeywordList = Shapes::ListShape.new(name: 'HubContentSearchKeywordList')
     HubContentSortBy = Shapes::StringShape.new(name: 'HubContentSortBy')
     HubContentStatus = Shapes::StringShape.new(name: 'HubContentStatus')
@@ -1515,6 +1526,8 @@ module Aws::SageMaker
     ListLineageGroupsRequest = Shapes::StructureShape.new(name: 'ListLineageGroupsRequest')
     ListLineageGroupsResponse = Shapes::StructureShape.new(name: 'ListLineageGroupsResponse')
     ListMaxResults = Shapes::IntegerShape.new(name: 'ListMaxResults')
+    ListMlflowAppsRequest = Shapes::StructureShape.new(name: 'ListMlflowAppsRequest')
+    ListMlflowAppsResponse = Shapes::StructureShape.new(name: 'ListMlflowAppsResponse')
     ListMlflowTrackingServersRequest = Shapes::StructureShape.new(name: 'ListMlflowTrackingServersRequest')
     ListMlflowTrackingServersResponse = Shapes::StructureShape.new(name: 'ListMlflowTrackingServersResponse')
     ListModelBiasJobDefinitionsRequest = Shapes::StructureShape.new(name: 'ListModelBiasJobDefinitionsRequest')
@@ -1609,6 +1622,7 @@ module Aws::SageMaker
     LongS3Uri = Shapes::StringShape.new(name: 'LongS3Uri')
     MIGProfileType = Shapes::StringShape.new(name: 'MIGProfileType')
     MLFramework = Shapes::StringShape.new(name: 'MLFramework')
+    MaintenanceStatus = Shapes::StringShape.new(name: 'MaintenanceStatus')
     MajorMinorVersion = Shapes::StringShape.new(name: 'MajorMinorVersion')
     ManagedInstanceScalingMaxInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMaxInstanceCount')
     ManagedInstanceScalingMinInstanceCount = Shapes::IntegerShape.new(name: 'ManagedInstanceScalingMinInstanceCount')
@@ -1657,6 +1671,12 @@ module Aws::SageMaker
     MinimumInstanceMetadataServiceVersion = Shapes::StringShape.new(name: 'MinimumInstanceMetadataServiceVersion')
     MlReservationArn = Shapes::StringShape.new(name: 'MlReservationArn')
     MlTools = Shapes::StringShape.new(name: 'MlTools')
+    MlflowAppArn = Shapes::StringShape.new(name: 'MlflowAppArn')
+    MlflowAppName = Shapes::StringShape.new(name: 'MlflowAppName')
+    MlflowAppStatus = Shapes::StringShape.new(name: 'MlflowAppStatus')
+    MlflowAppSummaries = Shapes::ListShape.new(name: 'MlflowAppSummaries')
+    MlflowAppSummary = Shapes::StructureShape.new(name: 'MlflowAppSummary')
+    MlflowAppUrl = Shapes::StringShape.new(name: 'MlflowAppUrl')
     MlflowVersion = Shapes::StringShape.new(name: 'MlflowVersion')
     Model = Shapes::StructureShape.new(name: 'Model')
     ModelAccessConfig = Shapes::StructureShape.new(name: 'ModelAccessConfig')
@@ -1758,6 +1778,7 @@ module Aws::SageMaker
     ModelQualityJobInput = Shapes::StructureShape.new(name: 'ModelQualityJobInput')
     ModelQuantizationConfig = Shapes::StructureShape.new(name: 'ModelQuantizationConfig')
     ModelRegisterSettings = Shapes::StructureShape.new(name: 'ModelRegisterSettings')
+    ModelRegistrationMode = Shapes::StringShape.new(name: 'ModelRegistrationMode')
     ModelSetupTime = Shapes::IntegerShape.new(name: 'ModelSetupTime')
     ModelShardingConfig = Shapes::StructureShape.new(name: 'ModelShardingConfig')
     ModelSortKey = Shapes::StringShape.new(name: 'ModelSortKey')
@@ -2305,6 +2326,7 @@ module Aws::SageMaker
     SortExperimentsBy = Shapes::StringShape.new(name: 'SortExperimentsBy')
     SortInferenceExperimentsBy = Shapes::StringShape.new(name: 'SortInferenceExperimentsBy')
     SortLineageGroupsBy = Shapes::StringShape.new(name: 'SortLineageGroupsBy')
+    SortMlflowAppBy = Shapes::StringShape.new(name: 'SortMlflowAppBy')
     SortOrder = Shapes::StringShape.new(name: 'SortOrder')
     SortPipelineExecutionsBy = Shapes::StringShape.new(name: 'SortPipelineExecutionsBy')
     SortPipelinesBy = Shapes::StringShape.new(name: 'SortPipelinesBy')
@@ -2645,6 +2667,8 @@ module Aws::SageMaker
     UpdateInferenceComponentRuntimeConfigOutput = Shapes::StructureShape.new(name: 'UpdateInferenceComponentRuntimeConfigOutput')
     UpdateInferenceExperimentRequest = Shapes::StructureShape.new(name: 'UpdateInferenceExperimentRequest')
     UpdateInferenceExperimentResponse = Shapes::StructureShape.new(name: 'UpdateInferenceExperimentResponse')
+    UpdateMlflowAppRequest = Shapes::StructureShape.new(name: 'UpdateMlflowAppRequest')
+    UpdateMlflowAppResponse = Shapes::StructureShape.new(name: 'UpdateMlflowAppResponse')
     UpdateMlflowTrackingServerRequest = Shapes::StructureShape.new(name: 'UpdateMlflowTrackingServerRequest')
     UpdateMlflowTrackingServerResponse = Shapes::StructureShape.new(name: 'UpdateMlflowTrackingServerResponse')
     UpdateModelCardRequest = Shapes::StructureShape.new(name: 'UpdateModelCardRequest')
@@ -3715,7 +3739,7 @@ module Aws::SageMaker
 
     ClusterOnDemandOptions.struct_class = Types::ClusterOnDemandOptions
 
-    ClusterOrchestrator.add_member(:eks, Shapes::ShapeRef.new(shape: ClusterOrchestratorEksConfig, required: true, location_name: "Eks"))
+    ClusterOrchestrator.add_member(:eks, Shapes::ShapeRef.new(shape: ClusterOrchestratorEksConfig, location_name: "Eks"))
     ClusterOrchestrator.struct_class = Types::ClusterOrchestrator
 
     ClusterOrchestratorEksConfig.add_member(:cluster_arn, Shapes::ShapeRef.new(shape: EksClusterArn, required: true, location_name: "ClusterArn"))
@@ -4372,6 +4396,19 @@ module Aws::SageMaker
     CreateLabelingJobResponse.add_member(:labeling_job_arn, Shapes::ShapeRef.new(shape: LabelingJobArn, required: true, location_name: "LabelingJobArn"))
     CreateLabelingJobResponse.struct_class = Types::CreateLabelingJobResponse
 
+    CreateMlflowAppRequest.add_member(:name, Shapes::ShapeRef.new(shape: MlflowAppName, required: true, location_name: "Name"))
+    CreateMlflowAppRequest.add_member(:artifact_store_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "ArtifactStoreUri"))
+    CreateMlflowAppRequest.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, required: true, location_name: "RoleArn"))
+    CreateMlflowAppRequest.add_member(:model_registration_mode, Shapes::ShapeRef.new(shape: ModelRegistrationMode, location_name: "ModelRegistrationMode"))
+    CreateMlflowAppRequest.add_member(:weekly_maintenance_window_start, Shapes::ShapeRef.new(shape: WeeklyMaintenanceWindowStart, location_name: "WeeklyMaintenanceWindowStart"))
+    CreateMlflowAppRequest.add_member(:account_default_status, Shapes::ShapeRef.new(shape: AccountDefaultStatus, location_name: "AccountDefaultStatus"))
+    CreateMlflowAppRequest.add_member(:default_domain_id_list, Shapes::ShapeRef.new(shape: DefaultDomainIdList, location_name: "DefaultDomainIdList"))
+    CreateMlflowAppRequest.add_member(:tags, Shapes::ShapeRef.new(shape: TagList, location_name: "Tags"))
+    CreateMlflowAppRequest.struct_class = Types::CreateMlflowAppRequest
+
+    CreateMlflowAppResponse.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, location_name: "Arn"))
+    CreateMlflowAppResponse.struct_class = Types::CreateMlflowAppResponse
+
     CreateMlflowTrackingServerRequest.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: TrackingServerName, required: true, location_name: "TrackingServerName"))
     CreateMlflowTrackingServerRequest.add_member(:artifact_store_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "ArtifactStoreUri"))
     CreateMlflowTrackingServerRequest.add_member(:tracking_server_size, Shapes::ShapeRef.new(shape: TrackingServerSize, location_name: "TrackingServerSize"))
@@ -4602,6 +4639,14 @@ module Aws::SageMaker
 
     CreatePresignedDomainUrlResponse.add_member(:authorized_url, Shapes::ShapeRef.new(shape: PresignedDomainUrl, location_name: "AuthorizedUrl"))
     CreatePresignedDomainUrlResponse.struct_class = Types::CreatePresignedDomainUrlResponse
+
+    CreatePresignedMlflowAppUrlRequest.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, required: true, location_name: "Arn"))
+    CreatePresignedMlflowAppUrlRequest.add_member(:expires_in_seconds, Shapes::ShapeRef.new(shape: ExpiresInSeconds, location_name: "ExpiresInSeconds"))
+    CreatePresignedMlflowAppUrlRequest.add_member(:session_expiration_duration_in_seconds, Shapes::ShapeRef.new(shape: SessionExpirationDurationInSeconds, location_name: "SessionExpirationDurationInSeconds"))
+    CreatePresignedMlflowAppUrlRequest.struct_class = Types::CreatePresignedMlflowAppUrlRequest
+
+    CreatePresignedMlflowAppUrlResponse.add_member(:authorized_url, Shapes::ShapeRef.new(shape: MlflowAppUrl, location_name: "AuthorizedUrl"))
+    CreatePresignedMlflowAppUrlResponse.struct_class = Types::CreatePresignedMlflowAppUrlResponse
 
     CreatePresignedMlflowTrackingServerUrlRequest.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: TrackingServerName, required: true, location_name: "TrackingServerName"))
     CreatePresignedMlflowTrackingServerUrlRequest.add_member(:expires_in_seconds, Shapes::ShapeRef.new(shape: ExpiresInSeconds, location_name: "ExpiresInSeconds"))
@@ -4922,6 +4967,8 @@ module Aws::SageMaker
 
     DebugRuleEvaluationStatuses.member = Shapes::ShapeRef.new(shape: DebugRuleEvaluationStatus)
 
+    DefaultDomainIdList.member = Shapes::ShapeRef.new(shape: DomainId)
+
     DefaultEbsStorageSettings.add_member(:default_ebs_volume_size_in_gb, Shapes::ShapeRef.new(shape: SpaceEbsVolumeSizeInGb, required: true, location_name: "DefaultEbsVolumeSizeInGb"))
     DefaultEbsStorageSettings.add_member(:maximum_ebs_volume_size_in_gb, Shapes::ShapeRef.new(shape: SpaceEbsVolumeSizeInGb, required: true, location_name: "MaximumEbsVolumeSizeInGb"))
     DefaultEbsStorageSettings.struct_class = Types::DefaultEbsStorageSettings
@@ -5076,6 +5123,12 @@ module Aws::SageMaker
 
     DeleteInferenceExperimentResponse.add_member(:inference_experiment_arn, Shapes::ShapeRef.new(shape: InferenceExperimentArn, required: true, location_name: "InferenceExperimentArn"))
     DeleteInferenceExperimentResponse.struct_class = Types::DeleteInferenceExperimentResponse
+
+    DeleteMlflowAppRequest.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, required: true, location_name: "Arn"))
+    DeleteMlflowAppRequest.struct_class = Types::DeleteMlflowAppRequest
+
+    DeleteMlflowAppResponse.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, location_name: "Arn"))
+    DeleteMlflowAppResponse.struct_class = Types::DeleteMlflowAppResponse
 
     DeleteMlflowTrackingServerRequest.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: TrackingServerName, required: true, location_name: "TrackingServerName"))
     DeleteMlflowTrackingServerRequest.struct_class = Types::DeleteMlflowTrackingServerRequest
@@ -5911,6 +5964,26 @@ module Aws::SageMaker
     DescribeLineageGroupResponse.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
     DescribeLineageGroupResponse.add_member(:last_modified_by, Shapes::ShapeRef.new(shape: UserContext, location_name: "LastModifiedBy"))
     DescribeLineageGroupResponse.struct_class = Types::DescribeLineageGroupResponse
+
+    DescribeMlflowAppRequest.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, required: true, location_name: "Arn"))
+    DescribeMlflowAppRequest.struct_class = Types::DescribeMlflowAppRequest
+
+    DescribeMlflowAppResponse.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, location_name: "Arn"))
+    DescribeMlflowAppResponse.add_member(:name, Shapes::ShapeRef.new(shape: MlflowAppName, location_name: "Name"))
+    DescribeMlflowAppResponse.add_member(:artifact_store_uri, Shapes::ShapeRef.new(shape: S3Uri, location_name: "ArtifactStoreUri"))
+    DescribeMlflowAppResponse.add_member(:mlflow_version, Shapes::ShapeRef.new(shape: MlflowVersion, location_name: "MlflowVersion"))
+    DescribeMlflowAppResponse.add_member(:role_arn, Shapes::ShapeRef.new(shape: RoleArn, location_name: "RoleArn"))
+    DescribeMlflowAppResponse.add_member(:status, Shapes::ShapeRef.new(shape: MlflowAppStatus, location_name: "Status"))
+    DescribeMlflowAppResponse.add_member(:model_registration_mode, Shapes::ShapeRef.new(shape: ModelRegistrationMode, location_name: "ModelRegistrationMode"))
+    DescribeMlflowAppResponse.add_member(:account_default_status, Shapes::ShapeRef.new(shape: AccountDefaultStatus, location_name: "AccountDefaultStatus"))
+    DescribeMlflowAppResponse.add_member(:default_domain_id_list, Shapes::ShapeRef.new(shape: DefaultDomainIdList, location_name: "DefaultDomainIdList"))
+    DescribeMlflowAppResponse.add_member(:creation_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreationTime"))
+    DescribeMlflowAppResponse.add_member(:created_by, Shapes::ShapeRef.new(shape: UserContext, location_name: "CreatedBy"))
+    DescribeMlflowAppResponse.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
+    DescribeMlflowAppResponse.add_member(:last_modified_by, Shapes::ShapeRef.new(shape: UserContext, location_name: "LastModifiedBy"))
+    DescribeMlflowAppResponse.add_member(:weekly_maintenance_window_start, Shapes::ShapeRef.new(shape: WeeklyMaintenanceWindowStart, location_name: "WeeklyMaintenanceWindowStart"))
+    DescribeMlflowAppResponse.add_member(:maintenance_status, Shapes::ShapeRef.new(shape: MaintenanceStatus, location_name: "MaintenanceStatus"))
+    DescribeMlflowAppResponse.struct_class = Types::DescribeMlflowAppResponse
 
     DescribeMlflowTrackingServerRequest.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: TrackingServerName, required: true, location_name: "TrackingServerName"))
     DescribeMlflowTrackingServerRequest.struct_class = Types::DescribeMlflowTrackingServerRequest
@@ -7177,7 +7250,7 @@ module Aws::SageMaker
 
     HubContentInfoList.member = Shapes::ShapeRef.new(shape: HubContentInfo)
 
-    HubContentSearchKeywordList.member = Shapes::ShapeRef.new(shape: HubSearchKeyword)
+    HubContentSearchKeywordList.member = Shapes::ShapeRef.new(shape: HubContentSearchKeyword)
 
     HubInfo.add_member(:hub_name, Shapes::ShapeRef.new(shape: HubName, required: true, location_name: "HubName"))
     HubInfo.add_member(:hub_arn, Shapes::ShapeRef.new(shape: HubArn, required: true, location_name: "HubArn"))
@@ -8410,6 +8483,22 @@ module Aws::SageMaker
     ListLineageGroupsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
     ListLineageGroupsResponse.struct_class = Types::ListLineageGroupsResponse
 
+    ListMlflowAppsRequest.add_member(:created_after, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreatedAfter"))
+    ListMlflowAppsRequest.add_member(:created_before, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreatedBefore"))
+    ListMlflowAppsRequest.add_member(:status, Shapes::ShapeRef.new(shape: MlflowAppStatus, location_name: "Status"))
+    ListMlflowAppsRequest.add_member(:mlflow_version, Shapes::ShapeRef.new(shape: MlflowVersion, location_name: "MlflowVersion"))
+    ListMlflowAppsRequest.add_member(:default_for_domain_id, Shapes::ShapeRef.new(shape: String, location_name: "DefaultForDomainId"))
+    ListMlflowAppsRequest.add_member(:account_default_status, Shapes::ShapeRef.new(shape: AccountDefaultStatus, location_name: "AccountDefaultStatus"))
+    ListMlflowAppsRequest.add_member(:sort_by, Shapes::ShapeRef.new(shape: SortMlflowAppBy, location_name: "SortBy"))
+    ListMlflowAppsRequest.add_member(:sort_order, Shapes::ShapeRef.new(shape: SortOrder, location_name: "SortOrder"))
+    ListMlflowAppsRequest.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    ListMlflowAppsRequest.add_member(:max_results, Shapes::ShapeRef.new(shape: MaxResults, location_name: "MaxResults"))
+    ListMlflowAppsRequest.struct_class = Types::ListMlflowAppsRequest
+
+    ListMlflowAppsResponse.add_member(:summaries, Shapes::ShapeRef.new(shape: MlflowAppSummaries, location_name: "Summaries"))
+    ListMlflowAppsResponse.add_member(:next_token, Shapes::ShapeRef.new(shape: NextToken, location_name: "NextToken"))
+    ListMlflowAppsResponse.struct_class = Types::ListMlflowAppsResponse
+
     ListMlflowTrackingServersRequest.add_member(:created_after, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreatedAfter"))
     ListMlflowTrackingServersRequest.add_member(:created_before, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreatedBefore"))
     ListMlflowTrackingServersRequest.add_member(:tracking_server_status, Shapes::ShapeRef.new(shape: TrackingServerStatus, location_name: "TrackingServerStatus"))
@@ -9021,6 +9110,16 @@ module Aws::SageMaker
     MetricsSource.add_member(:content_digest, Shapes::ShapeRef.new(shape: ContentDigest, location_name: "ContentDigest"))
     MetricsSource.add_member(:s3_uri, Shapes::ShapeRef.new(shape: S3Uri, required: true, location_name: "S3Uri"))
     MetricsSource.struct_class = Types::MetricsSource
+
+    MlflowAppSummaries.member = Shapes::ShapeRef.new(shape: MlflowAppSummary)
+
+    MlflowAppSummary.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, location_name: "Arn"))
+    MlflowAppSummary.add_member(:name, Shapes::ShapeRef.new(shape: MlflowAppName, location_name: "Name"))
+    MlflowAppSummary.add_member(:status, Shapes::ShapeRef.new(shape: MlflowAppStatus, location_name: "Status"))
+    MlflowAppSummary.add_member(:creation_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "CreationTime"))
+    MlflowAppSummary.add_member(:last_modified_time, Shapes::ShapeRef.new(shape: Timestamp, location_name: "LastModifiedTime"))
+    MlflowAppSummary.add_member(:mlflow_version, Shapes::ShapeRef.new(shape: MlflowVersion, location_name: "MlflowVersion"))
+    MlflowAppSummary.struct_class = Types::MlflowAppSummary
 
     Model.add_member(:model_name, Shapes::ShapeRef.new(shape: ModelName, location_name: "ModelName"))
     Model.add_member(:primary_container, Shapes::ShapeRef.new(shape: ContainerDefinition, location_name: "PrimaryContainer"))
@@ -11774,6 +11873,18 @@ module Aws::SageMaker
     UpdateInferenceExperimentResponse.add_member(:inference_experiment_arn, Shapes::ShapeRef.new(shape: InferenceExperimentArn, required: true, location_name: "InferenceExperimentArn"))
     UpdateInferenceExperimentResponse.struct_class = Types::UpdateInferenceExperimentResponse
 
+    UpdateMlflowAppRequest.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, required: true, location_name: "Arn"))
+    UpdateMlflowAppRequest.add_member(:name, Shapes::ShapeRef.new(shape: MlflowAppName, location_name: "Name"))
+    UpdateMlflowAppRequest.add_member(:artifact_store_uri, Shapes::ShapeRef.new(shape: S3Uri, location_name: "ArtifactStoreUri"))
+    UpdateMlflowAppRequest.add_member(:model_registration_mode, Shapes::ShapeRef.new(shape: ModelRegistrationMode, location_name: "ModelRegistrationMode"))
+    UpdateMlflowAppRequest.add_member(:weekly_maintenance_window_start, Shapes::ShapeRef.new(shape: WeeklyMaintenanceWindowStart, location_name: "WeeklyMaintenanceWindowStart"))
+    UpdateMlflowAppRequest.add_member(:default_domain_id_list, Shapes::ShapeRef.new(shape: DefaultDomainIdList, location_name: "DefaultDomainIdList"))
+    UpdateMlflowAppRequest.add_member(:account_default_status, Shapes::ShapeRef.new(shape: AccountDefaultStatus, location_name: "AccountDefaultStatus"))
+    UpdateMlflowAppRequest.struct_class = Types::UpdateMlflowAppRequest
+
+    UpdateMlflowAppResponse.add_member(:arn, Shapes::ShapeRef.new(shape: MlflowAppArn, location_name: "Arn"))
+    UpdateMlflowAppResponse.struct_class = Types::UpdateMlflowAppResponse
+
     UpdateMlflowTrackingServerRequest.add_member(:tracking_server_name, Shapes::ShapeRef.new(shape: TrackingServerName, required: true, location_name: "TrackingServerName"))
     UpdateMlflowTrackingServerRequest.add_member(:artifact_store_uri, Shapes::ShapeRef.new(shape: S3Uri, location_name: "ArtifactStoreUri"))
     UpdateMlflowTrackingServerRequest.add_member(:tracking_server_size, Shapes::ShapeRef.new(shape: TrackingServerSize, location_name: "TrackingServerSize"))
@@ -12552,6 +12663,15 @@ module Aws::SageMaker
         o.errors << Shapes::ShapeRef.new(shape: ResourceLimitExceeded)
       end)
 
+      api.add_operation(:create_mlflow_app, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreateMlflowApp"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreateMlflowAppRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreateMlflowAppResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceLimitExceeded)
+      end)
+
       api.add_operation(:create_mlflow_tracking_server, Seahorse::Model::Operation.new.tap do |o|
         o.name = "CreateMlflowTrackingServer"
         o.http_method = "POST"
@@ -12714,6 +12834,15 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: CreatePresignedDomainUrlRequest)
         o.output = Shapes::ShapeRef.new(shape: CreatePresignedDomainUrlResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
+      api.add_operation(:create_presigned_mlflow_app_url, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "CreatePresignedMlflowAppUrl"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: CreatePresignedMlflowAppUrlRequest)
+        o.output = Shapes::ShapeRef.new(shape: CreatePresignedMlflowAppUrlResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)
 
@@ -13133,6 +13262,15 @@ module Aws::SageMaker
         o.input = Shapes::ShapeRef.new(shape: DeleteInferenceExperimentRequest)
         o.output = Shapes::ShapeRef.new(shape: DeleteInferenceExperimentResponse)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
+      api.add_operation(:delete_mlflow_app, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DeleteMlflowApp"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DeleteMlflowAppRequest)
+        o.output = Shapes::ShapeRef.new(shape: DeleteMlflowAppResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)
 
@@ -13714,6 +13852,15 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: DescribeLineageGroupRequest)
         o.output = Shapes::ShapeRef.new(shape: DescribeLineageGroupResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
+      api.add_operation(:describe_mlflow_app, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "DescribeMlflowApp"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: DescribeMlflowAppRequest)
+        o.output = Shapes::ShapeRef.new(shape: DescribeMlflowAppResponse)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)
 
@@ -14658,6 +14805,20 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: ListLineageGroupsRequest)
         o.output = Shapes::ShapeRef.new(shape: ListLineageGroupsResponse)
+        o[:pager] = Aws::Pager.new(
+          limit_key: "max_results",
+          tokens: {
+            "next_token" => "next_token"
+          }
+        )
+      end)
+
+      api.add_operation(:list_mlflow_apps, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "ListMlflowApps"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: ListMlflowAppsRequest)
+        o.output = Shapes::ShapeRef.new(shape: ListMlflowAppsResponse)
         o[:pager] = Aws::Pager.new(
           limit_key: "max_results",
           tokens: {
@@ -15814,6 +15975,16 @@ module Aws::SageMaker
         o.http_request_uri = "/"
         o.input = Shapes::ShapeRef.new(shape: UpdateInferenceExperimentRequest)
         o.output = Shapes::ShapeRef.new(shape: UpdateInferenceExperimentResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
+      end)
+
+      api.add_operation(:update_mlflow_app, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "UpdateMlflowApp"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: UpdateMlflowAppRequest)
+        o.output = Shapes::ShapeRef.new(shape: UpdateMlflowAppResponse)
         o.errors << Shapes::ShapeRef.new(shape: ConflictException)
         o.errors << Shapes::ShapeRef.new(shape: ResourceNotFound)
       end)

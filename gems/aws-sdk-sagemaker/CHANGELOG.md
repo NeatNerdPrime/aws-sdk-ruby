@@ -1,6 +1,13 @@
 Unreleased Changes
 ------------------
 
+1.342.0 (2025-12-02)
+------------------
+
+* Feature - Added support for serverless MLflow Apps.
+  
+  Added support for new HubContentTypes (DataSet and JsonDoc) in Private Hub for AI model customization assets, enabling tracking and management of training datasets and evaluators (reward functions/prompts) throughout the ML lifecycle.
+
 1.341.0 (2025-11-21)
 ------------------
 

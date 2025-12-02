@@ -10322,6 +10322,10 @@ module Aws::Bedrock
     #   Set to include video data in the log delivery.
     #   @return [Boolean]
     #
+    # @!attribute [rw] audio_data_delivery_enabled
+    #   Set to include audio data in the log delivery.
+    #   @return [Boolean]
+    #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/LoggingConfig AWS API Documentation
     #
     class LoggingConfig < Struct.new(
@@ -10330,7 +10334,8 @@ module Aws::Bedrock
       :text_data_delivery_enabled,
       :image_data_delivery_enabled,
       :embedding_data_delivery_enabled,
-      :video_data_delivery_enabled)
+      :video_data_delivery_enabled,
+      :audio_data_delivery_enabled)
       SENSITIVE = []
       include Aws::Structure
     end

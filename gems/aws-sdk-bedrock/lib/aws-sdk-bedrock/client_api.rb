@@ -2817,6 +2817,7 @@ module Aws::Bedrock
     LoggingConfig.add_member(:image_data_delivery_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "imageDataDeliveryEnabled"))
     LoggingConfig.add_member(:embedding_data_delivery_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "embeddingDataDeliveryEnabled"))
     LoggingConfig.add_member(:video_data_delivery_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "videoDataDeliveryEnabled"))
+    LoggingConfig.add_member(:audio_data_delivery_enabled, Shapes::ShapeRef.new(shape: Boolean, location_name: "audioDataDeliveryEnabled"))
     LoggingConfig.struct_class = Types::LoggingConfig
 
     MarketplaceModelEndpoint.add_member(:endpoint_arn, Shapes::ShapeRef.new(shape: Arn, required: true, location_name: "endpointArn"))

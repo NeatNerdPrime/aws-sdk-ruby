@@ -284,6 +284,7 @@ module Aws
   autoload :NetworkMonitor, 'aws-sdk-networkmonitor'
   autoload :Notifications, 'aws-sdk-notifications'
   autoload :NotificationsContacts, 'aws-sdk-notificationscontacts'
+  autoload :NovaAct, 'aws-sdk-novaact'
   autoload :OAM, 'aws-sdk-oam'
   autoload :OSIS, 'aws-sdk-osis'
   autoload :ObservabilityAdmin, 'aws-sdk-observabilityadmin'

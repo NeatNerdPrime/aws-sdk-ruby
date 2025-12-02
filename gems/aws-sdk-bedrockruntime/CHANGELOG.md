@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.68.0 (2025-12-02)
+------------------
+
+* Feature - Adds support for Audio Blocks and Streaming Image Output plus new Stop Reasons of malformed_model_output and malformed_tool_use.
+
 1.67.0 (2025-11-26)
 ------------------
 

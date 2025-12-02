@@ -5467,12 +5467,35 @@ module Aws::SageMaker
     #   @return [Types::ClusterCapacityRequirements]
     #
     # @!attribute [rw] target_state_count
-    #   The number of nodes running a specific image ID since the last
-    #   software update request.
+    #   Represents the number of running nodes using the desired Image ID.
+    #
+    #   1.  **During software update operations:** This count shows the
+    #       number of nodes running on the desired Image ID. If a rollback
+    #       occurs, the current image ID and desired image ID (both included
+    #       in the describe cluster response) swap values. The
+    #       TargetStateCount then shows the number of nodes running on the
+    #       newly designated desired image ID (which was previously the
+    #       current image ID).
+    #
+    #   2.  **During simultaneous scaling and software update operations:**
+    #       This count shows the number of instances running on the desired
+    #       image ID, including any new instances created as part of the
+    #       scaling request. New nodes are always created using the desired
+    #       image ID, so TargetStateCount reflects the total count of nodes
+    #       running on the desired image ID, even during rollback scenarios.
     #   @return [Integer]
     #
     # @!attribute [rw] software_update_status
     #   Status of the last software udpate request.
+    #
+    #   Status transitions follow these possible sequences:
+    #
+    #   * Pending -&gt; InProgress -&gt; Succeeded
+    #
+    #   * Pending -&gt; InProgress -&gt; RollbackInProgress -&gt;
+    #     RollbackComplete
+    #
+    #   * Pending -&gt; InProgress -&gt; RollbackInProgress -&gt; Failed
     #   @return [String]
     #
     # @!attribute [rw] active_software_update_config
@@ -10287,6 +10310,80 @@ module Aws::SageMaker
       include Aws::Structure
     end
 
+    # @!attribute [rw] name
+    #   A string identifying the MLflow app name. This string is not part of
+    #   the tracking server ARN.
+    #   @return [String]
+    #
+    # @!attribute [rw] artifact_store_uri
+    #   The S3 URI for a general purpose bucket to use as the MLflow App
+    #   artifact store.
+    #   @return [String]
+    #
+    # @!attribute [rw] role_arn
+    #   The Amazon Resource Name (ARN) for an IAM role in your account that
+    #   the MLflow App uses to access the artifact store in Amazon S3. The
+    #   role should have the `AmazonS3FullAccess` permission.
+    #   @return [String]
+    #
+    # @!attribute [rw] model_registration_mode
+    #   Whether to enable or disable automatic registration of new MLflow
+    #   models to the SageMaker Model Registry. To enable automatic model
+    #   registration, set this value to `AutoModelRegistrationEnabled`. To
+    #   disable automatic model registration, set this value to
+    #   `AutoModelRegistrationDisabled`. If not specified,
+    #   `AutomaticModelRegistration` defaults to
+    #   `AutoModelRegistrationDisabled`.
+    #   @return [String]
+    #
+    # @!attribute [rw] weekly_maintenance_window_start
+    #   The day and time of the week in Coordinated Universal Time (UTC)
+    #   24-hour standard time that weekly maintenance updates are scheduled.
+    #   For example: TUE:03:30.
+    #   @return [String]
+    #
+    # @!attribute [rw] account_default_status
+    #   Indicates whether this MLflow app is the default for the entire
+    #   account.
+    #   @return [String]
+    #
+    # @!attribute [rw] default_domain_id_list
+    #   List of SageMaker domain IDs for which this MLflow App is used as
+    #   the default.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] tags
+    #   Tags consisting of key-value pairs used to manage metadata for the
+    #   MLflow App.
+    #   @return [Array<Types::Tag>]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateMlflowAppRequest AWS API Documentation
+    #
+    class CreateMlflowAppRequest < Struct.new(
+      :name,
+      :artifact_store_uri,
+      :role_arn,
+      :model_registration_mode,
+      :weekly_maintenance_window_start,
+      :account_default_status,
+      :default_domain_id_list,
+      :tags)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreateMlflowAppResponse AWS API Documentation
+    #
+    class CreateMlflowAppResponse < Struct.new(
+      :arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] tracking_server_name
     #   A unique string identifying the tracking server name. This string is
     #   part of the tracking server ARN.
@@ -11761,6 +11858,42 @@ module Aws::SageMaker
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreatePresignedDomainUrlResponse AWS API Documentation
     #
     class CreatePresignedDomainUrlResponse < Struct.new(
+      :authorized_url)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App to connect to your MLflow UI.
+    #   @return [String]
+    #
+    # @!attribute [rw] expires_in_seconds
+    #   The duration in seconds that your presigned URL is valid. The
+    #   presigned URL can be used only once.
+    #   @return [Integer]
+    #
+    # @!attribute [rw] session_expiration_duration_in_seconds
+    #   The duration in seconds that your presigned URL is valid. The
+    #   presigned URL can be used only once.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreatePresignedMlflowAppUrlRequest AWS API Documentation
+    #
+    class CreatePresignedMlflowAppUrlRequest < Struct.new(
+      :arn,
+      :expires_in_seconds,
+      :session_expiration_duration_in_seconds)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] authorized_url
+    #   A presigned URL with an authorization token.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/CreatePresignedMlflowAppUrlResponse AWS API Documentation
+    #
+    class CreatePresignedMlflowAppUrlResponse < Struct.new(
       :authorized_url)
       SENSITIVE = []
       include Aws::Structure
@@ -14316,6 +14449,30 @@ module Aws::SageMaker
     #
     class DeleteInferenceExperimentResponse < Struct.new(
       :inference_experiment_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App to delete.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteMlflowAppRequest AWS API Documentation
+    #
+    class DeleteMlflowAppRequest < Struct.new(
+      :arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the deleted MLflow App.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DeleteMlflowAppResponse AWS API Documentation
+    #
+    class DeleteMlflowAppResponse < Struct.new(
+      :arn)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -18694,6 +18851,107 @@ module Aws::SageMaker
       :created_by,
       :last_modified_time,
       :last_modified_by)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App for which to get information.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeMlflowAppRequest AWS API Documentation
+    #
+    class DescribeMlflowAppRequest < Struct.new(
+      :arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] artifact_store_uri
+    #   The S3 URI of the general purpose bucket used as the MLflow App
+    #   artifact store.
+    #   @return [String]
+    #
+    # @!attribute [rw] mlflow_version
+    #   The MLflow version used.
+    #   @return [String]
+    #
+    # @!attribute [rw] role_arn
+    #   The Amazon Resource Name (ARN) for an IAM role in your account that
+    #   the MLflow App uses to access the artifact store in Amazon S3.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The current creation status of the described MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] model_registration_mode
+    #   Whether automatic registration of new MLflow models to the SageMaker
+    #   Model Registry is enabled.
+    #   @return [String]
+    #
+    # @!attribute [rw] account_default_status
+    #   Indicates whether this MLflow app is the default for the entire
+    #   account.
+    #   @return [String]
+    #
+    # @!attribute [rw] default_domain_id_list
+    #   List of SageMaker Domain IDs for which this MLflow App is the
+    #   default.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] creation_time
+    #   The timestamp when the MLflow App was created.
+    #   @return [Time]
+    #
+    # @!attribute [rw] created_by
+    #   Information about the user who created or modified a SageMaker
+    #   resource.
+    #   @return [Types::UserContext]
+    #
+    # @!attribute [rw] last_modified_time
+    #   The timestamp when the MLflow App was last modified.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_modified_by
+    #   Information about the user who created or modified a SageMaker
+    #   resource.
+    #   @return [Types::UserContext]
+    #
+    # @!attribute [rw] weekly_maintenance_window_start
+    #   The day and time of the week when weekly maintenance occurs.
+    #   @return [String]
+    #
+    # @!attribute [rw] maintenance_status
+    #   Current maintenance status of the MLflow App.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribeMlflowAppResponse AWS API Documentation
+    #
+    class DescribeMlflowAppResponse < Struct.new(
+      :arn,
+      :name,
+      :artifact_store_uri,
+      :mlflow_version,
+      :role_arn,
+      :status,
+      :model_registration_mode,
+      :account_default_status,
+      :default_domain_id_list,
+      :creation_time,
+      :created_by,
+      :last_modified_time,
+      :last_modified_by,
+      :weekly_maintenance_window_start,
+      :maintenance_status)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -33455,6 +33713,92 @@ module Aws::SageMaker
     end
 
     # @!attribute [rw] created_after
+    #   Use the `CreatedAfter` filter to only list MLflow Apps created after
+    #   a specific date and time. Listed MLflow Apps are shown with a date
+    #   and time such as `"2024-03-16T01:46:56+00:00"`. The `CreatedAfter`
+    #   parameter takes in a Unix timestamp.
+    #   @return [Time]
+    #
+    # @!attribute [rw] created_before
+    #   Use the `CreatedBefore` filter to only list MLflow Apps created
+    #   before a specific date and time. Listed MLflow Apps are shown with a
+    #   date and time such as `"2024-03-16T01:46:56+00:00"`. The
+    #   `CreatedAfter` parameter takes in a Unix timestamp.
+    #   @return [Time]
+    #
+    # @!attribute [rw] status
+    #   Filter for Mlflow apps with a specific creation status.
+    #   @return [String]
+    #
+    # @!attribute [rw] mlflow_version
+    #   Filter for Mlflow Apps with the specified version.
+    #   @return [String]
+    #
+    # @!attribute [rw] default_for_domain_id
+    #   Filter for MLflow Apps with the specified default SageMaker Domain
+    #   ID.
+    #   @return [String]
+    #
+    # @!attribute [rw] account_default_status
+    #   Filter for MLflow Apps with the specified `AccountDefaultStatus`.
+    #   @return [String]
+    #
+    # @!attribute [rw] sort_by
+    #   Filter for MLflow Apps sorting by name, creation time, or creation
+    #   status.
+    #   @return [String]
+    #
+    # @!attribute [rw] sort_order
+    #   Change the order of the listed MLflow Apps. By default, MLflow Apps
+    #   are listed in `Descending` order by creation time. To change the
+    #   list order, specify `SortOrder` to be `Ascending`.
+    #   @return [String]
+    #
+    # @!attribute [rw] next_token
+    #   If the previous response was truncated, use this token in your next
+    #   request to receive the next set of results.
+    #   @return [String]
+    #
+    # @!attribute [rw] max_results
+    #   The maximum number of MLflow Apps to list.
+    #   @return [Integer]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListMlflowAppsRequest AWS API Documentation
+    #
+    class ListMlflowAppsRequest < Struct.new(
+      :created_after,
+      :created_before,
+      :status,
+      :mlflow_version,
+      :default_for_domain_id,
+      :account_default_status,
+      :sort_by,
+      :sort_order,
+      :next_token,
+      :max_results)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] summaries
+    #   A list of MLflow Apps according to chosen filters.
+    #   @return [Array<Types::MlflowAppSummary>]
+    #
+    # @!attribute [rw] next_token
+    #   If the previous response was truncated, you will receive this token.
+    #   Use it in your next request to receive the next set of results.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListMlflowAppsResponse AWS API Documentation
+    #
+    class ListMlflowAppsResponse < Struct.new(
+      :summaries,
+      :next_token)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] created_after
     #   Use the `CreatedAfter` filter to only list tracking servers created
     #   after a specific date and time. Listed tracking servers are shown
     #   with a date and time such as `"2024-03-16T01:46:56+00:00"`. The
@@ -36626,6 +36970,45 @@ module Aws::SageMaker
       :content_type,
       :content_digest,
       :s3_uri)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # The summary of the Mlflow App to list.
+    #
+    # @!attribute [rw] arn
+    #   The ARN of a listed MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] status
+    #   The status of the MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] creation_time
+    #   The creation time of a listed MLflow App.
+    #   @return [Time]
+    #
+    # @!attribute [rw] last_modified_time
+    #   The last modified time of a listed MLflow App.
+    #   @return [Time]
+    #
+    # @!attribute [rw] mlflow_version
+    #   The version of a listed MLflow App.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/MlflowAppSummary AWS API Documentation
+    #
+    class MlflowAppSummary < Struct.new(
+      :arn,
+      :name,
+      :status,
+      :creation_time,
+      :last_modified_time,
+      :mlflow_version)
       SENSITIVE = []
       include Aws::Structure
     end
@@ -52786,6 +53169,71 @@ module Aws::SageMaker
     #
     class UpdateInferenceExperimentResponse < Struct.new(
       :inference_experiment_arn)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the MLflow App to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] name
+    #   The name of the MLflow App to update.
+    #   @return [String]
+    #
+    # @!attribute [rw] artifact_store_uri
+    #   The new S3 URI for the general purpose bucket to use as the artifact
+    #   store for the MLflow App.
+    #   @return [String]
+    #
+    # @!attribute [rw] model_registration_mode
+    #   Whether to enable or disable automatic registration of new MLflow
+    #   models to the SageMaker Model Registry. To enable automatic model
+    #   registration, set this value to `AutoModelRegistrationEnabled`. To
+    #   disable automatic model registration, set this value to
+    #   `AutoModelRegistrationDisabled`. If not specified,
+    #   `AutomaticModelRegistration` defaults to
+    #   `AutoModelRegistrationEnabled`
+    #   @return [String]
+    #
+    # @!attribute [rw] weekly_maintenance_window_start
+    #   The new weekly maintenance window start day and time to update. The
+    #   maintenance window day and time should be in Coordinated Universal
+    #   Time (UTC) 24-hour standard time. For example: TUE:03:30.
+    #   @return [String]
+    #
+    # @!attribute [rw] default_domain_id_list
+    #   List of SageMaker Domain IDs for which this MLflow App is the
+    #   default.
+    #   @return [Array<String>]
+    #
+    # @!attribute [rw] account_default_status
+    #   Indicates whether this this MLflow App is the default for the
+    #   account.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateMlflowAppRequest AWS API Documentation
+    #
+    class UpdateMlflowAppRequest < Struct.new(
+      :arn,
+      :name,
+      :artifact_store_uri,
+      :model_registration_mode,
+      :weekly_maintenance_window_start,
+      :default_domain_id_list,
+      :account_default_status)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] arn
+    #   The ARN of the updated MLflow App.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/UpdateMlflowAppResponse AWS API Documentation
+    #
+    class UpdateMlflowAppResponse < Struct.new(
+      :arn)
       SENSITIVE = []
       include Aws::Structure
     end

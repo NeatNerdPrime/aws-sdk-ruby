@@ -697,6 +697,7 @@ RubyGems.org page under "LINKS" section.
 | Managed integrations for AWS IoT Device Management    | Aws::IoTManagedIntegrations              | aws-sdk-iotmanagedintegrations              | 2025-03-03  |
 | Migration Hub Strategy Recommendations                | Aws::MigrationHubStrategyRecommendations | aws-sdk-migrationhubstrategyrecommendations | 2020-02-19  |
 | Network Flow Monitor                                  | Aws::NetworkFlowMonitor                  | aws-sdk-networkflowmonitor                  | 2023-04-19  |
+| Nova Act Service                                      | Aws::NovaAct                             | aws-sdk-novaact                             | 2025-08-22  |
 | OpenSearch Service Serverless                         | Aws::OpenSearchServerless                | aws-sdk-opensearchserverless                | 2021-11-01  |
 | Partner Central Account API                           | Aws::PartnerCentralAccount               | aws-sdk-partnercentralaccount               | 2025-04-04  |
 | Partner Central Benefits API                          | Aws::PartnerCentralBenefits              | aws-sdk-partnercentralbenefits              | 2018-05-10  |

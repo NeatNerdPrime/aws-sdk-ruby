@@ -890,6 +890,9 @@
   "NotificationsContacts": {
     "models": "notificationscontacts/2018-05-10"
   },
+  "NovaAct": {
+    "models": "nova-act/2025-08-22"
+  },
   "OAM": {
     "models": "oam/2022-06-10"
   },

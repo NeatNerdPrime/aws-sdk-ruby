@@ -4808,6 +4808,7 @@ module Aws::Bedrock
     #   resp.logging_config.image_data_delivery_enabled #=> Boolean
     #   resp.logging_config.embedding_data_delivery_enabled #=> Boolean
     #   resp.logging_config.video_data_delivery_enabled #=> Boolean
+    #   resp.logging_config.audio_data_delivery_enabled #=> Boolean
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/bedrock-2023-04-20/GetModelInvocationLoggingConfiguration AWS API Documentation
     #
@@ -6654,6 +6655,7 @@ module Aws::Bedrock
     #       image_data_delivery_enabled: false,
     #       embedding_data_delivery_enabled: false,
     #       video_data_delivery_enabled: false,
+    #       audio_data_delivery_enabled: false,
     #     },
     #   })
     #
@@ -7736,7 +7738,7 @@ module Aws::Bedrock
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrock'
-      context[:gem_version] = '1.67.0'
+      context[:gem_version] = '1.68.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

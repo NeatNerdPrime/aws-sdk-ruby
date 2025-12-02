@@ -954,6 +954,9 @@ module Aws::BedrockRuntime
     #                   bucket_owner: "AccountId",
     #                 },
     #               },
+    #               error: {
+    #                 message: "String",
+    #               },
     #             },
     #             document: {
     #               format: "pdf", # accepts pdf, csv, doc, docx, xls, xlsx, html, txt, md
@@ -986,6 +989,19 @@ module Aws::BedrockRuntime
     #                 },
     #               },
     #             },
+    #             audio: {
+    #               format: "mp3", # required, accepts mp3, opus, wav, aac, flac, mp4, ogg, mkv, mka, x-aac, m4a, mpeg, mpga, pcm, webm
+    #               source: { # required
+    #                 bytes: "data",
+    #                 s3_location: {
+    #                   uri: "S3Uri", # required
+    #                   bucket_owner: "AccountId",
+    #                 },
+    #               },
+    #               error: {
+    #                 message: "String",
+    #               },
+    #             },
     #             tool_use: {
     #               tool_use_id: "ToolUseId", # required
     #               name: "ToolName", # required
@@ -1008,6 +1024,9 @@ module Aws::BedrockRuntime
     #                         uri: "S3Uri", # required
     #                         bucket_owner: "AccountId",
     #                       },
+    #                     },
+    #                     error: {
+    #                       message: "String",
     #                     },
     #                   },
     #                   document: {
@@ -1228,6 +1247,7 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].image.source.bytes #=> String
     #   resp.output.message.content[0].image.source.s3_location.uri #=> String
     #   resp.output.message.content[0].image.source.s3_location.bucket_owner #=> String
+    #   resp.output.message.content[0].image.error.message #=> String
     #   resp.output.message.content[0].document.format #=> String, one of "pdf", "csv", "doc", "docx", "xls", "xlsx", "html", "txt", "md"
     #   resp.output.message.content[0].document.name #=> String
     #   resp.output.message.content[0].document.source.bytes #=> String
@@ -1242,6 +1262,11 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].video.source.bytes #=> String
     #   resp.output.message.content[0].video.source.s3_location.uri #=> String
     #   resp.output.message.content[0].video.source.s3_location.bucket_owner #=> String
+    #   resp.output.message.content[0].audio.format #=> String, one of "mp3", "opus", "wav", "aac", "flac", "mp4", "ogg", "mkv", "mka", "x-aac", "m4a", "mpeg", "mpga", "pcm", "webm"
+    #   resp.output.message.content[0].audio.source.bytes #=> String
+    #   resp.output.message.content[0].audio.source.s3_location.uri #=> String
+    #   resp.output.message.content[0].audio.source.s3_location.bucket_owner #=> String
+    #   resp.output.message.content[0].audio.error.message #=> String
     #   resp.output.message.content[0].tool_use.tool_use_id #=> String
     #   resp.output.message.content[0].tool_use.name #=> String
     #   resp.output.message.content[0].tool_use.type #=> String, one of "server_tool_use"
@@ -1252,6 +1277,7 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].tool_result.content[0].image.source.bytes #=> String
     #   resp.output.message.content[0].tool_result.content[0].image.source.s3_location.uri #=> String
     #   resp.output.message.content[0].tool_result.content[0].image.source.s3_location.bucket_owner #=> String
+    #   resp.output.message.content[0].tool_result.content[0].image.error.message #=> String
     #   resp.output.message.content[0].tool_result.content[0].document.format #=> String, one of "pdf", "csv", "doc", "docx", "xls", "xlsx", "html", "txt", "md"
     #   resp.output.message.content[0].tool_result.content[0].document.name #=> String
     #   resp.output.message.content[0].tool_result.content[0].document.source.bytes #=> String
@@ -1308,7 +1334,7 @@ module Aws::BedrockRuntime
     #   resp.output.message.content[0].search_result.content #=> Array
     #   resp.output.message.content[0].search_result.content[0].text #=> String
     #   resp.output.message.content[0].search_result.citations.enabled #=> Boolean
-    #   resp.stop_reason #=> String, one of "end_turn", "tool_use", "max_tokens", "stop_sequence", "guardrail_intervened", "content_filtered", "model_context_window_exceeded"
+    #   resp.stop_reason #=> String, one of "end_turn", "tool_use", "max_tokens", "stop_sequence", "guardrail_intervened", "content_filtered", "malformed_model_output", "malformed_tool_use", "model_context_window_exceeded"
     #   resp.usage.input_tokens #=> Integer
     #   resp.usage.output_tokens #=> Integer
     #   resp.usage.total_tokens #=> Integer
@@ -2053,6 +2079,9 @@ module Aws::BedrockRuntime
     #                   bucket_owner: "AccountId",
     #                 },
     #               },
+    #               error: {
+    #                 message: "String",
+    #               },
     #             },
     #             document: {
     #               format: "pdf", # accepts pdf, csv, doc, docx, xls, xlsx, html, txt, md
@@ -2085,6 +2114,19 @@ module Aws::BedrockRuntime
     #                 },
     #               },
     #             },
+    #             audio: {
+    #               format: "mp3", # required, accepts mp3, opus, wav, aac, flac, mp4, ogg, mkv, mka, x-aac, m4a, mpeg, mpga, pcm, webm
+    #               source: { # required
+    #                 bytes: "data",
+    #                 s3_location: {
+    #                   uri: "S3Uri", # required
+    #                   bucket_owner: "AccountId",
+    #                 },
+    #               },
+    #               error: {
+    #                 message: "String",
+    #               },
+    #             },
     #             tool_use: {
     #               tool_use_id: "ToolUseId", # required
     #               name: "ToolName", # required
@@ -2107,6 +2149,9 @@ module Aws::BedrockRuntime
     #                         uri: "S3Uri", # required
     #                         bucket_owner: "AccountId",
     #                       },
+    #                     },
+    #                     error: {
+    #                       message: "String",
     #                     },
     #                   },
     #                   document: {
@@ -2335,6 +2380,7 @@ module Aws::BedrockRuntime
     #   event.start.tool_result.tool_use_id #=> String
     #   event.start.tool_result.type #=> String
     #   event.start.tool_result.status #=> String, one of "success", "error"
+    #   event.start.image.format #=> String, one of "png", "jpeg", "gif", "webp"
     #   event.content_block_index #=> Integer
     #
     #   # For :content_block_delta event available at #on_content_block_delta_event callback and response eventstream enumerator:
@@ -2363,13 +2409,17 @@ module Aws::BedrockRuntime
     #   event.delta.citation.location.search_result_location.search_result_index #=> Integer
     #   event.delta.citation.location.search_result_location.start #=> Integer
     #   event.delta.citation.location.search_result_location.end #=> Integer
+    #   event.delta.image.source.bytes #=> String
+    #   event.delta.image.source.s3_location.uri #=> String
+    #   event.delta.image.source.s3_location.bucket_owner #=> String
+    #   event.delta.image.error.message #=> String
     #   event.content_block_index #=> Integer
     #
     #   # For :content_block_stop event available at #on_content_block_stop_event callback and response eventstream enumerator:
     #   event.content_block_index #=> Integer
     #
     #   # For :message_stop event available at #on_message_stop_event callback and response eventstream enumerator:
-    #   event.stop_reason #=> String, one of "end_turn", "tool_use", "max_tokens", "stop_sequence", "guardrail_intervened", "content_filtered", "model_context_window_exceeded"
+    #   event.stop_reason #=> String, one of "end_turn", "tool_use", "max_tokens", "stop_sequence", "guardrail_intervened", "content_filtered", "malformed_model_output", "malformed_tool_use", "model_context_window_exceeded"
     #
     #   # For :metadata event available at #on_metadata_event callback and response eventstream enumerator:
     #   event.usage.input_tokens #=> Integer
@@ -2844,6 +2894,9 @@ module Aws::BedrockRuntime
     #                       bucket_owner: "AccountId",
     #                     },
     #                   },
+    #                   error: {
+    #                     message: "String",
+    #                   },
     #                 },
     #                 document: {
     #                   format: "pdf", # accepts pdf, csv, doc, docx, xls, xlsx, html, txt, md
@@ -2876,6 +2929,19 @@ module Aws::BedrockRuntime
     #                     },
     #                   },
     #                 },
+    #                 audio: {
+    #                   format: "mp3", # required, accepts mp3, opus, wav, aac, flac, mp4, ogg, mkv, mka, x-aac, m4a, mpeg, mpga, pcm, webm
+    #                   source: { # required
+    #                     bytes: "data",
+    #                     s3_location: {
+    #                       uri: "S3Uri", # required
+    #                       bucket_owner: "AccountId",
+    #                     },
+    #                   },
+    #                   error: {
+    #                     message: "String",
+    #                   },
+    #                 },
     #                 tool_use: {
     #                   tool_use_id: "ToolUseId", # required
     #                   name: "ToolName", # required
@@ -2898,6 +2964,9 @@ module Aws::BedrockRuntime
     #                             uri: "S3Uri", # required
     #                             bucket_owner: "AccountId",
     #                           },
+    #                         },
+    #                         error: {
+    #                           message: "String",
     #                         },
     #                       },
     #                       document: {
@@ -3808,7 +3877,7 @@ module Aws::BedrockRuntime
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-bedrockruntime'
-      context[:gem_version] = '1.67.0'
+      context[:gem_version] = '1.68.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

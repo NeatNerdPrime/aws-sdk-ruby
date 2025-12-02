@@ -522,6 +522,7 @@ module Aws
             'NetworkMonitor' => 'networkmonitor',
             'Notifications' => 'notifications',
             'NotificationsContacts' => 'notifications-contacts',
+            'NovaAct' => 'nova-act',
             'OAM' => 'oam',
             'OSIS' => 'osis',
             'ObservabilityAdmin' => 'observabilityadmin',

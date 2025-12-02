@@ -2597,6 +2597,7 @@ module Aws::Bedrock
       attr_accessor image_data_delivery_enabled: bool
       attr_accessor embedding_data_delivery_enabled: bool
       attr_accessor video_data_delivery_enabled: bool
+      attr_accessor audio_data_delivery_enabled: bool
       SENSITIVE: []
     end
 

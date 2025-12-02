@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+3.249.0 (2025-12-02)
+------------------
+
+* Feature - Added a dependency on the new `aws-sdk-novaact` gem.
+
 3.248.0 (2025-12-01)
 ------------------
 

@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.169.0 (2025-12-02)
+------------------
+
+* Feature - Launching Lambda durable functions - a new feature to build reliable multi-step applications and AI workflows natively within the Lambda developer experience.
+
 1.168.0 (2025-12-01)
 ------------------
 

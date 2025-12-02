@@ -1991,7 +1991,8 @@ module Aws
                                                           text_data_delivery_enabled: bool?,
                                                           image_data_delivery_enabled: bool?,
                                                           embedding_data_delivery_enabled: bool?,
-                                                          video_data_delivery_enabled: bool?
+                                                          video_data_delivery_enabled: bool?,
+                                                          audio_data_delivery_enabled: bool?
                                                         }
                                                       ) -> _PutModelInvocationLoggingConfigurationResponseSuccess
                                                     | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _PutModelInvocationLoggingConfigurationResponseSuccess

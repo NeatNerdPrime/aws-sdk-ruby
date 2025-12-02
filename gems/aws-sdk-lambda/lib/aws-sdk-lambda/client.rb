@@ -754,6 +754,144 @@ module Aws::Lambda
       req.send_request(options)
     end
 
+    # Saves the progress of a [durable function][1] execution during
+    # runtime. This API is used by the Lambda durable functions SDK to
+    # checkpoint completed steps and schedule asynchronous operations. You
+    # typically don't need to call this API directly as the SDK handles
+    # checkpointing automatically.
+    #
+    # Each checkpoint operation consumes the current checkpoint token and
+    # returns a new one for the next checkpoint. This ensures that
+    # checkpoints are applied in the correct order and prevents duplicate or
+    # out-of-order state updates.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :durable_execution_arn
+    #   The Amazon Resource Name (ARN) of the durable execution.
+    #
+    # @option params [required, String] :checkpoint_token
+    #   A unique token that identifies the current checkpoint state. This
+    #   token is provided by the Lambda runtime and must be used to ensure
+    #   checkpoints are applied in the correct order. Each checkpoint
+    #   operation consumes this token and returns a new one.
+    #
+    # @option params [Array<Types::OperationUpdate>] :updates
+    #   An array of state updates to apply during this checkpoint. Each update
+    #   represents a change to the execution state, such as completing a step,
+    #   starting a callback, or scheduling a timer. Updates are applied
+    #   atomically as part of the checkpoint operation.
+    #
+    # @option params [String] :client_token
+    #   An optional idempotency token to ensure that duplicate checkpoint
+    #   requests are handled correctly. If provided, Lambda uses this token to
+    #   detect and handle duplicate requests within a 15-minute window.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @return [Types::CheckpointDurableExecutionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::CheckpointDurableExecutionResponse#checkpoint_token #checkpoint_token} => String
+    #   * {Types::CheckpointDurableExecutionResponse#new_execution_state #new_execution_state} => Types::CheckpointUpdatedExecutionState
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.checkpoint_durable_execution({
+    #     durable_execution_arn: "DurableExecutionArn", # required
+    #     checkpoint_token: "CheckpointToken", # required
+    #     updates: [
+    #       {
+    #         id: "OperationId", # required
+    #         parent_id: "OperationId",
+    #         name: "OperationName",
+    #         type: "EXECUTION", # required, accepts EXECUTION, CONTEXT, STEP, WAIT, CALLBACK, CHAINED_INVOKE
+    #         sub_type: "OperationSubType",
+    #         action: "START", # required, accepts START, SUCCEED, FAIL, RETRY, CANCEL
+    #         payload: "OperationPayload",
+    #         error: {
+    #           error_message: "ErrorMessage",
+    #           error_type: "ErrorType",
+    #           error_data: "ErrorData",
+    #           stack_trace: ["StackTraceEntry"],
+    #         },
+    #         context_options: {
+    #           replay_children: false,
+    #         },
+    #         step_options: {
+    #           next_attempt_delay_seconds: 1,
+    #         },
+    #         wait_options: {
+    #           wait_seconds: 1,
+    #         },
+    #         callback_options: {
+    #           timeout_seconds: 1,
+    #           heartbeat_timeout_seconds: 1,
+    #         },
+    #         chained_invoke_options: {
+    #           function_name: "NamespacedFunctionName", # required
+    #           tenant_id: "TenantId",
+    #         },
+    #       },
+    #     ],
+    #     client_token: "ClientToken",
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.checkpoint_token #=> String
+    #   resp.new_execution_state.operations #=> Array
+    #   resp.new_execution_state.operations[0].id #=> String
+    #   resp.new_execution_state.operations[0].parent_id #=> String
+    #   resp.new_execution_state.operations[0].name #=> String
+    #   resp.new_execution_state.operations[0].type #=> String, one of "EXECUTION", "CONTEXT", "STEP", "WAIT", "CALLBACK", "CHAINED_INVOKE"
+    #   resp.new_execution_state.operations[0].sub_type #=> String
+    #   resp.new_execution_state.operations[0].start_timestamp #=> Time
+    #   resp.new_execution_state.operations[0].end_timestamp #=> Time
+    #   resp.new_execution_state.operations[0].status #=> String, one of "STARTED", "PENDING", "READY", "SUCCEEDED", "FAILED", "CANCELLED", "TIMED_OUT", "STOPPED"
+    #   resp.new_execution_state.operations[0].execution_details.input_payload #=> String
+    #   resp.new_execution_state.operations[0].context_details.replay_children #=> Boolean
+    #   resp.new_execution_state.operations[0].context_details.result #=> String
+    #   resp.new_execution_state.operations[0].context_details.error.error_message #=> String
+    #   resp.new_execution_state.operations[0].context_details.error.error_type #=> String
+    #   resp.new_execution_state.operations[0].context_details.error.error_data #=> String
+    #   resp.new_execution_state.operations[0].context_details.error.stack_trace #=> Array
+    #   resp.new_execution_state.operations[0].context_details.error.stack_trace[0] #=> String
+    #   resp.new_execution_state.operations[0].step_details.attempt #=> Integer
+    #   resp.new_execution_state.operations[0].step_details.next_attempt_timestamp #=> Time
+    #   resp.new_execution_state.operations[0].step_details.result #=> String
+    #   resp.new_execution_state.operations[0].step_details.error.error_message #=> String
+    #   resp.new_execution_state.operations[0].step_details.error.error_type #=> String
+    #   resp.new_execution_state.operations[0].step_details.error.error_data #=> String
+    #   resp.new_execution_state.operations[0].step_details.error.stack_trace #=> Array
+    #   resp.new_execution_state.operations[0].step_details.error.stack_trace[0] #=> String
+    #   resp.new_execution_state.operations[0].wait_details.scheduled_end_timestamp #=> Time
+    #   resp.new_execution_state.operations[0].callback_details.callback_id #=> String
+    #   resp.new_execution_state.operations[0].callback_details.result #=> String
+    #   resp.new_execution_state.operations[0].callback_details.error.error_message #=> String
+    #   resp.new_execution_state.operations[0].callback_details.error.error_type #=> String
+    #   resp.new_execution_state.operations[0].callback_details.error.error_data #=> String
+    #   resp.new_execution_state.operations[0].callback_details.error.stack_trace #=> Array
+    #   resp.new_execution_state.operations[0].callback_details.error.stack_trace[0] #=> String
+    #   resp.new_execution_state.operations[0].chained_invoke_details.result #=> String
+    #   resp.new_execution_state.operations[0].chained_invoke_details.error.error_message #=> String
+    #   resp.new_execution_state.operations[0].chained_invoke_details.error.error_type #=> String
+    #   resp.new_execution_state.operations[0].chained_invoke_details.error.error_data #=> String
+    #   resp.new_execution_state.operations[0].chained_invoke_details.error.stack_trace #=> Array
+    #   resp.new_execution_state.operations[0].chained_invoke_details.error.stack_trace[0] #=> String
+    #   resp.new_execution_state.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CheckpointDurableExecution AWS API Documentation
+    #
+    # @overload checkpoint_durable_execution(params = {})
+    # @param [Hash] params ({})
+    def checkpoint_durable_execution(params = {}, options = {})
+      req = build_request(:checkpoint_durable_execution, params)
+      req.send_request(options)
+    end
+
     # Creates an [alias][1] for a Lambda function version. Use aliases to
     # provide clients with a function identifier that you can update to
     # invoke a different version.
@@ -1814,6 +1952,11 @@ module Aws::Lambda
     # @option params [String] :publish_to
     #   Specifies where to publish the function version or configuration.
     #
+    # @option params [Types::DurableConfig] :durable_config
+    #   Configuration settings for durable functions. Enables creating
+    #   functions with durability that can remember their state and continue
+    #   execution even after interruptions.
+    #
     # @option params [Types::TenancyConfig] :tenancy_config
     #   Configuration for multi-tenant applications that use Lambda functions.
     #   Defines tenant isolation settings and resource allocations. Required
@@ -1859,6 +2002,7 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
     #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
     #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
+    #   * {Types::FunctionConfiguration#durable_config #durable_config} => Types::DurableConfig
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -1873,6 +2017,10 @@ module Aws::Lambda
     #       s3_key: "function.zip", 
     #     }, 
     #     description: "Process image objects from Amazon S3.", 
+    #     durable_config: {
+    #       execution_timeout: 31622400, 
+    #       retention_period_in_days: 30, 
+    #     }, 
     #     environment: {
     #       variables: {
     #         "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -1900,6 +2048,10 @@ module Aws::Lambda
     #     code_sha_256: "YFgDgEKG3ugvF1+pX64gV6tu9qNuIYNUdgJm8nCxsm4=", 
     #     code_size: 5797206, 
     #     description: "Process image objects from Amazon S3.", 
+    #     durable_config: {
+    #       execution_timeout: 31622400, 
+    #       retention_period_in_days: 30, 
+    #     }, 
     #     environment: {
     #       variables: {
     #         "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -1998,6 +2150,10 @@ module Aws::Lambda
     #       },
     #     },
     #     publish_to: "LATEST_PUBLISHED", # accepts LATEST_PUBLISHED
+    #     durable_config: {
+    #       retention_period_in_days: 1,
+    #       execution_timeout: 1,
+    #     },
     #     tenancy_config: {
     #       tenant_isolation_mode: "PER_TENANT", # required, accepts PER_TENANT
     #     },
@@ -2039,7 +2195,7 @@ module Aws::Lambda
     #   resp.layers[0].signing_job_arn #=> String
     #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
     #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -2072,6 +2228,8 @@ module Aws::Lambda
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.config_sha_256 #=> String
+    #   resp.durable_config.retention_period_in_days #=> Integer
+    #   resp.durable_config.execution_timeout #=> Integer
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/CreateFunction AWS API Documentation
@@ -3007,6 +3165,345 @@ module Aws::Lambda
       req.send_request(options)
     end
 
+    # Retrieves detailed information about a specific [durable
+    # execution][1], including its current status, input payload, result or
+    # error information, and execution metadata such as start time and usage
+    # statistics.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :durable_execution_arn
+    #   The Amazon Resource Name (ARN) of the durable execution.
+    #
+    # @return [Types::GetDurableExecutionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetDurableExecutionResponse#durable_execution_arn #durable_execution_arn} => String
+    #   * {Types::GetDurableExecutionResponse#durable_execution_name #durable_execution_name} => String
+    #   * {Types::GetDurableExecutionResponse#function_arn #function_arn} => String
+    #   * {Types::GetDurableExecutionResponse#input_payload #input_payload} => String
+    #   * {Types::GetDurableExecutionResponse#result #result} => String
+    #   * {Types::GetDurableExecutionResponse#error #error} => Types::ErrorObject
+    #   * {Types::GetDurableExecutionResponse#start_timestamp #start_timestamp} => Time
+    #   * {Types::GetDurableExecutionResponse#status #status} => String
+    #   * {Types::GetDurableExecutionResponse#end_timestamp #end_timestamp} => Time
+    #   * {Types::GetDurableExecutionResponse#version #version} => String
+    #   * {Types::GetDurableExecutionResponse#trace_header #trace_header} => Types::TraceHeader
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_durable_execution({
+    #     durable_execution_arn: "DurableExecutionArn", # required
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.durable_execution_arn #=> String
+    #   resp.durable_execution_name #=> String
+    #   resp.function_arn #=> String
+    #   resp.input_payload #=> String
+    #   resp.result #=> String
+    #   resp.error.error_message #=> String
+    #   resp.error.error_type #=> String
+    #   resp.error.error_data #=> String
+    #   resp.error.stack_trace #=> Array
+    #   resp.error.stack_trace[0] #=> String
+    #   resp.start_timestamp #=> Time
+    #   resp.status #=> String, one of "RUNNING", "SUCCEEDED", "FAILED", "TIMED_OUT", "STOPPED"
+    #   resp.end_timestamp #=> Time
+    #   resp.version #=> String
+    #   resp.trace_header.x_amzn_trace_id #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetDurableExecution AWS API Documentation
+    #
+    # @overload get_durable_execution(params = {})
+    # @param [Hash] params ({})
+    def get_durable_execution(params = {}, options = {})
+      req = build_request(:get_durable_execution, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the execution history for a [durable execution][1], showing
+    # all the steps, callbacks, and events that occurred during the
+    # execution. This provides a detailed audit trail of the execution's
+    # progress over time.
+    #
+    # The history is available while the execution is running and for a
+    # retention period after it completes (1-90 days, default 30 days). You
+    # can control whether to include execution data such as step results and
+    # callback payloads.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :durable_execution_arn
+    #   The Amazon Resource Name (ARN) of the durable execution.
+    #
+    # @option params [Boolean] :include_execution_data
+    #   Specifies whether to include execution data such as step results and
+    #   callback payloads in the history events. Set to `true` to include
+    #   data, or `false` to exclude it for a more compact response. The
+    #   default is `true`.
+    #
+    # @option params [Integer] :max_items
+    #   The maximum number of history events to return per call. You can use
+    #   `Marker` to retrieve additional pages of results. The default is 100
+    #   and the maximum allowed is 1000. A value of 0 uses the default.
+    #
+    # @option params [String] :marker
+    #   If `NextMarker` was returned from a previous request, use this value
+    #   to retrieve the next page of results. Each pagination token expires
+    #   after 24 hours.
+    #
+    # @option params [Boolean] :reverse_order
+    #   When set to `true`, returns the history events in reverse
+    #   chronological order (newest first). By default, events are returned in
+    #   chronological order (oldest first).
+    #
+    # @return [Types::GetDurableExecutionHistoryResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetDurableExecutionHistoryResponse#events #events} => Array&lt;Types::Event&gt;
+    #   * {Types::GetDurableExecutionHistoryResponse#next_marker #next_marker} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_durable_execution_history({
+    #     durable_execution_arn: "DurableExecutionArn", # required
+    #     include_execution_data: false,
+    #     max_items: 1,
+    #     marker: "String",
+    #     reverse_order: false,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.events #=> Array
+    #   resp.events[0].event_type #=> String, one of "ExecutionStarted", "ExecutionSucceeded", "ExecutionFailed", "ExecutionTimedOut", "ExecutionStopped", "ContextStarted", "ContextSucceeded", "ContextFailed", "WaitStarted", "WaitSucceeded", "WaitCancelled", "StepStarted", "StepSucceeded", "StepFailed", "ChainedInvokeStarted", "ChainedInvokeSucceeded", "ChainedInvokeFailed", "ChainedInvokeTimedOut", "ChainedInvokeStopped", "CallbackStarted", "CallbackSucceeded", "CallbackFailed", "CallbackTimedOut", "InvocationCompleted"
+    #   resp.events[0].sub_type #=> String
+    #   resp.events[0].event_id #=> Integer
+    #   resp.events[0].id #=> String
+    #   resp.events[0].name #=> String
+    #   resp.events[0].event_timestamp #=> Time
+    #   resp.events[0].parent_id #=> String
+    #   resp.events[0].execution_started_details.input.payload #=> String
+    #   resp.events[0].execution_started_details.input.truncated #=> Boolean
+    #   resp.events[0].execution_started_details.execution_timeout #=> Integer
+    #   resp.events[0].execution_succeeded_details.result.payload #=> String
+    #   resp.events[0].execution_succeeded_details.result.truncated #=> Boolean
+    #   resp.events[0].execution_failed_details.error.payload.error_message #=> String
+    #   resp.events[0].execution_failed_details.error.payload.error_type #=> String
+    #   resp.events[0].execution_failed_details.error.payload.error_data #=> String
+    #   resp.events[0].execution_failed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].execution_failed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].execution_failed_details.error.truncated #=> Boolean
+    #   resp.events[0].execution_timed_out_details.error.payload.error_message #=> String
+    #   resp.events[0].execution_timed_out_details.error.payload.error_type #=> String
+    #   resp.events[0].execution_timed_out_details.error.payload.error_data #=> String
+    #   resp.events[0].execution_timed_out_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].execution_timed_out_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].execution_timed_out_details.error.truncated #=> Boolean
+    #   resp.events[0].execution_stopped_details.error.payload.error_message #=> String
+    #   resp.events[0].execution_stopped_details.error.payload.error_type #=> String
+    #   resp.events[0].execution_stopped_details.error.payload.error_data #=> String
+    #   resp.events[0].execution_stopped_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].execution_stopped_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].execution_stopped_details.error.truncated #=> Boolean
+    #   resp.events[0].context_succeeded_details.result.payload #=> String
+    #   resp.events[0].context_succeeded_details.result.truncated #=> Boolean
+    #   resp.events[0].context_failed_details.error.payload.error_message #=> String
+    #   resp.events[0].context_failed_details.error.payload.error_type #=> String
+    #   resp.events[0].context_failed_details.error.payload.error_data #=> String
+    #   resp.events[0].context_failed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].context_failed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].context_failed_details.error.truncated #=> Boolean
+    #   resp.events[0].wait_started_details.duration #=> Integer
+    #   resp.events[0].wait_started_details.scheduled_end_timestamp #=> Time
+    #   resp.events[0].wait_succeeded_details.duration #=> Integer
+    #   resp.events[0].wait_cancelled_details.error.payload.error_message #=> String
+    #   resp.events[0].wait_cancelled_details.error.payload.error_type #=> String
+    #   resp.events[0].wait_cancelled_details.error.payload.error_data #=> String
+    #   resp.events[0].wait_cancelled_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].wait_cancelled_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].wait_cancelled_details.error.truncated #=> Boolean
+    #   resp.events[0].step_succeeded_details.result.payload #=> String
+    #   resp.events[0].step_succeeded_details.result.truncated #=> Boolean
+    #   resp.events[0].step_succeeded_details.retry_details.current_attempt #=> Integer
+    #   resp.events[0].step_succeeded_details.retry_details.next_attempt_delay_seconds #=> Integer
+    #   resp.events[0].step_failed_details.error.payload.error_message #=> String
+    #   resp.events[0].step_failed_details.error.payload.error_type #=> String
+    #   resp.events[0].step_failed_details.error.payload.error_data #=> String
+    #   resp.events[0].step_failed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].step_failed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].step_failed_details.error.truncated #=> Boolean
+    #   resp.events[0].step_failed_details.retry_details.current_attempt #=> Integer
+    #   resp.events[0].step_failed_details.retry_details.next_attempt_delay_seconds #=> Integer
+    #   resp.events[0].chained_invoke_started_details.function_name #=> String
+    #   resp.events[0].chained_invoke_started_details.tenant_id #=> String
+    #   resp.events[0].chained_invoke_started_details.input.payload #=> String
+    #   resp.events[0].chained_invoke_started_details.input.truncated #=> Boolean
+    #   resp.events[0].chained_invoke_started_details.executed_version #=> String
+    #   resp.events[0].chained_invoke_started_details.durable_execution_arn #=> String
+    #   resp.events[0].chained_invoke_succeeded_details.result.payload #=> String
+    #   resp.events[0].chained_invoke_succeeded_details.result.truncated #=> Boolean
+    #   resp.events[0].chained_invoke_failed_details.error.payload.error_message #=> String
+    #   resp.events[0].chained_invoke_failed_details.error.payload.error_type #=> String
+    #   resp.events[0].chained_invoke_failed_details.error.payload.error_data #=> String
+    #   resp.events[0].chained_invoke_failed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].chained_invoke_failed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].chained_invoke_failed_details.error.truncated #=> Boolean
+    #   resp.events[0].chained_invoke_timed_out_details.error.payload.error_message #=> String
+    #   resp.events[0].chained_invoke_timed_out_details.error.payload.error_type #=> String
+    #   resp.events[0].chained_invoke_timed_out_details.error.payload.error_data #=> String
+    #   resp.events[0].chained_invoke_timed_out_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].chained_invoke_timed_out_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].chained_invoke_timed_out_details.error.truncated #=> Boolean
+    #   resp.events[0].chained_invoke_stopped_details.error.payload.error_message #=> String
+    #   resp.events[0].chained_invoke_stopped_details.error.payload.error_type #=> String
+    #   resp.events[0].chained_invoke_stopped_details.error.payload.error_data #=> String
+    #   resp.events[0].chained_invoke_stopped_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].chained_invoke_stopped_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].chained_invoke_stopped_details.error.truncated #=> Boolean
+    #   resp.events[0].callback_started_details.callback_id #=> String
+    #   resp.events[0].callback_started_details.heartbeat_timeout #=> Integer
+    #   resp.events[0].callback_started_details.timeout #=> Integer
+    #   resp.events[0].callback_succeeded_details.result.payload #=> String
+    #   resp.events[0].callback_succeeded_details.result.truncated #=> Boolean
+    #   resp.events[0].callback_failed_details.error.payload.error_message #=> String
+    #   resp.events[0].callback_failed_details.error.payload.error_type #=> String
+    #   resp.events[0].callback_failed_details.error.payload.error_data #=> String
+    #   resp.events[0].callback_failed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].callback_failed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].callback_failed_details.error.truncated #=> Boolean
+    #   resp.events[0].callback_timed_out_details.error.payload.error_message #=> String
+    #   resp.events[0].callback_timed_out_details.error.payload.error_type #=> String
+    #   resp.events[0].callback_timed_out_details.error.payload.error_data #=> String
+    #   resp.events[0].callback_timed_out_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].callback_timed_out_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].callback_timed_out_details.error.truncated #=> Boolean
+    #   resp.events[0].invocation_completed_details.start_timestamp #=> Time
+    #   resp.events[0].invocation_completed_details.end_timestamp #=> Time
+    #   resp.events[0].invocation_completed_details.request_id #=> String
+    #   resp.events[0].invocation_completed_details.error.payload.error_message #=> String
+    #   resp.events[0].invocation_completed_details.error.payload.error_type #=> String
+    #   resp.events[0].invocation_completed_details.error.payload.error_data #=> String
+    #   resp.events[0].invocation_completed_details.error.payload.stack_trace #=> Array
+    #   resp.events[0].invocation_completed_details.error.payload.stack_trace[0] #=> String
+    #   resp.events[0].invocation_completed_details.error.truncated #=> Boolean
+    #   resp.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetDurableExecutionHistory AWS API Documentation
+    #
+    # @overload get_durable_execution_history(params = {})
+    # @param [Hash] params ({})
+    def get_durable_execution_history(params = {}, options = {})
+      req = build_request(:get_durable_execution_history, params)
+      req.send_request(options)
+    end
+
+    # Retrieves the current execution state required for the replay process
+    # during [durable function][1] execution. This API is used by the Lambda
+    # durable functions SDK to get state information needed for replay. You
+    # typically don't need to call this API directly as the SDK handles
+    # state management automatically.
+    #
+    # The response contains operations ordered by start sequence number in
+    # ascending order. Completed operations with children don't include
+    # child operation details since they don't need to be replayed.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :durable_execution_arn
+    #   The Amazon Resource Name (ARN) of the durable execution.
+    #
+    # @option params [required, String] :checkpoint_token
+    #   A checkpoint token that identifies the current state of the execution.
+    #   This token is provided by the Lambda runtime and ensures that state
+    #   retrieval is consistent with the current execution context.
+    #
+    # @option params [String] :marker
+    #   If `NextMarker` was returned from a previous request, use this value
+    #   to retrieve the next page of operations. Each pagination token expires
+    #   after 24 hours.
+    #
+    # @option params [Integer] :max_items
+    #   The maximum number of operations to return per call. You can use
+    #   `Marker` to retrieve additional pages of results. The default is 100
+    #   and the maximum allowed is 1000. A value of 0 uses the default.
+    #
+    # @return [Types::GetDurableExecutionStateResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetDurableExecutionStateResponse#operations #operations} => Array&lt;Types::Operation&gt;
+    #   * {Types::GetDurableExecutionStateResponse#next_marker #next_marker} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_durable_execution_state({
+    #     durable_execution_arn: "DurableExecutionArn", # required
+    #     checkpoint_token: "CheckpointToken", # required
+    #     marker: "String",
+    #     max_items: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.operations #=> Array
+    #   resp.operations[0].id #=> String
+    #   resp.operations[0].parent_id #=> String
+    #   resp.operations[0].name #=> String
+    #   resp.operations[0].type #=> String, one of "EXECUTION", "CONTEXT", "STEP", "WAIT", "CALLBACK", "CHAINED_INVOKE"
+    #   resp.operations[0].sub_type #=> String
+    #   resp.operations[0].start_timestamp #=> Time
+    #   resp.operations[0].end_timestamp #=> Time
+    #   resp.operations[0].status #=> String, one of "STARTED", "PENDING", "READY", "SUCCEEDED", "FAILED", "CANCELLED", "TIMED_OUT", "STOPPED"
+    #   resp.operations[0].execution_details.input_payload #=> String
+    #   resp.operations[0].context_details.replay_children #=> Boolean
+    #   resp.operations[0].context_details.result #=> String
+    #   resp.operations[0].context_details.error.error_message #=> String
+    #   resp.operations[0].context_details.error.error_type #=> String
+    #   resp.operations[0].context_details.error.error_data #=> String
+    #   resp.operations[0].context_details.error.stack_trace #=> Array
+    #   resp.operations[0].context_details.error.stack_trace[0] #=> String
+    #   resp.operations[0].step_details.attempt #=> Integer
+    #   resp.operations[0].step_details.next_attempt_timestamp #=> Time
+    #   resp.operations[0].step_details.result #=> String
+    #   resp.operations[0].step_details.error.error_message #=> String
+    #   resp.operations[0].step_details.error.error_type #=> String
+    #   resp.operations[0].step_details.error.error_data #=> String
+    #   resp.operations[0].step_details.error.stack_trace #=> Array
+    #   resp.operations[0].step_details.error.stack_trace[0] #=> String
+    #   resp.operations[0].wait_details.scheduled_end_timestamp #=> Time
+    #   resp.operations[0].callback_details.callback_id #=> String
+    #   resp.operations[0].callback_details.result #=> String
+    #   resp.operations[0].callback_details.error.error_message #=> String
+    #   resp.operations[0].callback_details.error.error_type #=> String
+    #   resp.operations[0].callback_details.error.error_data #=> String
+    #   resp.operations[0].callback_details.error.stack_trace #=> Array
+    #   resp.operations[0].callback_details.error.stack_trace[0] #=> String
+    #   resp.operations[0].chained_invoke_details.result #=> String
+    #   resp.operations[0].chained_invoke_details.error.error_message #=> String
+    #   resp.operations[0].chained_invoke_details.error.error_type #=> String
+    #   resp.operations[0].chained_invoke_details.error.error_data #=> String
+    #   resp.operations[0].chained_invoke_details.error.stack_trace #=> Array
+    #   resp.operations[0].chained_invoke_details.error.stack_trace[0] #=> String
+    #   resp.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/GetDurableExecutionState AWS API Documentation
+    #
+    # @overload get_durable_execution_state(params = {})
+    # @param [Hash] params ({})
+    def get_durable_execution_state(params = {}, options = {})
+      req = build_request(:get_durable_execution_state, params)
+      req.send_request(options)
+    end
+
     # Returns details about an event source mapping. You can get the
     # identifier of a mapping from the output of ListEventSourceMappings.
     #
@@ -3208,6 +3705,10 @@ module Aws::Lambda
     #       code_sha_256: "YFgDgEKG3ugvF1+pX64gV6tu9qNuIYNUdgJm8nCxsm4=", 
     #       code_size: 5797206, 
     #       description: "Process image objects from Amazon S3.", 
+    #       durable_config: {
+    #         execution_timeout: 31622400, 
+    #         retention_period_in_days: 30, 
+    #       }, 
     #       environment: {
     #         variables: {
     #           "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -3279,7 +3780,7 @@ module Aws::Lambda
     #   resp.configuration.layers[0].signing_job_arn #=> String
     #   resp.configuration.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.configuration.state_reason #=> String
-    #   resp.configuration.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.configuration.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.configuration.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.configuration.last_update_status_reason #=> String
     #   resp.configuration.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -3312,6 +3813,8 @@ module Aws::Lambda
     #   resp.configuration.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.configuration.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.configuration.config_sha_256 #=> String
+    #   resp.configuration.durable_config.retention_period_in_days #=> Integer
+    #   resp.configuration.durable_config.execution_timeout #=> Integer
     #   resp.configuration.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #   resp.code.repository_type #=> String
     #   resp.code.location #=> String
@@ -3506,6 +4009,7 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
     #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
     #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
+    #   * {Types::FunctionConfiguration#durable_config #durable_config} => Types::DurableConfig
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -3523,6 +4027,10 @@ module Aws::Lambda
     #     code_sha_256: "YFgDgEKG3ugvF1+pX64gV6tu9qNuIYNUdgJm8nCxsm4=", 
     #     code_size: 5797206, 
     #     description: "Process image objects from Amazon S3.", 
+    #     durable_config: {
+    #       execution_timeout: 31622400, 
+    #       retention_period_in_days: 30, 
+    #     }, 
     #     environment: {
     #       variables: {
     #         "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -3590,7 +4098,7 @@ module Aws::Lambda
     #   resp.layers[0].signing_job_arn #=> String
     #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
     #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -3623,6 +4131,8 @@ module Aws::Lambda
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.config_sha_256 #=> String
+    #   resp.durable_config.retention_period_in_days #=> Integer
+    #   resp.durable_config.execution_timeout #=> Integer
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     #
@@ -4394,6 +4904,11 @@ module Aws::Lambda
     #   `ClientContext` object to your function for synchronous invocations
     #   only.
     #
+    # @option params [String] :durable_execution_name
+    #   Optional unique name for the durable execution. When you start your
+    #   special function, you can give it a unique name to identify this
+    #   specific execution. It's like giving a nickname to a task.
+    #
     # @option params [String, StringIO, File] :payload
     #   The JSON that you want to provide to your Lambda function as input.
     #   The maximum payload size is 6 MB for synchronous invocations and 1 MB
@@ -4417,6 +4932,7 @@ module Aws::Lambda
     #   * {Types::InvocationResponse#log_result #log_result} => String
     #   * {Types::InvocationResponse#payload #payload} => String
     #   * {Types::InvocationResponse#executed_version #executed_version} => String
+    #   * {Types::InvocationResponse#durable_execution_arn #durable_execution_arn} => String
     #
     #
     # @example Example: To invoke a Lambda function
@@ -4424,7 +4940,9 @@ module Aws::Lambda
     #   # The following example invokes version 1 of a function named my-function with an empty event payload.
     #
     #   resp = client.invoke({
+    #     durable_execution_name: "myExecution", 
     #     function_name: "my-function", 
+    #     invocation_type: "Event", 
     #     payload: "{}", 
     #     qualifier: "1", 
     #   })
@@ -4459,6 +4977,7 @@ module Aws::Lambda
     #     invocation_type: "Event", # accepts Event, RequestResponse, DryRun
     #     log_type: "None", # accepts None, Tail
     #     client_context: "String",
+    #     durable_execution_name: "DurableExecutionName",
     #     payload: "data",
     #     qualifier: "NumericLatestPublishedOrAliasQualifier",
     #     tenant_id: "TenantId",
@@ -4471,6 +4990,7 @@ module Aws::Lambda
     #   resp.log_result #=> String
     #   resp.payload #=> String
     #   resp.executed_version #=> String
+    #   resp.durable_execution_arn #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/Invoke AWS API Documentation
     #
@@ -4994,6 +5514,89 @@ module Aws::Lambda
       req.send_request(options)
     end
 
+    # Returns a list of [durable executions][1] for a specified Lambda
+    # function. You can filter the results by execution name, status, and
+    # start time range. This API supports pagination for large result sets.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :function_name
+    #   The name or ARN of the Lambda function. You can specify a function
+    #   name, a partial ARN, or a full ARN.
+    #
+    # @option params [String] :qualifier
+    #   The function version or alias. If not specified, lists executions for
+    #   the $LATEST version.
+    #
+    # @option params [String] :durable_execution_name
+    #   Filter executions by name. Only executions with names that contain
+    #   this string are returned.
+    #
+    # @option params [Array<String>] :statuses
+    #   Filter executions by status. Valid values: RUNNING, SUCCEEDED, FAILED,
+    #   TIMED\_OUT, STOPPED.
+    #
+    # @option params [Time,DateTime,Date,Integer,String] :started_after
+    #   Filter executions that started after this timestamp (ISO 8601 format).
+    #
+    # @option params [Time,DateTime,Date,Integer,String] :started_before
+    #   Filter executions that started before this timestamp (ISO 8601
+    #   format).
+    #
+    # @option params [Boolean] :reverse_order
+    #   Set to true to return results in reverse chronological order (newest
+    #   first). Default is false.
+    #
+    # @option params [String] :marker
+    #   Pagination token from a previous request to continue retrieving
+    #   results.
+    #
+    # @option params [Integer] :max_items
+    #   Maximum number of executions to return (1-1000). Default is 100.
+    #
+    # @return [Types::ListDurableExecutionsByFunctionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::ListDurableExecutionsByFunctionResponse#durable_executions #durable_executions} => Array&lt;Types::Execution&gt;
+    #   * {Types::ListDurableExecutionsByFunctionResponse#next_marker #next_marker} => String
+    #
+    # The returned {Seahorse::Client::Response response} is a pageable response and is Enumerable. For details on usage see {Aws::PageableResponse PageableResponse}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.list_durable_executions_by_function({
+    #     function_name: "NamespacedFunctionName", # required
+    #     qualifier: "NumericLatestPublishedOrAliasQualifier",
+    #     durable_execution_name: "DurableExecutionName",
+    #     statuses: ["RUNNING"], # accepts RUNNING, SUCCEEDED, FAILED, TIMED_OUT, STOPPED
+    #     started_after: Time.now,
+    #     started_before: Time.now,
+    #     reverse_order: false,
+    #     marker: "String",
+    #     max_items: 1,
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.durable_executions #=> Array
+    #   resp.durable_executions[0].durable_execution_arn #=> String
+    #   resp.durable_executions[0].durable_execution_name #=> String
+    #   resp.durable_executions[0].function_arn #=> String
+    #   resp.durable_executions[0].status #=> String, one of "RUNNING", "SUCCEEDED", "FAILED", "TIMED_OUT", "STOPPED"
+    #   resp.durable_executions[0].start_timestamp #=> Time
+    #   resp.durable_executions[0].end_timestamp #=> Time
+    #   resp.next_marker #=> String
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListDurableExecutionsByFunction AWS API Documentation
+    #
+    # @overload list_durable_executions_by_function(params = {})
+    # @param [Hash] params ({})
+    def list_durable_executions_by_function(params = {}, options = {})
+      req = build_request(:list_durable_executions_by_function, params)
+      req.send_request(options)
+    end
+
     # Lists event source mappings. Specify an `EventSourceArn` to show only
     # event source mappings for a single event source.
     #
@@ -5441,6 +6044,10 @@ module Aws::Lambda
     #         code_sha_256: "sU0cJ2/hOZevwV/lTxCuQqK3gDZP3i8gUoqUUVRmY6E=", 
     #         code_size: 266, 
     #         description: "", 
+    #         durable_config: {
+    #           execution_timeout: 31622400, 
+    #           retention_period_in_days: 30, 
+    #         }, 
     #         function_arn: "arn:aws:lambda:us-west-2:123456789012:function:my-function", 
     #         function_name: "my-function", 
     #         handler: "index.handler", 
@@ -5513,7 +6120,7 @@ module Aws::Lambda
     #   resp.functions[0].layers[0].signing_job_arn #=> String
     #   resp.functions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.functions[0].state_reason #=> String
-    #   resp.functions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.functions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.functions[0].last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.functions[0].last_update_status_reason #=> String
     #   resp.functions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -5546,6 +6153,8 @@ module Aws::Lambda
     #   resp.functions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.functions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.functions[0].config_sha_256 #=> String
+    #   resp.functions[0].durable_config.retention_period_in_days #=> Integer
+    #   resp.functions[0].durable_config.execution_timeout #=> Integer
     #   resp.functions[0].tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListFunctions AWS API Documentation
@@ -6023,6 +6632,10 @@ module Aws::Lambda
     #         code_sha_256: "YFgDgEKG3ugvF1+pX64gV6tu9qNuIYNUdgJm8nCxsm4=", 
     #         code_size: 5797206, 
     #         description: "Process image objects from Amazon S3.", 
+    #         durable_config: {
+    #           execution_timeout: 31622400, 
+    #           retention_period_in_days: 30, 
+    #         }, 
     #         environment: {
     #           variables: {
     #             "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -6048,6 +6661,10 @@ module Aws::Lambda
     #         code_sha_256: "YFgDgEKG3ugvF1+pX64gV6tu9qNuIYNUdgJm8nCxsm4=", 
     #         code_size: 5797206, 
     #         description: "Process image objects from Amazon S3.", 
+    #         durable_config: {
+    #           execution_timeout: 31622400, 
+    #           retention_period_in_days: 30, 
+    #         }, 
     #         environment: {
     #           variables: {
     #             "BUCKET" => "my-bucket-1xpuxmplzrlbh", 
@@ -6118,7 +6735,7 @@ module Aws::Lambda
     #   resp.versions[0].layers[0].signing_job_arn #=> String
     #   resp.versions[0].state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.versions[0].state_reason #=> String
-    #   resp.versions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.versions[0].state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.versions[0].last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.versions[0].last_update_status_reason #=> String
     #   resp.versions[0].last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -6151,6 +6768,8 @@ module Aws::Lambda
     #   resp.versions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.versions[0].capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.versions[0].config_sha_256 #=> String
+    #   resp.versions[0].durable_config.retention_period_in_days #=> Integer
+    #   resp.versions[0].durable_config.execution_timeout #=> Integer
     #   resp.versions[0].tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/ListVersionsByFunction AWS API Documentation
@@ -6399,6 +7018,7 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
     #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
     #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
+    #   * {Types::FunctionConfiguration#durable_config #durable_config} => Types::DurableConfig
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -6487,7 +7107,7 @@ module Aws::Lambda
     #   resp.layers[0].signing_job_arn #=> String
     #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
     #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -6520,6 +7140,8 @@ module Aws::Lambda
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.config_sha_256 #=> String
+    #   resp.durable_config.retention_period_in_days #=> Integer
+    #   resp.durable_config.execution_timeout #=> Integer
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/PublishVersion AWS API Documentation
@@ -7219,6 +7841,135 @@ module Aws::Lambda
     # @param [Hash] params ({})
     def remove_permission(params = {}, options = {})
       req = build_request(:remove_permission, params)
+      req.send_request(options)
+    end
+
+    # Sends a failure response for a callback operation in a durable
+    # execution. Use this API when an external system cannot complete a
+    # callback operation successfully.
+    #
+    # @option params [required, String] :callback_id
+    #   The unique identifier for the callback operation.
+    #
+    # @option params [Types::ErrorObject] :error
+    #   Error details describing why the callback operation failed.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.send_durable_execution_callback_failure({
+    #     callback_id: "CallbackId", # required
+    #     error: {
+    #       error_message: "ErrorMessage",
+    #       error_type: "ErrorType",
+    #       error_data: "ErrorData",
+    #       stack_trace: ["StackTraceEntry"],
+    #     },
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/SendDurableExecutionCallbackFailure AWS API Documentation
+    #
+    # @overload send_durable_execution_callback_failure(params = {})
+    # @param [Hash] params ({})
+    def send_durable_execution_callback_failure(params = {}, options = {})
+      req = build_request(:send_durable_execution_callback_failure, params)
+      req.send_request(options)
+    end
+
+    # Sends a heartbeat signal for a long-running callback operation to
+    # prevent timeout. Use this API to extend the callback timeout period
+    # while the external operation is still in progress.
+    #
+    # @option params [required, String] :callback_id
+    #   The unique identifier for the callback operation.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.send_durable_execution_callback_heartbeat({
+    #     callback_id: "CallbackId", # required
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/SendDurableExecutionCallbackHeartbeat AWS API Documentation
+    #
+    # @overload send_durable_execution_callback_heartbeat(params = {})
+    # @param [Hash] params ({})
+    def send_durable_execution_callback_heartbeat(params = {}, options = {})
+      req = build_request(:send_durable_execution_callback_heartbeat, params)
+      req.send_request(options)
+    end
+
+    # Sends a successful completion response for a callback operation in a
+    # durable execution. Use this API when an external system has
+    # successfully completed a callback operation.
+    #
+    # @option params [required, String] :callback_id
+    #   The unique identifier for the callback operation.
+    #
+    # @option params [String, StringIO, File] :result
+    #   The result data from the successful callback operation. Maximum size
+    #   is 256 KB.
+    #
+    # @return [Struct] Returns an empty {Seahorse::Client::Response response}.
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.send_durable_execution_callback_success({
+    #     callback_id: "CallbackId", # required
+    #     result: "data",
+    #   })
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/SendDurableExecutionCallbackSuccess AWS API Documentation
+    #
+    # @overload send_durable_execution_callback_success(params = {})
+    # @param [Hash] params ({})
+    def send_durable_execution_callback_success(params = {}, options = {})
+      req = build_request(:send_durable_execution_callback_success, params)
+      req.send_request(options)
+    end
+
+    # Stops a running [durable execution][1]. The execution transitions to
+    # STOPPED status and cannot be resumed. Any in-progress operations are
+    # terminated.
+    #
+    #
+    #
+    # [1]: https://docs.aws.amazon.com/lambda/latest/dg/durable-functions.html
+    #
+    # @option params [required, String] :durable_execution_arn
+    #   The Amazon Resource Name (ARN) of the durable execution.
+    #
+    # @option params [Types::ErrorObject] :error
+    #   Optional error details explaining why the execution is being stopped.
+    #
+    # @return [Types::StopDurableExecutionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StopDurableExecutionResponse#stop_timestamp #stop_timestamp} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.stop_durable_execution({
+    #     durable_execution_arn: "DurableExecutionArn", # required
+    #     error: {
+    #       error_message: "ErrorMessage",
+    #       error_type: "ErrorType",
+    #       error_data: "ErrorData",
+    #       stack_trace: ["StackTraceEntry"],
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.stop_timestamp #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/StopDurableExecution AWS API Documentation
+    #
+    # @overload stop_durable_execution(params = {})
+    # @param [Hash] params ({})
+    def stop_durable_execution(params = {}, options = {})
+      req = build_request(:stop_durable_execution, params)
       req.send_request(options)
     end
 
@@ -8141,6 +8892,7 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
     #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
     #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
+    #   * {Types::FunctionConfiguration#durable_config #durable_config} => Types::DurableConfig
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -8228,7 +8980,7 @@ module Aws::Lambda
     #   resp.layers[0].signing_job_arn #=> String
     #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
     #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -8261,6 +9013,8 @@ module Aws::Lambda
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.config_sha_256 #=> String
+    #   resp.durable_config.retention_period_in_days #=> Integer
+    #   resp.durable_config.execution_timeout #=> Integer
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionCode AWS API Documentation
@@ -8476,6 +9230,11 @@ module Aws::Lambda
     #   Configuration for the capacity provider that manages compute resources
     #   for Lambda functions.
     #
+    # @option params [Types::DurableConfig] :durable_config
+    #   Configuration settings for durable functions. Allows updating
+    #   execution timeout and retention period for functions with durability
+    #   enabled.
+    #
     # @return [Types::FunctionConfiguration] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::FunctionConfiguration#function_name #function_name} => String
@@ -8516,6 +9275,7 @@ module Aws::Lambda
     #   * {Types::FunctionConfiguration#logging_config #logging_config} => Types::LoggingConfig
     #   * {Types::FunctionConfiguration#capacity_provider_config #capacity_provider_config} => Types::CapacityProviderConfig
     #   * {Types::FunctionConfiguration#config_sha_256 #config_sha_256} => String
+    #   * {Types::FunctionConfiguration#durable_config #durable_config} => Types::DurableConfig
     #   * {Types::FunctionConfiguration#tenancy_config #tenancy_config} => Types::TenancyConfig
     #
     #
@@ -8525,6 +9285,10 @@ module Aws::Lambda
     #   # my-function.
     #
     #   resp = client.update_function_configuration({
+    #     durable_config: {
+    #       execution_timeout: 3600, 
+    #       retention_period_in_days: 45, 
+    #     }, 
     #     function_name: "my-function", 
     #     memory_size: 256, 
     #   })
@@ -8534,6 +9298,10 @@ module Aws::Lambda
     #     code_sha_256: "PFn4S+er27qk+UuZSTKEQfNKG/XNn7QJs90mJgq6oH8=", 
     #     code_size: 308, 
     #     description: "", 
+    #     durable_config: {
+    #       execution_timeout: 3600, 
+    #       retention_period_in_days: 45, 
+    #     }, 
     #     function_arn: "arn:aws:lambda:us-east-2:123456789012:function:my-function", 
     #     function_name: "my-function", 
     #     handler: "index.handler", 
@@ -8608,6 +9376,10 @@ module Aws::Lambda
     #         execution_environment_memory_gi_b_per_v_cpu: 1.0,
     #       },
     #     },
+    #     durable_config: {
+    #       retention_period_in_days: 1,
+    #       execution_timeout: 1,
+    #     },
     #   })
     #
     # @example Response structure
@@ -8646,7 +9418,7 @@ module Aws::Lambda
     #   resp.layers[0].signing_job_arn #=> String
     #   resp.state #=> String, one of "Pending", "Active", "Inactive", "Failed", "Deactivating", "Deactivated", "ActiveNonInvocable", "Deleting"
     #   resp.state_reason #=> String
-    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
+    #   resp.state_reason_code #=> String, one of "Idle", "Creating", "Restoring", "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "DrainingDurableExecutions", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
     #   resp.last_update_status #=> String, one of "Successful", "Failed", "InProgress"
     #   resp.last_update_status_reason #=> String
     #   resp.last_update_status_reason_code #=> String, one of "EniLimitExceeded", "InsufficientRolePermissions", "InvalidConfiguration", "InternalError", "SubnetOutOfIPAddresses", "InvalidSubnet", "InvalidSecurityGroup", "ImageDeleted", "ImageAccessDenied", "InvalidImage", "KMSKeyAccessDenied", "KMSKeyNotFound", "InvalidStateKMSKey", "DisabledKMSKey", "EFSIOError", "EFSMountConnectivityError", "EFSMountFailure", "EFSMountTimeout", "InvalidRuntime", "InvalidZipFileException", "FunctionError", "VcpuLimitExceeded", "CapacityProviderScalingLimitExceeded", "InsufficientCapacity", "EC2RequestLimitExceeded", "FunctionError.InitTimeout", "FunctionError.RuntimeInitError", "FunctionError.ExtensionInitError", "FunctionError.InvalidEntryPoint", "FunctionError.InvalidWorkingDirectory", "FunctionError.PermissionDenied", "FunctionError.TooManyExtensions", "FunctionError.InitResourceExhausted"
@@ -8679,6 +9451,8 @@ module Aws::Lambda
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.per_execution_environment_max_concurrency #=> Integer
     #   resp.capacity_provider_config.lambda_managed_instances_capacity_provider_config.execution_environment_memory_gi_b_per_v_cpu #=> Float
     #   resp.config_sha_256 #=> String
+    #   resp.durable_config.retention_period_in_days #=> Integer
+    #   resp.durable_config.execution_timeout #=> Integer
     #   resp.tenancy_config.tenant_isolation_mode #=> String, one of "PER_TENANT"
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/lambda-2015-03-31/UpdateFunctionConfiguration AWS API Documentation
@@ -8943,7 +9717,7 @@ module Aws::Lambda
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-lambda'
-      context[:gem_version] = '1.168.0'
+      context[:gem_version] = '1.169.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 

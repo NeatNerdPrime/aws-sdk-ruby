@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.1190.0 (2025-12-02)
+------------------
+
+* Feature - Added support for enumerating regions for  `Aws::NovaAct`.
+
 1.1189.0 (2025-12-01)
 ------------------
 

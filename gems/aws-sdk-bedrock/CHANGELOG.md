@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.68.0 (2025-12-02)
+------------------
+
+* Feature - Adds the audioDataDeliveryEnabled boolean field to the Model Invocation Logging Configuration.
+
 1.67.0 (2025-11-21)
 ------------------
 
