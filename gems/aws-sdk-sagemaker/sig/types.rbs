@@ -235,6 +235,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class AssociationInfo
+      attr_accessor source_arn: ::String
+      attr_accessor destination_arn: ::String
+      SENSITIVE: []
+    end
+
     class AssociationSummary
       attr_accessor source_arn: ::String
       attr_accessor destination_arn: ::String
@@ -518,6 +524,13 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class BaseModel
+      attr_accessor hub_content_name: ::String
+      attr_accessor hub_content_version: ::String
+      attr_accessor recipe_name: ::String
+      SENSITIVE: []
+    end
+
     class BatchAddClusterNodesError
       attr_accessor instance_group_name: ::String
       attr_accessor error_code: ("InstanceGroupNotFound" | "InvalidInstanceGroupStatus")
@@ -601,6 +614,7 @@ module Aws::SageMaker
       attr_accessor inference_specification: Types::InferenceSpecification
       attr_accessor model_package_status: ("Pending" | "InProgress" | "Completed" | "Failed" | "Deleting")
       attr_accessor model_approval_status: ("Approved" | "Rejected" | "PendingManualApproval")
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       SENSITIVE: []
     end
 
@@ -675,6 +689,26 @@ module Aws::SageMaker
       attr_accessor start_time_offset: ::String
       attr_accessor end_time_offset: ::String
       attr_accessor exclude_features_attribute: ::String
+      SENSITIVE: []
+    end
+
+    class BedrockCustomModelDeploymentMetadata
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class BedrockCustomModelMetadata
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class BedrockModelImportMetadata
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
+    class BedrockProvisionedModelThroughputMetadata
+      attr_accessor arn: ::String
       SENSITIVE: []
     end
 
@@ -2066,6 +2100,7 @@ module Aws::SageMaker
       attr_accessor model_package_name: ::String
       attr_accessor model_package_group_name: ::String
       attr_accessor model_package_description: ::String
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       attr_accessor inference_specification: Types::InferenceSpecification
       attr_accessor validation_specification: Types::ModelPackageValidationSpecification
       attr_accessor source_algorithm_specification: Types::SourceAlgorithmSpecification
@@ -2380,6 +2415,9 @@ module Aws::SageMaker
       attr_accessor remote_debug_config: Types::RemoteDebugConfig
       attr_accessor infra_check_config: Types::InfraCheckConfig
       attr_accessor session_chaining_config: Types::SessionChainingConfig
+      attr_accessor serverless_job_config: Types::ServerlessJobConfig
+      attr_accessor mlflow_config: Types::MlflowConfig
+      attr_accessor model_package_config: Types::ModelPackageConfig
       SENSITIVE: []
     end
 
@@ -2617,6 +2655,7 @@ module Aws::SageMaker
     class DataSource
       attr_accessor s3_data_source: Types::S3DataSource
       attr_accessor file_system_data_source: Types::FileSystemDataSource
+      attr_accessor dataset_source: Types::DatasetSource
       SENSITIVE: []
     end
 
@@ -2626,6 +2665,11 @@ module Aws::SageMaker
       attr_accessor local_path: ::String
       attr_accessor data_distribution_type: ("FullyReplicated" | "ShardedByS3Key")
       attr_accessor input_mode: ("Pipe" | "File")
+      SENSITIVE: []
+    end
+
+    class DatasetSource
+      attr_accessor dataset_arn: ::String
       SENSITIVE: []
     end
 
@@ -4143,6 +4187,7 @@ module Aws::SageMaker
       attr_accessor model_package_name: ::String
       attr_accessor model_package_group_name: ::String
       attr_accessor model_package_version: ::Integer
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       attr_accessor model_package_arn: ::String
       attr_accessor model_package_description: ::String
       attr_accessor creation_time: ::Time
@@ -4346,6 +4391,7 @@ module Aws::SageMaker
       attr_accessor parallelism_configuration: Types::ParallelismConfiguration
       attr_accessor selective_execution_config: Types::SelectiveExecutionConfig
       attr_accessor pipeline_version_id: ::Integer
+      attr_accessor m_lflow_config: Types::MLflowConfiguration
       SENSITIVE: []
     end
 
@@ -4531,6 +4577,7 @@ module Aws::SageMaker
       attr_accessor checkpoint_config: Types::CheckpointConfig
       attr_accessor training_time_in_seconds: ::Integer
       attr_accessor billable_time_in_seconds: ::Integer
+      attr_accessor billable_token_count: ::Integer
       attr_accessor debug_hook_config: Types::DebugHookConfig
       attr_accessor experiment_config: Types::ExperimentConfig
       attr_accessor debug_rule_configurations: ::Array[Types::DebugRuleConfiguration]
@@ -4544,6 +4591,12 @@ module Aws::SageMaker
       attr_accessor retry_strategy: Types::RetryStrategy
       attr_accessor remote_debug_config: Types::RemoteDebugConfig
       attr_accessor infra_check_config: Types::InfraCheckConfig
+      attr_accessor serverless_job_config: Types::ServerlessJobConfig
+      attr_accessor mlflow_config: Types::MlflowConfig
+      attr_accessor model_package_config: Types::ModelPackageConfig
+      attr_accessor mlflow_details: Types::MlflowDetails
+      attr_accessor progress_info: Types::TrainingProgressInfo
+      attr_accessor output_model_package_arn: ::String
       SENSITIVE: []
     end
 
@@ -5843,6 +5896,11 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class InferenceComponentMetadata
+      attr_accessor arn: ::String
+      SENSITIVE: []
+    end
+
     class InferenceComponentRollingUpdatePolicy
       attr_accessor maximum_batch_size: Types::InferenceComponentCapacitySize
       attr_accessor wait_interval_in_seconds: ::Integer
@@ -6227,6 +6285,14 @@ module Aws::SageMaker
       attr_accessor display_name: ::String
       attr_accessor creation_time: ::Time
       attr_accessor last_modified_time: ::Time
+      SENSITIVE: []
+    end
+
+    class LineageMetadata
+      attr_accessor action_arns: ::Hash[::String, ::String]
+      attr_accessor artifact_arns: ::Hash[::String, ::String]
+      attr_accessor context_arns: ::Hash[::String, ::String]
+      attr_accessor associations: ::Array[Types::AssociationInfo]
       SENSITIVE: []
     end
 
@@ -7753,6 +7819,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class MLflowConfiguration
+      attr_accessor mlflow_resource_arn: ::String
+      attr_accessor mlflow_experiment_name: ::String
+      SENSITIVE: []
+    end
+
     class MemberDefinition
       attr_accessor cognito_member_definition: Types::CognitoMemberDefinition
       attr_accessor oidc_member_definition: Types::OidcMemberDefinition
@@ -7822,6 +7894,19 @@ module Aws::SageMaker
       attr_accessor creation_time: ::Time
       attr_accessor last_modified_time: ::Time
       attr_accessor mlflow_version: ::String
+      SENSITIVE: []
+    end
+
+    class MlflowConfig
+      attr_accessor mlflow_resource_arn: ::String
+      attr_accessor mlflow_experiment_name: ::String
+      attr_accessor mlflow_run_name: ::String
+      SENSITIVE: []
+    end
+
+    class MlflowDetails
+      attr_accessor mlflow_experiment_id: ::String
+      attr_accessor mlflow_run_id: ::String
       SENSITIVE: []
     end
 
@@ -8109,6 +8194,7 @@ module Aws::SageMaker
       attr_accessor model_package_name: ::String
       attr_accessor model_package_group_name: ::String
       attr_accessor model_package_version: ::Integer
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       attr_accessor model_package_arn: ::String
       attr_accessor model_package_description: ::String
       attr_accessor creation_time: ::Time
@@ -8140,6 +8226,12 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class ModelPackageConfig
+      attr_accessor model_package_group_arn: ::String
+      attr_accessor source_model_package_arn: ::String
+      SENSITIVE: []
+    end
+
     class ModelPackageContainerDefinition
       attr_accessor container_hostname: ::String
       attr_accessor image: ::String
@@ -8154,6 +8246,8 @@ module Aws::SageMaker
       attr_accessor nearest_model_name: ::String
       attr_accessor additional_s3_data_source: Types::AdditionalS3DataSource
       attr_accessor model_data_etag: ::String
+      attr_accessor is_checkpoint: bool
+      attr_accessor base_model: Types::BaseModel
       SENSITIVE: []
     end
 
@@ -8211,6 +8305,7 @@ module Aws::SageMaker
       attr_accessor model_package_status: ("Pending" | "InProgress" | "Completed" | "Failed" | "Deleting")
       attr_accessor model_approval_status: ("Approved" | "Rejected" | "PendingManualApproval")
       attr_accessor model_life_cycle: Types::ModelLifeCycle
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       SENSITIVE: []
     end
 
@@ -8914,6 +9009,12 @@ module Aws::SageMaker
       attr_accessor auto_ml_job: Types::AutoMLJobStepMetadata
       attr_accessor endpoint: Types::EndpointStepMetadata
       attr_accessor endpoint_config: Types::EndpointConfigStepMetadata
+      attr_accessor bedrock_custom_model: Types::BedrockCustomModelMetadata
+      attr_accessor bedrock_custom_model_deployment: Types::BedrockCustomModelDeploymentMetadata
+      attr_accessor bedrock_provisioned_model_throughput: Types::BedrockProvisionedModelThroughputMetadata
+      attr_accessor bedrock_model_import: Types::BedrockModelImportMetadata
+      attr_accessor inference_component: Types::InferenceComponentMetadata
+      attr_accessor lineage: Types::LineageMetadata
       SENSITIVE: []
     end
 
@@ -9859,6 +9960,17 @@ module Aws::SageMaker
       SENSITIVE: []
     end
 
+    class ServerlessJobConfig
+      attr_accessor base_model_arn: ::String
+      attr_accessor accept_eula: bool
+      attr_accessor job_type: ("FineTuning" | "Evaluation")
+      attr_accessor customization_technique: ("SFT" | "DPO" | "RLVR" | "RLAIF")
+      attr_accessor peft: ("LORA")
+      attr_accessor evaluation_type: ("LLMAJEvaluation" | "CustomScorerEvaluation" | "BenchmarkEvaluation")
+      attr_accessor evaluator_arn: ::String
+      SENSITIVE: []
+    end
+
     class ServiceCatalogProvisionedProductDetails
       attr_accessor provisioned_product_id: ::String
       attr_accessor provisioned_product_status_message: ::String
@@ -10049,6 +10161,7 @@ module Aws::SageMaker
       attr_accessor parallelism_configuration: Types::ParallelismConfiguration
       attr_accessor selective_execution_config: Types::SelectiveExecutionConfig
       attr_accessor pipeline_version_id: ::Integer
+      attr_accessor mlflow_experiment_name: ::String
       SENSITIVE: []
     end
 
@@ -10407,6 +10520,8 @@ module Aws::SageMaker
       attr_accessor debug_rule_configurations: ::Array[Types::DebugRuleConfiguration]
       attr_accessor tensor_board_output_config: Types::TensorBoardOutputConfig
       attr_accessor debug_rule_evaluation_statuses: ::Array[Types::DebugRuleEvaluationStatus]
+      attr_accessor output_model_package_arn: ::String
+      attr_accessor model_package_config: Types::ModelPackageConfig
       attr_accessor profiler_config: Types::ProfilerConfig
       attr_accessor environment: ::Hash[::String, ::String]
       attr_accessor retry_strategy: Types::RetryStrategy
@@ -10487,6 +10602,14 @@ module Aws::SageMaker
       attr_accessor total_ultra_server_count: ::Integer
       attr_accessor target_resources: ::Array[("training-job" | "hyperpod-cluster" | "endpoint")]
       attr_accessor reserved_capacity_summaries: ::Array[Types::ReservedCapacitySummary]
+      SENSITIVE: []
+    end
+
+    class TrainingProgressInfo
+      attr_accessor total_step_count_per_epoch: ::Integer
+      attr_accessor current_step: ::Integer
+      attr_accessor current_epoch: ::Integer
+      attr_accessor max_epoch: ::Integer
       SENSITIVE: []
     end
 
@@ -11198,6 +11321,7 @@ module Aws::SageMaker
     class UpdateModelPackageInput
       attr_accessor model_package_arn: ::String
       attr_accessor model_approval_status: ("Approved" | "Rejected" | "PendingManualApproval")
+      attr_accessor model_package_registration_type: ("Logged" | "Registered")
       attr_accessor approval_description: ::String
       attr_accessor customer_metadata_properties: ::Hash[::String, ::String]
       attr_accessor customer_metadata_properties_to_remove: ::Array[::String]

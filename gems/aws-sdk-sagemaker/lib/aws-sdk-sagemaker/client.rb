@@ -927,6 +927,10 @@ module Aws::SageMaker
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].additional_s3_data_source.compression_type #=> String, one of "None", "Gzip"
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].additional_s3_data_source.etag #=> String
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].model_data_etag #=> String
+    #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].is_checkpoint #=> Boolean
+    #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].base_model.hub_content_name #=> String
+    #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].base_model.hub_content_version #=> String
+    #   resp.model_package_summaries["ModelPackageArn"].inference_specification.containers[0].base_model.recipe_name #=> String
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.supported_transform_instance_types #=> Array
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.supported_transform_instance_types[0] #=> String, one of "ml.m4.xlarge", "ml.m4.2xlarge", "ml.m4.4xlarge", "ml.m4.10xlarge", "ml.m4.16xlarge", "ml.c4.xlarge", "ml.c4.2xlarge", "ml.c4.4xlarge", "ml.c4.8xlarge", "ml.p2.xlarge", "ml.p2.8xlarge", "ml.p2.16xlarge", "ml.p3.2xlarge", "ml.p3.8xlarge", "ml.p3.16xlarge", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.12xlarge", "ml.m5.24xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.c7i.large", "ml.c7i.xlarge", "ml.c7i.2xlarge", "ml.c7i.4xlarge", "ml.c7i.8xlarge", "ml.c7i.12xlarge", "ml.c7i.16xlarge", "ml.c7i.24xlarge", "ml.c7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge", "ml.g4dn.xlarge", "ml.g4dn.2xlarge", "ml.g4dn.4xlarge", "ml.g4dn.8xlarge", "ml.g4dn.12xlarge", "ml.g4dn.16xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge"
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.supported_realtime_inference_instance_types #=> Array
@@ -937,6 +941,7 @@ module Aws::SageMaker
     #   resp.model_package_summaries["ModelPackageArn"].inference_specification.supported_response_mime_types[0] #=> String
     #   resp.model_package_summaries["ModelPackageArn"].model_package_status #=> String, one of "Pending", "InProgress", "Completed", "Failed", "Deleting"
     #   resp.model_package_summaries["ModelPackageArn"].model_approval_status #=> String, one of "Approved", "Rejected", "PendingManualApproval"
+    #   resp.model_package_summaries["ModelPackageArn"].model_package_registration_type #=> String, one of "Logged", "Registered"
     #   resp.batch_describe_model_package_error_map #=> Hash
     #   resp.batch_describe_model_package_error_map["ModelPackageArn"].error_code #=> String
     #   resp.batch_describe_model_package_error_map["ModelPackageArn"].error_response #=> String
@@ -1404,6 +1409,12 @@ module Aws::SageMaker
     #             etag: "String",
     #           },
     #           model_data_etag: "String",
+    #           is_checkpoint: false,
+    #           base_model: {
+    #             hub_content_name: "HubContentName",
+    #             hub_content_version: "HubContentVersion",
+    #             recipe_name: "RecipeName",
+    #           },
     #         },
     #       ],
     #       supported_transform_instance_types: ["ml.m4.xlarge"], # accepts ml.m4.xlarge, ml.m4.2xlarge, ml.m4.4xlarge, ml.m4.10xlarge, ml.m4.16xlarge, ml.c4.xlarge, ml.c4.2xlarge, ml.c4.4xlarge, ml.c4.8xlarge, ml.p2.xlarge, ml.p2.8xlarge, ml.p2.16xlarge, ml.p3.2xlarge, ml.p3.8xlarge, ml.p3.16xlarge, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.12xlarge, ml.m5.24xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.c7i.large, ml.c7i.xlarge, ml.c7i.2xlarge, ml.c7i.4xlarge, ml.c7i.8xlarge, ml.c7i.12xlarge, ml.c7i.16xlarge, ml.c7i.24xlarge, ml.c7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge, ml.g4dn.xlarge, ml.g4dn.2xlarge, ml.g4dn.4xlarge, ml.g4dn.8xlarge, ml.g4dn.12xlarge, ml.g4dn.16xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge
@@ -1443,6 +1454,9 @@ module Aws::SageMaker
     #                     file_system_access_mode: "rw", # required, accepts rw, ro
     #                     file_system_type: "EFS", # required, accepts EFS, FSxLustre
     #                     directory_path: "DirectoryPath", # required
+    #                   },
+    #                   dataset_source: {
+    #                     dataset_arn: "HubDataSetArn", # required
     #                   },
     #                 },
     #                 content_type: "ContentType",
@@ -2574,7 +2588,7 @@ module Aws::SageMaker
     #       },
     #     ],
     #     orchestrator: {
-    #       eks: {
+    #       eks: { # required
     #         cluster_arn: "EksClusterArn", # required
     #       },
     #     },
@@ -5401,6 +5415,9 @@ module Aws::SageMaker
     #               file_system_type: "EFS", # required, accepts EFS, FSxLustre
     #               directory_path: "DirectoryPath", # required
     #             },
+    #             dataset_source: {
+    #               dataset_arn: "HubDataSetArn", # required
+    #             },
     #           },
     #           content_type: "ContentType",
     #           compression_type: "None", # accepts None, Gzip
@@ -5551,6 +5568,9 @@ module Aws::SageMaker
     #                 file_system_access_mode: "rw", # required, accepts rw, ro
     #                 file_system_type: "EFS", # required, accepts EFS, FSxLustre
     #                 directory_path: "DirectoryPath", # required
+    #               },
+    #               dataset_source: {
+    #                 dataset_arn: "HubDataSetArn", # required
     #               },
     #             },
     #             content_type: "ContentType",
@@ -7469,6 +7489,9 @@ module Aws::SageMaker
     # @option params [String] :model_package_description
     #   A description of the model package.
     #
+    # @option params [String] :model_package_registration_type
+    #   The package registration type of the model package input.
+    #
     # @option params [Types::InferenceSpecification] :inference_specification
     #   Specifies details about inference jobs that you can run with models
     #   based on this model package, including the following information:
@@ -7619,6 +7642,7 @@ module Aws::SageMaker
     #     model_package_name: "EntityName",
     #     model_package_group_name: "ArnOrName",
     #     model_package_description: "EntityDescription",
+    #     model_package_registration_type: "Logged", # accepts Logged, Registered
     #     inference_specification: {
     #       containers: [ # required
     #         {
@@ -7659,6 +7683,12 @@ module Aws::SageMaker
     #             etag: "String",
     #           },
     #           model_data_etag: "String",
+    #           is_checkpoint: false,
+    #           base_model: {
+    #             hub_content_name: "HubContentName",
+    #             hub_content_version: "HubContentVersion",
+    #             recipe_name: "RecipeName",
+    #           },
     #         },
     #       ],
     #       supported_transform_instance_types: ["ml.m4.xlarge"], # accepts ml.m4.xlarge, ml.m4.2xlarge, ml.m4.4xlarge, ml.m4.10xlarge, ml.m4.16xlarge, ml.c4.xlarge, ml.c4.2xlarge, ml.c4.4xlarge, ml.c4.8xlarge, ml.p2.xlarge, ml.p2.8xlarge, ml.p2.16xlarge, ml.p3.2xlarge, ml.p3.8xlarge, ml.p3.16xlarge, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.12xlarge, ml.m5.24xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.c7i.large, ml.c7i.xlarge, ml.c7i.2xlarge, ml.c7i.4xlarge, ml.c7i.8xlarge, ml.c7i.12xlarge, ml.c7i.16xlarge, ml.c7i.24xlarge, ml.c7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge, ml.g4dn.xlarge, ml.g4dn.2xlarge, ml.g4dn.4xlarge, ml.g4dn.8xlarge, ml.g4dn.12xlarge, ml.g4dn.16xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge
@@ -7899,6 +7929,12 @@ module Aws::SageMaker
     #               etag: "String",
     #             },
     #             model_data_etag: "String",
+    #             is_checkpoint: false,
+    #             base_model: {
+    #               hub_content_name: "HubContentName",
+    #               hub_content_version: "HubContentVersion",
+    #               recipe_name: "RecipeName",
+    #             },
     #           },
     #         ],
     #         supported_transform_instance_types: ["ml.m4.xlarge"], # accepts ml.m4.xlarge, ml.m4.2xlarge, ml.m4.4xlarge, ml.m4.10xlarge, ml.m4.16xlarge, ml.c4.xlarge, ml.c4.2xlarge, ml.c4.4xlarge, ml.c4.8xlarge, ml.p2.xlarge, ml.p2.8xlarge, ml.p2.16xlarge, ml.p3.2xlarge, ml.p3.8xlarge, ml.p3.16xlarge, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.12xlarge, ml.m5.24xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.c7i.large, ml.c7i.xlarge, ml.c7i.2xlarge, ml.c7i.4xlarge, ml.c7i.8xlarge, ml.c7i.12xlarge, ml.c7i.16xlarge, ml.c7i.24xlarge, ml.c7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge, ml.g4dn.xlarge, ml.g4dn.2xlarge, ml.g4dn.4xlarge, ml.g4dn.8xlarge, ml.g4dn.12xlarge, ml.g4dn.16xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge
@@ -10093,6 +10129,15 @@ module Aws::SageMaker
     #   Contains information about attribute-based access control (ABAC) for
     #   the training job.
     #
+    # @option params [Types::ServerlessJobConfig] :serverless_job_config
+    #   The configuration for serverless training jobs.
+    #
+    # @option params [Types::MlflowConfig] :mlflow_config
+    #   The MLflow configuration using SageMaker managed MLflow.
+    #
+    # @option params [Types::ModelPackageConfig] :model_package_config
+    #   The configuration for the model package.
+    #
     # @return [Types::CreateTrainingJobResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::CreateTrainingJobResponse#training_job_arn #training_job_arn} => String
@@ -10147,6 +10192,9 @@ module Aws::SageMaker
     #             file_system_access_mode: "rw", # required, accepts rw, ro
     #             file_system_type: "EFS", # required, accepts EFS, FSxLustre
     #             directory_path: "DirectoryPath", # required
+    #           },
+    #           dataset_source: {
+    #             dataset_arn: "HubDataSetArn", # required
     #           },
     #         },
     #         content_type: "ContentType",
@@ -10282,6 +10330,24 @@ module Aws::SageMaker
     #     },
     #     session_chaining_config: {
     #       enable_session_tag_chaining: false,
+    #     },
+    #     serverless_job_config: {
+    #       base_model_arn: "ServerlessJobBaseModelArn", # required
+    #       accept_eula: false,
+    #       job_type: "FineTuning", # required, accepts FineTuning, Evaluation
+    #       customization_technique: "SFT", # accepts SFT, DPO, RLVR, RLAIF
+    #       peft: "LORA", # accepts LORA
+    #       evaluation_type: "LLMAJEvaluation", # accepts LLMAJEvaluation, CustomScorerEvaluation, BenchmarkEvaluation
+    #       evaluator_arn: "EvaluatorArn",
+    #     },
+    #     mlflow_config: {
+    #       mlflow_resource_arn: "MlFlowResourceArn", # required
+    #       mlflow_experiment_name: "MlflowExperimentName",
+    #       mlflow_run_name: "MlflowRunName",
+    #     },
+    #     model_package_config: {
+    #       model_package_group_arn: "ModelPackageGroupArn", # required
+    #       source_model_package_arn: "ModelPackageArn",
     #     },
     #   })
     #
@@ -13180,6 +13246,10 @@ module Aws::SageMaker
     #   resp.inference_specification.containers[0].additional_s3_data_source.compression_type #=> String, one of "None", "Gzip"
     #   resp.inference_specification.containers[0].additional_s3_data_source.etag #=> String
     #   resp.inference_specification.containers[0].model_data_etag #=> String
+    #   resp.inference_specification.containers[0].is_checkpoint #=> Boolean
+    #   resp.inference_specification.containers[0].base_model.hub_content_name #=> String
+    #   resp.inference_specification.containers[0].base_model.hub_content_version #=> String
+    #   resp.inference_specification.containers[0].base_model.recipe_name #=> String
     #   resp.inference_specification.supported_transform_instance_types #=> Array
     #   resp.inference_specification.supported_transform_instance_types[0] #=> String, one of "ml.m4.xlarge", "ml.m4.2xlarge", "ml.m4.4xlarge", "ml.m4.10xlarge", "ml.m4.16xlarge", "ml.c4.xlarge", "ml.c4.2xlarge", "ml.c4.4xlarge", "ml.c4.8xlarge", "ml.p2.xlarge", "ml.p2.8xlarge", "ml.p2.16xlarge", "ml.p3.2xlarge", "ml.p3.8xlarge", "ml.p3.16xlarge", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.12xlarge", "ml.m5.24xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.c7i.large", "ml.c7i.xlarge", "ml.c7i.2xlarge", "ml.c7i.4xlarge", "ml.c7i.8xlarge", "ml.c7i.12xlarge", "ml.c7i.16xlarge", "ml.c7i.24xlarge", "ml.c7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge", "ml.g4dn.xlarge", "ml.g4dn.2xlarge", "ml.g4dn.4xlarge", "ml.g4dn.8xlarge", "ml.g4dn.12xlarge", "ml.g4dn.16xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge"
     #   resp.inference_specification.supported_realtime_inference_instance_types #=> Array
@@ -13209,6 +13279,7 @@ module Aws::SageMaker
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].data_source.file_system_data_source.file_system_access_mode #=> String, one of "rw", "ro"
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].data_source.file_system_data_source.file_system_type #=> String, one of "EFS", "FSxLustre"
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].data_source.file_system_data_source.directory_path #=> String
+    #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].data_source.dataset_source.dataset_arn #=> String
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].content_type #=> String
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].compression_type #=> String, one of "None", "Gzip"
     #   resp.validation_specification.validation_profiles[0].training_job_definition.input_data_config[0].record_wrapper_type #=> String, one of "None", "RecordIO"
@@ -15929,6 +16000,7 @@ module Aws::SageMaker
     #   resp.training_job_definition.input_data_config[0].data_source.file_system_data_source.file_system_access_mode #=> String, one of "rw", "ro"
     #   resp.training_job_definition.input_data_config[0].data_source.file_system_data_source.file_system_type #=> String, one of "EFS", "FSxLustre"
     #   resp.training_job_definition.input_data_config[0].data_source.file_system_data_source.directory_path #=> String
+    #   resp.training_job_definition.input_data_config[0].data_source.dataset_source.dataset_arn #=> String
     #   resp.training_job_definition.input_data_config[0].content_type #=> String
     #   resp.training_job_definition.input_data_config[0].compression_type #=> String, one of "None", "Gzip"
     #   resp.training_job_definition.input_data_config[0].record_wrapper_type #=> String, one of "None", "RecordIO"
@@ -16020,6 +16092,7 @@ module Aws::SageMaker
     #   resp.training_job_definitions[0].input_data_config[0].data_source.file_system_data_source.file_system_access_mode #=> String, one of "rw", "ro"
     #   resp.training_job_definitions[0].input_data_config[0].data_source.file_system_data_source.file_system_type #=> String, one of "EFS", "FSxLustre"
     #   resp.training_job_definitions[0].input_data_config[0].data_source.file_system_data_source.directory_path #=> String
+    #   resp.training_job_definitions[0].input_data_config[0].data_source.dataset_source.dataset_arn #=> String
     #   resp.training_job_definitions[0].input_data_config[0].content_type #=> String
     #   resp.training_job_definitions[0].input_data_config[0].compression_type #=> String, one of "None", "Gzip"
     #   resp.training_job_definitions[0].input_data_config[0].record_wrapper_type #=> String, one of "None", "RecordIO"
@@ -17244,6 +17317,7 @@ module Aws::SageMaker
     #   * {Types::DescribeModelPackageOutput#model_package_name #model_package_name} => String
     #   * {Types::DescribeModelPackageOutput#model_package_group_name #model_package_group_name} => String
     #   * {Types::DescribeModelPackageOutput#model_package_version #model_package_version} => Integer
+    #   * {Types::DescribeModelPackageOutput#model_package_registration_type #model_package_registration_type} => String
     #   * {Types::DescribeModelPackageOutput#model_package_arn #model_package_arn} => String
     #   * {Types::DescribeModelPackageOutput#model_package_description #model_package_description} => String
     #   * {Types::DescribeModelPackageOutput#creation_time #creation_time} => Time
@@ -17283,6 +17357,7 @@ module Aws::SageMaker
     #   resp.model_package_name #=> String
     #   resp.model_package_group_name #=> String
     #   resp.model_package_version #=> Integer
+    #   resp.model_package_registration_type #=> String, one of "Logged", "Registered"
     #   resp.model_package_arn #=> String
     #   resp.model_package_description #=> String
     #   resp.creation_time #=> Time
@@ -17311,6 +17386,10 @@ module Aws::SageMaker
     #   resp.inference_specification.containers[0].additional_s3_data_source.compression_type #=> String, one of "None", "Gzip"
     #   resp.inference_specification.containers[0].additional_s3_data_source.etag #=> String
     #   resp.inference_specification.containers[0].model_data_etag #=> String
+    #   resp.inference_specification.containers[0].is_checkpoint #=> Boolean
+    #   resp.inference_specification.containers[0].base_model.hub_content_name #=> String
+    #   resp.inference_specification.containers[0].base_model.hub_content_version #=> String
+    #   resp.inference_specification.containers[0].base_model.recipe_name #=> String
     #   resp.inference_specification.supported_transform_instance_types #=> Array
     #   resp.inference_specification.supported_transform_instance_types[0] #=> String, one of "ml.m4.xlarge", "ml.m4.2xlarge", "ml.m4.4xlarge", "ml.m4.10xlarge", "ml.m4.16xlarge", "ml.c4.xlarge", "ml.c4.2xlarge", "ml.c4.4xlarge", "ml.c4.8xlarge", "ml.p2.xlarge", "ml.p2.8xlarge", "ml.p2.16xlarge", "ml.p3.2xlarge", "ml.p3.8xlarge", "ml.p3.16xlarge", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.12xlarge", "ml.m5.24xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.c7i.large", "ml.c7i.xlarge", "ml.c7i.2xlarge", "ml.c7i.4xlarge", "ml.c7i.8xlarge", "ml.c7i.12xlarge", "ml.c7i.16xlarge", "ml.c7i.24xlarge", "ml.c7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge", "ml.g4dn.xlarge", "ml.g4dn.2xlarge", "ml.g4dn.4xlarge", "ml.g4dn.8xlarge", "ml.g4dn.12xlarge", "ml.g4dn.16xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge"
     #   resp.inference_specification.supported_realtime_inference_instance_types #=> Array
@@ -17465,6 +17544,10 @@ module Aws::SageMaker
     #   resp.additional_inference_specifications[0].containers[0].additional_s3_data_source.compression_type #=> String, one of "None", "Gzip"
     #   resp.additional_inference_specifications[0].containers[0].additional_s3_data_source.etag #=> String
     #   resp.additional_inference_specifications[0].containers[0].model_data_etag #=> String
+    #   resp.additional_inference_specifications[0].containers[0].is_checkpoint #=> Boolean
+    #   resp.additional_inference_specifications[0].containers[0].base_model.hub_content_name #=> String
+    #   resp.additional_inference_specifications[0].containers[0].base_model.hub_content_version #=> String
+    #   resp.additional_inference_specifications[0].containers[0].base_model.recipe_name #=> String
     #   resp.additional_inference_specifications[0].supported_transform_instance_types #=> Array
     #   resp.additional_inference_specifications[0].supported_transform_instance_types[0] #=> String, one of "ml.m4.xlarge", "ml.m4.2xlarge", "ml.m4.4xlarge", "ml.m4.10xlarge", "ml.m4.16xlarge", "ml.c4.xlarge", "ml.c4.2xlarge", "ml.c4.4xlarge", "ml.c4.8xlarge", "ml.p2.xlarge", "ml.p2.8xlarge", "ml.p2.16xlarge", "ml.p3.2xlarge", "ml.p3.8xlarge", "ml.p3.16xlarge", "ml.c5.xlarge", "ml.c5.2xlarge", "ml.c5.4xlarge", "ml.c5.9xlarge", "ml.c5.18xlarge", "ml.m5.large", "ml.m5.xlarge", "ml.m5.2xlarge", "ml.m5.4xlarge", "ml.m5.12xlarge", "ml.m5.24xlarge", "ml.m6i.large", "ml.m6i.xlarge", "ml.m6i.2xlarge", "ml.m6i.4xlarge", "ml.m6i.8xlarge", "ml.m6i.12xlarge", "ml.m6i.16xlarge", "ml.m6i.24xlarge", "ml.m6i.32xlarge", "ml.c6i.large", "ml.c6i.xlarge", "ml.c6i.2xlarge", "ml.c6i.4xlarge", "ml.c6i.8xlarge", "ml.c6i.12xlarge", "ml.c6i.16xlarge", "ml.c6i.24xlarge", "ml.c6i.32xlarge", "ml.r6i.large", "ml.r6i.xlarge", "ml.r6i.2xlarge", "ml.r6i.4xlarge", "ml.r6i.8xlarge", "ml.r6i.12xlarge", "ml.r6i.16xlarge", "ml.r6i.24xlarge", "ml.r6i.32xlarge", "ml.m7i.large", "ml.m7i.xlarge", "ml.m7i.2xlarge", "ml.m7i.4xlarge", "ml.m7i.8xlarge", "ml.m7i.12xlarge", "ml.m7i.16xlarge", "ml.m7i.24xlarge", "ml.m7i.48xlarge", "ml.c7i.large", "ml.c7i.xlarge", "ml.c7i.2xlarge", "ml.c7i.4xlarge", "ml.c7i.8xlarge", "ml.c7i.12xlarge", "ml.c7i.16xlarge", "ml.c7i.24xlarge", "ml.c7i.48xlarge", "ml.r7i.large", "ml.r7i.xlarge", "ml.r7i.2xlarge", "ml.r7i.4xlarge", "ml.r7i.8xlarge", "ml.r7i.12xlarge", "ml.r7i.16xlarge", "ml.r7i.24xlarge", "ml.r7i.48xlarge", "ml.g4dn.xlarge", "ml.g4dn.2xlarge", "ml.g4dn.4xlarge", "ml.g4dn.8xlarge", "ml.g4dn.12xlarge", "ml.g4dn.16xlarge", "ml.g5.xlarge", "ml.g5.2xlarge", "ml.g5.4xlarge", "ml.g5.8xlarge", "ml.g5.12xlarge", "ml.g5.16xlarge", "ml.g5.24xlarge", "ml.g5.48xlarge", "ml.trn1.2xlarge", "ml.trn1.32xlarge", "ml.inf2.xlarge", "ml.inf2.8xlarge", "ml.inf2.24xlarge", "ml.inf2.48xlarge", "ml.g6.xlarge", "ml.g6.2xlarge", "ml.g6.4xlarge", "ml.g6.8xlarge", "ml.g6.12xlarge", "ml.g6.16xlarge", "ml.g6.24xlarge", "ml.g6.48xlarge"
     #   resp.additional_inference_specifications[0].supported_realtime_inference_instance_types #=> Array
@@ -18157,6 +18240,7 @@ module Aws::SageMaker
     #   * {Types::DescribePipelineExecutionResponse#parallelism_configuration #parallelism_configuration} => Types::ParallelismConfiguration
     #   * {Types::DescribePipelineExecutionResponse#selective_execution_config #selective_execution_config} => Types::SelectiveExecutionConfig
     #   * {Types::DescribePipelineExecutionResponse#pipeline_version_id #pipeline_version_id} => Integer
+    #   * {Types::DescribePipelineExecutionResponse#m_lflow_config #m_lflow_config} => Types::MLflowConfiguration
     #
     # @example Request syntax with placeholder values
     #
@@ -18193,6 +18277,8 @@ module Aws::SageMaker
     #   resp.selective_execution_config.selected_steps #=> Array
     #   resp.selective_execution_config.selected_steps[0].step_name #=> String
     #   resp.pipeline_version_id #=> Integer
+    #   resp.m_lflow_config.mlflow_resource_arn #=> String
+    #   resp.m_lflow_config.mlflow_experiment_name #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/DescribePipelineExecution AWS API Documentation
     #
@@ -18673,6 +18759,7 @@ module Aws::SageMaker
     #   * {Types::DescribeTrainingJobResponse#checkpoint_config #checkpoint_config} => Types::CheckpointConfig
     #   * {Types::DescribeTrainingJobResponse#training_time_in_seconds #training_time_in_seconds} => Integer
     #   * {Types::DescribeTrainingJobResponse#billable_time_in_seconds #billable_time_in_seconds} => Integer
+    #   * {Types::DescribeTrainingJobResponse#billable_token_count #billable_token_count} => Integer
     #   * {Types::DescribeTrainingJobResponse#debug_hook_config #debug_hook_config} => Types::DebugHookConfig
     #   * {Types::DescribeTrainingJobResponse#experiment_config #experiment_config} => Types::ExperimentConfig
     #   * {Types::DescribeTrainingJobResponse#debug_rule_configurations #debug_rule_configurations} => Array&lt;Types::DebugRuleConfiguration&gt;
@@ -18686,6 +18773,12 @@ module Aws::SageMaker
     #   * {Types::DescribeTrainingJobResponse#retry_strategy #retry_strategy} => Types::RetryStrategy
     #   * {Types::DescribeTrainingJobResponse#remote_debug_config #remote_debug_config} => Types::RemoteDebugConfig
     #   * {Types::DescribeTrainingJobResponse#infra_check_config #infra_check_config} => Types::InfraCheckConfig
+    #   * {Types::DescribeTrainingJobResponse#serverless_job_config #serverless_job_config} => Types::ServerlessJobConfig
+    #   * {Types::DescribeTrainingJobResponse#mlflow_config #mlflow_config} => Types::MlflowConfig
+    #   * {Types::DescribeTrainingJobResponse#model_package_config #model_package_config} => Types::ModelPackageConfig
+    #   * {Types::DescribeTrainingJobResponse#mlflow_details #mlflow_details} => Types::MlflowDetails
+    #   * {Types::DescribeTrainingJobResponse#progress_info #progress_info} => Types::TrainingProgressInfo
+    #   * {Types::DescribeTrainingJobResponse#output_model_package_arn #output_model_package_arn} => String
     #
     # @example Request syntax with placeholder values
     #
@@ -18735,6 +18828,7 @@ module Aws::SageMaker
     #   resp.input_data_config[0].data_source.file_system_data_source.file_system_access_mode #=> String, one of "rw", "ro"
     #   resp.input_data_config[0].data_source.file_system_data_source.file_system_type #=> String, one of "EFS", "FSxLustre"
     #   resp.input_data_config[0].data_source.file_system_data_source.directory_path #=> String
+    #   resp.input_data_config[0].data_source.dataset_source.dataset_arn #=> String
     #   resp.input_data_config[0].content_type #=> String
     #   resp.input_data_config[0].compression_type #=> String, one of "None", "Gzip"
     #   resp.input_data_config[0].record_wrapper_type #=> String, one of "None", "RecordIO"
@@ -18787,6 +18881,7 @@ module Aws::SageMaker
     #   resp.checkpoint_config.local_path #=> String
     #   resp.training_time_in_seconds #=> Integer
     #   resp.billable_time_in_seconds #=> Integer
+    #   resp.billable_token_count #=> Integer
     #   resp.debug_hook_config.local_path #=> String
     #   resp.debug_hook_config.s3_output_path #=> String
     #   resp.debug_hook_config.hook_parameters #=> Hash
@@ -18842,6 +18937,25 @@ module Aws::SageMaker
     #   resp.retry_strategy.maximum_retry_attempts #=> Integer
     #   resp.remote_debug_config.enable_remote_debug #=> Boolean
     #   resp.infra_check_config.enable_infra_check #=> Boolean
+    #   resp.serverless_job_config.base_model_arn #=> String
+    #   resp.serverless_job_config.accept_eula #=> Boolean
+    #   resp.serverless_job_config.job_type #=> String, one of "FineTuning", "Evaluation"
+    #   resp.serverless_job_config.customization_technique #=> String, one of "SFT", "DPO", "RLVR", "RLAIF"
+    #   resp.serverless_job_config.peft #=> String, one of "LORA"
+    #   resp.serverless_job_config.evaluation_type #=> String, one of "LLMAJEvaluation", "CustomScorerEvaluation", "BenchmarkEvaluation"
+    #   resp.serverless_job_config.evaluator_arn #=> String
+    #   resp.mlflow_config.mlflow_resource_arn #=> String
+    #   resp.mlflow_config.mlflow_experiment_name #=> String
+    #   resp.mlflow_config.mlflow_run_name #=> String
+    #   resp.model_package_config.model_package_group_arn #=> String
+    #   resp.model_package_config.source_model_package_arn #=> String
+    #   resp.mlflow_details.mlflow_experiment_id #=> String
+    #   resp.mlflow_details.mlflow_run_id #=> String
+    #   resp.progress_info.total_step_count_per_epoch #=> Integer
+    #   resp.progress_info.current_step #=> Integer
+    #   resp.progress_info.current_epoch #=> Integer
+    #   resp.progress_info.max_epoch #=> Integer
+    #   resp.output_model_package_arn #=> String
     #
     #
     # The following waiters are defined for this operation (see {Client#wait_until} for detailed usage):
@@ -24094,6 +24208,7 @@ module Aws::SageMaker
     #   resp.model_package_summary_list[0].model_life_cycle.stage #=> String
     #   resp.model_package_summary_list[0].model_life_cycle.stage_status #=> String
     #   resp.model_package_summary_list[0].model_life_cycle.stage_description #=> String
+    #   resp.model_package_summary_list[0].model_package_registration_type #=> String, one of "Logged", "Registered"
     #   resp.next_token #=> String
     #
     # @see http://docs.aws.amazon.com/goto/WebAPI/sagemaker-2017-07-24/ListModelPackages AWS API Documentation
@@ -24994,6 +25109,20 @@ module Aws::SageMaker
     #   resp.pipeline_execution_steps[0].metadata.auto_ml_job.arn #=> String
     #   resp.pipeline_execution_steps[0].metadata.endpoint.arn #=> String
     #   resp.pipeline_execution_steps[0].metadata.endpoint_config.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.bedrock_custom_model.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.bedrock_custom_model_deployment.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.bedrock_provisioned_model_throughput.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.bedrock_model_import.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.inference_component.arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.lineage.action_arns #=> Hash
+    #   resp.pipeline_execution_steps[0].metadata.lineage.action_arns["String2048"] #=> String
+    #   resp.pipeline_execution_steps[0].metadata.lineage.artifact_arns #=> Hash
+    #   resp.pipeline_execution_steps[0].metadata.lineage.artifact_arns["String2048"] #=> String
+    #   resp.pipeline_execution_steps[0].metadata.lineage.context_arns #=> Hash
+    #   resp.pipeline_execution_steps[0].metadata.lineage.context_arns["String2048"] #=> String
+    #   resp.pipeline_execution_steps[0].metadata.lineage.associations #=> Array
+    #   resp.pipeline_execution_steps[0].metadata.lineage.associations[0].source_arn #=> String
+    #   resp.pipeline_execution_steps[0].metadata.lineage.associations[0].destination_arn #=> String
     #   resp.pipeline_execution_steps[0].attempt_count #=> Integer
     #   resp.pipeline_execution_steps[0].selective_execution_result.source_pipeline_execution_arn #=> String
     #   resp.next_token #=> String
@@ -27390,6 +27519,9 @@ module Aws::SageMaker
     # @option params [Integer] :pipeline_version_id
     #   The ID of the pipeline version to start execution from.
     #
+    # @option params [String] :mlflow_experiment_name
+    #   The MLflow experiment name of the start execution.
+    #
     # @return [Types::StartPipelineExecutionResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
     #
     #   * {Types::StartPipelineExecutionResponse#pipeline_execution_arn #pipeline_execution_arn} => String
@@ -27419,6 +27551,7 @@ module Aws::SageMaker
     #       ],
     #     },
     #     pipeline_version_id: 1,
+    #     mlflow_experiment_name: "MlflowExperimentEntityName",
     #   })
     #
     # @example Response structure
@@ -30247,6 +30380,9 @@ module Aws::SageMaker
     # @option params [String] :model_approval_status
     #   The approval status of the model.
     #
+    # @option params [String] :model_package_registration_type
+    #   The package registration type of the model package input.
+    #
     # @option params [String] :approval_description
     #   A description for the approval status of the model.
     #
@@ -30315,6 +30451,7 @@ module Aws::SageMaker
     #   resp = client.update_model_package({
     #     model_package_arn: "ModelPackageArn", # required
     #     model_approval_status: "Approved", # accepts Approved, Rejected, PendingManualApproval
+    #     model_package_registration_type: "Logged", # accepts Logged, Registered
     #     approval_description: "ApprovalDescription",
     #     customer_metadata_properties: {
     #       "CustomerMetadataKey" => "CustomerMetadataValue",
@@ -30363,6 +30500,12 @@ module Aws::SageMaker
     #               etag: "String",
     #             },
     #             model_data_etag: "String",
+    #             is_checkpoint: false,
+    #             base_model: {
+    #               hub_content_name: "HubContentName",
+    #               hub_content_version: "HubContentVersion",
+    #               recipe_name: "RecipeName",
+    #             },
     #           },
     #         ],
     #         supported_transform_instance_types: ["ml.m4.xlarge"], # accepts ml.m4.xlarge, ml.m4.2xlarge, ml.m4.4xlarge, ml.m4.10xlarge, ml.m4.16xlarge, ml.c4.xlarge, ml.c4.2xlarge, ml.c4.4xlarge, ml.c4.8xlarge, ml.p2.xlarge, ml.p2.8xlarge, ml.p2.16xlarge, ml.p3.2xlarge, ml.p3.8xlarge, ml.p3.16xlarge, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.12xlarge, ml.m5.24xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.c7i.large, ml.c7i.xlarge, ml.c7i.2xlarge, ml.c7i.4xlarge, ml.c7i.8xlarge, ml.c7i.12xlarge, ml.c7i.16xlarge, ml.c7i.24xlarge, ml.c7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge, ml.g4dn.xlarge, ml.g4dn.2xlarge, ml.g4dn.4xlarge, ml.g4dn.8xlarge, ml.g4dn.12xlarge, ml.g4dn.16xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge
@@ -30411,6 +30554,12 @@ module Aws::SageMaker
     #             etag: "String",
     #           },
     #           model_data_etag: "String",
+    #           is_checkpoint: false,
+    #           base_model: {
+    #             hub_content_name: "HubContentName",
+    #             hub_content_version: "HubContentVersion",
+    #             recipe_name: "RecipeName",
+    #           },
     #         },
     #       ],
     #       supported_transform_instance_types: ["ml.m4.xlarge"], # accepts ml.m4.xlarge, ml.m4.2xlarge, ml.m4.4xlarge, ml.m4.10xlarge, ml.m4.16xlarge, ml.c4.xlarge, ml.c4.2xlarge, ml.c4.4xlarge, ml.c4.8xlarge, ml.p2.xlarge, ml.p2.8xlarge, ml.p2.16xlarge, ml.p3.2xlarge, ml.p3.8xlarge, ml.p3.16xlarge, ml.c5.xlarge, ml.c5.2xlarge, ml.c5.4xlarge, ml.c5.9xlarge, ml.c5.18xlarge, ml.m5.large, ml.m5.xlarge, ml.m5.2xlarge, ml.m5.4xlarge, ml.m5.12xlarge, ml.m5.24xlarge, ml.m6i.large, ml.m6i.xlarge, ml.m6i.2xlarge, ml.m6i.4xlarge, ml.m6i.8xlarge, ml.m6i.12xlarge, ml.m6i.16xlarge, ml.m6i.24xlarge, ml.m6i.32xlarge, ml.c6i.large, ml.c6i.xlarge, ml.c6i.2xlarge, ml.c6i.4xlarge, ml.c6i.8xlarge, ml.c6i.12xlarge, ml.c6i.16xlarge, ml.c6i.24xlarge, ml.c6i.32xlarge, ml.r6i.large, ml.r6i.xlarge, ml.r6i.2xlarge, ml.r6i.4xlarge, ml.r6i.8xlarge, ml.r6i.12xlarge, ml.r6i.16xlarge, ml.r6i.24xlarge, ml.r6i.32xlarge, ml.m7i.large, ml.m7i.xlarge, ml.m7i.2xlarge, ml.m7i.4xlarge, ml.m7i.8xlarge, ml.m7i.12xlarge, ml.m7i.16xlarge, ml.m7i.24xlarge, ml.m7i.48xlarge, ml.c7i.large, ml.c7i.xlarge, ml.c7i.2xlarge, ml.c7i.4xlarge, ml.c7i.8xlarge, ml.c7i.12xlarge, ml.c7i.16xlarge, ml.c7i.24xlarge, ml.c7i.48xlarge, ml.r7i.large, ml.r7i.xlarge, ml.r7i.2xlarge, ml.r7i.4xlarge, ml.r7i.8xlarge, ml.r7i.12xlarge, ml.r7i.16xlarge, ml.r7i.24xlarge, ml.r7i.48xlarge, ml.g4dn.xlarge, ml.g4dn.2xlarge, ml.g4dn.4xlarge, ml.g4dn.8xlarge, ml.g4dn.12xlarge, ml.g4dn.16xlarge, ml.g5.xlarge, ml.g5.2xlarge, ml.g5.4xlarge, ml.g5.8xlarge, ml.g5.12xlarge, ml.g5.16xlarge, ml.g5.24xlarge, ml.g5.48xlarge, ml.trn1.2xlarge, ml.trn1.32xlarge, ml.inf2.xlarge, ml.inf2.8xlarge, ml.inf2.24xlarge, ml.inf2.48xlarge, ml.g6.xlarge, ml.g6.2xlarge, ml.g6.4xlarge, ml.g6.8xlarge, ml.g6.12xlarge, ml.g6.16xlarge, ml.g6.24xlarge, ml.g6.48xlarge
@@ -32032,7 +32181,7 @@ module Aws::SageMaker
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-sagemaker'
-      context[:gem_version] = '1.342.0'
+      context[:gem_version] = '1.343.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
