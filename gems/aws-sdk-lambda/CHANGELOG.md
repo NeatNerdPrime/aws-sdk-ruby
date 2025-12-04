@@ -1,6 +1,11 @@
 Unreleased Changes
 ------------------
 
+1.170.0 (2025-12-04)
+------------------
+
+* Feature - Add DisallowedByVpcEncryptionControl to the LastUpdateStatusReasonCode and StateReasonCode enums to represent failures caused by VPC Encryption Controls.
+
 1.169.0 (2025-12-02)
 ------------------
 
