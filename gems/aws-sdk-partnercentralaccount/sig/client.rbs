@@ -363,6 +363,21 @@ module Aws
                                   ) -> _GetProfileVisibilityResponseSuccess
                                 | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetProfileVisibilityResponseSuccess
 
+      interface _GetVerificationResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::GetVerificationResponse]
+        def verification_type: () -> ("BUSINESS_VERIFICATION" | "REGISTRANT_VERIFICATION")
+        def verification_status: () -> ("PENDING_CUSTOMER_ACTION" | "IN_PROGRESS" | "FAILED" | "SUCCEEDED" | "REJECTED")
+        def verification_status_reason: () -> ::String
+        def verification_response_details: () -> Types::VerificationResponseDetails
+        def started_at: () -> ::Time
+        def completed_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/PartnerCentralAccount/Client.html#get_verification-instance_method
+      def get_verification: (
+                              verification_type: ("BUSINESS_VERIFICATION" | "REGISTRANT_VERIFICATION")
+                            ) -> _GetVerificationResponseSuccess
+                          | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _GetVerificationResponseSuccess
+
       interface _ListConnectionInvitationsResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::ListConnectionInvitationsResponse]
         def connection_invitation_summaries: () -> ::Array[Types::ConnectionInvitationSummary]
@@ -528,6 +543,31 @@ module Aws
                                        }
                                      ) -> _StartProfileUpdateTaskResponseSuccess
                                    | (Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartProfileUpdateTaskResponseSuccess
+
+      interface _StartVerificationResponseSuccess
+        include ::Seahorse::Client::_ResponseSuccess[Types::StartVerificationResponse]
+        def verification_type: () -> ("BUSINESS_VERIFICATION" | "REGISTRANT_VERIFICATION")
+        def verification_status: () -> ("PENDING_CUSTOMER_ACTION" | "IN_PROGRESS" | "FAILED" | "SUCCEEDED" | "REJECTED")
+        def verification_status_reason: () -> ::String
+        def verification_response_details: () -> Types::VerificationResponseDetails
+        def started_at: () -> ::Time
+        def completed_at: () -> ::Time
+      end
+      # https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/PartnerCentralAccount/Client.html#start_verification-instance_method
+      def start_verification: (
+                                ?client_token: ::String,
+                                ?verification_details: {
+                                  business_verification_details: {
+                                    legal_name: ::String,
+                                    registration_id: ::String,
+                                    country_code: ::String,
+                                    jurisdiction_of_incorporation: ::String?
+                                  }?,
+                                  registrant_verification_details: {
+                                  }?
+                                }
+                              ) -> _StartVerificationResponseSuccess
+                            | (?Hash[Symbol, untyped] params, ?Hash[Symbol, untyped] options) -> _StartVerificationResponseSuccess
 
       interface _TagResourceResponseSuccess
         include ::Seahorse::Client::_ResponseSuccess[Types::TagResourceResponse]

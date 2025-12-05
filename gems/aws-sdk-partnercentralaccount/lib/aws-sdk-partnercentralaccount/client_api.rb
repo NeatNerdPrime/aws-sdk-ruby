@@ -26,6 +26,8 @@ module Aws::PartnerCentralAccount
     AwsAccountId = Shapes::StringShape.new(name: 'AwsAccountId')
     BusinessValidationCode = Shapes::StringShape.new(name: 'BusinessValidationCode')
     BusinessValidationError = Shapes::StructureShape.new(name: 'BusinessValidationError')
+    BusinessVerificationDetails = Shapes::StructureShape.new(name: 'BusinessVerificationDetails')
+    BusinessVerificationResponse = Shapes::StructureShape.new(name: 'BusinessVerificationResponse')
     CancelConnectionInvitationRequest = Shapes::StructureShape.new(name: 'CancelConnectionInvitationRequest')
     CancelConnectionInvitationResponse = Shapes::StructureShape.new(name: 'CancelConnectionInvitationResponse')
     CancelConnectionInvitationResponseInvitationMessageString = Shapes::StringShape.new(name: 'CancelConnectionInvitationResponseInvitationMessageString')
@@ -36,6 +38,7 @@ module Aws::PartnerCentralAccount
     CancelProfileUpdateTaskResponse = Shapes::StructureShape.new(name: 'CancelProfileUpdateTaskResponse')
     Catalog = Shapes::StringShape.new(name: 'Catalog')
     ClientToken = Shapes::StringShape.new(name: 'ClientToken')
+    CompletionUrl = Shapes::StringShape.new(name: 'CompletionUrl')
     ConflictException = Shapes::StructureShape.new(name: 'ConflictException')
     ConflictExceptionReason = Shapes::StringShape.new(name: 'ConflictExceptionReason')
     Connection = Shapes::StructureShape.new(name: 'Connection')
@@ -55,6 +58,7 @@ module Aws::PartnerCentralAccount
     ConnectionTypeStatus = Shapes::StringShape.new(name: 'ConnectionTypeStatus')
     ConnectionTypeSummary = Shapes::StructureShape.new(name: 'ConnectionTypeSummary')
     ConnectionTypeSummaryMap = Shapes::MapShape.new(name: 'ConnectionTypeSummaryMap')
+    CountryCode = Shapes::StringShape.new(name: 'CountryCode')
     CreateConnectionInvitationRequest = Shapes::StructureShape.new(name: 'CreateConnectionInvitationRequest')
     CreateConnectionInvitationRequestMessageString = Shapes::StringShape.new(name: 'CreateConnectionInvitationRequestMessageString')
     CreateConnectionInvitationResponse = Shapes::StructureShape.new(name: 'CreateConnectionInvitationResponse')
@@ -86,10 +90,14 @@ module Aws::PartnerCentralAccount
     GetProfileUpdateTaskResponse = Shapes::StructureShape.new(name: 'GetProfileUpdateTaskResponse')
     GetProfileVisibilityRequest = Shapes::StructureShape.new(name: 'GetProfileVisibilityRequest')
     GetProfileVisibilityResponse = Shapes::StructureShape.new(name: 'GetProfileVisibilityResponse')
+    GetVerificationRequest = Shapes::StructureShape.new(name: 'GetVerificationRequest')
+    GetVerificationResponse = Shapes::StructureShape.new(name: 'GetVerificationResponse')
     IndustrySegment = Shapes::StringShape.new(name: 'IndustrySegment')
     IndustrySegmentList = Shapes::ListShape.new(name: 'IndustrySegmentList')
     InternalServerException = Shapes::StructureShape.new(name: 'InternalServerException')
     InvitationStatus = Shapes::StringShape.new(name: 'InvitationStatus')
+    JurisdictionCode = Shapes::StringShape.new(name: 'JurisdictionCode')
+    LegalName = Shapes::StringShape.new(name: 'LegalName')
     ListConnectionInvitationsRequest = Shapes::StructureShape.new(name: 'ListConnectionInvitationsRequest')
     ListConnectionInvitationsResponse = Shapes::StructureShape.new(name: 'ListConnectionInvitationsResponse')
     ListConnectionsRequest = Shapes::StructureShape.new(name: 'ListConnectionsRequest')
@@ -128,6 +136,9 @@ module Aws::PartnerCentralAccount
     PutAllianceLeadContactResponse = Shapes::StructureShape.new(name: 'PutAllianceLeadContactResponse')
     PutProfileVisibilityRequest = Shapes::StructureShape.new(name: 'PutProfileVisibilityRequest')
     PutProfileVisibilityResponse = Shapes::StructureShape.new(name: 'PutProfileVisibilityResponse')
+    RegistrantVerificationDetails = Shapes::StructureShape.new(name: 'RegistrantVerificationDetails')
+    RegistrantVerificationResponse = Shapes::StructureShape.new(name: 'RegistrantVerificationResponse')
+    RegistrationId = Shapes::StringShape.new(name: 'RegistrationId')
     RejectConnectionInvitationRequest = Shapes::StructureShape.new(name: 'RejectConnectionInvitationRequest')
     RejectConnectionInvitationRequestReasonString = Shapes::StringShape.new(name: 'RejectConnectionInvitationRequestReasonString')
     RejectConnectionInvitationResponse = Shapes::StructureShape.new(name: 'RejectConnectionInvitationResponse')
@@ -144,6 +155,8 @@ module Aws::PartnerCentralAccount
     ServiceQuotaExceededExceptionReason = Shapes::StringShape.new(name: 'ServiceQuotaExceededExceptionReason')
     StartProfileUpdateTaskRequest = Shapes::StructureShape.new(name: 'StartProfileUpdateTaskRequest')
     StartProfileUpdateTaskResponse = Shapes::StructureShape.new(name: 'StartProfileUpdateTaskResponse')
+    StartVerificationRequest = Shapes::StructureShape.new(name: 'StartVerificationRequest')
+    StartVerificationResponse = Shapes::StructureShape.new(name: 'StartVerificationResponse')
     String = Shapes::StringShape.new(name: 'String')
     Tag = Shapes::StructureShape.new(name: 'Tag')
     TagKey = Shapes::StringShape.new(name: 'TagKey')
@@ -167,6 +180,11 @@ module Aws::PartnerCentralAccount
     ValidationErrorList = Shapes::ListShape.new(name: 'ValidationErrorList')
     ValidationException = Shapes::StructureShape.new(name: 'ValidationException')
     ValidationExceptionReason = Shapes::StringShape.new(name: 'ValidationExceptionReason')
+    VerificationDetails = Shapes::UnionShape.new(name: 'VerificationDetails')
+    VerificationResponseDetails = Shapes::UnionShape.new(name: 'VerificationResponseDetails')
+    VerificationStatus = Shapes::StringShape.new(name: 'VerificationStatus')
+    VerificationStatusReason = Shapes::StringShape.new(name: 'VerificationStatusReason')
+    VerificationType = Shapes::StringShape.new(name: 'VerificationType')
 
     AcceptConnectionInvitationRequest.add_member(:catalog, Shapes::ShapeRef.new(shape: Catalog, required: true, location_name: "Catalog"))
     AcceptConnectionInvitationRequest.add_member(:identifier, Shapes::ShapeRef.new(shape: ConnectionInvitationId, required: true, location_name: "Identifier"))
@@ -201,6 +219,15 @@ module Aws::PartnerCentralAccount
     BusinessValidationError.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
     BusinessValidationError.add_member(:code, Shapes::ShapeRef.new(shape: BusinessValidationCode, required: true, location_name: "Code"))
     BusinessValidationError.struct_class = Types::BusinessValidationError
+
+    BusinessVerificationDetails.add_member(:legal_name, Shapes::ShapeRef.new(shape: LegalName, required: true, location_name: "LegalName"))
+    BusinessVerificationDetails.add_member(:registration_id, Shapes::ShapeRef.new(shape: RegistrationId, required: true, location_name: "RegistrationId"))
+    BusinessVerificationDetails.add_member(:country_code, Shapes::ShapeRef.new(shape: CountryCode, required: true, location_name: "CountryCode"))
+    BusinessVerificationDetails.add_member(:jurisdiction_of_incorporation, Shapes::ShapeRef.new(shape: JurisdictionCode, location_name: "JurisdictionOfIncorporation"))
+    BusinessVerificationDetails.struct_class = Types::BusinessVerificationDetails
+
+    BusinessVerificationResponse.add_member(:business_verification_details, Shapes::ShapeRef.new(shape: BusinessVerificationDetails, required: true, location_name: "BusinessVerificationDetails"))
+    BusinessVerificationResponse.struct_class = Types::BusinessVerificationResponse
 
     CancelConnectionInvitationRequest.add_member(:catalog, Shapes::ShapeRef.new(shape: Catalog, required: true, location_name: "Catalog"))
     CancelConnectionInvitationRequest.add_member(:identifier, Shapes::ShapeRef.new(shape: ConnectionInvitationId, required: true, location_name: "Identifier"))
@@ -467,6 +494,17 @@ module Aws::PartnerCentralAccount
     GetProfileVisibilityResponse.add_member(:profile_id, Shapes::ShapeRef.new(shape: PartnerProfileId, required: true, location_name: "ProfileId"))
     GetProfileVisibilityResponse.struct_class = Types::GetProfileVisibilityResponse
 
+    GetVerificationRequest.add_member(:verification_type, Shapes::ShapeRef.new(shape: VerificationType, required: true, location_name: "VerificationType"))
+    GetVerificationRequest.struct_class = Types::GetVerificationRequest
+
+    GetVerificationResponse.add_member(:verification_type, Shapes::ShapeRef.new(shape: VerificationType, required: true, location_name: "VerificationType"))
+    GetVerificationResponse.add_member(:verification_status, Shapes::ShapeRef.new(shape: VerificationStatus, required: true, location_name: "VerificationStatus"))
+    GetVerificationResponse.add_member(:verification_status_reason, Shapes::ShapeRef.new(shape: VerificationStatusReason, location_name: "VerificationStatusReason"))
+    GetVerificationResponse.add_member(:verification_response_details, Shapes::ShapeRef.new(shape: VerificationResponseDetails, required: true, location_name: "VerificationResponseDetails"))
+    GetVerificationResponse.add_member(:started_at, Shapes::ShapeRef.new(shape: DateTime, required: true, location_name: "StartedAt"))
+    GetVerificationResponse.add_member(:completed_at, Shapes::ShapeRef.new(shape: DateTime, location_name: "CompletedAt"))
+    GetVerificationResponse.struct_class = Types::GetVerificationResponse
+
     IndustrySegmentList.member = Shapes::ShapeRef.new(shape: IndustrySegment)
 
     InternalServerException.add_member(:message, Shapes::ShapeRef.new(shape: String, required: true, location_name: "Message"))
@@ -586,6 +624,12 @@ module Aws::PartnerCentralAccount
     PutProfileVisibilityResponse.add_member(:profile_id, Shapes::ShapeRef.new(shape: PartnerProfileId, required: true, location_name: "ProfileId"))
     PutProfileVisibilityResponse.struct_class = Types::PutProfileVisibilityResponse
 
+    RegistrantVerificationDetails.struct_class = Types::RegistrantVerificationDetails
+
+    RegistrantVerificationResponse.add_member(:completion_url, Shapes::ShapeRef.new(shape: CompletionUrl, required: true, location_name: "CompletionUrl"))
+    RegistrantVerificationResponse.add_member(:completion_url_expires_at, Shapes::ShapeRef.new(shape: DateTime, required: true, location_name: "CompletionUrlExpiresAt"))
+    RegistrantVerificationResponse.struct_class = Types::RegistrantVerificationResponse
+
     RejectConnectionInvitationRequest.add_member(:catalog, Shapes::ShapeRef.new(shape: Catalog, required: true, location_name: "Catalog"))
     RejectConnectionInvitationRequest.add_member(:identifier, Shapes::ShapeRef.new(shape: ConnectionInvitationId, required: true, location_name: "Identifier"))
     RejectConnectionInvitationRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, required: true, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
@@ -642,6 +686,18 @@ module Aws::PartnerCentralAccount
     StartProfileUpdateTaskResponse.add_member(:ended_at, Shapes::ShapeRef.new(shape: DateTime, location_name: "EndedAt"))
     StartProfileUpdateTaskResponse.add_member(:error_detail_list, Shapes::ShapeRef.new(shape: ErrorDetailList, location_name: "ErrorDetailList"))
     StartProfileUpdateTaskResponse.struct_class = Types::StartProfileUpdateTaskResponse
+
+    StartVerificationRequest.add_member(:client_token, Shapes::ShapeRef.new(shape: ClientToken, location_name: "ClientToken", metadata: {"idempotencyToken" => true}))
+    StartVerificationRequest.add_member(:verification_details, Shapes::ShapeRef.new(shape: VerificationDetails, location_name: "VerificationDetails"))
+    StartVerificationRequest.struct_class = Types::StartVerificationRequest
+
+    StartVerificationResponse.add_member(:verification_type, Shapes::ShapeRef.new(shape: VerificationType, required: true, location_name: "VerificationType"))
+    StartVerificationResponse.add_member(:verification_status, Shapes::ShapeRef.new(shape: VerificationStatus, required: true, location_name: "VerificationStatus"))
+    StartVerificationResponse.add_member(:verification_status_reason, Shapes::ShapeRef.new(shape: VerificationStatusReason, location_name: "VerificationStatusReason"))
+    StartVerificationResponse.add_member(:verification_response_details, Shapes::ShapeRef.new(shape: VerificationResponseDetails, required: true, location_name: "VerificationResponseDetails"))
+    StartVerificationResponse.add_member(:started_at, Shapes::ShapeRef.new(shape: DateTime, required: true, location_name: "StartedAt"))
+    StartVerificationResponse.add_member(:completed_at, Shapes::ShapeRef.new(shape: DateTime, location_name: "CompletedAt"))
+    StartVerificationResponse.struct_class = Types::StartVerificationResponse
 
     Tag.add_member(:key, Shapes::ShapeRef.new(shape: TagKey, required: true, location_name: "Key"))
     Tag.add_member(:value, Shapes::ShapeRef.new(shape: TagValue, required: true, location_name: "Value"))
@@ -708,6 +764,22 @@ module Aws::PartnerCentralAccount
     ValidationException.add_member(:reason, Shapes::ShapeRef.new(shape: ValidationExceptionReason, required: true, location_name: "Reason"))
     ValidationException.add_member(:error_details, Shapes::ShapeRef.new(shape: ValidationErrorList, location_name: "ErrorDetails"))
     ValidationException.struct_class = Types::ValidationException
+
+    VerificationDetails.add_member(:business_verification_details, Shapes::ShapeRef.new(shape: BusinessVerificationDetails, location_name: "BusinessVerificationDetails"))
+    VerificationDetails.add_member(:registrant_verification_details, Shapes::ShapeRef.new(shape: RegistrantVerificationDetails, location_name: "RegistrantVerificationDetails"))
+    VerificationDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    VerificationDetails.add_member_subclass(:business_verification_details, Types::VerificationDetails::BusinessVerificationDetails)
+    VerificationDetails.add_member_subclass(:registrant_verification_details, Types::VerificationDetails::RegistrantVerificationDetails)
+    VerificationDetails.add_member_subclass(:unknown, Types::VerificationDetails::Unknown)
+    VerificationDetails.struct_class = Types::VerificationDetails
+
+    VerificationResponseDetails.add_member(:business_verification_response, Shapes::ShapeRef.new(shape: BusinessVerificationResponse, location_name: "BusinessVerificationResponse"))
+    VerificationResponseDetails.add_member(:registrant_verification_response, Shapes::ShapeRef.new(shape: RegistrantVerificationResponse, location_name: "RegistrantVerificationResponse"))
+    VerificationResponseDetails.add_member(:unknown, Shapes::ShapeRef.new(shape: nil, location_name: 'unknown'))
+    VerificationResponseDetails.add_member_subclass(:business_verification_response, Types::VerificationResponseDetails::BusinessVerificationResponse)
+    VerificationResponseDetails.add_member_subclass(:registrant_verification_response, Types::VerificationResponseDetails::RegistrantVerificationResponse)
+    VerificationResponseDetails.add_member_subclass(:unknown, Types::VerificationResponseDetails::Unknown)
+    VerificationResponseDetails.struct_class = Types::VerificationResponseDetails
 
 
     # @api private
@@ -930,6 +1002,19 @@ module Aws::PartnerCentralAccount
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
       end)
 
+      api.add_operation(:get_verification, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "GetVerification"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: GetVerificationRequest)
+        o.output = Shapes::ShapeRef.new(shape: GetVerificationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: ResourceNotFoundException)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+      end)
+
       api.add_operation(:list_connection_invitations, Seahorse::Model::Operation.new.tap do |o|
         o.name = "ListConnectionInvitations"
         o.http_method = "POST"
@@ -1061,6 +1146,20 @@ module Aws::PartnerCentralAccount
         o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
         o.errors << Shapes::ShapeRef.new(shape: ValidationException)
         o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+      end)
+
+      api.add_operation(:start_verification, Seahorse::Model::Operation.new.tap do |o|
+        o.name = "StartVerification"
+        o.http_method = "POST"
+        o.http_request_uri = "/"
+        o.input = Shapes::ShapeRef.new(shape: StartVerificationRequest)
+        o.output = Shapes::ShapeRef.new(shape: StartVerificationResponse)
+        o.errors << Shapes::ShapeRef.new(shape: AccessDeniedException)
+        o.errors << Shapes::ShapeRef.new(shape: ThrottlingException)
+        o.errors << Shapes::ShapeRef.new(shape: ConflictException)
+        o.errors << Shapes::ShapeRef.new(shape: ValidationException)
+        o.errors << Shapes::ShapeRef.new(shape: InternalServerException)
+        o.errors << Shapes::ShapeRef.new(shape: ServiceQuotaExceededException)
       end)
 
       api.add_operation(:tag_resource, Seahorse::Model::Operation.new.tap do |o|

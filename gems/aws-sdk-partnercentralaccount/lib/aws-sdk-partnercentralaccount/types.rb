@@ -173,6 +173,60 @@ module Aws::PartnerCentralAccount
       include Aws::Structure
     end
 
+    # Contains the business information required for verifying a company's
+    # legal status and registration details within AWS Partner Central.
+    #
+    # @!attribute [rw] legal_name
+    #   The official legal name of the business as registered with the
+    #   appropriate government authorities.
+    #   @return [String]
+    #
+    # @!attribute [rw] registration_id
+    #   The unique business registration identifier assigned by the
+    #   government or regulatory authority, such as a company registration
+    #   number or tax identification number.
+    #   @return [String]
+    #
+    # @!attribute [rw] country_code
+    #   The ISO 3166-1 alpha-2 country code where the business is legally
+    #   registered and operates.
+    #   @return [String]
+    #
+    # @!attribute [rw] jurisdiction_of_incorporation
+    #   The specific legal jurisdiction or state where the business was
+    #   incorporated or registered, providing additional location context
+    #   beyond the country code.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/BusinessVerificationDetails AWS API Documentation
+    #
+    class BusinessVerificationDetails < Struct.new(
+      :legal_name,
+      :registration_id,
+      :country_code,
+      :jurisdiction_of_incorporation)
+      SENSITIVE = [:legal_name, :registration_id]
+      include Aws::Structure
+    end
+
+    # Contains the response information and results from a business
+    # verification process, including any verification-specific data
+    # returned by the verification service.
+    #
+    # @!attribute [rw] business_verification_details
+    #   The business verification details that were processed and verified,
+    #   potentially including additional information discovered during the
+    #   verification process.
+    #   @return [Types::BusinessVerificationDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/BusinessVerificationResponse AWS API Documentation
+    #
+    class BusinessVerificationResponse < Struct.new(
+      :business_verification_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] catalog
     #   The catalog identifier where the connection invitation exists.
     #   @return [String]
@@ -1419,6 +1473,62 @@ module Aws::PartnerCentralAccount
       include Aws::Structure
     end
 
+    # @!attribute [rw] verification_type
+    #   The type of verification to retrieve information for. Valid values
+    #   include business verification for company registration details and
+    #   registrant verification for individual identity confirmation.
+    #   @return [String]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/GetVerificationRequest AWS API Documentation
+    #
+    class GetVerificationRequest < Struct.new(
+      :verification_type)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] verification_type
+    #   The type of verification that was requested and processed.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_status
+    #   The current status of the verification process. Possible values
+    #   include pending, in-progress, completed, failed, or expired.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_status_reason
+    #   Additional information explaining the current verification status,
+    #   particularly useful when the status indicates a failure or requires
+    #   additional action.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_response_details
+    #   Detailed response information specific to the type of verification
+    #   performed, including any verification-specific data or results.
+    #   @return [Types::VerificationResponseDetails]
+    #
+    # @!attribute [rw] started_at
+    #   The timestamp when the verification process was initiated.
+    #   @return [Time]
+    #
+    # @!attribute [rw] completed_at
+    #   The timestamp when the verification process was completed. This
+    #   field is null if the verification is still in progress.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/GetVerificationResponse AWS API Documentation
+    #
+    class GetVerificationResponse < Struct.new(
+      :verification_type,
+      :verification_status,
+      :verification_status_reason,
+      :verification_response_details,
+      :started_at,
+      :completed_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # An internal server error occurred while processing the request. This
     # is typically a temporary condition and the request may be retried.
     #
@@ -1928,6 +2038,40 @@ module Aws::PartnerCentralAccount
       include Aws::Structure
     end
 
+    # Contains the personal information required for verifying an
+    # individual's identity as part of the partner registration process in
+    # AWS Partner Central.
+    #
+    # @api private
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/RegistrantVerificationDetails AWS API Documentation
+    #
+    class RegistrantVerificationDetails < Aws::EmptyStructure; end
+
+    # Contains the response information from a registrant verification
+    # process, including any verification-specific data and next steps for
+    # the individual verification workflow.
+    #
+    # @!attribute [rw] completion_url
+    #   A secure URL where the registrant can complete additional
+    #   verification steps, such as document upload or identity confirmation
+    #   through a third-party verification service.
+    #   @return [String]
+    #
+    # @!attribute [rw] completion_url_expires_at
+    #   The timestamp when the completion URL expires and is no longer valid
+    #   for accessing the verification workflow.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/RegistrantVerificationResponse AWS API Documentation
+    #
+    class RegistrantVerificationResponse < Struct.new(
+      :completion_url,
+      :completion_url_expires_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # @!attribute [rw] catalog
     #   The catalog identifier where the connection invitation exists.
     #   @return [String]
@@ -2206,6 +2350,75 @@ module Aws::PartnerCentralAccount
       include Aws::Structure
     end
 
+    # @!attribute [rw] client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. This prevents duplicate verification
+    #   processes from being started accidentally.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_details
+    #   The specific details required for the verification process,
+    #   including business information for business verification or personal
+    #   information for registrant verification.
+    #   @return [Types::VerificationDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/StartVerificationRequest AWS API Documentation
+    #
+    class StartVerificationRequest < Struct.new(
+      :client_token,
+      :verification_details)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
+    # @!attribute [rw] verification_type
+    #   The type of verification that was started based on the provided
+    #   verification details.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_status
+    #   The initial status of the verification process after it has been
+    #   started. Typically this will be pending or in-progress.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_status_reason
+    #   Additional information about the initial verification status,
+    #   including any immediate feedback about the submitted verification
+    #   details.
+    #   @return [String]
+    #
+    # @!attribute [rw] verification_response_details
+    #   Initial response details specific to the type of verification
+    #   started, which may include next steps or additional requirements.
+    #   @return [Types::VerificationResponseDetails]
+    #
+    # @!attribute [rw] started_at
+    #   The timestamp when the verification process was successfully
+    #   initiated.
+    #   @return [Time]
+    #
+    # @!attribute [rw] completed_at
+    #   The timestamp when the verification process was completed. This
+    #   field is typically null for newly started verifications unless they
+    #   complete immediately.
+    #   @return [Time]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/StartVerificationResponse AWS API Documentation
+    #
+    class StartVerificationResponse < Struct.new(
+      :verification_type,
+      :verification_status,
+      :verification_status_reason,
+      :verification_response_details,
+      :started_at,
+      :completed_at)
+      SENSITIVE = []
+      include Aws::Structure
+    end
+
     # A key-value pair used to associate metadata with AWS Partner Central
     # Account resources.
     #
@@ -2462,6 +2675,70 @@ module Aws::PartnerCentralAccount
       :error_details)
       SENSITIVE = []
       include Aws::Structure
+    end
+
+    # A union structure containing the specific details required for
+    # different types of verification processes supported by AWS Partner
+    # Central.
+    #
+    # @note VerificationDetails is a union - when making an API calls you must set exactly one of the members.
+    #
+    # @!attribute [rw] business_verification_details
+    #   The business verification details to be used when starting a
+    #   business verification process.
+    #   @return [Types::BusinessVerificationDetails]
+    #
+    # @!attribute [rw] registrant_verification_details
+    #   The registrant verification details to be used when starting an
+    #   individual identity verification process.
+    #   @return [Types::RegistrantVerificationDetails]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/VerificationDetails AWS API Documentation
+    #
+    class VerificationDetails < Struct.new(
+      :business_verification_details,
+      :registrant_verification_details,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class BusinessVerificationDetails < VerificationDetails; end
+      class RegistrantVerificationDetails < VerificationDetails; end
+      class Unknown < VerificationDetails; end
+    end
+
+    # A union structure containing the response details specific to
+    # different types of verification processes, providing type-specific
+    # information and results.
+    #
+    # @note VerificationResponseDetails is a union - when returned from an API call exactly one value will be set and the returned type will be a subclass of VerificationResponseDetails corresponding to the set member.
+    #
+    # @!attribute [rw] business_verification_response
+    #   The response details from a business verification process, including
+    #   verification results and any additional business information
+    #   discovered.
+    #   @return [Types::BusinessVerificationResponse]
+    #
+    # @!attribute [rw] registrant_verification_response
+    #   The response details from a registrant verification process,
+    #   including verification results and any additional steps required for
+    #   identity confirmation.
+    #   @return [Types::RegistrantVerificationResponse]
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/VerificationResponseDetails AWS API Documentation
+    #
+    class VerificationResponseDetails < Struct.new(
+      :business_verification_response,
+      :registrant_verification_response,
+      :unknown)
+      SENSITIVE = []
+      include Aws::Structure
+      include Aws::Structure::Union
+
+      class BusinessVerificationResponse < VerificationResponseDetails; end
+      class RegistrantVerificationResponse < VerificationResponseDetails; end
+      class Unknown < VerificationResponseDetails; end
     end
 
   end

@@ -1388,6 +1388,53 @@ module Aws::PartnerCentralAccount
       req.send_request(options)
     end
 
+    # Retrieves the current status and details of a verification process for
+    # a partner account. This operation allows partners to check the
+    # progress and results of business or registrant verification processes.
+    #
+    # @option params [required, String] :verification_type
+    #   The type of verification to retrieve information for. Valid values
+    #   include business verification for company registration details and
+    #   registrant verification for individual identity confirmation.
+    #
+    # @return [Types::GetVerificationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::GetVerificationResponse#verification_type #verification_type} => String
+    #   * {Types::GetVerificationResponse#verification_status #verification_status} => String
+    #   * {Types::GetVerificationResponse#verification_status_reason #verification_status_reason} => String
+    #   * {Types::GetVerificationResponse#verification_response_details #verification_response_details} => Types::VerificationResponseDetails
+    #   * {Types::GetVerificationResponse#started_at #started_at} => Time
+    #   * {Types::GetVerificationResponse#completed_at #completed_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.get_verification({
+    #     verification_type: "BUSINESS_VERIFICATION", # required, accepts BUSINESS_VERIFICATION, REGISTRANT_VERIFICATION
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.verification_type #=> String, one of "BUSINESS_VERIFICATION", "REGISTRANT_VERIFICATION"
+    #   resp.verification_status #=> String, one of "PENDING_CUSTOMER_ACTION", "IN_PROGRESS", "FAILED", "SUCCEEDED", "REJECTED"
+    #   resp.verification_status_reason #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.legal_name #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.registration_id #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.country_code #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.jurisdiction_of_incorporation #=> String
+    #   resp.verification_response_details.registrant_verification_response.completion_url #=> String
+    #   resp.verification_response_details.registrant_verification_response.completion_url_expires_at #=> Time
+    #   resp.started_at #=> Time
+    #   resp.completed_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/GetVerification AWS API Documentation
+    #
+    # @overload get_verification(params = {})
+    # @param [Hash] params ({})
+    def get_verification(params = {}, options = {})
+      req = build_request(:get_verification, params)
+      req.send_request(options)
+    end
+
     # Lists connection invitations for the partner account, with optional
     # filtering by status, type, and other criteria.
     #
@@ -1892,6 +1939,72 @@ module Aws::PartnerCentralAccount
       req.send_request(options)
     end
 
+    # Initiates a new verification process for a partner account. This
+    # operation begins the verification workflow for either business
+    # registration or individual registrant identity verification as
+    # required by AWS Partner Central.
+    #
+    # @option params [String] :client_token
+    #   A unique, case-sensitive identifier that you provide to ensure the
+    #   idempotency of the request. This prevents duplicate verification
+    #   processes from being started accidentally.
+    #
+    #   **A suitable default value is auto-generated.** You should normally
+    #   not need to pass this option.**
+    #
+    # @option params [Types::VerificationDetails] :verification_details
+    #   The specific details required for the verification process, including
+    #   business information for business verification or personal information
+    #   for registrant verification.
+    #
+    # @return [Types::StartVerificationResponse] Returns a {Seahorse::Client::Response response} object which responds to the following methods:
+    #
+    #   * {Types::StartVerificationResponse#verification_type #verification_type} => String
+    #   * {Types::StartVerificationResponse#verification_status #verification_status} => String
+    #   * {Types::StartVerificationResponse#verification_status_reason #verification_status_reason} => String
+    #   * {Types::StartVerificationResponse#verification_response_details #verification_response_details} => Types::VerificationResponseDetails
+    #   * {Types::StartVerificationResponse#started_at #started_at} => Time
+    #   * {Types::StartVerificationResponse#completed_at #completed_at} => Time
+    #
+    # @example Request syntax with placeholder values
+    #
+    #   resp = client.start_verification({
+    #     client_token: "ClientToken",
+    #     verification_details: {
+    #       business_verification_details: {
+    #         legal_name: "LegalName", # required
+    #         registration_id: "RegistrationId", # required
+    #         country_code: "CountryCode", # required
+    #         jurisdiction_of_incorporation: "JurisdictionCode",
+    #       },
+    #       registrant_verification_details: {
+    #       },
+    #     },
+    #   })
+    #
+    # @example Response structure
+    #
+    #   resp.verification_type #=> String, one of "BUSINESS_VERIFICATION", "REGISTRANT_VERIFICATION"
+    #   resp.verification_status #=> String, one of "PENDING_CUSTOMER_ACTION", "IN_PROGRESS", "FAILED", "SUCCEEDED", "REJECTED"
+    #   resp.verification_status_reason #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.legal_name #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.registration_id #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.country_code #=> String
+    #   resp.verification_response_details.business_verification_response.business_verification_details.jurisdiction_of_incorporation #=> String
+    #   resp.verification_response_details.registrant_verification_response.completion_url #=> String
+    #   resp.verification_response_details.registrant_verification_response.completion_url_expires_at #=> Time
+    #   resp.started_at #=> Time
+    #   resp.completed_at #=> Time
+    #
+    # @see http://docs.aws.amazon.com/goto/WebAPI/partnercentral-account-2025-04-04/StartVerification AWS API Documentation
+    #
+    # @overload start_verification(params = {})
+    # @param [Hash] params ({})
+    def start_verification(params = {}, options = {})
+      req = build_request(:start_verification, params)
+      req.send_request(options)
+    end
+
     # Adds or updates tags for a specified AWS Partner Central Account
     # resource.
     #
@@ -2023,7 +2136,7 @@ module Aws::PartnerCentralAccount
         tracer: tracer
       )
       context[:gem_name] = 'aws-sdk-partnercentralaccount'
-      context[:gem_version] = '1.0.0'
+      context[:gem_version] = '1.1.0'
       Seahorse::Client::Request.new(handlers, context)
     end
 
